@@ -66,7 +66,12 @@ def main():
     output = argv[2]
     entity = argv[3]
 
-    return stops_to_csv(input, output) if entity == "stops" else routes_to_csv(input, output)
+    try:
+        return stops_to_csv(input, output) if entity == "stops" else routes_to_csv(input, output)
+    except Exception as e:
+        print("ERROR: " + str(e))
+        print_usage()
+        exit(1)
 
 if __name__ == '__main__':
     main()
