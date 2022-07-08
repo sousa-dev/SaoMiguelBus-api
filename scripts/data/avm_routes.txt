@@ -1,1309 +1,535 @@
- private fun loadAVM() {
-        val img: Int = R.drawable.avm_logo
-        /* Weekdays */
-        /* Route 208 */
-        var route = "208"
-        avmRoutes.addAll(
-            arrayListOf(
-                Route(
-                    route, route+"i", mapOf(
-                        getStop("Mosteiros - Ramal") to listOf("09h15", "16h45"),
-                        getStop("João Bom") to listOf("09h25", "16h55"),
-                        getStop("Ajuda - Ramal") to listOf("09h35", "17h05"),
-                        getStop("Remédios") to listOf("09h40", "17h10"),
-                        getStop("Santa Bárbara - Ramal") to listOf("09h45", "17h15"),
-                        getStop("Santo António - Cruz") to listOf("09h50", "17h20"),
-                        getStop("Capelas - Rossio") to listOf("09h57", "17h27"),
-                        getStop("Capelas - Navio") to listOf("09h59", "17h29"),
-                        getStop("São Vicente - Atafona") to listOf("10h02", "17h32"),
-                        getStop("Fajã de Cima") to listOf("10h02", "17h32"),
-                        getStop("Ponta Delgada - Hospital") to listOf("10h11", "17h41"),
-                        getStop("Ponta Delgada") to listOf("10h35", "18h05"),
-                    ), TypeOfDay.WEEKDAY, img, Functions().rossioBanif(currentLanguage)
-                ),
-                Route(
-                    route, route+"v", mapOf(
-                        getStop("Ponta Delgada") to listOf("07h15", "14h35"),
-                        getStop("Av Principe Mónaco") to listOf("07h20", "14h40"),
-                        getStop("Ponta Delgada - Hospital") to listOf("07h27", "14h47"),
-                        getStop("Fajã de Cima") to listOf("07h35", "14h55"),
-                        getStop("São Vicente - Atafona") to listOf("07h48", "15h08"),
-                        getStop("Capelas - Navio") to listOf("07h51", "15h11"),
-                        getStop("Capelas - Rossio") to listOf("07h53", "15h13"),
-                        getStop("Santo António - Cruz") to listOf("07h58", "15h18"),
-                        getStop("Santa Bárbara - Ramal") to listOf("08h04", "15h24"),
-                        getStop("Remédios") to listOf("08h08", "15h28"),
-                        getStop("Ajuda - Ramal") to listOf("08h15", "15h35"),
-                        getStop("João Bom") to listOf("08h23", "15h43"),
-                        getStop("Mosteiros - Ramal") to listOf("08h35", "15h55"),
-                    ), TypeOfDay.WEEKDAY, img, Functions().rossioBanif(currentLanguage)
-                ),
-            )
-        )
-        /* Route 219 */
-        route = "219"
-        avmRoutes.addAll(
-            arrayListOf(
-                Route(
-                    route, route+"i", mapOf(
-                        getStop("João Bom") to listOf("06h00", "07h10", "08h30", "12h30", "15h00"),
-                        getStop("Ajuda - Igreja") to listOf(
-                            "06h13",
-                            "07h23",
-                            "08h43",
-                            "12h43",
-                            "15h13"
-                        ),
-                        getStop("Remédios") to listOf("06h18", "07h28", "---", "12h48", "15h18"),
-                        getStop("Remédios - Igreja") to listOf("---", "---", "08h48", "---", "---"),
-                        getStop("Santa Bárbara - Ramal") to listOf(
-                            "06h23",
-                            "07h33",
-                            "---",
-                            "12h53",
-                            "15h23"
-                        ),
-                        getStop("Santa Bárbara - Cavalo Branco") to listOf(
-                            "---",
-                            "---",
-                            "08h53",
-                            "---",
-                            "---"
-                        ),
-                        getStop("Santo António - Cruz") to listOf(
-                            "06h28",
-                            "07h38",
-                            "08h57",
-                            "12h58",
-                            "15h28"
-                        ),
-                        getStop("Capelas - Rossio") to listOf(
-                            "06h35",
-                            "07h45",
-                            "09h04",
-                            "13h05",
-                            "15h35"
-                        ),
-                        getStop("Capelas - Navio") to listOf(
-                            "06h36",
-                            "07h46",
-                            "09h05",
-                            "13h06",
-                            "15h36"
-                        ),
-                        getStop("São Vicente - Atafona") to listOf(
-                            "06h40",
-                            "07h50",
-                            "09h14",
-                            "13h10",
-                            "15h40"
-                        ),
-                        getStop("Fajã de Cima") to listOf(
-                            "06h52",
-                            "08h02",
-                            "---",
-                            "13h22",
-                            "15h27"
-                        ),
-                        getStop("Ponta Delgada - Hospital") to listOf(
-                            "---",
-                            "08h11",
-                            "09h31",
-                            "13h31",
-                            "---"
-                        ),
-                        getStop("Ponta Delgada") to listOf(
-                            "07h10",
-                            "08h25",
-                            "09h45",
-                            "13h45",
-                            "16h10"
-                        ),
-                    ), TypeOfDay.WEEKDAY, img, Functions().rossioBanif(currentLanguage)
-                ),
-                Route(
-                    route, route+"v", mapOf(
-                        getStop("Ponta Delgada") to listOf(
-                            "09h30",
-                            "12h30",
-                            "16h00",
-                            "18h15",
-                            "19h00"
-                        ),
-                        getStop("Ponta Delgada - Hospital") to listOf(
-                            "09h42",
-                            "12h42",
-                            "16h12",
-                            "18h27",
-                            "---"
-                        ),
-                        getStop("Fajã de Cima") to listOf(
-                            "09h48",
-                            "12h48",
-                            "16h18",
-                            "18h33",
-                            "19h18"
-                        ),
-                        getStop("São Vicente - Atafona") to listOf(
-                            "10h00",
-                            "13h00",
-                            "16h30",
-                            "17h45",
-                            "19h30"
-                        ),
-                        getStop("Capelas - Navio") to listOf(
-                            "10h04",
-                            "13h04",
-                            "16h34",
-                            "18h49",
-                            "19h34"
-                        ),
-                        getStop("Capelas - Rossio") to listOf(
-                            "10h05",
-                            "13h05",
-                            "16h35",
-                            "18h50",
-                            "19h35"
-                        ),
-                        getStop("Santo António - Cruz") to listOf(
-                            "10h12",
-                            "13h12",
-                            "16h42",
-                            "18h57",
-                            "19h42"
-                        ),
-                        getStop("Santa Bárbara - Ramal") to listOf(
-                            "10h17",
-                            "13h17",
-                            "16h47",
-                            "19h02",
-                            "19h47"
-                        ),
-                        getStop("Remédios") to listOf("10h22", "13h22", "16h52", "19h07", "19h52"),
-                        getStop("Ajuda - Igreja") to listOf(
-                            "10h27",
-                            "13h27",
-                            "16h57",
-                            "19h12",
-                            "19h57"
-                        ),
-                        getStop("João Bom") to listOf("10h40", "13h40", "17h08", "19h25", "20h10"),
-                    ), TypeOfDay.WEEKDAY, img, Functions().rossioBanif(currentLanguage)
-                ),
-            )
-        )
-        /* Route 207 */
-        route = "207"
-        avmRoutes.addAll(
-            arrayListOf(
-                Route(
-                    route, route+"i", mapOf(
-                        getStop("Sete Cidades - Ponte") to listOf("---", "16h25"),
-                        getStop("Varzea") to listOf("09h05", "16h40"),
-                        getStop("Mosteiros - Ramal") to listOf("09h15", "16h45"),
-                        getStop("Ajuda - Ramal") to listOf("09h35", "17h05"),
-                        getStop("Remédios") to listOf("09h40", "17h10"),
-                        getStop("Santa Bárbara - Ramal") to listOf("09h45", "17h15"),
-                        getStop("Santo António - Cruz") to listOf("09h50", "17h20"),
-                        getStop("Capelas - Rossio") to listOf("09h57", "17h27"),
-                        getStop("Capelas - Navio") to listOf("09h58", "17h28"),
-                        getStop("São Vicente - Atafona") to listOf("10h02", "17h32"),
-                        getStop("Fajã de Cima") to listOf("10h13", "17h43"),
-                        getStop("Ponta Delgada - Hospital") to listOf("10h21", "17h51"),
-                        getStop("Ponta Delgada") to listOf("10h33", "18h03"),
-                    ), TypeOfDay.WEEKDAY, img
-                ),
-                Route(
-                    route, route+"v", mapOf(
-                        getStop("Ponta Delgada") to listOf("07h15", "14h35"),
-                        getStop("Ponta Delgada - Hospital") to listOf("07h27", "14h47"),
-                        getStop("Fajã de Cima") to listOf("07h36", "14h56"),
-                        getStop("São Vicente - Atafona") to listOf("07h48", "15h08"),
-                        getStop("Capelas - Navio") to listOf("07h52", "15h12"),
-                        getStop("Capelas - Rossio") to listOf("07h53", "15h13"),
-                        getStop("Santo António - Cruz") to listOf("08h00", "15h20"),
-                        getStop("Santa Bárbara - Ramal") to listOf("08h05", "15h25"),
-                        getStop("Remédios") to listOf("08h10", "15h30"),
-                        getStop("Ajuda - Ramal") to listOf("08h15", "15h35"),
-                        getStop("Mosteiros - Ramal") to listOf("08h35", "15h55"),
-                        getStop("Varzea") to listOf("08h45", "16h05"),
-                        getStop("Sete Cidades - Ponte") to listOf("---", "16h15"),
-                    ), TypeOfDay.WEEKDAY, img
-                ),
-                Route(
-                    route, route+"vs", mapOf(
-                        getStop("Ponta Delgada") to listOf("07h15", "14h35"),
-                        getStop("Av Principe Mónaco") to listOf("07h20", "14h40"),
-                        getStop("Ponta Delgada - Hospital") to listOf("07h27", "14h47"),
-                        getStop("Fajã de Cima") to listOf("07h35", "14h55"),
-                        getStop("São Vicente - Atafona") to listOf("07h48", "15h08"),
-                        getStop("São Vicente - Igreja") to listOf("07h50", "15h10"),
-                        getStop("Fenais da Luz - Igreja") to listOf("07h53", "15h13"),
-                        getStop("Fenais da Luz - Bairro") to listOf("07h54", "15h14"),
-                        getStop("Capelas - Navio") to listOf("07h57", "15h17"),
-                        getStop("Capelas - Rossio") to listOf("07h59", "15h19"),
-                        getStop("Santo António - Cruz") to listOf("08h04", "15h24"),
-                        getStop("Santa Bárbara - Ramal") to listOf("08h10", "15h30"),
-                        getStop("Remédios") to listOf("08h14", "15h34"),
-                        getStop("Ajuda - Ramal") to listOf("08h21", "15h41"),
-                        getStop("João Bom") to listOf("08h29", "15h49"),
-                        getStop("Mosteiros - Ramal") to listOf("08h41", "16h01"),
-                        getStop("Varzea") to listOf("08h46", "16h06"),
-                        getStop("Sete Cidades - Igreja") to listOf("08h56", "16h16"),
-                        getStop("Sete Cidades - Ponte") to listOf("09h01", "16h21"),
-                    ), TypeOfDay.SATURDAY, img
-                ),
-                Route(
-                    route, route+"is", mapOf(
-                        getStop("Sete Cidades - Ponte") to listOf("08h55", "16h25"),
-                        getStop("Sete Cidades - Igreja") to listOf("09h00", "16h30"),
-                        getStop("Varzea") to listOf("09h10", "16h40"),
-                        getStop("Mosteiros - Ramal") to listOf("09h15", "16h45"),
-                        getStop("João Bom") to listOf("09h25", "16h55"),
-                        getStop("Ajuda - Ramal") to listOf("09h35", "17h05"),
-                        getStop("Remédios") to listOf("09h40", "17h10"),
-                        getStop("Santa Bárbara - Ramal") to listOf("09h45", "17h15"),
-                        getStop("Santo António - Cruz") to listOf("09h48", "17h18"),
-                        getStop("Capelas - Rossio") to listOf("09h57", "17h27"),
-                        getStop("Capelas - Navio") to listOf("09h59", "17h29"),
-                        getStop("Fenais da Luz - Bairro") to listOf("10h17", "17h47"),
-                        getStop("Fenais da Luz - Igreja") to listOf("10h18", "17h48"),
-                        getStop("São Vicente - Igreja") to listOf("10h21", "17h51"),
-                        getStop("São Vicente - Atafona") to listOf("10h23", "17h53"),
-                        getStop("Fajã de Cima") to listOf("10h32", "18h02"),
-                        getStop("Ponta Delgada - Hospital") to listOf("10h43", "18h13"),
-                        getStop("Ponta Delgada") to listOf("10h59", "18h29"),
-                    ), TypeOfDay.SATURDAY, img
-                ),
-                Route(
-                    route, route+"vd", mapOf(
-                        getStop("Ponta Delgada") to listOf("08h30", "16h15"),
-                        getStop("Av Principe Mónaco") to listOf("08h35", "16h20"),
-                        getStop("Ponta Delgada - Hospital") to listOf("08h42", "16h27"),
-                        getStop("Fajã de Cima") to listOf("08h50", "16h35"),
-                        getStop("São Vicente - Atafona") to listOf("---", "16h48"),
-                        getStop("Batalha") to listOf("08h59", "---"),
-                        getStop("Farropo") to listOf("09h04", "---"),
-                        getStop("Fenais da Luz - Igreja") to listOf("09h08", "---"),
-                        getStop("Fenais da Luz - Bairro") to listOf("09h09", "---"),
-                        getStop("São Vicente - Igreja") to listOf("09h13", "---"),
-                        getStop("São Vicente - Atafona") to listOf("09h15", "---"),
-                        getStop("Capelas - Navio") to listOf("09h17", "16h50"),
-                        getStop("Capelas - Rossio") to listOf("09h20", "16h53"),
-                        getStop("Santo António - Cruz") to listOf("09h25", "16h58"),
-                        getStop("Santa Bárbara - Ramal") to listOf("09h31", "17h04"),
-                        getStop("Remédios") to listOf("09h35", "17h08"),
-                        getStop("Ajuda - Ramal") to listOf("09h42", "17h15"),
-                        getStop("João Bom") to listOf("09h50", "17h23"),
-                        getStop("Mosteiros - Ramal") to listOf("10h02", "17h35"),
-                        getStop("Varzea") to listOf("10h12", "17h35"),
-                        getStop("Sete Cidades - Igreja") to listOf("10h22", "17h55"),
-                        getStop("Sete Cidades - Ponte") to listOf("10h27", "18h00"),
-                    ), TypeOfDay.SUNDAY, img
-                ),
-                Route(
-                    route, route+"id", mapOf(
-                        getStop("Sete Cidades - Ponte") to listOf("10h45", "18h05"),
-                        getStop("Sete Cidades - Igreja") to listOf("10h50", "18h10"),
-                        getStop("Varzea") to listOf("11h00", "18h20"),
-                        getStop("Mosteiros - Ramal") to listOf("11h10", "18h25"),
-                        getStop("João Bom") to listOf("11h20", "18h35"),
-                        getStop("Ajuda - Ramal") to listOf("11h30", "18h45"),
-                        getStop("Remédios") to listOf("11h35", "18h50"),
-                        getStop("Santa Bárbara - Ramal") to listOf("11h40", "18h55"),
-                        getStop("Santo António - Cruz") to listOf("11h45", "19h00"),
-                        getStop("Grota do Morro") to listOf("11h49", "---"),
-                        getStop("Capelas - Rossio") to listOf("11h52", "19h07"),
-                        getStop("Capelas - Navio") to listOf("11h54", "19h09"),
-                        getStop("São Vicente - Atafona") to listOf("11h57", "19h12"),
-                        getStop("São Vicente - Igreja") to listOf("11h59", "19h14"),
-                        getStop("Fenais da Luz - Bairro") to listOf("12h04", "19h19"),
-                        getStop("Fenais da Luz - Igreja") to listOf("12h05", "19h20"),
-                        getStop("Farropo") to listOf("12h09", "19h24"),
-                        getStop("Batalha") to listOf("12h14", "19h29"),
-                        getStop("Fajã de Cima") to listOf("12h19", "19h34"),
-                        getStop("Ponta Delgada - Hospital") to listOf("12h30", "---"),
-                        getStop("Ponta Delgada") to listOf("12h44", "19h59"),
-                    ), TypeOfDay.SUNDAY, img
-                ),
-            )
-        )
-        /* Route 214 */
-        route = "214"
-        avmRoutes.addAll(arrayListOf(
-            Route(
-                route, route+"vd", mapOf(
-                    getStop("Ponta Delgada") to listOf("18h05"),
-                    getStop("Fajã de Cima") to listOf("18h20"),
-                    getStop("Batalha") to listOf("18h28"),
-                    getStop("Farropo") to listOf("18h33"),
-                    getStop("Fenais da Luz - Igreja") to listOf("18h37"),
-                    getStop("Fenais da Luz - Bairro") to listOf("18h38"),
-                    getStop("Calhetas") to listOf("18h44"),
-                    getStop("Capelas - Navio") to listOf("19h00"),
-                    getStop("Capelas - Rossio") to listOf("19h01"),
-                    getStop("Grota do Morro") to listOf("19h05"),
-                    ), TypeOfDay.SUNDAY, img
-            ),
-        ))
-        /* Route 218 */
-        route = "218"
-        avmRoutes.addAll(
-            arrayListOf(
-                Route(
-                    route, route+"i", mapOf(
-                        getStop("Remédios") to listOf("---", "07h05", "---", "---", "---", "---"),
-                        getStop("Santa Bárbara - Cavalo Branco") to listOf(
-                            "---",
-                            "07h14",
-                            "---",
-                            "---",
-                            "---",
-                            "---"
-                        ),
-                        getStop("Santo António - Moagem") to listOf(
-                            "06h15",
-                            "07h16",
-                            "08h45",
-                            "13h45",
-                            "15h00",
-                            "17h15"
-                        ),
-                        getStop("Santo António - Igreja") to listOf(
-                            "06h18",
-                            "07h19",
-                            "06h18",
-                            "08h48",
-                            "13h48",
-                            "15h03",
-                            "17h18"
-                        ),
-                        getStop("Capelas - Rossio") to listOf(
-                            "06h24",
-                            "07h26",
-                            "08h58",
-                            "13h54",
-                            "15h09",
-                            "17h24"
-                        ),
-                        getStop("Teatro Novo") to listOf(
-                            "06h29",
-                            "07h31",
-                            "08h59",
-                            "13h59",
-                            "15h14",
-                            "17h29"
-                        ),
-                        getStop("Fajã de Cima") to listOf(
-                            "06h52",
-                            "07h43",
-                            "09h12",
-                            "14h12",
-                            "15h27",
-                            "17h42"
-                        ),
-                        getStop("Ponta Delgada - Hospital") to listOf(
-                            "---",
-                            "07h51",
-                            "09h21",
-                            "---",
-                            "15h36",
-                            "---"
-                        ),
-                        getStop("Ponta Delgada") to listOf(
-                            "06h58",
-                            "08h03",
-                            "09h33",
-                            "14h28",
-                            "15h48",
-                            "18h00"
-                        ),
-                    ), TypeOfDay.WEEKDAY, img, Functions().rossioCaixa(currentLanguage)
-                ),
-                Route(
-                    route, route+"v", mapOf(
-                        getStop("Ponta Delgada") to listOf(
-                            "07h45",
-                            "12h00",
-                            "14h00",
-                            "16h15",
-                            "17h30",
-                            "18h20"
-                        ),
-                        getStop("Ponta Delgada - Hospital") to listOf(
-                            "07h57",
-                            "---",
-                            "---",
-                            "---",
-                            "17h42",
-                            "---"
-                        ),
-                        getStop("Fajã de Cima") to listOf(
-                            "---",
-                            "12h18",
-                            "14h18",
-                            "16h33",
-                            "17h51",
-                            "18h38"
-                        ),
-                        getStop("Teatro Novo") to listOf(
-                            "08h16",
-                            "12h31",
-                            "14h31",
-                            "16h46",
-                            "18h04",
-                            "18h51"
-                        ),
-                        getStop("Capelas - Rossio") to listOf(
-                            "08h21",
-                            "12h36",
-                            "14h36",
-                            "16h51",
-                            "18h09",
-                            "18h56"
-                        ),
-                        getStop("Santo António - Igreja") to listOf(
-                            "08h27",
-                            "12h42",
-                            "14h42",
-                            "16h57",
-                            "18h16",
-                            "19h02"
-                        ),
-                        getStop("Santo António - Moagem") to listOf(
-                            "08h30",
-                            "12h45",
-                            "14h45",
-                            "17h00",
-                            "18h19",
-                            "19h05"
-                        ),
-                        getStop("Santa Bárbara - Cavalo Branco") to listOf(
-                            "---",
-                            "---",
-                            "---",
-                            "---",
-                            "18h21",
-                            "---"
-                        ),
-                        getStop("Remédios") to listOf("---", "---", "---", "---", "18h25", "---"),
-                    ), TypeOfDay.WEEKDAY, img, Functions().rossioCaixa(currentLanguage)
-                ),
-            )
-        )
-        /* Route 212 */
-        route = "212"
-        avmRoutes.addAll(
-            arrayListOf(
-                Route(
-                    route, route+"i", mapOf(
-                        getStop("Santo António - Moagem") to listOf("---", "---", "12h10", "---"),
-                        getStop("Grota do Morro") to listOf("07h00", "08h55", "12h30", "18h00"),
-                        getStop("Capelas - Rossio") to listOf("07h03", "08h58", "12h33", "18h03"),
-                        getStop("Capelas - Navio") to listOf("07h04", "08h59", "12h34", "18h04"),
-                        getStop("São Vicente - Igreja") to listOf(
-                            "07h10",
-                            "09h05",
-                            "12h40",
-                            "18h10"
-                        ),
-                        getStop("Fajã de Cima") to listOf("07h22", "09h17", "12h52", "18h22"),
-                        getStop("Ponta Delgada - Hospital") to listOf(
-                            "07h31",
-                            "09h26",
-                            "13h01",
-                            "---"
-                        ),
-                        getStop("Ponta Delgada") to listOf("07h42", "09h37", "13h12", "18h37"),
-                    ), TypeOfDay.WEEKDAY, img, Functions().rossioCaixa(currentLanguage)
-                ),
-                Route(
-                    route, route+"v", mapOf(
-                        getStop("Ponta Delgada") to listOf(
-                            "07h45",
-                            "10h15",
-                            "15h30",
-                            "18h00",
-                            "19h05"
-                        ),
-                        getStop("Fajã de Cima") to listOf(
-                            "08h01",
-                            "10h31",
-                            "15h46",
-                            "18h16",
-                            "19h21"
-                        ),
-                        getStop("São Vicente - Igreja") to listOf(
-                            "08h14",
-                            "10h44",
-                            "15h59",
-                            "18h29",
-                            "19h34"
-                        ),
-                        getStop("Capelas - Navio") to listOf(
-                            "08h20",
-                            "10h50",
-                            "16h05",
-                            "18h35",
-                            "19h40"
-                        ),
-                        getStop("Capelas - Rossio") to listOf(
-                            "08h21",
-                            "10h51",
-                            "16h06",
-                            "18h36",
-                            "19h41"
-                        ),
-                        getStop("Grota do Morro") to listOf(
-                            "08h25",
-                            "10h55",
-                            "16h10",
-                            "18h10",
-                            "19h45"
-                        ),
-                        getStop("Santo António - Moagem") to listOf(
-                            "---",
-                            "11h01",
-                            "---",
-                            "---",
-                            "---"
-                        ),
-                    ), TypeOfDay.WEEKDAY, img, Functions().rossioCaixa(currentLanguage)
-                )
-            )
-        )
-        /* Route 211 */
-        route = "211"
-        avmRoutes.addAll(
-            arrayListOf(
-                Route(
-                    route, route+"i", mapOf(
-                        getStop("Fenais da Luz - Bairro") to listOf("08h10", "09h40", "15h55"),
-                        getStop("Fenais da Luz - Igreja") to listOf("08h11", "09h41", "15h56"),
-                        getStop("São Vicente - Igreja") to listOf("08h14", "09h44", "15h59"),
-                        getStop("São Vicente - Atafona") to listOf("08h16", "09h46", "16h01"),
-                        getStop("Fajã de Cima") to listOf("08h27", "09h57", "16h12"),
-                        getStop("Ponta Delgada - Hospital") to listOf("---", "10h05", "---"),
-                        getStop("Ponta Delgada") to listOf("08h45", "10h15", "16h30"),
-                    ), TypeOfDay.WEEKDAY, img),
-                Route(
-                    route, route+"v", mapOf(
-                        getStop("Ponta Delgada") to listOf("07h30", "12h00", "13h45", "17h00"),
-                        getStop("Fajã de Cima") to listOf("07h48", "12h18", "14h03", "17h18"),
-                        getStop("São Vicente - Atafona") to listOf(
-                            "07h59",
-                            "12h29",
-                            "14h14",
-                            "17h29"
-                        ),
-                        getStop("São Vicente - Igreja") to listOf(
-                            "08h01",
-                            "12h31",
-                            "14h16",
-                            "17h31"
-                        ),
-                        getStop("Fenais da Luz - Bairro") to listOf(
-                            "08h05",
-                            "12h35",
-                            "14h20",
-                            "17h35"
-                        ),
-                    ), TypeOfDay.WEEKDAY, img
-                ),
-            )
-        )
-
-        /* Route 210 */
-        route = "210"
-        avmRoutes.addAll(
-            arrayListOf(
-                Route(
-                    route, route+"i", mapOf(
-                        getStop("Fenais da Luz - Bairro") to listOf(
-                            "06h50",
-                            "07h30",
-                            "12h45",
-                            "14h25",
-                            "17h45"
-                        ),
-                        getStop("Fenais da Luz - Igreja") to listOf(
-                            "06h51",
-                            "07h31",
-                            "12h46",
-                            "14h26",
-                            "17h46"
-                        ),
-                        getStop("Farropo") to listOf("06h55", "07h35", "12h50", "14h30", "17h50"),
-                        getStop("Batalha") to listOf("07h00", "07h40", "12h55", "14h35", "17h55"),
-                        getStop("Fajã de Cima") to listOf(
-                            "07h07",
-                            "07h47",
-                            "13h02",
-                            "14h42",
-                            "18h02"
-                        ),
-                        getStop("Ponta Delgada - Hospital") to listOf(
-                            "---",
-                            "07h56",
-                            "13h11",
-                            "---",
-                            "---"
-                        ),
-                        getStop("Ponta Delgada") to listOf(
-                            "07h25",
-                            "08h10",
-                            "13h25",
-                            "15h00",
-                            "18h20"
-                        ),
-                    ), TypeOfDay.WEEKDAY, img
-                ),
-                Route(
-                    route, route+"v", mapOf(
-                        getStop("Ponta Delgada") to listOf("08h45", "15h15", "17h45", "18h50"),
-                        getStop("Ponta Delgada - Hospital") to listOf("---", "---", "17h57", "---"),
-                        getStop("Fajã de Cima") to listOf("08h48", "15h33", "18h06", "19h08"),
-                        getStop("Batalha") to listOf("09h10", "15h40", "18h13", "19h15"),
-                        getStop("Farropo") to listOf("09h15", "15h45", "18h18", "19h20"),
-                        getStop("Fenais da Luz - Bairro") to listOf(
-                            "09h20",
-                            "15h50",
-                            "18h23",
-                            "19h25"
-                        ),
-                    ), TypeOfDay.WEEKDAY, img
-                ),
-            )
-        )
-        /* Route 216 */
-        route = "216"
-        avmRoutes.addAll(
-            arrayListOf(
-                Route(
-                    route,route+"i", mapOf(
-                        getStop("Capelas - Rossio") to listOf("08h15", "11h30", "17h15"),
-                        getStop("Capelas - Navio") to listOf("08h16", "11h31", "17h16"),
-                        getStop("Fenais da Luz - Bairro") to listOf("08h26", "11h41", "17h26"),
-                        getStop("Calhetas") to listOf("08h50", "12h05", "17h50"),
-                    ), TypeOfDay.WEEKDAY, img, Functions().rossioCaixa(currentLanguage)
-                ),
-                Route(
-                    route, route+"v", mapOf(
-                        getStop("Calhetas") to listOf("08h35", "11h50", "17h35"),
-                        getStop("Fenais da Luz - Bairro") to listOf("08h39", "11h54", "17h39"),
-                        getStop("Capelas - Navio") to listOf("08h49", "12h04", "17h49"),
-                        getStop("Capelas - Rossio") to listOf("08h50", "12h05", "17h50"),
-                    ), TypeOfDay.WEEKDAY, img, Functions().rossioCaixa(currentLanguage)
-                )
-            )
-        )
-        /* Route 215 */
-        route = "215"
-        avmRoutes.addAll(
-            arrayListOf(
-                Route(
-                    route, route+"v", mapOf(
-                        getStop("Ponta Delgada") to listOf("21h50", "00h00"),
-                        getStop("Ponta Delgada - Hospital") to listOf("22h05", "00h15"),
-                        getStop("Fajã de Cima") to listOf("22h14", "00h24"),
-                        getStop("Farropo") to listOf("22h26", "00h36"),
-                        getStop("Fenais da Luz - Igreja") to listOf("22h30", "00h40"),
-                        getStop("São Vicente - Igreja") to listOf("22h37", "00h47"),
-                        getStop("São Vicente - Atafona") to listOf("22h40", "00h50"),
-                        getStop("Capelas - Navio") to listOf("22h43", "00h53"),
-                        getStop("Capelas - Rossio") to listOf("22h45", "00h55"),
-                        getStop("Santo António - Igreja") to listOf("22h51", "01h01"),
-                        getStop("Ramal Cruz") to listOf("22h55", "01h05"),
-                    ), TypeOfDay.WEEKDAY, img, Functions().fsaobras(currentLanguage)
-                ),
-                Route(
-                    route,route+"vs", mapOf(
-                        getStop("Ponta Delgada") to listOf("21h50", "00h00"),
-                        getStop("Ponta Delgada - Hospital") to listOf("22h05", "00h15"),
-                        getStop("Fajã de Cima") to listOf("22h14", "00h24"),
-                        getStop("Farropo") to listOf("22h26", "00h36"),
-                        getStop("Fenais da Luz - Igreja") to listOf("22h30", "00h40"),
-                        getStop("São Vicente - Igreja") to listOf("22h37", "00h47"),
-                        getStop("São Vicente - Atafona") to listOf("22h40", "00h50"),
-                        getStop("Capelas - Navio") to listOf("22h43", "00h53"),
-                        getStop("Capelas - Rossio") to listOf("22h45", "00h55"),
-                        getStop("Santo António - Igreja") to listOf("22h51", "01h01"),
-                        getStop("Ramal Cruz") to listOf("22h55", "01h05"),
-                    ), TypeOfDay.SATURDAY, img, Functions().fsaobras(currentLanguage)
-                ),
-                Route(
-                    route,route+"vd", mapOf(
-                        getStop("Ponta Delgada") to listOf("21h50", "00h00"),
-                        getStop("Ponta Delgada - Hospital") to listOf("22h05", "00h15"),
-                        getStop("Fajã de Cima") to listOf("22h14", "00h24"),
-                        getStop("Farropo") to listOf("22h26", "00h36"),
-                        getStop("Fenais da Luz - Igreja") to listOf("22h30", "00h40"),
-                        getStop("São Vicente - Igreja") to listOf("22h37", "00h47"),
-                        getStop("São Vicente - Atafona") to listOf("22h40", "00h50"),
-                        getStop("Capelas - Navio") to listOf("22h43", "00h53"),
-                        getStop("Capelas - Rossio") to listOf("22h45", "00h55"),
-                        getStop("Santo António - Igreja") to listOf("22h51", "01h01"),
-                        getStop("Ramal Cruz") to listOf("22h55", "01h05"),
-                    ), TypeOfDay.SUNDAY, img, Functions().fsaobras(currentLanguage)),
-                Route(
-                    route, route+"i", mapOf(
-                        getStop("Ramal Cruz") to listOf("22h50"),
-                        getStop("Santo António - Igreja") to listOf("22h54"),
-                        getStop("Capelas - Rossio") to listOf("22h55"),
-                        getStop("Capelas - Navio") to listOf("22h57"),
-                        getStop("São Vicente - Atafona") to listOf("22h59"),
-                        getStop("São Vicente - Igreja") to listOf("23h01"),
-                        getStop("Fenais da Luz - Igreja") to listOf("23h08"),
-                        getStop("Fajã de Cima") to listOf("23h24"),
-                        getStop("Ponta Delgada - Hospital") to listOf("23h33"),
-                        getStop("Ponta Delgada") to listOf("23h50"),
-                    ), TypeOfDay.WEEKDAY, img
-                ),
-                Route(
-                    route, route+"is", mapOf(
-                        getStop("Ramal Cruz") to listOf("22h50"),
-                        getStop("Santo António - Igreja") to listOf("22h54"),
-                        getStop("Capelas - Rossio") to listOf("22h55"),
-                        getStop("Capelas - Navio") to listOf("22h57"),
-                        getStop("São Vicente - Atafona") to listOf("22h59"),
-                        getStop("São Vicente - Igreja") to listOf("23h01"),
-                        getStop("Fenais da Luz - Igreja") to listOf("23h08"),
-                        getStop("Fajã de Cima") to listOf("23h24"),
-                        getStop("Ponta Delgada - Hospital") to listOf("23h33"),
-                        getStop("Ponta Delgada") to listOf("23h50"),
-                    ), TypeOfDay.SATURDAY, img
-                ),
-                Route(
-                    route, route+"id", mapOf(
-                        getStop("Ramal Cruz") to listOf("22h50"),
-                        getStop("Santo António - Igreja") to listOf("22h54"),
-                        getStop("Capelas - Rossio") to listOf("22h55"),
-                        getStop("Capelas - Navio") to listOf("22h57"),
-                        getStop("São Vicente - Atafona") to listOf("22h59"),
-                        getStop("São Vicente - Igreja") to listOf("23h01"),
-                        getStop("Fenais da Luz - Igreja") to listOf("23h08"),
-                        getStop("Fajã de Cima") to listOf("23h24"),
-                        getStop("Ponta Delgada - Hospital") to listOf("23h33"),
-                        getStop("Ponta Delgada") to listOf("23h50"),
-                    ), TypeOfDay.SUNDAY, img
-                ),
-            )
-        )
-
-        /* Saturday */
-        /* Route 205 */
-        route = "205"
-        avmRoutes.addAll(
-            arrayListOf(
-                Route(
-                    route, route+"i", mapOf(
-                        getStop("Sete Cidades - Ponte") to listOf("07h00", "09h30", "12h00d)"),
-                        getStop("Sete Cidades - Igreja") to listOf("07h05", "09h35", "12h05d)"),
-                        getStop("Mosteiros - Ramal") to listOf("---", "---", "12h15d)"),
-                        getStop("Varzea") to listOf("07h15", "09h45", "---"),
-                        getStop("Ginetes - Igreja") to listOf("07h20", "09h50", "---"),
-                        getStop("Candelária - Socorro") to listOf("07h25", "09h55", "---"),
-                        getStop("Candelária - Centro") to listOf("07h33", "10h03", "---"),
-                        getStop("Feteiras - Biscoito") to listOf("07h35", "10h05", "---"),
-                        getStop("Feteiras - Igreja") to listOf("07h38", "10h08", "---"),
-                        getStop("Relva - Canto da Pia") to listOf("07h53", "10h23", "---"),
-                        getStop("Ponta Delgada - Ramalho") to listOf("07h56", "10h26", "---"),
-                        getStop("Ponta Delgada") to listOf("08h05", "10h35", "---"),
-                        ), TypeOfDay.WEEKDAY, img
-                ),
-                Route(
-                    route, route+"v", mapOf(
-                        getStop("Ponta Delgada") to listOf("08h25"),
-                        getStop("Av Principe Mónaco") to listOf("08h30"),
-                        getStop("Ponta Delgada - Ramalho") to listOf("08h32"),
-                        getStop("Relva - Canto da Pia") to listOf("08h37"),
-                        getStop("Feteiras - Igreja") to listOf("08h52"),
-                        getStop("Feteiras - Biscoito") to listOf("08h55"),
-                        getStop("Candelária - Centro") to listOf("09h00"),
-                        getStop("Candelária - Socorro") to listOf("09h05"),
-                        getStop("Ginetes - Igreja") to listOf("09h10"),
-                        getStop("Varzea") to listOf("09h15"),
-                        getStop("Sete Cidades - Igreja") to listOf("09h25"),
-                        getStop("Sete Cidades - Ponte") to listOf("09h30"),
-                    ), TypeOfDay.WEEKDAY, img
-                ),
-                Route(
-                    route, route+"iss", mapOf(
-                        getStop("Sete Cidades - Ponte") to listOf("07h00"),
-                        getStop("Sete Cidades - Igreja") to listOf("07h05"),
-                        getStop("Lomba do Vasco") to listOf("07h10"),
-                        getStop("Varzea") to listOf("07h15"),
-                    ), TypeOfDay.SATURDAY, img
-                ),
-            )
-        )
-        /* Route 206 */
-        route = "206"
-        avmRoutes.addAll(
-            arrayListOf(
-                Route(
-                    route, route+"v", mapOf(
-                        getStop("Ponta Delgada") to listOf("07h50", "10h40", "12h45", "15h00", "16h30", "17h30", "18h50"),
-                        getStop("Ponta Delgada - Hospital") to listOf("---", "---", "---", "14h45", "---", "---", "---"),
-                        getStop("Av Principe Mónaco") to listOf("07h55", "10h45", "12h50", "15h05", "16h35", "17h35", "18h55"),
-                        getStop("Ponta Delgada - Ramalho") to listOf("07h57", "10h47", "12h52", "15h07", "16h37", "17h37", "18h57"),
-                        getStop("Relva - Canto da Pia") to listOf("08h02", "10h52", "12h57", "15h12", "16h42", "17h42", "19h02"),
-                        getStop("Feteiras - Igreja") to listOf("08h17", "11h07", "13h12", "15h27", "16h57", "17h57", "19h17"),
-                        getStop("Feteiras - Biscoito") to listOf("08h20", "11h10", "13h15", "15h30", "17h00", "18h00", "19h20"),
-                        getStop("Candelária - Centro") to listOf("08h25", "11h15", "13h20", "15h35", "17h05", "18h05", "19h25"),
-                        getStop("Candelária - Socorro") to listOf("08h30", "11h20", "13h25", "15h40", "17h10", "18h10", "19h30"),
-                        getStop("Ginetes - Igreja") to listOf("08h35", "11h25", "13h30", "15h45", "17h15", "18h15", "19h35"),
-                        getStop("Varzea") to listOf("08h40", "11h30", "13h35", "15h50", "17h20", "18h20", "19h40"),
-                        getStop("Mosteiros - Ramal") to listOf("08h45", "11h35", "13h40", "15h55", "17h25", "18h25", "19h45"),
-                        getStop("Mosteiros - Igreja") to listOf("08h50", "11h40", "13h45", "16h00", "17h30", "18h30", "19h50"),
-                        getStop("Mosteiros - Banda de Além") to listOf("08h55", "11h45", "13h50", "16h05", "17h35", "18h35", "19h55"),
-                    ), TypeOfDay.WEEKDAY, img
-                ),
-                Route(
-                    route, route+"i", mapOf(
-                        getStop("Mosteiros - Banda de Além") to listOf("06h15", "07h05", "09h05", "12h05", "14h45", "16h35"),
-                        getStop("Mosteiros - Igreja") to listOf("06h20", "07h10", "09h10", "12h10", "14h50", "16h40"),
-                        getStop("Mosteiros - Ramal") to listOf("06h25", "07h15", "09h15", "12h15", "14h55", "16h45"),
-                        getStop("Varzea") to listOf("06h30", "07h20", "09h20", "12h20", "15h00", "16h55"),
-                        getStop("Ginetes - Igreja") to listOf("06h35", "07h25", "09h25", "12h25", "15h05", "17h00"),
-                        getStop("Candelária - Socorro") to listOf("06h40", "07h30", "09h30", "12h30", "15h10", "17h10"),
-                        getStop("Candelária - Centro") to listOf("06h48", "07h38", "09h38", "12h38", "15h18", "17h18"),
-                        getStop("Feteiras - Biscoito") to listOf("06h50", "07h40", "09h40", "12h40", "15h20", "17h20"),
-                        getStop("Feteiras - Igreja") to listOf("06h53", "07h43", "09h43", "12h43", "15h23", "17h25"),
-                        getStop("Relva - Canto da Pia") to listOf("07h08", "07h58", "09h58", "12h58", "15h38", "17h40"),
-                        getStop("Ponta Delgada - Ramalho") to listOf("07h11", "08h01", "10h01", "13h01", "15h41", "17h45"),
-                        getStop("Ponta Delgada - Hospital") to listOf("07h30", "08h20", "---", "13h20", "---", "---"),
-                        getStop("Ponta Delgada") to listOf("07h20", "08h10", "10h10", "13h10", "15h50", "17h55"),
-                    ), TypeOfDay.WEEKDAY, img
-                ),
-                Route(
-                    route,route+"is", mapOf(
-                        getStop("Mosteiros - Banda de Além") to listOf(
-                            "06h15",
-                            "07h05",
-                            "09h05",
-                            "14h45",
-                            "16h35"
-                        ),
-                        getStop("Mosteiros - Igreja") to listOf(
-                            "06h20",
-                            "07h10",
-                            "09h10",
-                            "14h50",
-                            "16h40"
-                        ),
-                        getStop("Mosteiros - Ramal") to listOf(
-                            "06h25",
-                            "07h15",
-                            "09h20",
-                            "14h55",
-                            "16h45"
-                        ),
-                        getStop("Varzea") to listOf("06h30", "07h20", "09h20", "15h00", "16h50"),
-                        getStop("Ginetes - Igreja") to listOf(
-                            "06h35",
-                            "07h25",
-                            "09h25",
-                            "15h05",
-                            "16h55"
-                        ),
-                        getStop("Candelária - Socorro") to listOf(
-                            "06h40",
-                            "07h30",
-                            "09h30",
-                            "15h10",
-                            "17h00"
-                        ),
-                        getStop("Candelária - Centro") to listOf(
-                            "06h45",
-                            "07h35",
-                            "09h35",
-                            "15h15",
-                            "17h05"
-                        ),
-                        getStop("Feteiras - Biscoito") to listOf(
-                            "06h50",
-                            "07h40",
-                            "09h40",
-                            "15h20",
-                            "17h20"
-                        ),
-                        getStop("Feteiras - Igreja") to listOf(
-                            "06h53",
-                            "07h43",
-                            "09h43",
-                            "15h43",
-                            "17h25"
-                        ),
-                        getStop("Relva - Igreja") to listOf("07h08", "---", "---", "15h38", "---"),
-                        getStop("Relva - Canto da Pia") to listOf(
-                            "07h13",
-                            "07h58",
-                            "09h58",
-                            "15h41",
-                            "17h40"
-                        ),
-                        getStop("Ponta Delgada - Ramalho") to listOf(
-                            "07h16",
-                            "08h01",
-                            "10h01",
-                            "15h44",
-                            "17h45"
-                        ),
-                        getStop("Ponta Delgada - Hospital") to listOf(
-                            "07h35",
-                            "08h20",
-                            "---",
-                            "---",
-                            "---"
-                        ),
-                        getStop("Ponta Delgada") to listOf(
-                            "07h23",
-                            "08h08",
-                            "10h08",
-                            "15h51",
-                            "17h53"
-                        ),
-                    ), TypeOfDay.SATURDAY, img
-                ),
-                Route(
-                    route, route+"id", mapOf(
-                        getStop("Mosteiros - Banda de Além") to listOf(
-                            "07h00",
-                            "11h00",
-                            "15h00",
-                            "18h15"
-                        ),
-                        getStop("Mosteiros - Igreja") to listOf("07h05", "11h05", "15h05", "18h20"),
-                        getStop("Mosteiros - Ramal") to listOf("07h10", "11h10", "15h10", "18h25"),
-                        getStop("Varzea") to listOf("07h15", "11h15", "15h15", "18h30"),
-                        getStop("Ginetes - Igreja") to listOf("07h20", "11h20", "15h20", "18h35"),
-                        getStop("Candelária - Socorro") to listOf(
-                            "07h25",
-                            "11h25",
-                            "15h25",
-                            "18h40"
-                        ),
-                        getStop("Candelária - Centro") to listOf(
-                            "07h30",
-                            "11h30",
-                            "15h30",
-                            "18h45"
-                        ),
-                        getStop("Feteiras - Biscoito") to listOf(
-                            "07h35",
-                            "11h35",
-                            "15h35",
-                            "18h50"
-                        ),
-                        getStop("Feteiras - Igreja") to listOf("07h38", "11h38", "15h38", "18h53"),
-                        getStop("Relva - Igreja") to listOf("07h53", "11h53", "15h53", "19h08"),
-                        getStop("Relva - Canto da Pia") to listOf(
-                            "07h58",
-                            "11h58",
-                            "15h58",
-                            "19h13"
-                        ),
-                        getStop("Ponta Delgada - Ramalho") to listOf(
-                            "08h01",
-                            "12h01",
-                            "16h01",
-                            "19h16"
-                        ),
-                        getStop("Ponta Delgada") to listOf("08h08", "12h08", "16h08", "19h23"),
-                        getStop("Ponta Delgada - Hospital") to listOf(
-                            "08h20",
-                            "12h20",
-                            "16h20",
-                            "19h35"
-                        ),
-                    ), TypeOfDay.SUNDAY, img
-                ),
-                Route(
-                    route, route+"vs",mapOf(
-                        getStop("Ponta Delgada") to listOf(
-                            "07h50",
-                            "13h15",
-                            "15h00",
-                            "17h30",
-                            "19h00"
-                        ),
-                        getStop("Ponta Delgada - Hospital") to listOf(
-                            "---",
-                            "---",
-                            "14h45",
-                            "---",
-                            "---"
-                        ),
-                        getStop("Av Principe Mónaco") to listOf(
-                            "07h55",
-                            "13h20",
-                            "15h05",
-                            "17h35",
-                            "19h05"
-                        ),
-                        getStop("Ponta Delgada - Ramalho") to listOf(
-                            "07h57",
-                            "13h22",
-                            "15h07",
-                            "17h37",
-                            "19h07"
-                        ),
-                        getStop("Relva - Canto da Pia") to listOf(
-                            "08h02",
-                            "13h27",
-                            "15h12",
-                            "17h42",
-                            "19h12"
-                        ),
-                        getStop("Relva - Igreja") to listOf("---", "13h30", "15h15", "---", "---"),
-                        getStop("Feteiras - Igreja") to listOf(
-                            "08h17",
-                            "13h45",
-                            "15h30",
-                            "17h57",
-                            "19h27"
-                        ),
-                        getStop("Feteiras - Biscoito") to listOf(
-                            "08h20",
-                            "13h48",
-                            "15h33",
-                            "18h00",
-                            "19h30"
-                        ),
-                        getStop("Candelária - Centro") to listOf(
-                            "08h25",
-                            "13h53",
-                            "15h38",
-                            "18h05",
-                            "19h35"
-                        ),
-                        getStop("Candelária - Socorro") to listOf(
-                            "08h30",
-                            "13h58",
-                            "15h43",
-                            "18h10",
-                            "19h40"
-                        ),
-                        getStop("Ginetes - Igreja") to listOf(
-                            "08h35",
-                            "14h03",
-                            "15h48",
-                            "18h15",
-                            "19h45"
-                        ),
-                        getStop("Varzea") to listOf("08h40", "14h08", "15h53", "18h20", "19h50"),
-                        getStop("Mosteiros - Ramal") to listOf(
-                            "08h45",
-                            "14h13",
-                            "15h58",
-                            "18h25",
-                            "19h55"
-                        ),
-                        getStop("Mosteiros - Igreja") to listOf(
-                            "08h50",
-                            "14h18",
-                            "16h03",
-                            "18h30",
-                            "20h00"
-                        ),
-                        getStop("Mosteiros - Banda de Além") to listOf(
-                            "08h55",
-                            "14h23",
-                            "16h08",
-                            "18h35",
-                            "20h05"
-                        ),
-                    ), TypeOfDay.SATURDAY, img
-                ),
-                Route(
-                    route, route+"vd", mapOf(
-                        getStop("Ponta Delgada - Hospital") to listOf(
-                            "08h45",
-                            "12h15",
-                            "16h25",
-                            "19h35"
-                        ),
-                        getStop("Ponta Delgada") to listOf("09h00", "12h30", "16h40", "19h45"),
-                        getStop("Av Principe Mónaco") to listOf("09h05", "12h35", "16h45", "19h50"),
-                        getStop("Ponta Delgada - Ramalho") to listOf(
-                            "09h07",
-                            "12h37",
-                            "16h47",
-                            "19h52"
-                        ),
-                        getStop("Relva - Canto da Pia") to listOf(
-                            "09h12",
-                            "12h42",
-                            "16h52",
-                            "19h57"
-                        ),
-                        getStop("Relva - Igreja") to listOf("09h15", "12h45", "16h55", "20h00"),
-                        getStop("Feteiras - Igreja") to listOf("09h30", "13h00", "17h10", "20h15"),
-                        getStop("Feteiras - Biscoito") to listOf(
-                            "09h33",
-                            "13h03",
-                            "17h13",
-                            "20h18"
-                        ),
-                        getStop("Candelária - Centro") to listOf(
-                            "09h38",
-                            "13h08",
-                            "17h18",
-                            "20h23"
-                        ),
-                        getStop("Candelária - Socorro") to listOf(
-                            "09h43",
-                            "13h13",
-                            "17h23",
-                            "20h28"
-                        ),
-                        getStop("Ginetes - Igreja") to listOf("09h48", "13h18", "17h28", "20h33"),
-                        getStop("Varzea") to listOf("09h53", "13h23", "17h33", "20h38"),
-                        getStop("Mosteiros - Ramal") to listOf("09h58", "13h28", "17h38", "20h43"),
-                        getStop("Mosteiros - Igreja") to listOf("10h03", "13h33", "17h43", "20h48"),
-                        getStop("Mosteiros - Banda de Além") to listOf(
-                            "10h08",
-                            "13h38",
-                            "17h48",
-                            "20h53"
-                        ),
-                    ), TypeOfDay.SUNDAY, img
-                )
-            )
-        )
-        /* Route 202 */
-        route = "202"
-        avmRoutes.addAll(
-            arrayListOf(
-                Route(
-                    route, route+"is", mapOf(
-                        getStop("Covoada - Encruzilhada") to listOf("08h50"),
-                        getStop("Relva - Canto da Pia") to listOf("08h58"),
-                        getStop("Ponta Delgada - Ramalho") to listOf("09h01"),
-                        getStop("Ponta Delgada") to listOf("09h08"),
-                    ), TypeOfDay.SATURDAY, img
-                ),
-                Route(
-                    route, route+"vs", mapOf(
-                        getStop("Ponta Delgada") to listOf("11h30"),
-                        getStop("Av Principe Mónaco") to listOf("11h35"),
-                        getStop("Ponta Delgada - Ramalho") to listOf("11h37"),
-                        getStop("Relva - Canto da Pia") to listOf("11h42"),
-                        getStop("Covoada - Encruzilhada") to listOf("11h53"),
-                    ), TypeOfDay.SATURDAY, img
-                ),
-                Route(
-                    route,route+"v", mapOf(
-                        getStop("Ponta Delgada") to listOf("08h25", "11h30", "15h45", "18h10"),
-                        getStop("Av Principe Mónaco") to listOf("08h30", "11h35", "15h50", "18h15"),
-                        getStop("Ponta Delgada - Ramalho") to listOf("08h32", "11h37", "15h52", "18h17"),
-                        getStop("Relva - Canto da Pia") to listOf("08h37", "11h42", "15h57", "18h22"),
-                        getStop("Covoada - Encruzilhada") to listOf("08h45", "11h50", "16h05", "18h30"),
-                    ), TypeOfDay.WEEKDAY, img
-                ),
-                Route(
-                    route, route+"i", mapOf(
-                        getStop("Covoada - Encruzilhada") to listOf("07h00", "08h00", "08h50", "13h00"),
-                        getStop("Relva - Canto da Pia") to listOf("07h08", "08h08", "08h58", "13h08"),
-                        getStop("Ponta Delgada - Ramalho") to listOf("07h11", "08h11", "09h01", "13h11"),
-                        getStop("Ponta Delgada") to listOf("07h20", "08h20", "09h10", "13h20")
-                    ), TypeOfDay.WEEKDAY, img
-                ),
-            )
-        )
-        /* Route 200 */
-        route = "200"
-        avmRoutes.addAll(
-            arrayListOf(
-                Route(
-                    route,route+"v", mapOf(
-                        getStop("Ponta Delgada") to listOf("08h10", "09h10", "10h10", "11h10", "12h10", "14h10", "17h10", "18h10", "19h10", "20h10"),
-                        getStop("Av Principe Mónaco") to listOf("08h15", "09h15", "15h15", "11h15", "12h15", "14h15", "17h15", "18h15", "19h15", "20h15"),
-                        getStop("Ponta Delgada - Ramalho") to listOf("08h17", "09h17", "17h17", "11h17", "12h17", "14h17", "17h17", "18h17", "19h17", "20h17"),
-                        getStop("Relva - Canto da Pia") to listOf("08h22", "09h22", "22h22", "11h22", "12h22", "14h22", "17h22", "18h22", "19h22", "20h22"),
-                        getStop("Relva - Igreja") to listOf("08h30", "09h30", "30h30", "11h30", "12h30", "14h30", "17h30", "18h30", "19h30", "20h30"),
-                    ), TypeOfDay.WEEKDAY, img),
-                Route(
-                    route, route+"ir", mapOf(
-                        getStop("Relva - Igreja") to listOf("07h00", "08h35", "09h35", "10h35","11h35", "12h35", "13h35", "14h35", "16h35", "17h35", "18h35", "19h35"),
-                        getStop("Relva - Canto da Pia") to listOf("07h05", "08h40", "09h40", "10h40","11h40", "12h40", "13h40", "14h40", "16h40", "17h40", "18h40", "19h40"),
-                        getStop("Ponta Delgada - Ramalho") to listOf("07h10", "08h45", "09h45", "10h45","11h45", "12h45", "13h45", "14h45", "16h45", "17h45", "18h45", "19h45"),
-                        getStop("Ponta Delgada") to listOf("07h20", "08h55", "09h55", "10h55","11h55", "12h55", "13h55", "14h55", "16h55", "17h55", "18h55", "19h55"),
-                    ), TypeOfDay.WEEKDAY, img
-                ),
-                Route(
-                    route, route+"irs", mapOf(
-                        getStop("Relva - Igreja") to listOf("07h45", "08h35", "09h35", "10h35", "12h35"),
-                        getStop("Relva - Canto da Pia") to listOf("07h50", "08h40", "09h40", "10h40", "12h42"),
-                        getStop("Ponta Delgada - Ramalho") to listOf("07h55", "08h45", "09h45", "10h45", "12h46"),
-                        getStop("Ponta Delgada") to listOf("08h03", "08h53", "09h53", "10h53", "12h53"),
-                    ), TypeOfDay.SATURDAY, img
-                ),
-                Route(
-                    route, route+"vrs", mapOf(
-                        getStop("Ponta Delgada") to listOf("08h10", "09h10", "10h10", "12h10"),
-                        getStop("Av Principe Mónaco") to listOf("08h15", "09h15", "10h15", "12h15"),
-                        getStop("Ponta Delgada - Ramalho") to listOf("08h17", "09h17", "10h17", "12h17"),
-                        getStop("Relva - Igreja") to listOf("08h30", "09h30", "10h30", "12h30"),
-                    ), TypeOfDay.SATURDAY, img),
-            )
-        )
-        /* Route 201 */
-        route = "201"
-        avmRoutes.addAll(
-            arrayListOf(
-                Route(
-                    route, route+"v", mapOf(
-                        getStop("Ponta Delgada") to listOf("13h10", "16h10", "16h40"),
-                        getStop("Av Principe Mónaco") to listOf("13h15", "16h15", "16h45"),
-                        getStop("Ponta Delgada - Ramalho") to listOf("13h17", "16h17", "16h47"),
-                        getStop("Relva - Canto da Pia") to listOf("13h22", "16h22", "16h52"),
-                        getStop("Relva - Igreja") to listOf("13h30", "16h30", "17h00"),
-                    ), TypeOfDay.WEEKDAY, img),
-                Route(
-                    route, route+"i", mapOf(
-                        getStop("Relva - Igreja") to listOf("07h45"),
-                        getStop("Relva - Canto da Pia") to listOf("07h50"),
-                        getStop("Ponta Delgada - Ramalho") to listOf("07h56"),
-                        getStop("Ponta Delgada") to listOf("08h05"),
-                    ), TypeOfDay.WEEKDAY, img)
-            ))
-        /* Route 203 */
-        route = "203"
-        avmRoutes.addAll(
-            arrayListOf(
-                Route(
-                    route, route+"v", mapOf(
-                        getStop("Ponta Delgada") to listOf("17h30"),
-                        getStop("Av Principe Mónaco") to listOf("17h35"),
-                        getStop("Ponta Delgada - Ramalho") to listOf("17h37"),
-                        getStop("Relva - Canto da Pia") to listOf("17h42"),
-                        getStop("Feteiras - Igreja")to listOf("17h57"),
-                        getStop("Feteiras - Biscoito") to listOf("18h00"),
-                    ), TypeOfDay.WEEKDAY, img),
-                Route(
-                    route, route+"i", mapOf(
-                        getStop("Feteiras - Biscoito") to listOf("08h10"),
-                        getStop("Feteiras - Igreja")to listOf("08h13"),
-                        getStop("Relva - Canto da Pia") to listOf("08h28"),
-                        getStop("Ponta Delgada - Ramalho") to listOf("08h31"),
-                        getStop("Ponta Delgada") to listOf("08h40"),
-                    ), TypeOfDay.WEEKDAY, img)
-            ))
-        /* Route 204 */
-        route = "204"
-        avmRoutes.addAll(
-            arrayListOf(
-                Route(
-                    route, route+"i", mapOf(
-                        getStop("Candelária - Socorro") to listOf("06h10", "08h30"),
-                        getStop("Candelária - Centro")to listOf("06h18", "08h39"),
-                        getStop("Feteiras - Biscoito") to listOf("06h20", "08h42"),
-                        getStop("Feteiras - Igreja")to listOf("06h23", "08h46"),
-                        getStop("Relva - Canto da Pia") to listOf("06h38", "09h04"),
-                        getStop("Ponta Delgada - Ramalho") to listOf("06h41", "09h10"),
-                        getStop("Ponta Delgada") to listOf("06h50", "09h20"),
-                    ), TypeOfDay.WEEKDAY, img)
-            ))
-    }
+route "208"
+getStop("Mosteiros - Ramal") to listOf("09h15", "16h45"),
+getStop("João Bom") to listOf("09h25", "16h55"),
+getStop("Ajuda - Ramal") to listOf("09h35", "17h05"),
+getStop("Remédios") to listOf("09h40", "17h10"),
+getStop("Santa Bárbara - Ramal") to listOf("09h45", "17h15"),
+getStop("Santo António - Cruz") to listOf("09h50", "17h20"),
+getStop("Capelas - Rossio") to listOf("09h57", "17h27"),
+getStop("Capelas - Navio") to listOf("09h59", "17h29"),
+getStop("São Vicente - Atafona") to listOf("10h02", "17h32"),
+getStop("Fajã de Cima") to listOf("10h02", "17h32"),
+getStop("Ponta Delgada - Hospital") to listOf("10h11", "17h41"),
+getStop("Ponta Delgada") to listOf("10h35", "18h05"),
+), TypeOfDay.WEEKDAY, img, Functions().rossioBanif(currentLanguage)
+getStop("Ponta Delgada") to listOf("07h15", "14h35"),
+getStop("Av Principe Mónaco") to listOf("07h20", "14h40"),
+getStop("Ponta Delgada - Hospital") to listOf("07h27", "14h47"),
+getStop("Fajã de Cima") to listOf("07h35", "14h55"),
+getStop("São Vicente - Atafona") to listOf("07h48", "15h08"),
+getStop("Capelas - Navio") to listOf("07h51", "15h11"),
+getStop("Capelas - Rossio") to listOf("07h53", "15h13"),
+getStop("Santo António - Cruz") to listOf("07h58", "15h18"),
+getStop("Santa Bárbara - Ramal") to listOf("08h04", "15h24"),
+getStop("Remédios") to listOf("08h08", "15h28"),
+getStop("Ajuda - Ramal") to listOf("08h15", "15h35"),
+getStop("João Bom") to listOf("08h23", "15h43"),
+getStop("Mosteiros - Ramal") to listOf("08h35", "15h55"),
+), TypeOfDay.WEEKDAY, img, Functions().rossioBanif(currentLanguage)
+route "219"
+getStop("João Bom") to listOf("06h00", "07h10", "08h30", "12h30", "15h00"),
+getStop("Ajuda - Igreja") to listOf("06h13","07h23","08h43","12h43","15h13"),
+getStop("Remédios") to listOf("06h18", "07h28", "---", "12h48", "15h18"),
+getStop("Remédios - Igreja") to listOf("---", "---", "08h48", "---", "---"),
+getStop("Santa Bárbara - Ramal") to listOf("06h23","07h33","---","12h53","15h23"),
+getStop("Santa Bárbara - Cavalo Branco") to listOf("---","---","08h53","---","---"),
+getStop("Santo António - Cruz") to listOf("06h28","07h38","08h57","12h58","15h28"),
+getStop("Capelas - Rossio") to listOf("06h35","07h45","09h04","13h05","15h35"),
+getStop("Capelas - Navio") to listOf("06h36","07h46","09h05","13h06","15h36"),
+getStop("São Vicente - Atafona") to listOf("06h40","07h50","09h14","13h10","15h40"),
+getStop("Fajã de Cima") to listOf("06h52","08h02","---","13h22","15h27"),
+getStop("Ponta Delgada - Hospital") to listOf("---","08h11","09h31","13h31","---"),
+getStop("Ponta Delgada") to listOf("07h10","08h25","09h45","13h45","16h10"),
+), TypeOfDay.WEEKDAY, img, Functions().rossioBanif(currentLanguage)
+getStop("Ponta Delgada") to listOf("09h30","12h30","16h00","18h15","19h00"),
+getStop("Ponta Delgada - Hospital") to listOf("09h42","12h42","16h12","18h27","---"),
+getStop("Fajã de Cima") to listOf("09h48","12h48","16h18","18h33","19h18"),
+getStop("São Vicente - Atafona") to listOf("10h00","13h00","16h30","17h45","19h30"),
+getStop("Capelas - Navio") to listOf("10h04","13h04","16h34","18h49","19h34"),
+getStop("Capelas - Rossio") to listOf("10h05","13h05","16h35","18h50","19h35"),
+getStop("Santo António - Cruz") to listOf("10h12","13h12","16h42","18h57","19h42"),
+getStop("Santa Bárbara - Ramal") to listOf("10h17","13h17","16h47","19h02","19h47"),
+getStop("Remédios") to listOf("10h22", "13h22", "16h52", "19h07", "19h52"),
+getStop("Ajuda - Igreja") to listOf("10h27","13h27","16h57","19h12","19h57"),
+getStop("João Bom") to listOf("10h40", "13h40", "17h08", "19h25", "20h10"),
+), TypeOfDay.WEEKDAY, img, Functions().rossioBanif(currentLanguage)
+route "207"
+getStop("Sete Cidades - Ponte") to listOf("---", "16h25"),
+getStop("Varzea") to listOf("09h05", "16h40"),
+getStop("Mosteiros - Ramal") to listOf("09h15", "16h45"),
+getStop("Ajuda - Ramal") to listOf("09h35", "17h05"),
+getStop("Remédios") to listOf("09h40", "17h10"),
+getStop("Santa Bárbara - Ramal") to listOf("09h45", "17h15"),
+getStop("Santo António - Cruz") to listOf("09h50", "17h20"),
+getStop("Capelas - Rossio") to listOf("09h57", "17h27"),
+getStop("Capelas - Navio") to listOf("09h58", "17h28"),
+getStop("São Vicente - Atafona") to listOf("10h02", "17h32"),
+getStop("Fajã de Cima") to listOf("10h13", "17h43"),
+getStop("Ponta Delgada - Hospital") to listOf("10h21", "17h51"),
+getStop("Ponta Delgada") to listOf("10h33", "18h03"),
+), TypeOfDay.WEEKDAY, img
+getStop("Ponta Delgada") to listOf("07h15", "14h35"),
+getStop("Ponta Delgada - Hospital") to listOf("07h27", "14h47"),
+getStop("Fajã de Cima") to listOf("07h36", "14h56"),
+getStop("São Vicente - Atafona") to listOf("07h48", "15h08"),
+getStop("Capelas - Navio") to listOf("07h52", "15h12"),
+getStop("Capelas - Rossio") to listOf("07h53", "15h13"),
+getStop("Santo António - Cruz") to listOf("08h00", "15h20"),
+getStop("Santa Bárbara - Ramal") to listOf("08h05", "15h25"),
+getStop("Remédios") to listOf("08h10", "15h30"),
+getStop("Ajuda - Ramal") to listOf("08h15", "15h35"),
+getStop("Mosteiros - Ramal") to listOf("08h35", "15h55"),
+getStop("Varzea") to listOf("08h45", "16h05"),
+getStop("Sete Cidades - Ponte") to listOf("---", "16h15"),
+), TypeOfDay.WEEKDAY, img
+getStop("Ponta Delgada") to listOf("07h15", "14h35"),
+getStop("Av Principe Mónaco") to listOf("07h20", "14h40"),
+getStop("Ponta Delgada - Hospital") to listOf("07h27", "14h47"),
+getStop("Fajã de Cima") to listOf("07h35", "14h55"),
+getStop("São Vicente - Atafona") to listOf("07h48", "15h08"),
+getStop("São Vicente - Igreja") to listOf("07h50", "15h10"),
+getStop("Fenais da Luz - Igreja") to listOf("07h53", "15h13"),
+getStop("Fenais da Luz - Bairro") to listOf("07h54", "15h14"),
+getStop("Capelas - Navio") to listOf("07h57", "15h17"),
+getStop("Capelas - Rossio") to listOf("07h59", "15h19"),
+getStop("Santo António - Cruz") to listOf("08h04", "15h24"),
+getStop("Santa Bárbara - Ramal") to listOf("08h10", "15h30"),
+getStop("Remédios") to listOf("08h14", "15h34"),
+getStop("Ajuda - Ramal") to listOf("08h21", "15h41"),
+getStop("João Bom") to listOf("08h29", "15h49"),
+getStop("Mosteiros - Ramal") to listOf("08h41", "16h01"),
+getStop("Varzea") to listOf("08h46", "16h06"),
+getStop("Sete Cidades - Igreja") to listOf("08h56", "16h16"),
+getStop("Sete Cidades - Ponte") to listOf("09h01", "16h21"),
+), TypeOfDay.SATURDAY, img
+getStop("Sete Cidades - Ponte") to listOf("08h55", "16h25"),
+getStop("Sete Cidades - Igreja") to listOf("09h00", "16h30"),
+getStop("Varzea") to listOf("09h10", "16h40"),
+getStop("Mosteiros - Ramal") to listOf("09h15", "16h45"),
+getStop("João Bom") to listOf("09h25", "16h55"),
+getStop("Ajuda - Ramal") to listOf("09h35", "17h05"),
+getStop("Remédios") to listOf("09h40", "17h10"),
+getStop("Santa Bárbara - Ramal") to listOf("09h45", "17h15"),
+getStop("Santo António - Cruz") to listOf("09h48", "17h18"),
+getStop("Capelas - Rossio") to listOf("09h57", "17h27"),
+getStop("Capelas - Navio") to listOf("09h59", "17h29"),
+getStop("Fenais da Luz - Bairro") to listOf("10h17", "17h47"),
+getStop("Fenais da Luz - Igreja") to listOf("10h18", "17h48"),
+getStop("São Vicente - Igreja") to listOf("10h21", "17h51"),
+getStop("São Vicente - Atafona") to listOf("10h23", "17h53"),
+getStop("Fajã de Cima") to listOf("10h32", "18h02"),
+getStop("Ponta Delgada - Hospital") to listOf("10h43", "18h13"),
+getStop("Ponta Delgada") to listOf("10h59", "18h29"),
+), TypeOfDay.SATURDAY, img
+getStop("Ponta Delgada") to listOf("08h30", "16h15"),
+getStop("Av Principe Mónaco") to listOf("08h35", "16h20"),
+getStop("Ponta Delgada - Hospital") to listOf("08h42", "16h27"),
+getStop("Fajã de Cima") to listOf("08h50", "16h35"),
+getStop("São Vicente - Atafona") to listOf("---", "16h48"),
+getStop("Batalha") to listOf("08h59", "---"),
+getStop("Farropo") to listOf("09h04", "---"),
+getStop("Fenais da Luz - Igreja") to listOf("09h08", "---"),
+getStop("Fenais da Luz - Bairro") to listOf("09h09", "---"),
+getStop("São Vicente - Igreja") to listOf("09h13", "---"),
+getStop("São Vicente - Atafona") to listOf("09h15", "---"),
+getStop("Capelas - Navio") to listOf("09h17", "16h50"),
+getStop("Capelas - Rossio") to listOf("09h20", "16h53"),
+getStop("Santo António - Cruz") to listOf("09h25", "16h58"),
+getStop("Santa Bárbara - Ramal") to listOf("09h31", "17h04"),
+getStop("Remédios") to listOf("09h35", "17h08"),
+getStop("Ajuda - Ramal") to listOf("09h42", "17h15"),
+getStop("João Bom") to listOf("09h50", "17h23"),
+getStop("Mosteiros - Ramal") to listOf("10h02", "17h35"),
+getStop("Varzea") to listOf("10h12", "17h35"),
+getStop("Sete Cidades - Igreja") to listOf("10h22", "17h55"),
+getStop("Sete Cidades - Ponte") to listOf("10h27", "18h00"),
+), TypeOfDay.SUNDAY, img
+getStop("Sete Cidades - Ponte") to listOf("10h45", "18h05"),
+getStop("Sete Cidades - Igreja") to listOf("10h50", "18h10"),
+getStop("Varzea") to listOf("11h00", "18h20"),
+getStop("Mosteiros - Ramal") to listOf("11h10", "18h25"),
+getStop("João Bom") to listOf("11h20", "18h35"),
+getStop("Ajuda - Ramal") to listOf("11h30", "18h45"),
+getStop("Remédios") to listOf("11h35", "18h50"),
+getStop("Santa Bárbara - Ramal") to listOf("11h40", "18h55"),
+getStop("Santo António - Cruz") to listOf("11h45", "19h00"),
+getStop("Grota do Morro") to listOf("11h49", "---"),
+getStop("Capelas - Rossio") to listOf("11h52", "19h07"),
+getStop("Capelas - Navio") to listOf("11h54", "19h09"),
+getStop("São Vicente - Atafona") to listOf("11h57", "19h12"),
+getStop("São Vicente - Igreja") to listOf("11h59", "19h14"),
+getStop("Fenais da Luz - Bairro") to listOf("12h04", "19h19"),
+getStop("Fenais da Luz - Igreja") to listOf("12h05", "19h20"),
+getStop("Farropo") to listOf("12h09", "19h24"),
+getStop("Batalha") to listOf("12h14", "19h29"),
+getStop("Fajã de Cima") to listOf("12h19", "19h34"),
+getStop("Ponta Delgada - Hospital") to listOf("12h30", "---"),
+getStop("Ponta Delgada") to listOf("12h44", "19h59"),
+), TypeOfDay.SUNDAY, img
+route "214"
+getStop("Ponta Delgada") to listOf("18h05"),
+getStop("Fajã de Cima") to listOf("18h20"),
+getStop("Batalha") to listOf("18h28"),
+getStop("Farropo") to listOf("18h33"),
+getStop("Fenais da Luz - Igreja") to listOf("18h37"),
+getStop("Fenais da Luz - Bairro") to listOf("18h38"),
+getStop("Calhetas") to listOf("18h44"),
+getStop("Capelas - Navio") to listOf("19h00"),
+getStop("Capelas - Rossio") to listOf("19h01"),
+getStop("Grota do Morro") to listOf("19h05"),
+), TypeOfDay.SUNDAY, img
+route "218"
+getStop("Remédios") to listOf("---", "07h05", "---", "---", "---", "---"),
+getStop("Santa Bárbara - Cavalo Branco") to listOf("---","07h14","---","---","---","---"),
+getStop("Santo António - Moagem") to listOf("06h15","07h16","08h45","13h45","15h00","17h15"),
+getStop("Santo António - Igreja") to listOf("06h18","07h19","06h18","08h48","13h48","15h03","17h18"),
+getStop("Capelas - Rossio") to listOf("06h24","07h26","08h58","13h54","15h09","17h24"),
+getStop("Teatro Novo") to listOf("06h29","07h31","08h59","13h59","15h14","17h29"),
+getStop("Fajã de Cima") to listOf("06h52","07h43","09h12","14h12","15h27","17h42"),
+getStop("Ponta Delgada - Hospital") to listOf("---","07h51","09h21","---","15h36","---"),
+getStop("Ponta Delgada") to listOf("06h58","08h03","09h33","14h28","15h48","18h00"),
+), TypeOfDay.WEEKDAY, img, Functions().rossioCaixa(currentLanguage)
+getStop("Ponta Delgada") to listOf("07h45","12h00","14h00","16h15","17h30","18h20"),
+getStop("Ponta Delgada - Hospital") to listOf("07h57","---","---","---","17h42","---"),
+getStop("Fajã de Cima") to listOf("---","12h18","14h18","16h33","17h51","18h38"),
+getStop("Teatro Novo") to listOf("08h16","12h31","14h31","16h46","18h04","18h51"),
+getStop("Capelas - Rossio") to listOf("08h21","12h36","14h36","16h51","18h09","18h56"),
+getStop("Santo António - Igreja") to listOf("08h27","12h42","14h42","16h57","18h16","19h02"),
+getStop("Santo António - Moagem") to listOf("08h30","12h45","14h45","17h00","18h19","19h05"),
+getStop("Santa Bárbara - Cavalo Branco") to listOf("---","---","---","---","18h21","---"),
+getStop("Remédios") to listOf("---", "---", "---", "---", "18h25", "---"),
+), TypeOfDay.WEEKDAY, img, Functions().rossioCaixa(currentLanguage)
+route "212"
+getStop("Santo António - Moagem") to listOf("---", "---", "12h10", "---"),
+getStop("Grota do Morro") to listOf("07h00", "08h55", "12h30", "18h00"),
+getStop("Capelas - Rossio") to listOf("07h03", "08h58", "12h33", "18h03"),
+getStop("Capelas - Navio") to listOf("07h04", "08h59", "12h34", "18h04"),
+getStop("São Vicente - Igreja") to listOf("07h10","09h05","12h40","18h10"),
+getStop("Fajã de Cima") to listOf("07h22", "09h17", "12h52", "18h22"),
+getStop("Ponta Delgada - Hospital") to listOf("07h31","09h26","13h01","---"),
+getStop("Ponta Delgada") to listOf("07h42", "09h37", "13h12", "18h37"),
+), TypeOfDay.WEEKDAY, img, Functions().rossioCaixa(currentLanguage)
+getStop("Ponta Delgada") to listOf("07h45","10h15","15h30","18h00","19h05"),
+getStop("Fajã de Cima") to listOf("08h01","10h31","15h46","18h16","19h21"),
+getStop("São Vicente - Igreja") to listOf("08h14","10h44","15h59","18h29","19h34"),
+getStop("Capelas - Navio") to listOf("08h20","10h50","16h05","18h35","19h40"),
+getStop("Capelas - Rossio") to listOf("08h21","10h51","16h06","18h36","19h41"),
+getStop("Grota do Morro") to listOf("08h25","10h55","16h10","18h10","19h45"),
+getStop("Santo António - Moagem") to listOf("---","11h01","---","---","---"),
+), TypeOfDay.WEEKDAY, img, Functions().rossioCaixa(currentLanguage)
+route "211"
+getStop("Fenais da Luz - Bairro") to listOf("08h10", "09h40", "15h55"),
+getStop("Fenais da Luz - Igreja") to listOf("08h11", "09h41", "15h56"),
+getStop("São Vicente - Igreja") to listOf("08h14", "09h44", "15h59"),
+getStop("São Vicente - Atafona") to listOf("08h16", "09h46", "16h01"),
+getStop("Fajã de Cima") to listOf("08h27", "09h57", "16h12"),
+getStop("Ponta Delgada - Hospital") to listOf("---", "10h05", "---"),
+getStop("Ponta Delgada") to listOf("08h45", "10h15", "16h30"),
+), TypeOfDay.WEEKDAY, img),
+getStop("Ponta Delgada") to listOf("07h30", "12h00", "13h45", "17h00"),
+getStop("Fajã de Cima") to listOf("07h48", "12h18", "14h03", "17h18"),
+getStop("São Vicente - Atafona") to listOf("07h59","12h29","14h14","17h29"),
+getStop("São Vicente - Igreja") to listOf("08h01","12h31","14h16","17h31"),
+getStop("Fenais da Luz - Bairro") to listOf("08h05","12h35","14h20","17h35"),
+), TypeOfDay.WEEKDAY, img
+route "210"
+getStop("Fenais da Luz - Bairro") to listOf("06h50","07h30","12h45","14h25","17h45"),
+getStop("Fenais da Luz - Igreja") to listOf("06h51","07h31","12h46","14h26","17h46"),
+getStop("Farropo") to listOf("06h55", "07h35", "12h50", "14h30", "17h50"),
+getStop("Batalha") to listOf("07h00", "07h40", "12h55", "14h35", "17h55"),
+getStop("Fajã de Cima") to listOf("07h07","07h47","13h02","14h42","18h02"),
+getStop("Ponta Delgada - Hospital") to listOf("---","07h56","13h11","---","---"),
+getStop("Ponta Delgada") to listOf("07h25","08h10","13h25","15h00","18h20"),
+), TypeOfDay.WEEKDAY, img
+getStop("Ponta Delgada") to listOf("08h45", "15h15", "17h45", "18h50"),
+getStop("Ponta Delgada - Hospital") to listOf("---", "---", "17h57", "---"),
+getStop("Fajã de Cima") to listOf("08h48", "15h33", "18h06", "19h08"),
+getStop("Batalha") to listOf("09h10", "15h40", "18h13", "19h15"),
+getStop("Farropo") to listOf("09h15", "15h45", "18h18", "19h20"),
+getStop("Fenais da Luz - Bairro") to listOf("09h20","15h50","18h23","19h25"),
+), TypeOfDay.WEEKDAY, img
+route "216"
+getStop("Capelas - Rossio") to listOf("08h15", "11h30", "17h15"),
+getStop("Capelas - Navio") to listOf("08h16", "11h31", "17h16"),
+getStop("Fenais da Luz - Bairro") to listOf("08h26", "11h41", "17h26"),
+getStop("Calhetas") to listOf("08h50", "12h05", "17h50"),
+), TypeOfDay.WEEKDAY, img, Functions().rossioCaixa(currentLanguage)
+getStop("Calhetas") to listOf("08h35", "11h50", "17h35"),
+getStop("Fenais da Luz - Bairro") to listOf("08h39", "11h54", "17h39"),
+getStop("Capelas - Navio") to listOf("08h49", "12h04", "17h49"),
+getStop("Capelas - Rossio") to listOf("08h50", "12h05", "17h50"),
+), TypeOfDay.WEEKDAY, img, Functions().rossioCaixa(currentLanguage)
+route "215"
+getStop("Ponta Delgada") to listOf("21h50", "00h00"),
+getStop("Ponta Delgada - Hospital") to listOf("22h05", "00h15"),
+getStop("Fajã de Cima") to listOf("22h14", "00h24"),
+getStop("Farropo") to listOf("22h26", "00h36"),
+getStop("Fenais da Luz - Igreja") to listOf("22h30", "00h40"),
+getStop("São Vicente - Igreja") to listOf("22h37", "00h47"),
+getStop("São Vicente - Atafona") to listOf("22h40", "00h50"),
+getStop("Capelas - Navio") to listOf("22h43", "00h53"),
+getStop("Capelas - Rossio") to listOf("22h45", "00h55"),
+getStop("Santo António - Igreja") to listOf("22h51", "01h01"),
+getStop("Ramal Cruz") to listOf("22h55", "01h05"),
+), TypeOfDay.WEEKDAY, img, Functions().fsaobras(currentLanguage)
+getStop("Ponta Delgada") to listOf("21h50", "00h00"),
+getStop("Ponta Delgada - Hospital") to listOf("22h05", "00h15"),
+getStop("Fajã de Cima") to listOf("22h14", "00h24"),
+getStop("Farropo") to listOf("22h26", "00h36"),
+getStop("Fenais da Luz - Igreja") to listOf("22h30", "00h40"),
+getStop("São Vicente - Igreja") to listOf("22h37", "00h47"),
+getStop("São Vicente - Atafona") to listOf("22h40", "00h50"),
+getStop("Capelas - Navio") to listOf("22h43", "00h53"),
+getStop("Capelas - Rossio") to listOf("22h45", "00h55"),
+getStop("Santo António - Igreja") to listOf("22h51", "01h01"),
+getStop("Ramal Cruz") to listOf("22h55", "01h05"),
+), TypeOfDay.SATURDAY, img, Functions().fsaobras(currentLanguage)
+getStop("Ponta Delgada") to listOf("21h50", "00h00"),
+getStop("Ponta Delgada - Hospital") to listOf("22h05", "00h15"),
+getStop("Fajã de Cima") to listOf("22h14", "00h24"),
+getStop("Farropo") to listOf("22h26", "00h36"),
+getStop("Fenais da Luz - Igreja") to listOf("22h30", "00h40"),
+getStop("São Vicente - Igreja") to listOf("22h37", "00h47"),
+getStop("São Vicente - Atafona") to listOf("22h40", "00h50"),
+getStop("Capelas - Navio") to listOf("22h43", "00h53"),
+getStop("Capelas - Rossio") to listOf("22h45", "00h55"),
+getStop("Santo António - Igreja") to listOf("22h51", "01h01"),
+getStop("Ramal Cruz") to listOf("22h55", "01h05"),
+), TypeOfDay.SUNDAY, img, Functions().fsaobras(currentLanguage)),
+getStop("Ramal Cruz") to listOf("22h50"),
+getStop("Santo António - Igreja") to listOf("22h54"),
+getStop("Capelas - Rossio") to listOf("22h55"),
+getStop("Capelas - Navio") to listOf("22h57"),
+getStop("São Vicente - Atafona") to listOf("22h59"),
+getStop("São Vicente - Igreja") to listOf("23h01"),
+getStop("Fenais da Luz - Igreja") to listOf("23h08"),
+getStop("Fajã de Cima") to listOf("23h24"),
+getStop("Ponta Delgada - Hospital") to listOf("23h33"),
+getStop("Ponta Delgada") to listOf("23h50"),
+), TypeOfDay.WEEKDAY, img
+getStop("Ramal Cruz") to listOf("22h50"),
+getStop("Santo António - Igreja") to listOf("22h54"),
+getStop("Capelas - Rossio") to listOf("22h55"),
+getStop("Capelas - Navio") to listOf("22h57"),
+getStop("São Vicente - Atafona") to listOf("22h59"),
+getStop("São Vicente - Igreja") to listOf("23h01"),
+getStop("Fenais da Luz - Igreja") to listOf("23h08"),
+getStop("Fajã de Cima") to listOf("23h24"),
+getStop("Ponta Delgada - Hospital") to listOf("23h33"),
+getStop("Ponta Delgada") to listOf("23h50"),
+), TypeOfDay.SATURDAY, img
+getStop("Ramal Cruz") to listOf("22h50"),
+getStop("Santo António - Igreja") to listOf("22h54"),
+getStop("Capelas - Rossio") to listOf("22h55"),
+getStop("Capelas - Navio") to listOf("22h57"),
+getStop("São Vicente - Atafona") to listOf("22h59"),
+getStop("São Vicente - Igreja") to listOf("23h01"),
+getStop("Fenais da Luz - Igreja") to listOf("23h08"),
+getStop("Fajã de Cima") to listOf("23h24"),
+getStop("Ponta Delgada - Hospital") to listOf("23h33"),
+getStop("Ponta Delgada") to listOf("23h50"),
+), TypeOfDay.SUNDAY, img
+route "205"
+getStop("Sete Cidades - Ponte") to listOf("07h00", "09h30", "12h00d)"),
+getStop("Sete Cidades - Igreja") to listOf("07h05", "09h35", "12h05d)"),
+getStop("Mosteiros - Ramal") to listOf("---", "---", "12h15d)"),
+getStop("Varzea") to listOf("07h15", "09h45", "---"),
+getStop("Ginetes - Igreja") to listOf("07h20", "09h50", "---"),
+getStop("Candelária - Socorro") to listOf("07h25", "09h55", "---"),
+getStop("Candelária - Centro") to listOf("07h33", "10h03", "---"),
+getStop("Feteiras - Biscoito") to listOf("07h35", "10h05", "---"),
+getStop("Feteiras - Igreja") to listOf("07h38", "10h08", "---"),
+getStop("Relva - Canto da Pia") to listOf("07h53", "10h23", "---"),
+getStop("Ponta Delgada - Ramalho") to listOf("07h56", "10h26", "---"),
+getStop("Ponta Delgada") to listOf("08h05", "10h35", "---"),
+), TypeOfDay.WEEKDAY, img
+getStop("Ponta Delgada") to listOf("08h25"),
+getStop("Av Principe Mónaco") to listOf("08h30"),
+getStop("Ponta Delgada - Ramalho") to listOf("08h32"),
+getStop("Relva - Canto da Pia") to listOf("08h37"),
+getStop("Feteiras - Igreja") to listOf("08h52"),
+getStop("Feteiras - Biscoito") to listOf("08h55"),
+getStop("Candelária - Centro") to listOf("09h00"),
+getStop("Candelária - Socorro") to listOf("09h05"),
+getStop("Ginetes - Igreja") to listOf("09h10"),
+getStop("Varzea") to listOf("09h15"),
+getStop("Sete Cidades - Igreja") to listOf("09h25"),
+getStop("Sete Cidades - Ponte") to listOf("09h30"),
+), TypeOfDay.WEEKDAY, img
+getStop("Sete Cidades - Ponte") to listOf("07h00"),
+getStop("Sete Cidades - Igreja") to listOf("07h05"),
+getStop("Lomba do Vasco") to listOf("07h10"),
+getStop("Varzea") to listOf("07h15"),
+), TypeOfDay.SATURDAY, img
+route "206"
+getStop("Ponta Delgada") to listOf("07h50", "10h40", "12h45", "15h00", "16h30", "17h30", "18h50"),
+getStop("Ponta Delgada - Hospital") to listOf("---", "---", "---", "14h45", "---", "---", "---"),
+getStop("Av Principe Mónaco") to listOf("07h55", "10h45", "12h50", "15h05", "16h35", "17h35", "18h55"),
+getStop("Ponta Delgada - Ramalho") to listOf("07h57", "10h47", "12h52", "15h07", "16h37", "17h37", "18h57"),
+getStop("Relva - Canto da Pia") to listOf("08h02", "10h52", "12h57", "15h12", "16h42", "17h42", "19h02"),
+getStop("Feteiras - Igreja") to listOf("08h17", "11h07", "13h12", "15h27", "16h57", "17h57", "19h17"),
+getStop("Feteiras - Biscoito") to listOf("08h20", "11h10", "13h15", "15h30", "17h00", "18h00", "19h20"),
+getStop("Candelária - Centro") to listOf("08h25", "11h15", "13h20", "15h35", "17h05", "18h05", "19h25"),
+getStop("Candelária - Socorro") to listOf("08h30", "11h20", "13h25", "15h40", "17h10", "18h10", "19h30"),
+getStop("Ginetes - Igreja") to listOf("08h35", "11h25", "13h30", "15h45", "17h15", "18h15", "19h35"),
+getStop("Varzea") to listOf("08h40", "11h30", "13h35", "15h50", "17h20", "18h20", "19h40"),
+getStop("Mosteiros - Ramal") to listOf("08h45", "11h35", "13h40", "15h55", "17h25", "18h25", "19h45"),
+getStop("Mosteiros - Igreja") to listOf("08h50", "11h40", "13h45", "16h00", "17h30", "18h30", "19h50"),
+getStop("Mosteiros - Banda de Além") to listOf("08h55", "11h45", "13h50", "16h05", "17h35", "18h35", "19h55"),
+), TypeOfDay.WEEKDAY, img
+getStop("Mosteiros - Banda de Além") to listOf("06h15", "07h05", "09h05", "12h05", "14h45", "16h35"),
+getStop("Mosteiros - Igreja") to listOf("06h20", "07h10", "09h10", "12h10", "14h50", "16h40"),
+getStop("Mosteiros - Ramal") to listOf("06h25", "07h15", "09h15", "12h15", "14h55", "16h45"),
+getStop("Varzea") to listOf("06h30", "07h20", "09h20", "12h20", "15h00", "16h55"),
+getStop("Ginetes - Igreja") to listOf("06h35", "07h25", "09h25", "12h25", "15h05", "17h00"),
+getStop("Candelária - Socorro") to listOf("06h40", "07h30", "09h30", "12h30", "15h10", "17h10"),
+getStop("Candelária - Centro") to listOf("06h48", "07h38", "09h38", "12h38", "15h18", "17h18"),
+getStop("Feteiras - Biscoito") to listOf("06h50", "07h40", "09h40", "12h40", "15h20", "17h20"),
+getStop("Feteiras - Igreja") to listOf("06h53", "07h43", "09h43", "12h43", "15h23", "17h25"),
+getStop("Relva - Canto da Pia") to listOf("07h08", "07h58", "09h58", "12h58", "15h38", "17h40"),
+getStop("Ponta Delgada - Ramalho") to listOf("07h11", "08h01", "10h01", "13h01", "15h41", "17h45"),
+getStop("Ponta Delgada - Hospital") to listOf("07h30", "08h20", "---", "13h20", "---", "---"),
+getStop("Ponta Delgada") to listOf("07h20", "08h10", "10h10", "13h10", "15h50", "17h55"),
+), TypeOfDay.WEEKDAY, img
+getStop("Mosteiros - Banda de Além") to listOf("06h15","07h05","09h05","14h45","16h35"),
+getStop("Mosteiros - Igreja") to listOf("06h20","07h10","09h10","14h50","16h40"),
+getStop("Mosteiros - Ramal") to listOf("06h25","07h15","09h20","14h55","16h45"),
+getStop("Varzea") to listOf("06h30", "07h20", "09h20", "15h00", "16h50"),
+getStop("Ginetes - Igreja") to listOf("06h35","07h25","09h25","15h05","16h55"),
+getStop("Candelária - Socorro") to listOf("06h40","07h30","09h30","15h10","17h00"),
+getStop("Candelária - Centro") to listOf("06h45","07h35","09h35","15h15","17h05"),
+getStop("Feteiras - Biscoito") to listOf("06h50","07h40","09h40","15h20","17h20"),
+getStop("Feteiras - Igreja") to listOf("06h53","07h43","09h43","15h43","17h25"),
+getStop("Relva - Igreja") to listOf("07h08", "---", "---", "15h38", "---"),
+getStop("Relva - Canto da Pia") to listOf("07h13","07h58","09h58","15h41","17h40"),
+getStop("Ponta Delgada - Ramalho") to listOf("07h16","08h01","10h01","15h44","17h45"),
+getStop("Ponta Delgada - Hospital") to listOf("07h35","08h20","---","---","---"),
+getStop("Ponta Delgada") to listOf("07h23","08h08","10h08","15h51","17h53"),
+), TypeOfDay.SATURDAY, img
+getStop("Mosteiros - Banda de Além") to listOf("07h00","11h00","15h00","18h15"),
+getStop("Mosteiros - Igreja") to listOf("07h05", "11h05", "15h05", "18h20"),
+getStop("Mosteiros - Ramal") to listOf("07h10", "11h10", "15h10", "18h25"),
+getStop("Varzea") to listOf("07h15", "11h15", "15h15", "18h30"),
+getStop("Ginetes - Igreja") to listOf("07h20", "11h20", "15h20", "18h35"),
+getStop("Candelária - Socorro") to listOf("07h25","11h25","15h25","18h40"),
+getStop("Candelária - Centro") to listOf("07h30","11h30","15h30","18h45"),
+getStop("Feteiras - Biscoito") to listOf("07h35","11h35","15h35","18h50"),
+getStop("Feteiras - Igreja") to listOf("07h38", "11h38", "15h38", "18h53"),
+getStop("Relva - Igreja") to listOf("07h53", "11h53", "15h53", "19h08"),
+getStop("Relva - Canto da Pia") to listOf("07h58","11h58","15h58","19h13"),
+getStop("Ponta Delgada - Ramalho") to listOf("08h01","12h01","16h01","19h16"),
+getStop("Ponta Delgada") to listOf("08h08", "12h08", "16h08", "19h23"),
+getStop("Ponta Delgada - Hospital") to listOf("08h20","12h20","16h20","19h35"),
+), TypeOfDay.SUNDAY, img
+getStop("Ponta Delgada") to listOf("07h50","13h15","15h00","17h30","19h00"),
+getStop("Ponta Delgada - Hospital") to listOf("---","---","14h45","---","---"),
+getStop("Av Principe Mónaco") to listOf("07h55","13h20","15h05","17h35","19h05"),
+getStop("Ponta Delgada - Ramalho") to listOf("07h57","13h22","15h07","17h37","19h07"),
+getStop("Relva - Canto da Pia") to listOf("08h02","13h27","15h12","17h42","19h12"),
+getStop("Relva - Igreja") to listOf("---", "13h30", "15h15", "---", "---"),
+getStop("Feteiras - Igreja") to listOf("08h17","13h45","15h30","17h57","19h27"),
+getStop("Feteiras - Biscoito") to listOf("08h20","13h48","15h33","18h00","19h30"),
+getStop("Candelária - Centro") to listOf("08h25","13h53","15h38","18h05","19h35"),
+getStop("Candelária - Socorro") to listOf("08h30","13h58","15h43","18h10","19h40"),
+getStop("Ginetes - Igreja") to listOf("08h35","14h03","15h48","18h15","19h45"),
+getStop("Varzea") to listOf("08h40", "14h08", "15h53", "18h20", "19h50"),
+getStop("Mosteiros - Ramal") to listOf("08h45","14h13","15h58","18h25","19h55"),
+getStop("Mosteiros - Igreja") to listOf("08h50","14h18","16h03","18h30","20h00"),
+getStop("Mosteiros - Banda de Além") to listOf("08h55","14h23","16h08","18h35","20h05"),
+), TypeOfDay.SATURDAY, img
+getStop("Ponta Delgada - Hospital") to listOf("08h45","12h15","16h25","19h35"),
+getStop("Ponta Delgada") to listOf("09h00", "12h30", "16h40", "19h45"),
+getStop("Av Principe Mónaco") to listOf("09h05", "12h35", "16h45", "19h50"),
+getStop("Ponta Delgada - Ramalho") to listOf("09h07","12h37","16h47","19h52"),
+getStop("Relva - Canto da Pia") to listOf("09h12","12h42","16h52","19h57"),
+getStop("Relva - Igreja") to listOf("09h15", "12h45", "16h55", "20h00"),
+getStop("Feteiras - Igreja") to listOf("09h30", "13h00", "17h10", "20h15"),
+getStop("Feteiras - Biscoito") to listOf("09h33","13h03","17h13","20h18"),
+getStop("Candelária - Centro") to listOf("09h38","13h08","17h18","20h23"),
+getStop("Candelária - Socorro") to listOf("09h43","13h13","17h23","20h28"),
+getStop("Ginetes - Igreja") to listOf("09h48", "13h18", "17h28", "20h33"),
+getStop("Varzea") to listOf("09h53", "13h23", "17h33", "20h38"),
+getStop("Mosteiros - Ramal") to listOf("09h58", "13h28", "17h38", "20h43"),
+getStop("Mosteiros - Igreja") to listOf("10h03", "13h33", "17h43", "20h48"),
+getStop("Mosteiros - Banda de Além") to listOf("10h08","13h38","17h48","20h53"),
+), TypeOfDay.SUNDAY, img
+route "202"
+getStop("Covoada - Encruzilhada") to listOf("08h50"),
+getStop("Relva - Canto da Pia") to listOf("08h58"),
+getStop("Ponta Delgada - Ramalho") to listOf("09h01"),
+getStop("Ponta Delgada") to listOf("09h08"),
+), TypeOfDay.SATURDAY, img
+getStop("Ponta Delgada") to listOf("11h30"),
+getStop("Av Principe Mónaco") to listOf("11h35"),
+getStop("Ponta Delgada - Ramalho") to listOf("11h37"),
+getStop("Relva - Canto da Pia") to listOf("11h42"),
+getStop("Covoada - Encruzilhada") to listOf("11h53"),
+), TypeOfDay.SATURDAY, img
+getStop("Ponta Delgada") to listOf("08h25", "11h30", "15h45", "18h10"),
+getStop("Av Principe Mónaco") to listOf("08h30", "11h35", "15h50", "18h15"),
+getStop("Ponta Delgada - Ramalho") to listOf("08h32", "11h37", "15h52", "18h17"),
+getStop("Relva - Canto da Pia") to listOf("08h37", "11h42", "15h57", "18h22"),
+getStop("Covoada - Encruzilhada") to listOf("08h45", "11h50", "16h05", "18h30"),
+), TypeOfDay.WEEKDAY, img
+getStop("Covoada - Encruzilhada") to listOf("07h00", "08h00", "08h50", "13h00"),
+getStop("Relva - Canto da Pia") to listOf("07h08", "08h08", "08h58", "13h08"),
+getStop("Ponta Delgada - Ramalho") to listOf("07h11", "08h11", "09h01", "13h11"),
+getStop("Ponta Delgada") to listOf("07h20", "08h20", "09h10", "13h20")
+), TypeOfDay.WEEKDAY, img
+route "200"
+getStop("Ponta Delgada") to listOf("08h10", "09h10", "10h10", "11h10", "12h10", "14h10", "17h10", "18h10", "19h10", "20h10"),
+getStop("Av Principe Mónaco") to listOf("08h15", "09h15", "15h15", "11h15", "12h15", "14h15", "17h15", "18h15", "19h15", "20h15"),
+getStop("Ponta Delgada - Ramalho") to listOf("08h17", "09h17", "17h17", "11h17", "12h17", "14h17", "17h17", "18h17", "19h17", "20h17"),
+getStop("Relva - Canto da Pia") to listOf("08h22", "09h22", "22h22", "11h22", "12h22", "14h22", "17h22", "18h22", "19h22", "20h22"),
+getStop("Relva - Igreja") to listOf("08h30", "09h30", "30h30", "11h30", "12h30", "14h30", "17h30", "18h30", "19h30", "20h30"),
+), TypeOfDay.WEEKDAY, img),
+getStop("Relva - Igreja") to listOf("07h00", "08h35", "09h35", "10h35","11h35", "12h35", "13h35", "14h35", "16h35", "17h35", "18h35", "19h35"),
+getStop("Relva - Canto da Pia") to listOf("07h05", "08h40", "09h40", "10h40","11h40", "12h40", "13h40", "14h40", "16h40", "17h40", "18h40", "19h40"),
+getStop("Ponta Delgada - Ramalho") to listOf("07h10", "08h45", "09h45", "10h45","11h45", "12h45", "13h45", "14h45", "16h45", "17h45", "18h45", "19h45"),
+getStop("Ponta Delgada") to listOf("07h20", "08h55", "09h55", "10h55","11h55", "12h55", "13h55", "14h55", "16h55", "17h55", "18h55", "19h55"),
+), TypeOfDay.WEEKDAY, img
+getStop("Relva - Igreja") to listOf("07h45", "08h35", "09h35", "10h35", "12h35"),
+getStop("Relva - Canto da Pia") to listOf("07h50", "08h40", "09h40", "10h40", "12h42"),
+getStop("Ponta Delgada - Ramalho") to listOf("07h55", "08h45", "09h45", "10h45", "12h46"),
+getStop("Ponta Delgada") to listOf("08h03", "08h53", "09h53", "10h53", "12h53"),
+), TypeOfDay.SATURDAY, img
+getStop("Ponta Delgada") to listOf("08h10", "09h10", "10h10", "12h10"),
+getStop("Av Principe Mónaco") to listOf("08h15", "09h15", "10h15", "12h15"),
+getStop("Ponta Delgada - Ramalho") to listOf("08h17", "09h17", "10h17", "12h17"),
+getStop("Relva - Igreja") to listOf("08h30", "09h30", "10h30", "12h30"),
+), TypeOfDay.SATURDAY, img),
+route "201"
+getStop("Ponta Delgada") to listOf("13h10", "16h10", "16h40"),
+getStop("Av Principe Mónaco") to listOf("13h15", "16h15", "16h45"),
+getStop("Ponta Delgada - Ramalho") to listOf("13h17", "16h17", "16h47"),
+getStop("Relva - Canto da Pia") to listOf("13h22", "16h22", "16h52"),
+getStop("Relva - Igreja") to listOf("13h30", "16h30", "17h00"),
+), TypeOfDay.WEEKDAY, img),
+getStop("Relva - Igreja") to listOf("07h45"),
+getStop("Relva - Canto da Pia") to listOf("07h50"),
+getStop("Ponta Delgada - Ramalho") to listOf("07h56"),
+getStop("Ponta Delgada") to listOf("08h05"),
+), TypeOfDay.WEEKDAY, img)
+route "203"
+getStop("Ponta Delgada") to listOf("17h30"),
+getStop("Av Principe Mónaco") to listOf("17h35"),
+getStop("Ponta Delgada - Ramalho") to listOf("17h37"),
+getStop("Relva - Canto da Pia") to listOf("17h42"),
+getStop("Feteiras - Igreja")to listOf("17h57"),
+getStop("Feteiras - Biscoito") to listOf("18h00"),
+), TypeOfDay.WEEKDAY, img),
+getStop("Feteiras - Biscoito") to listOf("08h10"),
+getStop("Feteiras - Igreja")to listOf("08h13"),
+getStop("Relva - Canto da Pia") to listOf("08h28"),
+getStop("Ponta Delgada - Ramalho") to listOf("08h31"),
+getStop("Ponta Delgada") to listOf("08h40"),
+), TypeOfDay.WEEKDAY, img)
+route "204"
+getStop("Candelária - Socorro") to listOf("06h10", "08h30"),
+getStop("Candelária - Centro")to listOf("06h18", "08h39"),
+getStop("Feteiras - Biscoito") to listOf("06h20", "08h42"),
+getStop("Feteiras - Igreja")to listOf("06h23", "08h46"),
+getStop("Relva - Canto da Pia") to listOf("06h38", "09h04"),
+getStop("Ponta Delgada - Ramalho") to listOf("06h41", "09h10"),
+getStop("Ponta Delgada") to listOf("06h50", "09h20"),
+), TypeOfDay.WEEKDAY, img)
