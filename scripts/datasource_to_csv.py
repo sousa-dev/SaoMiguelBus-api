@@ -1,5 +1,14 @@
 from sys import argv
 
+def print_usage():
+    """
+    Print usage
+    """
+    print("Usage: python3 datasource_to_csv.py <input_file> <output_file> <entity>")
+    print("<entity> can be either 'stops' or 'routes'")
+    print("Example: python3 datasource_to_csv.py data/stops.txt out/stops.csv stops")
+    print("Example: python3 datasource_to_csv.py data/avm_routes.txt out/routes.csv routes")
+
 def stops_to_csv(input, output):
     """
     Write stops to csv
@@ -49,6 +58,9 @@ def main():
     """
     Main function
     """
+    if len(argv) == 1 or argv[1] == "-h" or argv[1] == "--help" :
+        print_usage()
+        exit(0)
 
     input = argv[1]
     output = argv[2]
