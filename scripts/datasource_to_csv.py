@@ -1,5 +1,29 @@
 from sys import argv
 
+FUNC_NAME_TO_INFO = { 
+    'rossioBanif': {
+        "pt": "Passagem em 'Capelas - Rossio' junto ao Santander", 
+        "en": "Bus Stop in 'Capelas - Rossio' near Santander",
+        "es": "Parada de autobús en 'Capelas - Rossio' cerca de Santander",
+        "fr": "Arrêt de bus à 'Capelas - Rossio' près de Santander",
+        "de": "Bushaltestelle in 'Capelas - Rossio' bei Santander"
+        },
+    'rossioCaixa':  {
+        "pt": "Passagem em 'Capelas - Rossio' junto à escola", 
+        "en": "Bus Stop in 'Capelas - Rossio' near the School",
+        "es": "Parada de autobús en 'Capelas - Rossio' cerca de la escuela",
+        "fr": "Arrêt de bus à 'Capelas - Rossio' près de l'école",
+        "de": "Bushaltestelle in 'Capelas - Rossio' in der Nähe der Schule"
+        },
+    'fsaobras':  {
+        "pt": "Saída no Forte de São Brás", 
+        "en": "This service starts at Forte de São Brás",
+        "es": "Este servicio comienza en Forte de São Brás",
+        "fr": "Ce service commence à Forte de São Brás",
+        "de": "Dieser Service beginnt bei Forte de São Brás"
+        },
+}
+
 def print_usage():
     """
     Print usage
@@ -30,12 +54,14 @@ def routes_to_csv(input, output):
     route = -1
     type_of_day = None
     details = []
+    func_name = None
     with open(input, 'r') as f_in:
         with open(output, 'w') as f_out:
             f_out.write("stop, times, type_of_day\n")
             for line in f_in:
                 if line.startswith("route"):
                     type_of_day = None
+                    func_name = None
                     route = line.split()[-1].replace("\"", "")
                     details = [route]
                 elif line.startswith("getStop"):
@@ -43,13 +69,20 @@ def routes_to_csv(input, output):
                     temp_details = clean_line.strip().split(',')
                     details.append([detail.strip() for detail in temp_details if detail != ""])
                 elif "TypeOfDay" in line:
+                    if "Functions()" in line:
+                        function = line.split(',')[-1].split('.')
+                        if len(function) > 1:
+                            func_name = function[1].split('(')[0]
+                            func_name = FUNC_NAME_TO_INFO[func_name]
                     type_of_day = line.split(",")[1].replace("TypeOfDay.", "").strip()
                     details.append(type_of_day)
+                    details.append(func_name)
 
                     routes.append(details)
 
                     details = [route]
                     type_of_day = None
+                    func_name = None
     for route in routes:
         #TODO: Process route to store it on csv file
         print(route)
