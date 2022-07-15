@@ -1,10 +1,12 @@
 from django.db import models
 from jsonfield import JSONField
+from sqlalchemy import null
 
 
 # Create your models here.
 
 class Stop(models.Model):
+    id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=100)
     latitude = models.FloatField()
     longitude = models.FloatField()
@@ -12,9 +14,9 @@ class Stop(models.Model):
         return self.name
 
 class Route(models.Model):
-    id = models.CharField(max_length=100, primary_key=True)
+    id = models.AutoField(primary_key=True)
     route = models.CharField(max_length=100)
-    stops = models.ManyToManyField(Stop)
+    stops = JSONField()
     type_of_day = models.CharField(max_length=100)
     information = JSONField()
     def __str__(self):
