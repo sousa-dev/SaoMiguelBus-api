@@ -1,9 +1,10 @@
 from django.shortcuts import render
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from app.models import Stop, Route
-from app.serializers import StopSerializer, RouteSerializer
+from app.models import Stop, Route, ReturnRoute
+from app.serializers import StopSerializer, RouteSerializer, ReturnRouteSerializer
 from datetime import datetime
+import json
 
 
 # Create your views here.
@@ -25,7 +26,7 @@ def get_all_routes_v1(request):
         return Response(serializer.data)
 
 @api_view(['GET'])
-def get_route_v1(request):
+def get_trip_v1(request):
     if request.method == 'GET':
         try:
             routes = Route.objects.all()
@@ -40,7 +41,28 @@ def get_route_v1(request):
             type_of_day = request.GET.get('day', '')
             if type_of_day != '':
                 routes = routes.filter(type_of_day=type_of_day.upper())
+            start_time = request.GET.get('start', '')
+            if start_time != '':
+                pass
+            full = True if request.GET.get('full', '').lower() == 'true' else False
+            if not full:
+                #TODO: format route.stops to exclude stops outside the scope
+                pass
+            #TODO: get origin, destination, start and end time
+            return_routes = [ReturnRoute(route.id, route.route, "origin", "destination", "start", "end", route.stops, route.type_of_day, route.information).__dict__ for route in routes]
+            return Response(return_routes)
+        except Exception:
+            print(Exception)
+            return Response(status=404)
+
+@api_view(['GET'])
+def get_route_v1(request, route_id):
+    if request.method == 'GET':
+        try:
+            routes = Route.objects.all()
+            routes = routes.filter(route__icontains=route_id)
             serializer = RouteSerializer(routes, many=True)
+            #TODO: Return a new formatted entity
             return Response(serializer.data)
         except Exception:
             print(Exception)

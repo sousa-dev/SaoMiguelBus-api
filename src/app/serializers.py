@@ -1,6 +1,5 @@
 from rest_framework import serializers
-from app.models import Stop,Route
-
+from app.models import Stop, Route, ReturnRoute
 class StopSerializer(serializers.ModelSerializer):
     class Meta:
         model = Stop
@@ -9,4 +8,9 @@ class StopSerializer(serializers.ModelSerializer):
 class RouteSerializer(serializers.ModelSerializer):
     class Meta:
         model = Route
+        fields = '__all__'
+
+class ReturnRouteSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ReturnRoute
         fields = '__all__'

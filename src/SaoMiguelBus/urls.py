@@ -23,5 +23,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/v1/stops', views.get_all_stops_v1),
     path('api/v1/routes', views.get_all_routes_v1),
-    path('api/v1/route', views.get_route_v1),
+    path('api/v1/route', views.get_trip_v1),
+    path('api/v1/route/<int:route_id>', views.get_route_v1),
 ]
