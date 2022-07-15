@@ -57,7 +57,7 @@ def routes_to_csv(input, output):
     func_name = None
     with open(input, 'r') as f_in:
         with open(output, 'w') as f_out:
-            f_out.write("stop, times, type_of_day\n")
+            f_out.write("id; stop; times; type_of_day; information\n")
             for line in f_in:
                 if line.startswith("route"):
                     type_of_day = None
@@ -83,9 +83,22 @@ def routes_to_csv(input, output):
                     details = [route]
                     type_of_day = None
                     func_name = None
-    for route in routes:
-        #TODO: Process route to store it on csv file
-        print(route)
+            for route in routes:
+                stop_times = {}
+                route_id = route[0]
+                stops = route[1:-2]
+                for stop in stops:
+                    stop_times[stop[0]] = stop[1:]
+                day = route[-2]
+                info = route[-1]
+                for i in range(len(list(stop_times.values())[0])):
+                    times = {}
+                    for stop in stop_times:
+                        if stop_times[stop][i] != "---":
+                            times[stop] = stop_times[stop][i]
+                    f_out.write(f"{route_id+'-'+list(times.values())[0]};{route_id};{times};{day};{info}\n")
+                #print(f"{route_id};{stop_times};{day};{info}\n")
+                #f_out.write(f"{route_id};{stops};{day};{info}\n")
 
 def main():
     """
@@ -98,6 +111,7 @@ def main():
     input = argv[1]
     output = argv[2]
     entity = argv[3]
+    return stops_to_csv(input, output) if entity == "stops" else routes_to_csv(input, output)
 
     try:
         return stops_to_csv(input, output) if entity == "stops" else routes_to_csv(input, output)
