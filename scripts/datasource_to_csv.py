@@ -22,6 +22,62 @@ FUNC_NAME_TO_INFO = {
         "fr": "Ce service commence à Forte de São Brás",
         "de": "Dieser Service beginnt bei Forte de São Brás"
         },
+    'justFriday': {
+        "pt": "Só à Sexta-Feira", 
+        "en": "Just Friday",
+        "es": "Solo viernes",
+        "fr": "Juste vendredi",
+        "de": "Nur Freitag"
+        },
+    'r318': {
+        "pt": "a) De Segunda a Quinta // b) Só à Sexta", 
+        "en": "a) From Monday to Thursday // b) Just Friday",
+        "es": "a) De lunes a jueves // b) Solo viernes",
+        "fr": "a) Du lundi au jeudi // b) Uniquement le vendredi",
+        "de": "a) Von Montag bis Donnerstag // b) Nur am Freitag"
+        },
+    'avDHenrique': {
+        "pt": "Saída no lado Sul da Av. Infante D.Henrique", 
+        "en": "This service starts in the South Side of Av. Infante D.Henrique.",
+        "es": "Este servicio se inicia en el lado sur de la Av. Infante D. Henrique.",
+        "fr": "Ce service commence dans le côté sud de l'Av. Infante D. Henrique.",
+        "de": "Dieser Service beginnt in der Südseite der Av. Infante D. Henrique."
+        },
+    'tourismOffice': {
+        "pt": "Saída junto ao Posto de Turismo", 
+        "en": "This service starts next to the Tourism Office.",
+        "es": "Este servicio comienza junto a la Oficina de Turismo.",
+        "fr": "Ce service démarre à côté de l'Office de Tourisme.",
+        "de": "Dieser Service beginnt neben dem Tourismusbüro."
+        },
+    'school': {
+        "pt": "Período Escolar", 
+        "en": "School Period",
+        "es": "Periodo Escolar",
+        "fr": "Période Scolaire",
+        "de": "Schulzeit"
+        },
+    'normal': {
+        "pt": "Período Normal", 
+        "en": "Normal Period",
+        "es": "Periodo normal",
+        "fr": "Période normale",
+        "de": "Normale Periode"
+        },
+    'julyToSep': {
+        "pt": "De 15 de julho até 15 de setembro", 
+        "en": "From July 15th to September 15th",
+        "es": "Del 15 de julio al 15 de septiembre",
+        "fr": "Du 15 juillet au 15 septembre",
+        "de": "Vom 15. Juli bis 15. September"
+        },
+    'onlySchool': {
+        "pt": "Só em período escolar", 
+        "en": "Only School Period",
+        "es": "Solo período escolar",
+        "fr": "Période scolaire uniquement",
+        "de": "Nur Schulzeit"
+        },    
 }
 
 def print_usage():
@@ -57,7 +113,7 @@ def routes_to_csv(input, output):
     func_name = None
     with open(input, 'r') as f_in:
         with open(output, 'w') as f_out:
-            f_out.write("id; stop; times; type_of_day; information\n")
+            f_out.write("id; route; times; type_of_day; information\n")
             for line in f_in:
                 if line.startswith("route"):
                     type_of_day = None
@@ -70,7 +126,7 @@ def routes_to_csv(input, output):
                     details.append([detail.strip() for detail in temp_details if detail != ""])
                 elif "TypeOfDay" in line:
                     if "Functions()" in line:
-                        function = line.split(',')[-1].split('.')
+                        function = line.rstrip().split(',')[-2].split('.')
                         if len(function) > 1:
                             func_name = function[1].split('(')[0]
                             func_name = FUNC_NAME_TO_INFO[func_name]
@@ -97,8 +153,6 @@ def routes_to_csv(input, output):
                         if stop_times[stop][i] != "---":
                             times[stop] = stop_times[stop][i]
                     f_out.write(f"{route_id+'-'+list(times.values())[0]};{route_id};{times};{day};{info}\n")
-                #print(f"{route_id};{stop_times};{day};{info}\n")
-                #f_out.write(f"{route_id};{stops};{day};{info}\n")
 
 def main():
     """
