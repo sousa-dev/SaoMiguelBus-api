@@ -78,6 +78,13 @@ FUNC_NAME_TO_INFO = {
         "fr": "Période scolaire uniquement",
         "de": "Nur Schulzeit"
         },    
+    'onlyTT': {
+        "pt": "*Só Terças e Quintas", 
+        "en": "*Only Tuesday and Thursday",
+        "es": "*Solo martes y jueves",
+        "fr": "*Uniquement le mardi et le jeudi",
+        "de": "*Nur Dienstag und Donnerstag"
+        },    
 }
 
 def print_usage():
@@ -129,6 +136,8 @@ def routes_to_csv(input, output):
                         function = line.rstrip().split(',')[-2].split('.')
                         if len(function) > 1:
                             func_name = function[1].split('(')[0]
+                            if func_name not in FUNC_NAME_TO_INFO:
+                                print(func_name)
                             func_name = FUNC_NAME_TO_INFO[func_name]
                     type_of_day = line.split(",")[1].replace("TypeOfDay.", "").strip()
                     details.append(type_of_day)
