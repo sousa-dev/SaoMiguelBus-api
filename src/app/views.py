@@ -68,3 +68,17 @@ def get_route_v1(request, route_id):
             print(Exception)
             return Response(status=404)
 
+@api_view(['GET'])
+def get_android_load_v1(request):
+        if request.method == 'GET':
+            try:
+                all_routes = Route.objects.all()
+                for route in all_routes:
+                    #TODO: Get formatted route to load on Sao Miguel Bus Android app
+                    print(route)
+                serializer = RouteSerializer(all_routes, many=True)
+                return Response(serializer.data)
+            except Exception:
+                print(Exception)
+                return Response(status=404)
+

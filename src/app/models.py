@@ -20,11 +20,16 @@ class Route(models.Model):
     stops = JSONField()
     type_of_day = models.CharField(max_length=100)
     information = JSONField()
+
+    start = ""
+    start_time = ""
+    end = ""
+
     def __str__(self):
-        start = self.stops.split(',')[0].split(':')[0].replace('{','').replace('\'','')
-        start_time = self.stops.split(',')[0].split(':')[1].replace('{','').replace('\'','')
-        end = self.stops.split(',')[-1].split(':')[0].replace('}','').replace('\'','')
-        return f"{self.route} | {start} -> {end} | {start_time}"
+        self.start = self.stops.split(',')[0].split(':')[0].replace('{','').replace('\'','').strip()
+        self.start_time = self.stops.split(',')[0].split(':')[1].replace('{','').replace('\'','').strip()
+        self.end = self.stops.split(',')[-1].split(':')[0].replace('}','').replace('\'','').strip()
+        return f"{self.route.strip()} | {self.start} -> {self.end} | {self.start_time}"
 
 class ReturnRoute():
     def __init__(self, id, route, origin, destination, start, end, stops, type_of_day, information):
@@ -39,3 +44,17 @@ class ReturnRoute():
         self.information = information
     def __str__(self):
         return self.route
+
+class LoadRoute():
+    def __init__(self, id, route, stops, times, weekday, information = ""):
+        self.id = id
+        self.route = route
+        self.stops = stops
+        self.times = times
+        self.weekday = weekday
+        self.information = information
+    def __str__(self):
+        stop_times = ""
+        for stop in self.stops:
+            stop_times += f"{stop}-{self.times[stop]},"
+        return '{' + f'"id": {self.id}, "route": {self.route}, "stops": {stop_times}, "weekday": {self.weekday}, "information": {self.information}' + '}'
