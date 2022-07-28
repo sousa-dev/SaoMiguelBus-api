@@ -75,7 +75,13 @@ def get_android_load_v1(request):
             try:
                 all_routes = Route.objects.all()
                 all_routes = all_routes.exclude(disabled=True)
+                loads = []
                 for route in all_routes:
+                    route_id = route.route
+                    unique_id = route.id
+                    type_of_day = route.type_of_day
+                    information = route.information
+                    print(route_id, unique_id, type_of_day, information)
                     #TODO: Get formatted route to load on Sao Miguel Bus Android app
                     stops = route.stops.replace('\'', '').replace('{', '').replace('}', '').split(',')
                     for stop in stops:
