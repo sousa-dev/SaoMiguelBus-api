@@ -20,6 +20,7 @@ class Route(models.Model):
     stops = JSONField()
     type_of_day = models.CharField(max_length=100)
     information = JSONField()
+    disabled = models.BooleanField(default=False)
 
     start = ""
     start_time = ""

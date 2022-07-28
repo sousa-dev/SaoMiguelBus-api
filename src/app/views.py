@@ -30,6 +30,7 @@ def get_trip_v1(request):
     if request.method == 'GET':
         try:
             routes = Route.objects.all()
+            routes = routes.exclude(disabled=True)
             origin = request.GET.get('origin', '')
             routes = routes.filter(stops__icontains=origin) if origin != '' else routes
             destination = request.GET.get('destination', '')
@@ -73,6 +74,7 @@ def get_android_load_v1(request):
         if request.method == 'GET':
             try:
                 all_routes = Route.objects.all()
+                all_routes = all_routes.exclude(disabled=True)
                 for route in all_routes:
                     #TODO: Get formatted route to load on Sao Miguel Bus Android app
                     print(route)
