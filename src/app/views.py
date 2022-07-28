@@ -77,10 +77,15 @@ def get_android_load_v1(request):
                 all_routes = all_routes.exclude(disabled=True)
                 for route in all_routes:
                     #TODO: Get formatted route to load on Sao Miguel Bus Android app
-                    print(route)
+                    stops = route.stops.replace('\'', '').replace('{', '').replace('}', '').split(',')
+                    for stop in stops:
+                        stop_name = stop.split(':')[0].strip()
+                        stop_time = stop.split(':')[1].strip()
+                        print(stop_name, stop_time)
                 serializer = RouteSerializer(all_routes, many=True)
+                return Response("pass")
                 return Response(serializer.data)
-            except Exception:
-                print(Exception)
+            except Exception as e:
+                print(e)
                 return Response(status=404)
 
