@@ -30,7 +30,7 @@ class Route(models.Model):
         self.start = self.stops.split(',')[0].split(':')[0].replace('{','').replace('\'','').strip()
         self.start_time = self.stops.split(',')[0].split(':')[1].replace('{','').replace('\'','').strip()
         self.end = self.stops.split(',')[-1].split(':')[0].replace('}','').replace('\'','').strip()
-        return f"{self.route.strip()} | {self.start} -> {self.end} | {self.start_time}"
+        return f"{self.route.strip()} | {self.start} -> {self.end} | {self.start_time} | {self.type_of_day}"
 
 class ReturnRoute():
     def __init__(self, id, route, origin, destination, start, end, stops, type_of_day, information):

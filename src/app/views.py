@@ -1,8 +1,9 @@
 from django.shortcuts import render
+from numpy import full
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from app.models import Stop, Route, ReturnRoute
-from app.serializers import StopSerializer, RouteSerializer, ReturnRouteSerializer
+from app.models import Stop, Route, ReturnRoute, LoadRoute
+from app.serializers import StopSerializer, RouteSerializer, ReturnRouteSerializer, LoadRouteSerializer
 from datetime import datetime
 import json
 
@@ -76,7 +77,20 @@ def get_android_load_v1(request):
                 all_routes = Route.objects.all()
                 all_routes = all_routes.exclude(disabled=True)
                 loads = []
+                full_routes = {}
                 for route in all_routes:
+                    if route.route in full_routes:
+                        full_routes[route.route].append(route)
+                    else:
+                        full_routes[route.route] = [route]
+                print(full_routes)
+                for route_id in full_routes:
+                    print("\n\n\n"+route_id)
+                    for route in full_routes[route_id]:
+                        print(route)
+                        print(route.start)
+                        print(route.end)
+                '''
                     route_id = route.route
                     unique_id = route.id
                     type_of_day = route.type_of_day
@@ -84,13 +98,16 @@ def get_android_load_v1(request):
                     print(route_id, unique_id, type_of_day, information)
                     #TODO: Get formatted route to load on Sao Miguel Bus Android app
                     stops = route.stops.replace('\'', '').replace('{', '').replace('}', '').split(',')
-                    for stop in stops:
-                        stop_name = stop.split(':')[0].strip()
-                        stop_time = stop.split(':')[1].strip()
-                        print(stop_name, stop_time)
-                serializer = RouteSerializer(all_routes, many=True)
+                    stop_times = [(stop.split(':')[0].strip(), stop.split(':')[1].strip()) for stop in stops]
+                    print(stop_times)
+                    
+                    if route.route in full_routes:
+                        full_routes[route.route].append(LoadRoute(route.id, route.route, stop_name, stop_time, route.type_of_day, route.information).__dict__)
+                    else:
+                        full_routes[route.route] = [LoadRoute(route.id, route.route, stop_name, stop_time, route.type_of_day, route.information).__dict__]
+                '''
+                #print(full_routes)
                 return Response("pass")
-                return Response(serializer.data)
             except Exception as e:
                 print(e)
                 return Response(status=404)
