@@ -120,7 +120,7 @@ def routes_to_csv(input, output):
     func_name = None
     with open(input, 'r') as f_in:
         with open(output, 'w') as f_out:
-            f_out.write("id; route; times; type_of_day; information\n")
+            f_out.write("route; type_of_day; information; times\n")
             for line in f_in:
                 if line.startswith("route"):
                     type_of_day = None
@@ -161,7 +161,7 @@ def routes_to_csv(input, output):
                     for stop in stop_times:
                         if stop_times[stop][i] != "---":
                             times[stop] = stop_times[stop][i]
-                    f_out.write(f"{route_id+'-'+list(times.values())[0]};{route_id};{times};{day};{info}\n")
+                    f_out.write(f"{route_id};{day};{info};{times}\n")
 
 def main():
     """
