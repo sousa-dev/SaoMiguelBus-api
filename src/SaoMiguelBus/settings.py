@@ -16,8 +16,6 @@ import os
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
-
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
@@ -25,9 +23,9 @@ STATIC_ROOT = os.path.join(BASE_DIR, "static")
 SECRET_KEY = 'hjq2808rur(19m(zf$3ahcxi=!r74qdvkard7a4yc32j3^jwss'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['saomiguelbus-api.herokuapp.com']
+ALLOWED_HOSTS = ['saomiguelbus-api.herokuapp.com', '127.0.0.1']
 
 
 # Application definition
@@ -43,8 +41,6 @@ INSTALLED_APPS = [
     'corsheaders',
     'app.apps.AppConfig',
 ]
-
-CORS_ORIGIN_ALLOW_ALL = True
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',

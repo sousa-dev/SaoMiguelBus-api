@@ -4,6 +4,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from app.models import Stop, Route, ReturnRoute, LoadRoute
 from app.serializers import StopSerializer, RouteSerializer, ReturnRouteSerializer, LoadRouteSerializer
+from django.views.decorators.http import require_GET
 from datetime import datetime
 import json
 
@@ -12,6 +13,7 @@ import json
 
 #Get All Stops
 @api_view(['GET'])
+@require_GET
 def get_all_stops_v1(request):
     if request.method == 'GET':
         all_stops = Stop.objects.all()
@@ -20,6 +22,7 @@ def get_all_stops_v1(request):
 
 #Get All Routes
 @api_view(['GET'])
+@require_GET
 def get_all_routes_v1(request):
     if request.method == 'GET':
         all_routes = Route.objects.all()
@@ -27,6 +30,7 @@ def get_all_routes_v1(request):
         return Response(serializer.data)
 
 @api_view(['GET'])
+@require_GET
 def get_trip_v1(request):
     if request.method == 'GET':
         try:
@@ -58,6 +62,7 @@ def get_trip_v1(request):
             return Response(status=404)
 
 @api_view(['GET'])
+@require_GET
 def get_route_v1(request, route_id):
     if request.method == 'GET':
         try:
@@ -72,6 +77,7 @@ def get_route_v1(request, route_id):
 
 
 @api_view(['GET'])
+@require_GET
 def get_android_load_v1(request):
         if request.method == 'GET':
             try:
@@ -89,6 +95,7 @@ def get_android_load_v1(request):
                 return Response(status=404)
 
 @api_view(['GET'])
+@require_GET
 def get_android_load_v2(request):
         if request.method == 'GET':
             try:
