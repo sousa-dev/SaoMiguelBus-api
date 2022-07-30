@@ -27,7 +27,7 @@ SECRET_KEY = 'hjq2808rur(19m(zf$3ahcxi=!r74qdvkard7a4yc32j3^jwss'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['https://saomiguelbus-api.herokuapp.com/']
+ALLOWED_HOSTS = ['saomiguelbus-api.herokuapp.com']
 
 
 # Application definition
