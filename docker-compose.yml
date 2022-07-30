@@ -1,0 +1,14 @@
+version: "3.1"
+   
+services:
+  django:
+    restart: always
+    build: ./src
+    command: >
+      bash -c "python manage.py migrate
+      && python manage.py runserver 0.0.0.0:8080"
+      && python manage.py createsuperuser --noinput --username admin --password adminpassword
+    volumes:
+      - ./src:/code
+    ports:
+      - 8080:8080

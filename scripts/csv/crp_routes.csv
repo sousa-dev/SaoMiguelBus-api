@@ -1,0 +1,216 @@
+route; type_of_day; information; times
+101;WEEKDAY;None;{'Ponta Delgada': '08h25', 'Moviarte': '08h32', 'Caldeirão': '08h40', 'Ribeira Seca': '08h52', 'Ribeira Grande': '08h55'}
+101;WEEKDAY;None;{'Ponta Delgada': '17h15', 'Moviarte': '17h22', 'Caldeirão': '17h30', 'Ribeira Seca': '17h41', 'Ribeirinha': '18h00', 'Ribeira Grande': '17h45'}
+101;WEEKDAY;None;{'Ponta Delgada': '17h45', 'Moviarte': '17h52', 'Caldeirão': '18h00', 'Ribeira Seca': '18h12', 'Ribeira Grande': '18h15'}
+101;WEEKDAY;None;{'Ponta Delgada': '18h15', 'Moviarte': '18h22', 'Caldeirão': '18h22', 'Ribeira Seca': '18h42', 'Ribeirinha': '19h00', 'Ribeira Grande': '18h45'}
+101;WEEKDAY;None;{'Ribeirinha': '07h00', 'Ribeira Grande': '07h15', 'Ribeira Seca': '07h18', 'Caldeirão': '07h31', 'Moviarte': '07h38', 'Ponta Delgada': '07h50'}
+101;WEEKDAY;None;{'Ribeirinha': '07h30', 'Ribeira Grande': '07h45', 'Ribeira Seca': '07h48', 'Caldeirão': '08h01', 'Moviarte': '08h08', 'Ponta Delgada': '08h17'}
+101;WEEKDAY;None;{'Ribeirinha': '08h00', 'Ribeira Grande': '08h15', 'Ribeira Seca': '08h18', 'Caldeirão': '08h31', 'Moviarte': '08h38', 'Ponta Delgada': '08h50'}
+101;WEEKDAY;None;{'Ribeirinha': '12h00', 'Ribeira Grande': '12h15', 'Ribeira Seca': '12h18', 'Caldeirão': '12h31', 'Moviarte': '12h38', 'Ponta Delgada': '12h50'}
+102;WEEKDAY;None;{'Ponta Delgada': '07h35', 'Moviarte': '07h41', 'Caldeirão': '07h51', 'Pico da Pedra': '07h57', 'Calhetas': '08h03', 'Rabo de Peixe': '08h08', 'Ribeira Grande': '08h20', 'Ribeirinha': '08h30'}
+102;WEEKDAY;None;{'Ponta Delgada': '08h15', 'Moviarte': '08h21', 'Caldeirão': '08h31', 'Pico da Pedra': '08h37', 'Calhetas': '08h43', 'Rabo de Peixe': '08h48', 'Ribeira Grande': '09h00'}
+102;WEEKDAY;None;{'Ponta Delgada': '09h15', 'Moviarte': '09h21', 'Caldeirão': '09h31', 'Pico da Pedra': '09h37', 'Calhetas': '09h43', 'Rabo de Peixe': '09h48', 'Ribeira Grande': '10h00'}
+102;WEEKDAY;None;{'Ponta Delgada': '11h30', 'Moviarte': '11h36', 'Caldeirão': '11h46', 'Pico da Pedra': '11h52', 'Calhetas': '11h58', 'Rabo de Peixe': '12h03', 'Ribeira Grande': '12h20'}
+102;WEEKDAY;None;{'Ponta Delgada': '12h30', 'Moviarte': '12h36', 'Caldeirão': '12h46', 'Pico da Pedra': '12h52', 'Calhetas': '12h58', 'Rabo de Peixe': '13h03', 'Ribeira Grande': '13h15', 'Ribeirinha': '12h30'}
+102;WEEKDAY;None;{'Ponta Delgada': '13h30', 'Moviarte': '13h36', 'Caldeirão': '13h46', 'Pico da Pedra': '13h52', 'Calhetas': '13h58', 'Rabo de Peixe': '15h03', 'Ribeira Grande': '14h15'}
+102;WEEKDAY;None;{'Ponta Delgada': '14h30', 'Moviarte': '14h36', 'Caldeirão': '14h46', 'Pico da Pedra': '14h52', 'Calhetas': '14h58', 'Rabo de Peixe': '15h03', 'Ribeira Grande': '15h15'}
+102;WEEKDAY;None;{'Ponta Delgada': '15h30', 'Moviarte': '15h36', 'Caldeirão': '15h46', 'Pico da Pedra': '15h52', 'Calhetas': '15h58', 'Rabo de Peixe': '16h03', 'Ribeira Grande': '16h15'}
+102;WEEKDAY;None;{'Ponta Delgada': '16h30', 'Moviarte': '16h36', 'Caldeirão': '16h46', 'Pico da Pedra': '16h52', 'Calhetas': '16h58', 'Rabo de Peixe': '17h03', 'Ribeira Grande': '17h15'}
+102;WEEKDAY;None;{'Ponta Delgada': '17h30', 'Moviarte': '17h36', 'Caldeirão': '17h46', 'Pico da Pedra': '17h52', 'Calhetas': '17h58', 'Rabo de Peixe': '18h03', 'Ribeira Grande': '18h15'}
+102;WEEKDAY;None;{'Ponta Delgada': '18h40', 'Moviarte': '18h46', 'Caldeirão': '18h56', 'Pico da Pedra': '19h02', 'Calhetas': '19h08', 'Rabo de Peixe': '19h13', 'Ribeira Grande': '19h25'}
+102;WEEKDAY;None;{'Ponta Delgada': '19h15', 'Moviarte': '19h21', 'Caldeirão': '19h21', 'Pico da Pedra': '19h37', 'Calhetas': '19h43', 'Rabo de Peixe': '19h48', 'Ribeira Grande': '20h00', 'Ribeirinha': '20h10'}
+102;WEEKDAY;None;{'Rabo de Peixe': '07h10', 'Calhetas': '07h14', 'Pico da Pedra': '07h20', 'Caldeirão': '07h25', 'Moviarte': '07h33', 'Ponta Delgada': '07h45'}
+102;WEEKDAY;None;{'Maia - Escola': '07h05', 'São Brás': '07h10', 'Porto Formoso': '07h13', 'Ribeirinha': '07h27', 'Ribeira Seca': '07h34', 'Caldeirão': '07h49', 'Moviarte': '07h57', 'Ponta Delgada': '08h10'}
+102;WEEKDAY;None;{'Ribeira Grande': '07h45', 'Rabo de Peixe': '07h56', 'Calhetas': '08h00', 'Pico da Pedra': '08h05', 'Caldeirão': '08h10', 'Moviarte': '08h18', 'Ponta Delgada': '08h30'}
+102;WEEKDAY;None;{'Rabo de Peixe': '09h00', 'Calhetas': '09h04', 'Pico da Pedra': '09h10', 'Caldeirão': '09h15', 'Moviarte': '09h23', 'Ponta Delgada': '09h35'}
+102;WEEKDAY;None;{'Ribeira Grande': '10h00', 'Rabo de Peixe': '10h11', 'Calhetas': '10h15', 'Pico da Pedra': '10h20', 'Caldeirão': '10h25', 'Moviarte': '10h33', 'Ponta Delgada': '10h45'}
+102;WEEKDAY;None;{'Ribeira Grande': '11h15', 'Rabo de Peixe': '11h26', 'Calhetas': '11h30', 'Pico da Pedra': '11h35', 'Caldeirão': '11h40', 'Moviarte': '11h48', 'Ponta Delgada': '12h00'}
+102;WEEKDAY;None;{'Ribeirinha': '12h30', 'Ribeira Grande': '12h45', 'Rabo de Peixe': '12h56', 'Calhetas': '13h00', 'Pico da Pedra': '13h05', 'Caldeirão': '13h10', 'Moviarte': '13h18', 'Ponta Delgada': '13h30'}
+102;WEEKDAY;None;{'Ribeira Grande': '13h45', 'Rabo de Peixe': '13h56', 'Calhetas': '14h00', 'Pico da Pedra': '14h05', 'Caldeirão': '14h10', 'Moviarte': '14h18', 'Ponta Delgada': '14h30'}
+102;WEEKDAY;None;{'Ribeira Grande': '14h45', 'Rabo de Peixe': '14h56', 'Calhetas': '15h00', 'Pico da Pedra': '15h05', 'Caldeirão': '15h10', 'Moviarte': '15h18', 'Ponta Delgada': '15h30'}
+102;WEEKDAY;None;{'Ribeira Grande': '15h45', 'Rabo de Peixe': '15h56', 'Calhetas': '16h00', 'Pico da Pedra': '16h05', 'Caldeirão': '16h10', 'Moviarte': '16h18', 'Ponta Delgada': '16h30'}
+102;WEEKDAY;None;{'Ribeira Grande': '16h45', 'Rabo de Peixe': '16h56', 'Calhetas': '17h00', 'Pico da Pedra': '17h05', 'Caldeirão': '17h10', 'Moviarte': '17h18', 'Ponta Delgada': '17h30'}
+102;SATURDAY;None;{'Ponta Delgada': '08h15', 'Moviarte': '08h21', 'Caldeirão': '08h31', 'Pico da Pedra': '08h37', 'Calhetas': '08h43', 'Rabo de Peixe': '08h48', 'Ribeira Seca': '08h58', 'Ribeira Grande': '09h00', 'Ribeirinha': '09h07', 'Porto Formoso': '09h15'}
+102;SATURDAY;None;{'Ponta Delgada': '10h00', 'Moviarte': '10h06', 'Caldeirão': '10h16', 'Pico da Pedra': '10h22', 'Calhetas': '10h28', 'Rabo de Peixe': '10h33', 'Ribeira Seca': '10h43', 'Ribeira Grande': '10h45', 'Ribeirinha': '10h52', 'Porto Formoso': '11h00'}
+102;SATURDAY;None;{'Ponta Delgada': '13h30', 'Moviarte': '13h36', 'Caldeirão': '13h46', 'Pico da Pedra': '13h52', 'Calhetas': '13h58', 'Rabo de Peixe': '14h03', 'Ribeira Seca': '14h13', 'Ribeira Grande': '14h15', 'Ribeirinha': '14h22', 'Porto Formoso': '14h30'}
+102;SATURDAY;None;{'Ponta Delgada': '15h30', 'Moviarte': '15h36', 'Caldeirão': '15h46', 'Pico da Pedra': '15h52', 'Calhetas': '15h58', 'Rabo de Peixe': '16h03', 'Ribeira Seca': '16h13', 'Ribeira Grande': '16h15', 'Ribeirinha': '16h22', 'Porto Formoso': '16h30'}
+102;SATURDAY;None;{'Ponta Delgada': '17h30', 'Moviarte': '17h36', 'Caldeirão': '17h46', 'Pico da Pedra': '17h52', 'Calhetas': '17h58', 'Rabo de Peixe': '18h03', 'Ribeira Seca': '18h13', 'Ribeira Grande': '18h15', 'Ribeirinha': '18h22', 'Porto Formoso': '18h30'}
+102;SATURDAY;None;{'Ponta Delgada': '19h00', 'Moviarte': '19h06', 'Caldeirão': '19h16', 'Pico da Pedra': '19h22', 'Calhetas': '19h28', 'Rabo de Peixe': '19h33', 'Ribeira Seca': '19h43', 'Ribeira Grande': '19h45', 'Ribeirinha': '19h52', 'Porto Formoso': '20h00'}
+102;SUNDAY;None;{'Ponta Delgada': '08h30', 'Moviarte': '08h36', 'Caldeirão': '08h46', 'Pico da Pedra': '08h52', 'Calhetas': '08h58', 'Rabo de Peixe': '09h03', 'Ribeira Seca': '09h13', 'Ribeira Grande': '09h15', 'Ribeirinha': '09h22', 'Porto Formoso': '09h30'}
+102;SUNDAY;None;{'Ponta Delgada': '10h00', 'Moviarte': '10h06', 'Caldeirão': '10h16', 'Pico da Pedra': '10h22', 'Calhetas': '10h28', 'Rabo de Peixe': '10h33', 'Ribeira Seca': '10h43', 'Ribeira Grande': '10h45', 'Ribeirinha': '10h52', 'Porto Formoso': '11h00'}
+102;SUNDAY;None;{'Ponta Delgada': '12h30', 'Moviarte': '12h36', 'Caldeirão': '12h46', 'Pico da Pedra': '12h52', 'Calhetas': '12h58', 'Rabo de Peixe': '13h03', 'Ribeira Seca': '13h13', 'Ribeira Grande': '13h15', 'Ribeirinha': '13h22', 'Porto Formoso': '13h30'}
+102;SUNDAY;None;{'Ponta Delgada': '14h30', 'Moviarte': '14h36', 'Caldeirão': '14h46', 'Pico da Pedra': '14h52', 'Calhetas': '14h58', 'Rabo de Peixe': '15h03', 'Ribeira Seca': '15h13', 'Ribeira Grande': '15h15', 'Ribeirinha': '15h22', 'Porto Formoso': '15h30'}
+102;SUNDAY;None;{'Ponta Delgada': '16h30', 'Moviarte': '16h36', 'Caldeirão': '16h46', 'Pico da Pedra': '16h52', 'Calhetas': '16h58', 'Rabo de Peixe': '17h03', 'Ribeira Seca': '17h13', 'Ribeira Grande': '17h15', 'Ribeirinha': '17h22', 'Porto Formoso': '17h30'}
+102;SUNDAY;None;{'Ponta Delgada': '18h30', 'Moviarte': '18h36', 'Caldeirão': '18h46', 'Pico da Pedra': '18h52', 'Calhetas': '18h58', 'Rabo de Peixe': '19h03', 'Ribeira Seca': '19h13', 'Ribeira Grande': '19h15', 'Ribeirinha': '19h22', 'Porto Formoso': '19h30'}
+102;SATURDAY;None;{'Gramas': '06h50', 'Ribeirinha': '06h58', 'Ribeira Grande': '07h05', 'Ribeira Seca': '07h07', 'Rabo de Peixe': '07h16', 'Calhetas': '07h20', 'Pico da Pedra': '07h25', 'Caldeirão': '07h30', 'Moviarte': '07h38', 'Ponta Delgada': '07h50'}
+102;SATURDAY;None;{'Ribeira Grande': '07h45', 'Ribeira Seca': '07h47', 'Rabo de Peixe': '07h56', 'Calhetas': '08h00', 'Pico da Pedra': '08h05', 'Caldeirão': '08h10', 'Moviarte': '08h18', 'Ponta Delgada': '08h30'}
+102;SATURDAY;None;{'Gramas': '12h15', 'Ribeirinha': '12h23', 'Ribeira Grande': '12h30', 'Ribeira Seca': '12h32', 'Rabo de Peixe': '12h41', 'Calhetas': '12h45', 'Pico da Pedra': '12h50', 'Caldeirão': '12h55', 'Moviarte': '13h03', 'Ponta Delgada': '13h15'}
+102;SATURDAY;None;{'Gramas': '15h15', 'Ribeirinha': '15h23', 'Ribeira Grande': '15h30', 'Ribeira Seca': '15h32', 'Rabo de Peixe': '15h41', 'Calhetas': '15h45', 'Pico da Pedra': '15h50', 'Caldeirão': '15h55', 'Moviarte': '16h03', 'Ponta Delgada': '16h15'}
+102;SATURDAY;None;{'Gramas': '17h15', 'Ribeirinha': '17h23', 'Ribeira Grande': '17h30', 'Ribeira Seca': '17h32', 'Rabo de Peixe': '17h41', 'Calhetas': '17h45', 'Pico da Pedra': '17h50', 'Caldeirão': '17h55', 'Moviarte': '18h03', 'Ponta Delgada': '18h15'}
+102;SUNDAY;None;{'Gramas': '06h50', 'Ribeirinha': '06h58', 'Ribeira Grande': '07h05', 'Ribeira Seca': '07h07', 'Rabo de Peixe': '07h16', 'Calhetas': '07h20', 'Pico da Pedra': '07h25', 'Caldeirão': '07h30', 'Moviarte': '07h38', 'Ponta Delgada': '07h50'}
+102;SUNDAY;None;{'Gramas': '12h15', 'Ribeirinha': '12h23', 'Ribeira Grande': '12h30', 'Ribeira Seca': '12h32', 'Rabo de Peixe': '12h41', 'Calhetas': '12h45', 'Pico da Pedra': '12h50', 'Caldeirão': '12h55', 'Moviarte': '13h03', 'Ponta Delgada': '13h15'}
+102;SUNDAY;None;{'Gramas': '14h30', 'Ribeirinha': '14h38', 'Ribeira Grande': '14h45', 'Ribeira Seca': '14h47', 'Rabo de Peixe': '14h56', 'Calhetas': '15h00', 'Pico da Pedra': '15h05', 'Caldeirão': '15h10', 'Moviarte': '15h18', 'Ponta Delgada': '15h30'}
+102;SUNDAY;None;{'Gramas': '16h30', 'Ribeirinha': '16h38', 'Ribeira Grande': '16h45', 'Ribeira Seca': '16h47', 'Rabo de Peixe': '16h56', 'Calhetas': '17h00', 'Pico da Pedra': '17h05', 'Caldeirão': '17h10', 'Moviarte': '17h18', 'Ponta Delgada': '17h30'}
+102;WEEKDAY;None;{'Ponta Delgada': '21h15', 'Ponta Delgada - Hospital': '21h26', 'Caldeirão': '21h33', 'Pico da Pedra': '21h39', 'Calhetas': '21h45', 'Rabo de Peixe': '21h48', 'Ribeira Seca': '21h57', 'Ribeira Grande': '22h00'}
+102;WEEKDAY;None;{'Ponta Delgada': '23h15', 'Ponta Delgada - Hospital': '23h26', 'Caldeirão': '23h33', 'Pico da Pedra': '23h39', 'Calhetas': '23h45', 'Rabo de Peixe': '23h48', 'Ribeira Seca': '23h57', 'Ribeira Grande': '00h00'}
+102;SATURDAY;None;{'Ponta Delgada': '21h15', 'Ponta Delgada - Hospital': '21h26', 'Caldeirão': '21h33', 'Pico da Pedra': '21h39', 'Calhetas': '21h45', 'Rabo de Peixe': '21h48', 'Ribeira Seca': '21h57', 'Ribeira Grande': '22h00'}
+102;SATURDAY;None;{'Ponta Delgada': '23h15', 'Ponta Delgada - Hospital': '23h26', 'Caldeirão': '23h33', 'Pico da Pedra': '23h39', 'Calhetas': '23h45', 'Rabo de Peixe': '23h48', 'Ribeira Seca': '23h57', 'Ribeira Grande': '00h00'}
+102;SUNDAY;None;{'Ponta Delgada': '21h15', 'Ponta Delgada - Hospital': '21h26', 'Caldeirão': '21h33', 'Pico da Pedra': '21h39', 'Calhetas': '21h45', 'Rabo de Peixe': '21h48', 'Ribeira Seca': '21h57', 'Ribeira Grande': '22h00'}
+102;SUNDAY;None;{'Ponta Delgada': '23h15', 'Ponta Delgada - Hospital': '23h26', 'Caldeirão': '23h33', 'Pico da Pedra': '23h39', 'Calhetas': '23h45', 'Rabo de Peixe': '23h48', 'Ribeira Seca': '23h57', 'Ribeira Grande': '00h00'}
+102;WEEKDAY;None;{'Ribeira Grande': '22h00', 'Ribeira Seca': '22h02', 'Rabo de Peixe': '22h11', 'Calhetas': '22h15', 'Pico da Pedra': '22h21', 'Caldeirão': '22h26', 'Ponta Delgada': '22h45'}
+102;SATURDAY;None;{'Ribeira Grande': '22h00', 'Ribeira Seca': '22h02', 'Rabo de Peixe': '22h11', 'Calhetas': '22h15', 'Pico da Pedra': '22h21', 'Caldeirão': '22h26', 'Ponta Delgada': '22h45'}
+102;SUNDAY;None;{'Ribeira Grande': '22h00', 'Ribeira Seca': '22h02', 'Rabo de Peixe': '22h11', 'Calhetas': '22h15', 'Pico da Pedra': '22h21', 'Caldeirão': '22h26', 'Ponta Delgada': '22h45'}
+105;WEEKDAY;None;{'Vila do Nordeste': '11h00', 'Lomba da Pedreira': '11h15'}
+105;WEEKDAY;None;{'Vila do Nordeste': '15h00', 'Lomba da Pedreira': '15h15'}
+105;WEEKDAY;None;{'Lomba da Pedreira': '09h15', 'Vila do Nordeste': '09h30'}
+105;WEEKDAY;None;{'Lomba da Pedreira': '15h15', 'Vila do Nordeste': '15h30'}
+105;WEEKDAY;None;{'Ponta Delgada': '06h45', 'Moviarte': '06h52', 'Caldeirão': '07h00', 'Ribeira Seca': '07h16', 'Ribeira Grande': '07h20', 'Ribeirinha': '07h25', 'São Brás': '07h40', 'Maia - Largo S.António': '07h45', 'Lomba da Maia': '07h55', 'Fenais da Ajuda': '08h02', 'Lomba de S.Pedro': '08h07', 'Salga': '08h12', 'Lomba da Achadinha': '08h17', 'Achada': '08h26', 'Algarvia': '08h35', 'Santo António Nordestinho': '08h40', 'São Pedro Nordestinho': '08h45', 'Lomba da Fazenda': '08h50', 'Lomba da Cruz': '08h54', 'Vila do Nordeste': '09h00', 'Lomba da Pedreira': '09h15'}
+105;WEEKDAY;None;{'Ponta Delgada': '16h15', 'Moviarte': '16h22', 'Caldeirão': '16h30', 'Ribeira Seca': '16h46', 'Ribeira Grande': '16h50', 'Ribeirinha': '16h55', 'São Brás': '17h10', 'Maia - Largo S.António': '17h15', 'Lomba da Maia': '17h25', 'Fenais da Ajuda': '17h32', 'Lomba de S.Pedro': '17h37', 'Salga': '17h42', 'Lomba da Achadinha': '17h47', 'Achada': '17h567', 'Algarvia': '18h05', 'Santo António Nordestinho': '18h10', 'São Pedro Nordestinho': '18h15', 'Lomba da Fazenda': '18h20', 'Lomba da Cruz': '18h24', 'Vila do Nordeste': '18h30', 'Lomba da Pedreira': '18h45'}
+105;WEEKDAY;{'pt': 'Só à Sexta-Feira', 'en': 'Just Friday', 'es': 'Solo viernes', 'fr': 'Juste vendredi', 'de': 'Nur Freitag'};{'Ponta Delgada': '18h30b', 'Moviarte': '18h37b', 'Caldeirão': '18h45b', 'Ribeira Seca': '19h01b', 'Ribeira Grande': '19h05b', 'Ribeirinha': '19h10b', 'São Brás': '19h25b', 'Maia - Largo S.António': '19h30b', 'Lomba da Maia': '19h40b', 'Fenais da Ajuda': '19h47b', 'Lomba de S.Pedro': '19h52b', 'Salga': '19h47b', 'Lomba da Achadinha': '20h02b', 'Achada': '20h11b', 'Algarvia': '20h20b', 'Santo António Nordestinho': '20h25b', 'São Pedro Nordestinho': '20h30b', 'Lomba da Fazenda': '20h35b', 'Lomba da Cruz': '20h39b', 'Vila do Nordeste': '20h45b'}
+105;WEEKDAY;None;{'Lomba da Pedreira': '06h30', 'Vila do Nordeste': '06h45', 'Lomba da Cruz': '06h51', 'Lomba da Fazenda': '06h55', 'São Pedro Nordestinho': '07h00', 'Santo António Nordestinho': '07h05', 'Algarvia': '07h10', 'Achada': '07h19', 'Lomba da Achadinha': '07h28', 'Salga': '07h33', 'Lomba de S.Pedro': '07h38', 'Fenais da Ajuda': '07h43', 'Lomba da Maia': '07h50', 'Gorreana': '07h58', 'São Brás': '08h05', 'Ribeirinha': '08h30', 'Ribeira Grande': '08h45', 'Ribeira Seca': '08h49', 'Caldeirão': '09h00', 'Moviarte': '09h08', 'Ponta Delgada': '09h15'}
+105;SATURDAY;None;{'Ponta Delgada': '06h45', 'Moviarte': '06h52', 'Caldeirão': '07h00', 'Ribeira Seca': '07h21', 'Ribeira Grande': '07h24', 'Ribeirinha': '07h29', 'Maia - Escola': '07h50', 'Maia - Largo S.António': '07h52', 'Lomba da Maia': '08h03', 'Fenais da Ajuda': '08h10', 'Lomba de S.Pedro': '08h15', 'Salga': '08h22', 'Lomba da Achadinha': '08h27', 'Achada': '08h36', 'Algarvia': '08h43', 'Santo António Nordestinho': '08h49', 'São Pedro Nordestinho': '08h53', 'Lomba da Fazenda': '08h57', 'Lomba da Cruz': '09h02', 'Vila do Nordeste': '09h08', 'Lomba da Pedreira': '09h15'}
+105;SATURDAY;None;{'Lomba da Pedreira': '06h30', 'Vila do Nordeste': '06h45', 'Lomba da Cruz': '06h58', 'Lomba da Fazenda': '07h03', 'São Pedro Nordestinho': '07h07', 'Santo António Nordestinho': '07h11', 'Algarvia': '07h17', 'Achada': '07h24', 'Lomba da Achadinha': '07h32', 'Salga': '07h38', 'Lomba de S.Pedro': '07h42', 'Fenais da Ajuda': '07h46', 'Lomba da Maia': '07h56', 'Gorreana': '08h06', 'São Brás': '08h09', 'Ribeirinha': '08h29', 'Ribeira Grande': '08h45', 'Ribeira Seca': '08h47', 'Caldeirão': '08h54', 'Moviarte': '09h02', 'Ponta Delgada': '09h15'}
+105;SUNDAY;None;{'Ponta Delgada': '06h45', 'Moviarte': '06h58', 'Caldeirão': '07h00', 'Ribeira Seca': '07h21', 'Ribeira Grande': '07h24', 'Ribeirinha': '07h29', 'Maia - Escola': '07h50', 'Maia - Largo S.António': '07h52', 'Lomba da Maia': '08h03', 'Fenais da Ajuda': '08h10', 'Lomba de S.Pedro': '08h15', 'Salga': '08h22', 'Lomba da Achadinha': '08h27', 'Achada': '08h36', 'Algarvia': '08h43', 'Santo António Nordestinho': '08h49', 'São Pedro Nordestinho': '08h53', 'Lomba da Fazenda': '08h57', 'Lomba da Cruz': '09h02', 'Vila do Nordeste': '09h08', 'Lomba da Pedreira': '09h15'}
+106;WEEKDAY;None;{'Ponta Delgada': '11h00', 'Moviarte': '11h07', 'Caldeirão': '11h15', 'Ribeira Seca': '11h31', 'Ribeira Grande': '11h35', 'Ribeirinha': '11h40', 'São Brás': '11h55', 'Maia - Largo S.António': '12h00', 'Lomba da Maia': '12h10', 'Fenais da Ajuda': '12h17', 'Lomba de S.Pedro': '12h22', 'Salga': '12h27', 'Lomba da Achadinha': '12h32', 'Achada': '12h41', 'Algarvia': '12h50', 'Santo António Nordestinho': '12h55', 'São Pedro Nordestinho': '13h00', 'Lomba da Fazenda': '13h05', 'Lomba da Cruz': '13h09', 'Vila do Nordeste': '13h15'}
+106;WEEKDAY;None;{'Lomba da Pedreira': '11h15', 'Vila do Nordeste': '11h30', 'Lomba da Cruz': '11h36', 'Lomba da Fazenda': '11h40', 'São Pedro Nordestinho': '11h45', 'Santo António Nordestinho': '11h50', 'Algarvia': '11h55', 'Achada': '12h04', 'Lomba da Achadinha': '12h13', 'Salga': '12h18', 'Lomba de S.Pedro': '12h23', 'Fenais da Ajuda': '12h28', 'Lomba da Maia': '12h35', 'Maia - Largo S.António': '12h45', 'São Brás': '12h50', 'Ribeirinha': '13h15', 'Ribeira Grande': '13h30', 'Ribeira Seca': '13h39', 'Caldeirão': '13h50', 'Moviarte': '13h58', 'Ponta Delgada': '14h00'}
+107;SATURDAY;None;{'Ponta Delgada': '16h15', 'Moviarte': '16h22', 'Caldeirão': '16h30', 'Ribeira Seca': '16h51', 'Ribeira Grande': '16h54', 'Ribeirinha': '16h59', 'São Brás': '17h17', 'Maia - Escola': '17h20', 'Gorreana': '17h25', 'Lomba da Maia': '17h33', 'Fenais da Ajuda': '17h40', 'Lomba de S.Pedro': '17h45', 'Salga': '17h52', 'Lomba da Achadinha': '17h57', 'Achada': '18h06', 'Algarvia': '18h13', 'Santo António Nordestinho': '18h19', 'São Pedro Nordestinho': '18h23', 'Lomba da Fazenda': '18h27', 'Lomba da Cruz': '18h32', 'Vila do Nordeste': '18h38', 'Lomba da Pedreira': '18h45'}
+107;WEEKDAY;None;{'Vila do Nordeste': '16h15', 'Lomba da Cruz': '16h21', 'Lomba da Fazenda': '16h25', 'São Pedro Nordestinho': '16h35', 'Santo António Nordestinho': '16h40', 'Algarvia': '16h45', 'Achada': '16h54', 'Lomba da Achadinha': '17h03', 'Salga': '17h08', 'Lomba de S.Pedro': '17h13', 'Fenais da Ajuda': '17h18', 'Lomba da Maia': '17h25', 'Maia - Largo S.António': '17h35', 'São Brás': '17h40', 'Porto Formoso': '17h45', 'Ribeirinha': '18h10', 'Ribeira Grande': '18h30', 'Ribeira Seca': '18h39', 'Caldeirão': '18h50', 'Moviarte': '18h58', 'Ponta Delgada': '19h05'}
+107;SATURDAY;None;{'Lomba da Pedreira': '14h30', 'Vila do Nordeste': '14h37', 'Lomba da Cruz': '14h43', 'Lomba da Fazenda': '14h48', 'São Pedro Nordestinho': '14h52', 'Santo António Nordestinho': '14h56', 'Algarvia': '15h02', 'Achada': '15h09', 'Lomba da Achadinha': '15h17', 'Salga': '15h23', 'Lomba de S.Pedro': '15h27', 'Fenais da Ajuda': '15h31', 'Lomba da Maia': '15h41', 'Maia - Largo S.António': '15h49', 'São Brás': '15h53', 'Porto Formoso': '15h56', 'Ribeirinha': '16h14', 'Ribeira Grande': '16h18', 'Ribeira Seca': '16h22', 'Caldeirão': '16h39', 'Moviarte': '16h47', 'Ponta Delgada': '17h00'}
+107;SUNDAY;None;{'Ponta Delgada': '16h15', 'Moviarte': '16h22', 'Caldeirão': '16h30', 'Ribeira Seca': '16h51', 'Ribeira Grande': '16h54', 'Ribeirinha': '16h59', 'São Brás': '17h17', 'Maia - Escola': '17h20', 'Gorreana': '17h25', 'Lomba da Maia': '17h33', 'Fenais da Ajuda': '17h40', 'Lomba de S.Pedro': '17h45', 'Salga': '17h52', 'Lomba da Achadinha': '17h57', 'Achada': '18h06', 'Algarvia': '18h13', 'Santo António Nordestinho': '18h19', 'São Pedro Nordestinho': '18h23', 'Lomba da Fazenda': '18h27', 'Lomba da Cruz': '18h32', 'Vila do Nordeste': '18h38', 'Lomba da Pedreira': '18h45'}
+107;SUNDAY;None;{'Lomba da Pedreira': '06h30', 'Vila do Nordeste': '06h45', 'Lomba da Cruz': '06h58', 'Lomba da Fazenda': '07h03', 'São Pedro Nordestinho': '07h07', 'Santo António Nordestinho': '07h11', 'Algarvia': '07h17', 'Achada': '07h24', 'Lomba da Achadinha': '07h32', 'Salga': '07h38', 'Lomba de S.Pedro': '07h42', 'Fenais da Ajuda': '07h46', 'Lomba da Maia': '07h56', 'Maia - Largo S.António': '08h04', 'São Brás': '08h08', 'Porto Formoso': '08h11', 'Ribeirinha': '08h29', 'Ribeira Grande': '08h45', 'Ribeira Seca': '08h47', 'Caldeirão': '08h54', 'Moviarte': '09h02', 'Ponta Delgada': '09h15'}
+107;SUNDAY;None;{'Lomba da Pedreira': '16h15', 'Vila do Nordeste': '16h16', 'Lomba da Cruz': '16h17', 'Lomba da Fazenda': '16h22', 'São Pedro Nordestinho': '16h30', 'Santo António Nordestinho': '16h51', 'Algarvia': '16h52', 'Achada': '16h54', 'Lomba da Achadinha': '16h59', 'Salga': '17h17', 'Lomba de S.Pedro': '17h20', 'Fenais da Ajuda': '17h26', 'Lomba da Maia': '17h36', 'Maia - Largo S.António': '17h44', 'São Brás': '17h52', 'Porto Formoso': '17h57', 'Ribeirinha': '18h06', 'Ribeira Grande': '18h13', 'Ribeira Seca': '18h23', 'Caldeirão': '18h27', 'Moviarte': '18h31', 'Ponta Delgada': '18h45'}
+108;WEEKDAY;None;{'Ponta Delgada': '12h00', 'Moviarte': '12h07', 'Caldeirão': '12h15', 'Ribeira Seca': '12h32', 'Ribeira Grande': '12h35', 'Ribeirinha': '12h39', 'Porto Formoso': '12h57', 'São Brás': '13h00', 'Maia - Escola': '13h05'}
+108;WEEKDAY;None;{'Ponta Delgada': '16h15', 'Moviarte': '16h22', 'Caldeirão': '16h30', 'Ribeira Seca': '16h47', 'Ribeira Grande': '16h50', 'Ribeirinha': '16h54', 'Porto Formoso': '17h12', 'São Brás': '17h15', 'Maia - Escola': '17h20'}
+108;WEEKDAY;None;{'Maia - Escola': '13h50', 'São Brás': '13h55', 'Porto Formoso': '13h58', 'Ribeirinha': '14h12', 'Ribeira Grande': '14h30', 'Ribeira Seca': '14h33', 'Caldeirão': '14h47', 'Moviarte': '14h51', 'Ponta Delgada': '14h55'}
+108;SATURDAY;None;{'Maia - Escola': '07h05', 'São Brás': '07h10', 'Porto Formoso': '07h13', 'Ribeirinha': '07h27', 'Ribeira Grande': '07h31', 'Ribeira Seca': '07h34', 'Caldeirão': '07h49', 'Moviarte': '07h57', 'Ponta Delgada': '08h10'}
+112;WEEKDAY;None;{'Fenais da Ajuda': '07h15', 'Lomba da Maia': '07h20', 'Gorreana': '07h30', 'Maia - Largo S.António': '07h38', 'São Brás': '07h43', 'Ribeirinha': '07h58', 'Ribeira Grande': '08h15'}
+112;SATURDAY;None;{'Ponta Delgada': '12h00', 'Moviarte': '12h06', 'Caldeirão': '12h16', 'Pico da Pedra': '12h22', 'Calhetas': '12h28', 'Rabo de Peixe': '12h33', 'Ribeira Seca': '12h43', 'Ribeira Grande': '12h45', 'Ribeirinha': '12h49', 'São Brás': '13h05', 'Maia - Escola': '13h11', 'Maia - Largo S.António': '13h16', 'Gorreana': '13h24', 'Lomba da Maia': '13h34', 'Fenais da Ajuda': '13h38'}
+113;WEEKDAY;None;{'Maia - Largo S.António': '08h16', 'Lomba da Maia': '08h24', 'Lomba de S.Pedro': '09h39'}
+113;WEEKDAY;None;{'Ponta Delgada': '18h15', 'Moviarte': '18h23', 'Caldeirão': '18h31', 'Ribeira Seca': '18h52', 'Ribeira Grande': '19h06', 'Ribeirinha': '19h12', 'Porto Formoso': '19h31', 'São Brás': '19h35', 'Maia - Largo S.António': '19h15', 'Lomba da Maia': '19h23', 'Lomba de S.Pedro': '20h38'}
+113;WEEKDAY;None;{'Fenais da Ajuda': '09h40', 'Lomba da Maia': '09h45', 'Gorreana': '09h55', 'Maia - Largo S.António': '10h03', 'São Brás': '10h08', 'Porto Formoso': '10h12', 'Ribeirinha': '10h31', 'Ribeira Grande': '11h00', 'Ribeira Seca': '11h04', 'Caldeirão': '11h24', 'Moviarte': '11h32', 'Ponta Delgada': '11h46'}
+113;WEEKDAY;None;{'Ribeira Grande': '17h45', 'Rabo de Peixe': '17h56', 'Calhetas': '18h00', 'Pico da Pedra': '18h05', 'Caldeirão': '18h10', 'Moviarte': '18h18', 'Ponta Delgada': '18h30'}
+104;WEEKDAY;None;{'Ponta Delgada': '07h30', 'São Roque': '07h39', 'Livramento': '07h43', 'Pico do Fogo': '07h50'}
+104;WEEKDAY;None;{'Ponta Delgada': '08h40', 'São Roque': '08h49', 'Livramento': '08h53', 'Pico do Fogo': '09h00'}
+104;WEEKDAY;None;{'Ponta Delgada': '09h15', 'São Roque': '09h24', 'Livramento': '09h28', 'Pico do Fogo': '09h35'}
+104;WEEKDAY;None;{'Ponta Delgada': '10h15', 'São Roque': '10h24', 'Livramento': '10h28', 'Pico do Fogo': '10h35'}
+104;WEEKDAY;None;{'Ponta Delgada': '11h15', 'São Roque': '11h24', 'Livramento': '11h28', 'Pico do Fogo': '11h35'}
+104;WEEKDAY;None;{'Ponta Delgada': '12h00', 'São Roque': '12h09', 'Livramento': '12h13', 'Pico do Fogo': '12h20'}
+104;WEEKDAY;None;{'Ponta Delgada': '13h40', 'São Roque': '13h49', 'Livramento': '13h53', 'Pico do Fogo': '14h00'}
+104;WEEKDAY;None;{'Ponta Delgada': '14h30', 'São Roque': '14h39', 'Livramento': '14h43', 'Pico do Fogo': '14h50'}
+104;WEEKDAY;None;{'Ponta Delgada': '15h40', 'São Roque': '15h49', 'Livramento': '15h53', 'Pico do Fogo': '16h00'}
+104;WEEKDAY;None;{'Ponta Delgada': '16h30', 'São Roque': '16h39', 'Livramento': '16h43', 'Pico do Fogo': '16h50'}
+104;WEEKDAY;None;{'Ponta Delgada': '17h15', 'São Roque': '17h24', 'Livramento': '17h28', 'Pico do Fogo': '17h35'}
+104;WEEKDAY;None;{'Ponta Delgada': '18h40', 'São Roque': '18h49', 'Livramento': '18h53', 'Pico do Fogo': '19h00'}
+104;WEEKDAY;None;{'Ponta Delgada': '19h20', 'São Roque': '19h29', 'Livramento': '19h33', 'Pico do Fogo': '19h40'}
+104;WEEKDAY;None;{'Pico do Fogo': '07h05', 'Livramento': '07h09', 'São Roque': '07h12', 'Ponta Delgada': '07h25'}
+104;WEEKDAY;None;{'Pico do Fogo': '08h00', 'Livramento': '08h04', 'São Roque': '08h07', 'Ponta Delgada': '08h20'}
+104;WEEKDAY;None;{'Pico do Fogo': '08h45', 'Livramento': '08h49', 'São Roque': '08h52', 'Ponta Delgada': '09h05'}
+104;WEEKDAY;None;{'Pico do Fogo': '09h05', 'Livramento': '09h09', 'São Roque': '09h12', 'Ponta Delgada': '09h25'}
+104;WEEKDAY;None;{'Pico do Fogo': '09h40', 'Livramento': '09h44', 'São Roque': '09h47', 'Ponta Delgada': '10h00'}
+104;WEEKDAY;None;{'Pico do Fogo': '12h00', 'Livramento': '12h04', 'São Roque': '12h07', 'Ponta Delgada': '12h20'}
+104;WEEKDAY;None;{'Pico do Fogo': '13h20', 'Livramento': '13h24', 'São Roque': '13h27', 'Ponta Delgada': '13h40'}
+104;WEEKDAY;None;{'Pico do Fogo': '13h45', 'Livramento': '13h49', 'São Roque': '13h52', 'Ponta Delgada': '14h05'}
+104;WEEKDAY;None;{'Pico do Fogo': '14h20', 'Livramento': '14h24', 'São Roque': '14h27', 'Ponta Delgada': '14h40'}
+104;WEEKDAY;None;{'Pico do Fogo': '15h05', 'Livramento': '15h09', 'São Roque': '15h12', 'Ponta Delgada': '15h25'}
+104;WEEKDAY;None;{'Pico do Fogo': '16h10', 'Livramento': '16h14', 'São Roque': '16h17', 'Ponta Delgada': '16h30'}
+104;WEEKDAY;None;{'Pico do Fogo': '17h10', 'Livramento': '17h14', 'São Roque': '17h17', 'Ponta Delgada': '17h30'}
+104;WEEKDAY;None;{'Pico do Fogo': '18h25', 'Livramento': '18h29', 'São Roque': '18h32', 'Ponta Delgada': '18h45'}
+104;SATURDAY;None;{'Ponta Delgada': '07h30', 'São Roque': '07h39', 'Livramento': '07h43', 'Pico do Fogo': '07h50'}
+104;SATURDAY;None;{'Ponta Delgada': '08h40', 'São Roque': '08h49', 'Livramento': '08h53', 'Pico do Fogo': '09h00'}
+104;SATURDAY;None;{'Ponta Delgada': '09h15', 'São Roque': '09h24', 'Livramento': '09h28', 'Pico do Fogo': '09h35'}
+104;SATURDAY;None;{'Ponta Delgada': '10h15', 'São Roque': '10h24', 'Livramento': '10h28', 'Pico do Fogo': '10h35'}
+104;SATURDAY;None;{'Ponta Delgada': '11h15', 'São Roque': '11h24', 'Livramento': '11h28', 'Pico do Fogo': '11h35'}
+104;SATURDAY;None;{'Ponta Delgada': '13h05', 'São Roque': '13h14', 'Livramento': '13h18', 'Pico do Fogo': '13h25'}
+104;SATURDAY;None;{'Ponta Delgada': '14h30', 'São Roque': '14h39', 'Livramento': '14h43', 'Pico do Fogo': '14h50'}
+104;SATURDAY;None;{'Ponta Delgada': '17h15', 'São Roque': '17h24', 'Livramento': '17h28', 'Pico do Fogo': '17h35'}
+104;SATURDAY;None;{'Ponta Delgada': '19h20', 'São Roque': '19h29', 'Livramento': '19h33', 'Pico do Fogo': '19h40'}
+104;SATURDAY;None;{'Pico do Fogo': '07h05', 'Livramento': '07h09', 'São Roque': '07h12', 'Ponta Delgada': '07h25'}
+104;SATURDAY;None;{'Pico do Fogo': '08h00', 'Livramento': '08h04', 'São Roque': '08h07', 'Ponta Delgada': '08h20'}
+104;SATURDAY;None;{'Pico do Fogo': '09h05', 'Livramento': '09h09', 'São Roque': '09h12', 'Ponta Delgada': '09h25'}
+104;SATURDAY;None;{'Pico do Fogo': '10h20', 'Livramento': '10h24', 'São Roque': '10h27', 'Ponta Delgada': '10h40'}
+104;SATURDAY;None;{'Pico do Fogo': '12h00', 'Livramento': '12h04', 'São Roque': '12h07', 'Ponta Delgada': '12h20'}
+104;SATURDAY;None;{'Pico do Fogo': '13h30', 'Livramento': '13h34', 'São Roque': '13h37', 'Ponta Delgada': '13h50'}
+104;SATURDAY;None;{'Pico do Fogo': '15h05', 'Livramento': '15h09', 'São Roque': '15h12', 'Ponta Delgada': '15h25'}
+104;SATURDAY;None;{'Pico do Fogo': '18h10', 'Livramento': '18h14', 'São Roque': '18h17', 'Ponta Delgada': '18h30'}
+104;SUNDAY;None;{'Ponta Delgada': '08h45', 'São Roque': '08h54', 'Livramento': '08h58', 'Pico do Fogo': '09h05'}
+104;SUNDAY;None;{'Ponta Delgada': '10h15', 'São Roque': '10h24', 'Livramento': '10h28', 'Pico do Fogo': '10h35'}
+104;SUNDAY;None;{'Ponta Delgada': '12h30', 'São Roque': '12h39', 'Livramento': '12h43', 'Pico do Fogo': '12h50'}
+104;SUNDAY;None;{'Ponta Delgada': '14h30', 'São Roque': '14h39', 'Livramento': '14h43', 'Pico do Fogo': '14h50'}
+104;SUNDAY;None;{'Ponta Delgada': '16h30', 'São Roque': '16h39', 'Livramento': '16h43', 'Pico do Fogo': '16h50'}
+104;SUNDAY;None;{'Ponta Delgada': '19h20', 'São Roque': '19h29', 'Livramento': '19h33', 'Pico do Fogo': '19h40'}
+104;SUNDAY;None;{'Pico do Fogo': '07h30', 'Livramento': '07h34', 'São Roque': '07h37', 'Ponta Delgada': '07h50'}
+104;SUNDAY;None;{'Pico do Fogo': '09h10', 'Livramento': '09h14', 'São Roque': '09h17', 'Ponta Delgada': '09h30'}
+104;SUNDAY;None;{'Pico do Fogo': '13h10', 'Livramento': '13h14', 'São Roque': '13h17', 'Ponta Delgada': '13h30'}
+104;SUNDAY;None;{'Pico do Fogo': '15h10', 'Livramento': '15h14', 'São Roque': '15h17', 'Ponta Delgada': '15h30'}
+104;SUNDAY;None;{'Pico do Fogo': '17h10', 'Livramento': '17h14', 'São Roque': '17h17', 'Ponta Delgada': '17h30'}
+103;WEEKDAY;None;{'Ponta Delgada': '12h20', 'São Roque': '12h29', 'Livramento': '12h33', 'Pico do Fogo': '12h40', 'Cabouco': '12h47', 'Santa Bárbara - Ribeira Grande': '12h55', 'Ribeira Seca': '13h05', 'Ribeira Grande': '13h10'}
+103;WEEKDAY;None;{'Ponta Delgada': '18h10', 'São Roque': '18h19', 'Livramento': '18h23', 'Pico do Fogo': '18h30', 'Cabouco': '18h37', 'Santa Bárbara - Ribeira Grande': '18h45', 'Ribeira Seca': '18h55', 'Ribeira Grande': '19h00'}
+103;WEEKDAY;None;{'Ponta Delgada': '17h40', 'São Roque': '17h49', 'Livramento': '17h53', 'Pico do Fogo': '18h00', 'Cabouco': '18h07', 'Santa Bárbara - Ribeira Grande': '18h15'}
+103;WEEKDAY;None;{'Santa Bárbara - Ribeira Grande': '07h00', 'Cabouco': '07h17', 'Pico do Fogo': '07h24', 'Livramento': '07h31', 'São Roque': '07h35', 'Ponta Delgada': '07h50'}
+103;WEEKDAY;None;{'Ribeira Grande': '07h50', 'Ribeira Seca': '07h54', 'Santa Bárbara - Ribeira Grande': '08h00', 'Cabouco': '08h17', 'Pico do Fogo': '08h24', 'Livramento': '08h31', 'São Roque': '08h35', 'Ponta Delgada': '08h50'}
+103;WEEKDAY;None;{'Ribeira Grande': '12h10', 'Ribeira Seca': '12h14', 'Santa Bárbara - Ribeira Grande': '12h20', 'Cabouco': '12h37', 'Pico do Fogo': '12h44', 'Livramento': '12h51', 'São Roque': '12h55', 'Ponta Delgada': '13h10'}
+103;WEEKDAY;None;{'Ribeira Grande': '16h00', 'Ribeira Seca': '16h04', 'Santa Bárbara - Ribeira Grande': '16h10', 'Cabouco': '16h27', 'Pico do Fogo': '16h34', 'Livramento': '16h41', 'São Roque': '16h45', 'Ponta Delgada': '17h00'}
+103;SATURDAY;None;{'Ponta Delgada': '12h20', 'São Roque': '12h29', 'Livramento': '12h33', 'Pico do Fogo': '12h40', 'Cabouco': '12h47', 'Santa Bárbara - Ribeira Grande': '12h55', 'Ribeira Seca': '13h05', 'Ribeira Grande': '13h10'}
+103;SATURDAY;None;{'Ribeira Grande': '07h50', 'Ribeira Seca': '07h54', 'Santa Bárbara - Ribeira Grande': '08h00', 'Cabouco': '08h17', 'Pico do Fogo': '08h24', 'Livramento': '08h31', 'São Roque': '08h35', 'Ponta Delgada': '08h50'}
+115;WEEKDAY;{'pt': '*Só Terças e Quintas', 'en': '*Only Tuesday and Thursday', 'es': '*Solo martes y jueves', 'fr': '*Uniquement le mardi et le jeudi', 'de': '*Nur Dienstag und Donnerstag'};{'Salga': '07h25*', 'Lomba da Achadinha': '07h31*', 'Achada': '07h41*', 'Algarvia': '07h48*', 'Santo António Nordestinho': '07h54*', 'São Pedro Nordestinho': '07h58*', 'Lomba da Fazenda': '08h03*', 'Lomba da Cruz': '08h07*', 'Vila do Nordeste': '08h14*', 'Lomba da Pedreira': '08h23*', 'Faial da Terra': '08h51*', 'Lomba do Alcaide': '09h10*', 'Povoação': '09h25*'}
+115;WEEKDAY;{'pt': '*Só Terças e Quintas', 'en': '*Only Tuesday and Thursday', 'es': '*Solo martes y jueves', 'fr': '*Uniquement le mardi et le jeudi', 'de': '*Nur Dienstag und Donnerstag'};{'Salga': '16h00*', 'Lomba da Achadinha': '16h11*', 'Achada': '16h30*', 'Algarvia': '17h02*', 'Santo António Nordestinho': '17h11*', 'São Pedro Nordestinho': '17h18*', 'Lomba da Fazenda': '17h22*', 'Lomba da Cruz': '17h27*', 'Vila do Nordeste': '17h31*', 'Lomba da Pedreira': '17h37*', 'Faial da Terra': '17h44*', 'Lomba do Alcaide': '17h54*', 'Povoação': '18h00*'}
+110;WEEKDAY;None;{'Ponta Delgada': '07h15', 'Moviarte': '07h22', 'Caldeirão': '07h30', 'Ribeira Seca': '07h43', 'Ribeira Grande': '07h45', 'Ribeirinha': '07h50', 'Porto Formoso': '08h09', 'São Brás': '08h11', 'Maia - Largo S.António': '08h16', 'Furnas - Águas Quentes': '08h50'}
+110;WEEKDAY;None;{'Ponta Delgada': '15h15', 'Moviarte': '15h22', 'Caldeirão': '15h30', 'Ribeira Seca': '15h43', 'Ribeira Grande': '15h45', 'Ribeirinha': '15h50', 'Porto Formoso': '16h09', 'São Brás': '16h11', 'Maia - Largo S.António': '16h16', 'Furnas - Águas Quentes': '16h50'}
+110;WEEKDAY;None;{'Furnas - Águas Quentes': '09h10', 'Furnas - Caldeiras': '09h13', 'Maia - Largo S.António': '09h38', 'São Brás': '09h43', 'Ribeirinha': '10h15', 'Ribeira Grande': '10h17', 'Ribeira Seca': '10h17', 'Caldeirão': '10h31', 'Moviarte': '10h38', 'Ponta Delgada': '10h50'}
+110;WEEKDAY;None;{'Furnas - Águas Quentes': '17h10', 'Furnas - Caldeiras': '17h13', 'Maia - Largo S.António': '17h38', 'São Brás': '17h43', 'Ribeirinha': '18h15', 'Ribeira Grande': '18h17', 'Ribeira Seca': '18h17', 'Caldeirão': '18h31', 'Moviarte': '18h38', 'Ponta Delgada': '18h50'}
+110;SATURDAY;None;{'Ponta Delgada': '07h15', 'Moviarte': '07h22', 'Caldeirão': '07h30', 'Ribeira Seca': '07h43', 'Ribeira Grande': '07h45', 'Ribeirinha': '07h50', 'Porto Formoso': '08h09', 'São Brás': '08h11', 'Maia - Largo S.António': '08h16', 'Furnas - Águas Quentes': '08h50'}
+110;SATURDAY;None;{'Ponta Delgada': '15h15', 'Moviarte': '15h22', 'Caldeirão': '15h30', 'Ribeira Seca': '15h43', 'Ribeira Grande': '15h45', 'Ribeirinha': '15h50', 'Porto Formoso': '16h09', 'São Brás': '16h11', 'Maia - Largo S.António': '16h16', 'Furnas - Águas Quentes': '16h50'}
+110;SUNDAY;None;{'Ponta Delgada': '07h15', 'Moviarte': '07h22', 'Caldeirão': '07h30', 'Ribeira Seca': '07h43', 'Ribeira Grande': '07h45', 'Ribeirinha': '07h50', 'Porto Formoso': '08h09', 'São Brás': '08h11', 'Maia - Largo S.António': '08h16', 'Furnas - Águas Quentes': '08h50'}
+110;SUNDAY;None;{'Ponta Delgada': '15h15', 'Moviarte': '15h22', 'Caldeirão': '15h30', 'Ribeira Seca': '15h43', 'Ribeira Grande': '15h45', 'Ribeirinha': '15h50', 'Porto Formoso': '16h09', 'São Brás': '16h11', 'Maia - Largo S.António': '16h16', 'Furnas - Águas Quentes': '16h50'}
+111;SATURDAY;None;{'Furnas - Águas Quentes': '09h10', 'Furnas - Caldeiras': '09h13', 'Maia - Largo S.António': '09h38', 'São Brás': '09h43', 'Porto Formoso': '09h46', 'Ribeirinha': '10h04', 'Ribeira Grande': '10h13', 'Ribeira Seca': '10h16', 'Rabo de Peixe': '10h24', 'Calhetas': '10h28', 'Pico da Pedra': '10h34', 'Caldeirão': '10h39', 'Moviarte': '10h47', 'Ponta Delgada': '11h00'}
+111;SATURDAY;None;{'Furnas - Águas Quentes': '17h10', 'Furnas - Caldeiras': '17h13', 'Maia - Largo S.António': '17h38', 'São Brás': '17h43', 'Porto Formoso': '17h46', 'Ribeirinha': '18h04', 'Ribeira Grande': '18h13', 'Ribeira Seca': '18h16', 'Rabo de Peixe': '18h24', 'Calhetas': '18h28', 'Pico da Pedra': '18h34', 'Caldeirão': '18h39', 'Moviarte': '18h47', 'Ponta Delgada': '19h00'}
+111;SUNDAY;None;{'Furnas - Águas Quentes': '09h10', 'Furnas - Caldeiras': '09h13', 'Maia - Largo S.António': '09h38', 'São Brás': '09h43', 'Porto Formoso': '09h46', 'Ribeirinha': '10h04', 'Ribeira Grande': '10h13', 'Ribeira Seca': '10h16', 'Rabo de Peixe': '10h24', 'Calhetas': '10h28', 'Pico da Pedra': '10h34', 'Caldeirão': '10h39', 'Moviarte': '10h47', 'Ponta Delgada': '11h00'}
+111;SUNDAY;None;{'Furnas - Águas Quentes': '17h10', 'Furnas - Caldeiras': '17h13', 'Maia - Largo S.António': '17h38', 'São Brás': '17h43', 'Porto Formoso': '17h46', 'Ribeirinha': '18h04', 'Ribeira Grande': '18h13', 'Ribeira Seca': '18h16', 'Rabo de Peixe': '18h24', 'Calhetas': '18h28', 'Pico da Pedra': '18h34', 'Caldeirão': '18h39', 'Moviarte': '18h47', 'Ponta Delgada': '19h00'}
+109;WEEKDAY;None;{'Ribeira Grande': '07h50', 'Ribeirinha': '08h00'}
+109;WEEKDAY;None;{'Ribeira Grande': '09h45', 'Ribeirinha': '09h55'}
+109;WEEKDAY;None;{'Ribeira Grande': '11h50', 'Ribeirinha': '12h00'}
+109;WEEKDAY;None;{'Ribeira Grande': '12h55', 'Ribeirinha': '13h05'}
+109;WEEKDAY;None;{'Ribeira Grande': '13h10', 'Ribeirinha': '13h20'}
+109;WEEKDAY;None;{'Ribeira Grande': '13h55', 'Ribeirinha': '14h05'}
+109;WEEKDAY;None;{'Ribeira Grande': '14h55', 'Ribeirinha': '15h05'}
+109;WEEKDAY;None;{'Ribeira Grande': '15h55', 'Ribeirinha': '16h05'}
+109;WEEKDAY;None;{'Ribeira Grande': '16h55', 'Ribeirinha': '17h05'}
+109;WEEKDAY;None;{'Ribeirinha': '08h30', 'Ribeira Grande': '08h40'}
+109;WEEKDAY;None;{'Ribeirinha': '10h00', 'Ribeira Grande': '10h10'}
+109;WEEKDAY;None;{'Ribeirinha': '13h20', 'Ribeira Grande': '13h30'}
+109;WEEKDAY;None;{'Ribeirinha': '14h05', 'Ribeira Grande': '14h15'}
+109;WEEKDAY;None;{'Ribeirinha': '15h05', 'Ribeira Grande': '15h15'}
+109;WEEKDAY;None;{'Ribeirinha': '16h05', 'Ribeira Grande': '16h15'}
+109;WEEKDAY;None;{'Ribeirinha': '17h05', 'Ribeira Grande': '17h15'}
+109;WEEKDAY;None;{'Ribeirinha': '18h05', 'Ribeira Grande': '18h15'}
+109;WEEKDAY;None;{'Ribeirinha': '19h05', 'Ribeira Grande': '19h15'}
+109;SATURDAY;None;{'Ribeira Grande': '12h00', 'Ribeirinha': '12h07', 'Gramas': '12h15'}
+109;SATURDAY;None;{'Gramas': '11h05', 'Ribeirinha': '11h13', 'Ribeira Grande': '11h20'}
+109;SATURDAY;None;{'Gramas': '18h35', 'Ribeirinha': '18h43', 'Ribeira Grande': '18h50'}
+109;SATURDAY;None;{'Gramas': '20h00', 'Ribeirinha': '20h08', 'Ribeira Grande': '20h15'}
+109;SUNDAY;None;{'Ribeira Grande': '12h00', 'Ribeirinha': '12h07', 'Gramas': '12h15'}
+109;SUNDAY;None;{'Gramas': '09h35', 'Ribeirinha': '09h43', 'Ribeira Grande': '09h50'}
+109;SUNDAY;None;{'Gramas': '17h35', 'Ribeirinha': '17h43', 'Ribeira Grande': '17h50'}
+109;SUNDAY;None;{'Gramas': '19h30', 'Ribeirinha': '19h38', 'Ribeira Grande': '19h45'}
+114;WEEKDAY;None;{'Ribeira Grande': '09h15', 'Ribeira Seca': '09h21', 'Santa Bárbara - Ribeira Grande': '09h30'}
+114;WEEKDAY;None;{'Ribeira Grande': '14h15', 'Ribeira Seca': '14h21', 'Santa Bárbara - Ribeira Grande': '14h30'}
+114;WEEKDAY;None;{'Ribeira Grande': '18h30', 'Ribeira Seca': '18h36', 'Santa Bárbara - Ribeira Grande': '18h45'}
+114;WEEKDAY;None;{'Santa Bárbara - Ribeira Grande': '07h30', 'Ribeira Seca': '07h36', 'Ribeira Grande': '07h45'}
+114;WEEKDAY;None;{'Santa Bárbara - Ribeira Grande': '09h30', 'Ribeira Seca': '09h36', 'Ribeira Grande': '09h45'}
+114;WEEKDAY;None;{'Santa Bárbara - Ribeira Grande': '12h55', 'Ribeira Seca': '13h03', 'Ribeira Grande': '13h10'}
+114;WEEKDAY;None;{'Santa Bárbara - Ribeira Grande': '14h30', 'Ribeira Seca': '14h36', 'Ribeira Grande': '14h45'}
+114;WEEKDAY;None;{'Santa Bárbara - Ribeira Grande': '18h50', 'Ribeira Seca': '18h58', 'Ribeira Grande': '19h05'}
+114;SATURDAY;None;{'Ribeira Grande': '09h15', 'Ribeira Seca': '09h21', 'Santa Bárbara - Ribeira Grande': '09h30'}
+114;SATURDAY;None;{'Ribeira Grande': '12h10', 'Ribeira Seca': '12h16', 'Santa Bárbara - Ribeira Grande': '12h25'}
+114;SATURDAY;None;{'Ribeira Grande': '14h15', 'Ribeira Seca': '14h21', 'Santa Bárbara - Ribeira Grande': '14h30'}
+114;SATURDAY;None;{'Ribeira Grande': '18h45', 'Ribeira Seca': '18h51', 'Santa Bárbara - Ribeira Grande': '19h00'}
+114;SATURDAY;None;{'Santa Bárbara - Ribeira Grande': '07h30', 'Ribeira Seca': '07h36', 'Ribeira Grande': '07h45'}
+114;SATURDAY;None;{'Santa Bárbara - Ribeira Grande': '09h30', 'Ribeira Seca': '09h36', 'Ribeira Grande': '09h45'}
+114;SATURDAY;None;{'Santa Bárbara - Ribeira Grande': '14h30', 'Ribeira Seca': '14h36', 'Ribeira Grande': '14h45'}
+114;SUNDAY;None;{'Ribeira Grande': '07h50', 'Ribeira Seca': '07h56', 'Santa Bárbara - Ribeira Grande': '08h05'}
+114;SUNDAY;None;{'Ribeira Grande': '09h15', 'Ribeira Seca': '09h21', 'Santa Bárbara - Ribeira Grande': '09h30'}
+114;SUNDAY;None;{'Ribeira Grande': '13h50', 'Ribeira Seca': '13h56', 'Santa Bárbara - Ribeira Grande': '14h05'}
+114;SUNDAY;None;{'Ribeira Grande': '18h45', 'Ribeira Seca': '18h51', 'Santa Bárbara - Ribeira Grande': '19h00'}
+114;SUNDAY;None;{'Santa Bárbara - Ribeira Grande': '07h30', 'Ribeira Seca': '07h36', 'Ribeira Grande': '07h45'}
+114;SUNDAY;None;{'Santa Bárbara - Ribeira Grande': '09h30', 'Ribeira Seca': '09h36', 'Ribeira Grande': '09h45'}
+114;SUNDAY;None;{'Santa Bárbara - Ribeira Grande': '14h05', 'Ribeira Seca': '14h11', 'Ribeira Grande': '14h20'}

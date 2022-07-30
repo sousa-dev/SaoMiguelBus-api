@@ -1,0 +1,516 @@
+route; type_of_day; information; times
+301;WEEKDAY;{'pt': 'Só à Sexta-Feira', 'en': 'Just Friday', 'es': 'Solo viernes', 'fr': 'Juste vendredi', 'de': 'Nur Freitag'};{'Covoada': '07h45', 'Bom Despacho': '08h00', 'Ponta Delgada': '08h10'}
+301a;WEEKDAY;None;{'Ponta Delgada': '14h55', 'Ponta Delgada - Hospital': '15h05', 'Bom Despacho': '15h10', 'Covoada': '15h30', 'Quartel': '15h35'}
+301a;WEEKDAY;None;{'Covoada': '07h00', 'Bom Despacho': '07h15', 'Ponta Delgada - Hospital': '07h20', 'Ponta Delgada': '07h30'}
+301a;WEEKDAY;None;{'Covoada': '12h30', 'Quartel': '12h35', 'Bom Despacho': '12h50', 'Ponta Delgada - Hospital': '12h55', 'Ponta Delgada': '13h05'}
+301a;SATURDAY;None;{'Ponta Delgada': '15h30', 'Ponta Delgada - Hospital': '15h40', 'Bom Despacho': '15h45', 'Covoada': '16h00'}
+301a;SATURDAY;None;{'Ponta Delgada': '18h30', 'Ponta Delgada - Hospital': '18h40', 'Bom Despacho': '18h45', 'Covoada': '19h00'}
+301a;SATURDAY;None;{'Covoada': '07h00', 'Bom Despacho': '07h15', 'Ponta Delgada - Hospital': '07h20', 'Ponta Delgada': '07h30'}
+301a;SATURDAY;None;{'Covoada': '12h35', 'Bom Despacho': '12h50', 'Ponta Delgada - Hospital': '12h55', 'Ponta Delgada': '13h05'}
+301a;SUNDAY;None;{'Ponta Delgada': '18h30', 'Ponta Delgada - Hospital': '18h40', 'Bom Despacho': '18h45', 'Covoada': '19h00'}
+301a;SUNDAY;None;{'Covoada': '12h30', 'Bom Despacho': '12h45', 'Ponta Delgada - Hospital': '12h50', 'Ponta Delgada': '13h00'}
+301b;WEEKDAY;None;{'Ponta Delgada': '07h40', 'Bom Despacho': '07h50', 'Covoada': '08h05'}
+301b;WEEKDAY;None;{'Ponta Delgada': '08h55', 'Bom Despacho': '09h05', 'Covoada': '09h20', 'Quartel': '09h25'}
+301b;WEEKDAY;None;{'Ponta Delgada': '10h00', 'Bom Despacho': '10h10', 'Covoada': '10h25', 'Quartel': '10h30'}
+301b;WEEKDAY;None;{'Ponta Delgada': '11h10', 'Bom Despacho': '11h20', 'Covoada': '11h35', 'Quartel': '11h40'}
+301b;WEEKDAY;None;{'Ponta Delgada': '12h05', 'Bom Despacho': '12h15', 'Covoada': '12h30', 'Quartel': '12h35'}
+301b;WEEKDAY;None;{'Ponta Delgada': '13h30', 'Bom Despacho': '13h40', 'Covoada': '13h55'}
+301b;WEEKDAY;None;{'Ponta Delgada': '16h10', 'Ponta Delgada - Hospital': '16h20', 'Bom Despacho': '16h25', 'Covoada': '16h40', 'Quartel': '16h45'}
+301b;WEEKDAY;None;{'Ponta Delgada': '17h30', 'Bom Despacho': '17h40', 'Covoada': '17h55'}
+301b;WEEKDAY;None;{'Ponta Delgada': '18h50', 'Bom Despacho': '19h00', 'Covoada': '19h15'}
+301b;WEEKDAY;None;{'Ponta Delgada': '20h00', 'Bom Despacho': '20h10', 'Covoada': '20h30', 'Quartel': '20h20'}
+301b;WEEKDAY;None;{'Covoada': '08h10', 'Bom Despacho': '08h25', 'Ponta Delgada': '08h35'}
+301b;WEEKDAY;None;{'Covoada': '09h20', 'Quartel': '09h25', 'Bom Despacho': '09h40', 'Ponta Delgada': '09h50'}
+301b;WEEKDAY;None;{'Covoada': '10h30', 'Quartel': '10h35', 'Bom Despacho': '10h45', 'Ponta Delgada': '10h55'}
+301b;WEEKDAY;None;{'Covoada': '11h40', 'Quartel': '11h45', 'Bom Despacho': '11h55', 'Ponta Delgada': '12h05'}
+301b;WEEKDAY;None;{'Covoada': '14h00', 'Bom Despacho': '14h15', 'Ponta Delgada': '14h25'}
+301b;WEEKDAY;None;{'Covoada': '15h30', 'Quartel': '15h35', 'Bom Despacho': '15h45', 'Ponta Delgada': '16h00'}
+301b;WEEKDAY;None;{'Covoada': '16h40', 'Quartel': '16h45', 'Bom Despacho': '17h00', 'Ponta Delgada': '17h10'}
+301b;WEEKDAY;None;{'Covoada': '18h00', 'Bom Despacho': '18h15', 'Ponta Delgada': '18h25'}
+301b;SATURDAY;None;{'Ponta Delgada': '07h40', 'Bom Despacho': '07h50', 'Covoada': '08h05'}
+301b;SATURDAY;None;{'Ponta Delgada': '08h50', 'Bom Despacho': '09h00', 'Covoada': '09h15'}
+301b;SATURDAY;None;{'Ponta Delgada': '12h00', 'Bom Despacho': '12h10', 'Covoada': '12h25'}
+301b;SATURDAY;None;{'Ponta Delgada': '13h30', 'Bom Despacho': '13h40', 'Covoada': '13h55'}
+301b;SATURDAY;None;{'Covoada': '08h10', 'Bom Despacho': '08h25', 'Ponta Delgada': '08h35'}
+301b;SATURDAY;None;{'Covoada': '09h20', 'Bom Despacho': '09h35', 'Ponta Delgada': '09h45'}
+301b;SATURDAY;None;{'Covoada': '14h00', 'Bom Despacho': '14h15', 'Ponta Delgada': '14h25'}
+301b;SATURDAY;None;{'Covoada': '16h00', 'Bom Despacho': '16h15', 'Ponta Delgada': '16h25'}
+301b;SUNDAY;None;{'Ponta Delgada': '12h00', 'Bom Despacho': '12h10', 'Covoada': '12h25'}
+301b;SUNDAY;None;{'Ponta Delgada': '16h00', 'Bom Despacho': '16h15', 'Covoada': '16h25'}
+301b;SUNDAY;None;{'Covoada': '09h00', 'Quartel': '09h05', 'Bom Despacho': '09h20', 'Ponta Delgada': '09h30'}
+301b;SUNDAY;None;{'Covoada': '16h30', 'Bom Despacho': '16h45', 'Ponta Delgada': '16h55'}
+303a;WEEKDAY;None;{'Ponta Delgada': '08h00', 'Bom Despacho': '08h10', 'Quartel': '08h20'}
+303a;WEEKDAY;None;{'Ponta Delgada': '08h55', 'Bom Despacho': '09h05', 'Covoada': '09h20', 'Quartel': '09h25'}
+303a;WEEKDAY;None;{'Ponta Delgada': '10h00', 'Bom Despacho': '10h10', 'Covoada': '10h30', 'Quartel': '10h35'}
+303a;WEEKDAY;None;{'Ponta Delgada': '11h10', 'Bom Despacho': '11h20', 'Covoada': '11h40', 'Quartel': '11h45'}
+303a;WEEKDAY;None;{'Ponta Delgada': '12h05', 'Bom Despacho': '12h15', 'Covoada': '12h30', 'Quartel': '12h35'}
+303a;WEEKDAY;None;{'Ponta Delgada': '12h40', 'Bom Despacho': '12h50', 'Quartel': '13h00'}
+303a;WEEKDAY;None;{'Ponta Delgada': '14h00', 'Bom Despacho': '14h10', 'Quartel': '14h20'}
+303a;WEEKDAY;None;{'Ponta Delgada': '18h10', 'Bom Despacho': '18h20', 'Quartel': '18h30'}
+303a;WEEKDAY;None;{'Ponta Delgada': '18h40', 'Bom Despacho': '18h50', 'Quartel': '19h00'}
+303a;WEEKDAY;None;{'Ponta Delgada': '19h15', 'Bom Despacho': '19h25', 'Quartel': '19h35'}
+303a;WEEKDAY;None;{'Ponta Delgada': '20h00', 'Bom Despacho': '20h10', 'Covoada': '20h30', 'Quartel': '20h20'}
+303a;WEEKDAY;None;{'Quartel': '06h45', 'Bom Despacho': '06h55', 'Ponta Delgada': '07h05'}
+303a;WEEKDAY;None;{'Quartel': '07h50', 'Arribanas': '07h45', 'Bom Despacho': '08h00', 'Ponta Delgada': '08h10'}
+303a;WEEKDAY;None;{'Quartel': '08h25', 'Bom Despacho': '08h35', 'Ponta Delgada': '08h45'}
+303a;WEEKDAY;None;{'Quartel': '09h25', 'Covoada': '09h20', 'Bom Despacho': '09h35', 'Ponta Delgada': '09h45'}
+303a;WEEKDAY;None;{'Quartel': '10h35', 'Covoada': '10h30', 'Bom Despacho': '10h45', 'Ponta Delgada': '10h55'}
+303a;WEEKDAY;None;{'Quartel': '11h45', 'Covoada': '11h40', 'Bom Despacho': '11h55', 'Ponta Delgada': '12h05'}
+303a;WEEKDAY;None;{'Quartel': '12h35', 'Covoada': '12h30', 'Bom Despacho': '12h45', 'Ponta Delgada': '12h55'}
+303a;WEEKDAY;None;{'Quartel': '13h40', 'Arribanas': '13h35', 'Bom Despacho': '13h45', 'Ponta Delgada': '13h55'}
+303a;WEEKDAY;None;{'Quartel': '14h30', 'Bom Despacho': '14h40', 'Ponta Delgada': '14h50'}
+303a;WEEKDAY;None;{'Quartel': '15h35', 'Covoada': '15h30', 'Bom Despacho': '15h50', 'Ponta Delgada': '16h00'}
+303a;WEEKDAY;None;{'Quartel': '16h45', 'Covoada': '16h40', 'Bom Despacho': '16h50', 'Ponta Delgada': '17h00'}
+303a;WEEKDAY;None;{'Quartel': '17h40', 'Bom Despacho': '17h50', 'Ponta Delgada': '18h00'}
+303a;WEEKDAY;None;{'Quartel': '19h10', 'Bom Despacho': '19h20', 'Ponta Delgada': '19h30'}
+303a;SATURDAY;None;{'Ponta Delgada': '08h00', 'Bom Despacho': '08h10', 'Quartel': '08h20'}
+303a;SATURDAY;None;{'Ponta Delgada': '09h00', 'Bom Despacho': '09h10', 'Quartel': '09h20'}
+303a;SATURDAY;None;{'Ponta Delgada': '10h00', 'Bom Despacho': '10h10', 'Quartel': '10h20'}
+303a;SATURDAY;None;{'Ponta Delgada': '11h10', 'Bom Despacho': '11h20', 'Quartel': '11h30'}
+303a;SATURDAY;None;{'Quartel': '07h25', 'Bom Despacho': '07h35', 'Ponta Delgada - Hospital': '07h40', 'Ponta Delgada': '07h50'}
+303a;SATURDAY;None;{'Quartel': '08h25', 'Bom Despacho': '08h35', 'Ponta Delgada': '08h45'}
+303a;SATURDAY;None;{'Quartel': '09h25', 'Bom Despacho': '09h35', 'Ponta Delgada': '09h45'}
+303a;SATURDAY;None;{'Quartel': '10h30', 'Bom Despacho': '10h40', 'Ponta Delgada': '10h50'}
+303a;SATURDAY;None;{'Quartel': '11h40', 'Bom Despacho': '11h50', 'Ponta Delgada': '12h00'}
+303a;SATURDAY;None;{'Quartel': '13h35', 'Bom Despacho': '13h45', 'Ponta Delgada - Hospital': '13h50', 'Ponta Delgada': '14h00'}
+303b;WEEKDAY;None;{'Ponta Delgada': '13h10', 'Ponta Delgada - Hospital': '13h20', 'Bom Despacho': '13h25', 'Arribanas': '13h35', 'Quartel': '13h30'}
+303b;WEEKDAY;None;{'Ponta Delgada': '16h10', 'Ponta Delgada - Hospital': '16h20', 'Bom Despacho': '16h25', 'Covoada': '16h40', 'Quartel': '16h45'}
+303b;WEEKDAY;None;{'Quartel': '07h25', 'Bom Despacho': '07h35', 'Ponta Delgada - Hospital': '07h40', 'Ponta Delgada': '07h50'}
+303b;WEEKDAY;None;{'Quartel': '13h05', 'Bom Despacho': '13h15', 'Ponta Delgada - Hospital': '13h20', 'Ponta Delgada': '13h30'}
+303b;SATURDAY;None;{'Ponta Delgada': '13h10', 'Ponta Delgada - Hospital': '13h20', 'Bom Despacho': '13h25', 'Quartel': '13h35'}
+309;WEEKDAY;None;{'Ponta Delgada': '07h20', 'Bom Despacho': '07h30', 'Arribanas': '07h45', 'Quartel': '07h40'}
+309;WEEKDAY;None;{'Ponta Delgada': '14h55', 'Bom Despacho': '15h05', 'Covoada': '15h30', 'Quartel': '15h35'}
+309;WEEKDAY;None;{'Ponta Delgada': '16h35', 'Bom Despacho': '16h45', 'Arribanas': '17h05', 'Quartel': '16h55'}
+309;WEEKDAY;None;{'Ponta Delgada': '17h15', 'Bom Despacho': '17h25', 'Quartel': '17h35'}
+309;WEEKDAY;None;{'Quartel': '17h20', 'Arribanas': '17h15', 'Bom Despacho': '17h30', 'Ponta Delgada': '17h40'}
+315;WEEKDAY;None;{'Ponta Delgada': '07h00', 'São Roque': '07h05', 'Praia do Pópulo': '07h10', 'Lagoa': '07h20', 'Água de Pau': '07h35', 'Vila Franca': '07h50'}
+315;WEEKDAY;None;{'Ponta Delgada': '07h25', 'São Roque': '07h30', 'Livramento': '07h35', 'Lagoa': '07h45', 'Água de Pau': '08h00', 'Vila Franca': '08h15'}
+315;WEEKDAY;None;{'Ponta Delgada': '11h00', 'São Roque': '11h05', 'Livramento': '11h10', 'Lagoa': '11h20', 'Água de Pau': '11h35', 'Vila Franca': '11h50'}
+315;WEEKDAY;None;{'Ponta Delgada': '12h35', 'São Roque': '12h40', 'Praia do Pópulo': '12h45', 'Lagoa': '12h55', 'Água de Pau': '13h10', 'Vila Franca': '13h25'}
+315;WEEKDAY;None;{'Ponta Delgada': '15h00', 'São Roque': '15h05', 'Livramento': '15h10', 'Lagoa': '15h20', 'Água de Pau': '15h35', 'Vila Franca': '15h50'}
+315;WEEKDAY;None;{'Ponta Delgada': '17h40', 'São Roque': '17h45', 'Praia do Pópulo': '17h50', 'Lagoa': '18h00', 'Água de Pau': '18h15', 'Vila Franca': '18h30'}
+315;WEEKDAY;None;{'Ponta Delgada': '19h00', 'São Roque': '19h05', 'Praia do Pópulo': '19h10', 'Lagoa': '19h20', 'Água de Pau': '19h35', 'Vila Franca': '19h50'}
+315;WEEKDAY;None;{'Vila Franca': '06h30', 'Água de Pau': '06h45', 'Lagoa': '07h00', 'Livramento': '07h10', 'São Roque': '07h15', 'Ponta Delgada': '07h20'}
+315;WEEKDAY;None;{'Vila Franca': '07h20', 'Água de Pau': '07h35', 'Lagoa': '07h50', 'Praia do Pópulo': '08h00', 'São Roque': '08h05', 'Ponta Delgada': '08h10'}
+315;WEEKDAY;None;{'Vila Franca': '08h00', 'Água de Pau': '08h15', 'Lagoa': '08h30', 'Praia do Pópulo': '08h40', 'São Roque': '08h45', 'Ponta Delgada': '08h50'}
+315;WEEKDAY;None;{'Vila Franca': '09h00', 'Água de Pau': '09h15', 'Lagoa': '09h30', 'Praia do Pópulo': '09h40', 'São Roque': '09h45', 'Ponta Delgada': '09h50'}
+315;WEEKDAY;None;{'Vila Franca': '09h50', 'Água de Pau': '10h05', 'Lagoa': '10h20', 'Praia do Pópulo': '10h30', 'São Roque': '10h35', 'Ponta Delgada': '10h40'}
+315;WEEKDAY;None;{'Vila Franca': '13h00', 'Água de Pau': '13h15', 'Lagoa': '13h30', 'Praia do Pópulo': '13h40', 'São Roque': '13h45', 'Ponta Delgada': '13h50'}
+315;WEEKDAY;None;{'Vila Franca': '14h45', 'Água de Pau': '15h00', 'Lagoa': '15h15', 'Livramento': '15h25', 'São Roque': '15h30', 'Ponta Delgada': '15h35'}
+315;WEEKDAY;None;{'Vila Franca': '16h25', 'Água de Pau': '16h40', 'Lagoa': '16h55', 'Praia do Pópulo': '17h05', 'São Roque': '17h10', 'Ponta Delgada': '17h15'}
+315;WEEKDAY;None;{'Vila Franca': '17h40', 'Água de Pau': '17h55', 'Lagoa': '18h10', 'Praia do Pópulo': '18h20', 'São Roque': '18h25', 'Ponta Delgada': '18h30'}
+315;SATURDAY;None;{'Ponta Delgada': '08h00', 'São Roque': '08h05', 'Livramento': '08h10', 'Lagoa': '08h20', 'Água de Pau': '08h30', 'Vila Franca': '08h50'}
+315;SATURDAY;None;{'Ponta Delgada': '11h00', 'São Roque': '11h05', 'Livramento': '11h10', 'Lagoa': '11h20', 'Água de Pau': '11h30', 'Vila Franca': '11h50'}
+315;SATURDAY;None;{'Ponta Delgada': '12h40', 'São Roque': '12h45', 'Praia do Pópulo': '12h50', 'Lagoa': '13h00', 'Água de Pau': '13h10', 'Vila Franca': '12h30'}
+315;SATURDAY;None;{'Ponta Delgada': '17h30', 'São Roque': '17h35', 'Livramento': '17h40', 'Lagoa': '17h50', 'Água de Pau': '18h00', 'Vila Franca': '18h20'}
+315;SATURDAY;None;{'Vila Franca': '07h10', 'Água de Pau': '07h25', 'Lagoa': '07h40', 'Praia do Pópulo': '07h50', 'São Roque': '07h55', 'Ponta Delgada': '08h00'}
+315;SATURDAY;None;{'Vila Franca': '08h10', 'Água de Pau': '08h25', 'Lagoa': '08h40', 'Praia do Pópulo': '08h50', 'São Roque': '08h55', 'Ponta Delgada': '09h00'}
+315;SATURDAY;None;{'Vila Franca': '10h00', 'Água de Pau': '10h15', 'Lagoa': '10h30', 'Livramento': '10h40', 'São Roque': '10h45', 'Ponta Delgada': '10h50'}
+315;SATURDAY;None;{'Vila Franca': '15h00', 'Água de Pau': '15h15', 'Lagoa': '15h30', 'Praia do Pópulo': '15h40', 'São Roque': '15h45', 'Ponta Delgada': '15h50'}
+315;SUNDAY;None;{'Ponta Delgada': '10h00', 'São Roque': '10h05', 'Livramento': '10h10', 'Lagoa': '10h20', 'Água de Pau': '10h30', 'Vila Franca': '10h50'}
+315;SUNDAY;None;{'Ponta Delgada': '12h30', 'São Roque': '12h35', 'Praia do Pópulo': '12h40', 'Lagoa': '12h50', 'Água de Pau': '13h05', 'Vila Franca': '13h20'}
+315;SUNDAY;None;{'Vila Franca': '08h10', 'Água de Pau': '08h25', 'Lagoa': '08h40', 'Praia do Pópulo': '08h50', 'São Roque': '08h55', 'Ponta Delgada': '09h00'}
+315;SUNDAY;None;{'Vila Franca': '15h00', 'Água de Pau': '15h15', 'Lagoa': '15h30', 'Praia do Pópulo': '15h40', 'São Roque': '15h45', 'Ponta Delgada': '15h50'}
+315;SUNDAY;None;{'Vila Franca': '16h30', 'Água de Pau': '16h15', 'Lagoa': '17h00', 'Praia do Pópulo': '17h10', 'São Roque': '17h15', 'Ponta Delgada': '17h20'}
+311;WEEKDAY;None;{'Ponta Delgada': '07h50', 'São Roque': '07h55', 'Livramento': '08h00', 'Lagoa': '08h15'}
+311;WEEKDAY;None;{'Ponta Delgada': '08h25', 'São Roque': '08h30', 'Livramento': '08h35', 'Lagoa': '08h45'}
+311;WEEKDAY;None;{'Ponta Delgada': '10h10', 'São Roque': '10h15', 'Livramento': '10h20', 'Lagoa': '10h35'}
+311;WEEKDAY;None;{'Ponta Delgada': '13h00', 'São Roque': '13h05', 'Livramento': '13h10', 'Lagoa': '13h25'}
+311;WEEKDAY;None;{'Ponta Delgada': '14h15', 'São Roque': '14h20', 'Livramento': '14h25', 'Lagoa': '14h40'}
+311;WEEKDAY;None;{'Ponta Delgada': '15h30', 'São Roque': '15h35', 'Livramento': '15h40', 'Lagoa': '15h55'}
+311;WEEKDAY;None;{'Ponta Delgada': '16h45', 'São Roque': '16h50', 'Livramento': '16h55', 'Lagoa': '17h10'}
+311;WEEKDAY;None;{'Ponta Delgada': '17h00', 'São Roque': '17h05', 'Livramento': '17h10', 'Lagoa': '17h25'}
+311;WEEKDAY;None;{'Ponta Delgada': '18h05', 'São Roque': '18h10', 'Livramento': '18h15', 'Lagoa': '18h30'}
+311;WEEKDAY;None;{'Ponta Delgada': '18h30', 'São Roque': '18h35', 'Livramento': '18h40', 'Lagoa': '18h55'}
+311;WEEKDAY;None;{'Ponta Delgada': '20h05', 'São Roque': '20h10', 'Livramento': '20h15', 'Lagoa': '20h30'}
+311;WEEKDAY;None;{'Ponta Delgada': '21h15', 'São Roque': '21h30', 'Livramento': '21h35', 'Lagoa': '21h50'}
+311;WEEKDAY;None;{'Ponta Delgada': '23h15', 'São Roque': '23h30', 'Livramento': '23h35', 'Lagoa': '23h50'}
+311;WEEKDAY;None;{'Lagoa': '07h10', 'Livramento': '07h20', 'São Roque': '07h25', 'Ponta Delgada': '07h30'}
+311;WEEKDAY;None;{'Lagoa': '07h20', 'Livramento': '07h30', 'São Roque': '07h35', 'Ponta Delgada': '07h40'}
+311;WEEKDAY;None;{'Lagoa': '08h05', 'Livramento': '08h15', 'São Roque': '08h20', 'Ponta Delgada': '08h25'}
+311;WEEKDAY;None;{'Lagoa': '08h40', 'Livramento': '08h50', 'São Roque': '08h50', 'Ponta Delgada': '08h55'}
+311;WEEKDAY;None;{'Lagoa': '09h15', 'Livramento': '09h25', 'São Roque': '09h30', 'Ponta Delgada': '09h35'}
+311;WEEKDAY;None;{'Lagoa': '11h00', 'Livramento': '11h10', 'São Roque': '11h15', 'Ponta Delgada': '11h20'}
+311;WEEKDAY;None;{'Lagoa': '13h30', 'Livramento': '13h40', 'São Roque': '13h45', 'Ponta Delgada': '13h50'}
+311;WEEKDAY;None;{'Lagoa': '14h50', 'Livramento': '15h00', 'São Roque': '15h05', 'Ponta Delgada': '15h10'}
+311;WEEKDAY;None;{'Lagoa': '16h05', 'Livramento': '16h15', 'São Roque': '16h20', 'Ponta Delgada': '16h25'}
+311;WEEKDAY;None;{'Lagoa': '17h40', 'Livramento': '17h50', 'São Roque': '17h55', 'Ponta Delgada': '18h00'}
+311;WEEKDAY;None;{'Lagoa': '18h40', 'Livramento': '18h50', 'São Roque': '18h55', 'Ponta Delgada': '19h00'}
+311;WEEKDAY;None;{'Lagoa': '22h00', 'Livramento': '22h10', 'São Roque': '22h15', 'Ponta Delgada': '22h35'}
+311;SATURDAY;None;{'Ponta Delgada': '09h30', 'São Roque': '09h35', 'Livramento': '09h40', 'Lagoa': '09h50'}
+311;SATURDAY;None;{'Ponta Delgada': '10h30', 'São Roque': '10h35', 'Livramento': '10h40', 'Lagoa': '10h50'}
+311;SATURDAY;None;{'Ponta Delgada': '16h00', 'São Roque': '16h05', 'Livramento': '16h10', 'Lagoa': '16h20'}
+311;SATURDAY;None;{'Ponta Delgada': '19h30', 'São Roque': '19h35', 'Livramento': '19h40', 'Lagoa': '19h50'}
+311;SATURDAY;None;{'Ponta Delgada': '21h15', 'São Roque': '21h30', 'Livramento': '21h35', 'Lagoa': '21h50'}
+311;SATURDAY;None;{'Ponta Delgada': '23h15', 'São Roque': '23h30', 'Livramento': '23h35', 'Lagoa': '23h50'}
+311;SATURDAY;None;{'Lagoa': '07h00', 'Livramento': '07h10', 'São Roque': '07h15', 'Ponta Delgada': '07h20'}
+311;SATURDAY;None;{'Lagoa': '07h45', 'Livramento': '07h55', 'São Roque': '08h00', 'Ponta Delgada': '08h05'}
+311;SATURDAY;None;{'Lagoa': '10h00', 'Livramento': '10h10', 'São Roque': '10h15', 'Ponta Delgada': '10h20'}
+311;SATURDAY;None;{'Lagoa': '11h00', 'Livramento': '11h10', 'São Roque': '11h15', 'Ponta Delgada': '11h20'}
+311;SATURDAY;None;{'Lagoa': '16h50', 'Livramento': '17h00', 'São Roque': '17h05', 'Ponta Delgada': '17h10'}
+311;SATURDAY;None;{'Lagoa': '22h00', 'Livramento': '22h10', 'São Roque': '22h15', 'Ponta Delgada': '22h35'}
+311;SUNDAY;None;{'Ponta Delgada': '17h15', 'São Roque': '17h20', 'Livramento': '17h25', 'Lagoa': '17h35'}
+311;SUNDAY;None;{'Ponta Delgada': '20h00', 'São Roque': '20h05', 'Livramento': '20h15', 'Lagoa': '20h20'}
+311;SUNDAY;None;{'Ponta Delgada': '21h15', 'São Roque': '21h30', 'Livramento': '21h35', 'Lagoa': '21h50'}
+311;SUNDAY;None;{'Ponta Delgada': '23h15', 'São Roque': '23h30', 'Livramento': '23h35', 'Lagoa': '23h50'}
+311;SUNDAY;None;{'Lagoa': '17h45', 'Livramento': '17h55', 'São Roque': '18h00', 'Ponta Delgada': '18h05'}
+311;SUNDAY;None;{'Lagoa': '22h00', 'Livramento': '22h10', 'São Roque': '22h15', 'Ponta Delgada': '22h35'}
+311;WEEKDAY;None;{'Ponta Delgada': '07h50', 'São Roque': '07h55', 'Livramento': '08h00', 'Lagoa': '08h15'}
+311;WEEKDAY;None;{'Ponta Delgada': '08h25', 'São Roque': '08h30', 'Livramento': '08h35', 'Lagoa': '08h45'}
+311;WEEKDAY;None;{'Ponta Delgada': '10h10', 'São Roque': '10h15', 'Livramento': '10h20', 'Lagoa': '10h35'}
+311;WEEKDAY;None;{'Ponta Delgada': '13h00', 'São Roque': '13h05', 'Livramento': '13h10', 'Lagoa': '13h25'}
+311;WEEKDAY;None;{'Ponta Delgada': '14h15', 'São Roque': '14h20', 'Livramento': '14h25', 'Lagoa': '14h40'}
+311;WEEKDAY;None;{'Ponta Delgada': '15h30', 'São Roque': '15h35', 'Livramento': '15h40', 'Lagoa': '15h55'}
+311;WEEKDAY;None;{'Ponta Delgada': '16h45', 'São Roque': '16h50', 'Livramento': '16h55', 'Lagoa': '17h10'}
+311;WEEKDAY;None;{'Ponta Delgada': '17h00', 'São Roque': '17h05', 'Livramento': '17h10', 'Lagoa': '17h25'}
+311;WEEKDAY;None;{'Ponta Delgada': '18h05', 'São Roque': '18h10', 'Livramento': '18h15', 'Lagoa': '18h30'}
+311;WEEKDAY;None;{'Ponta Delgada': '18h30', 'São Roque': '18h35', 'Livramento': '18h40', 'Lagoa': '18h55'}
+311;WEEKDAY;None;{'Ponta Delgada': '20h05', 'São Roque': '20h10', 'Livramento': '20h15', 'Lagoa': '20h30'}
+311;WEEKDAY;None;{'Ponta Delgada': '21h15', 'São Roque': '21h30', 'Livramento': '21h35', 'Lagoa': '21h50'}
+311;WEEKDAY;None;{'Ponta Delgada': '23h15', 'São Roque': '23h30', 'Livramento': '23h35', 'Lagoa': '23h50'}
+311;WEEKDAY;None;{'Lagoa': '07h10', 'Livramento': '07h20', 'São Roque': '07h25', 'Ponta Delgada': '07h30'}
+311;WEEKDAY;None;{'Lagoa': '07h20', 'Livramento': '07h30', 'São Roque': '07h35', 'Ponta Delgada': '07h40'}
+311;WEEKDAY;None;{'Lagoa': '08h05', 'Livramento': '08h15', 'São Roque': '08h20', 'Ponta Delgada': '08h25'}
+311;WEEKDAY;None;{'Lagoa': '08h40', 'Livramento': '08h50', 'São Roque': '08h50', 'Ponta Delgada': '08h55'}
+311;WEEKDAY;None;{'Lagoa': '09h15', 'Livramento': '09h25', 'São Roque': '09h30', 'Ponta Delgada': '09h35'}
+311;WEEKDAY;None;{'Lagoa': '11h00', 'Livramento': '11h10', 'São Roque': '11h15', 'Ponta Delgada': '11h20'}
+311;WEEKDAY;None;{'Lagoa': '13h30', 'Livramento': '13h40', 'São Roque': '13h45', 'Ponta Delgada': '13h50'}
+311;WEEKDAY;None;{'Lagoa': '14h50', 'Livramento': '15h00', 'São Roque': '15h05', 'Ponta Delgada': '15h10'}
+311;WEEKDAY;None;{'Lagoa': '16h05', 'Livramento': '16h15', 'São Roque': '16h20', 'Ponta Delgada': '16h25'}
+311;WEEKDAY;None;{'Lagoa': '17h40', 'Livramento': '17h50', 'São Roque': '17h55', 'Ponta Delgada': '18h00'}
+311;WEEKDAY;None;{'Lagoa': '18h40', 'Livramento': '18h50', 'São Roque': '18h55', 'Ponta Delgada': '19h00'}
+311;WEEKDAY;None;{'Lagoa': '22h00', 'Livramento': '22h10', 'São Roque': '22h15', 'Ponta Delgada': '22h35'}
+311;SATURDAY;None;{'Ponta Delgada': '09h30', 'São Roque': '09h35', 'Livramento': '09h40', 'Lagoa': '09h50'}
+311;SATURDAY;None;{'Ponta Delgada': '10h30', 'São Roque': '10h35', 'Livramento': '10h40', 'Lagoa': '10h50'}
+311;SATURDAY;None;{'Ponta Delgada': '16h00', 'São Roque': '16h05', 'Livramento': '16h10', 'Lagoa': '16h20'}
+311;SATURDAY;None;{'Ponta Delgada': '19h30', 'São Roque': '19h35', 'Livramento': '19h40', 'Lagoa': '19h50'}
+311;SATURDAY;None;{'Ponta Delgada': '21h15', 'São Roque': '21h30', 'Livramento': '21h35', 'Lagoa': '21h50'}
+311;SATURDAY;None;{'Ponta Delgada': '23h15', 'São Roque': '23h30', 'Livramento': '23h35', 'Lagoa': '23h50'}
+311;SATURDAY;None;{'Lagoa': '07h00', 'Livramento': '07h10', 'São Roque': '07h15', 'Ponta Delgada': '07h20'}
+311;SATURDAY;None;{'Lagoa': '07h45', 'Livramento': '07h55', 'São Roque': '08h00', 'Ponta Delgada': '08h05'}
+311;SATURDAY;None;{'Lagoa': '10h00', 'Livramento': '10h10', 'São Roque': '10h15', 'Ponta Delgada': '10h20'}
+311;SATURDAY;None;{'Lagoa': '11h00', 'Livramento': '11h10', 'São Roque': '11h15', 'Ponta Delgada': '11h20'}
+311;SATURDAY;None;{'Lagoa': '16h50', 'Livramento': '17h00', 'São Roque': '17h05', 'Ponta Delgada': '17h10'}
+311;SATURDAY;None;{'Lagoa': '22h00', 'Livramento': '22h10', 'São Roque': '22h15', 'Ponta Delgada': '22h35'}
+311;SUNDAY;None;{'Ponta Delgada': '17h15', 'São Roque': '17h20', 'Livramento': '17h25', 'Lagoa': '17h35'}
+311;SUNDAY;None;{'Ponta Delgada': '20h00', 'São Roque': '20h05', 'Livramento': '20h15', 'Lagoa': '20h20'}
+311;SUNDAY;None;{'Ponta Delgada': '21h15', 'São Roque': '21h30', 'Livramento': '21h35', 'Lagoa': '21h50'}
+311;SUNDAY;None;{'Ponta Delgada': '23h15', 'São Roque': '23h30', 'Livramento': '23h35', 'Lagoa': '23h50'}
+311;SUNDAY;None;{'Lagoa': '17h45', 'Livramento': '17h55', 'São Roque': '18h00', 'Ponta Delgada': '18h05'}
+311;SUNDAY;None;{'Lagoa': '22h00', 'Livramento': '22h10', 'São Roque': '22h15', 'Ponta Delgada': '22h35'}
+312;WEEKDAY;None;{'Ponta Delgada': '07h40', 'São Roque': '07h45', 'Praia do Pópulo': '07h50', 'Lagoa': '08h00', 'Cabouco': '08h10'}
+312;WEEKDAY;None;{'Ponta Delgada': '11h00', 'São Roque': '11h05', 'Livramento': '11h10', 'Lagoa': '11h20', 'Cabouco': '11h30', 'Remédios da Lagoa': '11h35'}
+312;WEEKDAY;None;{'Ponta Delgada': '12h10', 'São Roque': '12h15', 'Livramento': '12h20', 'Lagoa': '12h30', 'Cabouco': '12h40', 'Remédios da Lagoa': '12h45'}
+312;WEEKDAY;None;{'Ponta Delgada': '15h50', 'São Roque': '15h55', 'Livramento': '16h00', 'Lagoa': '16h10', 'Cabouco': '16h20'}
+312;WEEKDAY;None;{'Ponta Delgada': '17h40', 'São Roque': '17h45', 'Praia do Pópulo': '18h00', 'Lagoa': '18h10', 'Cabouco': '18h20'}
+312;WEEKDAY;None;{'Ponta Delgada': '19h00', 'São Roque': '19h05', 'Livramento': '19h10', 'Lagoa': '19h20', 'Cabouco': '19h35', 'Remédios da Lagoa': '19h40'}
+312;WEEKDAY;None;{'Cabouco': '07h05', 'Lagoa': '07h10', 'Praia do Pópulo': '07h20', 'São Roque': '07h25', 'Ponta Delgada': '07h30'}
+312;WEEKDAY;None;{'Cabouco': '08h05', 'Lagoa': '08h10', 'Livramento': '08h20', 'São Roque': '08h25', 'Ponta Delgada': '08h30'}
+312;WEEKDAY;None;{'Cabouco': '16h30', 'Lagoa': '16h50', 'Livramento': '17h00', 'São Roque': '17h05', 'Ponta Delgada': '17h10'}
+312;WEEKDAY;None;{'Cabouco': '18h30', 'Lagoa': '18h35', 'Praia do Pópulo': '18h45', 'São Roque': '18h50', 'Ponta Delgada': '18h55'}
+312;SATURDAY;None;{'Ponta Delgada': '18h00', 'São Roque': '18h05', 'Praia do Pópulo': '18h10', 'Lagoa': '18h20', 'Cabouco': '18h30'}
+312;SATURDAY;None;{'Cabouco': '07h05', 'Lagoa': '07h10', 'Praia do Pópulo': '07h20', 'São Roque': '07h25', 'Ponta Delgada': '07h30'}
+312;SATURDAY;None;{'Cabouco': '18h30', 'Lagoa': '18h35', 'Livramento': '18h45', 'São Roque': '18h50', 'Ponta Delgada': '18h55'}
+312;SUNDAY;None;{'Cabouco': '08h15', 'Lagoa': '08h20', 'Livramento': '08h30', 'São Roque': '08h35', 'Ponta Delgada': '08h40'}
+314;WEEKDAY;None;{'Ponta Delgada': '12h35', 'São Roque': '12h40', 'Praia do Pópulo': '12h45', 'Lagoa': '12h55', 'Água de Pau': '13h15', 'Ribeira Chã': '13h20'}
+314;WEEKDAY;None;{'Ponta Delgada': '17h45', 'São Roque': '17h50', 'Praia do Pópulo': '17h55', 'Lagoa': '18h05', 'Água de Pau': '18h20', 'Ribeira Chã': '18h25'}
+314;WEEKDAY;None;{'Ribeira Chã': '07h25', 'Água de Pau': '07h30', 'Lagoa': '07h45', 'Praia do Pópulo': '07h55', 'São Roque': '08h00', 'Ponta Delgada': '08h05'}
+314;WEEKDAY;None;{'Ribeira Chã': '13h30', 'Água de Pau': '13h35', 'Lagoa': '13h50', 'Praia do Pópulo': '14h00', 'São Roque': '14h05', 'Ponta Delgada': '14h10'}
+318;WEEKDAY;{'pt': 'a) De Segunda a Quinta // b) Só à Sexta', 'en': 'a) From Monday to Thursday // b) Just Friday', 'es': 'a) De lunes a jueves // b) Solo viernes', 'fr': 'a) Du lundi au jeudi // b) Uniquement le vendredi', 'de': 'a) Von Montag bis Donnerstag // b) Nur am Freitag'};{'Ponta Delgada': '09h00', 'São Roque': '09h05', 'Livramento': '09h10', 'Lagoa': '09h20', 'Água de Pau': '09h35', 'Vila Franca': '09h50', 'Furnas': '10h30', 'Povoação': '10h50'}
+318;WEEKDAY;{'pt': 'a) De Segunda a Quinta // b) Só à Sexta', 'en': 'a) From Monday to Thursday // b) Just Friday', 'es': 'a) De lunes a jueves // b) Solo viernes', 'fr': 'a) Du lundi au jeudi // b) Uniquement le vendredi', 'de': 'a) Von Montag bis Donnerstag // b) Nur am Freitag'};{'Ponta Delgada': '13h45', 'São Roque': '13h45', 'Praia do Pópulo': '13h50', 'Lagoa': '14h00', 'Água de Pau': '14h15', 'Vila Franca': '14h30', 'Furnas': '15h10', 'Povoação': '15h30'}
+318;WEEKDAY;{'pt': 'a) De Segunda a Quinta // b) Só à Sexta', 'en': 'a) From Monday to Thursday // b) Just Friday', 'es': 'a) De lunes a jueves // b) Solo viernes', 'fr': 'a) Du lundi au jeudi // b) Uniquement le vendredi', 'de': 'a) Von Montag bis Donnerstag // b) Nur am Freitag'};{'Ponta Delgada': '16h00', 'São Roque': '16h05', 'Praia do Pópulo': '16h10', 'Lagoa': '16h20', 'Água de Pau': '16h35', 'Vila Franca': '16h45', 'Furnas': '17h20', 'Povoação': '17h40'}
+318;WEEKDAY;{'pt': 'a) De Segunda a Quinta // b) Só à Sexta', 'en': 'a) From Monday to Thursday // b) Just Friday', 'es': 'a) De lunes a jueves // b) Solo viernes', 'fr': 'a) Du lundi au jeudi // b) Uniquement le vendredi', 'de': 'a) Von Montag bis Donnerstag // b) Nur am Freitag'};{'Ponta Delgada': '18h10a', 'São Roque': '18h15a', 'Praia do Pópulo': '18h20a', 'Lagoa': '18h30a', 'Água de Pau': '18h45a', 'Vila Franca': '19h00a', 'Furnas': '19h40a', 'Povoação': '20h00a'}
+318;WEEKDAY;{'pt': 'a) De Segunda a Quinta // b) Só à Sexta', 'en': 'a) From Monday to Thursday // b) Just Friday', 'es': 'a) De lunes a jueves // b) Solo viernes', 'fr': 'a) Du lundi au jeudi // b) Uniquement le vendredi', 'de': 'a) Von Montag bis Donnerstag // b) Nur am Freitag'};{'Ponta Delgada': '18h30b', 'São Roque': '18h35b', 'Praia do Pópulo': '18h40b', 'Lagoa': '18h50b', 'Água de Pau': '19h05b', 'Vila Franca': '19h20b', 'Furnas': '20h00b', 'Povoação': '20h20b'}
+318;WEEKDAY;None;{'Povoação': '06h40', 'Furnas': '07h00', 'Vila Franca': '07h40', 'Água de Pau': '07h55', 'Lagoa': '08h10', 'Praia do Pópulo': '08h20', 'São Roque': '08h25', 'Ponta Delgada': '08h30'}
+318;WEEKDAY;None;{'Povoação': '08h30', 'Furnas': '08h50', 'Vila Franca': '09h30', 'Água de Pau': '09h45', 'Lagoa': '10h00', 'Praia do Pópulo': '10h10', 'São Roque': '10h15', 'Ponta Delgada': '10h20'}
+318;WEEKDAY;None;{'Povoação': '10h15', 'Furnas': '10h35', 'Vila Franca': '11h30', 'Água de Pau': '11h45', 'Lagoa': '12h00', 'Praia do Pópulo': '12h10', 'São Roque': '12h15', 'Ponta Delgada': '12h20'}
+318;WEEKDAY;None;{'Povoação': '16h00', 'Furnas': '16h20', 'Vila Franca': '16h55', 'Água de Pau': '17h10', 'Lagoa': '17h25', 'Praia do Pópulo': '17h35', 'São Roque': '17h40', 'Ponta Delgada': '17h45'}
+318;SATURDAY;None;{'Ponta Delgada': '09h00', 'São Roque': '09h05', 'Livramento': '09h10', 'Lagoa': '09h20', 'Água de Pau': '09h30', 'Vila Franca': '09h50', 'Furnas': '10h30', 'Povoação': '10h50'}
+318;SATURDAY;None;{'Ponta Delgada': '15h00', 'São Roque': '15h05', 'Praia do Pópulo': '15h10', 'Lagoa': '15h20', 'Água de Pau': '15h30', 'Vila Franca': '15h50', 'Furnas': '16h30', 'Povoação': '16h50'}
+318;SATURDAY;None;{'Povoação': '11h00', 'Furnas': '11h20', 'Vila Franca': '12h00', 'Água de Pau': '12h15', 'Lagoa': '12h30', 'Praia do Pópulo': '12h40', 'São Roque': '12h45', 'Ponta Delgada': '12h50'}
+318;SATURDAY;None;{'Povoação': '17h00', 'Furnas': '17h20', 'Vila Franca': '18h00', 'Água de Pau': '18h15', 'Lagoa': '18h30', 'Praia do Pópulo': '18h40', 'São Roque': '18h45', 'Ponta Delgada': '18h50'}
+318;SUNDAY;None;{'Ponta Delgada': '09h00', 'São Roque': '09h05', 'Livramento': '09h10', 'Lagoa': '09h20', 'Água de Pau': '09h30', 'Vila Franca': '09h50', 'Furnas': '10h30', 'Povoação': '10h50'}
+318;SUNDAY;None;{'Ponta Delgada': '15h00', 'São Roque': '15h05', 'Praia do Pópulo': '15h10', 'Lagoa': '15h20', 'Água de Pau': '15h30', 'Vila Franca': '15h50', 'Furnas': '16h30', 'Povoação': '16h50'}
+318;SUNDAY;None;{'Ponta Delgada': '17h30', 'São Roque': '17h35', 'Livramento': '17h40', 'Lagoa': '17h50', 'Água de Pau': '18h00', 'Vila Franca': '18h20'}
+318;SUNDAY;None;{'Povoação': '11h00', 'Furnas': '11h20', 'Vila Franca': '12h00', 'Água de Pau': '12h15', 'Lagoa': '12h30', 'Praia do Pópulo': '12h40', 'São Roque': '12h45', 'Ponta Delgada': '12h50'}
+318;SUNDAY;None;{'Povoação': '17h00', 'Furnas': '17h20', 'Vila Franca': '18h00', 'Água de Pau': '18h15', 'Lagoa': '18h30', 'Praia do Pópulo': '18h40', 'São Roque': '18h45', 'Ponta Delgada': '18h50'}
+327;SATURDAY;None;{'Ponta Delgada': '14h30', 'Ponta Delgada - Hospital': '14h40', 'Bom Despacho': '14h45', 'Milagres': '14h50', 'Quartel': '14h55'}
+327;SATURDAY;None;{'Ponta Delgada': '16h30', 'Bom Despacho': '16h40', 'Milagres': '16h45', 'Quartel': '16h50'}
+327;SATURDAY;None;{'Ponta Delgada': '18h45', 'Ponta Delgada - Hospital': '18h55', 'Bom Despacho': '19h00', 'Milagres': '19h05', 'Quartel': '19h10'}
+327;SATURDAY;None;{'Quartel': '14h55', 'Bom Despacho': '15h00', 'Ponta Delgada': '15h10'}
+327;SATURDAY;None;{'Quartel': '16h50', 'Bom Despacho': '17h00', 'Ponta Delgada': '17h10'}
+327;SATURDAY;None;{'Quartel': '19h10', 'Bom Despacho': '19h15', 'Ponta Delgada': '19h25'}
+327;SUNDAY;None;{'Ponta Delgada': '09h30', 'Bom Despacho': '09h40', 'Milagres': '09h45', 'Quartel': '09h50'}
+327;SUNDAY;None;{'Ponta Delgada': '12h30', 'Bom Despacho': '12h40', 'Milagres': '12h45', 'Quartel': '12h50'}
+327;SUNDAY;None;{'Ponta Delgada': '14h45', 'Ponta Delgada - Hospital': '14h55', 'Bom Despacho': '15h00', 'Milagres': '15h05', 'Quartel': '15h10'}
+327;SUNDAY;None;{'Ponta Delgada': '17h30', 'Bom Despacho': '17h40', 'Milagres': '17h45', 'Quartel': '17h50'}
+327;SUNDAY;None;{'Ponta Delgada': '18h30', 'Ponta Delgada - Hospital': '18h40', 'Bom Despacho': '18h45', 'Milagres': '18h50'}
+327;SUNDAY;None;{'Quartel': '09h50', 'Bom Despacho': '10h00', 'Ponta Delgada': '10h10'}
+327;SUNDAY;None;{'Quartel': '12h50', 'Bom Despacho': '13h00', 'Ponta Delgada': '13h10'}
+327;SUNDAY;None;{'Quartel': '15h10', 'Bom Despacho': '15h15', 'Ponta Delgada': '15h25'}
+327;SUNDAY;None;{'Quartel': '17h50', 'Bom Despacho': '18h00', 'Ponta Delgada': '18h10'}
+308;WEEKDAY;None;{'Ponta Delgada': '07h40', 'Ponta Delgada - Hospital': '07h50', 'Grotinha': '08h00'}
+308;WEEKDAY;None;{'Ponta Delgada': '18h40', 'Ponta Delgada - Hospital': '18h50', 'Grotinha': '19h00'}
+308;WEEKDAY;None;{'Grotinha': '07h05', 'Ponta Delgada - Hospital': '07h15', 'Ponta Delgada': '07h25'}
+308;WEEKDAY;None;{'Grotinha': '08h00', 'Ponta Delgada - Hospital': '08h10', 'Ponta Delgada': '08h20'}
+308;WEEKDAY;None;{'Milagres': '09h00', 'Grotinha': '09h05', 'Ponta Delgada - Hospital': '09h10', 'Ponta Delgada': '09h25'}
+305a;WEEKDAY;None;{'Ponta Delgada': '07h35', 'Bom Despacho': '07h45', 'Milagres': '07h55'}
+305a;WEEKDAY;None;{'Ponta Delgada': '11h30', 'Bom Despacho': '11h40', 'Milagres': '11h50'}
+305a;WEEKDAY;None;{'Ponta Delgada': '12h40', 'Bom Despacho': '12h50', 'Milagres': '13h00'}
+305a;WEEKDAY;None;{'Ponta Delgada': '17h30', 'Bom Despacho': '17h40', 'Milagres': '17h50'}
+305a;WEEKDAY;None;{'Ponta Delgada': '18h30', 'Bom Despacho': '18h40', 'Milagres': '18h50'}
+305a;WEEKDAY;None;{'Milagres': '08h00', 'Bom Despacho': '08h10', 'Ponta Delgada': '08h20'}
+305a;WEEKDAY;None;{'Milagres': '10h45', 'Bom Despacho': '10h55', 'Ponta Delgada': '11h05'}
+305a;WEEKDAY;None;{'Milagres': '11h55', 'Bom Despacho': '12h05', 'Ponta Delgada': '12h15'}
+305a;WEEKDAY;None;{'Milagres': '13h25', 'Bom Despacho': '13h35', 'Ponta Delgada': '13h45'}
+305a;WEEKDAY;None;{'Milagres': '18h00', 'Bom Despacho': '18h10', 'Ponta Delgada': '18h20'}
+305a;SATURDAY;None;{'Ponta Delgada': '07h35', 'Bom Despacho': '07h45', 'Milagres': '07h55'}
+305a;SATURDAY;None;{'Ponta Delgada': '11h30', 'Bom Despacho': '11h40', 'Milagres': '11h50'}
+305a;SATURDAY;None;{'Ponta Delgada': '12h40', 'Bom Despacho': '12h50', 'Milagres': '13h00'}
+305a;SATURDAY;None;{'Milagres': '08h00', 'Grotinha': '08h15', 'Bom Despacho': '08h10', 'Ponta Delgada - Hospital': '08h20', 'Ponta Delgada': '08h30'}
+305a;SATURDAY;None;{'Milagres': '10h45', 'Bom Despacho': '10h55', 'Ponta Delgada': '11h05'}
+305a;SATURDAY;None;{'Milagres': '11h55', 'Bom Despacho': '12h05', 'Ponta Delgada': '12h15'}
+305b;WEEKDAY;None;{'Ponta Delgada': '08h30', 'Ponta Delgada - Hospital': '08h40', 'Grotinha': '08h50', 'Milagres': '09h00'}
+305b;WEEKDAY;None;{'Ponta Delgada': '10h15', 'Ponta Delgada - Hospital': '10h25', 'Grotinha': '10h35', 'Milagres': '10h40'}
+305b;WEEKDAY;None;{'Ponta Delgada': '14h40', 'Ponta Delgada - Hospital': '14h50', 'Grotinha': '14h45', 'Milagres': '15h05'}
+305b;WEEKDAY;None;{'Ponta Delgada': '16h30', 'Ponta Delgada - Hospital': '16h40', 'Grotinha': '16h45', 'Milagres': '16h55'}
+305b;WEEKDAY;None;{'Milagres': '07h00', 'Bom Despacho': '07h10', 'Ponta Delgada - Hospital': '07h15', 'Ponta Delgada': '07h25'}
+305b;WEEKDAY;None;{'Milagres': '15h10', 'Grotinha': '15h20', 'Ponta Delgada - Hospital': '15h30', 'Ponta Delgada': '15h40'}
+305b;WEEKDAY;None;{'Milagres': '17h00', 'Bom Despacho': '17h10', 'Ponta Delgada - Hospital': '17h20', 'Ponta Delgada': '17h30'}
+305b;SATURDAY;None;{'Ponta Delgada': '10h15', 'Ponta Delgada - Hospital': '10h25', 'Grotinha': '10h35', 'Milagres': '10h40'}
+305b;SATURDAY;None;{'Milagres': '07h00', 'Bom Despacho': '07h10', 'Ponta Delgada - Hospital': '07h15', 'Ponta Delgada': '07h25'}
+307a;WEEKDAY;None;{'Ponta Delgada': '07h30', 'Caminho da Levada': '07h40', 'Fajã de Cima': '07h50'}
+307a;WEEKDAY;None;{'Ponta Delgada': '08h05', 'Caminho da Levada': '08h15', 'Fajã de Cima': '08h25'}
+307a;WEEKDAY;None;{'Ponta Delgada': '08h20', 'Caminho da Levada': '08h30', 'Fajã de Cima': '08h40'}
+307a;WEEKDAY;None;{'Ponta Delgada': '09h05', 'Caminho da Levada': '09h15', 'Fajã de Cima': '09h25'}
+307a;WEEKDAY;None;{'Ponta Delgada': '12h00', 'Caminho da Levada': '12h10', 'Fajã de Cima': '12h20'}
+307a;WEEKDAY;None;{'Ponta Delgada': '12h35', 'Caminho da Levada': '12h45', 'Fajã de Cima': '12h55'}
+307a;WEEKDAY;None;{'Ponta Delgada': '13h10', 'Caminho da Levada': '13h20', 'Fajã de Cima': '13h30'}
+307a;WEEKDAY;None;{'Ponta Delgada': '14h00', 'Caminho da Levada': '14h10', 'Fajã de Cima': '14h20'}
+307a;WEEKDAY;None;{'Ponta Delgada': '15h00', 'Caminho da Levada': '15h10', 'Fajã de Cima': '15h20'}
+307a;WEEKDAY;None;{'Ponta Delgada': '16h00', 'Caminho da Levada': '16h10', 'Fajã de Cima': '16h20'}
+307a;WEEKDAY;None;{'Ponta Delgada': '17h10', 'Caminho da Levada': '17h20', 'Fajã de Cima': '17h30'}
+307a;WEEKDAY;None;{'Ponta Delgada': '18h10', 'Caminho da Levada': '18h20', 'Fajã de Cima': '18h30'}
+307a;WEEKDAY;None;{'Ponta Delgada': '18h45', 'Caminho da Levada': '18h55', 'Fajã de Cima': '19h05'}
+307a;WEEKDAY;None;{'Ponta Delgada': '19h10', 'Caminho da Levada': '19h20', 'Fajã de Cima': '19h30'}
+307a;WEEKDAY;None;{'Ponta Delgada': '20h00', 'Caminho da Levada': '20h10', 'Fajã de Cima': '20h20'}
+307a;WEEKDAY;None;{'Fajã de Cima': '06h55', 'Caminho da Levada': '07h05', 'Ponta Delgada': '07h15'}
+307a;WEEKDAY;None;{'Fajã de Cima': '07h25', 'Caminho da Levada': '07h35', 'Ponta Delgada': '07h45'}
+307a;WEEKDAY;None;{'Fajã de Cima': '08h25', 'Caminho da Levada': '08h35', 'Ponta Delgada': '08h45'}
+307a;WEEKDAY;None;{'Fajã de Cima': '09h10', 'Caminho da Levada': '09h20', 'Ponta Delgada': '09h30'}
+307a;WEEKDAY;None;{'Fajã de Cima': '09h25', 'Caminho da Levada': '09h35', 'Ponta Delgada': '09h45'}
+307a;WEEKDAY;None;{'Fajã de Cima': '12h20', 'Caminho da Levada': '12h30', 'Ponta Delgada': '12h40'}
+307a;WEEKDAY;None;{'Fajã de Cima': '13h30', 'Caminho da Levada': '13h40', 'Ponta Delgada': '13h50'}
+307a;WEEKDAY;None;{'Fajã de Cima': '14h20', 'Caminho da Levada': '14h30', 'Ponta Delgada': '14h40'}
+307a;WEEKDAY;None;{'Fajã de Cima': '17h30', 'Caminho da Levada': '17h40', 'Ponta Delgada': '17h50'}
+307a;WEEKDAY;None;{'Fajã de Cima': '18h30', 'Caminho da Levada': '18h40', 'Ponta Delgada': '18h50'}
+307a;WEEKDAY;None;{'Fajã de Cima': '19h30', 'Caminho da Levada': '19h40', 'Ponta Delgada': '19h50'}
+307a;SATURDAY;None;{'Ponta Delgada': '07h30', 'Caminho da Levada': '07h40', 'Fajã de Cima': '07h50'}
+307a;SATURDAY;None;{'Ponta Delgada': '08h05', 'Caminho da Levada': '08h15', 'Fajã de Cima': '08h25'}
+307a;SATURDAY;None;{'Ponta Delgada': '09h05', 'Caminho da Levada': '09h15', 'Fajã de Cima': '09h25'}
+307a;SATURDAY;None;{'Ponta Delgada': '10h05', 'Caminho da Levada': '10h15', 'Fajã de Cima': '10h25'}
+307a;SATURDAY;None;{'Ponta Delgada': '11h05', 'Caminho da Levada': '11h15', 'Fajã de Cima': '11h25'}
+307a;SATURDAY;None;{'Ponta Delgada': '12h10', 'Caminho da Levada': '12h20', 'Fajã de Cima': '12h30'}
+307a;SATURDAY;None;{'Fajã de Cima': '06h55', 'Caminho da Levada': '07h05', 'Ponta Delgada': '07h15'}
+307a;SATURDAY;None;{'Fajã de Cima': '07h50', 'Caminho da Levada': '08h00', 'Ponta Delgada': '08h10'}
+307a;SATURDAY;None;{'Fajã de Cima': '08h25', 'Caminho da Levada': '08h35', 'Ponta Delgada': '08h45'}
+307a;SATURDAY;None;{'Fajã de Cima': '09h25', 'Caminho da Levada': '09h35', 'Ponta Delgada': '09h45'}
+307a;SATURDAY;None;{'Fajã de Cima': '10h25', 'Caminho da Levada': '10h35', 'Ponta Delgada': '10h45'}
+307a;SATURDAY;None;{'Fajã de Cima': '11h25', 'Caminho da Levada': '11h35', 'Ponta Delgada': '11h45'}
+307a;SATURDAY;None;{'Fajã de Cima': '12h30', 'Caminho da Levada': '12h40', 'Ponta Delgada': '12h40'}
+307b;WEEKDAY;None;{'Ponta Delgada': '10h05', 'Ponta Delgada - Hospital': '10h15', 'Caminho da Levada': '10h20', 'Fajã de Cima': '10h30'}
+307b;WEEKDAY;None;{'Ponta Delgada': '11h05', 'Ponta Delgada - Hospital': '11h15', 'Caminho da Levada': '11h20', 'Fajã de Cima': '11h30'}
+307b;WEEKDAY;None;{'Fajã de Cima': '07h50', 'Caminho da Levada': '08h00', 'Ponta Delgada - Hospital': '08h10', 'Ponta Delgada': '08h20'}
+307b;WEEKDAY;None;{'Fajã de Cima': '10h25', 'Caminho da Levada': '10h35', 'Ponta Delgada - Hospital': '10h45', 'Ponta Delgada': '10h55'}
+307b;WEEKDAY;None;{'Fajã de Cima': '11h25', 'Caminho da Levada': '11h35', 'Ponta Delgada - Hospital': '11h45', 'Ponta Delgada': '11h55'}
+307b;WEEKDAY;None;{'Fajã de Cima': '13h00', 'Caminho da Levada': '13h10', 'Ponta Delgada - Hospital': '13h20', 'Ponta Delgada': '13h30'}
+307b;WEEKDAY;None;{'Fajã de Cima': '15h20', 'Caminho da Levada': '15h30', 'Ponta Delgada - Hospital': '15h40', 'Ponta Delgada': '15h50'}
+306;img;None;{'Ponta Delgada': '07h30', 'Belém': '07h40', 'Fajã de Baixo': '07h50'}
+306;img;None;{'Ponta Delgada': '08h00', 'Belém': '08h10', 'Fajã de Baixo': '08h20'}
+306;img;None;{'Ponta Delgada': '08h45', 'Belém': '08h55', 'Fajã de Baixo': '09h05'}
+306;img;None;{'Ponta Delgada': '10h10', 'Belém': '10h20', 'Fajã de Baixo': '10h30'}
+306;img;None;{'Ponta Delgada': '12h10', 'Belém': '12h20', 'Fajã de Baixo': '12h30'}
+306;img;None;{'Ponta Delgada': '12h40', 'Belém': '12h50', 'Fajã de Baixo': '13h00'}
+306;img;None;{'Ponta Delgada': '14h00', 'Belém': '14h10', 'Fajã de Baixo': '14h20'}
+306;img;None;{'Ponta Delgada': '17h05', 'Belém': '17h15', 'Fajã de Baixo': '17h25'}
+306;img;None;{'Ponta Delgada': '18h15', 'Belém': '18h25', 'Fajã de Baixo': '18h35'}
+306;img;None;{'Ponta Delgada': '19h10', 'Belém': '19h20', 'Fajã de Baixo': '19h30'}
+306;img;None;{'Fajã de Baixo': '08h25', 'Belém': '08h35', 'Ponta Delgada': '08h45'}
+306;img;None;{'Fajã de Baixo': '09h10', 'Belém': '09h20', 'Ponta Delgada': '09h30'}
+306;img;None;{'Fajã de Baixo': '10h35', 'Belém': '10h45', 'Ponta Delgada': '10h55'}
+306;img;None;{'Fajã de Baixo': '12h35', 'Belém': '12h45', 'Ponta Delgada': '12h55'}
+306;img;None;{'Fajã de Baixo': '13h05', 'Belém': '13h15', 'Ponta Delgada': '13h25'}
+306;img;None;{'Fajã de Baixo': '13h30', 'Belém': '13h40', 'Ponta Delgada': '13h50'}
+306;img;None;{'Fajã de Baixo': '14h25', 'Belém': '14h35', 'Ponta Delgada': '14h45'}
+306;img;None;{'Ponta Delgada': '10h10', 'Laranjeiras': '10h20', 'Fajã de Baixo': '10h30'}
+306;img;None;{'Ponta Delgada': '12h10', 'Laranjeiras': '12h20', 'Fajã de Baixo': '12h30'}
+306;img;None;{'Fajã de Baixo': '08h00', 'Laranjeiras': '08h10', 'Ponta Delgada': '08h20'}
+306;img;None;{'Fajã de Baixo': '10h35', 'Laranjeiras': '10h45', 'Ponta Delgada': '10h55'}
+306;img;None;{'Fajã de Baixo': '12h35', 'Laranjeiras': '12h45', 'Ponta Delgada': '12h55'}
+304a;WEEKDAY;None;{'Ponta Delgada': '09h10', 'Laranjeiras': '09h15', 'Fajã de Baixo': '09h25'}
+304a;WEEKDAY;None;{'Ponta Delgada': '11h10', 'Laranjeiras': '11h15', 'Fajã de Baixo': '11h25'}
+304a;WEEKDAY;None;{'Ponta Delgada': '13h10', 'Laranjeiras': '13h15', 'Fajã de Baixo': '13h25'}
+304a;WEEKDAY;None;{'Ponta Delgada': '16h10', 'Laranjeiras': '16h15', 'Fajã de Baixo': '16h25'}
+304a;WEEKDAY;None;{'Ponta Delgada': '07h55', 'Laranjeiras': '08h05', 'Fajã de Baixo': '08h15'}
+304a;SATURDAY;None;{'Ponta Delgada': '09h10', 'Belém': '09h15', 'Fajã de Baixo': '09h25'}
+304a;SATURDAY;None;{'Ponta Delgada': '11h10', 'Belém': '11h15', 'Fajã de Baixo': '11h25'}
+304b;WEEKDAY;None;{'Fajã de Baixo': '07h00', 'Laranjeiras': '07h10', 'Ponta Delgada': '07h15'}
+304b;WEEKDAY;None;{'Fajã de Baixo': '09h35', 'Laranjeiras': '09h45', 'Ponta Delgada': '09h50'}
+304b;WEEKDAY;None;{'Fajã de Baixo': '11h35', 'Laranjeiras': '11h45', 'Ponta Delgada': '11h50'}
+304b;WEEKDAY;None;{'Fajã de Baixo': '16h35', 'Laranjeiras': '16h45', 'Ponta Delgada': '16h50'}
+304b;WEEKDAY;None;{'Fajã de Baixo': '17h30', 'Laranjeiras': '17h40', 'Ponta Delgada': '17h45'}
+304b;WEEKDAY;None;{'Fajã de Baixo': '18h40', 'Laranjeiras': '18h50', 'Ponta Delgada': '18h55'}
+304b;SATURDAY;None;{'Fajã de Baixo': '07h00', 'Belém': '07h10', 'Ponta Delgada': '07h15'}
+304b;SATURDAY;None;{'Fajã de Baixo': '09h35', 'Belém': '09h45', 'Ponta Delgada': '09h50'}
+304b;SATURDAY;None;{'Fajã de Baixo': '11h35', 'Belém': '11h45', 'Ponta Delgada': '11h55'}
+328;SATURDAY;{'pt': 'Saída no lado Sul da Av. Infante D.Henrique', 'en': 'This service starts in the South Side of Av. Infante D.Henrique.', 'es': 'Este servicio se inicia en el lado sur de la Av. Infante D. Henrique.', 'fr': "Ce service commence dans le côté sud de l'Av. Infante D. Henrique.", 'de': 'Dieser Service beginnt in der Südseite der Av. Infante D. Henrique.'};{'Ponta Delgada': '13h10', 'Laranjeiras': '13h15', 'Santa Rita': '13h25', 'Fajã de Cima': '13h30'}
+328;SATURDAY;{'pt': 'Saída no lado Sul da Av. Infante D.Henrique', 'en': 'This service starts in the South Side of Av. Infante D.Henrique.', 'es': 'Este servicio se inicia en el lado sur de la Av. Infante D. Henrique.', 'fr': "Ce service commence dans le côté sud de l'Av. Infante D. Henrique.", 'de': 'Dieser Service beginnt in der Südseite der Av. Infante D. Henrique.'};{'Ponta Delgada': '14h30', 'Laranjeiras': '14h35', 'Santa Rita': '14h45', 'Fajã de Cima': '14h50'}
+328;SATURDAY;{'pt': 'Saída no lado Sul da Av. Infante D.Henrique', 'en': 'This service starts in the South Side of Av. Infante D.Henrique.', 'es': 'Este servicio se inicia en el lado sur de la Av. Infante D. Henrique.', 'fr': "Ce service commence dans le côté sud de l'Av. Infante D. Henrique.", 'de': 'Dieser Service beginnt in der Südseite der Av. Infante D. Henrique.'};{'Ponta Delgada': '16h00', 'Belém': '16h05', 'Santa Rita': '16h15', 'Fajã de Cima': '16h20'}
+328;SATURDAY;{'pt': 'Saída no lado Sul da Av. Infante D.Henrique', 'en': 'This service starts in the South Side of Av. Infante D.Henrique.', 'es': 'Este servicio se inicia en el lado sur de la Av. Infante D. Henrique.', 'fr': "Ce service commence dans le côté sud de l'Av. Infante D. Henrique.", 'de': 'Dieser Service beginnt in der Südseite der Av. Infante D. Henrique.'};{'Ponta Delgada': '17h30', 'Belém': '17h35', 'Santa Rita': '17h45', 'Fajã de Cima': '17h50'}
+328;SATURDAY;None;{'Fajã de Cima': '13h30', 'Caminho da Levada': '13h40', 'Ponta Delgada - Hospital': '13h45', 'Ponta Delgada': '13h55'}
+328;SATURDAY;None;{'Fajã de Cima': '14h50', 'Caminho da Levada': '15h00', 'Ponta Delgada - Hospital': '15h05', 'Ponta Delgada': '15h15'}
+328;SATURDAY;None;{'Fajã de Cima': '16h20', 'Caminho da Levada': '16h30', 'Ponta Delgada': '16h40'}
+328;SATURDAY;None;{'Fajã de Cima': '17h50', 'Caminho da Levada': '18h00', 'Ponta Delgada': '18h10'}
+328;SUNDAY;{'pt': 'Saída no lado Sul da Av. Infante D.Henrique', 'en': 'This service starts in the South Side of Av. Infante D.Henrique.', 'es': 'Este servicio se inicia en el lado sur de la Av. Infante D. Henrique.', 'fr': "Ce service commence dans le côté sud de l'Av. Infante D. Henrique.", 'de': 'Dieser Service beginnt in der Südseite der Av. Infante D. Henrique.'};{'Ponta Delgada': '11h05', 'Laranjeiras': '11h10', 'Santa Rita': '11h20', 'Fajã de Cima': '11h25'}
+328;SUNDAY;{'pt': 'Saída no lado Sul da Av. Infante D.Henrique', 'en': 'This service starts in the South Side of Av. Infante D.Henrique.', 'es': 'Este servicio se inicia en el lado sur de la Av. Infante D. Henrique.', 'fr': "Ce service commence dans le côté sud de l'Av. Infante D. Henrique.", 'de': 'Dieser Service beginnt in der Südseite der Av. Infante D. Henrique.'};{'Ponta Delgada': '13h10', 'Belém': '13h15', 'Santa Rita': '13h30', 'Fajã de Cima': '13h30'}
+328;SUNDAY;{'pt': 'Saída no lado Sul da Av. Infante D.Henrique', 'en': 'This service starts in the South Side of Av. Infante D.Henrique.', 'es': 'Este servicio se inicia en el lado sur de la Av. Infante D. Henrique.', 'fr': "Ce service commence dans le côté sud de l'Av. Infante D. Henrique.", 'de': 'Dieser Service beginnt in der Südseite der Av. Infante D. Henrique.'};{'Ponta Delgada': '14h15', 'Belém': '14h20', 'Santa Rita': '14h30', 'Fajã de Cima': '14h35'}
+328;SUNDAY;{'pt': 'Saída no lado Sul da Av. Infante D.Henrique', 'en': 'This service starts in the South Side of Av. Infante D.Henrique.', 'es': 'Este servicio se inicia en el lado sur de la Av. Infante D. Henrique.', 'fr': "Ce service commence dans le côté sud de l'Av. Infante D. Henrique.", 'de': 'Dieser Service beginnt in der Südseite der Av. Infante D. Henrique.'};{'Ponta Delgada': '16h45', 'Belém': '16h50', 'Santa Rita': '17h00', 'Fajã de Cima': '17h05'}
+328;SUNDAY;None;{'Fajã de Cima': '11h25', 'Caminho da Levada': '11h35', 'Ponta Delgada': '11h45'}
+328;SUNDAY;None;{'Fajã de Cima': '13h30', 'Caminho da Levada': '13h40', 'Ponta Delgada - Hospital': '13h45', 'Ponta Delgada': '13h55'}
+328;SUNDAY;None;{'Fajã de Cima': '14h35', 'Caminho da Levada': '14h45', 'Ponta Delgada - Hospital': '14h50', 'Ponta Delgada': '15h00'}
+328;SUNDAY;None;{'Fajã de Cima': '17h05', 'Caminho da Levada': '17h15', 'Ponta Delgada': '17h25'}
+329;WEEKDAY;{'pt': 'Saída junto ao Posto de Turismo', 'en': 'This service starts next to the Tourism Office.', 'es': 'Este servicio comienza junto a la Oficina de Turismo.', 'fr': "Ce service démarre à côté de l'Office de Tourisme.", 'de': 'Dieser Service beginnt neben dem Tourismusbüro.'};{'Ponta Delgada': '20h00', 'Caminho da Levada': '20h10', 'Fajã de Cima': '20h20'}
+329;WEEKDAY;None;{'Fajã de Cima': '20h20', 'Fajã de Baixo': '20h30', 'Laranjeiras': '20h40', 'Ponta Delgada': '20h50'}
+302;WEEKDAY;None;{'Ponta Delgada': '08h05', 'Fajã de Baixo': '08h15', 'Largo da Fonte': '08h25'}
+302;WEEKDAY;None;{'Ponta Delgada': '12h45', 'Fajã de Baixo': '12h55', 'Largo da Fonte': '13h05'}
+302;WEEKDAY;None;{'Ponta Delgada': '15h00', 'Fajã de Baixo': '15h10', 'Largo da Fonte': '15h20'}
+302;WEEKDAY;None;{'Ponta Delgada': '17h45', 'Fajã de Baixo': '17h55', 'Largo da Fonte': '18h05'}
+302;WEEKDAY;None;{'Ponta Delgada': '18h45', 'Fajã de Baixo': '18h55', 'Largo da Fonte': '19h05'}
+302;WEEKDAY;None;{'Largo da Fonte': '07h15', 'Fajã de Baixo': '07h25', 'Ponta Delgada': '07h35'}
+302;WEEKDAY;None;{'Largo da Fonte': '08h25', 'Fajã de Baixo': '08h35', 'Ponta Delgada': '08h45'}
+302;WEEKDAY;None;{'Largo da Fonte': '13h30', 'Fajã de Baixo': '13h40', 'Ponta Delgada': '13h50'}
+302;WEEKDAY;None;{'Largo da Fonte': '15h20', 'Fajã de Baixo': '15h30', 'Ponta Delgada': '15h40'}
+302;WEEKDAY;None;{'Largo da Fonte': '18h05', 'Fajã de Baixo': '18h15', 'Ponta Delgada': '18h25'}
+302;SATURDAY;None;{'Ponta Delgada': '08h05', 'Fajã de Baixo': '08h15', 'Largo da Fonte': '08h25'}
+302;SATURDAY;None;{'Ponta Delgada': '15h10', 'Fajã de Baixo': '15h20', 'Largo da Fonte': '15h30'}
+302;SATURDAY;None;{'Largo da Fonte': '07h15', 'Fajã de Baixo': '07h25', 'Ponta Delgada': '07h35'}
+302;SATURDAY;None;{'Largo da Fonte': '08h25', 'Fajã de Baixo': '08h35', 'Ponta Delgada': '08h45'}
+302;SATURDAY;None;{'Largo da Fonte': '15h35', 'Fajã de Baixo': '15h45', 'Ponta Delgada': '15h55'}
+316;WEEKDAY;None;{'Vila Franca': '07h20', 'Ribeira das Tainhas': '07h30', 'Caminho Novo': '07h40', 'Ponta Garça': '07h45'}
+316;WEEKDAY;None;{'Vila Franca': '08h30', 'Ribeira das Tainhas': '08h40', 'Caminho Novo': '08h50', 'Ponta Garça': '08h55'}
+316;WEEKDAY;None;{'Vila Franca': '10h10', 'Ribeira das Tainhas': '10h20', 'Caminho Novo': '10h30', 'Ponta Garça': '10h35'}
+316;WEEKDAY;None;{'Vila Franca': '11h30', 'Ribeira das Tainhas': '11h40', 'Caminho Novo': '11h50', 'Ponta Garça': '11h55'}
+316;WEEKDAY;None;{'Vila Franca': '13h00', 'Ribeira das Tainhas': '13h10', 'Caminho Novo': '13h20', 'Ponta Garça': '13h25'}
+316;WEEKDAY;None;{'Vila Franca': '15h00', 'Ribeira das Tainhas': '15h10', 'Caminho Novo': '15h20', 'Ponta Garça': '15h25'}
+316;WEEKDAY;None;{'Vila Franca': '17h10', 'Ribeira das Tainhas': '17h20', 'Caminho Novo': '17h30', 'Ponta Garça': '17h35'}
+316;WEEKDAY;None;{'Vila Franca': '18h40', 'Ribeira das Tainhas': '18h50', 'Caminho Novo': '19h00', 'Ponta Garça': '19h05'}
+316;WEEKDAY;None;{'Vila Franca': '20h00', 'Ribeira das Tainhas': '20h10', 'Caminho Novo': '20h20', 'Ponta Garça': '20h25'}
+316;WEEKDAY;None;{'Ponta Garça': '06h40', 'Caminho Novo': '06h45', 'Ribeira das Tainhas': '06h55', 'Vila Franca': '07h05'}
+316;WEEKDAY;None;{'Ponta Garça': '07h50', 'Caminho Novo': '07h55', 'Ribeira das Tainhas': '08h05', 'Vila Franca': '08h15'}
+316;WEEKDAY;None;{'Ponta Garça': '09h10', 'Caminho Novo': '09h15', 'Ribeira das Tainhas': '09h25', 'Vila Franca': '09h35'}
+316;WEEKDAY;None;{'Ponta Garça': '10h50', 'Caminho Novo': '10h55', 'Ribeira das Tainhas': '11h05', 'Vila Franca': '11h15'}
+316;WEEKDAY;None;{'Ponta Garça': '12h25', 'Caminho Novo': '12h30', 'Ribeira das Tainhas': '12h40', 'Vila Franca': '12h50'}
+316;WEEKDAY;None;{'Ponta Garça': '13h50', 'Caminho Novo': '13h55', 'Ribeira das Tainhas': '14h05', 'Vila Franca': '14h15'}
+316;WEEKDAY;None;{'Ponta Garça': '15h40', 'Caminho Novo': '15h45', 'Ribeira das Tainhas': '15h55', 'Vila Franca': '16h05'}
+316;WEEKDAY;None;{'Ponta Garça': '17h50', 'Caminho Novo': '17h55', 'Ribeira das Tainhas': '18h05', 'Vila Franca': '18h15'}
+316;WEEKDAY;None;{'Ponta Garça': '19h20', 'Caminho Novo': '19h25', 'Ribeira das Tainhas': '19h35', 'Vila Franca': '19h45'}
+316;SATURDAY;None;{'Vila Franca': '08h50', 'Ribeira das Tainhas': '09h00', 'Caminho Novo': '09h10', 'Ponta Garça': '09h15'}
+316;SATURDAY;None;{'Vila Franca': '09h50', 'Ribeira das Tainhas': '10h00', 'Caminho Novo': '10h10'}
+316;SATURDAY;None;{'Vila Franca': '11h50', 'Ribeira das Tainhas': '12h00', 'Caminho Novo': '12h10', 'Ponta Garça': '12h15'}
+316;SATURDAY;None;{'Vila Franca': '13h40', 'Ribeira das Tainhas': '13h50', 'Caminho Novo': '14h00', 'Ponta Garça': '14h05'}
+316;SATURDAY;None;{'Vila Franca': '15h50', 'Ribeira das Tainhas': '16h00', 'Caminho Novo': '16h10'}
+316;SATURDAY;None;{'Vila Franca': '18h20', 'Ribeira das Tainhas': '18h30', 'Caminho Novo': '18h40', 'Ponta Garça': '18h45'}
+316;SATURDAY;None;{'Ponta Garça': '06h40', 'Caminho Novo': '06h45', 'Ribeira das Tainhas': '06h55', 'Vila Franca': '07h05'}
+316;SATURDAY;None;{'Ponta Garça': '07h40', 'Caminho Novo': '07h45', 'Ribeira das Tainhas': '07h55', 'Vila Franca': '08h05'}
+316;SATURDAY;None;{'Ponta Garça': '09h30', 'Caminho Novo': '09h35', 'Ribeira das Tainhas': '09h45', 'Vila Franca': '09h55'}
+316;SATURDAY;None;{'Caminho Novo': '11h35', 'Ribeira das Tainhas': '11h45', 'Vila Franca': '11h55'}
+316;SATURDAY;None;{'Ponta Garça': '14h30', 'Caminho Novo': '14h35', 'Ribeira das Tainhas': '14h45', 'Vila Franca': '14h55'}
+316;SATURDAY;None;{'Caminho Novo': '17h35', 'Ribeira das Tainhas': '17h45', 'Vila Franca': '17h55'}
+316;SUNDAY;None;{'Vila Franca': '09h50', 'Ribeira das Tainhas': '10h00', 'Caminho Novo': '10h10'}
+316;SUNDAY;None;{'Vila Franca': '10h50', 'Ribeira das Tainhas': '11h00', 'Caminho Novo': '11h10', 'Ponta Garça': '11h15'}
+316;SUNDAY;None;{'Vila Franca': '13h20', 'Ribeira das Tainhas': '13h30', 'Caminho Novo': '13h40', 'Ponta Garça': '13h50'}
+316;SUNDAY;None;{'Vila Franca': '15h50', 'Ribeira das Tainhas': '16h00', 'Caminho Novo': '16h10'}
+316;SUNDAY;None;{'Vila Franca': '18h20', 'Ribeira das Tainhas': '18h30', 'Caminho Novo': '18h40', 'Ponta Garça': '18h45'}
+316;SUNDAY;None;{'Ponta Garça': '07h40', 'Caminho Novo': '07h45', 'Ribeira das Tainhas': '07h55', 'Vila Franca': '08h05'}
+316;SUNDAY;None;{'Caminho Novo': '11h35', 'Ribeira das Tainhas': '11h45', 'Vila Franca': '11h55'}
+316;SUNDAY;None;{'Ponta Garça': '14h30', 'Caminho Novo': '14h35', 'Ribeira das Tainhas': '14h45', 'Vila Franca': '14h55'}
+316;SUNDAY;None;{'Ponta Garça': '16h00', 'Caminho Novo': '16h05', 'Ribeira das Tainhas': '16h15', 'Vila Franca': '16h25'}
+316;SUNDAY;None;{'Caminho Novo': '17h35', 'Ribeira das Tainhas': '17h45', 'Vila Franca': '17h55'}
+317;WEEKDAY;{'pt': 'Período Escolar', 'en': 'School Period', 'es': 'Periodo Escolar', 'fr': 'Période Scolaire', 'de': 'Schulzeit'};{'Furnas': '07h15', 'Ribeira Quente': '07h35'}
+317;WEEKDAY;{'pt': 'Período Escolar', 'en': 'School Period', 'es': 'Periodo Escolar', 'fr': 'Période Scolaire', 'de': 'Schulzeit'};{'Furnas': '12h10', 'Ribeira Quente': '12h30'}
+317;WEEKDAY;{'pt': 'Período Escolar', 'en': 'School Period', 'es': 'Periodo Escolar', 'fr': 'Période Scolaire', 'de': 'Schulzeit'};{'Furnas': '13h50', 'Ribeira Quente': '14h10'}
+317;WEEKDAY;{'pt': 'Período Escolar', 'en': 'School Period', 'es': 'Periodo Escolar', 'fr': 'Période Scolaire', 'de': 'Schulzeit'};{'Furnas': '16h20', 'Ribeira Quente': '16h40'}
+317;WEEKDAY;{'pt': 'Período Escolar', 'en': 'School Period', 'es': 'Periodo Escolar', 'fr': 'Période Scolaire', 'de': 'Schulzeit'};{'Furnas': '18h05', 'Ribeira Quente': '18h25'}
+317;WEEKDAY;{'pt': 'Período Escolar', 'en': 'School Period', 'es': 'Periodo Escolar', 'fr': 'Période Scolaire', 'de': 'Schulzeit'};{'Ribeira Quente': '07h40', 'Furnas': '08h00'}
+317;WEEKDAY;{'pt': 'Período Escolar', 'en': 'School Period', 'es': 'Periodo Escolar', 'fr': 'Période Scolaire', 'de': 'Schulzeit'};{'Ribeira Quente': '12h30', 'Furnas': '12h50'}
+317;WEEKDAY;{'pt': 'Período Escolar', 'en': 'School Period', 'es': 'Periodo Escolar', 'fr': 'Période Scolaire', 'de': 'Schulzeit'};{'Ribeira Quente': '14h15', 'Furnas': '14h30'}
+317;WEEKDAY;{'pt': 'Período Escolar', 'en': 'School Period', 'es': 'Periodo Escolar', 'fr': 'Période Scolaire', 'de': 'Schulzeit'};{'Ribeira Quente': '16h45', 'Furnas': '17h05'}
+317;WEEKDAY;{'pt': 'Período Escolar', 'en': 'School Period', 'es': 'Periodo Escolar', 'fr': 'Période Scolaire', 'de': 'Schulzeit'};{'Ribeira Quente': '18h30', 'Furnas': '18h50'}
+317;WEEKDAY;{'pt': 'Período Normal', 'en': 'Normal Period', 'es': 'Periodo normal', 'fr': 'Période normale', 'de': 'Normale Periode'};{'Furnas': '07h40', 'Ribeira Quente': '08h00'}
+317;WEEKDAY;{'pt': 'Período Normal', 'en': 'Normal Period', 'es': 'Periodo normal', 'fr': 'Période normale', 'de': 'Normale Periode'};{'Furnas': '12h10', 'Ribeira Quente': '12h30'}
+317;WEEKDAY;{'pt': 'Período Normal', 'en': 'Normal Period', 'es': 'Periodo normal', 'fr': 'Période normale', 'de': 'Normale Periode'};{'Furnas': '18h05', 'Ribeira Quente': '18h25'}
+317;WEEKDAY;{'pt': 'Período Normal', 'en': 'Normal Period', 'es': 'Periodo normal', 'fr': 'Période normale', 'de': 'Normale Periode'};{'Ribeira Quente': '08h00', 'Furnas': '08h20'}
+317;WEEKDAY;{'pt': 'Período Normal', 'en': 'Normal Period', 'es': 'Periodo normal', 'fr': 'Période normale', 'de': 'Normale Periode'};{'Ribeira Quente': '12h30', 'Furnas': '12h50'}
+317;WEEKDAY;{'pt': 'Período Normal', 'en': 'Normal Period', 'es': 'Periodo normal', 'fr': 'Période normale', 'de': 'Normale Periode'};{'Ribeira Quente': '18h30', 'Furnas': '18h50'}
+317;SATURDAY;{'pt': 'De 15 de julho até 15 de setembro', 'en': 'From July 15th to September 15th', 'es': 'Del 15 de julio al 15 de septiembre', 'fr': 'Du 15 juillet au 15 septembre', 'de': 'Vom 15. Juli bis 15. September'};{'Furnas': '10h40', 'Ribeira Quente': '11h00'}
+317;SATURDAY;{'pt': 'De 15 de julho até 15 de setembro', 'en': 'From July 15th to September 15th', 'es': 'Del 15 de julio al 15 de septiembre', 'fr': 'Du 15 juillet au 15 septembre', 'de': 'Vom 15. Juli bis 15. September'};{'Furnas': '16h40', 'Ribeira Quente': '17h00'}
+317;SATURDAY;{'pt': 'De 15 de julho até 15 de setembro', 'en': 'From July 15th to September 15th', 'es': 'Del 15 de julio al 15 de septiembre', 'fr': 'Du 15 juillet au 15 septembre', 'de': 'Vom 15. Juli bis 15. September'};{'Ribeira Quente': '11h00', 'Furnas': '11h20'}
+317;SATURDAY;{'pt': 'De 15 de julho até 15 de setembro', 'en': 'From July 15th to September 15th', 'es': 'Del 15 de julio al 15 de septiembre', 'fr': 'Du 15 juillet au 15 septembre', 'de': 'Vom 15. Juli bis 15. September'};{'Ribeira Quente': '17h00', 'Furnas': '17h20'}
+317;SUNDAY;{'pt': 'De 15 de julho até 15 de setembro', 'en': 'From July 15th to September 15th', 'es': 'Del 15 de julio al 15 de septiembre', 'fr': 'Du 15 juillet au 15 septembre', 'de': 'Vom 15. Juli bis 15. September'};{'Furnas': '10h40', 'Ribeira Quente': '11h00'}
+317;SUNDAY;{'pt': 'De 15 de julho até 15 de setembro', 'en': 'From July 15th to September 15th', 'es': 'Del 15 de julio al 15 de septiembre', 'fr': 'Du 15 juillet au 15 septembre', 'de': 'Vom 15. Juli bis 15. September'};{'Furnas': '16h40', 'Ribeira Quente': '17h00'}
+317;SUNDAY;{'pt': 'De 15 de julho até 15 de setembro', 'en': 'From July 15th to September 15th', 'es': 'Del 15 de julio al 15 de septiembre', 'fr': 'Du 15 juillet au 15 septembre', 'de': 'Vom 15. Juli bis 15. September'};{'Ribeira Quente': '11h00', 'Furnas': '11h20'}
+317;SUNDAY;{'pt': 'De 15 de julho até 15 de setembro', 'en': 'From July 15th to September 15th', 'es': 'Del 15 de julio al 15 de septiembre', 'fr': 'Du 15 juillet au 15 septembre', 'de': 'Vom 15. Juli bis 15. September'};{'Ribeira Quente': '17h00', 'Furnas': '17h20'}
+326;WEEKDAY;{'pt': 'Período Escolar', 'en': 'School Period', 'es': 'Periodo Escolar', 'fr': 'Période Scolaire', 'de': 'Schulzeit'};{'Povoação': '16h10', 'Lomba do Alcaide': '16h20', 'Faial da Terra': '16h30', 'Agua Retorta': '16h40'}
+326;WEEKDAY;None;{'Agua Retorta': '07h30', 'Faial da Terra': '07h40', 'Lomba do Alcaide': '07h50', 'Povoação': '08h00'}
+326;WEEKDAY;None;{'Agua Retorta': '14h00', 'Faial da Terra': '14h10', 'Lomba do Alcaide': '14h20', 'Povoação': '14h30'}
+326;WEEKDAY;None;{'Povoação': '13h30', 'Lomba do Alcaide': '13h40', 'Faial da Terra': '13h50', 'Agua Retorta': '14h00'}
+326;WEEKDAY;None;{'Povoação': '18h00', 'Lomba do Alcaide': '18h10', 'Faial da Terra': '18h20', 'Agua Retorta': '18h30'}
+322;WEEKDAY;{'pt': 'Período Escolar', 'en': 'School Period', 'es': 'Periodo Escolar', 'fr': 'Période Scolaire', 'de': 'Schulzeit'};{'Povoação': '07h25', 'Lomba do Loução': '07h40'}
+322;WEEKDAY;{'pt': 'Período Escolar', 'en': 'School Period', 'es': 'Periodo Escolar', 'fr': 'Période Scolaire', 'de': 'Schulzeit'};{'Povoação': '08h45', 'Lomba do Loução': '09h00'}
+322;WEEKDAY;{'pt': 'Período Escolar', 'en': 'School Period', 'es': 'Periodo Escolar', 'fr': 'Période Scolaire', 'de': 'Schulzeit'};{'Povoação': '12h30', 'Lomba do Alcaide': '12h40', 'Lomba do Loução': '12h45'}
+322;WEEKDAY;{'pt': 'Período Escolar', 'en': 'School Period', 'es': 'Periodo Escolar', 'fr': 'Période Scolaire', 'de': 'Schulzeit'};{'Povoação': '13h45', 'Lomba do Alcaide': '13h55', 'Lomba do Loução': '14h00'}
+322;WEEKDAY;{'pt': 'Período Escolar', 'en': 'School Period', 'es': 'Periodo Escolar', 'fr': 'Période Scolaire', 'de': 'Schulzeit'};{'Povoação': '16h10', 'Lomba do Alcaide': '16h20', 'Lomba do Loução': '16h25'}
+322;WEEKDAY;{'pt': 'Período Escolar', 'en': 'School Period', 'es': 'Periodo Escolar', 'fr': 'Période Scolaire', 'de': 'Schulzeit'};{'Povoação': '18h10', 'Lomba do Loução': '18h15'}
+322;WEEKDAY;{'pt': 'Período Normal', 'en': 'Normal Period', 'es': 'Periodo normal', 'fr': 'Période normale', 'de': 'Normale Periode'};{'Povoação': '07h25', 'Lomba do Loução': '07h40'}
+322;WEEKDAY;{'pt': 'Período Normal', 'en': 'Normal Period', 'es': 'Periodo normal', 'fr': 'Période normale', 'de': 'Normale Periode'};{'Povoação': '09h10', 'Lomba do Loução': '09h25'}
+322;WEEKDAY;{'pt': 'Período Normal', 'en': 'Normal Period', 'es': 'Periodo normal', 'fr': 'Période normale', 'de': 'Normale Periode'};{'Povoação': '12h30', 'Lomba do Loução': '12h45'}
+322;WEEKDAY;{'pt': 'Período Normal', 'en': 'Normal Period', 'es': 'Periodo normal', 'fr': 'Période normale', 'de': 'Normale Periode'};{'Povoação': '16h00', 'Lomba do Alcaide': '16h10', 'Lomba do Loução': '16h15'}
+322;WEEKDAY;{'pt': 'Período Normal', 'en': 'Normal Period', 'es': 'Periodo normal', 'fr': 'Période normale', 'de': 'Normale Periode'};{'Povoação': '18h35', 'Lomba do Loução': '18h50'}
+322;WEEKDAY;{'pt': 'Período Escolar', 'en': 'School Period', 'es': 'Periodo Escolar', 'fr': 'Période Scolaire', 'de': 'Schulzeit'};{'Lomba do Loução': '07h40', 'Povoação': '07h55'}
+322;WEEKDAY;{'pt': 'Período Escolar', 'en': 'School Period', 'es': 'Periodo Escolar', 'fr': 'Période Scolaire', 'de': 'Schulzeit'};{'Lomba do Loução': '09h00', 'Povoação': '09h15'}
+322;WEEKDAY;{'pt': 'Período Escolar', 'en': 'School Period', 'es': 'Periodo Escolar', 'fr': 'Période Scolaire', 'de': 'Schulzeit'};{'Lomba do Loução': '13h00', 'Povoação': '13h15'}
+322;WEEKDAY;{'pt': 'Período Escolar', 'en': 'School Period', 'es': 'Periodo Escolar', 'fr': 'Période Scolaire', 'de': 'Schulzeit'};{'Lomba do Loução': '14h00', 'Povoação': '14h15'}
+322;WEEKDAY;{'pt': 'Período Escolar', 'en': 'School Period', 'es': 'Periodo Escolar', 'fr': 'Période Scolaire', 'de': 'Schulzeit'};{'Lomba do Loução': '16h45', 'Povoação': '17h00'}
+322;WEEKDAY;{'pt': 'Período Escolar', 'en': 'School Period', 'es': 'Periodo Escolar', 'fr': 'Période Scolaire', 'de': 'Schulzeit'};{'Lomba do Loução': '18h25', 'Povoação': '18h40'}
+322;WEEKDAY;{'pt': 'Período Normal', 'en': 'Normal Period', 'es': 'Periodo normal', 'fr': 'Période normale', 'de': 'Normale Periode'};{'Lomba do Loução': '07h40', 'Povoação': '07h55'}
+322;WEEKDAY;{'pt': 'Período Normal', 'en': 'Normal Period', 'es': 'Periodo normal', 'fr': 'Période normale', 'de': 'Normale Periode'};{'Lomba do Loução': '09h30', 'Povoação': '09h45'}
+322;WEEKDAY;{'pt': 'Período Normal', 'en': 'Normal Period', 'es': 'Periodo normal', 'fr': 'Période normale', 'de': 'Normale Periode'};{'Lomba do Loução': '13h30', 'Povoação': '13h45'}
+322;WEEKDAY;{'pt': 'Período Normal', 'en': 'Normal Period', 'es': 'Periodo normal', 'fr': 'Période normale', 'de': 'Normale Periode'};{'Lomba do Loução': '16h20', 'Povoação': '16h35'}
+324;WEEKDAY;{'pt': 'Período Escolar', 'en': 'School Period', 'es': 'Periodo Escolar', 'fr': 'Période Scolaire', 'de': 'Schulzeit'};{'Povoação': '07h30', 'Lomba do Botão': '07h40'}
+324;WEEKDAY;{'pt': 'Período Escolar', 'en': 'School Period', 'es': 'Periodo Escolar', 'fr': 'Période Scolaire', 'de': 'Schulzeit'};{'Povoação': '08h05', 'Lomba do Botão': '08h15'}
+324;WEEKDAY;{'pt': 'Período Escolar', 'en': 'School Period', 'es': 'Periodo Escolar', 'fr': 'Période Scolaire', 'de': 'Schulzeit'};{'Povoação': '11h50', 'Lomba do Botão': '12h00'}
+324;WEEKDAY;{'pt': 'Período Escolar', 'en': 'School Period', 'es': 'Periodo Escolar', 'fr': 'Période Scolaire', 'de': 'Schulzeit'};{'Povoação': '13h30', 'Lomba do Botão': '13h40'}
+324;WEEKDAY;{'pt': 'Período Escolar', 'en': 'School Period', 'es': 'Periodo Escolar', 'fr': 'Période Scolaire', 'de': 'Schulzeit'};{'Povoação': '13h50', 'Lomba do Botão': '14h00'}
+324;WEEKDAY;{'pt': 'Período Escolar', 'en': 'School Period', 'es': 'Periodo Escolar', 'fr': 'Période Scolaire', 'de': 'Schulzeit'};{'Povoação': '16h10', 'Lomba do Botão': '16h20'}
+324;WEEKDAY;{'pt': 'Período Escolar', 'en': 'School Period', 'es': 'Periodo Escolar', 'fr': 'Période Scolaire', 'de': 'Schulzeit'};{'Povoação': '16h30', 'Lomba do Botão': '16h40'}
+324;WEEKDAY;{'pt': 'Período Escolar', 'en': 'School Period', 'es': 'Periodo Escolar', 'fr': 'Période Scolaire', 'de': 'Schulzeit'};{'Povoação': '18h10', 'Lomba do Botão': '18h20'}
+324;WEEKDAY;{'pt': 'Período Normal', 'en': 'Normal Period', 'es': 'Periodo normal', 'fr': 'Période normale', 'de': 'Normale Periode'};{'Povoação': '08h00', 'Lomba do Botão': '08h10'}
+324;WEEKDAY;{'pt': 'Período Normal', 'en': 'Normal Period', 'es': 'Periodo normal', 'fr': 'Période normale', 'de': 'Normale Periode'};{'Povoação': '11h50', 'Lomba do Botão': '12h00'}
+324;WEEKDAY;{'pt': 'Período Normal', 'en': 'Normal Period', 'es': 'Periodo normal', 'fr': 'Période normale', 'de': 'Normale Periode'};{'Povoação': '18h10', 'Lomba do Botão': '18h20'}
+324;WEEKDAY;{'pt': 'Período Escolar', 'en': 'School Period', 'es': 'Periodo Escolar', 'fr': 'Période Scolaire', 'de': 'Schulzeit'};{'Lomba do Botão': '07h40', 'Povoação': '07h50'}
+324;WEEKDAY;{'pt': 'Período Escolar', 'en': 'School Period', 'es': 'Periodo Escolar', 'fr': 'Période Scolaire', 'de': 'Schulzeit'};{'Lomba do Botão': '08h15', 'Lomba do Pomar': '08h20', 'Povoação': '08h30'}
+324;WEEKDAY;{'pt': 'Período Escolar', 'en': 'School Period', 'es': 'Periodo Escolar', 'fr': 'Période Scolaire', 'de': 'Schulzeit'};{'Lomba do Botão': '12h00', 'Lomba do Pomar': '12h05', 'Povoação': '12h15'}
+324;WEEKDAY;{'pt': 'Período Escolar', 'en': 'School Period', 'es': 'Periodo Escolar', 'fr': 'Période Scolaire', 'de': 'Schulzeit'};{'Lomba do Botão': '13h40', 'Lomba do Pomar': '13h45', 'Povoação': '13h55'}
+324;WEEKDAY;{'pt': 'Período Escolar', 'en': 'School Period', 'es': 'Periodo Escolar', 'fr': 'Période Scolaire', 'de': 'Schulzeit'};{'Lomba do Botão': '14h00', 'Povoação': '14h10'}
+324;WEEKDAY;{'pt': 'Período Escolar', 'en': 'School Period', 'es': 'Periodo Escolar', 'fr': 'Période Scolaire', 'de': 'Schulzeit'};{'Lomba do Botão': '16h20', 'Lomba do Pomar': '16h25', 'Povoação': '16h35'}
+324;WEEKDAY;{'pt': 'Período Escolar', 'en': 'School Period', 'es': 'Periodo Escolar', 'fr': 'Période Scolaire', 'de': 'Schulzeit'};{'Lomba do Botão': '16h40', 'Povoação': '16h50'}
+324;WEEKDAY;{'pt': 'Período Escolar', 'en': 'School Period', 'es': 'Periodo Escolar', 'fr': 'Période Scolaire', 'de': 'Schulzeit'};{'Lomba do Botão': '18h20', 'Lomba do Pomar': '18h25', 'Povoação': '18h35'}
+324;WEEKDAY;{'pt': 'Período Normal', 'en': 'Normal Period', 'es': 'Periodo normal', 'fr': 'Période normale', 'de': 'Normale Periode'};{'Lomba do Botão': '08h10', 'Lomba do Pomar': '08h15', 'Povoação': '08h25'}
+324;WEEKDAY;{'pt': 'Período Normal', 'en': 'Normal Period', 'es': 'Periodo normal', 'fr': 'Période normale', 'de': 'Normale Periode'};{'Lomba do Botão': '12h00', 'Lomba do Pomar': '12h05', 'Povoação': '12h15'}
+324;WEEKDAY;{'pt': 'Período Normal', 'en': 'Normal Period', 'es': 'Periodo normal', 'fr': 'Période normale', 'de': 'Normale Periode'};{'Lomba do Botão': '18h20', 'Lomba do Pomar': '18h25', 'Povoação': '18h35'}
+324;WEEKDAY;{'pt': 'Só em período escolar', 'en': 'Only School Period', 'es': 'Solo período escolar', 'fr': 'Période scolaire uniquement', 'de': 'Nur Schulzeit'};{'Povoação': '08h00', 'Lomba do Carro': '08h10'}
+324;WEEKDAY;{'pt': 'Só em período escolar', 'en': 'Only School Period', 'es': 'Solo período escolar', 'fr': 'Période scolaire uniquement', 'de': 'Nur Schulzeit'};{'Povoação': '13h30', 'Lomba do Carro': '13h40'}
+324;WEEKDAY;{'pt': 'Só em período escolar', 'en': 'Only School Period', 'es': 'Solo período escolar', 'fr': 'Période scolaire uniquement', 'de': 'Nur Schulzeit'};{'Povoação': '16h10', 'Lomba do Carro': '16h20'}
+324;WEEKDAY;{'pt': 'Só em período escolar', 'en': 'Only School Period', 'es': 'Solo período escolar', 'fr': 'Période scolaire uniquement', 'de': 'Nur Schulzeit'};{'Lomba do Carro': '08h10', 'Povoação': '08h20'}
+324;WEEKDAY;{'pt': 'Só em período escolar', 'en': 'Only School Period', 'es': 'Solo período escolar', 'fr': 'Période scolaire uniquement', 'de': 'Nur Schulzeit'};{'Lomba do Carro': '13h40', 'Povoação': '13h50'}
+324;WEEKDAY;{'pt': 'Só em período escolar', 'en': 'Only School Period', 'es': 'Solo período escolar', 'fr': 'Période scolaire uniquement', 'de': 'Nur Schulzeit'};{'Lomba do Carro': '16h20', 'Povoação': '16h30'}
