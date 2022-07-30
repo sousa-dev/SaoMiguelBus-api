@@ -70,8 +70,26 @@ def get_route_v1(request, route_id):
             print(Exception)
             return Response(status=404)
 
+
 @api_view(['GET'])
 def get_android_load_v1(request):
+        if request.method == 'GET':
+            try:
+                all_routes = Route.objects.all()
+                all_routes = all_routes.exclude(disabled=True)
+                routes = []
+                for route in all_routes:
+                    stops = route.stops.replace('\'', '').replace('{', '').replace('}', '').split(',')
+                    all_stops = [stop.split(':')[0].strip() for stop in stops]
+                    all_times = [stop.split(':')[1].strip() for stop in stops]
+                    routes.append(LoadRoute(route.id, route.route, all_stops, all_times, route.type_of_day, route.information).__dict__)
+                return Response(routes)
+            except Exception as e:
+                print(e)
+                return Response(status=404)
+
+@api_view(['GET'])
+def get_android_load_v2(request):
         if request.method == 'GET':
             try:
                 all_routes = Route.objects.all()
