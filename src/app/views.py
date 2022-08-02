@@ -55,7 +55,7 @@ def get_trip_v1(request):
                 #TODO: format route.stops to exclude stops outside the scope
                 pass
             #TODO: get origin, destination, start and end time
-            return_routes = [ReturnRoute(route.id, route.route, "origin", "destination", "start", "end", route.stops, route.type_of_day, route.information).__dict__ for route in routes]
+            return_routes = [ReturnRoute(route.id, route.route, origin, destination, route.stops.split(':')[1].split(",")[0].replace('\'', '').strip(), route.stops.split(':')[-1].split(",")[0].replace('\'', '').replace('}', '').strip(), route.stops, route.type_of_day, route.information).__dict__ for route in routes]
             return Response(return_routes)
         except Exception:
             print(Exception)
