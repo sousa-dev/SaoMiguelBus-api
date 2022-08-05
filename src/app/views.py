@@ -49,7 +49,11 @@ def get_trip_v1(request):
                 routes = routes.filter(type_of_day=type_of_day.upper())
             start_time = request.GET.get('start', '')
             if start_time != '':
-                pass
+                for route in routes:
+                    route_start_time = route.stops.split(',')[0].split(':')[1].replace('{','').replace('\'','').strip()
+                    route_start_time_hour = int(route_start_time.split('h')[0])
+                    route_start_time_minute = int(route_start_time.split('h')[1])
+                    routes = routes.exclude(id=route.id) if route_start_time_hour < int(start_time.split('h')[0]) or (route_start_time_hour == int(start_time.split('h')[0]) and route_start_time_minute < int(start_time.split('h')[1])) else routes
             full = True if request.GET.get('full', '').lower() == 'true' else False
             if not full:
                 #TODO: format route.stops to exclude stops outside the scope
@@ -57,8 +61,8 @@ def get_trip_v1(request):
             #TODO: get origin, destination, start and end time
             return_routes = [ReturnRoute(route.id, route.route, origin, destination, route.stops.split(':')[1].split(",")[0].replace('\'', '').strip(), route.stops.split(':')[-1].split(",")[0].replace('\'', '').replace('}', '').strip(), route.stops, route.type_of_day, route.information).__dict__ for route in routes]
             return Response(return_routes)
-        except Exception:
-            print(Exception)
+        except Exception as e:
+            print(e)
             return Response(status=404)
 
 @api_view(['GET'])
