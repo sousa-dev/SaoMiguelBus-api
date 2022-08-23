@@ -15,3 +15,7 @@ RUN pip install --upgrade pip
 RUN pip install --user -r requirements.txt
 
 COPY --chown=myuser:myuser . /home/myuser/code/
+
+RUN python manage.py migrate
+
+CMD sh ./entrypoint.sh
