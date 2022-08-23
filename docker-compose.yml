@@ -4,11 +4,17 @@ services:
   django:
     restart: always
     build: ./src
-    command: >
-      bash -c "python manage.py migrate
-      && python manage.py runserver 0.0.0.0:8080"
-      && python manage.py createsuperuser --noinput --username admin --password adminpassword
+    container_name: saomiguelbus_django_${RUN_ENV:-prod}
+    environment:
+      - DJANGO_SUPERUSER_USERNAME=${ADMIN_USERNAME:-admin}
+      - DJANGO_SUPERUSER_EMAIL=${ADMIN_EMAIL:-admin@admin.com}
+      - DJANGO_SUPERUSER_PASSWORD=${ADMIN_PASSWORD:-adminpassword}
+
+  nginx:
+    restart: always
+    image: nginx:1-alpine
+    container_name: saomiguelbus_nginx_${RUN_ENV:-prod}
     volumes:
-      - ./src:/code
+      - ./config/nginx/conf.d:/etc/nginx/conf.d:ro
     ports:
-      - 8080:8080
+      - 80:80
