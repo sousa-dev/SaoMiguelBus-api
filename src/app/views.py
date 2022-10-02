@@ -2,9 +2,9 @@ from django.shortcuts import render
 from numpy import full
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from app.models import Stop, Route, ReturnRoute, LoadRoute
-from app.serializers import StopSerializer, RouteSerializer, ReturnRouteSerializer, LoadRouteSerializer
-from django.views.decorators.http import require_GET
+from app.models import Stop, Route, Stat, ReturnRoute, LoadRoute
+from app.serializers import StopSerializer, RouteSerializer, StatSerializer, ReturnRouteSerializer, LoadRouteSerializer
+from django.views.decorators.http import require_GET, require_POST
 from datetime import datetime
 import json
 
@@ -75,10 +75,41 @@ def get_route_v1(request, route_id):
             serializer = RouteSerializer(routes, many=True)
             #TODO: Return a new formatted entity
             return Response(serializer.data)
-        except Exception:
-            print(Exception)
+        except Exception as e:
+            print(e)
             return Response(status=404)
 
+@api_view(['GET'])
+@require_GET
+def get_stats_v1(request):
+    if request.method == 'GET':
+        try:
+            stats = Stat.objects.all()
+            serializer = StatSerializer(stats, many=True)
+            return Response(serializer.data)
+        except Exception as e:
+            print(e)
+            return Response(status=404)
+
+@api_view(['POST'])
+@require_POST
+def add_stat_v1(request):
+    if request.method == 'POST':
+        try:
+            stat = Stat()
+            stat.request = request.GET.get('request', 'NA')
+            stat.origin = request.GET.get('origin', '')
+            stat.destination = request.GET.get('destination', '')
+            stat.type_of_day = request.GET.get('day', 'NA')
+            stat.time = request.GET.get('time', 'NA')
+            stat.platform = request.GET.get('platform', 'NA')
+            stat.language = request.GET.get('language', 'NA')
+            stat.timestamp = datetime.now()
+            stat.save()
+            return Response({'status': 'ok'})
+        except Exception as e:
+            print(e)
+            return Response(status=404)
 
 @api_view(['GET'])
 @require_GET
