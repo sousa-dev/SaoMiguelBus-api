@@ -38,9 +38,13 @@ class Stat(models.Model):
     request= models.CharField(max_length=100)
     origin = models.CharField(max_length=100)
     destination = models.CharField(max_length=100)
+    type_of_day = models.CharField(max_length=100)
+    time = models.CharField(max_length=100)
+    platform = models.CharField(max_length=100)
+    language = models.CharField(max_length=100)
     timestamp = models.DateTimeField(auto_now_add=True)
     def __str__(self):
-        return f"{self.request} | {self.origin} -> {self.destination} | {self.timestamp}"
+        return f"{self.request} | {self.origin} -> {self.destination} | {self.type_of_day}"
 
 class ReturnRoute():
     def __init__(self, id, route, origin, destination, start, end, stops, type_of_day, information):

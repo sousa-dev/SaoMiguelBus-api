@@ -97,9 +97,13 @@ def add_stat_v1(request):
     if request.method == 'POST':
         try:
             stat = Stat()
-            stat.request = request.GET.get('request', '')
+            stat.request = request.GET.get('request', 'NA')
             stat.origin = request.GET.get('origin', '')
             stat.destination = request.GET.get('destination', '')
+            stat.type_of_day = request.GET.get('day', 'NA')
+            stat.time = request.GET.get('time', 'NA')
+            stat.platform = request.GET.get('platform', 'NA')
+            stat.language = request.GET.get('language', 'NA')
             stat.timestamp = datetime.now()
             stat.save()
             return Response({'status': 'ok'})
