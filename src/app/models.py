@@ -1,3 +1,4 @@
+from sqlite3 import Timestamp
 from django.db import models
 from jsonfield import JSONField
 import json
@@ -31,6 +32,15 @@ class Route(models.Model):
         self.start_time = self.stops.split(',')[0].split(':')[1].replace('{','').replace('\'','').strip()
         self.end = self.stops.split(',')[-1].split(':')[0].replace('}','').replace('\'','').strip()
         return f"{self.route.strip()} | {self.start} -> {self.end} | {self.start_time} | {self.type_of_day}"
+
+class Stat(models.Model):    
+    id = models.AutoField(primary_key=True)
+    request= models.CharField(max_length=100)
+    origin = models.CharField(max_length=100)
+    destination = models.CharField(max_length=100)
+    timestamp = models.DateTimeField(auto_now_add=True)
+    def __str__(self):
+        return f"{self.request} | {self.origin} -> {self.destination} | {self.timestamp}"
 
 class ReturnRoute():
     def __init__(self, id, route, origin, destination, start, end, stops, type_of_day, information):
