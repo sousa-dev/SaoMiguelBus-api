@@ -172,3 +172,7 @@ def get_android_load_v2(request):
                 print(e)
                 return Response(status=404)
 
+@api_view(['GET'])
+@require_GET
+def index (request):
+    return render(request, 'app/templates/index.html')
