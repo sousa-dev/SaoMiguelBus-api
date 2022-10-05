@@ -1,7 +1,9 @@
 Django==3.0.14
 django-cors-headers==3.11.0
 djangorestframework==3.13.1
+dj-database-url
 numpy
 jsonfield
 sqlalchemy
 gunicorn
+psycopg2-binary==2.8.6
