@@ -6,3 +6,4 @@ numpy
 jsonfield
 sqlalchemy
 gunicorn
+psycopg2-binary
