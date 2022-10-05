@@ -104,7 +104,7 @@ def add_stat_v1(request):
             stat.time = request.GET.get('time', 'NA')
             stat.platform = request.GET.get('platform', 'NA')
             stat.language = request.GET.get('language', 'NA')
-            stat.timestamp = datetime.now()
+            stat.timestamp = request.GET.get('timestamp', datetime.now())
             stat.save()
             return Response({'status': 'ok'})
         except Exception as e:
@@ -171,4 +171,3 @@ def get_android_load_v2(request):
             except Exception as e:
                 print(e)
                 return Response(status=404)
-
