@@ -176,3 +176,14 @@ def get_android_load_v2(request):
 @require_GET
 def index (request):
     return render(request, 'app/templates/index.html')
+
+@api_view(['GET'])
+@require_GET
+def stats (request):
+    #TODO: protect this code with an hash
+    secret_hash = "4357870571671307646"
+    secret = request.GET.get('secret', '')
+    if hash(secret) == secret_hash:
+        return render(request, 'app/templates/statistics.html')
+    else:
+        return render(request, 'app/templates/index.html')

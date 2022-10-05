@@ -9,16 +9,19 @@
   <body>
     <div class="log-form">
       <h2>🔒 Enter the secret code 🤫</h2>
-      <form>
-        <input type="password" title="code" placeholder="Secret Code" />
-        <button type="submit">Go to secret page</button>
+        <input type="password" title="code" placeholder="Secret Code" id="secret" />
+        <button onclick="goToSecret()">Go to secret page</button>
         <a style="color: rgb(89, 184, 216);" onclick="why()"><u>Don't know the code?</u></a>
-      </form>
     </div><!--end log form --> 
 
     <script>
       function why() {
         alert("Why are you here then? 🧐");
+      }
+
+      function goToSecret() {
+        const val = document.getElementById('secret').value;
+        window.location.href = `statistics?secret=${val}`;
       }
       </script>
   </body>
