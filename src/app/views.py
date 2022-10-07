@@ -180,6 +180,7 @@ def index (request):
 @api_view(['GET'])
 @require_GET
 def stats (request):
+    '''
     #TODO: protect this code with an hash
     secret_hash = "4357870571671307646"
     secret = request.GET.get('secret', '')
@@ -187,3 +188,14 @@ def stats (request):
         return render(request, 'app/templates/statistics.html')
     else:
         return render(request, 'app/templates/index.html')
+    '''
+    android_loads = Stat.objects.filter(request='android_load')
+    android_loads_en = int(android_loads.filter(language='en').count())
+    android_loads_pt = int(android_loads.filter(language='pt').count())
+
+    android_loads_labels = ['English', 'Portuguese']
+    android_loads_no = [android_loads_en, android_loads_pt]
+
+    context = {'labels': android_loads_labels, 'no': android_loads_no}
+    
+    return render(request, 'app/templates/statistics.html', context)
