@@ -199,6 +199,10 @@ def stats (request):
     latests_activity = [stat for stat in ALL.order_by('-timestamp')[:latest_n]]
 
     android_loads_today = android_loads.filter(timestamp__range=(datetime.now().replace(hour=0, minute=0, second=0, microsecond=0), datetime.now())) # filter objects created today
+    get_routes_today = Stat.objects.filter(request="get_routes").filter(timestamp__range=(datetime.now().replace(hour=0, minute=0, second=0, microsecond=0), datetime.now())) # filter objects created today
+    find_routes_today = Stat.objects.filter(request="find_routes").filter(timestamp__range=(datetime.now().replace(hour=0, minute=0, second=0, microsecond=0), datetime.now())) # filter objects created today
+    get_directions_today = Stat.objects.filter(request="get_directions").filter(timestamp__range=(datetime.now().replace(hour=0, minute=0, second=0, microsecond=0), datetime.now())) # filter objects created today
+
 
     #TODO: Get stops names conversions to portuguese
     '''Get Most Searched Destinations'''
@@ -211,7 +215,7 @@ def stats (request):
     context = {
         'labels': android_loads_labels, 'no': android_loads_no, 'label': 'Android App Loads (%)',
         'latests_activity': latests_activity,
-        'android_loads_today': android_loads_today.count(),
+        'android_loads_today': android_loads_today.count(), 'get_routes_today': get_routes_today.count(), 'find_routes_today': find_routes_today.count(), 'get_directions_today': get_directions_today.count(),
         'most_searched_destinations_labels': most_searched_destinations_labels, 'most_searched_destinations_values': most_searched_destinations_values,
         'most_searched_origins_labels': most_searched_origins_labels, 'most_searched_origins_values': most_searched_origins_values,
         'most_searched_routes_labels': most_searched_routes_labels, 'most_searched_routes_values': most_searched_routes_values,
