@@ -8,7 +8,54 @@
     <title>São Miguel Bus API</title>
   </head>
   <body>
-    <canvas id="myChart" width="200" height="200"></canvas>
+    <!--<div id="container" style="height: 400px; width: 800px">    
+        <canvas id="myChart" width="200" height="200"></canvas>
+    </div>-->
+    <div id="container">
+        <h2>Android Loads (%)</h2>
+        {% for label in labels %}
+        <tr>
+            <td>{{ label }}</td>
+        </tr>
+        {% endfor %}
+        <br>
+        {% for n in no %}
+        <tr>
+            <td>{{ n }}%</td>
+        </tr>
+        {% endfor %}
+    </div>
+
+    <div id="container">
+        <h2>Latest Activity</h2>
+        {% for stat in latests_activity %}
+        <tr>
+            <td><b>Request:</b> {{ stat.request }}</td>
+            <td><b>Origin:</b> {{ stat.origin }}</td>
+            <td><b>Destination:</b> {{ stat.destination }}</td>
+            <td><b>Time:</b> {{ stat.time }}</td>
+            <td><b>Platform:</b> {{ stat.platform }}</td>
+        </tr>
+        <br>
+        {% endfor %}
+    </div>
+
+    <div id ="container">
+        <h2>Android Loads Today:</h2> {{ android_loads_today }}
+    </div>
+
+    <div id="container">
+        <h2>Most Popular Routes</h2>
+        {% for stat in most_popular_routes %}
+        <tr>
+            <td><b>Origin:</b> {{ stat.origin }}</td>
+            <td><b>Destination:</b> {{ stat.destination }}</td>
+            <td><b>Count:</b> {{ stat.count }}</td>
+        </tr>
+        <br>
+        {% endfor %}
+    </div>
+
 <script>
 const ctx = document.getElementById('myChart').getContext('2d');
 const myChart = new Chart(ctx, {
@@ -16,7 +63,7 @@ const myChart = new Chart(ctx, {
     data: {
         labels: [{% for label in labels %}'{{ label }}',{% endfor %}],
         datasets: [{
-            label: '# of Votes',
+            label: '{{ label }}',
             data: [{% for n in no %}'{{ n }}',{% endfor %}],
             backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',

@@ -5,7 +5,7 @@ from rest_framework.response import Response
 from app.models import Stop, Route, Stat, ReturnRoute, LoadRoute
 from app.serializers import StopSerializer, RouteSerializer, StatSerializer, ReturnRouteSerializer, LoadRouteSerializer
 from django.views.decorators.http import require_GET, require_POST
-from datetime import datetime
+from datetime import datetime, date
 import json
 
 
@@ -104,7 +104,7 @@ def add_stat_v1(request):
             stat.time = request.GET.get('time', 'NA')
             stat.platform = request.GET.get('platform', 'NA')
             stat.language = request.GET.get('language', 'NA')
-            stat.timestamp = datetime.now()
+            #stat.timestamp = datetime.now()
             stat.save()
             return Response({'status': 'ok'})
         except Exception as e:
@@ -189,13 +189,27 @@ def stats (request):
     else:
         return render(request, 'app/templates/index.html')
     '''
+    ALL = Stat.objects.all()
+
+    latest_n = int(request.GET.get('latest', '10'))
+
     android_loads = Stat.objects.filter(request='android_load')
-    android_loads_en = int(android_loads.filter(language='en').count())
-    android_loads_pt = int(android_loads.filter(language='pt').count())
+    android_loads_en = int(android_loads.filter(language='en').count())*100/android_loads.count()
+    android_loads_pt = int(android_loads.filter(language='pt').count())*100/android_loads.count()
+    android_loads_esp = int(android_loads.filter(language='es').count())*100/android_loads.count()
+    android_loads_fr = int(android_loads.filter(language='fr').count())*100/android_loads.count()
+    android_loads_ger = int(android_loads.filter(language='de').count())*100/android_loads.count()
+    android_loads_other = int(100 - (android_loads_pt + android_loads_en + android_loads_fr + android_loads_ger + android_loads_esp))*100/android_loads.count()
+    android_loads_labels = ['Portuguese', 'English', "Spanish", 'French', 'German', 'Other']
+    android_loads_no = [android_loads_pt, android_loads_en,  android_loads_esp, android_loads_fr, android_loads_ger, android_loads_other]
 
-    android_loads_labels = ['English', 'Portuguese']
-    android_loads_no = [android_loads_en, android_loads_pt]
+    latests_activity = [stat for stat in ALL.order_by('-timestamp')[:latest_n]]
+    print(android_loads.filter(time__range=(datetime.now().replace(hour=0, minute=0, second=0, microsecond=0), datetime.now())))
+    android_loads_today = android_loads.filter(time__range=(datetime.now().replace(hour=0, minute=0, second=0, microsecond=0), datetime.now())) # filter objects created today
 
-    context = {'labels': android_loads_labels, 'no': android_loads_no}
+    context = {
+        'labels': android_loads_labels, 'no': android_loads_no, 'label': 'Android App Loads (%)',
+        'latests_activity': latests_activity,
+        'android_loads_today': android_loads_today.count(),}
     
     return render(request, 'app/templates/statistics.html', context)
