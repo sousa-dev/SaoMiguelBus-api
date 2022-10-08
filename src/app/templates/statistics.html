@@ -45,14 +45,49 @@
     </div>
 
     <div id="container">
-        <h2>Most Popular Routes</h2>
-        {% for stat in most_popular_routes %}
+        <h2>Most Searched Destinations</h2>
+        {% for label in most_searched_destinations_labels %}
         <tr>
-            <td><b>Origin:</b> {{ stat.origin }}</td>
-            <td><b>Destination:</b> {{ stat.destination }}</td>
-            <td><b>Count:</b> {{ stat.count }}</td>
+            <td><b>{{ label }}, </b></td>
         </tr>
+        
+        {% endfor %}
         <br>
+        {% for value in most_searched_destinations_values %}
+        <tr>
+            <td>{{ value }},</td>
+        </tr>
+        {% endfor %}
+    </div>
+
+    <div id="container">
+        <h2>Most Searched Origins</h2>
+        {% for label in most_searched_origins_labels %}
+        <tr>
+            <td><b>{{ label }}, </b></td>
+        </tr>
+        
+        {% endfor %}
+        <br>
+        {% for value in most_searched_origins_values %}
+        <tr>
+            <td>{{ value }},</td>
+        </tr>
+        {% endfor %}
+    </div>
+
+    <div id="container">
+        <h2>Most Popular Routes</h2>
+        {% for label in most_searched_routes_labels %}
+        <tr>
+            <td><b>{{ label }}, </b></td>
+        </tr>
+        {% endfor %}
+        <br>
+        {% for value in most_searched_routes_values %}
+        <tr>
+            <td>{{ value }},</td>
+        </tr>
         {% endfor %}
     </div>
 
