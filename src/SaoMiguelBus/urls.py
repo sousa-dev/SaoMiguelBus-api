@@ -20,6 +20,7 @@ from app import views
 
 
 urlpatterns = [
+    path('', views.index),
     path('admin/', admin.site.urls),
     path('api/v1/stops', views.get_all_stops_v1),
     path('api/v1/routes', views.get_all_routes_v1),
@@ -28,4 +29,5 @@ urlpatterns = [
     path('api/v1/android/load', views.get_android_load_v1),
     path('api/v1/stats', views.get_stats_v1),
     path('api/v1/stat', views.add_stat_v1),
+    path('statistics', views.stats),
 ]
