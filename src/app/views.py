@@ -199,7 +199,7 @@ def stats (request):
     latests_activity = [stat for stat in ALL.order_by('-timestamp')[:latest_n]]
 
     android_loads_today = android_loads.filter(timestamp__range=(datetime.now().replace(hour=0, minute=0, second=0, microsecond=0), datetime.now())) # filter objects created today
-    get_routes_today = Stat.objects.filter(request="get_routes").filter(timestamp__range=(datetime.now().replace(hour=0, minute=0, second=0, microsecond=0), datetime.now())) # filter objects created today
+    get_routes_today = Stat.objects.filter(request="get_route").filter(timestamp__range=(datetime.now().replace(hour=0, minute=0, second=0, microsecond=0), datetime.now())) # filter objects created today
     find_routes_today = Stat.objects.filter(request="find_routes").filter(timestamp__range=(datetime.now().replace(hour=0, minute=0, second=0, microsecond=0), datetime.now())) # filter objects created today
     get_directions_today = Stat.objects.filter(request="get_directions").filter(timestamp__range=(datetime.now().replace(hour=0, minute=0, second=0, microsecond=0), datetime.now())) # filter objects created today
 
