@@ -192,24 +192,75 @@ def stats (request):
     ALL = Stat.objects.all()
 
     latest_n = int(request.GET.get('latest', '10'))
+    most_searched_n = int(request.GET.get('most_searched', '10'))
 
+    android_loads, android_loads_labels, android_loads_no = get_android_loads()
+
+    latests_activity = [stat for stat in ALL.order_by('-timestamp')[:latest_n]]
+
+    android_loads_today = android_loads.filter(timestamp__range=(datetime.now().replace(hour=0, minute=0, second=0, microsecond=0), datetime.now())) # filter objects created today
+    get_routes_today = Stat.objects.filter(request="get_routes").filter(timestamp__range=(datetime.now().replace(hour=0, minute=0, second=0, microsecond=0), datetime.now())) # filter objects created today
+    find_routes_today = Stat.objects.filter(request="find_routes").filter(timestamp__range=(datetime.now().replace(hour=0, minute=0, second=0, microsecond=0), datetime.now())) # filter objects created today
+    get_directions_today = Stat.objects.filter(request="get_directions").filter(timestamp__range=(datetime.now().replace(hour=0, minute=0, second=0, microsecond=0), datetime.now())) # filter objects created today
+
+
+    #TODO: Get stops names conversions to portuguese
+    '''Get Most Searched Destinations'''
+    most_searched_destinations_labels, most_searched_destinations_values = get_most_searched("destination", ALL.filter(request='get_route').exclude(destination='null') | ALL.filter(request='get_directions').exclude(destination='null') | ALL.filter(request='find_routes').exclude(destination='null'), most_searched_n)
+    most_searched_origins_labels, most_searched_origins_values = get_most_searched("origin", ALL.filter(request='get_route').exclude(origin='null'), most_searched_n)
+    most_searched_routes_labels, most_searched_routes_values = get_most_searched("route", ALL.filter(request='get_route').exclude(origin='null').exclude(destination='null'), most_searched_n)
+    
+    #TODO: get route android vs web
+
+    context = {
+        'labels': android_loads_labels, 'no': android_loads_no, 'label': 'Android App Loads (%)',
+        'latests_activity': latests_activity,
+        'android_loads_today': android_loads_today.count(), 'get_routes_today': get_routes_today.count(), 'find_routes_today': find_routes_today.count(), 'get_directions_today': get_directions_today.count(),
+        'most_searched_destinations_labels': most_searched_destinations_labels, 'most_searched_destinations_values': most_searched_destinations_values,
+        'most_searched_origins_labels': most_searched_origins_labels, 'most_searched_origins_values': most_searched_origins_values,
+        'most_searched_routes_labels': most_searched_routes_labels, 'most_searched_routes_values': most_searched_routes_values,
+        }
+    
+    return render(request, 'app/templates/statistics.html', context)
+
+def get_android_loads():
     android_loads = Stat.objects.filter(request='android_load')
+
     android_loads_en = int(android_loads.filter(language='en').count())*100/android_loads.count()
     android_loads_pt = int(android_loads.filter(language='pt').count())*100/android_loads.count()
     android_loads_esp = int(android_loads.filter(language='es').count())*100/android_loads.count()
     android_loads_fr = int(android_loads.filter(language='fr').count())*100/android_loads.count()
     android_loads_ger = int(android_loads.filter(language='de').count())*100/android_loads.count()
-    android_loads_other = int(100 - (android_loads_pt + android_loads_en + android_loads_fr + android_loads_ger + android_loads_esp))*100/android_loads.count()
+    android_loads_other = 100.0 - (android_loads_pt + android_loads_en + android_loads_fr + android_loads_ger + android_loads_esp)
+
     android_loads_labels = ['Portuguese', 'English', "Spanish", 'French', 'German', 'Other']
     android_loads_no = [android_loads_pt, android_loads_en,  android_loads_esp, android_loads_fr, android_loads_ger, android_loads_other]
 
-    latests_activity = [stat for stat in ALL.order_by('-timestamp')[:latest_n]]
-    print(android_loads.filter(time__range=(datetime.now().replace(hour=0, minute=0, second=0, microsecond=0), datetime.now())))
-    android_loads_today = android_loads.filter(time__range=(datetime.now().replace(hour=0, minute=0, second=0, microsecond=0), datetime.now())) # filter objects created today
+    return android_loads, android_loads_labels, android_loads_no
 
-    context = {
-        'labels': android_loads_labels, 'no': android_loads_no, 'label': 'Android App Loads (%)',
-        'latests_activity': latests_activity,
-        'android_loads_today': android_loads_today.count(),}
-    
-    return render(request, 'app/templates/statistics.html', context)
+def get_most_searched(n, stats, most_searched_n):
+    most_searched = {}
+    for stat in stats: 
+        key = get_dict_key(n, stat)
+        if key in most_searched:
+            most_searched[key] += 1
+        else:
+            most_searched[key] = 1
+
+    stops = [origin for origin in most_searched.keys()]
+
+    most_searched_labels = sorted(stops, key=lambda x: most_searched[x], reverse=True)[:most_searched_n]
+    most_searched_values = [most_searched[destination] for destination in most_searched_labels]
+
+    return most_searched_labels, most_searched_values
+
+def get_dict_key(n, stat):
+    if n == 'destination':
+        return stat.destination
+    elif n == 'origin':
+        return stat.origin
+    elif n == 'route':
+        return f"{stat.origin} -> {stat.destination}"
+
+
+
