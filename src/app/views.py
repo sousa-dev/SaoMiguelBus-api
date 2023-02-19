@@ -47,6 +47,9 @@ def get_trip_v1(request):
             if destination in ['Povoacão', 'Lomba do Loucão', 'Ponta Garca']:
                 destination = destination.replace('c', 'ç')
 
+            print(origin)
+            print(destination)
+
             if origin == '' or destination == '':
                 return Response({'error': 'Origin and destination are required'})
             routes = routes.filter(stops__icontains=destination) if destination != '' else routes
