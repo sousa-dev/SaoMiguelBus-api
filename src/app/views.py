@@ -37,8 +37,16 @@ def get_trip_v1(request):
             routes = Route.objects.all()
             routes = routes.exclude(disabled=True)
             origin = request.GET.get('origin', '')
+
+            if origin in ['Povoacão', 'Lomba do Loucão', 'Ponta Garca']:
+                origin = origin.replace('c', 'ç')
             routes = routes.filter(stops__icontains=origin) if origin != '' else routes
+
             destination = request.GET.get('destination', '')
+
+            if destination in ['Povoacão', 'Lomba do Loucão', 'Ponta Garca']:
+                destination = destination.replace('c', 'ç')
+
             if origin == '' or destination == '':
                 return Response({'error': 'Origin and destination are required'})
             routes = routes.filter(stops__icontains=destination) if destination != '' else routes
