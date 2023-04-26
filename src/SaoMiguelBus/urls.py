@@ -27,6 +27,7 @@ urlpatterns = [
     path('api/v1/route', views.get_trip_v1),
     path('api/v1/route/<int:route_id>', views.get_route_v1),
     path('api/v1/android/load', views.get_android_load_v1),
+    path('api/v2/android/load', views.get_android_load_v2),
     path('api/v1/stats', views.get_stats_v1),
     path('api/v1/stat', views.add_stat_v1),
     path('statistics', views.stats),

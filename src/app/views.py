@@ -2,8 +2,8 @@ from django.shortcuts import render
 from numpy import full
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from app.models import Stop, Route, Stat, ReturnRoute, LoadRoute
-from app.serializers import StopSerializer, RouteSerializer, StatSerializer, ReturnRouteSerializer, LoadRouteSerializer
+from app.models import Stop, Route, Stat, ReturnRoute, LoadRoute, Variables
+from app.serializers import StopSerializer, RouteSerializer, StatSerializer, ReturnRouteSerializer, LoadRouteSerializer, VariablesSerializer
 from django.views.decorators.http import require_GET, require_POST
 from datetime import datetime, date
 import json
@@ -46,9 +46,6 @@ def get_trip_v1(request):
 
             if destination in ['Povoacão', 'Lomba do Loucão', 'Ponta Garca']:
                 destination = destination.replace('c', 'ç')
-
-            print(origin)
-            print(destination)
 
             if origin == '' or destination == '':
                 return Response({'error': 'Origin and destination are required'})
@@ -147,38 +144,18 @@ def get_android_load_v2(request):
             try:
                 all_routes = Route.objects.all()
                 all_routes = all_routes.exclude(disabled=True)
-                loads = []
-                full_routes = {}
+                routes = []
+                try:
+                    variable = Variables.objects.all().first().__dict__
+                    routes = [{'version': variable['version'], 'maps': variable['maps']}]
+                except Exception as e:
+                    print(e)
                 for route in all_routes:
-                    if route.route in full_routes:
-                        full_routes[route.route].append(route)
-                    else:
-                        full_routes[route.route] = [route]
-                print(full_routes)
-                for route_id in full_routes:
-                    print("\n\n\n"+route_id)
-                    for route in full_routes[route_id]:
-                        print(route)
-                        print(route.start)
-                        print(route.end)
-                '''
-                    route_id = route.route
-                    unique_id = route.id
-                    type_of_day = route.type_of_day
-                    information = route.information
-                    print(route_id, unique_id, type_of_day, information)
-                    #TODO: Get formatted route to load on Sao Miguel Bus Android app
                     stops = route.stops.replace('\'', '').replace('{', '').replace('}', '').split(',')
-                    stop_times = [(stop.split(':')[0].strip(), stop.split(':')[1].strip()) for stop in stops]
-                    print(stop_times)
-                    
-                    if route.route in full_routes:
-                        full_routes[route.route].append(LoadRoute(route.id, route.route, stop_name, stop_time, route.type_of_day, route.information).__dict__)
-                    else:
-                        full_routes[route.route] = [LoadRoute(route.id, route.route, stop_name, stop_time, route.type_of_day, route.information).__dict__]
-                '''
-                #print(full_routes)
-                return Response("pass")
+                    all_stops = [stop.split(':')[0].strip() for stop in stops]
+                    all_times = [stop.split(':')[1].strip() for stop in stops]
+                    routes.append(LoadRoute(route.id, route.route, all_stops, all_times, route.type_of_day, route.information).__dict__)
+                return Response(routes)
             except Exception as e:
                 print(e)
                 return Response(status=404)
