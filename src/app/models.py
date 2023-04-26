@@ -45,6 +45,14 @@ class Stat(models.Model):
     timestamp = models.DateTimeField(auto_now_add=True)
     def __str__(self):
         return f"{self.request} | {self.origin} -> {self.destination} | {self.type_of_day}"
+    
+class Variables(models.Model):
+    version = models.CharField(max_length=100)
+    maps = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f"Version: {self.version} | Maps: {self.maps}"
+
 
 class ReturnRoute():
     def __init__(self, id, route, origin, destination, start, end, stops, type_of_day, information):
