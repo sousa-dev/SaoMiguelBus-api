@@ -5,11 +5,8 @@ from rest_framework.response import Response
 from app.models import Stop, Route, Stat, ReturnRoute, LoadRoute, Variables
 from app.serializers import StopSerializer, RouteSerializer, StatSerializer, ReturnRouteSerializer, LoadRouteSerializer, VariablesSerializer
 from django.views.decorators.http import require_GET, require_POST
-from datetime import datetime, date
+from datetime import datetime, date, timedelta
 import json
-
-
-# Create your views here.
 
 #Get All Stops
 @api_view(['GET'])
@@ -168,15 +165,6 @@ def index (request):
 @api_view(['GET'])
 @require_GET
 def stats (request):
-    '''
-    #TODO: protect this code with an hash
-    secret_hash = "4357870571671307646"
-    secret = request.GET.get('secret', '')
-    if hash(secret) == secret_hash:
-        return render(request, 'app/templates/statistics.html')
-    else:
-        return render(request, 'app/templates/index.html')
-    '''
     ALL = Stat.objects.all()
 
     latest_n = int(request.GET.get('latest', '10'))
@@ -200,16 +188,32 @@ def stats (request):
     
     #TODO: get route android vs web
 
+    android_loads_timestamp_keys, android_loads_timestamp_values = get_android_loads_timestamp(android_loads)
+    print(android_loads_timestamp_keys)
+    print(android_loads_timestamp_values)
     context = {
         'labels': android_loads_labels, 'no': android_loads_no, 'label': 'Android App Loads (%)',
-        'latests_activity': latests_activity,
-        'android_loads_today': android_loads_today.count(), 'get_routes_today': get_routes_today.count(), 'find_routes_today': find_routes_today.count(), 'get_directions_today': get_directions_today.count(),
+        'latests_activity': latests_activity, 
+        'android_loads_timestamp_keys': android_loads_timestamp_keys, 'android_loads_timestamp_values': android_loads_timestamp_values,
+        'android_loads_today_count': android_loads_today.count(), 'get_routes_today': get_routes_today.count(), 'find_routes_today': find_routes_today.count(), 'get_directions_today': get_directions_today.count(),
         'most_searched_destinations_labels': most_searched_destinations_labels, 'most_searched_destinations_values': most_searched_destinations_values,
         'most_searched_origins_labels': most_searched_origins_labels, 'most_searched_origins_values': most_searched_origins_values,
         'most_searched_routes_labels': most_searched_routes_labels, 'most_searched_routes_values': most_searched_routes_values,
         }
     
     return render(request, 'app/templates/statistics.html', context)
+
+def get_android_loads_timestamp(android_loads):
+    # Get android loads from the last 30 days
+    android_loads = android_loads.filter(timestamp__range=(datetime.now() - timedelta(days=30), datetime.now()))
+    android_loads_timestamp = {}
+    for android_load in android_loads:
+        hour = android_load.timestamp.strftime('%Y-%m-%d %H:00:00')
+        if hour in android_loads_timestamp:
+            android_loads_timestamp[hour] += 1
+        else:
+            android_loads_timestamp[hour] = 1
+    return android_loads_timestamp.keys(), android_loads_timestamp.values()
 
 def get_android_loads():
     android_loads = Stat.objects.filter(request='android_load')

@@ -8,24 +8,85 @@
     <title>São Miguel Bus API</title>
   </head>
   <body>
-    <!--<div id="container" style="height: 400px; width: 800px">    
-        <canvas id="myChart" width="200" height="200"></canvas>
-    </div>-->
-    <div id="container">
-        <h2>Android Loads (%)</h2>
-        {% for label in labels %}
-        <tr>
-            <td>{{ label }}</td>
-        </tr>
-        {% endfor %}
-        <br>
-        {% for n in no %}
-        <tr>
-            <td>{{ n }}%</td>
-        </tr>
-        {% endfor %}
+    <div style="display: flex; flex-wrap: wrap;">
+    <div style="flex: 1; margin-right: 10px;">
+        <div style="height: 300px; width: 100%;">
+            <h2>Android Loads (%)</h2>
+            <canvas id="languagesChart"></canvas>
+            <script>
+                var ctx = document.getElementById('languagesChart').getContext('2d');
+                var labels = [{% for label in labels %}"{{ label }}",{% endfor %}];
+                var data = [{% for n in no %}{{ n }},{% endfor %}];
+                var languagesChart = new Chart(ctx, {
+                    type: 'pie',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            data: data,
+                            backgroundColor: [
+                                'rgba(255, 99, 132, 0.2)',
+                                'rgba(54, 162, 235, 0.2)',
+                                'rgba(255, 206, 86, 0.2)',
+                                'rgba(75, 192, 192, 0.2)',
+                                'rgba(153, 102, 255, 0.2)',
+                                'rgba(255, 159, 64, 0.2)'
+                            ],
+                            borderColor: [
+                                'rgba(255, 99, 132, 1)',
+                                'rgba(54, 162, 235, 1)',
+                                'rgba(255, 206, 86, 1)',
+                                'rgba(75, 192, 192, 1)',
+                                'rgba(153, 102, 255, 1)',
+                                'rgba(255, 159, 64, 1)'
+                            ],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true
+                    }
+                });
+            </script>
+        </div>
     </div>
-
+    <div style="flex: 1; margin-left: 10px;">
+        <div style="height: 400px; width: 100%;">
+            <h2>Android Loads</h2>
+            <canvas id="loadsOvertime"></canvas>
+            <script>
+                var ctx = document.getElementById('loadsOvertime').getContext('2d');
+                var loadsOvertime = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: [{% for timestamp in android_loads_timestamp_keys %}"{{ timestamp }}",{% endfor %}],
+                        datasets: [{
+                            label: 'Android App Loads',
+                            data: [{% for count in android_loads_timestamp_values %}{{ count }},{% endfor %}],
+                            backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                            borderColor: 'rgba(255, 99, 132, 1)',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        scales: {
+                                yAxes: [{
+                                    ticks: {
+                                        beginAtZero: true
+                                    }
+                                }],
+                                xAxes: [{
+                                    ticks: {
+                                        display: false
+                                    }
+                                }]
+                            }
+                    }
+                });
+            </script>
+        </div>
+    </div>
+</div>
     <div id="container">
         <h2>Latest Activity</h2>
         {% for stat in latests_activity %}
@@ -41,7 +102,7 @@
     </div>
 
     <div id ="container">
-        <h2>Android Loads Today:</h2> {{ android_loads_today }}
+        <h2>Android Loads Today:</h2> {{ android_loads_today_count }}
         <h2>Get Routes Today:</h2> {{ get_routes_today }}
         <h2>Find Route Today:</h2> {{ find_routes_today }}
         <h2>Get Directions Today:</h2> {{ get_directions_today }}
