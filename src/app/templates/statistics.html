@@ -5,9 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+    
     <title>São Miguel Bus API</title>
   </head>
   <body>
+    <input type="text" name="daterange" value="{{ start_time }} - {{ end_time }}" />    
+    <script>
+        $(function() {
+            $('input[name="daterange"]').daterangepicker({
+                opens: 'left',
+                locale: {
+                    format: 'YYYY-MM-DD'
+                }
+            }, function(start, end, label) {
+                window.location.href = "/statistics?start_time=" + Date.parse(start.format('YYYY-MM-DD 00:00:00')) / 1000 + "&end_time=" +  Date.parse(end.format('YYYY-MM-DD 23:59:00')) / 1000;
+                console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+            });
+            });
+    </script>
+
     <div style="display: flex; flex-wrap: wrap;">
     <div style="flex: 1; margin-right: 10px;">
         <div style="height: 300px; width: 100%;">
