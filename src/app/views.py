@@ -124,8 +124,10 @@ def get_ad_v1(request):
     if request.method == 'GET':
         ad_time = request.GET.get('now', timezone.now().timestamp())
         advertise_on = request.GET.get('on', 'all').capitalize()
+        platform = request.GET.get('platform', 'all')
         datetime_ad_time = timezone.make_aware(datetime.fromtimestamp(float(ad_time)), timezone.get_default_timezone())
         ads = ads.filter(status='active')
+        ads = ads.filter(platform=platform) if platform != 'all' else ads
         ads = ads.filter(advertise_on=advertise_on) if advertise_on != 'All' else ads
         ads = ads.filter(start__lte=datetime_ad_time, end__gte=datetime_ad_time)
         if ads.count() > 1:
