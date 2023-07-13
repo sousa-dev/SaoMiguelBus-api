@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.utils import timezone
 from numpy import full
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -121,10 +122,9 @@ def add_stat_v1(request):
 def get_ad_v1(request):
     ads = Ad.objects.all()
     if request.method == 'GET':
-        ad_time = request.GET.get('now', datetime.now().timestamp())
+        ad_time = request.GET.get('now', timezone.now().timestamp())
         advertise_on = request.GET.get('on', 'all').capitalize()
-        datetime_ad_time = datetime.fromtimestamp(float(ad_time))
-        print('Getting ad for time: ' + str(datetime_ad_time))
+        datetime_ad_time = timezone.make_aware(datetime.fromtimestamp(float(ad_time)), timezone.get_default_timezone())
         ads = ads.filter(status='active')
         ads = ads.filter(advertise_on=advertise_on) if advertise_on != 'All' else ads
         ads = ads.filter(start__lte=datetime_ad_time, end__gte=datetime_ad_time)
@@ -137,7 +137,10 @@ def get_ad_v1(request):
         if ads.count() == 0:
             print('No ads found for time: ' + str(ad_time))
             return Response(status=404)
-        serializer = AdSerializer(ads[0])
+        ad = ads[0]
+        serializer = AdSerializer(ad)
+        ad.seen += 1 
+        ad.save()
         return Response(serializer.data)
 
 
