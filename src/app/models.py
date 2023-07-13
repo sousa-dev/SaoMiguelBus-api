@@ -1,6 +1,7 @@
 from sqlite3 import Timestamp
 from django.db import models
 from django.core.exceptions import ValidationError
+from django.utils import timezone
 from jsonfield import JSONField
 import json
 from sqlalchemy import null
@@ -59,8 +60,8 @@ class Ad(models.Model):
     entity = models.CharField(max_length=100)
     description = models.CharField(max_length=100, null=True, blank=True)
     media = models.CharField(max_length=1000)
-    start = models.DateTimeField()
-    end = models.DateTimeField()
+    start = models.DateTimeField(default=timezone.now)
+    end = models.DateTimeField(default=timezone.now)
     ACTION_CHOICES = [('open', 'Open Page'), ('intent', 'Intent Action'), ('call', 'Call To Number'), ('sms', 'Send SMS'), ('email', 'Send Email')]
     action = models.CharField(max_length=100, choices=ACTION_CHOICES, null=True, blank=True)
     target = models.CharField(max_length=100, null=True, blank=True)
