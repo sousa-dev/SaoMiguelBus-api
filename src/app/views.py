@@ -170,7 +170,7 @@ def stats (request):
     start_time = datetime.fromtimestamp(int(start_time))
     end_time = datetime.fromtimestamp(int(end_time))
 
-    # format to YYYY-MM-DD HH:MM:ss
+    # format to     
     start_time = start_time.strftime('%Y-%m-%d %H:%M:%S')
     end_time = end_time.strftime('%Y-%m-%d %H:%M:%S')
 
