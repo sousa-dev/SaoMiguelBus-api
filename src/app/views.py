@@ -125,6 +125,7 @@ def get_ad_v1(request):
         advertise_on = request.GET.get('on', 'all').capitalize()
         datetime_ad_time = datetime.fromtimestamp(float(ad_time))
         print('Getting ad for time: ' + str(datetime_ad_time))
+        ads = ads.filter(status='active')
         ads = ads.filter(advertise_on=advertise_on) if advertise_on != 'All' else ads
         ads = ads.filter(start__lte=datetime_ad_time, end__gte=datetime_ad_time)
         if ads.count() > 1:
