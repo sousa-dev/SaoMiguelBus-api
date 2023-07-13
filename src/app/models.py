@@ -62,7 +62,7 @@ class Ad(models.Model):
     media = models.CharField(max_length=1000)
     start = models.DateTimeField(default=timezone.now)
     end = models.DateTimeField(default=timezone.now)
-    ACTION_CHOICES = [('open', 'Open Page'), ('intent', 'Intent Action'), ('call', 'Call To Number'), ('sms', 'Send SMS'), ('email', 'Send Email')]
+    ACTION_CHOICES = [('open', 'Open URL'), ('directions', 'Get Directions To'), ('call', 'Call To Number'), ('sms', 'Send SMS'), ('email', 'Send Email')]
     action = models.CharField(max_length=100, choices=ACTION_CHOICES, null=True, blank=True)
     target = models.CharField(max_length=100, null=True, blank=True)
     advertise_on = models.CharField(max_length=100)
