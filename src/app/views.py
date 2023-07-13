@@ -2,8 +2,8 @@ from django.shortcuts import render
 from numpy import full
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from app.models import Stop, Route, Stat, ReturnRoute, LoadRoute, Variables
-from app.serializers import StopSerializer, RouteSerializer, StatSerializer, ReturnRouteSerializer, LoadRouteSerializer, VariablesSerializer
+from app.models import Stop, Route, Stat, ReturnRoute, LoadRoute, Variables, Ad
+from app.serializers import StopSerializer, RouteSerializer, StatSerializer, ReturnRouteSerializer, LoadRouteSerializer, VariablesSerializer, AdSerializer
 from django.views.decorators.http import require_GET, require_POST
 from datetime import datetime, date, timedelta
 import json
@@ -115,6 +115,30 @@ def add_stat_v1(request):
         except Exception as e:
             print(e)
             return Response(status=404)
+
+@api_view(['GET'])
+@require_GET
+def get_ad_v1(request):
+    ads = Ad.objects.all()
+    if request.method == 'GET':
+        ad_time = request.GET.get('now', datetime.now().timestamp())
+        advertise_on = request.GET.get('on', 'all').capitalize()
+        datetime_ad_time = datetime.fromtimestamp(float(ad_time))
+        print('Getting ad for time: ' + str(datetime_ad_time))
+        ads = ads.filter(advertise_on=advertise_on) if advertise_on != 'All' else ads
+        ads = ads.filter(start__lte=datetime_ad_time, end__gte=datetime_ad_time)
+        if ads.count() > 1:
+            print('Multiple ads found for time: ' + str(ad_time))
+            print('Choosing a random ad from the list:' )
+            for ad in ads:
+                print(ad)
+            ads = ads.order_by('?')[:1]
+        if ads.count() == 0:
+            print('No ads found for time: ' + str(ad_time))
+            return Response(status=404)
+        serializer = AdSerializer(ads[0])
+        return Response(serializer.data)
+
 
 @api_view(['GET'])
 @require_GET
