@@ -140,6 +140,7 @@ def get_ad_v1(request):
             print('Destination: ' + destination)
 
             destination_ads = ads.filter(advertise_on__icontains=get_advertise_on_value(destination))
+            #Priority for destination ads
             if destination_ads.count() > 0:
                 ads = destination_ads
             else:
