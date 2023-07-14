@@ -1,3 +1,4 @@
+from difflib import SequenceMatcher
 from django.shortcuts import render
 from django.utils import timezone
 from numpy import full
@@ -168,8 +169,28 @@ def get_advertise_on_value(stop):
     if group.count() > 0:
         group = group[0]
         return group.name
-    #TODO: Find a way to get the advertise on value for stops which are not in a group
+    most_similar_stop = get_most_similar_stop(stop)
+    group = Group.objects.filter(stops__icontains=most_similar_stop)
+    print(group)
+    if group.count() > 0:
+        group = group[0]
+        return group.name
+    
     return "not found"
+
+#Get the most similar stop
+def get_most_similar_stop(stop):
+    stops = Stop.objects.all()
+    most_similar_stop = stop
+    most_similar_stop_score = 0
+    for stop_entity in stops:
+        score = SequenceMatcher(
+            lambda x: x in ['do', 'da', 'das', 'dos', 'de', ' '], 
+            stop_entity.name.lower(), stop.lower()).ratio()
+        if score > most_similar_stop_score:
+            most_similar_stop = stop_entity.name
+            most_similar_stop_score = score
+    return most_similar_stop
 
 
 #Increase ad clicked counter
