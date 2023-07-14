@@ -130,7 +130,7 @@ def get_ad_v1(request):
         ads = ads.filter(platform=platform) if platform != 'all' else ads
         ads = ads.filter(start__lte=datetime_ad_time, end__gte=datetime_ad_time)
         if advertise_on in ["home", "all"]:
-            ads = ads.filter(advertise_on=advertise_on) if advertise_on != 'all' else ads
+            ads = ads.filter(advertise_on__icontains=advertise_on) if advertise_on != 'all' else ads
         else:
             stops = advertise_on.split('->') 
             origin = stops[0].strip()
