@@ -3,8 +3,8 @@ from django.utils import timezone
 from numpy import full
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from app.models import Stop, Route, Stat, ReturnRoute, LoadRoute, Variables, Ad
-from app.serializers import StopSerializer, RouteSerializer, StatSerializer, ReturnRouteSerializer, LoadRouteSerializer, VariablesSerializer, AdSerializer
+from app.models import Stop, Route, Stat, ReturnRoute, LoadRoute, Variables, Ad, Group
+from app.serializers import StopSerializer, RouteSerializer, StatSerializer, ReturnRouteSerializer, LoadRouteSerializer, VariablesSerializer, AdSerializer, GroupSerializer
 from django.views.decorators.http import require_GET, require_POST
 from datetime import datetime, date, timedelta
 import json
@@ -123,13 +123,28 @@ def get_ad_v1(request):
     ads = Ad.objects.all()
     if request.method == 'GET':
         ad_time = request.GET.get('now', timezone.now().timestamp())
-        advertise_on = request.GET.get('on', 'all').capitalize()
+        advertise_on = request.GET.get('on', 'all').lower()
         platform = request.GET.get('platform', 'all')
         datetime_ad_time = timezone.make_aware(datetime.fromtimestamp(float(ad_time)), timezone.get_default_timezone())
         ads = ads.filter(status='active')
         ads = ads.filter(platform=platform) if platform != 'all' else ads
-        ads = ads.filter(advertise_on=advertise_on) if advertise_on != 'All' else ads
         ads = ads.filter(start__lte=datetime_ad_time, end__gte=datetime_ad_time)
+        if advertise_on in ["home", "all"]:
+            ads = ads.filter(advertise_on=advertise_on) if advertise_on != 'all' else ads
+        else:
+            stops = advertise_on.split('->') 
+            origin = stops[0].strip()
+            destination = stops[-1].strip()
+
+            print('Origin: ' + origin)
+            print('Destination: ' + destination)
+
+            destination_ads = ads.filter(advertise_on__icontains=get_advertise_on_value(destination))
+            if destination_ads.count() > 0:
+                ads = destination_ads
+            else:
+                ads = ads.filter(advertise_on__icontains=get_advertise_on_value(origin))
+                
         if ads.count() > 1:
             print('Multiple ads found for time: ' + str(ad_time))
             print('Choosing a random ad from the list:' )
@@ -145,6 +160,17 @@ def get_ad_v1(request):
         ad.save()
         return Response(serializer.data)
     
+#Get advertise on value based on the stop
+def get_advertise_on_value(stop):
+    #Find the group which the stop belongs to
+    group = Group.objects.filter(stops__icontains=stop)
+    if group.count() > 0:
+        group = group[0]
+        return group.name
+    #TODO: Find a way to get the advertise on value for stops which are not in a group
+    return "not found"
+
+
 #Increase ad clicked counter
 @api_view(['POST'])
 @require_POST
@@ -162,7 +188,20 @@ def click_ad_v1(request):
             print(e)
             return Response(status=404)
 
-
+@api_view(['GET'])
+@require_GET
+def get_all_groups_v1(request):
+    if request.method == 'GET':
+        try:
+            groups = Group.objects.all()
+            serializer = GroupSerializer(groups, many=True)
+            for group in serializer.data:
+                group['name'] = group['name'].title()
+                group['stops'] = group['stops'].split(',')
+            return Response(serializer.data)
+        except Exception as e:
+            print(e)
+            return Response(status=404)
 
 
 
