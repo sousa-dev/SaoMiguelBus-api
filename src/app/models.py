@@ -71,6 +71,7 @@ class Ad(models.Model):
     STATUS_CHOICES = [('pending', 'Pending'), ('active', 'Active'), ('inactive', 'Inactive'), ('failed', 'Failed')]
     status = models.CharField(max_length=100, choices=STATUS_CHOICES, default="pending")
     seen = models.IntegerField(default=0)
+    clicked = models.IntegerField(default=0)
 
     def clean(self):
         if (self.action is None and self.target is not None) or (self.action is not None and self.target is None):

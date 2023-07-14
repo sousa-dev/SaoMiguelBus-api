@@ -144,6 +144,27 @@ def get_ad_v1(request):
         ad.seen += 1 
         ad.save()
         return Response(serializer.data)
+    
+#Increase ad clicked counter
+@api_view(['POST'])
+@require_POST
+def click_ad_v1(request):
+    if request.method == 'POST':
+        try:
+            ad_id = request.GET.get('id', '')
+            if ad_id == '':
+                return Response(status=404)
+            ad = Ad.objects.get(id=ad_id)
+            ad.clicked += 1
+            ad.save()
+            return Response({'status': 'ok'})
+        except Exception as e:
+            print(e)
+            return Response(status=404)
+
+
+
+
 
 
 @api_view(['GET'])
