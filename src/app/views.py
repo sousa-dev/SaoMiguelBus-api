@@ -139,12 +139,11 @@ def get_ad_v1(request):
             print('Origin: ' + origin)
             print('Destination: ' + destination)
 
-            destination_ads = ads.filter(advertise_on__icontains=destination)
+            destination_ads = ads.filter(advertise_on__icontains=get_advertise_on_value(destination))
             if destination_ads.count() > 0:
                 ads = destination_ads
             else:
-                ads = ads.filter(advertise_on__icontains=origin)
-               
+                ads = ads.filter(advertise_on__icontains=get_advertise_on_value(origin))
                 
         if ads.count() > 1:
             print('Multiple ads found for time: ' + str(ad_time))
@@ -161,6 +160,17 @@ def get_ad_v1(request):
         ad.save()
         return Response(serializer.data)
     
+#Get advertise on value based on the stop
+def get_advertise_on_value(stop):
+    #Find the group which the stop belongs to
+    group = Group.objects.filter(stops__icontains=stop)
+    if group.count() > 0:
+        group = group[0]
+        return group.name
+    #TODO: Find a way to get the advertise on value for stops which are not in a group
+    return "not found"
+
+
 #Increase ad clicked counter
 @api_view(['POST'])
 @require_POST
