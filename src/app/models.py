@@ -86,7 +86,7 @@ class Group(models.Model):
     stops = models.CharField(max_length=500)
 
     def __str__(self):
-        return f"{self.name}"
+        return f"{self.name.title()}"
 
 class ReturnRoute():
     def __init__(self, id, route, origin, destination, start, end, stops, type_of_day, information):

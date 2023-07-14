@@ -3,8 +3,8 @@ from django.utils import timezone
 from numpy import full
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from app.models import Stop, Route, Stat, ReturnRoute, LoadRoute, Variables, Ad
-from app.serializers import StopSerializer, RouteSerializer, StatSerializer, ReturnRouteSerializer, LoadRouteSerializer, VariablesSerializer, AdSerializer
+from app.models import Stop, Route, Stat, ReturnRoute, LoadRoute, Variables, Ad, Group
+from app.serializers import StopSerializer, RouteSerializer, StatSerializer, ReturnRouteSerializer, LoadRouteSerializer, VariablesSerializer, AdSerializer, GroupSerializer
 from django.views.decorators.http import require_GET, require_POST
 from datetime import datetime, date, timedelta
 import json
@@ -178,7 +178,20 @@ def click_ad_v1(request):
             print(e)
             return Response(status=404)
 
-
+@api_view(['GET'])
+@require_GET
+def get_all_groups_v1(request):
+    if request.method == 'GET':
+        try:
+            groups = Group.objects.all()
+            serializer = GroupSerializer(groups, many=True)
+            for group in serializer.data:
+                group['name'] = group['name'].title()
+                group['stops'] = group['stops'].split(',')
+            return Response(serializer.data)
+        except Exception as e:
+            print(e)
+            return Response(status=404)
 
 
 
