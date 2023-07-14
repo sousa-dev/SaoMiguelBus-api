@@ -190,6 +190,7 @@ def get_most_similar_stop(stop):
         if score > most_similar_stop_score:
             most_similar_stop = stop_entity.name
             most_similar_stop_score = score
+    print('Most similar stop for ' + stop + ' is ' + most_similar_stop)
     return most_similar_stop
 
 
