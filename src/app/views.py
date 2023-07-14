@@ -123,13 +123,29 @@ def get_ad_v1(request):
     ads = Ad.objects.all()
     if request.method == 'GET':
         ad_time = request.GET.get('now', timezone.now().timestamp())
-        advertise_on = request.GET.get('on', 'all').capitalize()
+        advertise_on = request.GET.get('on', 'all').lower()
         platform = request.GET.get('platform', 'all')
         datetime_ad_time = timezone.make_aware(datetime.fromtimestamp(float(ad_time)), timezone.get_default_timezone())
         ads = ads.filter(status='active')
         ads = ads.filter(platform=platform) if platform != 'all' else ads
-        ads = ads.filter(advertise_on=advertise_on) if advertise_on != 'All' else ads
         ads = ads.filter(start__lte=datetime_ad_time, end__gte=datetime_ad_time)
+        if advertise_on in ["home", "all"]:
+            ads = ads.filter(advertise_on=advertise_on) if advertise_on != 'all' else ads
+        else:
+            stops = advertise_on.split('->') 
+            origin = stops[0].strip()
+            destination = stops[-1].strip()
+
+            print('Origin: ' + origin)
+            print('Destination: ' + destination)
+
+            destination_ads = ads.filter(advertise_on__icontains=destination)
+            if destination_ads.count() > 0:
+                ads = destination_ads
+            else:
+                ads = ads.filter(advertise_on__icontains=origin)
+               
+                
         if ads.count() > 1:
             print('Multiple ads found for time: ' + str(ad_time))
             print('Choosing a random ad from the list:' )

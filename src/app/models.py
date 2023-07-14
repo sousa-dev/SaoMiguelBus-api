@@ -78,7 +78,16 @@ class Ad(models.Model):
             raise ValidationError("Target cannot be set if action is not set or vice versa.")
     
     def __str__(self):
-        return f"{self.entity} | {self.status} | {self.start} -> {self.end} "
+        return f"{self.entity} | {self.status} | {self.start} -> {self.end}"
+
+class Group(models.Model):
+    id = models.AutoField(primary_key=True)
+    name = models.CharField(max_length=50)
+    stops = models.CharField(max_length=500)
+
+    def __str__(self):
+        return f"{self.name}"
+
 class ReturnRoute():
     def __init__(self, id, route, origin, destination, start, end, stops, type_of_day, information):
         self.id = id
