@@ -62,13 +62,13 @@ class Ad(models.Model):
     media = models.CharField(max_length=1000)
     start = models.DateTimeField(default=timezone.now)
     end = models.DateTimeField(default=timezone.now)
-    ACTION_CHOICES = [('open', 'Open URL'), ('directions', 'Get Directions To'), ('call', 'Call To Number'), ('sms', 'Send SMS'), ('email', 'Send Email'), ('whatsapp', 'Send WhatsApp Message'), ('share', 'Share')]
+    ACTION_CHOICES = [('open', 'Open URL'), ('directions', 'Get Directions To'), ('call', 'Call To Number'), ('sms', 'Send SMS'), ('email', 'Send Email'), ('whatsapp', 'Send WhatsApp Message')]
     action = models.CharField(max_length=100, choices=ACTION_CHOICES, null=True, blank=True)
     target = models.CharField(max_length=100, null=True, blank=True)
     advertise_on = models.CharField(max_length=100)
     PLATFORM_CHOICES = [('android', 'Android'), ('ios', 'iOS'), ('web', 'Web')]
     platform = models.CharField(max_length=100, choices=PLATFORM_CHOICES)
-    STATUS_CHOICES = [('pending', 'Pending'), ('active', 'Active'), ('inactive', 'Inactive'), ('failed', 'Failed')]
+    STATUS_CHOICES = [('pending', 'Pending'), ('active', 'Active'), ('inactive', 'Inactive'), ('failed', 'Failed'), ('default', 'Default')]
     status = models.CharField(max_length=100, choices=STATUS_CHOICES, default="pending")
     seen = models.IntegerField(default=0)
     clicked = models.IntegerField(default=0)

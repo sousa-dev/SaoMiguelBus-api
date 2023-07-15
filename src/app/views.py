@@ -1,3 +1,5 @@
+import collections
+from difflib import SequenceMatcher
 from django.shortcuts import render
 from django.utils import timezone
 from numpy import full
@@ -146,15 +148,24 @@ def get_ad_v1(request):
             else:
                 ads = ads.filter(advertise_on__icontains=get_advertise_on_value(origin))
                 
+        # If multiple ads are found, choose a random one
         if ads.count() > 1:
             print('Multiple ads found for time: ' + str(ad_time))
             print('Choosing a random ad from the list:' )
             for ad in ads:
                 print(ad)
             ads = ads.order_by('?')[:1]
+
+        # Return a default ad if no ads are found
+        if ads.count() == 0:
+            ads = Ad.objects.filter(status='default')
+            #Choose a random default ad
+            ads = ads.order_by('?')[:1]
+
         if ads.count() == 0:
             print('No ads found for time: ' + str(ad_time))
             return Response(status=404)
+        
         ad = ads[0]
         serializer = AdSerializer(ad)
         ad.seen += 1 
@@ -168,8 +179,29 @@ def get_advertise_on_value(stop):
     if group.count() > 0:
         group = group[0]
         return group.name
-    #TODO: Find a way to get the advertise on value for stops which are not in a group
+    most_similar_stop = get_most_similar_stop(stop)
+    group = Group.objects.filter(stops__icontains=most_similar_stop)
+    print(group)
+    if group.count() > 0:
+        group = group[0]
+        return group.name
+    
     return "not found"
+
+#Get the most similar stop
+def get_most_similar_stop(stop):
+    stops = Stop.objects.all()
+    most_similar_stop = stop
+    most_similar_stop_score = 0
+    for stop_entity in stops:
+        score = SequenceMatcher(
+            lambda x: x in ['do', 'da', 'das', 'dos', 'de', ' '], 
+            stop_entity.name.lower(), stop.lower()).ratio()
+        if score > most_similar_stop_score:
+            most_similar_stop = stop_entity.name
+            most_similar_stop_score = score
+    print('Most similar stop for ' + stop + ' is ' + most_similar_stop)
+    return most_similar_stop
 
 
 #Increase ad clicked counter
@@ -193,6 +225,22 @@ def click_ad_v1(request):
 @require_GET
 def get_all_groups_v1(request):
     if request.method == 'GET':
+        if request.GET.get('verify', False):
+            all_stops_obj = Stop.objects.all()
+            all_stops_names = [stop.name for stop in all_stops_obj]
+            all_groups = Group.objects.all()
+            all_groups_stops = [group.stops for group in all_groups]
+            all_groups_stops = [stop for stops in all_groups_stops for stop in stops.split(',')]
+            # check for duplicates on all_groups_stops and if all_stops_names are in all_groups_stops
+            if len(all_groups_stops) != len(set(all_groups_stops)) or not set(all_stops_names).issubset(set(all_groups_stops)):
+                #Get missing stops
+                missing_stops = set(all_stops_names) - set(all_groups_stops)
+                #get duplicated stops
+                duplicated_stops = [item for item, count in collections.Counter(all_groups_stops).items() if count > 1]
+
+                return Response({'status': 'error', 'message': 'There is a problem with the defined groups', 
+                                 'Missing stops': str(missing_stops), 
+                                 'Duplicated stops':  str(duplicated_stops)})
         try:
             groups = Group.objects.all()
             serializer = GroupSerializer(groups, many=True)
