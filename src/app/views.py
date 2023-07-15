@@ -131,6 +131,21 @@ def get_ad_v1(request):
         ads = ads.filter(status='active')
         ads = ads.filter(platform=platform) if platform != 'all' else ads
         ads = ads.filter(start__lte=datetime_ad_time, end__gte=datetime_ad_time)
+
+        # Verify if there is multiple ad campaigns for the same advertise_on
+        verify = request.GET.get('verify', False)
+        if verify:
+            for ad in ads:
+                groups = ad.advertise_on.split(',')
+                for ad_ in ads:
+                    if ad.id != ad_.id:
+                        groups_ = ad_.advertise_on.split(',')
+                        for group in groups:
+                            if group in groups_:
+                                return Response({'error': 'There are two active ads for the same campaign',
+                                                 'ad-1': AdSerializer(ad).data,
+                                                 'ad-2': AdSerializer(ad_).data})
+
         if advertise_on in ["home", "all"]:
             ads = ads.filter(advertise_on__icontains=advertise_on) if advertise_on != 'all' else ads
         else:
