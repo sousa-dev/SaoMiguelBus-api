@@ -147,15 +147,24 @@ def get_ad_v1(request):
             else:
                 ads = ads.filter(advertise_on__icontains=get_advertise_on_value(origin))
                 
+        # If multiple ads are found, choose a random one
         if ads.count() > 1:
             print('Multiple ads found for time: ' + str(ad_time))
             print('Choosing a random ad from the list:' )
             for ad in ads:
                 print(ad)
             ads = ads.order_by('?')[:1]
+
+        # Return a default ad if no ads are found
+        if ads.count() == 0:
+            ads = Ad.objects.filter(status='default')
+            #Choose a random default ad
+            ads = ads.order_by('?')[:1]
+
         if ads.count() == 0:
             print('No ads found for time: ' + str(ad_time))
             return Response(status=404)
+        
         ad = ads[0]
         serializer = AdSerializer(ad)
         ad.seen += 1 
