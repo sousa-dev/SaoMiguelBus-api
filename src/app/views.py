@@ -1,3 +1,4 @@
+import collections
 from difflib import SequenceMatcher
 from django.shortcuts import render
 from django.utils import timezone
@@ -224,6 +225,22 @@ def click_ad_v1(request):
 @require_GET
 def get_all_groups_v1(request):
     if request.method == 'GET':
+        if request.GET.get('verify', False):
+            all_stops_obj = Stop.objects.all()
+            all_stops_names = [stop.name for stop in all_stops_obj]
+            all_groups = Group.objects.all()
+            all_groups_stops = [group.stops for group in all_groups]
+            all_groups_stops = [stop for stops in all_groups_stops for stop in stops.split(',')]
+            # check for duplicates on all_groups_stops and if all_stops_names are in all_groups_stops
+            if len(all_groups_stops) != len(set(all_groups_stops)) or not set(all_stops_names).issubset(set(all_groups_stops)):
+                #Get missing stops
+                missing_stops = set(all_stops_names) - set(all_groups_stops)
+                #get duplicated stops
+                duplicated_stops = [item for item, count in collections.Counter(all_groups_stops).items() if count > 1]
+
+                return Response({'status': 'error', 'message': 'There is a problem with the defined groups', 
+                                 'Missing stops': str(missing_stops), 
+                                 'Duplicated stops':  str(duplicated_stops)})
         try:
             groups = Group.objects.all()
             serializer = GroupSerializer(groups, many=True)
