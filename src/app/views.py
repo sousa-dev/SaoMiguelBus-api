@@ -281,9 +281,6 @@ def get_ad_v1(request):
             origin = stops[0].strip()
             destination = stops[-1].strip()
 
-            print('Origin: ' + origin)
-            print('Destination: ' + destination)
-
             destination_ads = ads.filter(advertise_on__icontains=get_advertise_on_value(destination))
             #Priority for destination ads
             if destination_ads.count() > 0:
@@ -324,7 +321,6 @@ def get_advertise_on_value(stop):
         return group.name
     most_similar_stop = get_most_similar_stop(stop)
     group = Group.objects.filter(stops__icontains=most_similar_stop)
-    print(group)
     if group.count() > 0:
         group = group[0]
         return group.name
@@ -343,7 +339,6 @@ def get_most_similar_stop(stop):
         if score > most_similar_stop_score:
             most_similar_stop = stop_entity.name
             most_similar_stop_score = score
-    print('Most similar stop for ' + stop + ' is ' + most_similar_stop)
     return most_similar_stop
 
 
@@ -455,9 +450,6 @@ def stats (request):
     # format to     
     start_time = start_time.strftime('%Y-%m-%d %H:%M:%S')
     end_time = end_time.strftime('%Y-%m-%d %H:%M:%S')
-
-    print(start_time)
-    print(end_time)
 
     ALL = Stat.objects.all()
 
