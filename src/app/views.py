@@ -9,6 +9,7 @@ from app.models import Stop, Route, Stat, ReturnRoute, LoadRoute, Variables, Ad,
 from app.serializers import StopSerializer, RouteSerializer, StatSerializer, ReturnRouteSerializer, LoadRouteSerializer, VariablesSerializer, AdSerializer, GroupSerializer
 from django.views.decorators.http import require_GET, require_POST
 from datetime import datetime, date, timedelta
+from statistics import median
 import json
 
 #Get All Stops
@@ -153,24 +154,30 @@ def get_group_stats_v1(request):
 
             search_stops = []
             home_page_impressions = 0
-            home_page_detailed_impressions = []
+            #home_page_detailed_impressions = []
             for group in groups.split(','):
                 if group == "home":
-                    home_page_impressions = len(stats.filter(request='android_load'))
-                    for stat in stats.filter(request='android_load'):
-                        home_page_detailed_impressions.append(get_detailed_impression(stat))                        
+                    # Get the median value of the home page impressions
+                    daily_loads = [
+                        len(stats.filter(request='android_load', timestamp__range=(start_time + timedelta(days=i), start_time + timedelta(days=i+1))))
+                        for i in range((end_time - start_time).days)
+                    ]     
+                    median_loads = median(daily_loads)                
+                    home_page_impressions = median_loads * (end_time - start_time).days                     
                     continue
+
                 for stop in Group.objects.get(name=group).stops.split(','):
                         search_stops.append(stop)
 
             response['search_stops'] = search_stops
 
-            # Find stats that have at least one of the stops at destination                
+            # Find stats that have at least one of the stops at destination     
+            # TODO: Fix this part           
             for stat in stats:
                 if stat.destination == 'NA':
                     stats = stats.exclude(id=stat.id)
                     continue
-                if get_most_similar_stop(stat.destination) in search_stops:
+                if stat.destination in search_stops or get_most_similar_stop(stat.destination) in search_stops:
                     break
                 else:
                     stats = stats.exclude(id=stat.id)
@@ -184,7 +191,7 @@ def get_group_stats_v1(request):
             for stat in stats:
                 detailed_impressions.append(get_detailed_impression(stat))
                     
-            response['detailed_impressions'] = detailed_impressions + home_page_detailed_impressions
+            response['detailed_impressions'] = detailed_impressions + [f"{home_page_impressions} pessoas viram o anúncio ao entrar na app"]
 
             return Response(response)
         
