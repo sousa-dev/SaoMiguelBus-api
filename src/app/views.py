@@ -118,6 +118,127 @@ def add_stat_v1(request):
         except Exception as e:
             print(e)
             return Response(status=404)
+        
+@api_view(['GET'])
+@require_GET
+def get_group_stats_v1(request):
+    if request.method == "GET":
+        try:
+            response = {}
+            detailed_impressions = []            
+            platform = request.GET.get('platform', 'all')
+            language = request.GET.get('language', 'all')
+            groups = request.GET.get('group', '')
+            if groups == '':
+                return Response({'error': 'Group is required'})
+            start_time = request.GET.get('start_time', datetime.now().replace(hour=0, minute=0, second=0, microsecond=0).timestamp() - timedelta(days=7).total_seconds())
+            end_time = request.GET.get('end_time', datetime.now().replace(hour=23, minute=59, second=59, microsecond=0).timestamp() - timedelta(days=1).total_seconds())
+            start_time = timezone.make_aware(datetime.fromtimestamp(int(start_time)), timezone.get_current_timezone())
+            end_time = timezone.make_aware(datetime.fromtimestamp(int(end_time)), timezone.get_current_timezone())
+
+            response['start_time'] = start_time
+            response['end_time'] = end_time
+
+            stats = Stat.objects.all()
+            stats = stats.filter(timestamp__range=(start_time, end_time))
+            stats = stats.filter(language=language) if language != 'all' else stats
+            if platform != 'all':
+                if platform.find(',') != -1:
+                    #remove stats that are not from the platform.split(',')
+                    for stat in stats:
+                        if stat.platform not in platform.split(','):
+                            stats = stats.exclude(id=stat.id)
+                else:
+                    stats = stats.filter(platform=platform)
+
+            search_stops = []
+            home_page_impressions = 0
+            home_page_detailed_impressions = []
+            for group in groups.split(','):
+                if group == "home":
+                    home_page_impressions = len(stats.filter(request='android_load'))
+                    for stat in stats.filter(request='android_load'):
+                        home_page_detailed_impressions.append(get_detailed_impression(stat))                        
+                    continue
+                for stop in Group.objects.get(name=group).stops.split(','):
+                        search_stops.append(stop)
+
+            response['search_stops'] = search_stops
+
+            # Find stats that have at least one of the stops at destination                
+            for stat in stats:
+                if stat.destination == 'NA':
+                    stats = stats.exclude(id=stat.id)
+                    continue
+                if get_most_similar_stop(stat.destination) in search_stops:
+                    break
+                else:
+                    stats = stats.exclude(id=stat.id)
+
+            response['total_impressions'] = len(stats) + home_page_impressions
+            response['home_page_impressions'] = home_page_impressions
+            response['search_page_impressions'] = len(stats.filter(request='get_route'))
+            response['find_page_impressions'] = len(stats.filter(request='find_routes'))
+            response['directions_page_impressions'] = len(stats.filter(request='get_directions'))
+
+            for stat in stats:
+                detailed_impressions.append(get_detailed_impression(stat))
+                    
+            response['detailed_impressions'] = detailed_impressions + home_page_detailed_impressions
+
+            return Response(response)
+        
+        except Exception as e:
+            print(e)
+            return Response(status=404)
+
+def get_detailed_impression(stat):
+    impression = {}
+    # Get a detailed impression from stat
+    type_of_request = stat.request
+    origin = stat.origin
+    destination = stat.destination
+    type_of_day = stat.type_of_day
+    time = stat.time
+    platform = stat.platform
+    language = stat.language
+    timestamp = stat.timestamp
+    # only keep the values != 'NA'
+    if type_of_request != 'NA':
+        if type_of_request == "android_load":
+            impression['type_of_request'] = "Abriu a Home Page"
+        elif type_of_request == "get_route":
+            impression['type_of_request'] = "Pesquisou uma Rota"
+        elif type_of_request == "find_routes":
+            impression['type_of_request'] = "Pesquisou uma Rota na página 'Find'"
+        elif type_of_request == "get_directions":
+            impression['type_of_request'] = "Pediu direções"
+        else:
+            impression['type_of_request'] = type_of_request
+    
+    if origin != 'NA':
+        impression['origin'] = origin
+    if destination != 'NA':
+        impression['destination'] = destination
+    if type_of_day != 'NA':
+        if type_of_day == "WEEKDAY":
+            impression['type_of_day'] = "Dia da Semana"
+        elif type_of_day == "SATURDAY":
+            impression['type_of_day'] = "Sábado"
+        elif type_of_day == "SUNDAY":
+            impression['type_of_day'] = "Domingo ou Feriado"
+        else:
+            impression['type_of_day'] = type_of_day
+    if time != 'NA':
+        impression['time'] = time
+    if platform != 'NA':
+        impression['platform'] = platform
+    if language != 'NA':
+        impression['language'] = language
+    if timestamp != 'NA':
+        impression['timestamp'] = timestamp.strftime('%d-%m-%Y %H:%M')
+    return impression
+    
 
 @api_view(['GET'])
 @require_GET
@@ -131,6 +252,21 @@ def get_ad_v1(request):
         ads = ads.filter(status='active')
         ads = ads.filter(platform=platform) if platform != 'all' else ads
         ads = ads.filter(start__lte=datetime_ad_time, end__gte=datetime_ad_time)
+
+        # Verify if there is multiple ad campaigns for the same advertise_on
+        verify = request.GET.get('verify', False)
+        if verify:
+            for ad in ads:
+                groups = ad.advertise_on.split(',')
+                for ad_ in ads:
+                    if ad.id != ad_.id:
+                        groups_ = ad_.advertise_on.split(',')
+                        for group in groups:
+                            if group in groups_:
+                                return Response({'error': 'There are two active ads for the same campaign',
+                                                 'ad-1': AdSerializer(ad).data,
+                                                 'ad-2': AdSerializer(ad_).data})
+
         if advertise_on in ["home", "all"]:
             ads = ads.filter(advertise_on__icontains=advertise_on) if advertise_on != 'all' else ads
         else:
