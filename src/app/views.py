@@ -98,6 +98,7 @@ def get_stats_v1(request):
             end_time = request.GET.get('end_time', datetime.now().replace(hour=23, minute=59, second=59, microsecond=0).timestamp() - timedelta(days=1).total_seconds())
             start_time = timezone.make_aware(datetime.fromtimestamp(int(start_time)), timezone.get_current_timezone())
             end_time = timezone.make_aware(datetime.fromtimestamp(int(end_time)), timezone.get_current_timezone())
+            stats = stats.filter(timestamp__range=(start_time, end_time))
             serializer = StatSerializer(stats, many=True)
             return Response(serializer.data)
         except Exception as e:
