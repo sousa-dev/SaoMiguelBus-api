@@ -161,9 +161,9 @@ def get_group_stats_v1(request):
                     daily_loads = [
                         len(stats.filter(request='android_load', timestamp__range=(start_time + timedelta(days=i), start_time + timedelta(days=i+1))))
                         for i in range((end_time - start_time).days)
-                    ]     
+                    ]
                     median_loads = median(daily_loads)                
-                    home_page_impressions = median_loads * (end_time - start_time).days                     
+                    home_page_impressions = int(median_loads * (end_time - start_time).days)                  
                     continue
 
                 for stop in Group.objects.get(name=group).stops.split(','):
@@ -178,7 +178,7 @@ def get_group_stats_v1(request):
                     stats = stats.exclude(id=stat.id)
                     continue
                 if stat.destination in search_stops or get_most_similar_stop(stat.destination) in search_stops:
-                    break
+                    continue
                 else:
                     stats = stats.exclude(id=stat.id)
 
