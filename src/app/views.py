@@ -447,18 +447,25 @@ def set_info_v1(request):
             info = request.GET.get('info', 'None')
             stop = request.GET.get('stop', '')
             clean = False if request.GET.get('clean', "False") == "False" else True
-            if clean:
-                info = 'None'
             if stop == '':
                 return Response(status=404)
             updated = 0
             routes_updated = []
-            for route in Route.objects.all():
-                if stop in route.stops and (route.information == "None" or clean):
-                    route.information = info
-                    route.save()
-                    updated += 1
-                    routes_updated.append(route.route)
+            if clean:
+                for route in Route.objects.all():
+                    print(route.information, info)
+                    if stop in route.stops and route.information == info and route.information != 'None':
+                        route.information = 'None'
+                        route.save()
+                        updated += 1
+                        routes_updated.append(route.route)
+            else:
+                for route in Route.objects.all():
+                    if stop in route.stops and route.information == "None":
+                        route.information = info
+                        route.save()
+                        updated += 1
+                        routes_updated.append(route.route)
             return Response({'status': 'ok', 'updated': updated, 'routes_updated': routes_updated})
         except Exception as e:
             print(e)
@@ -472,7 +479,7 @@ def get_active_infos_v1(request):
             active_infos = []
             for route in Route.objects.all():
                 if route.information != 'None':
-                    active_infos.append((route.route, route.information))
+                    active_infos.append((f"{route.route} -> {route.stops}", route.information))
             return Response(active_infos)
         except Exception as e:
             print(e)
