@@ -438,6 +438,45 @@ def get_android_load_v2(request):
             except Exception as e:
                 print(e)
                 return Response(status=404)
+            
+@api_view(['POST'])
+@require_POST
+def set_info_v1(request):
+    if request.method == 'POST':
+        try:
+            info = request.GET.get('info', 'None')
+            stop = request.GET.get('stop', '')
+            clean = False if request.GET.get('clean', "False") == "False" else True
+            if clean:
+                info = 'None'
+            if stop == '':
+                return Response(status=404)
+            updated = 0
+            routes_updated = []
+            for route in Route.objects.all():
+                if stop in route.stops and (route.information == "None" or clean):
+                    route.information = info
+                    route.save()
+                    updated += 1
+                    routes_updated.append(route.route)
+            return Response({'status': 'ok', 'updated': updated, 'routes_updated': routes_updated})
+        except Exception as e:
+            print(e)
+            return Response(status=404)
+        
+@api_view(['GET'])
+@require_GET
+def get_active_infos_v1(request):
+    if request.method == 'GET':
+        try:
+            active_infos = []
+            for route in Route.objects.all():
+                if route.information != 'None':
+                    active_infos.append((route.route, route.information))
+            return Response(active_infos)
+        except Exception as e:
+            print(e)
+            return Response(status=404)
 
 @api_view(['GET'])
 @require_GET
