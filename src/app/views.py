@@ -303,10 +303,11 @@ def get_ad_v1(request):
 
         # Return a default ad if no ads are found
         if ads.count() == 0:
-            ads = Ad.objects.filter(status='default')
+            ads = Ad.objects.filter(platform=platform)
+            ads = ads.filter(status='default')
             #Choose a random default ad
             ads = ads.order_by('?')[:1]
-
+            
         if ads.count() == 0:
             print('No ads found for time: ' + str(ad_time))
             return Response(status=404)
