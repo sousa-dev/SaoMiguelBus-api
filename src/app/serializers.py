@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from app.models import Stop, Route, Stat, ReturnRoute, LoadRoute, Variables
+from app.models import Stop, Route, Stat, ReturnRoute, LoadRoute, Variables, Ad, Group
 class StopSerializer(serializers.ModelSerializer):
     class Meta:
         model = Stop
@@ -20,6 +20,16 @@ class StatSerializer(serializers.ModelSerializer):
         model = Stat
         fields = '__all__'
 
+class AdSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Ad
+        fields = '__all__'
+
+class GroupSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Group
+        fields = '__all__'
+        
 class ReturnRouteSerializer(serializers.ModelSerializer):
     class Meta:
         model = ReturnRoute

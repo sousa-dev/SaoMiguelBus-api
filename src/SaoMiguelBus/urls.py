@@ -30,5 +30,11 @@ urlpatterns = [
     path('api/v2/android/load', views.get_android_load_v2),
     path('api/v1/stats', views.get_stats_v1),
     path('api/v1/stat', views.add_stat_v1),
+    path('api/v1/ad', views.get_ad_v1),
+    path('api/v1/ad/click', views.click_ad_v1),
+    path('api/v1/groups', views.get_all_groups_v1),
+    path('api/v1/info', views.set_info_v1),
+    path('api/v1/info/active', views.get_active_infos_v1),
+    path('api/v1/stats/group', views.get_group_stats_v1),
     path('statistics', views.stats),
 ]
