@@ -88,6 +88,17 @@ class Group(models.Model):
     def __str__(self):
         return f"{self.name.title()}"
 
+class Info(models.Model):
+    id = models.AutoField(primary_key=True)
+    title = models.CharField(max_length=50)
+    message = models.CharField(max_length=1000)
+    start = models.DateTimeField(default=timezone.now)
+    end = models.DateTimeField(default=timezone.now)
+    source = models.CharField(max_length=500)
+    company = models.CharField(max_length=20)
+
+    def __str__(self):
+        return f"{self.company} - {self.title} | {self.message} | {self.start} -> {self.end}"
 class ReturnRoute():
     def __init__(self, id, route, origin, destination, start, end, stops, type_of_day, information):
         self.id = id

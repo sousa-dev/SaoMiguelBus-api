@@ -5,8 +5,8 @@ from django.utils import timezone
 from numpy import full
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from app.models import Stop, Route, Stat, ReturnRoute, LoadRoute, Variables, Ad, Group
-from app.serializers import StopSerializer, RouteSerializer, StatSerializer, ReturnRouteSerializer, LoadRouteSerializer, VariablesSerializer, AdSerializer, GroupSerializer
+from app.models import Stop, Route, Stat, ReturnRoute, LoadRoute, Variables, Ad, Group, Info
+from app.serializers import StopSerializer, RouteSerializer, StatSerializer, ReturnRouteSerializer, LoadRouteSerializer, VariablesSerializer, AdSerializer, GroupSerializer, InfoSerializer
 from django.views.decorators.http import require_GET, require_POST
 from datetime import datetime, date, timedelta
 from statistics import median
@@ -396,8 +396,19 @@ def get_all_groups_v1(request):
             print(e)
             return Response(status=404)
 
-
-
+@api_view(['GET'])
+@require_GET
+def get_infos_v1(request):
+    if request.method == 'GET':
+        try:
+            current_time = datetime.now()
+            all_infos = Info.objects.all()
+            active_infos = all_infos.filter(start__lte=current_time, end__gte=current_time)
+            serializer = InfoSerializer(active_infos, many=True)
+            return Response(serializer.data)
+        except Exception as e:
+            print(e)
+            return Response(status=404)
 
 @api_view(['GET'])
 @require_GET
