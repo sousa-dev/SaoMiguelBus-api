@@ -27,6 +27,11 @@ DEBUG = False
 
 ALLOWED_HOSTS = ['saomiguelbus-api.herokuapp.com', '127.0.0.1']
 
+CORS_ALLOWED_ORIGINS = [
+    'http://127.0.0.1:3000',  # for local development
+    'http://localhost:3000',  # for local development
+    'https://saomiguelbus.com',  # for production
+]
 
 # Application definition
 
