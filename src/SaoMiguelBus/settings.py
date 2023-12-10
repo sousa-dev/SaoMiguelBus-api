@@ -25,11 +25,12 @@ SECRET_KEY = 'hjq2808rur(19m(zf$3ahcxi=!r74qdvkard7a4yc32j3^jwss'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['saomiguelbus-api.herokuapp.com', '127.0.0.1']
+ALLOWED_HOSTS = ['saomiguelbus-api.herokuapp.com', '127.0.0.1', 'sousa-dev.github.io']
 
 CORS_ALLOWED_ORIGINS = [
     'http://127.0.0.1:3000',  # for local development
     'http://localhost:3000',  # for local development
+    "https://sousa-dev.github.io", # for testing
     'https://saomiguelbus.com',  # for production
 ]
 
