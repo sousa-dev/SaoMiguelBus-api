@@ -2,6 +2,7 @@ import collections
 from difflib import SequenceMatcher
 from django.shortcuts import render
 from django.utils import timezone
+from SaoMiguelBus import settings
 from numpy import full
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -10,7 +11,9 @@ from app.serializers import StopSerializer, RouteSerializer, StatSerializer, Ret
 from django.views.decorators.http import require_GET, require_POST
 from datetime import datetime, date, timedelta
 from statistics import median
-import json
+import requests
+from django.http import JsonResponse
+
 
 #Get All Stops
 @api_view(['GET'])
@@ -73,6 +76,47 @@ def get_trip_v1(request):
         except Exception as e:
             print(e)
             return Response(status=404)
+        
+@api_view(['GET'])
+@require_GET
+def get_gmaps_v1(request):
+    # If can use maps is true
+    # variable = Variables.objects.all().first().__dict__
+    # if not variable['maps']:
+    #     return JsonResponse({'error': 'Google Maps API is disabled'}, status=400)
+    
+    origin = request.GET.get('origin')
+    destination = request.GET.get('destination')
+    datetime_str = request.GET.get('datetime')  # Expected in ISO format
+    language_code = request.GET.get('languageCode', 'en')  # Default language set to English
+    arrival_departure = request.GET.get('arrival_departure', 'departure')
+
+    if not (origin and destination and datetime_str):
+        return JsonResponse({'error': 'Missing required parameters'}, status=400)
+
+    # Convert datetime from ISO format to datetime object
+    try:
+        datetime_obj = datetime.fromisoformat(datetime_str)
+    except ValueError:
+        return JsonResponse({'error': 'Invalid datetime format'}, status=400)
+
+    # Build the Google Maps API URL
+    maps_url = f"https://maps.googleapis.com/maps/api/directions/json?origin={origin}&destination={destination}&mode=transit&key={settings.GOOGLE_MAPS_API_KEY}&language={language_code}&alternatives=true"
+    
+    if arrival_departure == 'arrival':
+        maps_url += f"&arrival_time={int(datetime_obj.timestamp())}"
+    else:
+        maps_url += f"&departure_time={int(datetime_obj.timestamp())}"
+    try:
+        response = requests.get(maps_url)
+        if response.status_code == 200:
+            data = response.json()
+            # Process the data and return as needed
+            return JsonResponse(data)  # Simplified for demonstration
+        else:
+            return JsonResponse({'warning': 'NA'}, status=response.status_code)
+    except Exception as e:
+        return JsonResponse({'warning': 'NA'}, status=500)
 
 @api_view(['GET'])
 @require_GET
