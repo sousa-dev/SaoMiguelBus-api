@@ -81,10 +81,9 @@ def get_trip_v1(request):
 @require_GET
 def get_gmaps_v1(request):
     # If can use maps is true
-    # variable = Variables.objects.all().first().__dict__
-    # if not variable['maps']:
-    #     return JsonResponse({'error': 'Google Maps API is disabled'}, status=400)
-    print("here")
+    variable = Variables.objects.all().first().__dict__
+    if not variable['maps']:
+        return JsonResponse({'error': 'Google Maps API is disabled'}, status=400)
     origin = request.GET.get('origin')
     destination = request.GET.get('destination')
     language_code = request.GET.get('languageCode', 'en')  # Default language set to English
