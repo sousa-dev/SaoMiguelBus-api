@@ -37,5 +37,6 @@ urlpatterns = [
     path('api/v1/info/active', views.get_active_infos_v1),
     path('api/v1/stats/group', views.get_group_stats_v1),
     path('api/v1/infos', views.get_infos_v1),
+    path('api/v1/gmaps', views.get_gmaps_v1),
     path('statistics', views.stats),
 ]

@@ -2,6 +2,7 @@ import collections
 from difflib import SequenceMatcher
 from django.shortcuts import render
 from django.utils import timezone
+from SaoMiguelBus import settings
 from numpy import full
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -10,7 +11,9 @@ from app.serializers import StopSerializer, RouteSerializer, StatSerializer, Ret
 from django.views.decorators.http import require_GET, require_POST
 from datetime import datetime, date, timedelta
 from statistics import median
-import json
+import requests
+from django.http import JsonResponse
+import pytz
 
 #Get All Stops
 @api_view(['GET'])
@@ -73,6 +76,57 @@ def get_trip_v1(request):
         except Exception as e:
             print(e)
             return Response(status=404)
+        
+@api_view(['GET'])
+@require_GET
+def get_gmaps_v1(request):
+    # If can use maps is true
+    # variable = Variables.objects.all().first().__dict__
+    # if not variable['maps']:
+    #     return JsonResponse({'error': 'Google Maps API is disabled'}, status=400)
+    print("here")
+    origin = request.GET.get('origin')
+    destination = request.GET.get('destination')
+    language_code = request.GET.get('languageCode', 'en')  # Default language set to English
+    arrival_departure = request.GET.get('arrival_departure', 'departure')
+    time = request.GET.get('time', "NA")
+    platform = request.GET.get('platform', 'NA')
+    version = request.GET.get('version', 'NA')
+    debug = request.GET.get('debug', False)
+    sessionToken = request.GET.get('sessionToken', 'NA')
+    key = request.GET.get('key', 'NA')
+    if key != settings.AUTH_KEY or int(version.split('.')[0]) < 5:
+        return JsonResponse({'error': 'Unauthorized'}, status=401)
+    if not debug:
+        debug = True
+
+    if time == "NA":
+        # Define the Azores timezone
+        azores_timezone = pytz.timezone('Atlantic/Azores')
+        # Get the current UTC time, aware of the timezone
+        current_utc_time = datetime.now(pytz.utc)
+        # Convert the current UTC time to Azores time
+        azores_time = current_utc_time.astimezone(azores_timezone)
+        # Convert Azores time to Unix timestamp in seconds
+        time = int(azores_time.timestamp())
+
+    if not (origin and destination):
+        return JsonResponse({'error': 'Missing required parameters'}, status=400)
+
+    # Build the Google Maps API URL
+    maps_url = f"https://maps.googleapis.com/maps/api/directions/json?origin={origin}&destination={destination}&mode=transit&key={settings.GOOGLE_MAPS_API_KEY}&language={language_code}&alternatives=true"
+    maps_url += f"&arrival_time={time}" if arrival_departure == 'arrival' else f"&departure_time={time}"
+
+    try:
+        response = requests.get(maps_url)
+        if response.status_code == 200:
+            data = response.json()
+            # Process the data and return as needed
+            return JsonResponse(data)  # Simplified for demonstration
+        else:
+            return JsonResponse({'warning': 'NA'}, status=response.status_code)
+    except Exception as e:
+        return JsonResponse({'warning': 'NA'}, status=500)
 
 @api_view(['GET'])
 @require_GET
