@@ -19,6 +19,7 @@ env = environ.Env()
 environ.Env.read_env()
 
 GOOGLE_MAPS_API_KEY = env('GOOGLE_MAPS_API_KEY')
+AUTH_KEY = env('AUTH_KEY')
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -31,7 +32,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, "static")
 SECRET_KEY = 'hjq2808rur(19m(zf$3ahcxi=!r74qdvkard7a4yc32j3^jwss'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['saomiguelbus-api.herokuapp.com', '127.0.0.1']
 
