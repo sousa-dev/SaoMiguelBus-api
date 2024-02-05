@@ -6,7 +6,7 @@ from SaoMiguelBus import settings
 from numpy import full
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from app.models import Stop, Route, Stat, ReturnRoute, LoadRoute, Variables, Ad, Group, Info
+from app.models import Stop, Route, Stat, ReturnRoute, LoadRoute, Variables, Ad, Group, Info, parse_directions_response
 from app.serializers import StopSerializer, RouteSerializer, StatSerializer, ReturnRouteSerializer, LoadRouteSerializer, VariablesSerializer, AdSerializer, GroupSerializer, InfoSerializer
 from django.views.decorators.http import require_GET, require_POST
 from datetime import datetime, date, timedelta
@@ -121,11 +121,12 @@ def get_gmaps_v1(request):
         if response.status_code == 200:
             data = response.json()
             # Process the data and return as needed
+            get_gmaps_to_route(data)
             return JsonResponse(data)  # Simplified for demonstration
         else:
             return JsonResponse({'warning': 'NA'}, status=response.status_code)
     except Exception as e:
-        return JsonResponse({'warning': 'NA'}, status=500)
+        return JsonResponse({'warning': 'NA', 'error': str(e)}, status=500)
 
 @api_view(['GET'])
 @require_GET
@@ -656,5 +657,6 @@ def get_dict_key(n, stat):
     elif n == 'route':
         return f"{stat.origin} -> {stat.destination}"
 
-
-
+def get_gmaps_to_route(data):
+    directionsResponse = parse_directions_response(data)
+    print(directionsResponse)
