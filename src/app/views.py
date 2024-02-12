@@ -6,8 +6,8 @@ from SaoMiguelBus import settings
 from numpy import full
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from app.models import Stop, Route, Stat, ReturnRoute, LoadRoute, Variables, Ad, Group, Info, parse_directions_response
-from app.serializers import StopSerializer, RouteSerializer, StatSerializer, ReturnRouteSerializer, LoadRouteSerializer, VariablesSerializer, AdSerializer, GroupSerializer, InfoSerializer
+from app.models import Holiday, Stop, Route, Stat, ReturnRoute, LoadRoute, Variables, Ad, Group, Info, parse_directions_response
+from app.serializers import HolidaySerializer, StopSerializer, RouteSerializer, StatSerializer, ReturnRouteSerializer, LoadRouteSerializer, VariablesSerializer, AdSerializer, GroupSerializer, InfoSerializer
 from django.views.decorators.http import require_GET, require_POST
 from datetime import datetime, date, timedelta
 from statistics import median
@@ -258,6 +258,15 @@ def get_group_stats_v1(request):
             print(e)
             return Response(status=404)
 
+@api_view(['GET'])
+@require_GET
+def get_holidays_v1(request):
+    if request.method == 'GET':
+        holidays = Holiday.objects.all()
+        serializer = HolidaySerializer(holidays, many=True)
+        return Response(serializer.data)
+
+
 def get_detailed_impression(stat):
     impression = {}
     # Get a detailed impression from stat
@@ -489,10 +498,11 @@ def get_android_load_v2(request):
             try:
                 all_routes = Route.objects.all()
                 all_routes = all_routes.exclude(disabled=True)
+                holidays = Holiday.objects.all()
                 routes = []
                 try:
                     variable = Variables.objects.all().first().__dict__
-                    routes = [{'version': variable['version'], 'maps': variable['maps']}]
+                    routes = [{'version': variable['version'], 'maps': variable['maps'], 'holidays': HolidaySerializer(holidays, many=True).data}]
                 except Exception as e:
                     print(e)
                 for route in all_routes:
