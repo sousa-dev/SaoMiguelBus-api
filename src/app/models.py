@@ -99,6 +99,15 @@ class Info(models.Model):
 
     def __str__(self):
         return f"{self.company} - {self.title} | {self.message} | {self.start} -> {self.end}"
+    
+class Holiday(models.Model):
+    id = models.AutoField(primary_key=True)
+    date = models.DateField()
+    name = models.CharField(max_length=100)
+
+    def __str__(self):
+        return f"{self.name} | {self.date}"
+    
 class ReturnRoute():
     def __init__(self, id, route, origin, destination, start, end, stops, type_of_day, information):
         self.id = id
