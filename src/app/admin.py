@@ -1,5 +1,5 @@
 from django.contrib import admin
-from app.models import Info, Stop, Route, Stat, Variables, Ad, Group
+from app.models import Info, Stop, Route, Stat, Variables, Ad, Group, Holiday
 
 admin.site.register(Stop)
 admin.site.register(Route)
@@ -8,3 +8,4 @@ admin.site.register(Variables)
 admin.site.register(Ad)
 admin.site.register(Group)
 admin.site.register(Info)
+admin.site.register(Holiday)
