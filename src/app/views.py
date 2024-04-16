@@ -6,7 +6,7 @@ from SaoMiguelBus import settings
 from numpy import full
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from app.models import Holiday, Stop, Route, Stat, ReturnRoute, LoadRoute, Variables, Ad, Group, Info
+from app.models import Holiday, Stop, Route, Stat, ReturnRoute, LoadRoute, Variables, Ad, Group, Info, Data as route_data
 from app.serializers import HolidaySerializer, StopSerializer, RouteSerializer, StatSerializer, ReturnRouteSerializer, LoadRouteSerializer, VariablesSerializer, AdSerializer, GroupSerializer, InfoSerializer
 from django.views.decorators.http import require_GET, require_POST
 from datetime import datetime, date, timedelta
@@ -80,6 +80,7 @@ def get_trip_v1(request):
 @api_view(['GET'])
 @require_GET
 def get_gmaps_v1(request):
+    print('Getting Google Maps API')
     # If can use maps is true
     variable = Variables.objects.all().first().__dict__
     if not variable['maps']:
@@ -94,11 +95,11 @@ def get_gmaps_v1(request):
     debug = request.GET.get('debug', False)
     sessionToken = request.GET.get('sessionToken', 'NA')
     key = request.GET.get('key', 'NA')
+    print(f"Origin: {origin}, Destination: {destination}, Language: {language_code}, Arrival/Departure: {arrival_departure}, Time: {time}, Platform: {platform}, Version: {version}, Debug: {debug}, Session Token: {sessionToken}, Key: {key}")
     if key != settings.AUTH_KEY or int(version.split('.')[0]) < 5:
         return JsonResponse({'error': 'Unauthorized'}, status=401)
     if not debug:
         debug = True
-
     if time == "NA":
         # Define the Azores timezone
         azores_timezone = pytz.timezone('Atlantic/Azores')
@@ -120,8 +121,12 @@ def get_gmaps_v1(request):
         response = requests.get(maps_url)
         if response.status_code == 200:
             data = response.json()
-            # Process the data and return as needed
-            return JsonResponse(data)  # Simplified for demonstration
+            try:
+                # Save data to database
+                route_data(data=data).save()
+            except Exception as e:
+                print(e)
+            return JsonResponse(data)  
         else:
             return JsonResponse({'warning': 'NA'}, status=response.status_code)
     except Exception as e:

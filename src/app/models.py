@@ -7,7 +7,11 @@ import json
 from sqlalchemy import null
 
 
-# Create your models here.
+class Data(models.Model):
+    id = models.AutoField(primary_key=True)
+    data = JSONField()
+    def __str__(self):
+        return str(self.data)
 
 class Stop(models.Model):
     id = models.AutoField(primary_key=True)
