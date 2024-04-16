@@ -95,7 +95,7 @@ def get_gmaps_v1(request):
     debug = request.GET.get('debug', False)
     sessionToken = request.GET.get('sessionToken', 'NA')
     key = request.GET.get('key', 'NA')
-    print(f"Origin: {origin}, Destination: {destination}, Language: {language_code}, Arrival/Departure: {arrival_departure}, Time: {time}, Platform: {platform}, Version: {version}, Debug: {debug}, Session Token: {sessionToken}, Key: {key}")
+    
     if key != settings.AUTH_KEY or int(version.split('.')[0]) < 5:
         return JsonResponse({'error': 'Unauthorized'}, status=401)
     if not debug:
@@ -121,11 +121,19 @@ def get_gmaps_v1(request):
         response = requests.get(maps_url)
         if response.status_code == 200:
             data = response.json()
-            try:
-                # Save data to database
-                route_data(data=data).save()
-            except Exception as e:
-                print(e)
+            if data['status'] == 'OK':
+                try:
+                    # Save data to database
+                    route_data(
+                        data=data,
+                        origin=str(origin),
+                        destination=str(destination),
+                        language_code=str(language_code),
+                        time=str(time),
+                        platform=str(platform),
+                        ).save()
+                except Exception as e:
+                    print(e)
             return JsonResponse(data)  
         else:
             return JsonResponse({'warning': 'NA'}, status=response.status_code)
