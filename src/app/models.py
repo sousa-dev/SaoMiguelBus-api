@@ -19,6 +19,32 @@ class Data(models.Model):
     def __str__(self):
         return str(self.origin) + " -> " + str(self.destination) + " | " + str(self.time)
 
+class TripStop(models.Model):
+    id = models.AutoField(primary_key=True)
+    name = models.CharField(max_length=100)
+    latitude = models.FloatField()
+    longitude = models.FloatField()
+    def __str__(self):
+        return self.name
+
+class Trip(models.Model):
+    id = models.AutoField(primary_key=True)
+    route = models.CharField(max_length=100)
+    stops = JSONField()
+    type_of_day = models.CharField(max_length=100)
+    information = JSONField()
+    disabled = models.BooleanField(default=False)
+
+    start = ""
+    start_time = ""
+    end = ""
+
+    def __str__(self):
+        self.start = str(self.stops).split(',')[0].split(':')[0].replace('{','').replace('\'','').strip()
+        self.start_time = str(self.stops).split(',')[0].split(':')[1].replace('{','').replace('\'','').strip()
+        self.end = str(self.stops).split(',')[-1].split(':')[0].replace('}','').replace('\'','').strip()
+        return f"{self.route.strip()} | {self.start} -> {self.end} | {self.start_time} | {self.type_of_day}"
+
 class Stop(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=100)

@@ -6,7 +6,7 @@ from SaoMiguelBus import settings
 from numpy import full
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from app.models import Holiday, Stop, Route, Stat, ReturnRoute, LoadRoute, Variables, Ad, Group, Info, Data as route_data
+from app.models import Holiday, Stop, Route, Stat, ReturnRoute, LoadRoute, Trip, TripStop, Variables, Ad, Group, Info, Data as route_data
 from app.serializers import DataSerializer, HolidaySerializer, StopSerializer, RouteSerializer, StatSerializer, ReturnRouteSerializer, LoadRouteSerializer, VariablesSerializer, AdSerializer, GroupSerializer, InfoSerializer
 from django.views.decorators.http import require_GET, require_POST
 from datetime import datetime, date, timedelta
@@ -679,11 +679,82 @@ def get_dict_key(n, stat):
     elif n == 'route':
         return f"{stat.origin} -> {stat.destination}"
 
+
+def data_to_route(data):
+    bus_stop_locations = {}
+    bus_schedules = []  
+    for key in data:
+        if key == "routes":
+            for route in data[key]:
+                bus_schedule = {}
+
+                for leg in route["legs"]:
+                    departure_timestamp = leg["departure_time"]["value"]
+                    trip_date = datetime.utcfromtimestamp(departure_timestamp).strftime('%Y-%m-%d')
+    
+                    for step in leg["steps"]:
+                        if step["travel_mode"] == "TRANSIT":
+                            transit_details = step["transit_details"]
+                            
+                            departure_time = transit_details["departure_time"]["text"]
+                            arrival_time = transit_details["arrival_time"]["text"]
+                            
+                            if 'AM' in departure_time or 'PM' in departure_time:
+                                departure_time = datetime.strptime(departure_time, '%I:%M %p').strftime('%Hh%M')
+                                arrival_time = datetime.strptime(arrival_time, '%I:%M %p').strftime('%Hh%M')
+
+                            bus_schedule[transit_details["departure_stop"]["name"]] = departure_time
+                            bus_schedule[transit_details["arrival_stop"]["name"]] = arrival_time
+                            bus_number = transit_details["line"]["short_name"].replace('C', '')
+                            
+                            departure_stop = transit_details["departure_stop"]["name"]
+                            departure_location = (
+                                transit_details["departure_stop"]["location"]["lat"],
+                                transit_details["departure_stop"]["location"]["lng"]
+                            )
+                            arrival_stop = transit_details["arrival_stop"]["name"]
+                            arrival_location = (
+                                transit_details["arrival_stop"]["location"]["lat"],
+                                transit_details["arrival_stop"]["location"]["lng"]
+                            )
+                            
+                            bus_stop_locations[departure_stop] = departure_location
+                            bus_stop_locations[arrival_stop] = arrival_location
+                bus_schedules.append({'bus': bus_number, 'stops': bus_schedule, 'day': trip_date})
+    return bus_schedules, bus_stop_locations
 # Get all Datas
 @api_view(['GET'])
 @require_GET
-def get_all_datas_v1(request):
+def get_data_v1(request, data_id):
     if request.method == 'GET':
-        all_datas = route_data.objects.all()
-        serializer = DataSerializer(all_datas, many=True)
-        return Response(serializer.data)
+        data = route_data.objects.get(id=data_id)
+        # From unix timestamp to datetime in azores timestamp
+        trips, stops = data_to_route(data.data)
+        for stop in stops:
+            # Check if the stop is in the database
+            stop_obj = TripStop.objects.filter(name=stop)
+            if stop_obj.count() == 0:
+                TripStop(name=stop, latitude=stops[stop][0], longitude=stops[stop][1]).save()        
+                
+        for trip in trips:
+            #TODO: Check if the trip is already in the database
+            bus_number = trip['bus']
+            bus_stops = trip['stops']
+            trip_day = trip['day']
+            trip_day = datetime.strptime(trip_day, '%Y-%m-%d').strftime('%Y-%m-%d')
+            type_of_day = 'WEEKDAY'
+            
+            # Check if the day is an holiday
+            holiday = Holiday.objects.filter(date=trip_day)
+            if holiday.count() > 0:
+                type_of_day = 'SUNDAY'
+            # Check if the day is a saturday
+            elif datetime.strptime(trip_day, '%Y-%m-%d').weekday() == 5:
+                type_of_day = 'SATURDAY'
+                
+            if Trip.objects.filter(route=bus_number, stops=bus_stops, type_of_day=type_of_day).count() == 0:
+                Trip(route=bus_number, stops=bus_stops, type_of_day=type_of_day).save()
+
+        serializer = DataSerializer(data)
+        return JsonResponse({'data': serializer.data, 'trips': trips, 'stops': stops})
+        
