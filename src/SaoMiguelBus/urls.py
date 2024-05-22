@@ -40,6 +40,6 @@ urlpatterns = [
     path('api/v1/gmaps', views.get_gmaps_v1),
     path('api/v1/holidays', views.get_holidays_v1),
     path('api/v1/feriados', views.get_holidays_v1),
-    path('api/v1/datas', views.get_all_datas_v1),
+    path('api/v1/data/<int:data_id>', views.get_data_v1),
     path('statistics', views.stats),
 ]
