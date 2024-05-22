@@ -34,6 +34,8 @@ class Trip(models.Model):
     type_of_day = models.CharField(max_length=100)
     information = JSONField()
     disabled = models.BooleanField(default=False)
+    
+    added = models.DateTimeField(auto_now_add=True)
 
     start = ""
     start_time = ""

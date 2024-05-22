@@ -702,6 +702,9 @@ def data_to_route(data):
                             if 'AM' in departure_time or 'PM' in departure_time:
                                 departure_time = datetime.strptime(departure_time, '%I:%M %p').strftime('%Hh%M')
                                 arrival_time = datetime.strptime(arrival_time, '%I:%M %p').strftime('%Hh%M')
+                            else:
+                                departure_time = datetime.strptime(departure_time, '%H:%M').strftime('%Hh%M')
+                                arrival_time = datetime.strptime(arrival_time, '%H:%M').strftime('%Hh%M')
 
                             bus_schedule[transit_details["departure_stop"]["name"]] = departure_time
                             bus_schedule[transit_details["arrival_stop"]["name"]] = arrival_time
@@ -752,8 +755,12 @@ def get_data_v1(request, data_id):
             elif datetime.strptime(trip_day, '%Y-%m-%d').weekday() == 5:
                 type_of_day = 'SATURDAY'
                 
-            if Trip.objects.filter(route=bus_number, stops=bus_stops, type_of_day=type_of_day).count() == 0:
+            trips = Trip.objects.filter(route=bus_number, stops=bus_stops, type_of_day=type_of_day)
+            if trips.count() == 0:
                 Trip(route=bus_number, stops=bus_stops, type_of_day=type_of_day).save()
+            else:
+                trip = trips[0]
+                trip.added = timezone.now()
 
         serializer = DataSerializer(data)
         return JsonResponse({'data': serializer.data, 'trips': trips, 'stops': stops})
