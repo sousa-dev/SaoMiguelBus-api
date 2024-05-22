@@ -7,7 +7,7 @@ from numpy import full
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from app.models import Holiday, Stop, Route, Stat, ReturnRoute, LoadRoute, Variables, Ad, Group, Info, Data as route_data
-from app.serializers import HolidaySerializer, StopSerializer, RouteSerializer, StatSerializer, ReturnRouteSerializer, LoadRouteSerializer, VariablesSerializer, AdSerializer, GroupSerializer, InfoSerializer
+from app.serializers import DataSerializer, HolidaySerializer, StopSerializer, RouteSerializer, StatSerializer, ReturnRouteSerializer, LoadRouteSerializer, VariablesSerializer, AdSerializer, GroupSerializer, InfoSerializer
 from django.views.decorators.http import require_GET, require_POST
 from datetime import datetime, date, timedelta
 from statistics import median
@@ -679,5 +679,11 @@ def get_dict_key(n, stat):
     elif n == 'route':
         return f"{stat.origin} -> {stat.destination}"
 
-
-
+# Get all Datas
+@api_view(['GET'])
+@require_GET
+def get_all_datas_v1(request):
+    if request.method == 'GET':
+        all_datas = route_data.objects.all()
+        serializer = DataSerializer(all_datas, many=True)
+        return Response(serializer.data)
