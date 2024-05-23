@@ -679,6 +679,30 @@ def get_dict_key(n, stat):
     elif n == 'route':
         return f"{stat.origin} -> {stat.destination}"
 
+import math
+
+def is_within_50km_radius(lat, lon):
+    def haversine(lat1, lon1, lat2, lon2):
+        lat1, lon1, lat2, lon2 = map(math.radians, [lat1, lon1, lat2, lon2])
+        
+        dlat = lat2 - lat1
+        dlon = lon2 - lon1
+        
+        a = math.sin(dlat / 2)**2 + math.cos(lat1) * math.cos(lat2) * math.sin(dlon / 2)**2
+        c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))
+        
+        R = 6371.0
+        distance = R * c
+        
+        return distance
+    
+    center_lat, center_lon = 37.782213, -25.499806
+    radius = 50
+    
+    distance = haversine(center_lat, center_lon, lat, lon)
+    
+    return distance <= radius
+
 
 def data_to_route(data):
     bus_stop_locations = {}
@@ -721,10 +745,14 @@ def data_to_route(data):
                                 transit_details["arrival_stop"]["location"]["lng"]
                             )
                             
+                            if not is_within_50km_radius(departure_location[0], departure_location[1]) or not is_within_50km_radius(arrival_location[0], arrival_location[1]):
+                                continue
+                            
                             bus_stop_locations[departure_stop] = departure_location
                             bus_stop_locations[arrival_stop] = arrival_location
                 bus_schedules.append({'bus': bus_number, 'stops': bus_schedule, 'day': trip_date})
     return bus_schedules, bus_stop_locations
+
 # Get all Datas
 @api_view(['GET'])
 @require_GET
@@ -740,7 +768,6 @@ def get_data_v1(request, data_id):
                 TripStop(name=stop, latitude=stops[stop][0], longitude=stops[stop][1]).save()        
                 
         for trip in trips:
-            #TODO: Check if the trip is already in the database
             bus_number = trip['bus']
             bus_stops = trip['stops']
             trip_day = trip['day']
