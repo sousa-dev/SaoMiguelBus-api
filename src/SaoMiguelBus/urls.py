@@ -22,12 +22,14 @@ from app import views
 urlpatterns = [
     path('', views.index),
     path('admin/', admin.site.urls),
+    path('statistics', views.stats),
+    
+    #### V1 ####
     path('api/v1/stops', views.get_all_stops_v1),
     path('api/v1/routes', views.get_all_routes_v1),
     path('api/v1/route', views.get_trip_v1),
     path('api/v1/route/<int:route_id>', views.get_route_v1),
     path('api/v1/android/load', views.get_android_load_v1),
-    path('api/v2/android/load', views.get_android_load_v2),
     path('api/v1/stats', views.get_stats_v1),
     path('api/v1/stat', views.add_stat_v1),
     path('api/v1/ad', views.get_ad_v1),
@@ -41,5 +43,9 @@ urlpatterns = [
     path('api/v1/holidays', views.get_holidays_v1),
     path('api/v1/feriados', views.get_holidays_v1),
     path('api/v1/data/<int:data_id>', views.get_data_v1),
-    path('statistics', views.stats),
+    
+    #### V2 ####
+    path('api/v2/android/load', views.get_android_load_v2),
+    path('api/v2/stops', views.get_all_stops_v2),
+    path('api/v2/route', views.get_trip_v2),    
 ]
