@@ -7,7 +7,7 @@ from numpy import full
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from app.models import Holiday, Stop, Route, Stat, ReturnRoute, LoadRoute, Trip, TripStop, Variables, Ad, Group, Info, Data as route_data
-from app.serializers import DataSerializer, HolidaySerializer, StopSerializer, RouteSerializer, StatSerializer, ReturnRouteSerializer, LoadRouteSerializer, VariablesSerializer, AdSerializer, GroupSerializer, InfoSerializer
+from app.serializers import DataSerializer, HolidaySerializer, StopSerializer, RouteSerializer, StatSerializer, ReturnRouteSerializer, LoadRouteSerializer, TripSerializer, TripStopSerializer, VariablesSerializer, AdSerializer, GroupSerializer, InfoSerializer
 from django.views.decorators.http import require_GET, require_POST
 from datetime import datetime, date, timedelta
 from statistics import median
@@ -124,14 +124,16 @@ def get_gmaps_v1(request):
             if data['status'] == 'OK':
                 try:
                     # Save data to database
-                    route_data(
+                    routeData = route_data(
                         data=data,
                         origin=str(origin),
                         destination=str(destination),
                         language_code=str(language_code),
                         time=str(time),
                         platform=str(platform),
-                        ).save()
+                        )
+                    routeData.save()
+                    requests.get(f"{request.build_absolute_uri('/')}api/v1/data/{routeData.id}")
                 except Exception as e:
                     print(e)
             return JsonResponse(data)  
@@ -789,6 +791,8 @@ def get_data_v1(request, data_id):
                 trip = trips[0]
                 trip.added = timezone.now()
 
-        serializer = DataSerializer(data)
-        return JsonResponse({'data': serializer.data, 'trips': trips, 'stops': stops})
+        dataSerialized = DataSerializer(data, many=True)
+        tripsSerialized = TripSerializer(trips, many=True)
+        stopsSerialized = TripStopSerializer(stops, many=True)
+        return JsonResponse({'data': str(dataSerialized), 'trips': tripsSerialized.data, 'stops': stopsSerialized.data})
         
