@@ -133,7 +133,7 @@ def get_gmaps_v1(request):
                         platform=str(platform),
                         )
                     routeData.save()
-                    requests.get(f"{request.build_absolute_uri('/')}api/v1/data/{routeData.id}")
+                    #requests.get(f"{request.build_absolute_uri('/')}api/v1/data/{routeData.id}")
                 except Exception as e:
                     print(e)
             return JsonResponse(data)  
