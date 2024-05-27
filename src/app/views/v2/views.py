@@ -7,7 +7,7 @@ from numpy import full
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from app.models import Holiday, Stop, Route, Stat, ReturnRoute, LoadRoute, Trip, TripStop, Variables, Ad, Group, Info, Data as route_data
-from app.serializers import DataSerializer, HolidaySerializer, StopSerializer, RouteSerializer, StatSerializer, ReturnRouteSerializer, LoadRouteSerializer, VariablesSerializer, AdSerializer, GroupSerializer, InfoSerializer
+from app.serializers import DataSerializer, HolidaySerializer, StopSerializer, RouteSerializer, StatSerializer, ReturnRouteSerializer, LoadRouteSerializer, TripSerializer, VariablesSerializer, AdSerializer, GroupSerializer, InfoSerializer
 from django.views.decorators.http import require_GET, require_POST
 from datetime import datetime, date, timedelta
 from statistics import median
@@ -28,6 +28,12 @@ def get_all_stops_v2(request):
 @require_GET
 def get_trip_v2(request):
     if request.method == 'GET':
+        if request.GET.get('all', False):
+            trips = Trip.objects.all()
+            serializer = TripSerializer(trips, many=True)
+            print(serializer.data)  # Adiciona isto para verificar a saída do serializer
+            return JsonResponse(serializer.data, safe=False)
+        
         origin = request.GET.get('origin', '')
         destination = request.GET.get('destination', '')
         absolute_url = request.build_absolute_uri('/')

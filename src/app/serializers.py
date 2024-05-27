@@ -60,7 +60,7 @@ class TripStopSerializer(serializers.Serializer):
         model = TripStop
         fields = '__all__'
         
-class TripSerializer(serializers.Serializer):
+class TripSerializer(serializers.ModelSerializer):
     class Meta:
         model = Trip
         fields = '__all__'
