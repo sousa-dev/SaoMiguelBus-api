@@ -718,6 +718,7 @@ def data_to_route(data):
                     departure_timestamp = leg["departure_time"]["value"]
                     trip_date = datetime.utcfromtimestamp(departure_timestamp).strftime('%Y-%m-%d')
     
+                    bus_numbers = []
                     for step in leg["steps"]:
                         if step["travel_mode"] == "TRANSIT":
                             transit_details = step["transit_details"]
@@ -734,7 +735,7 @@ def data_to_route(data):
 
                             bus_schedule[transit_details["departure_stop"]["name"]] = departure_time
                             bus_schedule[transit_details["arrival_stop"]["name"]] = arrival_time
-                            bus_number = transit_details["line"]["short_name"].replace('C', '')
+                            bus_numbers.append(transit_details["line"]["short_name"].replace('C', ''))
                             
                             departure_stop = transit_details["departure_stop"]["name"]
                             departure_location = (
@@ -752,7 +753,7 @@ def data_to_route(data):
                             
                             bus_stop_locations[departure_stop] = departure_location
                             bus_stop_locations[arrival_stop] = arrival_location
-                bus_schedules.append({'bus': bus_number, 'stops': bus_schedule, 'day': trip_date})
+                bus_schedules.append({'bus': " / ".join(bus_numbers), 'stops': bus_schedule, 'day': trip_date})
     return bus_schedules, bus_stop_locations
 
 # Get all Datas
