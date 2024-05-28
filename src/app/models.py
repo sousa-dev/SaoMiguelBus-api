@@ -42,10 +42,7 @@ class Trip(models.Model):
     end = ""
 
     def __str__(self):
-        self.start = str(self.stops).split(',')[0].split(':')[0].replace('{','').replace('\'','').strip()
-        self.start_time = str(self.stops).split(',')[0].split(':')[1].replace('{','').replace('\'','').strip()
-        self.end = str(self.stops).split(',')[-1].split(':')[0].replace('}','').replace('\'','').strip()
-        return f"{self.route.strip()} | {self.start} -> {self.end} | {self.start_time} | {self.type_of_day}"
+        return f"{self.route.strip()} | {self.type_of_day}"
 
 class Stop(models.Model):
     id = models.AutoField(primary_key=True)
