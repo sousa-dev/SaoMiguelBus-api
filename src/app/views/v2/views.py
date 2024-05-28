@@ -16,6 +16,19 @@ from django.http import JsonResponse
 import pytz
 import requests
 
+
+@api_view(['GET'])
+@require_GET
+def clean_trip_and_stops(request):
+    if request.method == 'GET':
+        trips = Trip.objects.all()
+        for trip in trips:
+            trip.delete()
+        stops = TripStop.objects.all()
+        for stop in stops:
+            stop.delete()
+        return Response(status=200)
+
 @api_view(['GET'])
 @require_GET
 def get_all_stops_v2(request):
