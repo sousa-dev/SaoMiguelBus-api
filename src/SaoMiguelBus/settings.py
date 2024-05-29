@@ -36,12 +36,7 @@ DEBUG = False
 
 ALLOWED_HOSTS = ['saomiguelbus-api.herokuapp.com', '127.0.0.1', 'sousa-dev.github.io', 'saomiguelbus.com']
 
-CORS_ALLOWED_ORIGINS = [
-    'http://127.0.0.1:3000',  # for local development
-    'http://localhost:3000',  # for local development
-    "https://sousa-dev.github.io", # for testing
-    'https://saomiguelbus.com',  # for production
-]
+CORS_ALLOW_ALL_ORIGINS = True  # Permitir todas as origens
 
 CORS_ALLOW_METHODS = [
     "DELETE",
@@ -53,15 +48,7 @@ CORS_ALLOW_METHODS = [
 ]
 
 CORS_ALLOW_HEADERS = [
-    "accept",
-    "accept-encoding",
-    "authorization",
-    "content-type",
-    "dnt",
-    "origin",
-    "user-agent",
-    "x-csrftoken",
-    "x-requested-with",
+    "*",  # Permitir todos os cabeçalhos
 ]
 
 # Application definition
