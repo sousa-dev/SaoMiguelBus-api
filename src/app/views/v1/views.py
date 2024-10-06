@@ -149,7 +149,7 @@ def get_gmaps_v1(request):
                         platform=str(platform),
                         )
                     routeData.save()
-                    # get_data_v1(request._request, routeData.id)
+                    get_data_v1(request._request, routeData.id)
                 except Exception as e:
                     print(e)
             return JsonResponse(data)  

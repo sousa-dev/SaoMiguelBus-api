@@ -120,10 +120,10 @@ def get_trip_v2(request):
             if routes is None:
                 return Response(status=404)
 
-            if not routes.exists():
-                # Fetch maps data and retry processing routes
-                requests.get(mapsURL)
-                # routes = fetch_and_process_routes()
+            # if not routes.exists():
+            #     # Fetch maps data and retry processing routes
+            #     requests.get(mapsURL)
+            #     routes = fetch_and_process_routes()
                 
             old_routes = get_trip_v1_logic(origin, destination, day, request.GET.get('start', '').replace(':', 'h'), request.GET.get('full', ''), prefix=True)
 
