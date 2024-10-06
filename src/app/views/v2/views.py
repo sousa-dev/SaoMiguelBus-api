@@ -123,11 +123,10 @@ def get_trip_v2(request):
             if not routes.exists():
                 # Fetch maps data and retry processing routes
                 requests.get(mapsURL)
-                routes = fetch_and_process_routes()
+                # routes = fetch_and_process_routes()
                 
             old_routes = get_trip_v1_logic(origin, destination, day, request.GET.get('start', '').replace(':', 'h'), request.GET.get('full', ''), prefix=True)
-            print("ROUTES: ")
-            print(old_routes)
+
             if old_routes is None:
                 old_routes = []
 

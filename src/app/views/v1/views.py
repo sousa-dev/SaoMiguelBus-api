@@ -47,7 +47,6 @@ def get_trip_v1(request):
         return Response(return_routes) if return_routes is not None else Response(status=404)
     
 def get_trip_v1_logic(origin, destination, type_of_day, start_time, full, prefix=False):
-    print(origin, destination, type_of_day,start_time )
     try:
         routes = Route.objects.all()
         routes = routes.exclude(disabled=True)
@@ -150,7 +149,7 @@ def get_gmaps_v1(request):
                         platform=str(platform),
                         )
                     routeData.save()
-                    get_data_v1(request._request, routeData.id)
+                    # get_data_v1(request._request, routeData.id)
                 except Exception as e:
                     print(e)
             return JsonResponse(data)  
