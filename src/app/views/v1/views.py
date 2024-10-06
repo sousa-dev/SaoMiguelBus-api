@@ -37,46 +37,50 @@ def get_all_routes_v1(request):
 @require_GET
 def get_trip_v1(request):
     if request.method == 'GET':
-        try:
-            routes = Route.objects.all()
-            routes = routes.exclude(disabled=True)
-            origin = request.GET.get('origin', '')
+        origin = request.GET.get('origin', '')
+        destination = request.GET.get('destination', '')
+        type_of_day = request.GET.get('day', '')
+        start_time = request.GET.get('start', '')
+        full = True if request.GET.get('full', '').lower() == 'true' else False
 
-            if origin in ['Povoacão', 'Lomba do Loucão', 'Ponta Garca']:
-                origin = origin.replace('c', 'ç')
-            routes = routes.filter(stops__icontains=origin) if origin != '' else routes
+        return_routes = get_trip_v1_logic(origin, destination, type_of_day, start_time, full)
+        return Response(return_routes) if return_routes is not None else Response(status=404)
+    
+def get_trip_v1_logic(origin, destination, type_of_day, start_time, full, prefix=False):
+    try:
+        routes = Route.objects.all()
+        routes = routes.exclude(disabled=True)
 
-            destination = request.GET.get('destination', '')
+        if origin in ['Povoacão', 'Lomba do Loucão', 'Ponta Garca']:
+            origin = origin.replace('c', 'ç')
+        routes = routes.filter(stops__icontains=origin) if origin != '' else routes
 
-            if destination in ['Povoacão', 'Lomba do Loucão', 'Ponta Garca']:
-                destination = destination.replace('c', 'ç')
 
-            if origin == '' or destination == '':
-                return Response({'error': 'Origin and destination are required'})
-            routes = routes.filter(stops__icontains=destination) if destination != '' else routes
+        if destination in ['Povoacão', 'Lomba do Loucão', 'Ponta Garca']:
+            destination = destination.replace('c', 'ç')
+
+        if origin == '' or destination == '':
+            return Response({'error': 'Origin and destination are required'})
+        routes = routes.filter(stops__icontains=destination) if destination != '' else routes
+        for route in routes:
+            routes = routes.exclude(id=route.id) if str(route.stops).find(origin) > str(route.stops).find(destination) else routes
+        if type_of_day != '':
+            routes = routes.filter(type_of_day=type_of_day.upper())
+        if start_time != '':
             for route in routes:
-                routes = routes.exclude(id=route.id) if str(route.stops).find(origin) > str(route.stops).find(destination) else routes
-            type_of_day = request.GET.get('day', '')
-            if type_of_day != '':
-                routes = routes.filter(type_of_day=type_of_day.upper())
-            start_time = request.GET.get('start', '')
-            if start_time != '':
-                for route in routes:
-                    route_start_time = route.stops.split(',')[0].split(':')[1].replace('{','').replace('\'','').strip()
-                    route_start_time_hour = int(route_start_time.split('h')[0])
-                    route_start_time_minute = int(route_start_time.split('h')[1])
-                    routes = routes.exclude(id=route.id) if route_start_time_hour < int(start_time.split('h')[0]) or (route_start_time_hour == int(start_time.split('h')[0]) and route_start_time_minute < int(start_time.split('h')[1])) else routes
-            full = True if request.GET.get('full', '').lower() == 'true' else False
-            if not full:
-                #TODO: format route.stops to exclude stops outside the scope
-                pass
-            #TODO: get origin, destination, start and end time
-            return_routes = [ReturnRoute(route.id, route.route, origin, destination, route.stops.split(':')[1].split(",")[0].replace('\'', '').strip(), route.stops.split(':')[-1].split(",")[0].replace('\'', '').replace('}', '').strip(), route.stops, route.type_of_day, route.information).__dict__ for route in routes]
-            return Response(return_routes)
-        except Exception as e:
-            print(e)
-            return Response(status=404)
-        
+                route_start_time = route.stops.split(',')[0].split(':')[1].replace('{','').replace('\'','').strip()
+                route_start_time_hour = int(route_start_time.split('h')[0])
+                route_start_time_minute = int(route_start_time.split('h')[1])
+                routes = routes.exclude(id=route.id) if route_start_time_hour < int(start_time.split('h')[0]) or (route_start_time_hour == int(start_time.split('h')[0]) and route_start_time_minute < int(start_time.split('h')[1])) else routes
+        if not full:
+            #TODO: format route.stops to exclude stops outside the scope
+            pass
+        #TODO: get origin, destination, start and end time
+        return_routes = [ReturnRoute(route.id, route.route if not prefix else f'C{route.route}', origin, destination, route.stops.split(':')[1].split(",")[0].replace('\'', '').strip(), route.stops.split(':')[-1].split(",")[0].replace('\'', '').replace('}', '').strip(), route.stops, route.type_of_day, route.information).__dict__ for route in routes]
+        return return_routes
+    except Exception as e:
+        print(e)
+        return None     
 @api_view(['GET'])
 @require_GET
 def get_gmaps_v1(request):
@@ -89,6 +93,8 @@ def get_gmaps_v1(request):
     destination = request.GET.get('destination')
     language_code = request.GET.get('languageCode', 'en')  # Default language set to English
     arrival_departure = request.GET.get('arrival_departure', 'departure')
+    day = request.GET.get('day', '')
+    start = request.GET.get('start', '')
     time = request.GET.get('time', "NA")
     platform = request.GET.get('platform', 'NA')
     version = request.GET.get('version', 'NA')
@@ -100,7 +106,19 @@ def get_gmaps_v1(request):
         return JsonResponse({'error': 'Unauthorized'}, status=401)
     if not debug:
         debug = True
-    if time == "NA":
+
+    if day != '':
+        datetime_day = datetime.strptime(day, '%Y-%m-%d')
+        if start != '':
+            try:
+                datetime_day = datetime_day.replace(hour=int(start.split('h')[0]), minute=int(start.split('h')[1]))
+            except:
+                datetime_day = datetime_day.replace(hour=int(start.split(':')[0]), minute=int(start.split(':')[1]))
+        else:
+            datetime_day = datetime_day.replace(hour=0, minute=0, second=0, microsecond=0)
+        print(datetime_day)
+        time = int(datetime_day.timestamp())
+    elif time == "NA":
         # Define the Azores timezone
         azores_timezone = pytz.timezone('Atlantic/Azores')
         # Get the current UTC time, aware of the timezone
@@ -112,11 +130,9 @@ def get_gmaps_v1(request):
 
     if not (origin and destination):
         return JsonResponse({'error': 'Missing required parameters'}, status=400)
-
     # Build the Google Maps API URL
     maps_url = f"https://maps.googleapis.com/maps/api/directions/json?origin={origin}&destination={destination}&mode=transit&key={settings.GOOGLE_MAPS_API_KEY}&language={language_code}&alternatives=true"
     maps_url += f"&arrival_time={time}" if arrival_departure == 'arrival' else f"&departure_time={time}"
-
     try:
         response = requests.get(maps_url)
         if response.status_code == 200:
@@ -133,7 +149,7 @@ def get_gmaps_v1(request):
                         platform=str(platform),
                         )
                     routeData.save()
-                    requests.get(f"{request.build_absolute_uri('/')}api/v1/data/{routeData.id}")
+                    get_data_v1(request._request, routeData.id)
                 except Exception as e:
                     print(e)
             return JsonResponse(data)  
@@ -736,7 +752,6 @@ def data_to_route(data):
                             bus_schedule[transit_details["departure_stop"]["name"]] = departure_time
                             bus_schedule[transit_details["arrival_stop"]["name"]] = arrival_time
                             bus_numbers.append(transit_details["line"]["short_name"].replace('C', ''))
-                            
                             departure_stop = transit_details["departure_stop"]["name"]
                             departure_location = (
                                 transit_details["departure_stop"]["location"]["lat"],

@@ -48,4 +48,7 @@ urlpatterns = [
     path('api/v2/android/load', views.get_android_load_v2),
     path('api/v2/stops', views.get_all_stops_v2),
     path('api/v2/route', views.get_trip_v2),    
+    
+    #### ADS ####
+    path('api/v2/info/ad/<int:ad_id>', views.get_ad_info),
 ]
