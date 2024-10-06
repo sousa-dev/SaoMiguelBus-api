@@ -16,12 +16,17 @@ from django.http import JsonResponse
 import pytz
 import requests
 
+from app.utils.day_utils import get_type_of_day
+from app.views.v1.views import get_trip_v1, get_trip_v1_logic
+
 @api_view(['GET'])
 @require_GET
 def get_all_stops_v2(request):
     if request.method == 'GET':
-        all_stops = TripStop.objects.all()
-        serializer = StopSerializer(all_stops, many=True)
+        all_trip_stops = TripStop.objects.all()
+        all_normal_stops = Stop.objects.all()  # Get normal stops
+        combined_stops = list(all_trip_stops) + list(all_normal_stops)  # Combine both trip stops and normal stops
+        serializer = StopSerializer(combined_stops, many=True)
         return Response(serializer.data)
 
 @api_view(['GET'])
@@ -30,14 +35,25 @@ def get_trip_v2(request):
     if request.method == 'GET':
         origin = request.GET.get('origin', '')
         destination = request.GET.get('destination', '')
+        date_day = request.GET.get('day', '')
+        start_time = request.GET.get('start', '')
+
+        if start_time == '':
+            start_time = '00:00'
+
+        day = get_type_of_day(datetime.strptime(date_day, '%Y-%m-%d'))
+
         absolute_url = request.build_absolute_uri('/')
+
         mapsURL =  absolute_url + "api/v1/gmaps?" + \
             "origin=" + origin + \
             "&destination=" + destination + \
-            "&departure_time=$time" + "&key=" + settings.AUTH_KEY + \
+            "&day=" + date_day + \
+            "&start=" + start_time + \
+            "&key=" + settings.AUTH_KEY + \
             "&platform=web" + \
             "&version=5"
-        
+
         def fetch_and_process_routes():
             try:
                 # Filter routes that are more than 1 month old
@@ -74,20 +90,21 @@ def get_trip_v2(request):
                     if origin_cleaned not in routeStops or destination_cleaned not in routeStops or routeStops.find(origin_cleaned) > routeStops.find(destination_cleaned):
                         routes = routes.exclude(id=route.id)
 
-                type_of_day = request.GET.get('day', '')
+                type_of_day = get_type_of_day(datetime.strptime(date_day, '%Y-%m-%d'))
                 if type_of_day:
                     routes = routes.filter(type_of_day=type_of_day.upper())
-
                 start_time = request.GET.get('start', '')
                 if start_time:
                     for route in routes:
                         route_start_time = str(route.stops).split(',')[0].split(':')[1].replace('{','').replace('\'','').strip()
                         route_start_time_hour = int(route_start_time.split('h')[0])
                         route_start_time_minute = int(route_start_time.split('h')[1])
-                        input_hour, input_minute = map(int, start_time.split('h'))
+                        try:
+                            input_hour, input_minute = map(int, start_time.split('h'))
+                        except:
+                            input_hour, input_minute = map(int, start_time.split(':'))
                         if route_start_time_hour < input_hour or (route_start_time_hour == input_hour and route_start_time_minute < input_minute):
                             routes = routes.exclude(id=route.id)
-
                 full = request.GET.get('full', '').lower() == 'true'
                 if not full:
                     #TODO: format route.stops to exclude stops outside the scope
@@ -107,8 +124,12 @@ def get_trip_v2(request):
                 # Fetch maps data and retry processing routes
                 requests.get(mapsURL)
                 routes = fetch_and_process_routes()
-                if not routes or not routes.exists():
-                    return Response({'error': 'No routes found after fetching maps data'}, status=404)
+                
+            old_routes = get_trip_v1_logic(origin, destination, day, request.GET.get('start', '').replace(':', 'h'), request.GET.get('full', ''), prefix=True)
+            print("ROUTES: ")
+            print(old_routes)
+            if old_routes is None:
+                old_routes = []
 
             return_routes = [
                 ReturnRoute(
@@ -132,7 +153,7 @@ def get_trip_v2(request):
                     route.type_of_day,
                     route.information
                 ).__dict__ for route in routes
-            ]
+            ] + old_routes
             return Response(return_routes)
         except Exception as e:
             print(e)
