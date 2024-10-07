@@ -90,7 +90,15 @@ def get_gmaps_v1(request):
     if not variable['maps']:
         return JsonResponse({'error': 'Google Maps API is disabled'}, status=400)
     origin = request.GET.get('origin')
+    origin_stop = TripStop.objects.filter(name=origin).first()
+    if not origin_stop:
+        origin_stop = Stop.objects.filter(name=origin).first()
+    origin_query = f"{origin_stop.latitude},{origin_stop.longitude}" if origin_stop else origin
     destination = request.GET.get('destination')
+    destination_stop = TripStop.objects.filter(name=destination).first()
+    if not destination_stop:
+        destination_stop = Stop.objects.filter(name=destination).first()
+    destination_query = f"{destination_stop.latitude},{destination_stop.longitude}" if destination_stop else destination
     language_code = request.GET.get('languageCode', 'en')  # Default language set to English
     arrival_departure = request.GET.get('arrival_departure', 'departure')
     day = request.GET.get('day', '')
@@ -131,7 +139,7 @@ def get_gmaps_v1(request):
     if not (origin and destination):
         return JsonResponse({'error': 'Missing required parameters'}, status=400)
     # Build the Google Maps API URL
-    maps_url = f"https://maps.googleapis.com/maps/api/directions/json?origin={origin}&destination={destination}&mode=transit&key={settings.GOOGLE_MAPS_API_KEY}&language={language_code}&alternatives=true"
+    maps_url = f"https://maps.googleapis.com/maps/api/directions/json?origin={origin_query}&destination={destination_query}&mode=transit&key={settings.GOOGLE_MAPS_API_KEY}&language={language_code}&alternatives=true"
     maps_url += f"&arrival_time={time}" if arrival_departure == 'arrival' else f"&departure_time={time}"
     try:
         response = requests.get(maps_url)

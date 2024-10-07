@@ -109,6 +109,11 @@ DATABASES = {
         'HOST': 'srv-captain--saomiguelbus-db',
         'PORT': '5432',
      }
+ } if env('ENVIRONMENT') == 'production' else {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    }
  }
 
 import dj_database_url
