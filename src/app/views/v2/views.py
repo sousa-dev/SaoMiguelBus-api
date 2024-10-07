@@ -1,3 +1,4 @@
+import json
 from django.utils import timezone
 from SaoMiguelBus import settings
 from rest_framework.decorators import api_view
@@ -86,24 +87,14 @@ def get_trip_v2(request):
                 type_of_day = get_type_of_day(datetime.strptime(date_day, '%Y-%m-%d'))
                 if type_of_day:
                     routes = routes.filter(type_of_day=type_of_day.upper())
-                
-                if start_time:
-                    for route in routes:
-                        route_start_time = str(route.stops).split(',')[0].split(':')[1].replace('{','').replace('\'','').strip()
-                        route_start_time_hour = int(route_start_time.split('h')[0])
-                        route_start_time_minute = int(route_start_time.split('h')[1])
-                        try:
-                            input_hour, input_minute = map(int, start_time.split('h'))
-                        except:
-                            input_hour, input_minute = map(int, start_time.split(':'))
-                        if route_start_time_hour < input_hour or (route_start_time_hour == input_hour and route_start_time_minute < input_minute):
-                            routes = routes.exclude(id=route.id)
+
                 if not full_:
-                    #TODO: format route.stops to exclude stops outside the scope
+                    # TODO: format route.stops to exclude stops outside the scope
                     pass
                 return routes
             except Exception as e:
-                print(e)
+                import traceback
+                traceback.print_exc()
                 return None
 
         try:
@@ -116,25 +107,50 @@ def get_trip_v2(request):
             #     requests.get(mapsURL)
             #     routes = fetch_and_process_routes()
                 
-            old_routes = []# get_trip_v1_logic(origin, destination, day, start_time.replace(':', 'h'), full_, prefix=True) or []
+            old_routes = get_trip_v1_logic(origin, destination, day, start_time.replace(':', 'h'), full_, prefix=True) or []
 
-            return_routes = sorted(
-                [
-                    ReturnRoute(
-                        route.id,
-                        route.route,
-                        origin_cleaned,
-                        destination_cleaned,
-                        str(route.stops).split(':')[1].split(",")[0].replace('\'', '').strip(),
-                        str(route.stops).split(':')[-1].split(",")[0].replace('\'', '').replace('}', '').strip(),
-                        str(route.stops),
-                        route.type_of_day,
-                        route.information
-                    ).__dict__ for route in routes
-                ] + old_routes,
-                key=lambda r: str(r['stops']).split(':')[1].split(",")[0].replace('\'', '').strip()
-            )
+            # Prepare the start time for comparison
+            try:
+                if start_time == '':
+                    input_hour, input_minute = 0, 0
+                else:
+                    input_hour, input_minute = map(int, start_time.replace('h', ':').split(':'))
+            except ValueError:
+                import traceback
+                traceback.print_exc()
+                return Response({'error': 'Invalid start time format'}, status=400)
+
+            # Process routes in a more efficient manner
+            return_routes = old_routes
+            for route in routes:
+                stops = route.stops
+                stops_tuple = [(stop, time) for stop, time in stops.items()]
+
+                first_stop_time = stops_tuple[0][1]
+                try:
+                    split_first_stop_time = first_stop_time.split('h')
+                except:
+                    split_first_stop_time = first_stop_time.split(':')
+                first_stop_time_hour = int(split_first_stop_time[0])
+                first_stop_time_minute = int(split_first_stop_time[1])
+                if first_stop_time_hour > input_hour or (first_stop_time_hour == input_hour and first_stop_time_minute > input_minute):
+                    last_stop_time = stops_tuple[-1][1]
+                    return_routes.append(
+                        ReturnRoute(
+                            route.id,
+                            route.route,
+                            origin_cleaned,
+                            destination_cleaned,
+                            first_stop_time,
+                            last_stop_time,
+                            str(stops),
+                            route.type_of_day,
+                            route.information
+                        ).__dict__ 
+                    )
+            return_routes.sort(key=lambda x: x['start'])
             return Response(return_routes)
         except Exception as e:
-            print(e)
+            import traceback
+            traceback.print_exc()
             return Response(status=404)
