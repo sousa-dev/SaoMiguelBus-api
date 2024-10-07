@@ -48,7 +48,7 @@ def get_trip_v1(request):
         return_routes = get_trip_v1_logic(origin, destination, type_of_day, start_time, full)
         return Response(return_routes) if return_routes is not None else Response(status=404)
     
-def get_trip_v1_logic(origin, destination, type_of_day, start_time, full, prefix=False, sort=True):
+def get_trip_v1_logic(origin, destination, type_of_day, start_time, full, prefix=False):
     try:
         routes = Route.objects.all()
         routes = routes.exclude(disabled=True)
@@ -63,27 +63,40 @@ def get_trip_v1_logic(origin, destination, type_of_day, start_time, full, prefix
 
         if origin == '' or destination == '':
             return Response({'error': 'Origin and destination are required'})
-        routes = routes.filter(stops__icontains=destination) if destination != '' else routes
-        for route in routes:
-            routes = routes.exclude(id=route.id) if str(route.stops).find(origin) > str(route.stops).find(destination) else routes
-        if type_of_day != '':
+        if destination:
+            routes = routes.filter(stops__icontains=destination)
+        if type_of_day:
             routes = routes.filter(type_of_day=type_of_day.upper())
-        if sort:    
-            if start_time != '':
-                for route in routes:
-                    route_start_time = route.stops.split(',')[0].split(':')[1].replace('{','').replace('\'','').strip()
-                    try:
-                        route_start_time_hour = int(route_start_time.split('h')[0])
-                        route_start_time_minute = int(route_start_time.split('h')[1])
-                    except:
-                        route_start_time_hour = int(route_start_time.split(':')[0])
-                        route_start_time_minute = int(route_start_time.split(':')[1])
-                    routes = routes.exclude(id=route.id) if route_start_time_hour < int(start_time.split('h')[0]) or (route_start_time_hour == int(start_time.split('h')[0]) and route_start_time_minute < int(start_time.split('h')[1])) else routes
+        # Use a list to collect routes to exclude instead of modifying the queryset in the loop
+        if origin and start_time:
+            start_hour, start_minute = map(int, start_time.split('h')) if 'h' in start_time else map(int, start_time.split(':'))
+            return_routes = []
+            for route in routes:
+                if str(route.stops).find(origin) > str(route.stops).find(destination):
+                    continue
+                route_start_time = route.stops.split(',')[0].split(':')[1].replace('{', '').replace('\'', '').strip()
+                route_start_hour, route_start_minute = map(int, route_start_time.split('h')) if 'h' in route_start_time else map(int, route_start_time.split(':'))
+                if route_start_hour < start_hour or (route_start_hour == start_hour and route_start_minute < start_minute):
+                    continue
+                return_routes.append(
+                    ReturnRoute(
+                        route.id,
+                        route.route if not prefix else f'C{route.route}',
+                        origin,
+                        destination,
+                        route.stops.split(':')[1].split(",")[0].replace('\'', '').strip(),
+                        route.stops.split(':')[-1].split(",")[0].replace('\'', '').replace('}', '').strip(),
+                        route.stops,
+                        route.type_of_day,
+                        route.information
+                    ).__dict__
+                )
+
         if not full:
             #TODO: format route.stops to exclude stops outside the scope
             pass
-        #TODO: get origin, destination, start and end time
-        return_routes = [ReturnRoute(route.id, route.route if not prefix else f'C{route.route}', origin, destination, route.stops.split(':')[1].split(",")[0].replace('\'', '').strip(), route.stops.split(':')[-1].split(",")[0].replace('\'', '').replace('}', '').strip(), route.stops, route.type_of_day, route.information).__dict__ for route in routes]
+
+        return_routes = return_routes
         return return_routes
     except Exception as e:
         print(e)
