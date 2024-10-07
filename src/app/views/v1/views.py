@@ -15,6 +15,8 @@ import requests
 from django.http import JsonResponse
 import pytz
 
+from app.utils.day_utils import get_type_of_day
+
 #Get All Stops
 @api_view(['GET'])
 @require_GET
@@ -780,40 +782,48 @@ def data_to_route(data):
 @api_view(['GET'])
 @require_GET
 def get_data_v1(request, data_id):
-    if request.method == 'GET':
-        data = route_data.objects.get(id=data_id)
-        # From unix timestamp to datetime in azores timestamp
-        trips, stops = data_to_route(data.data)
-        for stop in stops:
-            # Check if the stop is in the database
-            stop_obj = TripStop.objects.filter(name=stop)
-            if stop_obj.count() == 0:
-                TripStop(name=stop, latitude=stops[stop][0], longitude=stops[stop][1]).save()        
-                
-        for trip in trips:
-            bus_number = trip['bus']
-            bus_stops = trip['stops']
-            trip_day = trip['day']
-            trip_day = datetime.strptime(trip_day, '%Y-%m-%d').strftime('%Y-%m-%d')
-            type_of_day = 'WEEKDAY'
-            
-            # Check if the day is an holiday
-            holiday = Holiday.objects.filter(date=trip_day)
-            if holiday.count() > 0:
-                type_of_day = 'SUNDAY'
-            # Check if the day is a saturday
-            elif datetime.strptime(trip_day, '%Y-%m-%d').weekday() == 5:
-                type_of_day = 'SATURDAY'
-                
-            trips = Trip.objects.filter(route=bus_number, stops=bus_stops, type_of_day=type_of_day)
-            if trips.count() == 0:
-                Trip(route=bus_number, stops=bus_stops, type_of_day=type_of_day).save()
-            else:
-                trip = trips[0]
-                trip.added = timezone.now()
+    data = route_data.objects.get(id=data_id)
+    # From unix timestamp to datetime in Azores timezone
+    trips, stops = data_to_route(data.data)
+    
+    # Bulk create TripStops if they do not exist
+    existing_stops = TripStop.objects.filter(name__in=stops.keys()).values_list('name', flat=True)
+    new_stops = [
+        TripStop(name=stop, latitude=coords[0], longitude=coords[1])
+        for stop, coords in stops.items()
+        if stop not in existing_stops
+    ]
+    TripStop.objects.bulk_create(new_stops, ignore_conflicts=True)
+                    
+    for trip in trips:
+        bus_number = trip['bus']
+        bus_stops = trip['stops']
+        trip_day_str = trip['day']
+        trip_day_date = datetime.strptime(trip_day_str, '%Y-%m-%d')
+        
+        type_of_day = get_type_of_day(trip_day_date)
 
-        dataSerialized = DataSerializer(data, many=True)
-        tripsSerialized = TripSerializer(trips, many=True)
-        stopsSerialized = TripStopSerializer(stops, many=True)
-        return JsonResponse({'data': str(dataSerialized), 'trips': tripsSerialized.data, 'stops': stopsSerialized.data})
+        trip_day_date = trip_day_date.date()
+                    
+        # Update or create the Trip
+        Trip.objects.update_or_create(
+            route=bus_number,
+            stops=bus_stops,
+            type_of_day=type_of_day,
+            defaults={'added': timezone.now()}
+        )
+
+    data_serialized = DataSerializer(data, many=True)
+    trips_serialized = TripSerializer(Trip.objects.filter(
+        route__in=[trip['bus'] for trip in trips],
+        stops__in=[trip['stops'] for trip in trips],
+        type_of_day__in=['WEEKDAY', 'SUNDAY', 'SATURDAY']
+    ), many=True)
+    stops_serialized = TripStopSerializer(stops, many=True)
+    
+    return JsonResponse({
+        'data': str(data_serialized),
+        'trips': trips_serialized.data,
+        'stops': stops_serialized.data
+    })
         
