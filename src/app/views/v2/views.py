@@ -107,7 +107,7 @@ def get_trip_v2(request):
             #     requests.get(mapsURL)
             #     routes = fetch_and_process_routes()
                 
-            old_routes = get_trip_v1_logic(origin, destination, day, start_time.replace(':', 'h'), full_, prefix=True) or []
+            old_routes = get_trip_v1_logic(origin, destination, day, start_time.replace(':', 'h'), full_, prefix=True, sort=False) or []
 
             # Prepare the start time for comparison
             try:
