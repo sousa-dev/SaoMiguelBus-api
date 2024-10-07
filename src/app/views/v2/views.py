@@ -5,6 +5,7 @@ from rest_framework.response import Response
 from app.models import Stop, TripStop, ReturnRoute, Trip
 from app.serializers import StopSerializer, TripSerializer
 from django.views.decorators.http import require_GET
+import django.db.models as models
 from datetime import datetime, timedelta
 from django.http import JsonResponse
 
@@ -62,26 +63,30 @@ def get_trip_v2(request):
 
         def fetch_and_process_routes():
             try:
-                # Filter routes that are more than 1 month old
+                # Delete routes older than 1 month
                 one_month_ago = timezone.now() - timedelta(days=30)
-                old_routes = Trip.objects.filter(added__lte=one_month_ago)
-                # Delete old routes
-                old_routes.delete()
+                Trip.objects.filter(added__lte=one_month_ago).delete()
 
-                routes = Trip.objects.all().exclude(disabled=True)
-                
-                if origin_cleaned == '' or destination_cleaned == '':
+                if not origin_cleaned or not destination_cleaned:
                     return {'error': 'Origin and destination are required'}
 
-                for route in routes:
-                    routeStops = clean_string(str(route.stops))
-                    if origin_cleaned not in routeStops or destination_cleaned not in routeStops or routeStops.find(origin_cleaned) > routeStops.find(destination_cleaned):
-                        routes = routes.exclude(id=route.id)
+                routes = Trip.objects.filter(disabled=False).annotate(
+                    cleaned_stops=models.Func(
+                        models.F('stops'),
+                        function='LOWER',
+                        output_field=models.CharField()
+                    )
+                ).filter(
+                    cleaned_stops__contains=origin_cleaned).filter(
+                        cleaned_stops__contains=destination_cleaned
+                ).exclude(
+                    cleaned_stops__regex=rf'{destination_cleaned}.*{origin_cleaned}'
+                )
 
                 type_of_day = get_type_of_day(datetime.strptime(date_day, '%Y-%m-%d'))
                 if type_of_day:
                     routes = routes.filter(type_of_day=type_of_day.upper())
-                start_time = request.GET.get('start', '')
+                
                 if start_time:
                     for route in routes:
                         route_start_time = str(route.stops).split(',')[0].split(':')[1].replace('{','').replace('\'','').strip()
@@ -96,7 +101,6 @@ def get_trip_v2(request):
                 if not full_:
                     #TODO: format route.stops to exclude stops outside the scope
                     pass
-
                 return routes
             except Exception as e:
                 print(e)
@@ -112,7 +116,7 @@ def get_trip_v2(request):
             #     requests.get(mapsURL)
             #     routes = fetch_and_process_routes()
                 
-            old_routes = get_trip_v1_logic(origin, destination, day, start_time.replace(':', 'h'), full_, prefix=True) or []
+            old_routes = []# get_trip_v1_logic(origin, destination, day, start_time.replace(':', 'h'), full_, prefix=True) or []
 
             return_routes = sorted(
                 [

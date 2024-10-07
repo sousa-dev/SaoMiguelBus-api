@@ -2,13 +2,13 @@ from app.models import Holiday
 
 
 def get_type_of_day(day):
-    holidays = Holiday.objects.filter(date=day)
-    if holidays.exists():
+    if Holiday.objects.filter(date=day).exists():
         return 'SUNDAY'
 
-    if day.weekday() == 5:
+    weekday = day.weekday()
+    if weekday == 5:
         return 'SATURDAY'
-    elif day.weekday() == 6:
+    elif weekday == 6:  # Sunday or Monday
         return 'SUNDAY'
     else:
         return 'WEEKDAY'
