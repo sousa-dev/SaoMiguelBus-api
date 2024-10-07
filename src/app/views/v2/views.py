@@ -125,6 +125,10 @@ def get_trip_v2(request):
             for route in routes:
                 stops = route.stops
                 stops_tuple = [(stop, time) for stop, time in stops.items()]
+                origin_idx = next((index for index, (stop, _) in enumerate(stops_tuple) if origin_cleaned in clean_string(stop)), None)
+                destination_idx = next((index for index, (stop, _) in enumerate(stops_tuple) if destination_cleaned in clean_string(stop)), None)
+                if origin_idx is not None and destination_idx is not None and origin_idx >= destination_idx:
+                    continue
 
                 first_stop_time = stops_tuple[0][1]
                 try:
@@ -133,6 +137,8 @@ def get_trip_v2(request):
                     split_first_stop_time = first_stop_time.split(':')
                 first_stop_time_hour = int(split_first_stop_time[0])
                 first_stop_time_minute = int(split_first_stop_time[1])
+
+
                 if first_stop_time_hour > input_hour or (first_stop_time_hour == input_hour and first_stop_time_minute > input_minute):
                     last_stop_time = stops_tuple[-1][1]
                     return_routes.append(
@@ -148,6 +154,7 @@ def get_trip_v2(request):
                             route.information
                         ).__dict__ 
                     )
+                
             return_routes.sort(key=lambda x: x['start'])
             return Response(return_routes)
         except Exception as e:
