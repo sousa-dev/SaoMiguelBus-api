@@ -100,8 +100,8 @@ def get_gmaps_v1(request):
     if not (origin and destination):
         return JsonResponse({'error': 'Missing required parameters'}, status=400)
 
-    origin_stop = TripStop.objects.filter(name=origin).first() or Stop.objects.filter(name=origin).first()
-    destination_stop = TripStop.objects.filter(name=destination).first() or Stop.objects.filter(name=destination).first()
+    origin_stop = TripStop.objects.filter(name__iexact=origin).first() or Stop.objects.filter(name__iexact=origin).first()
+    destination_stop = TripStop.objects.filter(name__iexact=destination).first() or Stop.objects.filter(name__iexact=destination).first()
 
     origin_query = f"{origin_stop.latitude},{origin_stop.longitude}" if origin_stop else origin
     destination_query = f"{destination_stop.latitude},{destination_stop.longitude}" if destination_stop else destination

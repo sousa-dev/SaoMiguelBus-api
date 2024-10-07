@@ -71,7 +71,7 @@ def get_trip_v2(request):
 
                 if not origin_cleaned or not destination_cleaned:
                     return {'error': 'Origin and destination are required'}
-
+                
                 routes = Trip.objects.filter(disabled=False).annotate(
                     cleaned_stops=models.Func(
                         models.F('stops'),
@@ -103,9 +103,9 @@ def get_trip_v2(request):
             if routes is None:
                 return Response(status=404)
 
-            # if not routes.exists():
-            #     requests.get(mapsURL)
-            #     routes = fetch_and_process_routes()
+            if not routes.exists():
+                requests.get(mapsURL)
+                routes = fetch_and_process_routes()
                 
             old_routes = get_trip_v1_logic(origin, destination, day, start_time.replace(':', 'h'), full_, prefix=True, sort=False) or []
 
