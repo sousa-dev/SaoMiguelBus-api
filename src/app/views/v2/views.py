@@ -40,7 +40,10 @@ def get_trip_v2(request):
 
         full_ = request.GET.get('full', '').lower() == 'true'
 
-        day = get_type_of_day(datetime.strptime(date_day, '%Y-%m-%d'))
+        try:
+            day = get_type_of_day(datetime.strptime(date_day, '%Y-%m-%d'))
+        except:
+            day = date_day.upper()
 
         absolute_url = request.build_absolute_uri('/')
 

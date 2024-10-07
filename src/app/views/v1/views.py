@@ -801,7 +801,10 @@ def get_data_v1(request, data_id):
         trip_day_str = trip['day']
         trip_day_date = datetime.strptime(trip_day_str, '%Y-%m-%d')
         
-        type_of_day = get_type_of_day(trip_day_date)
+        try:
+            type_of_day = get_type_of_day(trip_day_date)
+        except:
+            type_of_day = trip_day_date.upper()
 
         trip_day_date = trip_day_date.date()
                     
