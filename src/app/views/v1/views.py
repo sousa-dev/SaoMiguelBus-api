@@ -91,69 +91,60 @@ def get_trip_v1_logic(origin, destination, type_of_day, start_time, full, prefix
 @require_GET
 def get_gmaps_v1(request):
     print('Getting Google Maps API')
-    # If can use maps is true
-    variable = Variables.objects.all().first().__dict__
-    if not variable['maps']:
+    variable = Variables.objects.first()
+    if not variable.maps:
         return JsonResponse({'error': 'Google Maps API is disabled'}, status=400)
+
     origin = request.GET.get('origin')
-    origin_stop = TripStop.objects.filter(name=origin).first()
-    if not origin_stop:
-        origin_stop = Stop.objects.filter(name=origin).first()
-    origin_query = f"{origin_stop.latitude},{origin_stop.longitude}" if origin_stop else origin
     destination = request.GET.get('destination')
-    destination_stop = TripStop.objects.filter(name=destination).first()
-    if not destination_stop:
-        destination_stop = Stop.objects.filter(name=destination).first()
+    if not (origin and destination):
+        return JsonResponse({'error': 'Missing required parameters'}, status=400)
+
+    origin_stop = TripStop.objects.filter(name=origin).first() or Stop.objects.filter(name=origin).first()
+    destination_stop = TripStop.objects.filter(name=destination).first() or Stop.objects.filter(name=destination).first()
+
+    origin_query = f"{origin_stop.latitude},{origin_stop.longitude}" if origin_stop else origin
     destination_query = f"{destination_stop.latitude},{destination_stop.longitude}" if destination_stop else destination
-    language_code = request.GET.get('languageCode', 'en')  # Default language set to English
+
+    language_code = request.GET.get('languageCode', 'en')
     arrival_departure = request.GET.get('arrival_departure', 'departure')
     day = request.GET.get('day', '')
     start = request.GET.get('start', '')
     time = request.GET.get('time', "NA")
     platform = request.GET.get('platform', 'NA')
     version = request.GET.get('version', 'NA')
-    debug = request.GET.get('debug', False)
+    debug = request.GET.get('debug', 'False').lower() == 'true'
     sessionToken = request.GET.get('sessionToken', 'NA')
     key = request.GET.get('key', 'NA')
     
     if key != settings.AUTH_KEY or int(version.split('.')[0]) < 5:
         return JsonResponse({'error': 'Unauthorized'}, status=401)
-    if not debug:
-        debug = True
 
     if day != '':
         datetime_day = datetime.strptime(day, '%Y-%m-%d')
         if start != '':
-            try:
-                datetime_day = datetime_day.replace(hour=int(start.split('h')[0]), minute=int(start.split('h')[1]))
-            except:
-                datetime_day = datetime_day.replace(hour=int(start.split(':')[0]), minute=int(start.split(':')[1]))
+            hour, minute = map(int, start.replace('h', ':').split(':'))
+            datetime_day = datetime_day.replace(hour=hour, minute=minute)
         else:
             datetime_day = datetime_day.replace(hour=0, minute=0, second=0, microsecond=0)
-        print(datetime_day)
         time = int(datetime_day.timestamp())
     elif time == "NA":
-        # Define the Azores timezone
         azores_timezone = pytz.timezone('Atlantic/Azores')
-        # Get the current UTC time, aware of the timezone
-        current_utc_time = datetime.now(pytz.utc)
-        # Convert the current UTC time to Azores time
-        azores_time = current_utc_time.astimezone(azores_timezone)
-        # Convert Azores time to Unix timestamp in seconds
-        time = int(azores_time.timestamp())
+        time = int(datetime.now(azores_timezone).timestamp())
 
-    if not (origin and destination):
-        return JsonResponse({'error': 'Missing required parameters'}, status=400)
-    # Build the Google Maps API URL
-    maps_url = f"https://maps.googleapis.com/maps/api/directions/json?origin={origin_query}&destination={destination_query}&mode=transit&key={settings.GOOGLE_MAPS_API_KEY}&language={language_code}&alternatives=true"
-    maps_url += f"&arrival_time={time}" if arrival_departure == 'arrival' else f"&departure_time={time}"
+    maps_url = (
+        f"https://maps.googleapis.com/maps/api/directions/json?"
+        f"origin={origin_query}&destination={destination_query}&mode=transit"
+        f"&key={settings.GOOGLE_MAPS_API_KEY}&language={language_code}&alternatives=true"
+        f"&{'arrival_time' if arrival_departure == 'arrival' else 'departure_time'}={time}"
+    )
+
     try:
         response = requests.get(maps_url)
         if response.status_code == 200:
             data = response.json()
             if data['status'] == 'OK':
                 try:
-                    # Save data to database
                     routeData = route_data(
                         data=data,
                         origin=str(origin),
@@ -161,12 +152,12 @@ def get_gmaps_v1(request):
                         language_code=str(language_code),
                         time=str(time),
                         platform=str(platform),
-                        )
+                    )
                     routeData.save()
                     get_data_v1(request._request, routeData.id)
                 except Exception as e:
                     print(e)
-            return JsonResponse(data)  
+            return JsonResponse(data)
         else:
             return JsonResponse({'warning': 'NA'}, status=response.status_code)
     except Exception as e:

@@ -1,5 +1,6 @@
 import json
 from django.utils import timezone
+import requests
 from SaoMiguelBus import settings
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -103,7 +104,6 @@ def get_trip_v2(request):
                 return Response(status=404)
 
             # if not routes.exists():
-            #     # Fetch maps data and retry processing routes
             #     requests.get(mapsURL)
             #     routes = fetch_and_process_routes()
                 
