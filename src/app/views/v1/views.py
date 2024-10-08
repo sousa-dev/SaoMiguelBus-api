@@ -52,11 +52,10 @@ def get_trip_v1_logic(origin, destination, type_of_day, start_time, full, prefix
     try:
         routes = Route.objects.all()
         routes = routes.exclude(disabled=True)
-
+        return_routes = []
         if origin in ['Povoacão', 'Lomba do Loucão', 'Ponta Garca']:
             origin = origin.replace('c', 'ç')
         routes = routes.filter(stops__icontains=origin) if origin != '' else routes
-
 
         if destination in ['Povoacão', 'Lomba do Loucão', 'Ponta Garca']:
             destination = destination.replace('c', 'ç')
@@ -67,10 +66,12 @@ def get_trip_v1_logic(origin, destination, type_of_day, start_time, full, prefix
             routes = routes.filter(stops__icontains=destination)
         if type_of_day:
             routes = routes.filter(type_of_day=type_of_day.upper())
-        # Use a list to collect routes to exclude instead of modifying the queryset in the loop
-        if origin and start_time:
-            start_hour, start_minute = map(int, start_time.split('h')) if 'h' in start_time else map(int, start_time.split(':'))
-            return_routes = []
+        # Use a list to collect routes to exclude instead of modifying the queryset in the loop            
+        if origin:
+            if start_time:
+                start_hour, start_minute = map(int, start_time.split('h')) if 'h' in start_time else map(int, start_time.split(':'))
+            else:
+                start_hour, start_minute = 0, 0
             for route in routes:
                 if str(route.stops).find(origin) > str(route.stops).find(destination):
                     continue
@@ -96,10 +97,10 @@ def get_trip_v1_logic(origin, destination, type_of_day, start_time, full, prefix
             #TODO: format route.stops to exclude stops outside the scope
             pass
 
-        return_routes = return_routes
         return return_routes
     except Exception as e:
-        print(e)
+        import traceback
+        traceback.print_exc()
         return None   
       
 @api_view(['GET'])
