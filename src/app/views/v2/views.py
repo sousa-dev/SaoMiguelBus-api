@@ -26,9 +26,21 @@ def get_all_stops_v2(request):
             #all_trip_stops = TripStop.objects.all()
             all_normal_stops = Stop.objects.all()  # Get normal stops
             #combined_stops = list(all_trip_stops) + list(all_normal_stops)  # Combine both trip stops and normal stops
-            serializer = StopSerializer(all_normal_stops, many=True)
-            logger.debug(f"Serialized {len(all_normal_stops)} stops")
-            return Response(serializer.data)
+            #serializer = StopSerializer(all_normal_stops, many=True)
+            unique_names = set()
+            cleaned_stops = []
+            for stop in all_normal_stops:
+                name = stop.name.split(' - ')[0]
+                if name not in unique_names:
+                    unique_names.add(name)
+                    cleaned_stops.append({
+                        "id": stop.id,
+                        "name": name,
+                        "latitude": stop.latitude,
+                        "longitude": stop.longitude
+                    })
+            logger.debug(f"Serialized {len(cleaned_stops)} stops")
+            return Response(cleaned_stops)
         except Exception as e:
             logger.exception("Error occurred in get_all_stops_v2")
             return Response({'error': 'Internal Server Error'}, status=500)
