@@ -23,11 +23,11 @@ def get_all_stops_v2(request):
     logger.info("Received GET request for get_all_stops_v2")
     if request.method == 'GET':
         try:
-            all_trip_stops = TripStop.objects.all()
+            #all_trip_stops = TripStop.objects.all()
             all_normal_stops = Stop.objects.all()  # Get normal stops
-            combined_stops = list(all_trip_stops) + list(all_normal_stops)  # Combine both trip stops and normal stops
-            serializer = StopSerializer(combined_stops, many=True)
-            logger.debug(f"Serialized {len(combined_stops)} stops")
+            #combined_stops = list(all_trip_stops) + list(all_normal_stops)  # Combine both trip stops and normal stops
+            serializer = StopSerializer(all_normal_stops, many=True)
+            logger.debug(f"Serialized {len(all_normal_stops)} stops")
             return Response(serializer.data)
         except Exception as e:
             logger.exception("Error occurred in get_all_stops_v2")
