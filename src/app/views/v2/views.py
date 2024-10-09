@@ -5,7 +5,7 @@ import requests
 from SaoMiguelBus import settings
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from app.models import Stop, TripStop, ReturnRoute, Trip, Variables
+from app.models import Holiday, Stop, TripStop, ReturnRoute, Trip, Variables
 from app.serializers import StopSerializer, TripSerializer
 from django.views.decorators.http import require_GET
 import django.db.models as models
@@ -13,6 +13,7 @@ from datetime import datetime, timedelta
 from django.http import JsonResponse
 
 from app.utils.day_utils import get_type_of_day
+from app.utils.str_utils import clean_string
 from app.views.v1.views import get_trip_v1_logic
 
 logger = logging.getLogger(__name__)
@@ -69,7 +70,8 @@ def get_trip_v2(request):
         logger.debug(f"Parameters received - Origin: {origin}, Destination: {destination}, Day: {date_day}, Start Time: {start_time}, Full: {full_}")
 
         try:
-            day = get_type_of_day(datetime.strptime(date_day, '%Y-%m-%d'))
+            day_date = datetime.strptime(date_day, '%Y-%m-%d')
+            day = get_type_of_day(day_date, Holiday.objects.filter(date=day_date).exists())
             logger.debug(f"Determined type_of_day: {day}")
         except Exception as e:
             logger.warning(f"Failed to parse date_day '{date_day}', using upper case: {date_day.upper()}")
@@ -78,15 +80,6 @@ def get_trip_v2(request):
         absolute_url = request.build_absolute_uri('/')
         mapsURL =  f"{absolute_url}api/v1/gmaps?origin={origin}&destination={destination}&day={date_day}&start={start_time}&key={settings.AUTH_KEY}&platform=web&version=5"
         logger.debug(f"Maps URL constructed: {mapsURL}")
-        
-        def clean_string(s):
-            translation_table = str.maketrans(
-                'áàâãäéèêëíìîïóòôõöúùûüç',
-                'aaaaaeeeeiiiiooooouuuuc'
-            )
-            cleaned = s.lower().translate(translation_table)
-            logger.debug(f"Cleaned string: Original: {s}, Cleaned: {cleaned}")
-            return cleaned
 
         origin_cleaned = clean_string(origin)
         destination_cleaned = clean_string(destination)
@@ -103,21 +96,15 @@ def get_trip_v2(request):
                     logger.warning("Origin and destination are required but not provided")
                     return {'error': 'Origin and destination are required'}
                 
-                routes = Trip.objects.filter(disabled=False).annotate(
-                    cleaned_stops=models.Func(
-                        models.F('stops'),
-                        function='LOWER',
-                        output_field=models.CharField()
-                    )
-                ).filter(
+                routes = Trip.objects.filter(disabled=False).filter(
                     cleaned_stops__contains=origin_cleaned).filter(
                         cleaned_stops__contains=destination_cleaned
-                ).exclude(
-                    cleaned_stops__regex=rf'{destination_cleaned}.*{origin_cleaned}'
                 )
+                
                 logger.debug(f"Found {routes.count()} routes after filtering")
 
-                type_of_day = get_type_of_day(datetime.strptime(date_day, '%Y-%m-%d'))
+                day_date = datetime.strptime(date_day, '%Y-%m-%d')
+                type_of_day = get_type_of_day(day_date, Holiday.objects.filter(date=day_date).exists())
                 if type_of_day:
                     routes = routes.filter(type_of_day=type_of_day.upper())
                     logger.debug(f"Filtered routes by type_of_day: {type_of_day.upper()}")
@@ -139,7 +126,7 @@ def get_trip_v2(request):
 
             if not routes.exists():
                 try:
-                    variable = Variables.objects.get(populate_maps_routes=True)
+                    variable = Variables.objects.filter(populate_maps_routes=True).exists()
                     if variable:
                         logger.info("populate_maps_routes is True, fetching maps routes")
                         response = requests.get(mapsURL)
@@ -153,7 +140,7 @@ def get_trip_v2(request):
                     logger.warning("Variables.objects.get(populate_maps_routes=True) did not find any matching records")
                     logger.info("populate_maps_routes is False. Skipping fetching maps routes.")
 
-            old_routes = get_trip_v1_logic(origin, destination, day, start_time.replace(':', 'h'), full_, prefix=True) or []
+            old_routes = get_trip_v1_logic(origin_cleaned, destination_cleaned, day, start_time.replace(':', 'h'), full_, prefix=True) or []
             logger.debug(f"Retrieved {len(old_routes)} old routes from get_trip_v1_logic")
 
             # Prepare the start time for comparison
@@ -171,7 +158,7 @@ def get_trip_v2(request):
             return_routes = old_routes
             for route in routes:
                 stops = route.stops
-                stops_tuple = [(stop, time) for stop, time in stops.items()]
+                stops_tuple = [(stop, time) for stop, time in json.loads(str(stops).replace("'", '"')).items()]
                 origin_idx = next((index for index, (stop, _) in enumerate(stops_tuple) if origin_cleaned in clean_string(stop)), None)
                 destination_idx = next((index for index, (stop, _) in enumerate(stops_tuple) if destination_cleaned in clean_string(stop)), None)
                 if origin_idx is not None and destination_idx is not None and origin_idx >= destination_idx:

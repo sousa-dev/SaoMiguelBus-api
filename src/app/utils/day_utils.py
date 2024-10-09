@@ -1,8 +1,5 @@
-from app.models import Holiday
-
-
-def get_type_of_day(day):
-    if Holiday.objects.filter(date=day).exists():
+def get_type_of_day(day, holiday):
+    if holiday:
         return 'SUNDAY'
 
     weekday = day.weekday()

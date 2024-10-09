@@ -51,4 +51,7 @@ urlpatterns = [
     
     #### ADS ####
     path('api/v2/info/ad/<int:ad_id>', views.get_ad_info),
+
+    ### OTHER ####
+    path('api/other/fix/stops', views.fix_stops),
 ]

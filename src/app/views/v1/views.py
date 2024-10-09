@@ -4,6 +4,7 @@ from django.shortcuts import render
 from django.utils import timezone
 from SaoMiguelBus import settings
 from numpy import full
+import django.db.models as models
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from app.models import Holiday, Stop, Route, Stat, ReturnRoute, LoadRoute, Trip, TripStop, Variables, Ad, Group, Info, Data as route_data
@@ -16,6 +17,7 @@ from django.http import JsonResponse
 import pytz
 
 from app.utils.day_utils import get_type_of_day
+from app.utils.str_utils import clean_string
 
 #Get All Stops
 @api_view(['GET'])
@@ -55,15 +57,14 @@ def get_trip_v1_logic(origin, destination, type_of_day, start_time, full, prefix
         return_routes = []
         if origin in ['Povoacão', 'Lomba do Loucão', 'Ponta Garca']:
             origin = origin.replace('c', 'ç')
-        routes = routes.filter(stops__icontains=origin) if origin != '' else routes
-
-        if destination in ['Povoacão', 'Lomba do Loucão', 'Ponta Garca']:
-            destination = destination.replace('c', 'ç')
 
         if origin == '' or destination == '':
             return Response({'error': 'Origin and destination are required'})
-        if destination:
-            routes = routes.filter(stops__icontains=destination)
+        
+        routes = routes.filter(disabled=False).filter(
+                cleaned_stops__contains=origin).filter(
+                    cleaned_stops__contains=destination
+            )
         if type_of_day:
             routes = routes.filter(type_of_day=type_of_day.upper())
         # Use a list to collect routes to exclude instead of modifying the queryset in the loop            
@@ -119,8 +120,8 @@ def get_gmaps_v1(request):
     origin_stop = TripStop.objects.filter(name__iexact=origin).first() or Stop.objects.filter(name__iexact=origin).first()
     destination_stop = TripStop.objects.filter(name__iexact=destination).first() or Stop.objects.filter(name__iexact=destination).first()
 
-    origin_query = f"{origin_stop.latitude},{origin_stop.longitude}" if origin_stop else origin
-    destination_query = f"{destination_stop.latitude},{destination_stop.longitude}" if destination_stop else destination
+    origin_query = f"{origin_stop.latitude},{origin_stop.longitude}" if origin_stop else clean_string(origin)
+    destination_query = f"{destination_stop.latitude},{destination_stop.longitude}" if destination_stop else clean_string(destination)
 
     language_code = request.GET.get('languageCode', 'en')
     arrival_departure = request.GET.get('arrival_departure', 'departure')
@@ -816,7 +817,7 @@ def get_data_v1(request, data_id):
         trip_day_date = datetime.strptime(trip_day_str, '%Y-%m-%d')
         
         try:
-            type_of_day = get_type_of_day(trip_day_date)
+            type_of_day = get_type_of_day(trip_day_date, Holiday.objects.filter(date=trip_day_date).exists())
         except:
             type_of_day = trip_day_date.upper()
 
