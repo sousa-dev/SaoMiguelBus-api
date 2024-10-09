@@ -6,6 +6,8 @@ from jsonfield import JSONField
 import json
 from sqlalchemy import null
 
+from app.utils.str_utils import clean_string
+
 
 class Data(models.Model):
     id = models.AutoField(primary_key=True)
@@ -24,6 +26,12 @@ class TripStop(models.Model):
     name = models.CharField(max_length=100)
     latitude = models.FloatField()
     longitude = models.FloatField()
+    cleaned_name = models.CharField(max_length=100, null=True, blank=True)
+
+    def save(self, *args, **kwargs):
+        self.cleaned_name = clean_string(self.name)
+        super().save(*args, **kwargs)
+
     def __str__(self):
         return self.name
 
@@ -31,6 +39,7 @@ class Trip(models.Model):
     id = models.AutoField(primary_key=True)
     route = models.CharField(max_length=100)
     stops = JSONField()
+    cleaned_stops = JSONField()
     type_of_day = models.CharField(max_length=100)
     information = JSONField()
     disabled = models.BooleanField(default=False)
@@ -41,17 +50,25 @@ class Trip(models.Model):
     start_time = ""
     end = ""
 
+    def save(self, *args, **kwargs):
+        self.stops = str(self.stops)
+        self.cleaned_stops = clean_string(str(self.stops))
+        super().save(*args, **kwargs)
+
     def __str__(self):
-        self.start = str(self.stops).split(',')[0].split(':')[0].replace('{','').replace('\'','').strip()
-        self.start_time = str(self.stops).split(',')[0].split(':')[1].replace('{','').replace('\'','').strip()
-        self.end = str(self.stops).split(',')[-1].split(':')[0].replace('}','').replace('\'','').strip()
-        return f"{self.route.strip()} | {self.start} -> {self.end} | {self.start_time} | {self.type_of_day}"
+        return f"{self.route.strip()} | {self.type_of_day}"
 
 class Stop(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=100)
+    cleaned_name = models.CharField(max_length=100, null=True, blank=True)
     latitude = models.FloatField()
     longitude = models.FloatField()
+
+    def save(self, *args, **kwargs):
+        self.cleaned_name = clean_string(self.name)
+        super().save(*args, **kwargs)
+
     def __str__(self):
         return self.name
 
@@ -59,6 +76,7 @@ class Route(models.Model):
     id = models.AutoField(primary_key=True)
     route = models.CharField(max_length=100)
     stops = JSONField()
+    cleaned_stops = JSONField(null=True, blank=True)
     type_of_day = models.CharField(max_length=100)
     information = JSONField()
     disabled = models.BooleanField(default=False)
@@ -67,10 +85,15 @@ class Route(models.Model):
     start_time = ""
     end = ""
 
+    def save(self, *args, **kwargs):
+        self.stops = str(self.stops)
+        self.cleaned_stops = clean_string(str(self.stops))
+        super().save(*args, **kwargs)
+
     def __str__(self):
-        self.start = self.stops.split(',')[0].split(':')[0].replace('{','').replace('\'','').strip()
-        self.start_time = self.stops.split(',')[0].split(':')[1].replace('{','').replace('\'','').strip()
-        self.end = self.stops.split(',')[-1].split(':')[0].replace('}','').replace('\'','').strip()
+        self.start = str(self.stops).split(',')[0].split(':')[0].replace('{','').replace('\'','').strip()
+        self.start_time = str(self.stops).split(',')[0].split(':')[1].replace('{','').replace('\'','').strip()
+        self.end = str(self.stops).split(',')[-1].split(':')[0].replace('}','').replace('\'','').strip()
         return f"{self.route.strip()} | {self.start} -> {self.end} | {self.start_time} | {self.type_of_day}"
 
 class Stat(models.Model):    
@@ -89,6 +112,7 @@ class Stat(models.Model):
 class Variables(models.Model):
     version = models.CharField(max_length=100)
     maps = models.BooleanField(default=False)
+    populate_maps_routes = models.BooleanField(default=False)
 
     def __str__(self):
         return f"Version: {self.version} | Maps: {self.maps}"

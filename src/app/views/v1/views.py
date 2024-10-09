@@ -4,6 +4,7 @@ from django.shortcuts import render
 from django.utils import timezone
 from SaoMiguelBus import settings
 from numpy import full
+import django.db.models as models
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from app.models import Holiday, Stop, Route, Stat, ReturnRoute, LoadRoute, Trip, TripStop, Variables, Ad, Group, Info, Data as route_data
@@ -14,6 +15,9 @@ from statistics import median
 import requests
 from django.http import JsonResponse
 import pytz
+
+from app.utils.day_utils import get_type_of_day
+from app.utils.str_utils import clean_string
 
 #Get All Stops
 @api_view(['GET'])
@@ -50,96 +54,114 @@ def get_trip_v1_logic(origin, destination, type_of_day, start_time, full, prefix
     try:
         routes = Route.objects.all()
         routes = routes.exclude(disabled=True)
-
+        return_routes = []
         if origin in ['Povoacão', 'Lomba do Loucão', 'Ponta Garca']:
             origin = origin.replace('c', 'ç')
-        routes = routes.filter(stops__icontains=origin) if origin != '' else routes
-
-
-        if destination in ['Povoacão', 'Lomba do Loucão', 'Ponta Garca']:
-            destination = destination.replace('c', 'ç')
 
         if origin == '' or destination == '':
             return Response({'error': 'Origin and destination are required'})
-        routes = routes.filter(stops__icontains=destination) if destination != '' else routes
-        for route in routes:
-            routes = routes.exclude(id=route.id) if str(route.stops).find(origin) > str(route.stops).find(destination) else routes
-        if type_of_day != '':
+        
+        routes = routes.filter(disabled=False).filter(
+                cleaned_stops__contains=origin).filter(
+                    cleaned_stops__contains=destination
+            )
+        if type_of_day:
             routes = routes.filter(type_of_day=type_of_day.upper())
-        if start_time != '':
+        # Use a list to collect routes to exclude instead of modifying the queryset in the loop            
+        if origin:
+            if start_time:
+                start_hour, start_minute = map(int, start_time.split('h')) if 'h' in start_time else map(int, start_time.split(':'))
+            else:
+                start_hour, start_minute = 0, 0
             for route in routes:
-                route_start_time = route.stops.split(',')[0].split(':')[1].replace('{','').replace('\'','').strip()
-                route_start_time_hour = int(route_start_time.split('h')[0])
-                route_start_time_minute = int(route_start_time.split('h')[1])
-                routes = routes.exclude(id=route.id) if route_start_time_hour < int(start_time.split('h')[0]) or (route_start_time_hour == int(start_time.split('h')[0]) and route_start_time_minute < int(start_time.split('h')[1])) else routes
+                if str(route.stops).find(origin) > str(route.stops).find(destination):
+                    continue
+                route_start_time = route.stops.split(',')[0].split(':')[1].replace('{', '').replace('\'', '').strip()
+                route_start_hour, route_start_minute = map(int, route_start_time.split('h')) if 'h' in route_start_time else map(int, route_start_time.split(':'))
+                if route_start_hour < start_hour or (route_start_hour == start_hour and route_start_minute < start_minute):
+                    continue
+                return_routes.append(
+                    ReturnRoute(
+                        route.id,
+                        route.route if not prefix else f'C{route.route}',
+                        origin,
+                        destination,
+                        route.stops.split(':')[1].split(",")[0].replace('\'', '').strip(),
+                        route.stops.split(':')[-1].split(",")[0].replace('\'', '').replace('}', '').strip(),
+                        route.stops,
+                        route.type_of_day,
+                        route.information
+                    ).__dict__
+                )
+
         if not full:
             #TODO: format route.stops to exclude stops outside the scope
             pass
-        #TODO: get origin, destination, start and end time
-        return_routes = [ReturnRoute(route.id, route.route if not prefix else f'C{route.route}', origin, destination, route.stops.split(':')[1].split(",")[0].replace('\'', '').strip(), route.stops.split(':')[-1].split(",")[0].replace('\'', '').replace('}', '').strip(), route.stops, route.type_of_day, route.information).__dict__ for route in routes]
+
         return return_routes
     except Exception as e:
-        print(e)
-        return None     
+        import traceback
+        traceback.print_exc()
+        return None   
+      
 @api_view(['GET'])
 @require_GET
 def get_gmaps_v1(request):
     print('Getting Google Maps API')
-    # If can use maps is true
-    variable = Variables.objects.all().first().__dict__
-    if not variable['maps']:
+    variable = Variables.objects.first()
+    if not variable.maps:
         return JsonResponse({'error': 'Google Maps API is disabled'}, status=400)
+
     origin = request.GET.get('origin')
     destination = request.GET.get('destination')
-    language_code = request.GET.get('languageCode', 'en')  # Default language set to English
+    if not (origin and destination):
+        return JsonResponse({'error': 'Missing required parameters'}, status=400)
+
+    origin_stop = TripStop.objects.filter(name__iexact=origin).first() or Stop.objects.filter(name__iexact=origin).first()
+    destination_stop = TripStop.objects.filter(name__iexact=destination).first() or Stop.objects.filter(name__iexact=destination).first()
+
+    origin_query = f"{origin_stop.latitude},{origin_stop.longitude}" if origin_stop else clean_string(origin)
+    destination_query = f"{destination_stop.latitude},{destination_stop.longitude}" if destination_stop else clean_string(destination)
+
+    language_code = request.GET.get('languageCode', 'en')
     arrival_departure = request.GET.get('arrival_departure', 'departure')
     day = request.GET.get('day', '')
     start = request.GET.get('start', '')
     time = request.GET.get('time', "NA")
     platform = request.GET.get('platform', 'NA')
     version = request.GET.get('version', 'NA')
-    debug = request.GET.get('debug', False)
+    debug = request.GET.get('debug', 'False').lower() == 'true'
     sessionToken = request.GET.get('sessionToken', 'NA')
     key = request.GET.get('key', 'NA')
     
     if key != settings.AUTH_KEY or int(version.split('.')[0]) < 5:
         return JsonResponse({'error': 'Unauthorized'}, status=401)
-    if not debug:
-        debug = True
 
     if day != '':
         datetime_day = datetime.strptime(day, '%Y-%m-%d')
         if start != '':
-            try:
-                datetime_day = datetime_day.replace(hour=int(start.split('h')[0]), minute=int(start.split('h')[1]))
-            except:
-                datetime_day = datetime_day.replace(hour=int(start.split(':')[0]), minute=int(start.split(':')[1]))
+            hour, minute = map(int, start.replace('h', ':').split(':'))
+            datetime_day = datetime_day.replace(hour=hour, minute=minute)
         else:
             datetime_day = datetime_day.replace(hour=0, minute=0, second=0, microsecond=0)
-        print(datetime_day)
         time = int(datetime_day.timestamp())
     elif time == "NA":
-        # Define the Azores timezone
         azores_timezone = pytz.timezone('Atlantic/Azores')
-        # Get the current UTC time, aware of the timezone
-        current_utc_time = datetime.now(pytz.utc)
-        # Convert the current UTC time to Azores time
-        azores_time = current_utc_time.astimezone(azores_timezone)
-        # Convert Azores time to Unix timestamp in seconds
-        time = int(azores_time.timestamp())
+        time = int(datetime.now(azores_timezone).timestamp())
 
-    if not (origin and destination):
-        return JsonResponse({'error': 'Missing required parameters'}, status=400)
-    # Build the Google Maps API URL
-    maps_url = f"https://maps.googleapis.com/maps/api/directions/json?origin={origin}&destination={destination}&mode=transit&key={settings.GOOGLE_MAPS_API_KEY}&language={language_code}&alternatives=true"
-    maps_url += f"&arrival_time={time}" if arrival_departure == 'arrival' else f"&departure_time={time}"
+    maps_url = (
+        f"https://maps.googleapis.com/maps/api/directions/json?"
+        f"origin={origin_query}&destination={destination_query}&mode=transit"
+        f"&key={settings.GOOGLE_MAPS_API_KEY}&language={language_code}&alternatives=true"
+        f"&{'arrival_time' if arrival_departure == 'arrival' else 'departure_time'}={time}"
+    )
+
     try:
         response = requests.get(maps_url)
         if response.status_code == 200:
             data = response.json()
             if data['status'] == 'OK':
                 try:
-                    # Save data to database
                     routeData = route_data(
                         data=data,
                         origin=str(origin),
@@ -147,12 +169,12 @@ def get_gmaps_v1(request):
                         language_code=str(language_code),
                         time=str(time),
                         platform=str(platform),
-                        )
+                    )
                     routeData.save()
                     get_data_v1(request._request, routeData.id)
                 except Exception as e:
                     print(e)
-            return JsonResponse(data)  
+            return JsonResponse(data)
         else:
             return JsonResponse({'warning': 'NA'}, status=response.status_code)
     except Exception as e:
@@ -752,7 +774,6 @@ def data_to_route(data):
                             bus_schedule[transit_details["departure_stop"]["name"]] = departure_time
                             bus_schedule[transit_details["arrival_stop"]["name"]] = arrival_time
                             bus_numbers.append(transit_details["line"]["short_name"].replace('C', ''))
-
                             departure_stop = transit_details["departure_stop"]["name"]
                             departure_location = (
                                 transit_details["departure_stop"]["location"]["lat"],
@@ -776,40 +797,51 @@ def data_to_route(data):
 @api_view(['GET'])
 @require_GET
 def get_data_v1(request, data_id):
-    if request.method == 'GET':
-        data = route_data.objects.get(id=data_id)
-        # From unix timestamp to datetime in azores timestamp
-        trips, stops = data_to_route(data.data)
-        for stop in stops:
-            # Check if the stop is in the database
-            stop_obj = TripStop.objects.filter(name=stop)
-            if stop_obj.count() == 0:
-                TripStop(name=stop, latitude=stops[stop][0], longitude=stops[stop][1]).save()        
-                
-        for trip in trips:
-            bus_number = trip['bus']
-            bus_stops = trip['stops']
-            trip_day = trip['day']
-            trip_day = datetime.strptime(trip_day, '%Y-%m-%d').strftime('%Y-%m-%d')
-            type_of_day = 'WEEKDAY'
-            
-            # Check if the day is an holiday
-            holiday = Holiday.objects.filter(date=trip_day)
-            if holiday.count() > 0:
-                type_of_day = 'SUNDAY'
-            # Check if the day is a saturday
-            elif datetime.strptime(trip_day, '%Y-%m-%d').weekday() == 5:
-                type_of_day = 'SATURDAY'
-                
-            trips = Trip.objects.filter(route=bus_number, stops=bus_stops, type_of_day=type_of_day)
-            if trips.count() == 0:
-                Trip(route=bus_number, stops=bus_stops, type_of_day=type_of_day).save()
-            else:
-                trip = trips[0]
-                trip.added = timezone.now()
+    data = route_data.objects.get(id=data_id)
+    # From unix timestamp to datetime in Azores timezone
+    trips, stops = data_to_route(data.data)
+    
+    # Bulk create TripStops if they do not exist
+    existing_stops = TripStop.objects.filter(name__in=stops.keys()).values_list('name', flat=True)
+    new_stops = [
+        TripStop(name=stop, latitude=coords[0], longitude=coords[1])
+        for stop, coords in stops.items()
+        if stop not in existing_stops
+    ]
+    TripStop.objects.bulk_create(new_stops, ignore_conflicts=True)
+                    
+    for trip in trips:
+        bus_number = trip['bus']
+        bus_stops = trip['stops']
+        trip_day_str = trip['day']
+        trip_day_date = datetime.strptime(trip_day_str, '%Y-%m-%d')
+        
+        try:
+            type_of_day = get_type_of_day(trip_day_date, Holiday.objects.filter(date=trip_day_date).exists())
+        except:
+            type_of_day = trip_day_date.upper()
 
-        dataSerialized = DataSerializer(data, many=True)
-        tripsSerialized = TripSerializer(trips, many=True)
-        stopsSerialized = TripStopSerializer(stops, many=True)
-        return JsonResponse({'data': str(dataSerialized), 'trips': tripsSerialized.data, 'stops': stopsSerialized.data})
+        trip_day_date = trip_day_date.date()
+                    
+        # Update or create the Trip
+        Trip.objects.update_or_create(
+            route=bus_number,
+            stops=bus_stops,
+            type_of_day=type_of_day,
+            defaults={'added': timezone.now()}
+        )
+
+    data_serialized = DataSerializer(data, many=True)
+    trips_serialized = TripSerializer(Trip.objects.filter(
+        route__in=[trip['bus'] for trip in trips],
+        stops__in=[trip['stops'] for trip in trips],
+        type_of_day__in=['WEEKDAY', 'SUNDAY', 'SATURDAY']
+    ), many=True)
+    stops_serialized = TripStopSerializer(stops, many=True)
+    
+    return JsonResponse({
+        'data': str(data_serialized),
+        'trips': trips_serialized.data,
+        'stops': stops_serialized.data
+    })
         

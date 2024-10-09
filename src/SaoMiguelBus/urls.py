@@ -43,7 +43,7 @@ urlpatterns = [
     path('api/v1/holidays', views.get_holidays_v1),
     path('api/v1/feriados', views.get_holidays_v1),
     path('api/v1/data/<int:data_id>', views.get_data_v1),
-    
+    #path('clean', views.clean_trip_and_stops),
     #### V2 ####
     path('api/v2/android/load', views.get_android_load_v2),
     path('api/v2/stops', views.get_all_stops_v2),
@@ -51,4 +51,7 @@ urlpatterns = [
     
     #### ADS ####
     path('api/v2/info/ad/<int:ad_id>', views.get_ad_info),
+
+    ### OTHER ####
+    path('api/other/fix/stops', views.fix_stops),
 ]

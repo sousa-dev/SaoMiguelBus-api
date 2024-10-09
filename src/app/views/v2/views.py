@@ -1,159 +1,203 @@
-import collections
-from difflib import SequenceMatcher
-from django.shortcuts import render
+import json
+import logging
 from django.utils import timezone
+import requests
 from SaoMiguelBus import settings
-from numpy import full
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from app.models import Holiday, Stop, Route, Stat, ReturnRoute, LoadRoute, Trip, TripStop, Variables, Ad, Group, Info, Data as route_data
-from app.serializers import DataSerializer, HolidaySerializer, StopSerializer, RouteSerializer, StatSerializer, ReturnRouteSerializer, LoadRouteSerializer, VariablesSerializer, AdSerializer, GroupSerializer, InfoSerializer
-from django.views.decorators.http import require_GET, require_POST
-from datetime import datetime, date, timedelta
-from statistics import median
-import requests
+from app.models import Holiday, Stop, TripStop, ReturnRoute, Trip, Variables
+from app.serializers import StopSerializer, TripSerializer
+from django.views.decorators.http import require_GET
+import django.db.models as models
+from datetime import datetime, timedelta
 from django.http import JsonResponse
-import pytz
-import requests
 
 from app.utils.day_utils import get_type_of_day
-from app.views.v1.views import get_trip_v1, get_trip_v1_logic
+from app.utils.str_utils import clean_string
+from app.views.v1.views import get_trip_v1_logic
+
+logger = logging.getLogger(__name__)
 
 @api_view(['GET'])
 @require_GET
 def get_all_stops_v2(request):
+    logger.info("Received GET request for get_all_stops_v2")
     if request.method == 'GET':
-        all_trip_stops = TripStop.objects.all()
-        all_normal_stops = Stop.objects.all()  # Get normal stops
-        combined_stops = list(all_trip_stops) + list(all_normal_stops)  # Combine both trip stops and normal stops
-        serializer = StopSerializer(combined_stops, many=True)
-        return Response(serializer.data)
+        try:
+            #all_trip_stops = TripStop.objects.all()
+            all_normal_stops = Stop.objects.all()  # Get normal stops
+            #combined_stops = list(all_trip_stops) + list(all_normal_stops)  # Combine both trip stops and normal stops
+            #serializer = StopSerializer(all_normal_stops, many=True)
+            unique_names = set()
+            cleaned_stops = []
+            for stop in all_normal_stops:
+                name = stop.name.split(' - ')[0]
+                if name not in unique_names:
+                    unique_names.add(name)
+                    cleaned_stops.append({
+                        "id": stop.id,
+                        "name": name,
+                        "latitude": stop.latitude,
+                        "longitude": stop.longitude
+                    })
+            logger.debug(f"Serialized {len(cleaned_stops)} stops")
+            return Response(cleaned_stops)
+        except Exception as e:
+            logger.exception("Error occurred in get_all_stops_v2")
+            return Response({'error': 'Internal Server Error'}, status=500)
 
 @api_view(['GET'])
 @require_GET
 def get_trip_v2(request):
+    logger.info("Received GET request for get_trip_v2")
     if request.method == 'GET':
+        if request.GET.get('all', False):
+            try:
+                trips = Trip.objects.all()
+                serializer = TripSerializer(trips, many=True)
+                logger.debug(f"Serialized {len(trips)} trips")
+                return JsonResponse(serializer.data, safe=False)
+            except Exception as e:
+                logger.exception("Error retrieving all trips")
+                return Response({'error': 'Internal Server Error'}, status=500)
+        
         origin = request.GET.get('origin', '')
         destination = request.GET.get('destination', '')
         date_day = request.GET.get('day', '')
-        start_time = request.GET.get('start', '')
+        start_time = request.GET.get('start', '00:00')
+        full_ = request.GET.get('full', '').lower() == 'true'
 
-        if start_time == '':
-            start_time = '00:00'
+        logger.debug(f"Parameters received - Origin: {origin}, Destination: {destination}, Day: {date_day}, Start Time: {start_time}, Full: {full_}")
 
-        day = get_type_of_day(datetime.strptime(date_day, '%Y-%m-%d'))
+        try:
+            day_date = datetime.strptime(date_day, '%Y-%m-%d')
+            day = get_type_of_day(day_date, Holiday.objects.filter(date=day_date).exists())
+            logger.debug(f"Determined type_of_day: {day}")
+        except Exception as e:
+            logger.warning(f"Failed to parse date_day '{date_day}', using upper case: {date_day.upper()}")
+            day = date_day.upper()
 
         absolute_url = request.build_absolute_uri('/')
+        mapsURL =  f"{absolute_url}api/v1/gmaps?origin={origin}&destination={destination}&day={date_day}&start={start_time}&key={settings.AUTH_KEY}&platform=web&version=5"
+        logger.debug(f"Maps URL constructed: {mapsURL}")
 
-        mapsURL =  absolute_url + "api/v1/gmaps?" + \
-            "origin=" + origin + \
-            "&destination=" + destination + \
-            "&day=" + date_day + \
-            "&start=" + start_time + \
-            "&key=" + settings.AUTH_KEY + \
-            "&platform=web" + \
-            "&version=5"
+        origin_cleaned = clean_string(origin)
+        destination_cleaned = clean_string(destination)
 
         def fetch_and_process_routes():
+            logger.info("Fetching and processing routes")
             try:
-                # Filter routes that are more than 1 month old
+                # Delete routes older than 1 month
                 one_month_ago = timezone.now() - timedelta(days=30)
-                old_routes = Trip.objects.filter(added__lte=one_month_ago)
-                # Delete old routes
-                old_routes.delete()
+                deleted_count, _ = Trip.objects.filter(added__lte=one_month_ago).delete()
+                logger.debug(f"Deleted {deleted_count} routes older than one month")
 
-                routes = Trip.objects.all().exclude(disabled=True)
-
-                origin_cleaned = origin.lower().replace('á', 'a').replace('à', 'a').replace('â', 'a').replace('ã', 'a').replace('ä', 'a') \
-                                        .replace('é', 'e').replace('è', 'e').replace('ê', 'e').replace('ë', 'e') \
-                                        .replace('í', 'i').replace('ì', 'i').replace('î', 'i').replace('ï', 'i') \
-                                        .replace('ó', 'o').replace('ò', 'o').replace('ô', 'o').replace('õ', 'o').replace('ö', 'o') \
-                                        .replace('ú', 'u').replace('ù', 'u').replace('û', 'u').replace('ü', 'u') \
-                                        .replace('ç', 'c')
-                destination_cleaned = destination.lower().replace('á', 'a').replace('à', 'a').replace('â', 'a').replace('ã', 'a').replace('ä', 'a') \
-                                             .replace('é', 'e').replace('è', 'e').replace('ê', 'e').replace('ë', 'e') \
-                                             .replace('í', 'i').replace('ì', 'i').replace('î', 'i').replace('ï', 'i') \
-                                             .replace('ó', 'o').replace('ò', 'o').replace('ô', 'o').replace('õ', 'o').replace('ö', 'o') \
-                                             .replace('ú', 'u').replace('ù', 'u').replace('û', 'u').replace('ü', 'u') \
-                                             .replace('ç', 'c')
-                
-                if origin_cleaned == '' or destination_cleaned == '':
+                if not origin_cleaned or not destination_cleaned:
+                    logger.warning("Origin and destination are required but not provided")
                     return {'error': 'Origin and destination are required'}
+                
+                routes = Trip.objects.filter(disabled=False).filter(
+                    cleaned_stops__contains=origin_cleaned).filter(
+                        cleaned_stops__contains=destination_cleaned
+                )
+                
+                logger.debug(f"Found {routes.count()} routes after filtering")
 
-                for route in routes:
-                    routeStops = str(route.stops).lower().replace('á', 'a').replace('à', 'a').replace('â', 'a').replace('ã', 'a').replace('ä', 'a') \
-                                         .replace('é', 'e').replace('è', 'e').replace('ê', 'e').replace('ë', 'e') \
-                                         .replace('í', 'i').replace('ì', 'i').replace('î', 'i').replace('ï', 'i') \
-                                         .replace('ó', 'o').replace('ò', 'o').replace('ô', 'o').replace('õ', 'o').replace('ö', 'o') \
-                                         .replace('ú', 'u').replace('ù', 'u').replace('û', 'u').replace('ü', 'u') \
-                                         .replace('ç', 'c')
-                    if origin_cleaned not in routeStops or destination_cleaned not in routeStops or routeStops.find(origin_cleaned) > routeStops.find(destination_cleaned):
-                        routes = routes.exclude(id=route.id)
-
-                type_of_day = get_type_of_day(datetime.strptime(date_day, '%Y-%m-%d'))
+                day_date = datetime.strptime(date_day, '%Y-%m-%d')
+                type_of_day = get_type_of_day(day_date, Holiday.objects.filter(date=day_date).exists())
                 if type_of_day:
                     routes = routes.filter(type_of_day=type_of_day.upper())
-                start_time = request.GET.get('start', '')
-                if start_time:
-                    for route in routes:
-                        route_start_time = str(route.stops).split(',')[0].split(':')[1].replace('{','').replace('\'','').strip()
-                        route_start_time_hour = int(route_start_time.split('h')[0])
-                        route_start_time_minute = int(route_start_time.split('h')[1])
-                        try:
-                            input_hour, input_minute = map(int, start_time.split('h'))
-                        except:
-                            input_hour, input_minute = map(int, start_time.split(':'))
-                        if route_start_time_hour < input_hour or (route_start_time_hour == input_hour and route_start_time_minute < input_minute):
-                            routes = routes.exclude(id=route.id)
-                full = request.GET.get('full', '').lower() == 'true'
-                if not full:
-                    #TODO: format route.stops to exclude stops outside the scope
-                    pass
+                    logger.debug(f"Filtered routes by type_of_day: {type_of_day.upper()}")
 
+                if not full_:
+                    # TODO: format route.stops to exclude stops outside the scope
+                    logger.debug("Full parameter is False; excluding stops outside the scope")
+                    pass
                 return routes
             except Exception as e:
-                print(e)
+                logger.exception("Error in fetch_and_process_routes")
                 return None
 
         try:
             routes = fetch_and_process_routes()
             if routes is None:
+                logger.error("Routes fetching and processing returned None")
                 return Response(status=404)
 
-            # if not routes.exists():
-            #     # Fetch maps data and retry processing routes
-            #     requests.get(mapsURL)
-            #     routes = fetch_and_process_routes()
-                
-            old_routes = get_trip_v1_logic(origin, destination, day, request.GET.get('start', '').replace(':', 'h'), request.GET.get('full', ''), prefix=True)
+            if not routes.exists():
+                try:
+                    variable = Variables.objects.filter(populate_maps_routes=True).exists()
+                    if variable:
+                        logger.info("populate_maps_routes is True, fetching maps routes")
+                        response = requests.get(mapsURL)
+                        logger.debug(f"Maps API response status: {response.status_code}")
+                        routes = fetch_and_process_routes()
+                        if not routes:
+                            logger.warning("No routes found after fetching maps routes")
+                    else:
+                        logger.info("populate_maps_routes is False. Skipping fetching maps routes.")
+                except Variables.DoesNotExist:
+                    logger.warning("Variables.objects.get(populate_maps_routes=True) did not find any matching records")
+                    logger.info("populate_maps_routes is False. Skipping fetching maps routes.")
 
-            if old_routes is None:
-                old_routes = []
+            old_routes = get_trip_v1_logic(origin_cleaned, destination_cleaned, day, start_time.replace(':', 'h'), full_, prefix=True) or []
+            logger.debug(f"Retrieved {len(old_routes)} old routes from get_trip_v1_logic")
 
-            return_routes = [
-                ReturnRoute(
-                    route.id,
-                    route.route,
-                    origin.lower().replace('á', 'a').replace('à', 'a').replace('â', 'a').replace('ã', 'a').replace('ä', 'a') \
-                          .replace('é', 'e').replace('è', 'e').replace('ê', 'e').replace('ë', 'e') \
-                          .replace('í', 'i').replace('ì', 'i').replace('î', 'i').replace('ï', 'i') \
-                          .replace('ó', 'o').replace('ò', 'o').replace('ô', 'o').replace('õ', 'o').replace('ö', 'o') \
-                          .replace('ú', 'u').replace('ù', 'u').replace('û', 'u').replace('ü', 'u') \
-                          .replace('ç', 'c'),
-                    destination.lower().replace('á', 'a').replace('à', 'a').replace('â', 'a').replace('ã', 'a').replace('ä', 'a') \
-                               .replace('é', 'e').replace('è', 'e').replace('ê', 'e').replace('ë', 'e') \
-                               .replace('í', 'i').replace('ì', 'i').replace('î', 'i').replace('ï', 'i') \
-                               .replace('ó', 'o').replace('ò', 'o').replace('ô', 'o').replace('õ', 'o').replace('ö', 'o') \
-                               .replace('ú', 'u').replace('ù', 'u').replace('û', 'u').replace('ü', 'u') \
-                               .replace('ç', 'c'),
-                    str(route.stops).split(':')[1].split(",")[0].replace('\'', '').strip(),
-                    str(route.stops).split(':')[-1].split(",")[0].replace('\'', '').replace('}', '').strip(),
-                    str(route.stops),
-                    route.type_of_day,
-                    route.information
-                ).__dict__ for route in routes
-            ] + old_routes
+            # Prepare the start time for comparison
+            try:
+                if start_time == '':
+                    input_hour, input_minute = 0, 0
+                else:
+                    input_hour, input_minute = map(int, start_time.replace('h', ':').split(':'))
+                logger.debug(f"Input time - Hour: {input_hour}, Minute: {input_minute}")
+            except ValueError:
+                logger.exception(f"Invalid start time format: {start_time}")
+                return Response({'error': 'Invalid start time format'}, status=400)
+
+            # Process routes in a more efficient manner
+            return_routes = old_routes
+            for route in routes:
+                stops = route.stops
+                stops_tuple = [(stop, time) for stop, time in json.loads(str(stops).replace("'", '"')).items()]
+                origin_idx = next((index for index, (stop, _) in enumerate(stops_tuple) if origin_cleaned in clean_string(stop)), None)
+                destination_idx = next((index for index, (stop, _) in enumerate(stops_tuple) if destination_cleaned in clean_string(stop)), None)
+                if origin_idx is not None and destination_idx is not None and origin_idx >= destination_idx:
+                    logger.debug(f"Skipping route {route.id} as origin index {origin_idx} >= destination index {destination_idx}")
+                    continue
+
+                first_stop_time = stops_tuple[0][1]
+                try:
+                    split_first_stop_time = first_stop_time.split('h')
+                except Exception:
+                    split_first_stop_time = first_stop_time.split(':')
+                try:
+                    first_stop_time_hour = int(split_first_stop_time[0])
+                    first_stop_time_minute = int(split_first_stop_time[1])
+                    logger.debug(f"Route {route.id} first stop time - Hour: {first_stop_time_hour}, Minute: {first_stop_time_minute}")
+                except (ValueError, IndexError) as e:
+                    logger.exception(f"Error parsing first stop time '{first_stop_time}' for route {route.id}")
+                    continue
+
+                if first_stop_time_hour > input_hour or (first_stop_time_hour == input_hour and first_stop_time_minute > input_minute):
+                    last_stop_time = stops_tuple[-1][1]
+                    return_routes.append(
+                        ReturnRoute(
+                            route.id,
+                            route.route,
+                            origin_cleaned,
+                            destination_cleaned,
+                            first_stop_time,
+                            last_stop_time,
+                            str(stops),
+                            route.type_of_day,
+                            route.information
+                        ).__dict__ 
+                    )
+                    logger.debug(f"Added route {route.id} to return_routes")
+
+            return_routes.sort(key=lambda x: x['start'])
+            logger.info(f"Returning {len(return_routes)} routes")
             return Response(return_routes)
         except Exception as e:
-            print(e)
+            logger.exception("Error occurred in get_trip_v2")
             return Response(status=404)
