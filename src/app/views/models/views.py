@@ -15,7 +15,9 @@ def like_trip(request, trip_id):
 
         request_count = int(request.GET.get('count', 1))
 
-        if request_count == 2:
+        if request_count == -1:
+            trip.likes = max(0, trip.likes - 1)
+        elif request_count == 2:
             trip.dislikes = max(0, trip.dislikes - 1)
             trip.likes += 1
         else:
@@ -37,8 +39,9 @@ def dislike_trip(request, trip_id):
         trip = Route.objects.get(id=trip_id) if type_trip == 'route' else Trip.objects.get(id=trip_id)
 
         request_count = int(request.GET.get('count', 1))
-
-        if request_count == 2:
+        if request_count == -1:
+            trip.dislikes = max(0, trip.dislikes - 1)
+        elif request_count == 2:
             trip.likes = max(0, trip.likes - 1)
             trip.dislikes += 1
         else:
@@ -51,3 +54,23 @@ def dislike_trip(request, trip_id):
     except Exception as e:
         print(e)
         return JsonResponse({'error': 'Internal Server Error'}, status=500)
+
+@api_view(['POST'])
+@require_POST
+def reset_likes_dislikes(request):
+    key = request.GET.get('key', '')
+    if key != 'yapreallyresetit':
+        return JsonResponse({'error': 'Invalid key'}, status=401)
+
+    for trip in Trip.objects.all():
+        trip.likes = 0
+        trip.dislikes = 0
+        trip.save()
+
+    for route in Route.objects.all():
+        route.likes = 0
+        route.dislikes = 0
+        route.save()
+
+    return JsonResponse({'message': 'Likes and dislikes reset successfully'}, status=200)
+

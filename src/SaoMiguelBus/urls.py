@@ -52,6 +52,7 @@ urlpatterns = [
     #### MODELS ####
     path('api/v2/like/<int:trip_id>', views.like_trip),
     path('api/v2/dislike/<int:trip_id>', views.dislike_trip),
+    path('api/v2/reset/likes', views.reset_likes_dislikes),
     
     #### ADS ####
     path('api/v2/info/ad/<int:ad_id>', views.get_ad_info),
