@@ -90,7 +90,9 @@ def get_trip_v1_logic(origin, destination, type_of_day, start_time, full, prefix
                         route.stops.split(':')[-1].split(",")[0].replace('\'', '').replace('}', '').strip(),
                         route.stops,
                         route.type_of_day,
-                        route.information
+                        route.information,
+                        route.likes_percent,
+                        route.dislikes_percent
                     ).__dict__
                 )
 

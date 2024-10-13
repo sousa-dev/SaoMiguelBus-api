@@ -46,6 +46,19 @@ class Trip(models.Model):
     
     added = models.DateTimeField(auto_now_add=True)
 
+    likes = models.IntegerField(default=0)
+    dislikes = models.IntegerField(default=0)
+
+    @property
+    def likes_percent(self):
+        total = self.likes + self.dislikes
+        return int(self.likes / total * 100) if total > 0 else 0
+
+    @property
+    def dislikes_percent(self):
+        total = self.likes + self.dislikes
+        return int(self.dislikes / total * 100) if total > 0 else 0
+    
     start = ""
     start_time = ""
     end = ""
@@ -81,6 +94,19 @@ class Route(models.Model):
     information = JSONField()
     disabled = models.BooleanField(default=False)
 
+    likes = models.IntegerField(default=0)
+    dislikes = models.IntegerField(default=0)
+
+    @property
+    def likes_percent(self):
+        total = self.likes + self.dislikes
+        return int(self.likes / total * 100) if total > 0 else 0
+
+    @property
+    def dislikes_percent(self):
+        total = self.likes + self.dislikes
+        return int(self.dislikes / total * 100) if total > 0 else 0
+    
     start = ""
     start_time = ""
     end = ""
@@ -171,7 +197,7 @@ class Holiday(models.Model):
         return f"{self.name} | {self.date}"
     
 class ReturnRoute():
-    def __init__(self, id, route, origin, destination, start, end, stops, type_of_day, information):
+    def __init__(self, id, route, origin, destination, start, end, stops, type_of_day, information, likes_percent, dislikes_percent):
         self.id = id
         self.route = route
         self.origin = origin
@@ -181,6 +207,8 @@ class ReturnRoute():
         self.stops = stops
         self.type_of_day = type_of_day
         self.information = information
+        self.likes_percent = likes_percent
+        self.dislikes_percent = dislikes_percent
     def __str__(self):
         return self.route
 

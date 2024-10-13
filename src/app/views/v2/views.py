@@ -190,7 +190,9 @@ def get_trip_v2(request):
                             last_stop_time,
                             str(stops),
                             route.type_of_day,
-                            route.information
+                            route.information,
+                            route.likes_percent,
+                            route.dislikes_percent
                         ).__dict__ 
                     )
                     logger.debug(f"Added route {route.id} to return_routes")
