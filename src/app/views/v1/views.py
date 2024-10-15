@@ -83,7 +83,7 @@ def get_trip_v1_logic(origin, destination, type_of_day, start_time, full, prefix
                 return_routes.append(
                     ReturnRoute(
                         route.id,
-                        route.route if not prefix else f'C{route.route}',
+                        f'C{route.route}' if prefix and route.likes_percent < 60 else route.route,
                         origin,
                         destination,
                         route.stops.split(':')[1].split(",")[0].replace('\'', '').strip(),

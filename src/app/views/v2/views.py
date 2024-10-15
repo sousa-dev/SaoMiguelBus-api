@@ -41,7 +41,7 @@ def get_all_stops_v2(request):
                         "longitude": stop.longitude
                     })
             logger.debug(f"Serialized {len(cleaned_stops)} stops")
-            return Response(cleaned_stops)
+            return Response(StopSerializer(all_normal_stops, many=True).data + cleaned_stops)
         except Exception as e:
             logger.exception("Error occurred in get_all_stops_v2")
             return Response({'error': 'Internal Server Error'}, status=500)
