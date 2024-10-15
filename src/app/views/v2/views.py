@@ -156,7 +156,7 @@ def get_trip_v2(request):
 
             # Process routes in a more efficient manner
             return_routes = old_routes
-            for route in routes:
+            for route in []:#routes:
                 stops = route.stops
                 stops_tuple = [(stop, time) for stop, time in json.loads(str(stops).replace("'", '"')).items()]
                 origin_idx = next((index for index, (stop, _) in enumerate(stops_tuple) if origin_cleaned in clean_string(stop)), None)
