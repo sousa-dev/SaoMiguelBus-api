@@ -59,4 +59,7 @@ urlpatterns = [
 
     ### OTHER ####
     path('api/other/fix/stops', views.fix_stops),
+
+    #### FEEDBACK ####
+    path('ai/api/v1/feedback', views.gather_feedback),
 ]

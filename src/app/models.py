@@ -225,3 +225,14 @@ class LoadRoute():
         for stop in self.stops:
             stop_times += f"{stop}-{self.times[stop]},"
         return '{' + f'"id": {self.id}, "route": {self.route}, "stops": {stop_times}, "weekday": {self.weekday}, "information": {self.information}' + '}'
+class AIFeedback(models.Model):
+    id = models.AutoField(primary_key=True)
+    language = models.CharField(max_length=10, null=True)
+    first_time = models.BooleanField(null=True)
+    residence_status = models.CharField(max_length=50, null=True)
+    guide_preference = models.CharField(max_length=50, null=True)
+    payment_willingness = models.CharField(max_length=50, null=True)
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Feedback {self.id} | {self.timestamp}"
