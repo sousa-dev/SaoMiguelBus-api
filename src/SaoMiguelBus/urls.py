@@ -46,6 +46,7 @@ urlpatterns = [
     #path('clean', views.clean_trip_and_stops),
     #### V2 ####
     path('api/v2/android/load', views.get_android_load_v2),
+    path('api/v2/webapp/load', views.get_webapp_load_v2),
     path('api/v2/stops', views.get_all_stops_v2),
     path('api/v2/route', views.get_trip_v2),    
 

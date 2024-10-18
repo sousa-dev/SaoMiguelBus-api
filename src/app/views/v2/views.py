@@ -5,8 +5,8 @@ import requests
 from SaoMiguelBus import settings
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from app.models import Holiday, Stop, TripStop, ReturnRoute, Trip, Variables
-from app.serializers import StopSerializer, TripSerializer
+from app.models import Holiday, LoadRoute, Route, Stop, TripStop, ReturnRoute, Trip, Variables
+from app.serializers import HolidaySerializer, StopSerializer, TripSerializer
 from django.views.decorators.http import require_GET
 import django.db.models as models
 from datetime import datetime, timedelta
@@ -203,3 +203,36 @@ def get_trip_v2(request):
         except Exception as e:
             logger.exception("Error occurred in get_trip_v2")
             return Response(status=404)
+        
+@api_view(['GET'])
+@require_GET
+def get_webapp_load_v2(request):
+        if request.method == 'GET':
+            try:
+                all_routes = Route.objects.all()
+                all_routes = all_routes.exclude(disabled=True)
+                holidays = Holiday.objects.all()
+                routes = []
+                all_stops = set()  # Use a set to store unique stops
+                try:
+                    variable = Variables.objects.all().first().__dict__
+                    routes = [{'version': variable['version'], 'maps': variable['maps'], 'holidays': HolidaySerializer(holidays, many=True).data}]
+                except Exception as e:
+                    print(e)
+                for route in all_routes:
+                    stops = route.stops.replace('\'', '').replace('{', '').replace('}', '').split(',')
+                    route_stops = [stop.split(':')[0].strip() for stop in stops]
+                    all_stops.update(route_stops)  # Add stops to the set
+                    all_times = [stop.split(':')[1].strip() for stop in stops]
+                    routes.append(LoadRoute(route.id, route.route, route_stops, all_times, route.type_of_day, route.information).__dict__)
+                
+                # Convert set to list for JSON serialization
+                all_stops_list = list(all_stops)
+                
+                # Add all_stops to the response
+                routes[0]['stops'] = all_stops_list
+                
+                return Response(routes)
+            except Exception as e:
+                print(e)
+                return Response(status=404)
