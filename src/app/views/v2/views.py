@@ -5,8 +5,8 @@ import requests
 from SaoMiguelBus import settings
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from app.models import Holiday, LoadRoute, Route, Stop, TripStop, ReturnRoute, Trip, Variables
-from app.serializers import HolidaySerializer, StopSerializer, TripSerializer
+from app.models import Holiday, Info, LoadRoute, Route, Stop, TripStop, ReturnRoute, Trip, Variables
+from app.serializers import HolidaySerializer, InfoSerializer, StopSerializer, TripSerializer
 from django.views.decorators.http import require_GET
 import django.db.models as models
 from datetime import datetime, timedelta
@@ -212,11 +212,12 @@ def get_webapp_load_v2(request):
                 all_routes = Route.objects.all()
                 all_routes = all_routes.exclude(disabled=True)
                 holidays = Holiday.objects.all()
+                infos = Info.objects.filter(start__lte=timezone.now()).filter(end__gte=timezone.now())
                 routes = []
                 all_stops = set()  # Use a set to store unique stops
                 try:
                     variable = Variables.objects.all().first().__dict__
-                    routes = [{'version': variable['version'], 'maps': variable['maps'], 'holidays': HolidaySerializer(holidays, many=True).data}]
+                    routes = [{'version': variable['version'], 'maps': variable['maps'], 'holidays': HolidaySerializer(holidays, many=True).data, 'infos': InfoSerializer(infos, many=True).data}]
                 except Exception as e:
                     print(e)
                 for route in all_routes:

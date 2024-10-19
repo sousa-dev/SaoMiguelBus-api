@@ -178,15 +178,25 @@ class Group(models.Model):
 
 class Info(models.Model):
     id = models.AutoField(primary_key=True)
-    title = models.CharField(max_length=50)
-    message = models.CharField(max_length=1000)
+
+    titlePT = models.TextField(default="")
+    messagePT = models.TextField(default="")
+    titleEN = models.TextField(default="")
+    messageEN = models.TextField(default="")
+    titleES = models.TextField(default="")
+    messageES = models.TextField(default="")
+    titleFR = models.TextField(default="")
+    messageFR = models.TextField(default="")
+    titleDE = models.TextField(default="")
+    messageDE = models.TextField(default="")
+
     start = models.DateTimeField(default=timezone.now)
     end = models.DateTimeField(default=timezone.now)
     source = models.CharField(max_length=500)
     company = models.CharField(max_length=20)
 
     def __str__(self):
-        return f"{self.company} - {self.title} | {self.message} | {self.start} -> {self.end}"
+        return f"{self.company} - {self.titlePT} | {self.messagePT} | {self.start} -> {self.end}"
     
 class Holiday(models.Model):
     id = models.AutoField(primary_key=True)
