@@ -1,4 +1,4 @@
-from app.models import Route, Stop, Trip, TripStop
+from app.models import EmailOpen, Route, Stop, Trip, TripStop
 from django.http import HttpResponse
 
 from app.utils.str_utils import clean_string
@@ -21,3 +21,19 @@ def fix_stops(request):
         trip_route.save()
 
     return HttpResponse("Stops fixed")
+
+def track_email_open(request):
+    email_template_id = request.GET.get('email_template_id')
+    contact_id = request.GET.get('contact_id')
+    
+    if email_template_id and contact_id:
+        email_open, created = EmailOpen.objects.get_or_create(
+            email_template_id=email_template_id,
+            contact_id=contact_id,
+        )
+        email_open.clicks += 1
+        email_open.save()
+        
+        return HttpResponse("Email open tracked", status=200)
+    else:
+        return HttpResponse("Missing parameters", status=400)

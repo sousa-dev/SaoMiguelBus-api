@@ -63,4 +63,7 @@ urlpatterns = [
 
     #### FEEDBACK ####
     path('ai/api/v1/feedback', views.gather_feedback),
+
+    #### EXTERNAL ####
+    path('track_email_open/', views.track_email_open),
 ]

@@ -246,3 +246,12 @@ class AIFeedback(models.Model):
 
     def __str__(self):
         return f"Feedback {self.id} | {self.timestamp}"
+    
+class EmailOpen(models.Model):
+    id = models.AutoField(primary_key=True)
+    email_template_id = models.IntegerField()
+    contact_id = models.IntegerField()
+    clicks = models.IntegerField(default=0)
+
+    def __str__(self):
+        return f"Email open {self.email_template_id} | {self.contact_id} | {self.clicks} clicks"
