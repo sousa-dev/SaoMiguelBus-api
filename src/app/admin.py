@@ -1,5 +1,5 @@
 from django.contrib import admin
-from app.models import Info, Stop, Route, Stat, Variables, Ad, Group, Holiday, Data, Trip, TripStop, AIFeedback
+from app.models import EmailOpen, Info, Stop, Route, Stat, Variables, Ad, Group, Holiday, Data, Trip, TripStop, AIFeedback
 
 admin.site.register(Stop)
 admin.site.register(Route)
@@ -13,3 +13,4 @@ admin.site.register(Data)
 admin.site.register(Trip)
 admin.site.register(TripStop)
 admin.site.register(AIFeedback)
+admin.site.register(EmailOpen)
