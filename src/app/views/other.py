@@ -39,5 +39,5 @@ def track_email_open(request):
         return HttpResponse("Missing parameters", status=400)
     
 def get_email_opens(request):
-    email_open = EmailOpen.objects.all()
-    return JsonResponse(list(email_open), safe=False)
+    email_opens = EmailOpen.objects.all().values()  # Use values() to get a serializable queryset
+    return JsonResponse(list(email_opens), safe=False)
