@@ -1,5 +1,5 @@
 from app.models import EmailOpen, Route, Stop, Trip, TripStop
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 
 from app.utils.str_utils import clean_string
 
@@ -37,3 +37,7 @@ def track_email_open(request):
         return HttpResponse("Email open tracked", status=200)
     else:
         return HttpResponse("Missing parameters", status=400)
+    
+def get_email_opens(request):
+    email_open = EmailOpen.objects.all()
+    return JsonResponse(list(email_open), safe=False)

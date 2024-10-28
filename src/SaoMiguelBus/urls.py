@@ -66,4 +66,5 @@ urlpatterns = [
 
     #### EXTERNAL ####
     path('track_email_open/', views.track_email_open),
+    path('get_email_opens/', views.get_email_opens),
 ]
