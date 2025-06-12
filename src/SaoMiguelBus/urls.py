@@ -14,7 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from app import views
 
 
@@ -67,4 +67,7 @@ urlpatterns = [
     #### EXTERNAL ####
     path('track_email_open/', views.track_email_open),
     path('get_email_opens/', views.get_email_opens),
+    
+    #### SUBSCRIPTIONS ####
+    path('api/v1/subscription/', include('subscriptions.urls')),
 ]

@@ -12,14 +12,21 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 
 import os
 
-import environ
+try:
+    import environ
+    env = environ.Env()
+    # Reading .env file
+    environ.Env.read_env()
+except ImportError:
+    # Fallback for development without django-environ
+    import os
+    class Env:
+        def __call__(self, key, default=None):
+            return os.getenv(key, default)
+    env = Env()
 
-env = environ.Env()
-# Reading .env file
-environ.Env.read_env()
-
-GOOGLE_MAPS_API_KEY = env('GOOGLE_MAPS_API_KEY')
-AUTH_KEY = env('AUTH_KEY')
+GOOGLE_MAPS_API_KEY = env('GOOGLE_MAPS_API_KEY', default='dummy_key')
+AUTH_KEY = env('AUTH_KEY', default='dummy_auth')
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -63,6 +70,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
     'app.apps.AppConfig',
+    'subscriptions',
 ]
 
 MIDDLEWARE = [
@@ -110,7 +118,7 @@ DATABASES = {
         'HOST': 'srv-captain--smb-db',
         'PORT': '5432',
      }
- } if env('ENVIRONMENT') == 'production' else {
+ } if env('ENVIRONMENT', default='development') == 'production' else {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
