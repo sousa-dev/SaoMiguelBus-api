@@ -53,7 +53,7 @@ def verify_subscription(request):
         if subscription:
             # Increment verification count
             subscription.verification_count += 1
-            subscription.save(update_fields=['verification_count'])
+            subscription.save()  # Remove update_fields to allow auto_now to work
         
         # Check if subscription is active for response
         active_subscription = Subscription.objects.filter(

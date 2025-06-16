@@ -300,3 +300,53 @@ class SubscriptionVerificationCountTests(TestCase):
         
         subscription.refresh_from_db()
         self.assertEqual(subscription.verification_count, 5)
+    
+    def test_updated_at_changes_when_verification_count_incremented(self):
+        """Test that updated_at field is updated when verification count is incremented"""
+        from django.utils import timezone
+        import time
+        
+        subscription = Subscription.objects.create(
+            email="timestamp@example.com",
+            is_active=True,
+            verification_count=0
+        )
+        
+        # Store initial updated_at
+        initial_updated_at = subscription.updated_at
+        
+        # Wait a small amount to ensure timestamp difference
+        time.sleep(0.1)
+        
+        # Call verification endpoint
+        response = self.client.post(
+            self.verify_url,
+            data=json.dumps({"email": "timestamp@example.com"}),
+            content_type="application/json"
+        )
+        
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        
+        # Refresh and check
+        subscription.refresh_from_db()
+        
+        # Verification count should be incremented
+        self.assertEqual(subscription.verification_count, 1)
+        
+        # updated_at should be newer than initial
+        self.assertGreater(subscription.updated_at, initial_updated_at)
+        
+        # Test second increment
+        second_updated_at = subscription.updated_at
+        time.sleep(0.1)
+        
+        # Call again
+        self.client.post(
+            self.verify_url,
+            data=json.dumps({"email": "timestamp@example.com"}),
+            content_type="application/json"
+        )
+        
+        subscription.refresh_from_db()
+        self.assertEqual(subscription.verification_count, 2)
+        self.assertGreater(subscription.updated_at, second_updated_at)
