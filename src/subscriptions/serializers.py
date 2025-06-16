@@ -4,7 +4,7 @@ from .models import Subscription
 class SubscriptionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Subscription
-        fields = ['id', 'email', 'is_active', 'created_at', 'updated_at']
+        fields = ['id', 'email', 'is_active', 'verification_count', 'created_at', 'updated_at']
 
 class SubscriptionVerificationRequestSerializer(serializers.Serializer):
     email = serializers.EmailField()

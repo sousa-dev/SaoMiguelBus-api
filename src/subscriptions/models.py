@@ -6,6 +6,7 @@ class Subscription(models.Model):
     id = models.AutoField(primary_key=True)
     email = models.EmailField(validators=[EmailValidator()], unique=True)
     is_active = models.BooleanField(default=True)
+    verification_count = models.PositiveIntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     

@@ -47,14 +47,22 @@ def verify_subscription(request):
         
         email = serializer.validated_data['email']
         
-        # Find active subscription
-        subscription = Subscription.objects.filter(
+        # Find subscription (active or inactive) and increment verification count
+        subscription = Subscription.objects.filter(email=email).first()
+        
+        if subscription:
+            # Increment verification count
+            subscription.verification_count += 1
+            subscription.save(update_fields=['verification_count'])
+        
+        # Check if subscription is active for response
+        active_subscription = Subscription.objects.filter(
             email=email,
             is_active=True
         ).first()
         
         # Prepare response
-        if subscription:
+        if active_subscription:
             response_data = {
                 'hasActiveSubscription': True,
                 'subscriptionType': 'premium',
