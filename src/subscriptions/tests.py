@@ -350,3 +350,197 @@ class SubscriptionVerificationCountTests(TestCase):
         subscription.refresh_from_db()
         self.assertEqual(subscription.verification_count, 2)
         self.assertGreater(subscription.updated_at, second_updated_at)
+
+
+class SubscriptionCreationTests(TestCase):
+    """Test the subscription creation functionality"""
+    
+    def setUp(self):
+        """Set up test data"""
+        self.client = Client()
+        self.verify_url = reverse('subscriptions:verify_subscription')
+        self.valid_code = "a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6q7r8s9t0u1v2w3x4y5z6a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6q7r8s9t0u1v2w3x4y5z6"
+        
+        # Create an inactive subscription for testing activation
+        self.inactive_subscription = Subscription.objects.create(
+            email="inactive@example.com",
+            is_active=False,
+            verification_count=3
+        )
+    
+    def test_create_new_subscription_with_valid_code(self):
+        """Test creating a new subscription with valid verification code"""
+        email = "newuser@example.com"
+        
+        # Ensure no subscription exists initially
+        self.assertFalse(Subscription.objects.filter(email=email).exists())
+        
+        response = self.client.post(
+            self.verify_url,
+            data=json.dumps({
+                "email": email,
+                "create_subscription": self.valid_code
+            }),
+            content_type="application/json"
+        )
+        
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        data = response.json()
+        
+        # Should return active subscription
+        self.assertTrue(data['hasActiveSubscription'])
+        self.assertEqual(data['subscriptionType'], 'premium')
+        self.assertEqual(data['features'], ['ad_removal', 'priority_support'])
+        
+        # Subscription should be created in database
+        subscription = Subscription.objects.get(email=email)
+        self.assertTrue(subscription.is_active)
+        self.assertEqual(subscription.verification_count, 1)  # Incremented after creation
+    
+    def test_create_subscription_with_invalid_code(self):
+        """Test that invalid verification code doesn't create subscription"""
+        email = "invalidcode@example.com"
+        
+        response = self.client.post(
+            self.verify_url,
+            data=json.dumps({
+                "email": email,
+                "create_subscription": "invalid_code_123"
+            }),
+            content_type="application/json"
+        )
+        
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        data = response.json()
+        
+        # Should return no active subscription
+        self.assertFalse(data['hasActiveSubscription'])
+        self.assertEqual(data['message'], 'No active subscription found for this email')
+        
+        # No subscription should be created
+        self.assertFalse(Subscription.objects.filter(email=email).exists())
+    
+    def test_activate_existing_inactive_subscription(self):
+        """Test activating an existing inactive subscription with valid code"""
+        email = self.inactive_subscription.email
+        initial_count = self.inactive_subscription.verification_count
+        
+        response = self.client.post(
+            self.verify_url,
+            data=json.dumps({
+                "email": email,
+                "create_subscription": self.valid_code
+            }),
+            content_type="application/json"
+        )
+        
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        data = response.json()
+        
+        # Should return active subscription
+        self.assertTrue(data['hasActiveSubscription'])
+        self.assertEqual(data['subscriptionType'], 'premium')
+        
+        # Subscription should be activated
+        self.inactive_subscription.refresh_from_db()
+        self.assertTrue(self.inactive_subscription.is_active)
+        self.assertEqual(self.inactive_subscription.verification_count, initial_count + 1)
+    
+    def test_existing_active_subscription_with_create_code(self):
+        """Test that existing active subscription remains unchanged with create code"""
+        # Create an active subscription
+        subscription = Subscription.objects.create(
+            email="active@example.com",
+            is_active=True,
+            verification_count=5
+        )
+        
+        response = self.client.post(
+            self.verify_url,
+            data=json.dumps({
+                "email": subscription.email,
+                "create_subscription": self.valid_code
+            }),
+            content_type="application/json"
+        )
+        
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        data = response.json()
+        
+        # Should return active subscription
+        self.assertTrue(data['hasActiveSubscription'])
+        
+        # Subscription should remain active with incremented count
+        subscription.refresh_from_db()
+        self.assertTrue(subscription.is_active)
+        self.assertEqual(subscription.verification_count, 6)  # Incremented
+    
+    def test_empty_create_subscription_code(self):
+        """Test that empty create_subscription code behaves like normal verification"""
+        email = "empty@example.com"
+        
+        response = self.client.post(
+            self.verify_url,
+            data=json.dumps({
+                "email": email,
+                "create_subscription": ""
+            }),
+            content_type="application/json"
+        )
+        
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        data = response.json()
+        
+        # Should return no subscription
+        self.assertFalse(data['hasActiveSubscription'])
+        
+        # No subscription should be created
+        self.assertFalse(Subscription.objects.filter(email=email).exists())
+    
+    def test_create_subscription_code_case_sensitivity(self):
+        """Test that verification code is case sensitive"""
+        email = "case@example.com"
+        uppercase_code = self.valid_code.upper()
+        
+        response = self.client.post(
+            self.verify_url,
+            data=json.dumps({
+                "email": email,
+                "create_subscription": uppercase_code
+            }),
+            content_type="application/json"
+        )
+        
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        data = response.json()
+        
+        # Should not create subscription with wrong case
+        self.assertFalse(data['hasActiveSubscription'])
+        self.assertFalse(Subscription.objects.filter(email=email).exists())
+    
+    def test_verification_without_create_code_unchanged(self):
+        """Test that normal verification behavior is unchanged"""
+        email = "normal@example.com"
+        
+        # Create an active subscription
+        subscription = Subscription.objects.create(
+            email=email,
+            is_active=True,
+            verification_count=0
+        )
+        
+        response = self.client.post(
+            self.verify_url,
+            data=json.dumps({"email": email}),
+            content_type="application/json"
+        )
+        
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        data = response.json()
+        
+        # Should return active subscription
+        self.assertTrue(data['hasActiveSubscription'])
+        
+        # Count should be incremented
+        subscription.refresh_from_db()
+        self.assertEqual(subscription.verification_count, 1)

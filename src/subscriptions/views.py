@@ -24,7 +24,8 @@ def verify_subscription(request):
     
     Request:
     {
-        "email": "user@example.com"
+        "email": "user@example.com",
+        "create_subscription": "optional_64_char_code"
     }
     
     Response:
@@ -46,6 +47,30 @@ def verify_subscription(request):
             }, status=status.HTTP_400_BAD_REQUEST)
         
         email = serializer.validated_data['email']
+        create_subscription_code = serializer.validated_data.get('create_subscription')
+        
+        # Hardcoded verification code (must match the one in the webapp)
+        CREATION_VERIFICATION_CODE = "a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6q7r8s9t0u1v2w3x4y5z6a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6q7r8s9t0u1v2w3x4y5z6"
+        
+        # Check if creation code is provided and matches
+        if create_subscription_code and create_subscription_code == CREATION_VERIFICATION_CODE:
+            # Create subscription if it doesn't exist
+            subscription, created = Subscription.objects.get_or_create(
+                email=email,
+                defaults={
+                    'is_active': True,
+                    'verification_count': 0
+                }
+            )
+            
+            if created:
+                logger.info(f"Created new subscription for email: {email}")
+            else:
+                # If subscription exists but is inactive, activate it
+                if not subscription.is_active:
+                    subscription.is_active = True
+                    subscription.save()
+                    logger.info(f"Activated existing subscription for email: {email}")
         
         # Find subscription (active or inactive) and increment verification count
         subscription = Subscription.objects.filter(email=email).first()

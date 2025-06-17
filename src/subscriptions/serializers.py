@@ -8,6 +8,7 @@ class SubscriptionSerializer(serializers.ModelSerializer):
 
 class SubscriptionVerificationRequestSerializer(serializers.Serializer):
     email = serializers.EmailField()
+    create_subscription = serializers.CharField(required=False, max_length=128, allow_blank=True)
     
     def validate_email(self, value):
         """Validate email format and basic checks"""
