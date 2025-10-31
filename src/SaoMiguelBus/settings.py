@@ -107,7 +107,7 @@ DATABASES = {
         'NAME': 'saomiguelbus',
         'USER': 'sousadev',
         'PASSWORD': '9907ea575cd8ffe8',
-        'HOST': 'srv-captain--smb-db',
+        'HOST': 'srv-captain--smb-database',
         'PORT': '5432',
      }
  } if env('ENVIRONMENT') == 'production' else {
