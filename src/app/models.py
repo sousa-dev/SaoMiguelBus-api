@@ -255,3 +255,33 @@ class EmailOpen(models.Model):
 
     def __str__(self):
         return f"Email open {self.email_template_id} | {self.contact_id} | {self.clicks} clicks"
+
+
+class LegacyExportJob(models.Model):
+    STATUS_PENDING = 'pending'
+    STATUS_RUNNING = 'running'
+    STATUS_COMPLETED = 'completed'
+    STATUS_FAILED = 'failed'
+    STATUS_CHOICES = [
+        (STATUS_PENDING, 'Pending'),
+        (STATUS_RUNNING, 'Running'),
+        (STATUS_COMPLETED, 'Completed'),
+        (STATUS_FAILED, 'Failed'),
+    ]
+
+    job_id = models.CharField(max_length=32, unique=True, editable=False)
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default=STATUS_PENDING)
+    started_at = models.DateTimeField(default=timezone.now)
+    finished_at = models.DateTimeField(null=True, blank=True)
+    exported_at = models.DateTimeField(null=True, blank=True)
+    export_file = models.FileField(upload_to='legacy_exports/', blank=True)
+    table_counts = JSONField(null=True, blank=True)
+    error = models.TextField(blank=True)
+
+    class Meta:
+        ordering = ['-started_at']
+        verbose_name = 'Legacy export job'
+        verbose_name_plural = 'Legacy export jobs'
+
+    def __str__(self):
+        return f'{self.job_id} ({self.status})'

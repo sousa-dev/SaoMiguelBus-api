@@ -2,11 +2,8 @@ from django.conf import settings
 from django.http import FileResponse, JsonResponse
 from django.views.decorators.http import require_GET
 
-from app.services.legacy_export import (
-    job_export_path,
-    read_job_status,
-    start_legacy_export_job,
-)
+from app.models import LegacyExportJob
+from app.services.legacy_export import get_job, read_job_status, start_legacy_export_job
 
 
 def _check_auth(request):
@@ -78,27 +75,25 @@ def export_legacy_download(request):
     if not job_id:
         return JsonResponse({'error': 'job_id is required'}, status=400)
 
-    status = read_job_status(job_id)
-    if status is None:
+    job = get_job(job_id)
+    if job is None:
         return JsonResponse({'error': 'Unknown job_id'}, status=404)
-    if status.get('status') != 'completed':
+    if job.status != LegacyExportJob.STATUS_COMPLETED:
         return JsonResponse(
             {
                 'error': 'Export not ready',
-                'status': status.get('status'),
+                'status': job.status,
                 'job_id': job_id,
             },
             status=409,
         )
-
-    export_path = job_export_path(job_id)
-    if not export_path.is_file():
+    if not job.export_file:
         return JsonResponse({'error': 'Export file missing on disk'}, status=500)
 
-    exported_on = (status.get('exported_at') or status.get('finished_at') or '')[:10]
-    filename = f'smb_legacy_export_{exported_on or job_id}.json'
+    exported_on = (job.exported_at or job.finished_at or job.started_at).strftime('%Y-%m-%d')
+    filename = f'smb_legacy_export_{exported_on}.json'
     return FileResponse(
-        export_path.open('rb'),
+        job.export_file.open('rb'),
         as_attachment=True,
         filename=filename,
         content_type='application/json; charset=utf-8',

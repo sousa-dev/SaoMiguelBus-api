@@ -4,8 +4,10 @@ from __future__ import annotations
 
 from django.core.management.base import BaseCommand, CommandError
 from django.utils import timezone
+from django.utils.dateparse import parse_datetime
 
-from app.services.legacy_export import read_job_status, write_job_status, write_legacy_export
+from app.models import LegacyExportJob
+from app.services.legacy_export import get_job, write_legacy_export
 
 
 class Command(BaseCommand):
@@ -16,28 +18,30 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         job_id = options['job_id']
-        if read_job_status(job_id) is None:
+        job = get_job(job_id)
+        if job is None:
             raise CommandError(f'Unknown export job: {job_id}')
 
-        write_job_status(job_id, status='running', error=None)
+        job.status = LegacyExportJob.STATUS_RUNNING
+        job.error = ''
+        job.save(update_fields=['status', 'error'])
+
         try:
             result = write_legacy_export(job_id)
         except Exception as exc:
-            write_job_status(
-                job_id,
-                status='failed',
-                finished_at=timezone.now().isoformat(),
-                error=str(exc),
-            )
+            job.status = LegacyExportJob.STATUS_FAILED
+            job.finished_at = timezone.now()
+            job.error = str(exc)
+            job.save(update_fields=['status', 'finished_at', 'error'])
             raise CommandError(str(exc)) from exc
 
-        write_job_status(
-            job_id,
-            status='completed',
-            finished_at=timezone.now().isoformat(),
-            export_file=result['export_path'],
-            exported_at=result['exported_at'],
-            table_counts=result['table_counts'],
-            error=None,
+        exported_at = parse_datetime(result['exported_at']) or timezone.now()
+        job.status = LegacyExportJob.STATUS_COMPLETED
+        job.finished_at = timezone.now()
+        job.exported_at = exported_at
+        job.table_counts = result['table_counts']
+        job.error = ''
+        job.save(
+            update_fields=['status', 'finished_at', 'exported_at', 'table_counts', 'error']
         )
         self.stdout.write(self.style.SUCCESS(f'Export completed: {result["export_path"]}'))

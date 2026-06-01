@@ -7,35 +7,18 @@ import subprocess
 import sys
 import uuid
 from datetime import date, datetime
-from pathlib import Path
 from typing import Any
 
 from django.apps import apps
 from django.conf import settings
+from django.core.files.base import ContentFile
 from django.db import models
 from django.utils import timezone
 
+from app.models import LegacyExportJob
+
 EXPORT_FORMAT_VERSION = 2
 EXPORT_APP_LABELS = ('app', 'subscriptions')
-EXPORT_DIR_NAME = 'legacy_exports'
-
-
-def export_root() -> Path:
-    root = Path(settings.BASE_DIR) / EXPORT_DIR_NAME
-    root.mkdir(parents=True, exist_ok=True)
-    return root
-
-
-def job_status_path(job_id: str) -> Path:
-    return export_root() / f'{job_id}.status.json'
-
-
-def job_export_path(job_id: str) -> Path:
-    return export_root() / f'{job_id}.json'
-
-
-def latest_status_path() -> Path:
-    return export_root() / 'latest.status.json'
 
 
 def _serialize(value: Any) -> Any:
@@ -77,57 +60,83 @@ def build_legacy_export() -> dict[str, Any]:
     }
 
 
-def write_legacy_export(job_id: str) -> dict[str, Any]:
-    """Build export payload and write it to disk for ``job_id``."""
-    payload = build_legacy_export()
-    export_path = job_export_path(job_id)
-    export_path.write_text(
-        json.dumps(payload, indent=2, ensure_ascii=False),
-        encoding='utf-8',
-    )
-    table_counts = {name: len(rows) for name, rows in payload['tables'].items()}
+def job_to_dict(job: LegacyExportJob) -> dict[str, Any]:
     return {
-        'export_path': str(export_path),
-        'table_counts': table_counts,
-        'exported_at': payload['exported_at'],
+        'job_id': job.job_id,
+        'status': job.status,
+        'started_at': job.started_at.isoformat() if job.started_at else None,
+        'finished_at': job.finished_at.isoformat() if job.finished_at else None,
+        'exported_at': job.exported_at.isoformat() if job.exported_at else None,
+        'export_file': job.export_file.name if job.export_file else None,
+        'table_counts': job.table_counts,
+        'error': job.error or None,
     }
 
 
+def get_job(job_id: str) -> LegacyExportJob | None:
+    return LegacyExportJob.objects.filter(job_id=job_id).first()
+
+
 def read_job_status(job_id: str) -> dict[str, Any] | None:
-    path = job_status_path(job_id)
-    if not path.is_file():
-        return None
-    return json.loads(path.read_text(encoding='utf-8'))
+    job = get_job(job_id)
+    return job_to_dict(job) if job else None
 
 
 def write_job_status(job_id: str, **fields: Any) -> dict[str, Any]:
-    status = read_job_status(job_id) or {'job_id': job_id}
-    status.update(fields)
-    payload = json.dumps(status, indent=2)
-    job_status_path(job_id).write_text(payload, encoding='utf-8')
-    latest_status_path().write_text(payload, encoding='utf-8')
-    return status
+    job = get_job(job_id)
+    if job is None:
+        raise ValueError(f'Unknown export job: {job_id}')
+    for key, value in fields.items():
+        setattr(job, key, value)
+    job.save()
+    return job_to_dict(job)
 
 
 def read_latest_status() -> dict[str, Any] | None:
-    path = latest_status_path()
-    if not path.is_file():
-        return None
-    return json.loads(path.read_text(encoding='utf-8'))
+    job = LegacyExportJob.objects.order_by('-started_at').first()
+    return job_to_dict(job) if job else None
 
 
 def find_running_job() -> dict[str, Any] | None:
-    latest = read_latest_status()
-    if latest and latest.get('status') == 'running':
-        return latest
-    return None
+    job = (
+        LegacyExportJob.objects.filter(status=LegacyExportJob.STATUS_RUNNING)
+        .order_by('-started_at')
+        .first()
+    )
+    return job_to_dict(job) if job else None
+
+
+def write_legacy_export(job_id: str) -> dict[str, Any]:
+    """Build export payload and attach it to the job record."""
+    job = get_job(job_id)
+    if job is None:
+        raise ValueError(f'Unknown export job: {job_id}')
+
+    payload = build_legacy_export()
+    body = json.dumps(payload, indent=2, ensure_ascii=False)
+    filename = f'smb_legacy_export_{job.job_id}.json'
+    job.export_file.save(filename, ContentFile(body.encode('utf-8')), save=False)
+
+    exported_at = timezone.now()
+    table_counts = {name: len(rows) for name, rows in payload['tables'].items()}
+    job.exported_at = exported_at
+    job.table_counts = table_counts
+    job.save()
+
+    return {
+        'export_path': job.export_file.path if job.export_file else '',
+        'table_counts': table_counts,
+        'exported_at': exported_at.isoformat(),
+    }
 
 
 def spawn_export_job(job_id: str) -> None:
-    manage_py = Path(settings.BASE_DIR) / 'manage.py'
+    import os
+
+    manage_py = os.path.join(settings.BASE_DIR, 'manage.py')
     subprocess.Popen(
-        [sys.executable, str(manage_py), 'export_legacy', '--job-id', job_id],
-        cwd=str(settings.BASE_DIR),
+        [sys.executable, manage_py, 'export_legacy', '--job-id', job_id],
+        cwd=settings.BASE_DIR,
         stdin=subprocess.DEVNULL,
         stdout=subprocess.DEVNULL,
         stderr=subprocess.DEVNULL,
@@ -142,16 +151,11 @@ def start_legacy_export_job() -> dict[str, Any]:
         return running
 
     job_id = uuid.uuid4().hex
-    status = write_job_status(
-        job_id,
-        status='pending',
-        started_at=timezone.now().isoformat(),
-        finished_at=None,
-        export_file=str(job_export_path(job_id)),
-        error=None,
-        table_counts=None,
+    job = LegacyExportJob.objects.create(
+        job_id=job_id,
+        status=LegacyExportJob.STATUS_PENDING,
     )
     spawn_export_job(job_id)
-    status['status'] = 'running'
-    write_job_status(job_id, status='running')
-    return read_job_status(job_id) or status
+    job.status = LegacyExportJob.STATUS_RUNNING
+    job.save(update_fields=['status'])
+    return job_to_dict(job)
