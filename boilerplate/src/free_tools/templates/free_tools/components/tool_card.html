@@ -1,0 +1,30 @@
+{% comment %}Tool card for the index page. Usage: {% include ... with tool=tool %}{% endcomment %}
+
+<a href="{{ tool.get_absolute_url }}"
+   data-ga-event="tool_card_click"
+   data-ga-params='{"tool_slug":"{{ tool.slug }}"}'
+   class="group bg-gray-900 rounded-xl border border-gray-800 p-6 hover:border-teal-400/40 hover:shadow-lg hover:shadow-teal-500/10 transition-all duration-300">
+    <div class="flex items-start gap-4">
+        {% if tool.icon_class %}
+        <div class="w-12 h-12 bg-gray-800 text-teal-300 rounded-lg flex items-center justify-center flex-shrink-0 group-hover:bg-teal-400/10 transition-colors">
+            <i class="{{ tool.icon_class }}"></i>
+        </div>
+        {% endif %}
+        <div class="min-w-0">
+            <h2 class="text-lg font-bold text-white group-hover:text-teal-300 transition-colors">
+                {{ tool.name }}
+            </h2>
+            {% if tool.tagline %}
+            <p class="text-gray-400 text-sm mt-1 line-clamp-2">{{ tool.tagline }}</p>
+            {% endif %}
+            {% if tool.category %}
+            <span class="inline-block mt-2 text-xs px-2 py-0.5 bg-gray-800 text-gray-300 rounded-full">
+                {{ tool.category.name }}
+            </span>
+            {% endif %}
+        </div>
+    </div>
+    <div class="mt-4 text-teal-300 text-sm font-medium group-hover:translate-x-1 transition-transform">
+        Use tool →
+    </div>
+</a>

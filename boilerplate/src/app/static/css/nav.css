@@ -1,0 +1,28 @@
+
+nav {
+    border-radius: 0 0 10px 10px; /* Rounded corners at the bottom */
+    border-bottom: 2px solid #23dbb9; /* Outer border */
+}
+
+/* Dropdown content is hidden by default */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    left: 0;
+    background-color: #000;
+    border-radius: 0 0 10px 10px; /* Rounded corners at the bottom */
+    border-bottom: 2px solid #23dbb9; /* Outer border */
+    z-index: 10;
+}
+
+/* Show dropdown on hover */
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/* Make sure the hover works on larger screens */
+@media (min-width: 1024px) {
+    .nav-links {
+        display: flex !important; /* Ensure nav-links are flexed on larger screens */
+    }
+}

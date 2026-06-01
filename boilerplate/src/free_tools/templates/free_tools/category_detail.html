@@ -1,0 +1,40 @@
+{% extends 'landing_page/base.html' %}
+
+{% block title %}{{ category.name }} Tools | {{ PROJECT_NAME }}{% endblock %}
+
+{% block css %}
+<link rel="canonical" href="{{ PROJECT_URL }}{{ category.get_absolute_url }}">
+<meta name="description" content="{{ category.description|default:category.name }} — free developer tools.">
+{% endblock %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 py-10">
+    <nav class="text-sm text-gray-400 mb-6" aria-label="Breadcrumb">
+        <a href="/" class="hover:text-teal-300">Home</a>
+        <span class="mx-2">/</span>
+        <a href="{% url 'free_tools:tool_index' %}" class="hover:text-teal-300">Free Tools</a>
+        <span class="mx-2">/</span>
+        <span class="text-white">{{ category.name }}</span>
+    </nav>
+
+    {% if category.icon_class %}
+    <div class="w-12 h-12 bg-gray-800 text-teal-300 rounded-lg flex items-center justify-center mb-4">
+        <i class="{{ category.icon_class }} fa-lg"></i>
+    </div>
+    {% endif %}
+    <h1 class="text-4xl font-bold text-white mb-3">{{ category.name }} Tools</h1>
+    {% if category.description %}
+    <p class="text-lg text-gray-300 mb-8 max-w-2xl">{{ category.description }}</p>
+    {% endif %}
+
+    {% if tools %}
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {% for tool in tools %}
+            {% include "free_tools/components/tool_card.html" with tool=tool %}
+        {% endfor %}
+    </div>
+    {% else %}
+    <p class="text-gray-400 text-lg py-20 text-center">No tools in this category yet.</p>
+    {% endif %}
+</div>
+{% endblock %}

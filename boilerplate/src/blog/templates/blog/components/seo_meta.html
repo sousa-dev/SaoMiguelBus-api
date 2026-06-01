@@ -1,0 +1,53 @@
+{% comment %}
+SEO meta tags component for blog posts.
+Usage: {% include "blog/components/seo_meta.html" with post=post %}
+{% endcomment %}
+
+{% load static %}
+
+{% if post %}
+{# Primary Meta Tags #}
+<meta name="description" content="{{ post.meta_description|default:post.effective_excerpt }}">
+{% if post.canonical_url %}
+<link rel="canonical" href="{{ post.canonical_url }}">
+{% else %}
+<link rel="canonical" href="{{ PROJECT_URL }}{{ post.get_absolute_url }}">
+{% endif %}
+{% if post.noindex %}<meta name="robots" content="noindex, follow">{% endif %}
+{% if post.focus_keyword %}<meta name="keywords" content="{{ post.focus_keyword }}">{% endif %}
+
+{# Open Graph #}
+<meta property="og:type" content="article">
+<meta property="og:title" content="{{ post.effective_meta_title }}">
+<meta property="og:description" content="{{ post.meta_description|default:post.effective_excerpt }}">
+{% if post.effective_og_image %}
+<meta property="og:image" content="{{ PROJECT_URL }}{{ post.effective_og_image.url }}">
+{% endif %}
+<meta property="og:url" content="{{ PROJECT_URL }}{{ post.get_absolute_url }}">
+<meta property="og:site_name" content="{{ PROJECT_NAME }}">
+{% if post.published_at %}<meta property="article:published_time" content="{{ post.published_at|date:'c' }}">{% endif %}
+<meta property="article:modified_time" content="{{ post.updated_at|date:'c' }}">
+{% if post.author %}<meta property="article:author" content="{{ post.author.get_full_name|default:post.author.username }}">{% endif %}
+{% if post.category %}<meta property="article:section" content="{{ post.category.name }}">{% endif %}
+{% for tag in post.tags.all %}
+<meta property="article:tag" content="{{ tag.name }}">
+{% endfor %}
+
+{# Twitter Card #}
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{ post.effective_meta_title }}">
+<meta name="twitter:description" content="{{ post.meta_description|default:post.effective_excerpt }}">
+{% if post.effective_og_image %}
+<meta name="twitter:image" content="{{ PROJECT_URL }}{{ post.effective_og_image.url }}">
+{% endif %}
+
+{# hreflang for translations #}
+<link rel="alternate" hreflang="{{ post.language }}" href="{{ PROJECT_URL }}{{ post.get_absolute_url }}">
+{% for translation in translations %}
+<link rel="alternate" hreflang="{{ translation.language }}" href="{{ PROJECT_URL }}{{ translation.get_absolute_url }}">
+{% endfor %}
+<link rel="alternate" hreflang="x-default" href="{{ PROJECT_URL }}{{ post.get_absolute_url }}">
+
+{% elif noindex %}
+<meta name="robots" content="noindex, follow">
+{% endif %}

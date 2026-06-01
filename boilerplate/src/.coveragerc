@@ -1,0 +1,13 @@
+[run]
+include =
+    blog/services.py
+    free_tools/services.py
+    stripe_payments/services.py
+omit =
+    */migrations/*
+    */tests/*
+
+[report]
+fail_under = 80
+show_missing = true
+skip_covered = false

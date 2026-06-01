@@ -1,0 +1,26 @@
+{% extends 'landing_page/base.html' %}
+
+{% load static user_tags %}
+
+{% block title %}
+    AI-Agentic Django Boilerplate | {{ PROJECT_NAME }}
+{% endblock title %}
+
+{% block css %}
+
+{% endblock %}
+
+
+{% block content %}
+    {% include "landing_page/components/hero-section.html" %}
+    {% include "landing_page/components/demo-section.html" %}
+    {% include "landing_page/components/how-it-works-section.html" %}
+    {% include "landing_page/components/ai_agents_section.html" %}
+    {% include "landing_page/components/features-section.html" %}
+    {% include "landing_page/components/pricing-section.html" %}
+{% endblock %}
+
+{% block js %}
+
+{% endblock %}
+

@@ -1,0 +1,20 @@
+{
+    "last_updated": "4th of August, 2024",
+    "contact_info": [
+        {
+            "platform": "Email",
+            "content": "henrique@sousadev.com",
+            "href": "mailto:henrique@sousadev.com"
+        },
+        {
+            "platform": "X",
+            "content": "https://x.com/sousadev",
+            "href": "https://x.com/sousadev"
+        },
+        {
+            "platform": "LinkedIn",
+            "content": "https://linkedin.com/in/henriquecsousa",
+            "href": "https://linkedin.com/in/henriquecsousa"
+        }
+    ]
+}

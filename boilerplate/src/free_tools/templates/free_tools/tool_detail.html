@@ -1,0 +1,79 @@
+{% extends 'landing_page/base.html' %}
+{% load static %}
+
+{% block title %}{{ tool.effective_meta_title }} | {{ PROJECT_NAME }}{% endblock %}
+
+{% block css %}
+{% include "free_tools/components/seo_meta.html" with tool=tool translations=translations %}
+{% endblock %}
+
+{% block content %}
+{% include "free_tools/components/jsonld.html" with tool=tool %}
+
+<div class="max-w-4xl mx-auto px-4 py-10">
+    <nav class="text-sm text-gray-400 mb-6" aria-label="Breadcrumb">
+        <a href="/" class="hover:text-teal-300">Home</a>
+        <span class="mx-2">/</span>
+        <a href="{% url 'free_tools:tool_index' %}" class="hover:text-teal-300">Free Tools</a>
+        {% if tool.category %}
+        <span class="mx-2">/</span>
+        <a href="{{ tool.category.get_absolute_url }}" class="hover:text-teal-300">{{ tool.category.name }}</a>
+        {% endif %}
+    </nav>
+
+    <header class="mb-8 text-center">
+        {% if tool.icon_class %}
+        <div class="w-16 h-16 bg-gray-800 text-teal-300 rounded-2xl flex items-center justify-center mx-auto mb-4">
+            <i class="{{ tool.icon_class }} fa-2x"></i>
+        </div>
+        {% endif %}
+        <h1 class="text-4xl md:text-5xl font-bold text-white mb-3">{{ tool.name }}</h1>
+        {% if tool.tagline %}
+        <p class="text-lg text-gray-300 max-w-2xl mx-auto">{{ tool.tagline }}</p>
+        {% endif %}
+
+        {% if translations %}
+        <div class="mt-4 flex items-center justify-center gap-2 text-sm">
+            <span class="text-gray-400">Also in:</span>
+            {% for t in translations %}
+            <a href="{{ t.get_absolute_url }}"
+               class="px-2 py-1 bg-gray-800 text-gray-300 rounded hover:bg-teal-400/10 hover:text-teal-300 transition-colors uppercase text-xs font-medium">
+                {{ t.language }}
+            </a>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </header>
+
+    <div class="bg-gray-900 rounded-xl border border-gray-800 p-6 md:p-8 mb-8">
+        {% include tool.template_name %}
+    </div>
+
+    {% include "free_tools/components/cta_block.html" with tool=tool %}
+
+    {% if tool.description %}
+    <div class="prose prose-lg prose-invert max-w-none mt-8
+                prose-headings:font-bold prose-headings:text-white
+                prose-a:text-teal-300 prose-a:hover:text-teal-200
+                prose-code:bg-gray-800 prose-code:text-gray-200
+                prose-pre:bg-gray-800">
+        {{ tool.description|safe }}
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
+
+{% block js %}
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    if (!window.djast || typeof window.djast.track !== 'function') {
+        return;
+    }
+    window.djast.track('tool_view', {
+        tool_slug: '{{ tool.slug|escapejs }}',
+        tool_category: '{% if tool.category %}{{ tool.category.slug|escapejs }}{% endif %}',
+        page_section: 'tool_detail'
+    });
+});
+</script>
+{% endblock %}

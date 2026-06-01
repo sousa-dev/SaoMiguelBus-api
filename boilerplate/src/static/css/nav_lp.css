@@ -1,0 +1,144 @@
+/* Logo Styles */
+.logo {
+    font-size: 24px; /* Base size for larger screens */
+    color: #ffffff; 
+    text-decoration: none; 
+    font-weight: bold; 
+    display: flex;
+    align-items: center;
+    letter-spacing: 2px; 
+}
+
+.logo-image {
+    margin-right: 10px; 
+    height: 50px; 
+    width: auto; 
+}
+
+.logo:hover {
+    color: #23dbb9; /* Changes the color of the text on hover */
+}
+
+/* Navbar Styles */
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #111111;
+    padding: 25px 100px; /* Padding for large screens */
+    height: 50px;
+    width: 100%;
+    box-sizing: border-box; 
+    z-index: 1000;
+    position: relative;
+    margin-top: 20px;
+}
+
+.nav-links {
+    font-weight: bold;
+    list-style-type: none;
+    display: flex;
+    align-items: center;
+    padding: 0;
+    margin: 0;
+}
+
+.nav-links li {
+    margin-left: 5px;
+}
+
+.nav-links li button,
+.nav-links li a {
+    text-decoration: none;
+    color: #ffffff;
+    padding: 10px 15px;
+}
+
+.nav-links li button:hover, 
+.nav-links li button:active,
+.nav-links li a:hover, 
+.nav-links li a:active {
+    border-radius: 5px;
+    color: #23dbb9;
+}
+
+/* Hamburger Menu Styles */
+.hamburger {
+    display: none; /* Hidden by default */
+    background: none;
+    border: none;
+    padding: 0;
+    font-size: 1.8rem;
+    color: #ffffff;
+    cursor: pointer;
+}
+
+.hamburger-button {
+    background-color: #111111 !important; 
+    width: auto;
+}
+
+.hamburger-button:hover {
+    background-color: #111111 !important;
+}
+
+/* Active Menu Styling */
+.hamburger.active {
+    content: "\00D7"; /* "X" symbol for active state */
+}
+
+nav.menu-active {
+    border-radius: 0;
+}
+
+/* Responsive Styles */
+
+/* Medium Screens (Tablets) */
+@media (max-width: 1250px) {
+    .logo {
+        font-size: 20px; /* Adjusted logo text size */
+    }
+
+    nav {
+        padding: 25px 50px; /* Reduced padding */
+    }
+}
+
+/* Small Screens (Mobile) */
+@media (max-width: 650px) {
+    nav {
+        padding: 15px 20px; /* Further reduced padding for mobile */
+    }
+
+    .logo {
+        font-size: 16px; /* Smaller logo text */
+    }
+
+    .nav-links {
+        display: none; /* Hide nav links initially */
+        flex-direction: column;
+        width: 100%; 
+        position: absolute; /* Position dropdown menu */
+        top: 50px; 
+        left: 0; 
+        background-color: #111111; 
+        z-index: 999;
+    }
+
+    nav.menu-active .nav-links {
+        display: flex; /* Show nav links when menu is active */
+    }
+
+    .nav-links li {
+        width: 100%; /* Full width for each item */
+    }
+
+    .nav-links li a {
+        display: block; /* Block display for full click area */
+        font-size: 14px; /* Smaller text size */
+    }
+
+    .hamburger {
+        display: block; /* Show hamburger icon */
+    }
+}

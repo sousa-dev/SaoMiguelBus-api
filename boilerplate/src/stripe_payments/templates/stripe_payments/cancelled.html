@@ -1,0 +1,45 @@
+{% load static tailwind_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Canceled | {{ PROJECT_NAME }}</title>
+    {% include "shared/favicon.html" %}
+    {% include "shared/plugins/google-analytics.html" %}
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    {% tailwind_css %}
+    {% include "shared/animation/shake.html" %}
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen shake">
+    <div class="bg-white shadow-md rounded-lg p-8 max-w-md mx-auto text-center">
+        <div class="mb-4 shake">
+            <i class="fas fa-times-circle text-red-500 fa-5x"></i>
+        </div>
+        <h1 class="text-2xl font-bold mb-4">Payment Canceled</h1>
+        <p class="text-gray-600 mb-6">
+            It looks like your payment process was canceled. If you encountered any issues or need assistance, please contact our support team.
+        </p>
+        <div class="space-y-4">
+            <form action="{% url 'payment' %}" method="POST" class="inline-block"
+                  data-ga-event="retry_payment"
+                  data-ga-params='{"page_section":"payment_cancelled"}'>
+                {% csrf_token %}
+                <button type="submit" class="bg-teal-500 hover:bg-teal-600 text-white font-semibold py-2 px-4 rounded-lg transition duration-300">
+                    Retry Payment
+                </button>
+            </form>
+            <a href="{% url 'landing_page' %}" class="inline-block bg-gray-500 hover:bg-gray-600 text-white font-semibold py-2 px-4 rounded-lg transition duration-300">
+                Return to Homepage
+            </a>
+        </div>
+    </div>
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        if (window.djast && typeof window.djast.track === 'function') {
+            window.djast.track('checkout_cancelled', { page_section: 'payment_cancelled' });
+        }
+    });
+    </script>
+</body>
+</html>

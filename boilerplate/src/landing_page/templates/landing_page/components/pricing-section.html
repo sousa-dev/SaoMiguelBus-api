@@ -1,0 +1,149 @@
+<section class="py-16 px-4" id="pricing">
+    <div class="max-w-5xl mx-auto text-center">
+        <h2 class="text-3xl md:text-4xl font-bold mb-3">Choose your Django launch stack</h2>
+        <p class="text-gray-400 text-base md:text-lg mb-6 max-w-2xl mx-auto">
+            Start lean with the SaaS foundation, or unlock the full AI-agentic build system with payments, background jobs, SEO content apps, and <code class="text-teal-400">djast-*</code> agents.
+        </p>
+        <p class="text-lg mb-10 text-green-400">
+            <i class="fa fa-gift" aria-hidden="true"></i>
+            $100 off for the first {{ total_coupons|default_if_none:"-" }} customers ({{ coupons_left|default_if_none:"-" }} left)
+        </p>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 text-left">
+            <div class="p-8 rounded-xl shadow-lg" style="background-color: #222222;">
+                <h3 class="text-2xl font-semibold mb-1">Starter</h3>
+                <p class="text-sm text-gray-400 mb-4">Core Django SaaS boilerplate for a clean first launch.</p>
+                <p class="text-xl line-through text-gray-500 mb-1">$229</p>
+                <p class="text-3xl font-bold mb-6">$129 <span class="text-lg font-normal text-gray-400">USD</span></p>
+
+                <p class="text-xs font-semibold uppercase tracking-wider text-teal-400 mb-3">Included</p>
+                <ul class="space-y-2.5 mb-5 text-sm">
+                    <li class="flex items-start gap-2">
+                        <i class="fas fa-check text-green-400 mt-0.5 shrink-0" aria-hidden="true"></i>
+                        <span>Django 5 SaaS project structure</span>
+                    </li>
+                    <li class="flex items-start gap-2">
+                        <i class="fas fa-check text-green-400 mt-0.5 shrink-0" aria-hidden="true"></i>
+                        <span>Auth, signup, login, Google/GitHub OAuth</span>
+                    </li>
+                    <li class="flex items-start gap-2">
+                        <i class="fas fa-check text-green-400 mt-0.5 shrink-0" aria-hidden="true"></i>
+                        <span>Tailwind UI and responsive templates</span>
+                    </li>
+                    <li class="flex items-start gap-2">
+                        <i class="fas fa-check text-green-400 mt-0.5 shrink-0" aria-hidden="true"></i>
+                        <span>Legal pages and markdown docs at <code class="text-teal-400/80">/docs/</code></span>
+                    </li>
+                    <li class="flex items-start gap-2">
+                        <i class="fas fa-check text-green-400 mt-0.5 shrink-0" aria-hidden="true"></i>
+                        <span>Environment config and <code class="text-teal-400/80">setup.py</code></span>
+                    </li>
+                    <li class="flex items-start gap-2">
+                        <i class="fas fa-check text-green-400 mt-0.5 shrink-0" aria-hidden="true"></i>
+                        <span>Basic Docker web deployment</span>
+                    </li>
+                    <li class="flex items-start gap-2">
+                        <i class="fas fa-check text-green-400 mt-0.5 shrink-0" aria-hidden="true"></i>
+                        <span>Security defaults with django-axes</span>
+                    </li>
+                    <li class="flex items-start gap-2">
+                        <i class="fas fa-check text-green-400 mt-0.5 shrink-0" aria-hidden="true"></i>
+                        <span>Core AI docs: <code class="text-teal-400/80">.cursorrules</code>, <code class="text-teal-400/80">CLAUDE.md</code>, <code class="text-teal-400/80">.agentic/</code></span>
+                    </li>
+                </ul>
+
+                <p class="text-xs font-semibold uppercase tracking-wider text-gray-500 mb-3">Premium only</p>
+                <ul class="space-y-2.5 mb-6 text-sm text-gray-500">
+                    <li class="flex items-start gap-2">
+                        <i class="fas fa-times text-gray-600 mt-0.5 shrink-0" aria-hidden="true"></i>
+                        <span>Stripe Checkout, coupons, and webhooks</span>
+                    </li>
+                    <li class="flex items-start gap-2">
+                        <i class="fas fa-times text-gray-600 mt-0.5 shrink-0" aria-hidden="true"></i>
+                        <span>Celery workers and Beat schedules</span>
+                    </li>
+                    <li class="flex items-start gap-2">
+                        <i class="fas fa-times text-gray-600 mt-0.5 shrink-0" aria-hidden="true"></i>
+                        <span>Blog, free tools, and SEO APIs</span>
+                    </li>
+                    <li class="flex items-start gap-2">
+                        <i class="fas fa-times text-gray-600 mt-0.5 shrink-0" aria-hidden="true"></i>
+                        <span>Full <code class="text-gray-600">.cursor/</code> commands, rules, and <code class="text-gray-600">djast-*</code> agents</span>
+                    </li>
+                </ul>
+
+                <form action="{% url 'payment' %}" method="POST"
+                      data-ga-event="begin_checkout"
+                      data-ga-params='{"plan":"starter","value":129,"currency":"USD","page_section":"pricing"}'>
+                    {% csrf_token %}
+                    <button type="submit" class="w-full bg-yellow-400 text-black py-3 rounded-lg font-semibold hover:bg-yellow-300 transition duration-300">
+                        <i class="fa-solid fa-rocket mr-2" aria-hidden="true"></i>
+                        Get {{ PROJECT_NAME }}
+                    </button>
+                </form>
+                <p class="mt-4 text-sm text-gray-500">Pay once. Build unlimited projects!</p>
+                <p class="mt-2 text-xs text-gray-600">Best for validating the product before adding growth automation.</p>
+            </div>
+
+            <div class="p-8 rounded-xl shadow-lg border-2 border-yellow-400 relative" style="background-color: #222222;">
+                <span class="absolute top-0 right-0 bg-yellow-400 text-black text-xs font-bold px-3 py-1.5 rounded-bl-lg rounded-tr-xl">BEST VALUE</span>
+                <h3 class="text-2xl font-semibold mb-1">Premium</h3>
+                <p class="text-sm text-teal-300/90 mb-4">The complete AI-agentic Django launch kit.</p>
+                <p class="text-xl line-through text-gray-500 mb-1">$259</p>
+                <p class="text-3xl font-bold mb-6">$159 <span class="text-lg font-normal text-gray-400">USD</span></p>
+
+                <p class="text-xs font-semibold uppercase tracking-wider text-teal-400 mb-3">Everything in Starter, plus</p>
+                <ul class="space-y-2.5 mb-6 text-sm">
+                    <li class="flex items-start gap-2">
+                        <i class="fas fa-check text-green-400 mt-0.5 shrink-0" aria-hidden="true"></i>
+                        <span>Stripe Checkout, coupons, webhooks, payment emails</span>
+                    </li>
+                    <li class="flex items-start gap-2">
+                        <i class="fas fa-check text-green-400 mt-0.5 shrink-0" aria-hidden="true"></i>
+                        <span>Celery, Redis, Beat, and Docker Compose full stack</span>
+                    </li>
+                    <li class="flex items-start gap-2">
+                        <i class="fas fa-check text-green-400 mt-0.5 shrink-0" aria-hidden="true"></i>
+                        <span>SEO blog engine with API, sitemap, categories, tags</span>
+                    </li>
+                    <li class="flex items-start gap-2">
+                        <i class="fas fa-check text-green-400 mt-0.5 shrink-0" aria-hidden="true"></i>
+                        <span>Free tools lead magnet app with API and templates</span>
+                    </li>
+                    <li class="flex items-start gap-2">
+                        <i class="fas fa-check text-green-400 mt-0.5 shrink-0" aria-hidden="true"></i>
+                        <span>15 Cursor slash commands for vibe-coding workflows</span>
+                    </li>
+                    <li class="flex items-start gap-2">
+                        <i class="fas fa-check text-green-400 mt-0.5 shrink-0" aria-hidden="true"></i>
+                        <span>11 auto-attached path rules for context-aware edits</span>
+                    </li>
+                    <li class="flex items-start gap-2">
+                        <i class="fas fa-check text-green-400 mt-0.5 shrink-0" aria-hidden="true"></i>
+                        <span>11 <code class="text-teal-400/80">djast-*</code> agents: architect, backend, QA, security, docs</span>
+                    </li>
+                    <li class="flex items-start gap-2">
+                        <i class="fas fa-check text-green-400 mt-0.5 shrink-0" aria-hidden="true"></i>
+                        <span>Deployment checklist and production env docs</span>
+                    </li>
+                    <li class="flex items-start gap-2">
+                        <i class="fas fa-check text-green-400 mt-0.5 shrink-0" aria-hidden="true"></i>
+                        <span>Code review, security review, and docs-writer workflows</span>
+                    </li>
+                </ul>
+
+                <form action="{% url 'payment' %}" method="POST"
+                      data-ga-event="begin_checkout"
+                      data-ga-params='{"plan":"premium","value":159,"currency":"USD","page_section":"pricing"}'>
+                    {% csrf_token %}
+                    <button type="submit" class="w-full bg-yellow-400 text-black py-3 rounded-lg font-semibold hover:bg-yellow-300 transition duration-300">
+                        <i class="fa-solid fa-rocket mr-2" aria-hidden="true"></i>
+                        Get {{ PROJECT_NAME }}
+                    </button>
+                </form>
+                <p class="mt-4 text-sm text-gray-500">Pay once. Build unlimited projects!</p>
+                <p class="mt-2 text-xs text-gray-600">Best for shipping, marketing, monetizing, and iterating with AI agents.</p>
+            </div>
+        </div>
+    </div>
+</section>
