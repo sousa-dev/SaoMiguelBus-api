@@ -6,7 +6,8 @@ from django.conf import settings
 
 urlpatterns = [
     path('dashboard/admin/', admin.site.urls),
-    path('api/v2/', include('compat.urls')),
+    path('api/v1/', include('compat.urls_v1')),
+    path('api/v2/', include('compat.urls_v2')),
 ]
 
 if 'legal' in settings.INSTALLED_APPS:

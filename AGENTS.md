@@ -55,6 +55,37 @@ python manage.py migrate_legacy stops          # single step, re-runnable
 python manage.py validate_legacy_parity
 ```
 
+### Webapp drop-in deploy (compat API)
+
+The new backend exposes the **same URLs** the legacy webapp calls. Point `api.saomiguelbus.com` here after import:
+
+| Webapp calls | Compat handler |
+|---|---|
+| `GET /api/v2/stops` | ✓ |
+| `GET /api/v2/webapp/load` | ✓ |
+| `GET /api/v2/route` | ✓ |
+| `POST /api/v2/like\|dislike/<id>` | ✓ |
+| `GET /api/v1/gmaps` | ✓ (needs `GOOGLE_MAPS_API_KEY`) |
+| `POST /api/v1/stat` | ✓ |
+| `GET /api/v1/ad`, `POST /api/v1/ad/click` | ✓ |
+| `POST /api/v1/subscription/verify/` | ✓ |
+
+Required env (`src/src/.env`):
+
+```
+AUTH_KEY=SMBFj56xBCLc986j6odk3AK6fJa95k   # hardcoded in webapp JS
+GOOGLE_MAPS_API_KEY=<prod key>
+DEFAULT_ISLAND_KEY=sao-miguel
+CORS_ALLOW_ALL_ORIGINS=True
+ALLOWED_HOSTS=api.saomiguelbus.com,127.0.0.1,localhost
+```
+
+Production import from legacy Postgres:
+
+```bash
+python manage.py import_legacy --legacy-db "$LEGACY_DATABASE_URL"
+```
+
 Importer reads: `legacy/src/db.sqlite3`, `legacy/src/data.json`, `legacy/scripts/csv/`, `legacy/scripts/groups.json`, or `--legacy-db` Postgres URL. Never writes to legacy DB.
 
 ### Tests

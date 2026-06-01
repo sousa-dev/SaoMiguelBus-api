@@ -53,7 +53,7 @@ def _trip_to_load_route(trip: Trip) -> dict:
     )
     route_stops = [st.stop.name for st in stop_times]
     all_times = [st.departure_time.strftime('%H:%M').replace(':', 'h') for st in stop_times]
-    information = trip.information.text if trip.information else {}
+    information = trip.information if trip.information else {}
     return {
         'id': trip.id,
         'route': trip.line.code,

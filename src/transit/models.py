@@ -98,6 +98,7 @@ class Trip(TenantScopedModel):
     likes = models.IntegerField(default=0)
     dislikes = models.IntegerField(default=0)
     source = models.CharField(max_length=16, choices=SOURCE_CHOICES, default=SOURCE_OPERATOR)
+    information = models.JSONField(default=dict, blank=True)
 
     class Meta:
         indexes = [

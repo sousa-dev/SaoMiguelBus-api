@@ -32,6 +32,8 @@ apps = [
     ('django_browser_reload', False),
     ('tenancy', True),
     ('transit', True),
+    ('analytics', True),
+    ('billing', True),
     ('compat', True),
 ]
 
@@ -51,6 +53,18 @@ DEBUG = config('DEBUG', default=True, cast=bool)
 
 DEFAULT_ISLAND_KEY = config('DEFAULT_ISLAND_KEY', default='sao-miguel')
 ALLOW_INACTIVE_ISLANDS = config('ALLOW_INACTIVE_ISLANDS', default=DEBUG, cast=bool)
+
+AUTH_KEY = config('AUTH_KEY', default='SMBFj56xBCLc986j6odk3AK6fJa95k')
+GOOGLE_MAPS_API_KEY = config('GOOGLE_MAPS_API_KEY', default='dummy_key')
+
+# Public transit API — allow webapp/PWA cross-origin requests
+CORS_ALLOW_ALL_ORIGINS = config('CORS_ALLOW_ALL_ORIGINS', default=True, cast=bool)
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.AllowAny',
+    ],
+}
 
 
 def _csv_env(name: str, *, default: str) -> list[str]:
