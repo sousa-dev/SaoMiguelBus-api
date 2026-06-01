@@ -1,30 +1,119 @@
 # AGENTS.md
 
-## Cursor Cloud specific instructions
+## Overview
 
-### Overview
+São Miguel Bus API — branch **`revamp`**.
 
-São Miguel Bus API — on the `revamp` branch, **legacy** Django 3.0 code is under `legacy/src/`. New backend work will be added at the repo root. Uses SQLite in dev, PostgreSQL in production (controlled by `ENVIRONMENT` env var).
+| Area | Path | Status |
+|------|------|--------|
+| **Legacy API** | `legacy/src/` | Django 3.0 — frozen, ETL + compat reference |
+| **New backend** | `boilerplate/` → promote to repo root `src/` | Django 5 via **djast** — Azores Hub per [SDD](https://github.com/sousa-dev/SaoMiguelBus/tree/revamp/SDD) |
+| **Planning** | `SaoMiguelBus/SDD/` (sibling repo) | Source of truth for architecture |
 
-### Running the legacy API
+---
+
+## New backend (djast / boilerplate)
+
+After promoting `boilerplate/` to root, all commands run from **`src/`**.
+
+### Setup & run
 
 ```bash
-cd /agent/repos/SaoMiguelBus-api/legacy/src
+cd SaoMiguelBus-api
+python setup.py
+cp src/src/.env.example src/src/.env
+cd src
+python run.py                    # Django + Tailwind — http://127.0.0.1:8000
+```
+
+### Conventions (follow boilerplate)
+
+| Pattern | Location |
+|---------|----------|
+| Feature toggles | `src/src/settings.py` → `apps = [(name, bool), ...]` |
+| Business logic | `<app>/services.py` |
+| REST API | `<app>/api.py` + `serializers.py` + `urls.py` |
+| Celery tasks | `<app>/tasks.py` — `@shared_task` |
+| Secrets | `src/src/.env` |
+| Add an app | Toggle + `startapp` — see `boilerplate/src/documentation/docs/6_customization/2_adding_an_app.md` |
+
+### SMB domain apps (to add via toggles)
+
+`tenancy`, `transit`, `analytics`, `consent`, `billing`, `news`, `seismic`, `marketplace`, `trails`, `traffic`, `events`, `compat`
+
+**Reuse from boilerplate:** `stripe_payments`, `legal`, `user_management`, `documentation`, `shared`, `theme`
+
+**Disable for SMB:** `app`, `free_tools`, `landing_page` (optional: keep `blog` for SEO)
+
+### Legacy data import
+
+```bash
+cd src
+python manage.py migrate
+python manage.py import_legacy --legacy-db sqlite:///../legacy/src/db.sqlite3 --island sao-miguel
+python manage.py migrate_legacy stops          # single step, re-runnable
+python manage.py validate_legacy_parity
+```
+
+Importer reads: `legacy/src/db.sqlite3`, `legacy/src/data.json`, `legacy/scripts/csv/`, `legacy/scripts/groups.json`, or `--legacy-db` Postgres URL. Never writes to legacy DB.
+
+### Tests
+
+```bash
+cd src && python manage.py test
+```
+
+### Docker (full stack)
+
+```bash
+cp src/src/.env.example src/src/.env
+docker compose up -d --build
+```
+
+Services: `db`, `redis`, `web`, `celery-worker`, `celery-beat`.
+
+### Agent tooling (boilerplate)
+
+- `.cursor/commands/` — `/new-app`, `/new-api-endpoint`, `/new-task`, …
+- `.cursor/agents/` — `djast-backend-engineer`, `djast-db-migrations-specialist`, …
+- `boilerplate/CLAUDE.md` — entry point until promoted to root
+
+---
+
+## Legacy API
+
+### Run
+
+```bash
+cd legacy/src
 python3 manage.py runserver 0.0.0.0:8000
 ```
 
-Dev mode uses SQLite (no external DB needed). The database file at `legacy/src/db.sqlite3` contains pre-seeded route/stop data.
+Dev: SQLite at `legacy/src/db.sqlite3` (pre-seeded). Prod: `DATABASE_URL` → Postgres.
 
-### Running tests
+### Tests
 
 ```bash
-cd /agent/repos/SaoMiguelBus-api/legacy/src
+cd legacy/src
 python3 manage.py test
 ```
 
-### Non-obvious caveats
+### Legacy caveats
 
-- `psycopg2-binary==2.8.6` in `legacy/src/requirements.txt` is incompatible with Python 3.12+. Install `psycopg2-binary>=2.9` after running `pip install -r requirements.txt` to fix the import error. This only affects the build from source; the newer binary wheel works fine.
-- The settings file imports `dj_database_url` and calls `.config()` which reads `DATABASE_URL` env var. In dev (no `DATABASE_URL` set), this is a no-op and SQLite is used.
-- `GOOGLE_MAPS_API_KEY` and `AUTH_KEY` default to dummy values in dev — the step-by-step directions feature won't work without a real key, but all other endpoints function normally.
-- `ALLOWED_HOSTS` includes `127.0.0.1` so local dev server works out of the box.
+- `psycopg2-binary==2.8.6` incompatible with Python 3.12+ — use `psycopg2-binary>=2.9` after `pip install -r requirements.txt`.
+- `DATABASE_URL` unset → SQLite in dev.
+- `GOOGLE_MAPS_API_KEY` / `AUTH_KEY` default to dummy values — directions need real keys.
+- `ALLOWED_HOSTS` includes `127.0.0.1`.
+- `Subscription` model is in **`subscriptions`** app (`db_table='subscriptions'`), not `app`.
+
+### Legacy URL surface (compat must cover)
+
+See SDD `04-api-design.md` §4 — full inventory from `legacy/src/SaoMiguelBus/urls.py`.
+
+---
+
+## Cross-repo pointers
+
+- **SDD:** `../SaoMiguelBus/SDD/` (or github.com/sousa-dev/SaoMiguelBus/tree/revamp/SDD)
+- **Expo client:** `../SaoMiguelBus/`
+- **Legacy webapp:** `../SaoMiguelBus-webapp/` (deprecated after cutover)
