@@ -1,0 +1,62 @@
+{% comment %}
+JSON-LD structured data for blog posts.
+Usage: {% include "blog/components/jsonld.html" with post=post %}
+{% endcomment %}
+
+{% if post %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "{{ PROJECT_URL }}{{ post.get_absolute_url }}"
+  },
+  "headline": "{{ post.title|escapejs }}",
+  "description": "{{ post.meta_description|default:post.effective_excerpt|escapejs }}",
+  {% if post.effective_og_image %}
+  "image": {
+    "@type": "ImageObject",
+    "url": "{{ PROJECT_URL }}{{ post.effective_og_image.url }}",
+    "width": 1200,
+    "height": 630
+  },
+  {% endif %}
+  {% if post.author %}
+  "author": {
+    "@type": "Person",
+    "name": "{{ post.author.get_full_name|default:post.author.username|escapejs }}"
+  },
+  {% endif %}
+  "publisher": {
+    "@type": "Organization",
+    "name": "{{ PROJECT_NAME|escapejs }}"
+  },
+  {% if post.published_at %}"datePublished": "{{ post.published_at|date:'c' }}",{% endif %}
+  "dateModified": "{{ post.updated_at|date:'c' }}",
+  {% if post.category %}"articleSection": "{{ post.category.name|escapejs }}",{% endif %}
+  {% if post.tags.all %}"keywords": "{% for tag in post.tags.all %}{{ tag.name|escapejs }}{% if not forloop.last %}, {% endif %}{% endfor %}",{% endif %}
+  "wordCount": {{ post.word_count }},
+  "inLanguage": "{{ post.language }}",
+  "isPartOf": {
+    "@type": "Blog",
+    "@id": "{{ PROJECT_URL }}/blog/",
+    "name": "{{ PROJECT_NAME|escapejs }} Blog"
+  }
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {"@type": "ListItem", "position": 1, "name": "Home", "item": "{{ PROJECT_URL }}/"},
+    {"@type": "ListItem", "position": 2, "name": "Blog", "item": "{{ PROJECT_URL }}/blog/"}{% if post.category %},
+    {"@type": "ListItem", "position": 3, "name": "{{ post.category.name|escapejs }}", "item": "{{ PROJECT_URL }}{{ post.category.get_absolute_url }}"},
+    {"@type": "ListItem", "position": 4, "name": "{{ post.title|escapejs }}"}{% else %},
+    {"@type": "ListItem", "position": 3, "name": "{{ post.title|escapejs }}"}{% endif %}
+  ]
+}
+</script>
+{% endif %}

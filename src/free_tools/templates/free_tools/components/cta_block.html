@@ -1,0 +1,15 @@
+{% if tool.cta_text and tool.cta_url %}
+<div class="my-8 p-6 bg-gray-900 border border-teal-400/30 rounded-xl text-gray-200 shadow-lg">
+    {% if tool.lead_magnet_title %}
+    <p class="text-teal-300 text-sm font-medium uppercase tracking-wider mb-1">{{ tool.lead_magnet_title }}</p>
+    {% endif %}
+    <p class="text-gray-300 mb-4">Like this free tool? Take your project to the next level.</p>
+    <a href="{{ tool.cta_url }}"
+       data-ga-event="tool_cta_click"
+       data-ga-params='{"tool_slug":"{{ tool.slug }}","cta_label":"{{ tool.cta_text|escapejs }}"}'
+       class="inline-block bg-gradient-to-r from-teal-400 to-blue-500 text-white font-bold px-6 py-3 rounded-lg hover:from-teal-500 hover:to-blue-600 transition-colors shadow-md"
+       rel="noopener">
+        {{ tool.cta_text }}
+    </a>
+</div>
+{% endif %}

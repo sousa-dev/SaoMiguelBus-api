@@ -1,0 +1,14 @@
+<button id="go-to-top" class="fixed bottom-4 right-4 z-30 bg-white dark:bg-gray-800 p-2 rounded-md shadow-md border border-gray-300 dark:border-gray-600 flex items-center justify-center transition duration-300 hidden" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">
+    <i class="fas fa-chevron-up"></i>
+</button>
+
+<script>
+    window.addEventListener('scroll', function() {
+        const goToTopButton = document.getElementById('go-to-top');
+        if (window.scrollY > 200) { // Show button after scrolling down 200px
+            goToTopButton.classList.remove('hidden');
+        } else {
+            goToTopButton.classList.add('hidden');
+        }
+    });
+</script>

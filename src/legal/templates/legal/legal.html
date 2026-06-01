@@ -1,0 +1,66 @@
+{% load static tailwind_tags %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }} | {{ PROJECT_NAME }}</title>
+    {% include "shared/favicon.html" %}
+    {% include "shared/plugins/google-analytics.html" %}
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    {% tailwind_css %}
+</head>
+
+<body class="bg-gray-900 text-gray-100">
+    <header class="bg-gray-800 py-4">
+        <div class="container mx-auto px-4 flex justify-between items-center">
+            <a href="#" id="backButton" data-ga-event="nav_cta_click" data-ga-params='{"cta_label":"back","page_section":"legal"}' class="text-gray-100 hover:text-gray-400 flex items-center">
+                <i class="fas fa-arrow-left mr-2"></i> Back
+            </a>
+            <h1 class="text-xl font-bold">{{ title }}</h1>
+            <div></div> 
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-6">
+        <article class="max-w-3xl mx-auto">
+            {% for section in sections %}
+                <section class="mb-6">
+                    <h2 class="font-semibold text-lg mb-2">{{ section.heading }}</h2>
+                    <p class="text-sm leading-relaxed">{{ section.content|safe }}</p>
+                    {% if section.subsections %}
+                        {% for subsection in section.subsections %}
+                            <br>
+                            <h3 class="font-semibold text-md mb-1">{{ subsection.subheading }}</h3>
+                            <p class="text-sm leading-relaxed whitespace-pre-line">{{ subsection.content|safe }}</p>
+                        {% endfor %}
+                    {% endif %}
+                </section>
+            {% endfor %}
+            <h2 class="font-semibold text-lg mb-2">Contact us</h2>
+            <p class="text-sm leading-relaxed">If you have any further questions, you may contact me using the information below.</p>
+            <address class="not-italic mt-2 text-sm">
+                {% for contact in contact_info %}
+                    <p>{{ contact.platform }}: <a href="{{ contact.href }}" target='_blank' class="text-blue-400 hover:underline">{{ contact.content }}</a></p>
+                {% endfor %}
+            </address>
+            <div class="container mx-auto px-4 py-2 text-gray-500 text-sm">
+                <p class="text-right">Last Updated: {{ last_updated }}</p>
+            </div>
+            <footer class="bg-gray-800 py-4 mt-8">
+                <div class="container mx-auto px-4 text-center text-gray-400">
+                    <p>© {{ product_name }}. All rights reserved.</p>
+                </div>
+            </footer>
+        </article>
+    </main>
+    <script>
+        document.getElementById('backButton').addEventListener('click', function(event) {
+            event.preventDefault();
+            window.history.back();
+        });
+    </script>
+</body>
+</html>

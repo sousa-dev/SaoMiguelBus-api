@@ -1,0 +1,65 @@
+{% extends 'landing_page/base.html' %}
+{% load static %}
+
+{% block title %}Free Developer Tools | {{ PROJECT_NAME }}{% endblock %}
+
+{% block css %}
+<link rel="canonical" href="{{ PROJECT_URL }}/tools/">
+<meta name="description" content="Free developer tools by {{ PROJECT_NAME }}. Generators, validators, formatters and more — no signup required.">
+{% endblock %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 py-10">
+    <div class="text-center mb-10">
+        <h1 class="text-4xl font-bold text-white mb-3">Free Developer Tools</h1>
+        <p class="text-lg text-gray-300 max-w-2xl mx-auto">
+            Open-source utilities to speed up your development workflow. No signup required.
+        </p>
+    </div>
+
+    <div class="bg-gray-900 rounded-xl border border-gray-800 p-4 mb-8">
+        <form method="get" action="{% url 'free_tools:tool_index' %}" class="flex flex-wrap items-center gap-3"
+              data-ga-event="search"
+              data-ga-params='{"search_type":"tools","page_section":"tool_index"}'>
+            <div class="flex-1 min-w-[200px]">
+                <input type="text" name="q" value="{{ current_search }}"
+                       placeholder="Search tools..."
+                       class="w-full px-4 py-2 bg-gray-800 border border-gray-700 text-white placeholder-gray-500 rounded-lg focus:ring-2 focus:ring-teal-400 focus:border-transparent">
+            </div>
+            <select name="category"
+                    class="px-4 py-2 bg-gray-800 border border-gray-700 text-white rounded-lg focus:ring-2 focus:ring-teal-400">
+                <option value="">All Categories</option>
+                {% for cat in categories %}
+                <option value="{{ cat.slug }}" {% if current_category == cat.slug %}selected{% endif %}>
+                    {{ cat.name }} ({{ cat.tool_count }})
+                </option>
+                {% endfor %}
+            </select>
+            <button type="submit"
+                    class="px-6 py-2 bg-gradient-to-r from-teal-400 to-blue-500 text-white font-medium rounded-lg hover:from-teal-500 hover:to-blue-600 transition-colors">
+                Search
+            </button>
+            {% if current_search or current_category %}
+            <a href="{% url 'free_tools:tool_index' %}" class="text-sm text-gray-400 hover:text-teal-300">Clear</a>
+            {% endif %}
+        </form>
+    </div>
+
+    {% if tools %}
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {% for tool in tools %}
+            {% include "free_tools/components/tool_card.html" with tool=tool %}
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="text-center py-20">
+        <p class="text-gray-400 text-lg">No tools found.</p>
+        {% if current_search or current_category %}
+        <a href="{% url 'free_tools:tool_index' %}" class="text-teal-300 hover:text-teal-200 mt-2 inline-block">
+            View all tools →
+        </a>
+        {% endif %}
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

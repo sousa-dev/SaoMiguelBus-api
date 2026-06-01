@@ -1,0 +1,42 @@
+<footer class="bg-black text-white py-8" id="footer">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-col md:flex-row md:justify-between space-y-8 md:space-y-0">
+            <!-- Brand and Description -->
+            <div class="flex flex-col space-y-4">
+                <div class="flex items-center space-x-2">
+                    <img src="{% url 'get_media' path='logo.png' %}" alt="{{ PROJECT_NAME }} Logo" class="w-8 h-8">
+                    <span class="font-bold text-xl">d j a s t</span>
+                </div>
+                <p class="italic">Build your project with django fast</p>
+                <p>
+                    <a href="https://sousadev.com" target="_blank" rel="noopener noreferrer" class="hover:text-teal-300 transition duration-300">
+                        Sousa Dev
+                    </a> 
+                    © {% now "Y" %} - All rights reserved
+                </p>
+                <a href="https://djast.dev" target="_blank" rel="noopener noreferrer" class="relative inline-flex items-center justify-center py-2 px-4 font-semibold text-white transition-transform duration-300 transform hover:scale-105">
+                    <span class="absolute inset-0 bg-gradient-to-r from-teal-400 to-blue-500 hover:from-teal-500 hover:to-blue-600 rounded-lg -m-0.5"></span>
+                    <span class="relative flex items-center bg-transparent rounded-lg">
+                        <i class="fas fa-rocket mr-2"></i>
+                        Built with djast
+                    </span>
+                </a>
+            </div>
+            <div class="flex flex-wrap justify-between md:space-x-16 w-full md:w-auto">
+                <div class="flex flex-col space-y-2 w-1/2 md:w-auto">
+                    <h3 class="font-semibold mb-2 text-gray-400">Links</h3>
+                    <a href="#" class="hover:text-teal-300 transition duration-300">Pricing</a>
+                    <a href="#" class="hover:text-teal-300 transition duration-300">Features</a>
+                    <a href="#" class="hover:text-teal-300 transition duration-300">Documentation</a>
+                    <a href="mailto:your@email.here" class="hover:text-teal-300 transition duration-300">Support</a>
+                </div>
+                <div class="flex flex-col space-y-2 w-1/2 md:w-auto">
+                    <h3 class="font-semibold mb-2 text-gray-400">Legal</h3>
+                    <a href="{% url 'terms_of_service' %}" class="hover:text-teal-300 transition duration-300">Terms of Service</a>
+                    <a href="{% url 'privacy_policy' %}" class="hover:text-teal-300 transition duration-300">Privacy Policy</a>
+                    <a href="{% url 'licenses' %}" class="hover:text-teal-300 transition duration-300">Licenses</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>

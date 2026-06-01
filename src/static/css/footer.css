@@ -1,0 +1,82 @@
+footer {
+    border-top: 2px solid #23dbb9; /* Outer border */
+    border-radius: 10px 10px 0 0; /* Rounded corners at the bottom */
+}
+
+.footer-content {
+    max-width: 1170px;
+    margin: 0 auto;
+    padding: 0;
+}
+
+.footer-content img {
+    padding: 0;
+    height: 20px;
+    vertical-align: middle;
+}
+
+.footer-content a {
+    display: inline;
+}
+
+.footer-links {
+    list-style: none;
+    padding: 0;
+    margin: 10px 0;
+    display: flex;
+    justify-content: center;
+}
+
+.footer-links li {
+    padding: 0 10px;
+}
+
+.footer-links li a {
+    color: white;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-p-link {
+    color: white;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-p-link:hover {
+    color: #23dbb9;
+}
+
+.footer-links li a:hover {
+    color: #23dbb9;
+}
+
+.inline-content {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+@media (max-width: 1250px) {
+    footer {
+        padding: 10px; /* Reduce padding */
+    }
+
+    .footer-content img {
+        height: 15px; /* Smaller logo in the footer */
+    }
+
+    .footer-links li a {
+        font-size: 12px; /* Smaller footer link text */
+    }
+}
+
+/* Add responsiveness for the hamburger menu */
+@media (max-width: 600px) {
+    .footer-content img {
+        height: 12px; /* Smaller logo in the footer */
+    }
+
+    .footer-links li a {
+        font-size: 10px; /* Smaller footer link text */
+    }
+}

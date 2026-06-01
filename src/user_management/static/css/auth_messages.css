@@ -1,0 +1,114 @@
+/* General Message Container */
+.messages-container {
+    margin: 15px 0;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: var(--nav-bg-color);
+}
+
+/* Error List Styling */
+.errorlist {
+    margin: 15px 0;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: var(--message-error-bg);
+    border-left: 4px solid var(--message-error-text);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    list-style: none; /* Remove default list styling */
+}
+
+.errorlist.nonfield {
+    background-color: var(--message-error-bg);
+    border-color: var(--message-error-text);
+}
+
+/* Error List Item */
+.errorlist li {
+    padding: 8px 10px;
+    margin-bottom: 8px;
+    color: var(--message-error-text);
+    font-size: 0.9em; /* Adjust font size as needed */
+}
+
+.errorlist li:last-child {
+    margin-bottom: 0; /* Remove margin for last item */
+}
+
+/* Messages Title */
+.messages-title {
+    display: block;
+    margin-bottom: 8px; /* Reduce space */
+    font-size: 1em; /* Smaller font size */
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
+/* Messages List */
+.messages-list {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+/* Message Item */
+.message-item {
+    padding: 8px 10px; /* Compact padding */
+    margin-bottom: 8px; /* Reduce margin */
+    border-radius: 4px;
+    border-left: 4px solid;
+}
+
+.message-item:last-child {
+    margin-bottom: 0;
+}
+
+/* Error Message */
+.message-item.error {
+    background-color: var(--message-error-bg);
+    color: var(--message-error-text);
+    border-color: var(--message-error-text);
+}
+
+/* Success Message */
+.message-item.success {
+    background-color: var(--message-success-bg);
+    color: var(--message-success-text);
+    border-color: var(--message-success-text);
+}
+
+/* Error Message for Fields */
+.field-error {
+    border-color: var(–message-error-text);
+    background-color: #fff5f5;
+}
+
+.non-field-errors {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 8px;
+}
+
+ul.messages {
+    padding: 0;
+    list-style-type: none;
+    margin-bottom: 15px;
+}
+
+.messages .message {
+    padding: 8px; 
+    border-radius: 5px;
+    margin-bottom: 8px;
+}
+
+.messages .error {
+    background-color: var(–message-error-bg);
+    color: var(–message-error-text);
+    border-left: 4px solid var(–message-error-text);
+}
+
+.messages .success {
+    background-color: var(–message-success-bg);
+    color: var(–message-success-text);
+    border-left: 4px solid var(–message-success-text);
+}

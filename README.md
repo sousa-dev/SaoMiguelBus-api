@@ -9,8 +9,8 @@ Planning docs: [SaoMiguelBus/SDD](https://github.com/sousa-dev/SaoMiguelBus/tree
 | Path | Purpose |
 |------|---------|
 | [`legacy/`](./legacy/) | Django 3.0 API — last shipped version, compat contract, ETL source (`legacy/src/db.sqlite3`, `data.json`, `scripts/csv/`) |
-| [`boilerplate/`](./boilerplate/) | Vendored [djast](https://djast.dev) starter — reference until promoted to root |
-| **Root `src/`** (after promotion) | New Django 5 modular monolith: flat apps (`tenancy`, `transit`, `analytics`, …) + boilerplate apps (`stripe_payments`, `legal`, `user_management`, …) |
+| [`boilerplate/`](./boilerplate/) | Vendored [djast](https://djast.dev) starter — upstream reference |
+| **Root `src/`** | New Django 5 modular monolith (promoted from boilerplate) |
 
 ## New backend structure (post-promotion)
 

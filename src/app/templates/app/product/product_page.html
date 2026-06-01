@@ -1,0 +1,59 @@
+{% extends 'app/base.html' %}
+
+{% load user_tags %}
+
+{% block title %}
+    Get your project done faster | {{ PROJECT_NAME }}
+{% endblock title %}
+
+{% block css %}
+
+{% endblock %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-8">
+    <div class="max-w-4xl mx-auto bg-white shadow-lg rounded-lg overflow-hidden">
+        <div class="md:flex">
+            <div class="md:flex-shrink-0">
+                <img class="h-48 w-full object-cover md:h-full md:w-48" src="https://via.placeholder.com/150" alt="Product Image">
+            </div>
+            <div class="p-8">
+                <div class="uppercase tracking-wide text-sm text-indigo-500 font-semibold">Product Category</div>
+                <h1 class="block mt-1 text-lg leading-tight font-medium text-black hover:underline">Product Title</h1>
+                <p class="mt-2 text-gray-500">This is a brief description of the product. It highlights the key features and benefits to entice the customer to make a purchase.</p>
+                <div class="mt-4">
+                    <span class="text-2xl font-bold text-gray-900">$99.99</span>
+                </div>
+                <div class="mt-6">
+                    <button class="bg-indigo-500 text-white px-4 py-2 rounded hover:bg-indigo-600 transition duration-300">Buy Now</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr class="my-8 border-t-4  bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 rounded-lg mx-auto w-1/2">    
+    
+    <div class="max-w-4xl mx-auto bg-white shadow-lg rounded-lg overflow-hidden">
+        <div class="md:flex">
+            <div class="md:flex-shrink-0">
+                <img class="h-48 w-full object-cover md:h-full md:w-48" src="https://via.placeholder.com/150" alt="Product Image">
+            </div>
+            <div class="p-8">
+                <div class="uppercase tracking-wide text-sm text-indigo-500 font-semibold">Product Category</div>
+                <h1 class="block mt-1 text-lg leading-tight font-medium text-black hover:underline">Product Title</h1>
+                <p class="mt-2 text-gray-500">This is a brief description of the product. It highlights the key features and benefits to entice the customer to make a purchase.</p>
+                <div class="mt-4">
+                    <span class="text-2xl font-bold text-gray-900">$99.99</span>
+                </div>
+                <div class="mt-6">
+                    <button class="bg-indigo-500 text-white px-4 py-2 rounded hover:bg-indigo-600 transition duration-300">Buy Now</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block js %}
+
+{% endblock %}

@@ -7,7 +7,7 @@ São Miguel Bus API — branch **`revamp`**.
 | Area | Path | Status |
 |------|------|--------|
 | **Legacy API** | `legacy/src/` | Django 3.0 — frozen, ETL + compat reference |
-| **New backend** | `boilerplate/` → promote to repo root `src/` | Django 5 via **djast** — Azores Hub per [SDD](https://github.com/sousa-dev/SaoMiguelBus/tree/revamp/SDD) |
+| **New backend** | `src/` (promoted from `boilerplate/`) | Django 5 via **djast** — Azores Hub per [SDD](https://github.com/sousa-dev/SaoMiguelBus/tree/revamp/SDD) |
 | **Planning** | `SaoMiguelBus/SDD/` (sibling repo) | Source of truth for architecture |
 
 ---

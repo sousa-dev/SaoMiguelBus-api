@@ -1,0 +1,53 @@
+{% comment %}
+Pagination with visible numbered links (SEO-friendly).
+Usage: {% include "blog/components/pagination.html" with page_obj=page_obj %}
+{% endcomment %}
+
+{% if page_obj.has_other_pages %}
+<nav aria-label="Blog pagination" class="flex justify-center mt-10">
+    <ul class="flex items-center gap-1">
+        {% if page_obj.has_previous %}
+        <li>
+            <a href="?page={{ page_obj.previous_page_number }}
+               data-ga-event="pagination_click"
+               data-ga-params='{"direction":"prev","page":{{ page_obj.previous_page_number }}}'{% if current_search %}&q={{ current_search }}{% endif %}{% if current_category %}&category={{ current_category }}{% endif %}{% if current_language %}&lang={{ current_language }}{% endif %}{% if current_sort %}&sort={{ current_sort }}{% endif %}"
+               class="px-3 py-2 rounded-lg text-gray-300 hover:bg-gray-800 transition-colors"
+               aria-label="Previous page">
+                ← Prev
+            </a>
+        </li>
+        {% endif %}
+
+        {% for num in page_obj.paginator.page_range %}
+            {% if page_obj.number == num %}
+            <li>
+                <span class="px-3 py-2 rounded-lg bg-gradient-to-r from-teal-400 to-blue-500 text-white font-medium" aria-current="page">
+                    {{ num }}
+                </span>
+            </li>
+            {% elif num > page_obj.number|add:"-3" and num < page_obj.number|add:"3" %}
+            <li>
+                <a href="?page={{ num }}
+                   data-ga-event="pagination_click"
+                   data-ga-params='{"direction":"goto","page":{{ num }}}'{% if current_search %}&q={{ current_search }}{% endif %}{% if current_category %}&category={{ current_category }}{% endif %}{% if current_language %}&lang={{ current_language }}{% endif %}{% if current_sort %}&sort={{ current_sort }}{% endif %}"
+                   class="px-3 py-2 rounded-lg text-gray-300 hover:bg-gray-800 transition-colors">
+                    {{ num }}
+                </a>
+            </li>
+            {% endif %}
+        {% endfor %}
+
+        {% if page_obj.has_next %}
+        <li>
+            <a href="?page={{ page_obj.next_page_number }}
+               data-ga-event="pagination_click"
+               data-ga-params='{"direction":"next","page":{{ page_obj.next_page_number }}}'{% if current_search %}&q={{ current_search }}{% endif %}{% if current_category %}&category={{ current_category }}{% endif %}{% if current_language %}&lang={{ current_language }}{% endif %}{% if current_sort %}&sort={{ current_sort }}{% endif %}"
+               class="px-3 py-2 rounded-lg text-gray-300 hover:bg-gray-800 transition-colors"
+               aria-label="Next page">
+                Next →
+            </a>
+        </li>
+        {% endif %}
+    </ul>
+</nav>
+{% endif %}

@@ -1,0 +1,50 @@
+/* Menu Container */
+.menu-container {
+    margin-bottom: 15px; /* Reduce margin */
+    text-align: left;
+}
+
+/* Menu Title */
+.menu-title {
+    display: block;
+    margin-bottom: 8px; /* Reduce space */
+    font-size: 1em; /* Smaller font size */
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
+/* Menu List */
+.menu-list {
+    display: flex; /* Use flexbox to arrange items side by side */
+    flex-wrap: wrap; /* Allow wrapping if necessary */
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    border: 1px solid var(--form-border-color);
+    border-radius: 8px;
+    overflow: hidden;
+    gap: 5px; /* Add gap between items */
+}
+
+/* Menu Item */
+.menu-item {
+    border-bottom: none; /* Remove bottom border from items */
+    flex: 1 1 48%; /* Allow items to grow and shrink equally */
+    margin: 0; /* Remove internal margin */
+}
+
+/* Menu Link */
+.menu-link {
+    display: block;
+    padding: 6px 10px; /* Reduce padding for a more compact look */
+    color: var(--text-color);
+    background-color: var(--nav-bg-color);
+    transition: background-color 0.2s, color 0.2s;
+    text-align: center; /* Center text */
+    border-radius: 4px; /* Apply border radius */
+}
+
+.menu-link:hover {
+    background-color: var(--nav-link-bg-hover);
+    color: var(--nav-link-text-hover);
+}
