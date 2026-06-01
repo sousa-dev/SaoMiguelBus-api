@@ -10,9 +10,14 @@ from tenancy.models import Island
 
 
 def get_or_create_default_island(key: str = 'sao-miguel') -> Island:
-    """Ensure the default São Miguel island exists."""
-    defaults = Island.default_sao_miguel()
-    island, _ = Island.objects.update_or_create(key=key, defaults=defaults)
+    """Ensure the default São Miguel island exists (does not overwrite existing row)."""
+    island, created = Island.objects.get_or_create(
+        key=key,
+        defaults=Island.default_sao_miguel(),
+    )
+    if created:
+        island.is_live = True
+        island.save(update_fields=['is_live'])
     return island
 
 

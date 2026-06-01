@@ -82,6 +82,9 @@ def select_ad(*, advertise_on: str, platform: str, now_ts: float | None = None) 
             .order_by('?')
             .first()
         )
+    if ad is None and platform not in ('all', ''):
+        # Dev sqlite often has android-only defaults; serve any default rather than 404
+        ad = Ad.objects.filter(status='default').order_by('?').first()
     return ad
 
 
