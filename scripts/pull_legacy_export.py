@@ -4,12 +4,13 @@ Pull a full legacy export via the batched API and write import_legacy-compatible
 
 Stdlib only — no pip dependencies required.
 
-Example:
+Example (run until done, largest batches, no per-request timeout):
   python3 scripts/pull_legacy_export.py \\
     --base-url https://api.saomiguelbus.com \\
     --key "$AUTH_KEY" \\
     --output smb_legacy_export.json \\
-    --limit 5000
+    --limit 0 \\
+    --timeout 0
 """
 
 from __future__ import annotations
@@ -23,9 +24,12 @@ import urllib.parse
 import urllib.request
 from collections import defaultdict
 from datetime import datetime, timezone
+from typing import Optional
+
+SERVER_MAX_LIMIT = 10000
 
 
-def fetch_json(url: str, timeout: int) -> dict:
+def fetch_json(url: str, timeout: Optional[int]) -> dict:
     request = urllib.request.Request(url, headers={'Accept': 'application/json'})
     with urllib.request.urlopen(request, timeout=timeout) as response:
         return json.loads(response.read().decode('utf-8'))
@@ -43,7 +47,7 @@ def pull_export(
     key: str,
     output_path: str,
     limit: int,
-    timeout: int,
+    timeout: Optional[int],
     sleep_seconds: float,
 ) -> dict[str, int]:
     tables: dict[str, list[dict]] = defaultdict(list)
@@ -125,13 +129,13 @@ def main() -> int:
         '--limit',
         type=int,
         default=5000,
-        help='Rows per batch request (default: 5000, max 10000 on server)',
+        help='Rows per batch (0 = server max %d, default: 5000)' % SERVER_MAX_LIMIT,
     )
     parser.add_argument(
         '--timeout',
         type=int,
         default=120,
-        help='HTTP timeout per batch in seconds (default: 120)',
+        help='HTTP timeout per batch in seconds (0 = no timeout, default: 120)',
     )
     parser.add_argument(
         '--sleep',
@@ -141,8 +145,14 @@ def main() -> int:
     )
     args = parser.parse_args()
 
-    if args.limit < 1:
-        print('limit must be >= 1', file=sys.stderr)
+    limit = SERVER_MAX_LIMIT if args.limit == 0 else args.limit
+    if limit < 1:
+        print('limit must be >= 1 or 0 for server max', file=sys.stderr)
+        return 2
+
+    timeout: Optional[int] = None if args.timeout == 0 else args.timeout
+    if timeout is not None and timeout < 1:
+        print('timeout must be >= 1 or 0 for no timeout', file=sys.stderr)
         return 2
 
     try:
@@ -150,8 +160,8 @@ def main() -> int:
             base_url=args.base_url,
             key=args.key,
             output_path=args.output,
-            limit=args.limit,
-            timeout=args.timeout,
+            limit=limit,
+            timeout=timeout,
             sleep_seconds=args.sleep,
         )
     except RuntimeError as exc:
