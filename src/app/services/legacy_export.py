@@ -1,16 +1,16 @@
-"""Portable JSON snapshot of legacy production data for revamp import_legacy."""
+"""Portable JSON snapshot of all legacy production data."""
 
 from __future__ import annotations
 
 from datetime import date, datetime
 from typing import Any
 
+from django.apps import apps
+from django.db import models
 from django.utils import timezone
 
-from app.models import Ad, Group, Holiday, Info, Route, Stop, Variables
-from subscriptions.models import Subscription
-
-EXPORT_FORMAT_VERSION = 1
+EXPORT_FORMAT_VERSION = 2
+EXPORT_APP_LABELS = ('app', 'subscriptions')
 
 
 def _serialize(value: Any) -> Any:
@@ -18,6 +18,8 @@ def _serialize(value: Any) -> Any:
         return value.isoformat()
     if isinstance(value, date):
         return value.isoformat()
+    if isinstance(value, models.Model):
+        return value.pk
     if isinstance(value, dict):
         return {str(k): _serialize(v) for k, v in value.items()}
     if isinstance(value, (list, tuple)):
@@ -25,88 +27,26 @@ def _serialize(value: Any) -> Any:
     return value
 
 
-def _rows(values_qs) -> list[list[Any]]:
-    return [_serialize(list(row)) for row in values_qs]
+def _export_model(model: type[models.Model]) -> list[dict[str, Any]]:
+    return [
+        {key: _serialize(value) for key, value in record.items()}
+        for record in model.objects.all().order_by('pk').values()
+    ]
 
 
 def build_legacy_export() -> dict[str, Any]:
-    """Serialize every table consumed by revamp ``import_legacy``."""
+    """Serialize every row from ``app`` and ``subscriptions`` models."""
+    tables: dict[str, list[dict[str, Any]]] = {}
+    for model in apps.get_models():
+        if model._meta.app_label not in EXPORT_APP_LABELS:
+            continue
+        if model._meta.proxy or model._meta.auto_created:
+            continue
+        tables[model._meta.db_table] = _export_model(model)
+
     return {
         'format_version': EXPORT_FORMAT_VERSION,
         'exported_at': timezone.now().isoformat(),
         'source': 'saomiguelbus-legacy-api',
-        'tables': {
-            'app_variables': _rows(
-                Variables.objects.values_list('version', 'maps', 'populate_maps_routes')[:1]
-            ),
-            'app_stop': _rows(
-                Stop.objects.values_list(
-                    'id', 'name', 'cleaned_name', 'latitude', 'longitude'
-                ).order_by('id')
-            ),
-            'app_holiday': _rows(
-                Holiday.objects.values_list('id', 'date', 'name').order_by('date')
-            ),
-            'app_group': _rows(
-                Group.objects.values_list('id', 'name', 'stops').order_by('id')
-            ),
-            'app_route': _rows(
-                Route.objects.values_list(
-                    'id',
-                    'route',
-                    'stops',
-                    'type_of_day',
-                    'information',
-                    'disabled',
-                    'likes',
-                    'dislikes',
-                ).order_by('id')
-            ),
-            'app_ad': _rows(
-                Ad.objects.values_list(
-                    'id',
-                    'entity',
-                    'description',
-                    'media',
-                    'start',
-                    'end',
-                    'action',
-                    'target',
-                    'advertise_on',
-                    'platform',
-                    'status',
-                    'seen',
-                    'clicked',
-                ).order_by('id')
-            ),
-            'app_info': _rows(
-                Info.objects.values_list(
-                    'id',
-                    'titlePT',
-                    'messagePT',
-                    'titleEN',
-                    'messageEN',
-                    'titleES',
-                    'messageES',
-                    'titleFR',
-                    'messageFR',
-                    'titleDE',
-                    'messageDE',
-                    'start',
-                    'end',
-                    'source',
-                    'company',
-                ).order_by('id')
-            ),
-            'subscriptions': _rows(
-                Subscription.objects.values_list(
-                    'id',
-                    'email',
-                    'is_active',
-                    'verification_count',
-                    'created_at',
-                    'updated_at',
-                ).order_by('id')
-            ),
-        },
+        'tables': tables,
     }
