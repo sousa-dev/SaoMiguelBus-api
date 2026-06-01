@@ -1,24 +1,105 @@
-import json
-
 from django.conf import settings
-from django.http import HttpResponse, JsonResponse
+from django.http import FileResponse, JsonResponse
 from django.views.decorators.http import require_GET
 
-from app.services.legacy_export import build_legacy_export
+from app.services.legacy_export import (
+    job_export_path,
+    read_job_status,
+    start_legacy_export_job,
+)
+
+
+def _check_auth(request):
+    key = request.GET.get('key')
+    if key != settings.AUTH_KEY:
+        return JsonResponse({'error': 'Unauthorized'}, status=401)
+    return None
+
+
+def _status_urls(request, job_id: str) -> dict[str, str]:
+    base = request.build_absolute_uri('/api/v1/export/legacy').split('?')[0]
+    key = request.GET.get('key', '')
+    query = f'key={key}&job_id={job_id}'
+    return {
+        'status_url': f'{base}/status?{query}',
+        'download_url': f'{base}/download?{query}',
+    }
 
 
 @require_GET
 def export_legacy_data(request):
-    """Download full legacy dataset as JSON for revamp ``import_legacy --export-file``."""
-    key = request.GET.get('key')
-    if key != settings.AUTH_KEY:
-        return JsonResponse({'error': 'Unauthorized'}, status=401)
+    """Start a background legacy export job (returns immediately)."""
+    auth_error = _check_auth(request)
+    if auth_error:
+        return auth_error
 
-    payload = build_legacy_export()
-    exported_on = payload['exported_at'][:10]
-    filename = f'smb_legacy_export_{exported_on}.json'
-    body = json.dumps(payload, indent=2, ensure_ascii=False)
+    status = start_legacy_export_job()
+    job_id = status['job_id']
+    urls = _status_urls(request, job_id)
+    return JsonResponse(
+        {
+            'message': 'Export started in background',
+            'job_id': job_id,
+            'status': status.get('status'),
+            'started_at': status.get('started_at'),
+            **urls,
+        },
+        status=202,
+    )
 
-    response = HttpResponse(body, content_type='application/json; charset=utf-8')
-    response['Content-Disposition'] = f'attachment; filename="{filename}"'
-    return response
+
+@require_GET
+def export_legacy_status(request):
+    """Poll export job status."""
+    auth_error = _check_auth(request)
+    if auth_error:
+        return auth_error
+
+    job_id = request.GET.get('job_id')
+    if not job_id:
+        return JsonResponse({'error': 'job_id is required'}, status=400)
+
+    status = read_job_status(job_id)
+    if status is None:
+        return JsonResponse({'error': 'Unknown job_id'}, status=404)
+
+    urls = _status_urls(request, job_id)
+    return JsonResponse({**status, **urls})
+
+
+@require_GET
+def export_legacy_download(request):
+    """Download completed export file."""
+    auth_error = _check_auth(request)
+    if auth_error:
+        return auth_error
+
+    job_id = request.GET.get('job_id')
+    if not job_id:
+        return JsonResponse({'error': 'job_id is required'}, status=400)
+
+    status = read_job_status(job_id)
+    if status is None:
+        return JsonResponse({'error': 'Unknown job_id'}, status=404)
+    if status.get('status') != 'completed':
+        return JsonResponse(
+            {
+                'error': 'Export not ready',
+                'status': status.get('status'),
+                'job_id': job_id,
+            },
+            status=409,
+        )
+
+    export_path = job_export_path(job_id)
+    if not export_path.is_file():
+        return JsonResponse({'error': 'Export file missing on disk'}, status=500)
+
+    exported_on = (status.get('exported_at') or status.get('finished_at') or '')[:10]
+    filename = f'smb_legacy_export_{exported_on or job_id}.json'
+    return FileResponse(
+        export_path.open('rb'),
+        as_attachment=True,
+        filename=filename,
+        content_type='application/json; charset=utf-8',
+    )

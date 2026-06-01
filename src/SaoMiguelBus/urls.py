@@ -44,6 +44,8 @@ urlpatterns = [
     path('api/v1/feriados', views.get_holidays_v1),
     path('api/v1/data/<int:data_id>', views.get_data_v1),
     path('api/v1/export/legacy', views.export_legacy_data),
+    path('api/v1/export/legacy/status', views.export_legacy_status),
+    path('api/v1/export/legacy/download', views.export_legacy_download),
     #path('clean', views.clean_trip_and_stops),
     #### V2 ####
     path('api/v2/android/load', views.get_android_load_v2),
