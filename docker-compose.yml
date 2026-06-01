@@ -64,7 +64,7 @@ services:
       - static_files:/usr/src/app/static
       - media_files:/usr/src/app/media
     ports:
-      - "${WEB_PORT:-8000}:8000"
+      - "${WEB_PORT:-8000}:${WEB_CONTAINER_PORT:-8000}"
     <<: *app-env
     depends_on:
       db:

@@ -51,6 +51,13 @@ SECRET_KEY = config('SECRET_KEY', default='YOUR_SECRET_KEY')
 
 DEBUG = config('DEBUG', default=True, cast=bool)
 
+# Service ports (override in src/src/.env or repo-root .env for Docker Compose)
+WEB_HOST = config('WEB_HOST', default='127.0.0.1')
+WEB_PORT = config('WEB_PORT', default='8000')
+WEB_CONTAINER_PORT = config('WEB_CONTAINER_PORT', default=WEB_PORT)
+REDIS_HOST = config('REDIS_HOST', default='localhost')
+REDIS_PORT = config('REDIS_PORT', default='6379')
+
 DEFAULT_ISLAND_KEY = config('DEFAULT_ISLAND_KEY', default='sao-miguel')
 ALLOW_INACTIVE_ISLANDS = config('ALLOW_INACTIVE_ISLANDS', default=DEBUG, cast=bool)
 
@@ -78,7 +85,7 @@ ALLOWED_HOSTS = _csv_env(
 )
 
 _cors_default = (
-    'http://127.0.0.1:8000,http://localhost:8000'
+    f'http://127.0.0.1:{WEB_PORT},http://localhost:{WEB_PORT}'
     if DEBUG
     else ''
 )
@@ -163,7 +170,7 @@ DATABASES = {
         'USER': config('DB_USER', default=''),
         'PASSWORD': config('DB_PASSWORD', default=''),
         'HOST': config('DB_HOST', default=''),
-        'PORT': config('DB_PORT', default='6543'),
+        'PORT': config('DB_PORT', default='5432'),
     }
 }
 
@@ -321,7 +328,8 @@ def define_stripe_payments_settings():
     STRIPE_WEBHOOK_SECRET = config(f'{prefix}STRIPE_WEBHOOK_SECRET', default='')
     PRODUCT_PRICE_ID = config(f'{prefix}PRODUCT_PRICE_ID', default='')
     COUPON_ID = config(f'{prefix}COUPON_ID', default='')
-    REDIRECT_DOMAIN = config(f'{prefix}REDIRECT_DOMAIN', default='')
+    _redirect_default = f'http://{WEB_HOST}:{WEB_PORT}/payment'
+    REDIRECT_DOMAIN = config(f'{prefix}REDIRECT_DOMAIN', default=_redirect_default)
     PAYMENT_METHODS = config('PAYMENT_METHODS', default='card,paypal,link').split(',')
 
 AUTHENTICATION_REQUIRED = config('AUTHENTICATION_REQUIRED', default=False, cast=bool)      
@@ -375,8 +383,9 @@ if 'axes' in INSTALLED_APPS:
     MIDDLEWARE.append('axes.middleware.AxesMiddleware')
     
 ### Celery Configuration ###
-CELERY_BROKER_URL = config('CELERY_BROKER_URL', default='redis://localhost:6379/0')
-CELERY_RESULT_BACKEND = config('CELERY_RESULT_BACKEND', default='redis://localhost:6379/0')
+_default_redis = f'redis://{REDIS_HOST}:{REDIS_PORT}'
+CELERY_BROKER_URL = config('CELERY_BROKER_URL', default=f'{_default_redis}/0')
+CELERY_RESULT_BACKEND = config('CELERY_RESULT_BACKEND', default=f'{_default_redis}/0')
 CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
@@ -395,7 +404,7 @@ if ('django_celery_beat', True) not in apps:
 CACHES = {
     'default': {
         'BACKEND': 'django.core.cache.backends.redis.RedisCache',
-        'LOCATION': config('REDIS_URL', default='redis://localhost:6379/1'),
+        'LOCATION': config('REDIS_URL', default=f'{_default_redis}/1'),
     }
 } if config('REDIS_URL', default='') else {
     'default': {

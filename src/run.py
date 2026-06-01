@@ -5,6 +5,8 @@ if os.name != 'nt':
     import threading
     import time
 
+    from env_util import web_bind_address
+
     def verify_root_directory():
         expected_files = ['manage.py', 'run.py']
         for filename in expected_files:
@@ -65,7 +67,12 @@ if os.name != 'nt':
     time.sleep(5)
 
     # Run the Django server
-    runserver_process = subprocess.Popen(f'bash -c "{source_venv} && {python_command} manage.py runserver"', shell=True, preexec_fn=os.setsid)
+    bind = web_bind_address()
+    runserver_process = subprocess.Popen(
+        f'bash -c "{source_venv} && {python_command} manage.py runserver {bind}"',
+        shell=True,
+        preexec_fn=os.setsid,
+    )
 
     try:
         tailwind_process.wait()
@@ -80,6 +87,8 @@ else:
     import threading
     import time
     import signal
+
+    from env_util import web_bind_address
 
     def verify_root_directory():
         expected_files = ['manage.py', 'run.py']
@@ -137,7 +146,8 @@ else:
     time.sleep(5)
 
     # Run the Django server
-    runserver_command = f'{python_command} manage.py runserver'
+    bind = web_bind_address()
+    runserver_command = f'{python_command} manage.py runserver {bind}'
 
     runserver_process = subprocess.Popen(
         f'cmd.exe /c "{activate_script} & {runserver_command}"',

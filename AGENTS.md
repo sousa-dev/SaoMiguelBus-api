@@ -23,8 +23,20 @@ cd SaoMiguelBus-api
 python setup.py
 cp src/src/.env.example src/src/.env
 cd src
-python run.py                    # Django + Tailwind — http://127.0.0.1:8000
+python run.py                    # Django + Tailwind — http://${WEB_HOST}:${WEB_PORT} (default 127.0.0.1:8000)
 ```
+
+Set ports in `src/src/.env`:
+
+```
+WEB_HOST=127.0.0.1
+WEB_PORT=8000
+DB_PORT=5432
+REDIS_HOST=localhost
+REDIS_PORT=6379
+```
+
+Docker Compose host mappings: `WEB_PORT`, `WEB_CONTAINER_PORT`, `DB_PORT_EXPOSE`, `REDIS_PORT_EXPOSE`.
 
 ### Conventions (follow boilerplate)
 
@@ -117,7 +129,7 @@ Services: `db`, `redis`, `web`, `celery-worker`, `celery-beat`.
 
 ```bash
 cd legacy/src
-python3 manage.py runserver 0.0.0.0:8000
+python3 manage.py runserver 0.0.0.0:${WEB_PORT:-8000}
 ```
 
 Dev: SQLite at `legacy/src/db.sqlite3` (pre-seeded). Prod: `DATABASE_URL` → Postgres.

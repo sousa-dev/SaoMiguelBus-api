@@ -36,9 +36,9 @@ Feature toggles: `src/src/settings.py` → `apps = [...]` list.
 
 ```bash
 python setup.py
-cp src/src/.env.example src/src/.env   # set SECRET_KEY, etc.
+cp src/src/.env.example src/src/.env   # set SECRET_KEY, ports, etc.
 cd src
-python run.py                          # http://127.0.0.1:8000
+python run.py                          # http://${WEB_HOST}:${WEB_PORT} (default 127.0.0.1:8000)
 ```
 
 Tests: `cd src && python manage.py test`
@@ -49,7 +49,7 @@ Celery (optional): Redis + `celery -A src worker` + beat — see `boilerplate/RE
 
 ```bash
 cd legacy/src
-python3 manage.py runserver 0.0.0.0:8000
+python3 manage.py runserver 0.0.0.0:${WEB_PORT:-8000}
 ```
 
 Dev uses SQLite at `legacy/src/db.sqlite3` (pre-seeded). Production uses Postgres via `DATABASE_URL`.
