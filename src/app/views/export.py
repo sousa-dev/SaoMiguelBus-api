@@ -4,6 +4,11 @@ from django.views.decorators.http import require_GET
 
 from app.models import LegacyExportJob
 from app.services.legacy_export import get_job, read_job_status, start_legacy_export_job
+from app.services.legacy_export_batch import (
+    DEFAULT_BATCH_LIMIT,
+    batch_export_meta,
+    fetch_legacy_batch,
+)
 
 
 def _check_auth(request):
@@ -98,3 +103,33 @@ def export_legacy_download(request):
         filename=filename,
         content_type='application/json; charset=utf-8',
     )
+
+
+@require_GET
+def export_legacy_batch_meta(request):
+    """Describe batched export tables and cursor format."""
+    auth_error = _check_auth(request)
+    if auth_error:
+        return auth_error
+    return JsonResponse(batch_export_meta())
+
+
+@require_GET
+def export_legacy_batch(request):
+    """Return one batch of legacy rows. Use ``next`` cursor until export_complete."""
+    auth_error = _check_auth(request)
+    if auth_error:
+        return auth_error
+
+    cursor = request.GET.get('next') or request.GET.get('cursor')
+    try:
+        limit = int(request.GET.get('limit', DEFAULT_BATCH_LIMIT))
+    except ValueError:
+        return JsonResponse({'error': 'limit must be an integer'}, status=400)
+
+    try:
+        payload = fetch_legacy_batch(cursor=cursor, limit=limit)
+    except ValueError as exc:
+        return JsonResponse({'error': str(exc)}, status=400)
+
+    return JsonResponse(payload)
