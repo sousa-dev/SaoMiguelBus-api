@@ -101,8 +101,16 @@ python manage.py import_legacy --legacy-db "$LEGACY_DATABASE_URL"
 Or from a JSON export (deploy `main-temp`, download, then import):
 
 ```bash
+# 1. Start export (returns immediately with job_id)
+curl 'https://api.saomiguelbus.com/api/v1/export/legacy?key=$AUTH_KEY'
+
+# 2. Poll until status is "completed"
+curl 'https://api.saomiguelbus.com/api/v1/export/legacy/status?key=$AUTH_KEY&job_id=JOB_ID'
+
+# 3. Download file
 curl -o /tmp/smb_legacy_export.json \
-  'https://api.saomiguelbus.com/api/v1/export/legacy?key=$AUTH_KEY'
+  'https://api.saomiguelbus.com/api/v1/export/legacy/download?key=$AUTH_KEY&job_id=JOB_ID'
+
 python manage.py import_legacy --export-file /tmp/smb_legacy_export.json
 ```
 
