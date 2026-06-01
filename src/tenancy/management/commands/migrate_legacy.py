@@ -17,13 +17,22 @@ class Command(BaseCommand):
             '--legacy-db',
             default='sqlite:///../legacy/src/db.sqlite3',
         )
+        parser.add_argument(
+            '--export-file',
+            help='JSON export from GET /api/v1/export/legacy (overrides --legacy-db)',
+        )
         parser.add_argument('--island', default='sao-miguel')
 
     def handle(self, *args, **options):
         step = options['step']
         island = get_or_create_default_island(options['island'])
         try:
-            report = run_migration_step(step, island, options['legacy_db'])
+            report = run_migration_step(
+                step,
+                island,
+                legacy_db_url=options['legacy_db'],
+                export_file=options.get('export_file'),
+            )
         except Exception as exc:
             raise CommandError(str(exc)) from exc
 

@@ -10,10 +10,11 @@ import sqlite3
 from dataclasses import dataclass, field
 from datetime import datetime, time
 from pathlib import Path
-from typing import Any
+from typing import Any, Union
 from urllib.parse import urlparse
 
 from django.db import connection, transaction
+from django.utils.dateparse import parse_date, parse_datetime
 from django.utils import timezone
 
 from tenancy.models import Island
@@ -47,6 +48,54 @@ OPERATOR_PREFIXES = (
     ('AVM', 'AVM'),
     ('Varela', 'Varela'),
 )
+
+LEGACY_EXPORT_FORMAT_VERSION = 1
+
+QUERY_VARIABLES = 'SELECT version, maps, populate_maps_routes FROM app_variables LIMIT 1'
+QUERY_STOPS = (
+    'SELECT id, name, cleaned_name, latitude, longitude FROM app_stop ORDER BY id'
+)
+QUERY_HOLIDAYS = 'SELECT id, date, name FROM app_holiday ORDER BY date'
+QUERY_GROUPS = 'SELECT id, name, stops FROM app_group ORDER BY id'
+QUERY_ROUTES = (
+    'SELECT id, route, stops, type_of_day, information, disabled, likes, dislikes '
+    'FROM app_route ORDER BY id'
+)
+QUERY_ADS = (
+    'SELECT id, entity, description, media, start, end, action, target, '
+    'advertise_on, platform, status, seen, clicked FROM app_ad ORDER BY id'
+)
+QUERY_INFOS = (
+    'SELECT id, titlePT, messagePT, titleEN, messageEN, titleES, messageES, '
+    'titleFR, messageFR, titleDE, messageDE, start, end, source, company '
+    'FROM app_info ORDER BY id'
+)
+QUERY_SUBSCRIPTIONS = (
+    'SELECT id, email, is_active, verification_count, created_at, updated_at '
+    'FROM subscriptions ORDER BY id'
+)
+
+LEGACY_SQL_TABLE_MAP = {
+    ' '.join(QUERY_VARIABLES.split()): 'app_variables',
+    ' '.join(QUERY_STOPS.split()): 'app_stop',
+    ' '.join(QUERY_HOLIDAYS.split()): 'app_holiday',
+    ' '.join(QUERY_GROUPS.split()): 'app_group',
+    ' '.join(QUERY_ROUTES.split()): 'app_route',
+    ' '.join(QUERY_ADS.split()): 'app_ad',
+    ' '.join(QUERY_INFOS.split()): 'app_info',
+    ' '.join(QUERY_SUBSCRIPTIONS.split()): 'subscriptions',
+}
+
+_LEGACY_DATE_COLUMNS: dict[str, set[int]] = {
+    'app_holiday': {1},
+}
+_LEGACY_DATETIME_COLUMNS: dict[str, set[int]] = {
+    'app_ad': {4, 5},
+    'app_info': {11, 12},
+    'subscriptions': {4, 5},
+}
+
+LegacySource = Union['LegacyDatabase', 'LegacyExportSource']
 
 
 @dataclass
@@ -144,6 +193,66 @@ class LegacyDatabase:
             return cursor.fetchall()
 
 
+def _normalize_sql(sql: str) -> str:
+    return ' '.join(sql.split())
+
+
+def _coerce_export_cell(table: str, index: int, value: Any) -> Any:
+    if value is None or not isinstance(value, str):
+        return value
+    if index in _LEGACY_DATE_COLUMNS.get(table, set()):
+        parsed = parse_date(value[:10])
+        return parsed or value
+    if index in _LEGACY_DATETIME_COLUMNS.get(table, set()):
+        parsed = parse_datetime(value)
+        return parsed or value
+    return value
+
+
+class LegacyExportSource:
+    """Read legacy rows from JSON produced by GET /api/v1/export/legacy."""
+
+    def __init__(self, export_path: str | Path):
+        path = Path(export_path)
+        if not path.is_file():
+            raise FileNotFoundError(f'Legacy export file not found: {path}')
+        payload = json.loads(path.read_text(encoding='utf-8'))
+        version = payload.get('format_version')
+        if version != LEGACY_EXPORT_FORMAT_VERSION:
+            raise ValueError(
+                f'Unsupported export format_version={version!r} '
+                f'(expected {LEGACY_EXPORT_FORMAT_VERSION})'
+            )
+        self.tables: dict[str, list[list[Any]]] = payload.get('tables', {})
+
+    def fetchall(self, sql: str, params: tuple = ()) -> list[tuple]:
+        if params:
+            raise NotImplementedError('Parameterized legacy export queries are not supported')
+        table = LEGACY_SQL_TABLE_MAP.get(_normalize_sql(sql))
+        if table is None:
+            raise ValueError(f'Unsupported legacy export query: {sql}')
+        rows = self.tables.get(table, [])
+        return [
+            tuple(
+                _coerce_export_cell(table, index, value)
+                for index, value in enumerate(row)
+            )
+            for row in rows
+        ]
+
+
+def open_legacy_source(
+    *,
+    legacy_db_url: str | None = None,
+    export_file: str | Path | None = None,
+) -> LegacySource:
+    if export_file:
+        return LegacyExportSource(export_file)
+    return LegacyDatabase(
+        legacy_db_url or 'sqlite:///../legacy/src/db.sqlite3'
+    )
+
+
 def write_report(report: MigrationReport) -> Path:
     reports_dir = Path(__file__).resolve().parents[2] / 'migration_reports'
     reports_dir.mkdir(exist_ok=True)
@@ -170,11 +279,11 @@ def _parse_legacy_information(raw: Any) -> dict:
     return {}
 
 
-def migrate_islands(island: Island, legacy: LegacyDatabase) -> MigrationReport:
+def migrate_islands(island: Island, legacy: LegacySource) -> MigrationReport:
     report = MigrationReport(step='islands')
     defaults = Island.default_sao_miguel()
     flags = dict(defaults.get('feature_flags', {}))
-    rows = legacy.fetchall('SELECT version, maps, populate_maps_routes FROM app_variables LIMIT 1')
+    rows = legacy.fetchall(QUERY_VARIABLES)
     if rows:
         version, maps, populate_maps = rows[0]
         flags['version'] = version
@@ -188,7 +297,7 @@ def migrate_islands(island: Island, legacy: LegacyDatabase) -> MigrationReport:
     return report
 
 
-def migrate_operators(island: Island, legacy: LegacyDatabase) -> MigrationReport:
+def migrate_operators(island: Island, legacy: LegacySource) -> MigrationReport:
     report = MigrationReport(step='operators')
     with for_island(island):
         for _, name in OPERATOR_PREFIXES + (('Other', 'Other'),):
@@ -202,11 +311,9 @@ def migrate_operators(island: Island, legacy: LegacyDatabase) -> MigrationReport
     return report
 
 
-def migrate_stops(island: Island, legacy: LegacyDatabase) -> MigrationReport:
+def migrate_stops(island: Island, legacy: LegacySource) -> MigrationReport:
     report = MigrationReport(step='stops')
-    rows = legacy.fetchall(
-        'SELECT id, name, cleaned_name, latitude, longitude FROM app_stop ORDER BY id'
-    )
+    rows = legacy.fetchall(QUERY_STOPS)
     with for_island(island), transaction.atomic():
         for legacy_id, name, cleaned_name, latitude, longitude in rows:
             cleaned = cleaned_name or clean_string(name)
@@ -227,7 +334,7 @@ def migrate_stops(island: Island, legacy: LegacyDatabase) -> MigrationReport:
     return report
 
 
-def migrate_calendars(island: Island, legacy: LegacyDatabase) -> MigrationReport:
+def migrate_calendars(island: Island, legacy: LegacySource) -> MigrationReport:
     report = MigrationReport(step='calendars')
     with for_island(island):
         for service_type in (Calendar.WEEKDAY, Calendar.SATURDAY, Calendar.SUNDAY):
@@ -240,9 +347,9 @@ def migrate_calendars(island: Island, legacy: LegacyDatabase) -> MigrationReport
     return report
 
 
-def migrate_holidays(island: Island, legacy: LegacyDatabase) -> MigrationReport:
+def migrate_holidays(island: Island, legacy: LegacySource) -> MigrationReport:
     report = MigrationReport(step='holidays')
-    rows = legacy.fetchall('SELECT id, date, name FROM app_holiday ORDER BY date')
+    rows = legacy.fetchall(QUERY_HOLIDAYS)
     with for_island(island), transaction.atomic():
         for legacy_id, date_value, name in rows:
             if isinstance(date_value, str):
@@ -262,9 +369,9 @@ def migrate_holidays(island: Island, legacy: LegacyDatabase) -> MigrationReport:
     return report
 
 
-def migrate_stop_groups(island: Island, legacy: LegacyDatabase) -> MigrationReport:
+def migrate_stop_groups(island: Island, legacy: LegacySource) -> MigrationReport:
     report = MigrationReport(step='stop_groups')
-    rows = legacy.fetchall('SELECT id, name, stops FROM app_group ORDER BY id')
+    rows = legacy.fetchall(QUERY_GROUPS)
     with for_island(island), transaction.atomic():
         for legacy_id, name, stops in rows:
             stop_names = [part.strip() for part in (stops or '').split(',') if part.strip()]
@@ -281,12 +388,9 @@ def migrate_stop_groups(island: Island, legacy: LegacyDatabase) -> MigrationRepo
     return report
 
 
-def migrate_lines_trips(island: Island, legacy: LegacyDatabase) -> MigrationReport:
+def migrate_lines_trips(island: Island, legacy: LegacySource) -> MigrationReport:
     report = MigrationReport(step='lines_trips')
-    rows = legacy.fetchall(
-        'SELECT id, route, stops, type_of_day, information, disabled, likes, dislikes '
-        'FROM app_route ORDER BY id'
-    )
+    rows = legacy.fetchall(QUERY_ROUTES)
     with for_island(island), transaction.atomic():
         for legacy_id, route, stops_raw, type_of_day, information, disabled, likes, dislikes in rows:
             service_type = LEGACY_DAY_MAP.get(str(type_of_day).strip(), Calendar.WEEKDAY)
@@ -355,12 +459,9 @@ def migrate_lines_trips(island: Island, legacy: LegacyDatabase) -> MigrationRepo
     return report
 
 
-def migrate_ads(island: Island, legacy: LegacyDatabase) -> MigrationReport:
+def migrate_ads(island: Island, legacy: LegacySource) -> MigrationReport:
     report = MigrationReport(step='ads')
-    rows = legacy.fetchall(
-        'SELECT id, entity, description, media, start, end, action, target, '
-        'advertise_on, platform, status, seen, clicked FROM app_ad ORDER BY id'
-    )
+    rows = legacy.fetchall(QUERY_ADS)
     with for_island(island), transaction.atomic():
         for row in rows:
             legacy_id = row[0]
@@ -387,13 +488,9 @@ def migrate_ads(island: Island, legacy: LegacyDatabase) -> MigrationReport:
     return report
 
 
-def migrate_infos(island: Island, legacy: LegacyDatabase) -> MigrationReport:
+def migrate_infos(island: Island, legacy: LegacySource) -> MigrationReport:
     report = MigrationReport(step='infos')
-    rows = legacy.fetchall(
-        'SELECT id, titlePT, messagePT, titleEN, messageEN, titleES, messageES, '
-        'titleFR, messageFR, titleDE, messageDE, start, end, source, company '
-        'FROM app_info ORDER BY id'
-    )
+    rows = legacy.fetchall(QUERY_INFOS)
     with for_island(island), transaction.atomic():
         for row in rows:
             legacy_id = row[0]
@@ -420,14 +517,11 @@ def migrate_infos(island: Island, legacy: LegacyDatabase) -> MigrationReport:
     return report
 
 
-def migrate_subscriptions(island: Island, legacy: LegacyDatabase) -> MigrationReport:
+def migrate_subscriptions(island: Island, legacy: LegacySource) -> MigrationReport:
     from billing.models import Subscription
 
     report = MigrationReport(step='subscriptions')
-    rows = legacy.fetchall(
-        'SELECT id, email, is_active, verification_count, created_at, updated_at '
-        'FROM subscriptions ORDER BY id'
-    )
+    rows = legacy.fetchall(QUERY_SUBSCRIPTIONS)
     with transaction.atomic():
         for legacy_id, email, is_active, verification_count, created_at, updated_at in rows:
             _, created = Subscription.objects.update_or_create(
@@ -456,16 +550,28 @@ MIGRATION_STEPS: dict[str, Any] = {
 }
 
 
-def run_migration_step(step: str, island: Island, legacy_db_url: str) -> MigrationReport:
+def run_migration_step(
+    step: str,
+    island: Island,
+    *,
+    legacy_db_url: str | None = None,
+    export_file: str | Path | None = None,
+) -> MigrationReport:
     if step not in MIGRATION_STEPS:
         raise ValueError(f'Unknown migration step: {step}')
-    legacy = LegacyDatabase(legacy_db_url)
+    legacy = open_legacy_source(legacy_db_url=legacy_db_url, export_file=export_file)
     report = MIGRATION_STEPS[step](island, legacy)
     write_report(report)
     return report
 
 
-def run_full_import(island: Island, legacy_db_url: str, *, dry_run: bool = False) -> list[MigrationReport]:
+def run_full_import(
+    island: Island,
+    *,
+    legacy_db_url: str | None = None,
+    export_file: str | Path | None = None,
+    dry_run: bool = False,
+) -> list[MigrationReport]:
     order = [
         'islands',
         'operators',
@@ -483,5 +589,12 @@ def run_full_import(island: Island, legacy_db_url: str, *, dry_run: bool = False
         logger.info('Dry run — would execute steps: %s', order)
         return reports
     for step in order:
-        reports.append(run_migration_step(step, island, legacy_db_url))
+        reports.append(
+            run_migration_step(
+                step,
+                island,
+                legacy_db_url=legacy_db_url,
+                export_file=export_file,
+            )
+        )
     return reports

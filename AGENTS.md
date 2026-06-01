@@ -98,6 +98,14 @@ Production import from legacy Postgres:
 python manage.py import_legacy --legacy-db "$LEGACY_DATABASE_URL"
 ```
 
+Or from a JSON export (deploy `main-temp`, download, then import):
+
+```bash
+curl -o /tmp/smb_legacy_export.json \
+  'https://api.saomiguelbus.com/api/v1/export/legacy?key=$AUTH_KEY'
+python manage.py import_legacy --export-file /tmp/smb_legacy_export.json
+```
+
 Importer reads: `legacy/src/db.sqlite3`, `legacy/src/data.json`, `legacy/scripts/csv/`, `legacy/scripts/groups.json`, or `--legacy-db` Postgres URL. Never writes to legacy DB.
 
 ### Tests

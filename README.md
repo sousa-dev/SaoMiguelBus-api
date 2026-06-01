@@ -68,6 +68,11 @@ python manage.py import_legacy \
 # Or production legacy Postgres:
 # python manage.py import_legacy --legacy-db "$LEGACY_DATABASE_URL"
 
+# Or JSON export from production (main-temp branch endpoint):
+# curl -o smb_legacy_export.json \
+#   'https://api.saomiguelbus.com/api/v1/export/legacy?key=$AUTH_KEY'
+# python manage.py import_legacy --export-file smb_legacy_export.json
+
 # Single step / dry-run:
 python manage.py migrate_legacy stops
 python manage.py import_legacy --dry-run
