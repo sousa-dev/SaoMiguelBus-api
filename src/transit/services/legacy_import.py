@@ -13,7 +13,7 @@ from pathlib import Path
 from typing import Any, Union
 from urllib.parse import urlparse
 
-from django.db import connection, transaction
+from django.db import connection, models, transaction
 from django.utils.dateparse import parse_date, parse_datetime
 from django.utils import timezone
 
@@ -49,9 +49,12 @@ OPERATOR_PREFIXES = (
     ('Varela', 'Varela'),
 )
 
-LEGACY_EXPORT_FORMAT_VERSION = 1
+LEGACY_EXPORT_FORMAT_VERSION = 2
+SUPPORTED_EXPORT_FORMAT_VERSIONS = {1, 2}
 
-QUERY_VARIABLES = 'SELECT version, maps, populate_maps_routes FROM app_variables LIMIT 1'
+QUERY_VARIABLES = (
+    'SELECT id, version, maps, populate_maps_routes FROM app_variables ORDER BY id'
+)
 QUERY_STOPS = (
     'SELECT id, name, cleaned_name, latitude, longitude FROM app_stop ORDER BY id'
 )
@@ -74,25 +77,97 @@ QUERY_SUBSCRIPTIONS = (
     'SELECT id, email, is_active, verification_count, created_at, updated_at '
     'FROM subscriptions ORDER BY id'
 )
+QUERY_STATS = (
+    'SELECT id, request, origin, destination, type_of_day, time, platform, language, timestamp '
+    'FROM app_stat ORDER BY id'
+)
+QUERY_DATA = (
+    'SELECT id, data, origin, destination, language_code, time, platform '
+    'FROM app_data ORDER BY id'
+)
+QUERY_TRIPS = (
+    'SELECT id, route, stops, cleaned_stops, type_of_day, information, disabled, added, likes, dislikes '
+    'FROM app_trip ORDER BY id'
+)
+QUERY_TRIPSTOPS = (
+    'SELECT id, name, latitude, longitude, cleaned_name FROM app_tripstop ORDER BY id'
+)
+QUERY_AIFEEDBACK = (
+    'SELECT id, language, first_time, residence_status, guide_preference, payment_willingness, timestamp '
+    'FROM app_aifeedback ORDER BY id'
+)
+QUERY_EMAILOPENS = (
+    'SELECT id, email_template_id, contact_id, clicks FROM app_emailopen ORDER BY id'
+)
 
-LEGACY_SQL_TABLE_MAP = {
-    ' '.join(QUERY_VARIABLES.split()): 'app_variables',
-    ' '.join(QUERY_STOPS.split()): 'app_stop',
-    ' '.join(QUERY_HOLIDAYS.split()): 'app_holiday',
-    ' '.join(QUERY_GROUPS.split()): 'app_group',
-    ' '.join(QUERY_ROUTES.split()): 'app_route',
-    ' '.join(QUERY_ADS.split()): 'app_ad',
-    ' '.join(QUERY_INFOS.split()): 'app_info',
-    ' '.join(QUERY_SUBSCRIPTIONS.split()): 'subscriptions',
+TABLE_COLUMNS: dict[str, list[str]] = {
+    'app_variables': ['id', 'version', 'maps', 'populate_maps_routes'],
+    'app_stop': ['id', 'name', 'cleaned_name', 'latitude', 'longitude'],
+    'app_holiday': ['id', 'date', 'name'],
+    'app_group': ['id', 'name', 'stops'],
+    'app_route': [
+        'id', 'route', 'stops', 'type_of_day', 'information', 'disabled', 'likes', 'dislikes',
+    ],
+    'app_ad': [
+        'id', 'entity', 'description', 'media', 'start', 'end', 'action', 'target',
+        'advertise_on', 'platform', 'status', 'seen', 'clicked',
+    ],
+    'app_info': [
+        'id', 'titlePT', 'messagePT', 'titleEN', 'messageEN', 'titleES', 'messageES',
+        'titleFR', 'messageFR', 'titleDE', 'messageDE', 'start', 'end', 'source', 'company',
+    ],
+    'subscriptions': [
+        'id', 'email', 'is_active', 'verification_count', 'created_at', 'updated_at',
+    ],
+    'app_stat': [
+        'id', 'request', 'origin', 'destination', 'type_of_day', 'time', 'platform', 'language', 'timestamp',
+    ],
+    'app_data': ['id', 'data', 'origin', 'destination', 'language_code', 'time', 'platform'],
+    'app_trip': [
+        'id', 'route', 'stops', 'cleaned_stops', 'type_of_day', 'information',
+        'disabled', 'added', 'likes', 'dislikes',
+    ],
+    'app_tripstop': ['id', 'name', 'latitude', 'longitude', 'cleaned_name'],
+    'app_aifeedback': [
+        'id', 'language', 'first_time', 'residence_status', 'guide_preference',
+        'payment_willingness', 'timestamp',
+    ],
+    'app_emailopen': ['id', 'email_template_id', 'contact_id', 'clicks'],
 }
 
-_LEGACY_DATE_COLUMNS: dict[str, set[int]] = {
-    'app_holiday': {1},
+TABLE_SQL = {
+    'app_variables': QUERY_VARIABLES,
+    'app_stop': QUERY_STOPS,
+    'app_holiday': QUERY_HOLIDAYS,
+    'app_group': QUERY_GROUPS,
+    'app_route': QUERY_ROUTES,
+    'app_ad': QUERY_ADS,
+    'app_info': QUERY_INFOS,
+    'subscriptions': QUERY_SUBSCRIPTIONS,
+    'app_stat': QUERY_STATS,
+    'app_data': QUERY_DATA,
+    'app_trip': QUERY_TRIPS,
+    'app_tripstop': QUERY_TRIPSTOPS,
+    'app_aifeedback': QUERY_AIFEEDBACK,
+    'app_emailopen': QUERY_EMAILOPENS,
 }
-_LEGACY_DATETIME_COLUMNS: dict[str, set[int]] = {
-    'app_ad': {4, 5},
-    'app_info': {11, 12},
-    'subscriptions': {4, 5},
+
+def _normalize_sql(sql: str) -> str:
+    return ' '.join(sql.split())
+
+
+LEGACY_SQL_TABLE_MAP = {_normalize_sql(sql): table for table, sql in TABLE_SQL.items()}
+
+_LEGACY_DATE_FIELDS: dict[str, set[str]] = {
+    'app_holiday': {'date'},
+}
+_LEGACY_DATETIME_FIELDS: dict[str, set[str]] = {
+    'app_ad': {'start', 'end'},
+    'app_info': {'start', 'end'},
+    'app_stat': {'timestamp'},
+    'app_trip': {'added'},
+    'app_aifeedback': {'timestamp'},
+    'subscriptions': {'created_at', 'updated_at'},
 }
 
 LegacySource = Union['LegacyDatabase', 'LegacyExportSource']
@@ -192,18 +267,39 @@ class LegacyDatabase:
             cursor.execute(sql, params)
             return cursor.fetchall()
 
+    def get_records(self, table: str) -> list[dict[str, Any]]:
+        sql = TABLE_SQL[table]
+        columns = TABLE_COLUMNS[table]
+        return [
+            dict(zip(columns, row, strict=True))
+            for row in self.fetchall(sql)
+        ]
 
-def _normalize_sql(sql: str) -> str:
-    return ' '.join(sql.split())
+
+def _coerce_record_dict(table: str, record: dict[str, Any]) -> dict[str, Any]:
+    coerced = dict(record)
+    for field in _LEGACY_DATE_FIELDS.get(table, set()):
+        value = coerced.get(field)
+        if isinstance(value, str):
+            coerced[field] = parse_date(value[:10]) or value
+    for field in _LEGACY_DATETIME_FIELDS.get(table, set()):
+        value = coerced.get(field)
+        if isinstance(value, str):
+            coerced[field] = parse_datetime(value) or value
+    return coerced
 
 
 def _coerce_export_cell(table: str, index: int, value: Any) -> Any:
     if value is None or not isinstance(value, str):
         return value
-    if index in _LEGACY_DATE_COLUMNS.get(table, set()):
+    columns = TABLE_COLUMNS.get(table, [])
+    if index >= len(columns):
+        return value
+    field = columns[index]
+    if field in _LEGACY_DATE_FIELDS.get(table, set()):
         parsed = parse_date(value[:10])
         return parsed or value
-    if index in _LEGACY_DATETIME_COLUMNS.get(table, set()):
+    if field in _LEGACY_DATETIME_FIELDS.get(table, set()):
         parsed = parse_datetime(value)
         return parsed or value
     return value
@@ -218,12 +314,37 @@ class LegacyExportSource:
             raise FileNotFoundError(f'Legacy export file not found: {path}')
         payload = json.loads(path.read_text(encoding='utf-8'))
         version = payload.get('format_version')
-        if version != LEGACY_EXPORT_FORMAT_VERSION:
+        if version not in SUPPORTED_EXPORT_FORMAT_VERSIONS:
             raise ValueError(
                 f'Unsupported export format_version={version!r} '
-                f'(expected {LEGACY_EXPORT_FORMAT_VERSION})'
+                f'(expected one of {sorted(SUPPORTED_EXPORT_FORMAT_VERSIONS)})'
             )
-        self.tables: dict[str, list[list[Any]]] = payload.get('tables', {})
+        self.format_version = version
+        self.tables: dict[str, Any] = payload.get('tables', {})
+
+    def get_records(self, table: str) -> list[dict[str, Any]]:
+        raw = self.tables.get(table, [])
+        if not raw:
+            return []
+        if isinstance(raw[0], dict):
+            return [_coerce_record_dict(table, row) for row in raw]
+        columns = TABLE_COLUMNS[table]
+        return [
+            _coerce_record_dict(
+                table,
+                dict(
+                    zip(
+                        columns,
+                        (
+                            _coerce_export_cell(table, index, value)
+                            for index, value in enumerate(row)
+                        ),
+                        strict=True,
+                    )
+                ),
+            )
+            for row in raw
+        ]
 
     def fetchall(self, sql: str, params: tuple = ()) -> list[tuple]:
         if params:
@@ -231,13 +352,10 @@ class LegacyExportSource:
         table = LEGACY_SQL_TABLE_MAP.get(_normalize_sql(sql))
         if table is None:
             raise ValueError(f'Unsupported legacy export query: {sql}')
-        rows = self.tables.get(table, [])
+        columns = TABLE_COLUMNS[table]
         return [
-            tuple(
-                _coerce_export_cell(table, index, value)
-                for index, value in enumerate(row)
-            )
-            for row in rows
+            tuple(record.get(column) for column in columns)
+            for record in self.get_records(table)
         ]
 
 
@@ -285,7 +403,11 @@ def migrate_islands(island: Island, legacy: LegacySource) -> MigrationReport:
     flags = dict(defaults.get('feature_flags', {}))
     rows = legacy.fetchall(QUERY_VARIABLES)
     if rows:
-        version, maps, populate_maps = rows[0]
+        row = rows[0]
+        if len(row) == 4:
+            _, version, maps, populate_maps = row
+        else:
+            version, maps, populate_maps = row[0], row[1], row[2]
         flags['version'] = version
         flags['maps'] = bool(maps)
         flags['populate_maps_routes'] = bool(populate_maps)
@@ -536,6 +658,71 @@ def migrate_subscriptions(island: Island, legacy: LegacySource) -> MigrationRepo
     return report
 
 
+def _import_table_records(
+    legacy: LegacySource,
+    *,
+    table: str,
+    model: type[models.Model],
+    step: str,
+) -> MigrationReport:
+    report = MigrationReport(step=step)
+    records = legacy.get_records(table)
+    with transaction.atomic():
+        for record in records:
+            pk = record.get('id')
+            defaults = {key: value for key, value in record.items() if key != 'id'}
+            if pk is None:
+                model.objects.create(**defaults)
+                report.created += 1
+                continue
+            _, created = model.objects.update_or_create(id=pk, defaults=defaults)
+            report.created += int(created)
+            report.updated += int(not created)
+    return report
+
+
+def migrate_stats(island: Island, legacy: LegacySource) -> MigrationReport:
+    from analytics.models import Stat
+
+    return _import_table_records(legacy, table='app_stat', model=Stat, step='stats')
+
+
+def migrate_data(island: Island, legacy: LegacySource) -> MigrationReport:
+    from legacy_archive.models import LegacyData
+
+    return _import_table_records(legacy, table='app_data', model=LegacyData, step='data')
+
+
+def migrate_legacy_trips(island: Island, legacy: LegacySource) -> MigrationReport:
+    from legacy_archive.models import LegacyTrip
+
+    return _import_table_records(legacy, table='app_trip', model=LegacyTrip, step='legacy_trips')
+
+
+def migrate_legacy_tripstops(island: Island, legacy: LegacySource) -> MigrationReport:
+    from legacy_archive.models import LegacyTripStop
+
+    return _import_table_records(
+        legacy, table='app_tripstop', model=LegacyTripStop, step='legacy_tripstops'
+    )
+
+
+def migrate_aifeedback(island: Island, legacy: LegacySource) -> MigrationReport:
+    from legacy_archive.models import LegacyAIFeedback
+
+    return _import_table_records(
+        legacy, table='app_aifeedback', model=LegacyAIFeedback, step='aifeedback'
+    )
+
+
+def migrate_emailopens(island: Island, legacy: LegacySource) -> MigrationReport:
+    from legacy_archive.models import LegacyEmailOpen
+
+    return _import_table_records(
+        legacy, table='app_emailopen', model=LegacyEmailOpen, step='emailopens'
+    )
+
+
 MIGRATION_STEPS: dict[str, Any] = {
     'islands': migrate_islands,
     'operators': migrate_operators,
@@ -547,6 +734,12 @@ MIGRATION_STEPS: dict[str, Any] = {
     'infos': migrate_infos,
     'ads': migrate_ads,
     'subscriptions': migrate_subscriptions,
+    'stats': migrate_stats,
+    'data': migrate_data,
+    'legacy_trips': migrate_legacy_trips,
+    'legacy_tripstops': migrate_legacy_tripstops,
+    'aifeedback': migrate_aifeedback,
+    'emailopens': migrate_emailopens,
 }
 
 
@@ -583,6 +776,12 @@ def run_full_import(
         'infos',
         'ads',
         'subscriptions',
+        'stats',
+        'data',
+        'legacy_trips',
+        'legacy_tripstops',
+        'aifeedback',
+        'emailopens',
     ]
     reports: list[MigrationReport] = []
     if dry_run:

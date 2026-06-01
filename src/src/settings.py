@@ -35,6 +35,7 @@ apps = [
     ('analytics', True),
     ('billing', True),
     ('compat', True),
+    ('legacy_archive', True),
 ]
 
 import os
