@@ -1,0 +1,200 @@
+<section id="ai-agents" class="relative py-24 px-4 overflow-hidden bg-black text-white">
+    <div class="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
+        <div class="absolute -top-32 left-1/2 h-96 w-96 -translate-x-1/2 rounded-full bg-teal-500/10 blur-3xl"></div>
+        <div class="absolute bottom-0 right-0 h-64 w-64 rounded-full bg-teal-400/5 blur-3xl"></div>
+    </div>
+
+    <div class="relative max-w-6xl mx-auto">
+        <div class="text-center mb-16">
+            <span class="inline-flex items-center gap-2 rounded-full border border-teal-500/40 bg-teal-500/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-teal-300 mb-6">
+                <i class="fas fa-wand-magic-sparkles text-teal-400" aria-hidden="true"></i>
+                AI-native boilerplate
+            </span>
+            <h2 class="text-3xl md:text-5xl font-bold mb-5 leading-tight">
+                Built for <span class="bg-gradient-to-r from-teal-300 to-teal-500 bg-clip-text text-transparent">agentic</span> development
+            </h2>
+            <p class="text-gray-400 max-w-2xl mx-auto text-base md:text-lg leading-relaxed">
+                Cursor and Claude Code get three layers out of the box — context that follows your files,
+                recipes you invoke, and specialists you delegate to.
+            </p>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-5 lg:gap-6 mb-16">
+            <article class="group relative rounded-2xl border border-gray-800 bg-gradient-to-b from-gray-900/90 to-gray-950 p-6 lg:p-7 transition-all duration-300 hover:border-teal-500/60 hover:-translate-y-1 hover:shadow-lg hover:shadow-teal-500/10">
+                <span class="absolute -top-3 left-6 flex h-7 w-7 items-center justify-center rounded-full bg-teal-500 text-xs font-bold text-gray-900 shadow-md shadow-teal-500/30">1</span>
+                <div class="mb-5 flex h-12 w-12 items-center justify-center rounded-xl bg-teal-500/15 text-teal-400 ring-1 ring-teal-500/25 group-hover:bg-teal-500/25 transition-colors">
+                    <i class="fas fa-file-code text-xl" aria-hidden="true"></i>
+                </div>
+                <h3 class="text-lg font-bold mb-2">Path personas</h3>
+                <p class="text-gray-400 text-sm mb-5 leading-relaxed">Rules in <code class="rounded bg-gray-800 px-1.5 py-0.5 text-teal-400 text-xs">.cursor/rules/</code> load automatically when you open matching files.</p>
+                <ul class="space-y-2.5 text-sm">
+                    <li class="flex items-center gap-2 text-gray-300">
+                        <span class="h-1.5 w-1.5 shrink-0 rounded-full bg-teal-400"></span>
+                        <code class="text-teal-400/90">services.py</code>
+                        <span class="text-gray-500">service layer</span>
+                    </li>
+                    <li class="flex items-center gap-2 text-gray-300">
+                        <span class="h-1.5 w-1.5 shrink-0 rounded-full bg-teal-400"></span>
+                        <code class="text-teal-400/90">models.py</code>
+                        <span class="text-gray-500">DB architect</span>
+                    </li>
+                    <li class="flex items-center gap-2 text-gray-300">
+                        <span class="h-1.5 w-1.5 shrink-0 rounded-full bg-teal-400"></span>
+                        <code class="text-teal-400/90">tasks.py</code>
+                        <span class="text-gray-500">Celery</span>
+                    </li>
+                </ul>
+            </article>
+
+            <article class="group relative rounded-2xl border border-gray-800 bg-gradient-to-b from-gray-900/90 to-gray-950 p-6 lg:p-7 transition-all duration-300 hover:border-teal-500/60 hover:-translate-y-1 hover:shadow-lg hover:shadow-teal-500/10 md:mt-4">
+                <span class="absolute -top-3 left-6 flex h-7 w-7 items-center justify-center rounded-full bg-teal-500 text-xs font-bold text-gray-900 shadow-md shadow-teal-500/30">2</span>
+                <div class="mb-5 flex h-12 w-12 items-center justify-center rounded-xl bg-teal-500/15 text-teal-400 ring-1 ring-teal-500/25 group-hover:bg-teal-500/25 transition-colors">
+                    <i class="fas fa-terminal text-xl" aria-hidden="true"></i>
+                </div>
+                <h3 class="text-lg font-bold mb-2">Slash commands</h3>
+                <p class="text-gray-400 text-sm mb-5 leading-relaxed">Type <code class="rounded bg-gray-800 px-1.5 py-0.5 text-teal-400 text-xs">/</code> in chat — 15 workflows from scaffold to deploy.</p>
+                <ul class="space-y-2.5 text-sm">
+                    <li class="flex items-center gap-2">
+                        <code class="rounded-md bg-gray-800 border border-gray-700 px-2 py-1 text-teal-400 text-xs font-medium">/new-blog-post</code>
+                    </li>
+                    <li class="flex items-center gap-2">
+                        <code class="rounded-md bg-gray-800 border border-gray-700 px-2 py-1 text-teal-400 text-xs font-medium">/new-app</code>
+                    </li>
+                    <li class="flex items-center gap-2">
+                        <code class="rounded-md bg-gray-800 border border-gray-700 px-2 py-1 text-teal-400 text-xs font-medium">/deploy-check</code>
+                    </li>
+                </ul>
+            </article>
+
+            <article class="group relative rounded-2xl border border-gray-800 bg-gradient-to-b from-gray-900/90 to-gray-950 p-6 lg:p-7 transition-all duration-300 hover:border-teal-500/60 hover:-translate-y-1 hover:shadow-lg hover:shadow-teal-500/10">
+                <span class="absolute -top-3 left-6 flex h-7 w-7 items-center justify-center rounded-full bg-teal-500 text-xs font-bold text-gray-900 shadow-md shadow-teal-500/30">3</span>
+                <div class="mb-5 flex h-12 w-12 items-center justify-center rounded-xl bg-teal-500/15 text-teal-400 ring-1 ring-teal-500/25 group-hover:bg-teal-500/25 transition-colors">
+                    <i class="fas fa-robot text-xl" aria-hidden="true"></i>
+                </div>
+                <h3 class="text-lg font-bold mb-2"><span class="text-teal-400">djast-*</span> agents</h3>
+                <p class="text-gray-400 text-sm mb-5 leading-relaxed">11 role specialists — delegate full tasks from architecture to security review.</p>
+                <ul class="space-y-2.5 text-sm">
+                    <li class="flex items-center gap-2 text-gray-300">
+                        <i class="fas fa-chevron-right text-teal-500/70 text-[10px]" aria-hidden="true"></i>
+                        <code class="text-teal-400/90">djast-architect</code>
+                    </li>
+                    <li class="flex items-center gap-2 text-gray-300">
+                        <i class="fas fa-chevron-right text-teal-500/70 text-[10px]" aria-hidden="true"></i>
+                        <code class="text-teal-400/90">djast-backend-engineer</code>
+                    </li>
+                    <li class="flex items-center gap-2 text-gray-300">
+                        <i class="fas fa-chevron-right text-teal-500/70 text-[10px]" aria-hidden="true"></i>
+                        <code class="text-teal-400/90">djast-security-reviewer</code>
+                    </li>
+                </ul>
+            </article>
+        </div>
+
+        <div class="rounded-2xl border border-gray-800 bg-gray-900/50 overflow-hidden mb-10">
+            <div class="grid lg:grid-cols-5 gap-0">
+                <div class="lg:col-span-3 p-6 md:p-8 border-b lg:border-b-0 lg:border-r border-gray-800">
+                    <div class="flex items-center justify-between mb-6">
+                        <h3 class="text-sm font-semibold uppercase tracking-wider text-gray-400">11 custom agents</h3>
+                        <span class="text-xs text-gray-500">pick or prompt by name</span>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                        <span class="group/agent flex items-center gap-2 rounded-lg border border-gray-700/80 bg-gray-950/80 px-3 py-2.5 text-xs font-mono text-gray-300 transition-colors hover:border-teal-500/50 hover:bg-teal-500/5 hover:text-teal-300">
+                            <i class="fas fa-compass text-teal-500/60 text-[10px]" aria-hidden="true"></i>
+                            djast-architect
+                        </span>
+                        <span class="group/agent flex items-center gap-2 rounded-lg border border-gray-700/80 bg-gray-950/80 px-3 py-2.5 text-xs font-mono text-gray-300 transition-colors hover:border-teal-500/50 hover:bg-teal-500/5 hover:text-teal-300">
+                            <i class="fas fa-server text-teal-500/60 text-[10px]" aria-hidden="true"></i>
+                            djast-backend-engineer
+                        </span>
+                        <span class="group/agent flex items-center gap-2 rounded-lg border border-gray-700/80 bg-gray-950/80 px-3 py-2.5 text-xs font-mono text-gray-300 transition-colors hover:border-teal-500/50 hover:bg-teal-500/5 hover:text-teal-300">
+                            <i class="fas fa-palette text-teal-500/60 text-[10px]" aria-hidden="true"></i>
+                            djast-frontend-engineer
+                        </span>
+                        <span class="group/agent flex items-center gap-2 rounded-lg border border-gray-700/80 bg-gray-950/80 px-3 py-2.5 text-xs font-mono text-gray-300 transition-colors hover:border-teal-500/50 hover:bg-teal-500/5 hover:text-teal-300">
+                            <i class="fas fa-vial text-teal-500/60 text-[10px]" aria-hidden="true"></i>
+                            djast-qa-test-engineer
+                        </span>
+                        <span class="group/agent flex items-center gap-2 rounded-lg border border-gray-700/80 bg-gray-950/80 px-3 py-2.5 text-xs font-mono text-gray-300 transition-colors hover:border-teal-500/50 hover:bg-teal-500/5 hover:text-teal-300">
+                            <i class="fas fa-cloud text-teal-500/60 text-[10px]" aria-hidden="true"></i>
+                            djast-devops-deployer
+                        </span>
+                        <span class="group/agent flex items-center gap-2 rounded-lg border border-gray-700/80 bg-gray-950/80 px-3 py-2.5 text-xs font-mono text-gray-300 transition-colors hover:border-teal-500/50 hover:bg-teal-500/5 hover:text-teal-300">
+                            <i class="fas fa-chart-line text-teal-500/60 text-[10px]" aria-hidden="true"></i>
+                            djast-seo-content-strategist
+                        </span>
+                        <span class="group/agent flex items-center gap-2 rounded-lg border border-gray-700/80 bg-gray-950/80 px-3 py-2.5 text-xs font-mono text-gray-300 transition-colors hover:border-teal-500/50 hover:bg-teal-500/5 hover:text-teal-300">
+                            <i class="fas fa-database text-teal-500/60 text-[10px]" aria-hidden="true"></i>
+                            djast-db-migrations-specialist
+                        </span>
+                        <span class="group/agent flex items-center gap-2 rounded-lg border border-gray-700/80 bg-gray-950/80 px-3 py-2.5 text-xs font-mono text-gray-300 transition-colors hover:border-teal-500/50 hover:bg-teal-500/5 hover:text-teal-300">
+                            <i class="fas fa-bolt text-teal-500/60 text-[10px]" aria-hidden="true"></i>
+                            djast-celery-worker-engineer
+                        </span>
+                        <span class="group/agent flex items-center gap-2 rounded-lg border border-gray-700/80 bg-gray-950/80 px-3 py-2.5 text-xs font-mono text-gray-300 transition-colors hover:border-teal-500/50 hover:bg-teal-500/5 hover:text-teal-300">
+                            <i class="fas fa-shield-halved text-teal-500/60 text-[10px]" aria-hidden="true"></i>
+                            djast-security-reviewer
+                        </span>
+                        <span class="group/agent flex items-center gap-2 rounded-lg border border-gray-700/80 bg-gray-950/80 px-3 py-2.5 text-xs font-mono text-gray-300 transition-colors hover:border-teal-500/50 hover:bg-teal-500/5 hover:text-teal-300">
+                            <i class="fas fa-book text-teal-500/60 text-[10px]" aria-hidden="true"></i>
+                            djast-docs-writer
+                        </span>
+                        <span class="group/agent flex items-center gap-2 rounded-lg border border-gray-700/80 bg-gray-950/80 px-3 py-2.5 text-xs font-mono text-gray-300 transition-colors hover:border-teal-500/50 hover:bg-teal-500/5 hover:text-teal-300 sm:col-span-2">
+                            <i class="fas fa-magnifying-glass text-teal-500/60 text-[10px]" aria-hidden="true"></i>
+                            djast-code-reviewer
+                        </span>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-2 p-6 md:p-8 bg-gray-950/80 flex flex-col">
+                    <div class="flex items-center gap-2 mb-4">
+                        <span class="h-3 w-3 rounded-full bg-red-500/80"></span>
+                        <span class="h-3 w-3 rounded-full bg-yellow-500/80"></span>
+                        <span class="h-3 w-3 rounded-full bg-green-500/80"></span>
+                        <span class="ml-2 text-xs text-gray-500 font-mono">cursor — agent</span>
+                    </div>
+                    <div class="flex-1 rounded-xl border border-gray-800 bg-black p-4 font-mono text-sm leading-relaxed">
+                        <p class="text-gray-500 mb-3"><span class="text-teal-400">you</span> ›</p>
+                        <p class="text-gray-200 mb-4">use <span class="text-teal-400">djast-backend-engineer</span> to add webhook retry logic in stripe_payments</p>
+                        <p class="text-gray-500 flex items-center gap-2">
+                            <span class="inline-block h-4 w-2 bg-teal-400 animate-pulse rounded-sm"></span>
+                            <span class="text-xs">agent working…</span>
+                        </p>
+                    </div>
+                    <p class="mt-4 text-xs text-gray-500 leading-relaxed">
+                        Same flow in Claude Code — read <code class="text-teal-400/80">.cursor/agents/djast-*.md</code> and go.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="flex flex-wrap items-center justify-center gap-x-6 gap-y-3 mb-10 text-sm">
+            <span class="flex items-center gap-2 text-gray-400">
+                <i class="fas fa-laptop-code text-teal-400/70" aria-hidden="true"></i>
+                <span class="font-medium text-white">Cursor</span>
+            </span>
+            <span class="w-px h-4 bg-gray-700 hidden sm:block" aria-hidden="true"></span>
+            <span class="flex items-center gap-2 text-gray-400">
+                <i class="fas fa-code text-teal-400/70" aria-hidden="true"></i>
+                <span class="font-medium text-white">Claude Code</span>
+            </span>
+            <span class="w-px h-4 bg-gray-700 hidden sm:block" aria-hidden="true"></span>
+            <code class="text-gray-500 text-xs">.cursorrules</code>
+            <code class="text-gray-500 text-xs">CLAUDE.md</code>
+            <code class="text-gray-500 text-xs">.cursor/commands/</code>
+        </div>
+
+        <div class="text-center">
+            <a href="{% url 'docs' section='get_started' page='ai_agents' %}"
+               data-ga-event="nav_cta_click"
+               data-ga-params='{"cta_label":"agents_guide","page_section":"ai_agents"}'
+               class="group relative inline-flex items-center justify-center py-3 px-8 font-semibold text-white transition-transform duration-300 hover:scale-105">
+                <span class="absolute inset-0 rounded-xl bg-gradient-to-r from-teal-400 to-teal-600 opacity-90 group-hover:opacity-100 transition-opacity"></span>
+                <span class="relative flex items-center gap-2 text-gray-900">
+                    <i class="fas fa-book" aria-hidden="true"></i>
+                    Read the agents guide
+                    <i class="fas fa-arrow-right text-sm group-hover:translate-x-0.5 transition-transform" aria-hidden="true"></i>
+                </span>
+            </a>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,107 @@
+{% load i18n %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>
+            {% block head_title %}
+            {% endblock head_title %}
+        </title>
+        {% include "shared/favicon.html" %}
+        {% include "shared/plugins/google-analytics.html" %}
+        {% block extra_head %}
+        {% endblock extra_head %}
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+        {% include "allauth/layouts/auth_styles.html" %}
+    </head>
+    <body> 
+        <div class="main-container">
+            {% block body %}
+                <!-- Header Section -->
+                <header class="login-header">
+                    <a href="#" class="back-arrow" id="backArrow">
+                        <i class="fas fa-arrow-left"></i>
+                    </a>
+                    <a href="#" class="logo-link" id="logoLink">
+                        <div class="logo-container">
+                            <img src="" alt="Logo" class="logo-image" id="logoImage">
+                            <span class="logo-text" id="logoText"></span>
+                        </div>
+                    </a>
+                </header>
+                {% if messages %}
+                    <div class="messages-container">
+                        <ul class="messages-list">
+                            {% for message in messages %}
+                                <li class="message-item {{ message.tags }}">
+                                    {{ message }}
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% endif %}
+                <div class="menu-container">
+                    <ul class="menu-list">
+                        {% if user.is_authenticated %}
+                            {% url 'account_email' as email_url %}
+                            {% if email_url %}
+                                <li class="menu-item">
+                                    <a href="{{ email_url }}" class="menu-link">{% trans "Change Email" %}</a>
+                                </li>
+                            {% endif %}
+                            {% url 'account_change_password' as change_password_url %}
+                            {% if change_password_url %}
+                                <li class="menu-item">
+                                    <a href="{{ change_password_url }}" class="menu-link">{% trans "Change Password" %}</a>
+                                </li>
+                            {% endif %}
+                            {% url 'socialaccount_connections' as connections_url %}
+                            {% if connections_url %}
+                                <li class="menu-item">
+                                    <a href="{{ connections_url }}" class="menu-link">{% trans "Account Connection" %}</a>
+                                </li>
+                            {% endif %}
+                            {% url 'mfa_index' as mfa_url %}
+                            {% if mfa_url %}
+                                <li class="menu-item">
+                                    <a href="{{ mfa_url }}" class="menu-link">{% trans "Two-Factor Authentication" %}</a>
+                                </li>
+                            {% endif %}
+                            {% url 'usersessions_list' as usersessions_list_url %}
+                            {% if usersessions_list_url %}
+                                <li class="menu-item">
+                                    <a href="{{ usersessions_list_url }}" class="menu-link">{% trans "Sessions" %}</a>
+                                </li>
+                            {% endif %}
+                            {% url 'account_logout' as logout_url %}
+                            {% if logout_url %}
+                                <li class="menu-item">
+                                    <a href="{{ logout_url }}" class="menu-link">{% trans "Sign Out" %}</a>
+                                </li>
+                            {% endif %}
+                        {% else %}
+                            {% url 'account_login' as login_url %}
+                            {% if login_url %}
+                                <li class="menu-item">
+                                    <a href="{{ login_url }}" class="menu-link">{% trans "Sign In" %}</a>
+                                </li>
+                            {% endif %}
+                            {% url 'account_signup' as signup_url %}
+                            {% if signup_url %}
+                                <li class="menu-item">
+                                    <a href="{{ signup_url }}" class="menu-link">{% trans "Sign Up" %}</a>
+                                </li>
+                            {% endif %}
+                        {% endif %}
+                    </ul>
+                </div>
+                {% block content %}
+                {% endblock content %}
+            {% endblock body %}
+        </div>
+        {% include "allauth/layouts/auth_scripts.html" %}     
+        {% block extra_body %}
+        {% endblock extra_body %}
+    </body>
+</html>

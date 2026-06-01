@@ -1,0 +1,53 @@
+{% load static %}
+{% if GOOGLE_ANALYTICS_ID %}
+    <meta name="djast:ga-id" content="{{ GOOGLE_ANALYTICS_ID }}">
+    <meta name="djast:ga-page" content="{{ GA_PAGE_JSON }}">
+    <meta name="djast:ga-debug" content="{% if GA_DEBUG_MODE %}true{% else %}false{% endif %}">
+    {% if request.user.is_authenticated %}
+    <meta name="djast:ga-user-id" content="{{ request.user.pk }}">
+    {% endif %}
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        {% if CONSENT_REQUIRED %}
+        gtag('consent', 'default', {
+            'ad_storage': 'denied',
+            'ad_user_data': 'denied',
+            'ad_personalization': 'denied',
+            'analytics_storage': 'denied',
+            'functionality_storage': 'denied',
+            'personalization_storage': 'denied',
+            'security_storage': 'granted',
+            'wait_for_update': 500
+        });
+        {% else %}
+        gtag('consent', 'default', {
+            'ad_storage': 'granted',
+            'ad_user_data': 'granted',
+            'ad_personalization': 'granted',
+            'analytics_storage': 'granted',
+            'functionality_storage': 'granted',
+            'personalization_storage': 'granted',
+            'security_storage': 'granted'
+        });
+        {% endif %}
+    </script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id={{ GOOGLE_ANALYTICS_ID }}"></script>
+    <script>
+        gtag('config', '{{ GOOGLE_ANALYTICS_ID }}', {
+            {% if GA_DEBUG_MODE %}debug_mode: true,{% endif %}
+            send_page_view: true,
+            page_type: '{{ GA_PAGE.page_type|default:"unknown" }}',
+            page_section: '{{ GA_PAGE.page_section|default:"" }}',
+            url_name: '{{ GA_PAGE.url_name|default:"" }}'
+        });
+        {% if request.user.is_authenticated %}
+        gtag('set', { 'user_id': '{{ request.user.pk }}' });
+        {% endif %}
+    </script>
+    <script defer src="{% static 'js/djast-analytics.js' %}"></script>
+    {% if CONSENT_REQUIRED %}
+        {% include "shared/plugins/consent-banner.html" %}
+    {% endif %}
+{% endif %}

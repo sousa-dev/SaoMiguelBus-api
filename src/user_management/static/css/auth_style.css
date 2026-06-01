@@ -1,0 +1,75 @@
+/* Import Poppins font */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+/* Global Styles */
+body {
+    font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    line-height: 1.4;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    box-sizing: border-box; /* Ensure box-sizing globally */
+}
+
+a {
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+a:hover {
+    color: var(--primary-color-hover);
+}
+
+/* Main Content Wrapper */
+.main-container {
+    max-width: 1000px;
+    width: 90%; /* Use percentage width for flexibility */
+    padding: 15px;
+    background-color: var(--nav-bg-color);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    box-sizing: border-box;
+    margin: 20px auto; /* Center container and provide top-bottom spacing */
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    nav ul {
+        flex-direction: column;
+        padding: 0; /* Ensure no extra padding */
+        list-style: none; /* Remove default list styling */
+    }
+
+    nav ul li {
+        margin: 3px 0;
+    }
+
+    .main-container {
+        max-width: 95%; /* Allow for better use of screen width on smaller devices */
+        padding: 10px; /* Adjust padding for smaller screens */
+        margin: 10px; /* Ensure consistent margin */
+    }
+}
+
+/* Mobile specific adjustments */
+@media (max-width: 480px) {
+    .main-container {
+        max-width: 100%;
+        padding: 8px;
+    }
+
+    nav ul li {
+        margin: 2px 0;
+        text-align: center; /* Center text for easier reading on mobile */
+    }
+
+    header, footer {
+        text-align: center; /* Align text centrally for smaller screens */
+    }
+}

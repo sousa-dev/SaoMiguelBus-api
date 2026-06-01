@@ -1,0 +1,29 @@
+{% extends "documentation/base.html" %}
+
+{% block title %}
+Search Results | {{ PROJECT_NAME }} Documentation
+{% endblock %}
+
+{% block content %}
+<div class="p-6">
+    <h1 class="text-3xl font-bold mb-4">Search Results for "{{ query }}"</h1>
+    {% for result in search_results %}
+        <ul class="space-y-4">
+            <li class="bg-gray-800 p-4 rounded">
+                <a href="
+                    {% if result.file_name != '' %}
+                        {% url 'docs' result.section result.file_name %}
+                    {% else %}
+                        {% url 'docs_index' result.section %}
+                    {% endif %}" class="text-lg font-bold text-blue-400 hover:text-blue-600">
+                    {{ result.display_name }} - {{ result.file_display_name }}
+                </a>
+                <p class="text-gray-400 mt-2">{{ result.content_preview }}</p>
+            </li>
+        </ul>
+        {% empty %}
+            <li>No results found for "{{ query }}".</li>
+        {% endfor %}
+    <a href="{% url 'docs_index' 'get_started' %}" class="block mt-4 text-blue-400 hover:text-blue-600">Back to Documentation</a>
+</div>
+{% endblock %}

@@ -1,0 +1,36 @@
+<section class="flex flex-col justify-between items-center px-5 py-12 text-left mx-5 sm:mx-2 sm:py-10 sm:px-2 md:flex-row md:mx-10 md:py-20 lg:justify-between lg:py-24 lg:mx-24">
+    <div class="max-w-full text-center md:max-w-3/5 md:text-left lg:max-w-1/2">
+        <p class="text-teal-400 text-sm font-semibold uppercase tracking-wide mb-3 md:text-base">AI-Agentic Django Boilerplate</p>
+        <h1 class="text-2xl font-bold mb-4 md:text-4xl lg:text-5xl space-y-2">Ship Django SaaS at the <span class="text-teal-500 font-bold">speed of your AI agent</span></h1>
+        <p class="text-base mb-6 md:text-lg lg:text-xl text-gray-300">
+            Batteries-included Django 5 with <strong class="text-white">path personas</strong> that auto-load as you edit,
+            <strong class="text-white">15 slash commands</strong> like <code class="text-teal-400">/new-blog-post</code> and <code class="text-teal-400">/new-app</code>,
+            and <strong class="text-white">11 <code class="text-teal-400">djast-*</code> custom agents</strong> for architect, backend, QA, security, and more.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-3 items-center md:items-start justify-center md:justify-start mb-4">
+            <form action="{% url 'payment' %}" method="POST"
+                  data-ga-event="begin_checkout"
+                  data-ga-params='{"plan":"hero","currency":"USD","page_section":"hero"}'>
+                {% csrf_token %}
+                <button type="submit" class="inline-flex items-center py-2 px-4 bg-yellow-400 text-gray-900 uppercase border-none rounded-md text-sm cursor-pointer relative overflow-hidden w-36 md:w-40 font-semibold hover:bg-yellow-300 transition-colors">
+                    <i class="fa-solid fa-rocket mr-2"></i>
+                    <span>GET {{ PROJECT_NAME }}</span>
+                </button>
+            </form>
+            <a href="#ai-agents" data-ga-event="nav_cta_click" data-ga-params='{"cta_label":"see_ai_layer","page_section":"hero"}' class="inline-flex items-center py-2 px-4 border border-teal-400 text-teal-400 rounded-md text-sm font-semibold hover:bg-teal-400 hover:text-gray-900 transition-colors">
+                <i class="fas fa-robot mr-2"></i>
+                See the AI layer
+            </a>
+            <a href="#demo" data-ga-event="nav_cta_click" data-ga-params='{"cta_label":"watch_demo","page_section":"hero"}' class="inline-flex items-center py-2 px-4 text-gray-400 text-sm hover:text-teal-400 transition-colors">
+                <i class="fas fa-circle-play mr-2"></i>
+                Watch demo
+            </a>
+        </div>
+        <p class="text-white text-sm mb-4 lg:text-base">
+            <span class="text-teal-500"><i class="fa fa-gift"></i> 100$ off</span> for the first {{ total_coupons|default_if_none:"-" }} customers ({{ coupons_left|default_if_none:"-" }} left)
+        </p>
+    </div>
+    <div class="max-w-full mt-5 md:max-w-2/5 lg:max-w-2/5 lg:mt-0">
+        <img src="{% url 'get_media' path='hero-image.png' %}" alt="Hero Image" class="w-full rounded-lg">
+    </div>
+</section>

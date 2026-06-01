@@ -1,0 +1,18 @@
+{% load static %}
+
+<script>
+    var darkMode = true;
+    function setDarkMode() {
+        document.body.setAttribute('data-dark-mode', darkMode);
+    }
+    document.addEventListener('DOMContentLoaded', setDarkMode);
+    var project_name = "{{ PROJECT_NAME|escapejs }}";
+</script>
+
+<link rel="stylesheet" href="{% static 'css/auth_colors.css' %}">
+<link rel="stylesheet" href="{% static 'css/auth_style.css' %}">
+<link rel="stylesheet" href="{% static 'css/auth_header.css' %}">
+<link rel="stylesheet" href="{% static 'css/auth_messages.css' %}">
+<link rel="stylesheet" href="{% static 'css/auth_menu.css' %}">
+<link rel="stylesheet" href="{% static 'css/auth_form.css' %}">
+<link rel="stylesheet" href="{% static 'css/auth_oauth_buttons.css' %}">

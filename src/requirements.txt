@@ -1,0 +1,35 @@
+Django==5.0.6
+djangorestframework==3.15.1
+django-cors-headers==4.4.0
+django-tailwind[reload]==3.8.0
+django-admin-interface==0.28.6
+django-allauth==0.63.3
+
+## For docs app
+markdown2==2.5.0
+
+## For env variables
+python-decouple==3.8
+
+# For OAuth2
+PyJWT==2.8.0
+cryptography==42.0.8
+
+psycopg2-binary==2.9.9
+
+## For Stripe Payments
+stripe==10.1.0
+
+## For running the server
+gunicorn==23.0.0
+
+## To serve static files in production
+whitenoise==6.7.0
+
+## For Django Security
+django-axes==6.5.1
+
+## For Celery background tasks
+celery[redis]==5.4.0
+django-celery-beat==2.7.0
+redis==5.2.1

@@ -1,0 +1,40 @@
+{% load static tailwind_tags %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{% block title %}{% endblock title %}</title>
+        {% include "shared/favicon.html" %}
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">
+        <link rel="stylesheet" href="{% static 'css/nav.css' %}">
+        <link rel="stylesheet" href="{% static 'css/footer.css' %}">
+        {% include "shared/plugins/google-analytics.html" %}
+        {% tailwind_css %}
+        {% block css %}{% endblock css %}
+    </head>
+    <body data-ga-scroll="true">
+        <div id="page-container">
+            {% block nav %}
+                {% include 'app/nav.html' %}
+            {% endblock %}            
+            <div id="content-wrap">
+                {% block content %}
+                <!-- Default content goes here -->
+                {% endblock content %}
+            </div>
+            {% include 'app/footer.html' %}
+        </div>
+        <!-- Bootstrap JS, jQuery, and Popper.js, if you're using Bootstrap -->
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="{% static 'js/get-crsf-token.js' %}"></script>
+        <script src="{% static 'js/nav.js' %}"></script>             
+        {% block js %}{% endblock js %}
+    </body>
+</html>

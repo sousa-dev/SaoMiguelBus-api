@@ -1,0 +1,38 @@
+<nav class="flex flex-col items-start bg-black border-b-2 border-teal-500 p-4 w-full box-border z-50 lg:flex-row lg:items-center lg:justify-between">
+  <div class="flex justify-between w-full lg:w-auto">
+    <a href="/" class="flex items-center text-white font-bold text-lg no-underline hover:text-teal-500">
+      <img src="{% url 'get_media' path='logo.png' %}" alt="{{ PROJECT_NAME }} Logo" class="mr-2 h-10 w-auto">
+      <p>{{ PROJECT_NAME }}</p>
+    </a>
+    <button class="block lg:hidden text-white text-2xl focus:outline-none hamburger" aria-label="Toggle navigation">
+      &#9776;
+    </button>
+  </div>
+  <ul class="hidden flex-col w-full lg:flex lg:flex-row lg:w-auto nav-links lg:items-center lg:p-0 lg:m-0">
+    <li class="lg:ml-4">
+      <a href="https://djast.dev/docs" class="block text-white px-4 py-2 no-underline hover:text-teal-500">🚀 Quick Start Guide 🚀</a>
+    </li>
+    <li class="lg:ml-4">
+      <a href="https://forms.gle/ZG99oqZsEWohmzK88" target='_blank' class="block text-white px-4 py-2 no-underline hover:text-teal-500">⏱️ Save More Time ⏱️</a>
+    </li>
+    <li class="relative lg:ml-4 dropdown">
+      <a href="#" class="text-white px-4 py-2 no-underline hover:text-teal-500 flex items-center">❤️ Follow Me ❤️</a>
+      <div class="absolute left-0 bg-black shadow-lg z-10 dropdown-content">
+        <a target='_blank' href="https://x.com/sousadev" class="block text-white px-4 py-2 no-underline hover:bg-gray-300 hover:text-teal-500"><i class="fa-brands fa-x-twitter"></i> X</a>
+        <a target='_blank' href="https://patreon.com/sousadev" class="block text-white px-4 py-2 no-underline hover:bg-gray-300 hover:text-teal-500"><i class="fa-brands fa-patreon"></i> Patreon</a>
+      </div>
+    </li>
+    <li class="lg:ml-4">
+      {% if user.is_authenticated %}
+        <form method="post" action="{% url 'logout' %}" class="inline">
+          {% csrf_token %}
+          <button type="submit" class="block text-white px-4 py-2 hover:text-teal-500">
+            <i class="fas fa-sign-out-alt"></i>
+          </button>
+        </form>
+      {% else %}
+        <a href="{% url 'login' %}" class="block text-white px-4 py-2 no-underline hover:text-teal-500">Login</a>
+      {% endif %}
+    </li>
+  </ul>
+</nav>

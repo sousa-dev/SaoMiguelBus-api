@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Disallow: /dashboard/
+Disallow: /app/
+Disallow: /payment/
+Disallow: /accounts/
+
+Sitemap: {{ PROJECT_URL }}/sitemap.xml

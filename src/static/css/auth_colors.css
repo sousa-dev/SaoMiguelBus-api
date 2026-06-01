@@ -1,0 +1,47 @@
+/* CSS Variables for Colors */
+:root {
+    --primary-color: #23dbb9;
+    --primary-color-hover: #1ca890;
+    --background-color: #f0f5f4;
+    --text-color: #333;
+    --header-bg-color: #fff;
+    --header-text-color: #000;
+    --message-error-bg: #ffe2e5;
+    --message-error-text: #a33a3a;
+    --message-error-border: #f5c6cb;
+    --message-success-bg: #e1f7f4;
+    --message-success-text: #1a6f59;
+    --message-success-border: #b2e4dd;
+    --nav-bg-color: #fff;
+    --nav-link-bg-hover: #1ca890;
+    --nav-link-text-hover: #fff;
+    --form-border-color: #d1e3e0;
+    --input-bg-color: #fff;
+    --input-text-color: #333;
+    --button-bg-color: #23dbb9;
+    --button-text-color: #fff;
+    --button-bg-hover-color: #1ca890;
+}
+
+/* Dark Mode Override */
+[data-dark-mode="true"] {
+    --background-color: #1e1e1e;
+    --text-color: #f0f0f0;
+    --header-bg-color: #2a2a2a;
+    --header-text-color: #f0f0f0;
+    --message-error-bg: #4a2e2e;
+    --message-error-text: #f5c6cb;
+    --message-error-border: #a33a3a;
+    --message-success-bg: #2e4a3a;
+    --message-success-text: #b2e4dd;
+    --message-success-border: #1a6f59;
+    --nav-bg-color: #2a2a2a;
+    --nav-link-bg-hover: #3a9e8a;
+    --nav-link-text-hover: #fff;
+    --form-border-color: #555;
+    --input-bg-color: #333;
+    --input-text-color: #f0f0f0;
+    --button-bg-color: #23dbb9;
+    --button-text-color: #f0f0f0;
+    --button-bg-hover-color: #1ca890;
+}

@@ -1,0 +1,113 @@
+# Environment (pick one or both; missing files are ignored):
+#   .env              — Dokploy UI writes here (repo root, next to this file)
+#   src/src/.env      — local dev copy from .env.example
+#
+# Compose ${VAR:-default} reads from the shell / project .env at deploy time.
+# Container config: env_file entries below (injected into process env).
+
+x-app-env: &app-env
+  env_file:
+    - path: .env
+      required: false
+    - path: ./src/src/.env
+      required: false
+
+services:
+
+  # ---------------------------------------------------------------------------
+  # PostgreSQL
+  # ---------------------------------------------------------------------------
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    <<: *app-env
+    environment:
+      POSTGRES_DB: ${DB_NAME:-djast}
+      POSTGRES_USER: ${DB_USER:-djast}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-djast}
+    ports:
+      - "${DB_PORT_EXPOSE:-5432}:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-djast}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  # ---------------------------------------------------------------------------
+  # Redis  (Celery broker + result backend + Django cache)
+  # ---------------------------------------------------------------------------
+  redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+    volumes:
+      - redis_data:/data
+    ports:
+      - "${REDIS_PORT_EXPOSE:-6379}:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  # ---------------------------------------------------------------------------
+  # Django web server  (Gunicorn)
+  # ---------------------------------------------------------------------------
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    command: bash ./runserver.sh
+    volumes:
+      - static_files:/usr/src/app/static
+      - media_files:/usr/src/app/media
+    ports:
+      - "${WEB_PORT:-8000}:8000"
+    <<: *app-env
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+  # ---------------------------------------------------------------------------
+  # Celery worker  (task execution)
+  # ---------------------------------------------------------------------------
+  celery-worker:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    command: celery -A src worker --loglevel=info --concurrency=${CELERY_CONCURRENCY:-2}
+    volumes:
+      - media_files:/usr/src/app/media
+    <<: *app-env
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+  # ---------------------------------------------------------------------------
+  # Celery beat  (periodic task scheduler)
+  # ---------------------------------------------------------------------------
+  celery-beat:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    command: celery -A src beat --loglevel=info --scheduler django_celery_beat.schedulers:DatabaseScheduler
+    <<: *app-env
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+volumes:
+  postgres_data:
+  redis_data:
+  static_files:
+  media_files:

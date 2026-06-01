@@ -1,0 +1,29 @@
+{% comment %}
+CTA block for lead generation inside blog posts.
+Usage: {% include "blog/components/cta_block.html" with post=post %}
+{% endcomment %}
+
+{% if post.cta_text and post.cta_url %}
+<div class="my-8 p-6 bg-gray-900 border border-teal-400/30 rounded-xl text-gray-200 shadow-lg">
+    {% if post.lead_magnet_title %}
+    <p class="text-teal-300 text-sm font-medium uppercase tracking-wider mb-1">
+        Free Resource
+    </p>
+    <h3 class="text-xl font-bold text-white mb-2">{{ post.lead_magnet_title }}</h3>
+    {% endif %}
+    <p class="text-gray-300 mb-4">
+        {% if post.lead_magnet_title %}
+        Get your free copy and start implementing today.
+        {% else %}
+        Ready to take the next step?
+        {% endif %}
+    </p>
+    <a href="{{ post.cta_url }}"
+       data-ga-event="blog_cta_click"
+       data-ga-params='{"post_slug":"{{ post.slug }}","cta_label":"{{ post.cta_text|escapejs }}"}'
+       class="inline-block bg-gradient-to-r from-teal-400 to-blue-500 text-white font-bold px-6 py-3 rounded-lg hover:from-teal-500 hover:to-blue-600 transition-colors shadow-md"
+       rel="noopener">
+        {{ post.cta_text }}
+    </a>
+</div>
+{% endif %}

@@ -1,0 +1,115 @@
+{% load static tailwind_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %} | {{ PROJECT_NAME }} Documentation</title>
+    {% include "shared/favicon.html" %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    {% include "shared/plugins/google-analytics.html" %}
+    {% tailwind_css %}
+</head>
+<body class="bg-black text-white font-poppins" data-ga-scroll="true">
+    <div class="flex h-screen">
+        {% include "documentation/components/sidebar.html" %}
+
+        <!-- Main content area -->
+        <main class="flex-1 p-6 overflow-y-auto">
+            <article class="prose prose-invert max-w-none">
+                <div class="flex flex-col md:flex-row justify-between items-center mb-6">
+                    {% if current_section  %}
+                        <h1 class="text-3xl font-bold mb-4 md:mb-0 flex items-center">
+                            <a href="{% url 'docs_index' section=current_section %}" class="hover:text-indigo-600 transition-colors duration-200 ease-in-out no-underline">
+                                {{ section_display_name }}
+                            </a>
+                            <i class="fa-solid fa-chevron-right mx-2 text-gray-500 text-sm"></i>
+                            {{ page_display_name }}
+                        </h1>
+                    {% else %}
+                        <h1 class="text-3xl font-bold mb-4 md:mb-0">Searching on all documentation files</h1>
+                    {% endif %}
+                    <form action="{% url 'search_docs' %}" method="get" class="flex items-center w-full md:w-auto"
+                          data-ga-event="docs_search"
+                          data-ga-params='{"page_section":"docs_header"}'>
+                        <input
+                            type="text"
+                            name="q"
+                            placeholder="Search the docs..."
+                            aria-label="Search documentation"
+                            class="flex-grow md:flex-grow-0 bg-gray-800 text-white rounded p-2 focus:outline-none focus:ring-2 focus:ring-teal-500 transition duration-300 ease-in-out"
+                        >
+                        <button
+                            type="submit"
+                            class="ml-2 bg-teal-600 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-teal-500 transition duration-300 ease-in-out transform hover:scale-105 active:scale-95"
+                            aria-label="Submit search"
+                        >
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </form>
+                </div>
+                {% block content %}{% endblock %}
+            </article>
+        </main>
+    </div>
+    <script>
+        function openTab(evt, platform) {
+            var i, tabcontent, tablinks;
+        
+            tabcontent = document.getElementsByClassName("tabcontent");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].classList.add("hidden");
+            }
+        
+            tablinks = document.getElementsByClassName("tablinks");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].classList.remove("text-white", "border-b-2", "border-indigo-400");
+                tablinks[i].classList.add("text-gray-400");
+            }
+        
+            for (i = 0; i < tabcontent.length; i++) {
+                if (tabcontent[i].id === platform) {
+                    tabcontent[i].classList.remove("hidden");
+                }
+            }
+        
+            for (i = 0; i < tablinks.length; i++) {
+                if (tablinks[i].innerText.trim() === platform) {
+                    tablinks[i].classList.add("text-white", "border-b-2", "border-indigo-400");
+                    tablinks[i].classList.remove("text-gray-400");
+                }
+            }
+        
+            localStorage.setItem("selectedPlatform", platform);
+            if (window.djast && typeof window.djast.track === 'function') {
+                window.djast.track('docs_tab_switch', { platform: platform, page_section: 'docs_content' });
+            }
+        }
+        
+        document.addEventListener("DOMContentLoaded", function () {
+            var selectedPlatform = localStorage.getItem("selectedPlatform") || "Windows";
+            openTab(null, selectedPlatform);
+        });
+
+        const sidebarToggle = document.getElementById('sidebar-toggle');
+        const sidebar = document.getElementById('sidebar');
+        const toggleIcon = document.getElementById('toggle-icon');
+
+        sidebarToggle.addEventListener('click', () => {
+            sidebar.classList.toggle('hidden');
+            sidebar.classList.toggle('w-64');
+            sidebar.classList.toggle('w-full');
+
+            // Change icon direction when sidebar is expanded or collapsed
+            if (sidebar.classList.contains('w-full')) {
+                toggleIcon.classList.remove('fa-arrow-right');
+                toggleIcon.classList.add('fa-arrow-left');
+            } else {
+                toggleIcon.classList.remove('fa-arrow-left');
+                toggleIcon.classList.add('fa-arrow-right');
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,28 @@
+{% comment %}SEO meta for free tools. Usage: {% include ... with tool=tool %}{% endcomment %}
+
+{% if tool %}
+<meta name="description" content="{{ tool.meta_description|default:tool.tagline }}">
+{% if tool.canonical_url %}
+<link rel="canonical" href="{{ tool.canonical_url }}">
+{% else %}
+<link rel="canonical" href="{{ PROJECT_URL }}{{ tool.get_absolute_url }}">
+{% endif %}
+{% if tool.noindex %}<meta name="robots" content="noindex, follow">{% endif %}
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="{{ tool.effective_meta_title }}">
+<meta property="og:description" content="{{ tool.meta_description|default:tool.tagline }}">
+{% if tool.og_image %}<meta property="og:image" content="{{ PROJECT_URL }}{{ tool.og_image.url }}">{% endif %}
+<meta property="og:url" content="{{ PROJECT_URL }}{{ tool.get_absolute_url }}">
+<meta property="og:site_name" content="{{ PROJECT_NAME }}">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{ tool.effective_meta_title }}">
+<meta name="twitter:description" content="{{ tool.meta_description|default:tool.tagline }}">
+
+{% for t in translations %}
+<link rel="alternate" hreflang="{{ t.language }}" href="{{ PROJECT_URL }}{{ t.get_absolute_url }}">
+{% endfor %}
+<link rel="alternate" hreflang="{{ tool.language }}" href="{{ PROJECT_URL }}{{ tool.get_absolute_url }}">
+<link rel="alternate" hreflang="x-default" href="{{ PROJECT_URL }}{{ tool.get_absolute_url }}">
+{% endif %}

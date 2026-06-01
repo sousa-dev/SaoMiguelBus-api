@@ -1,0 +1,173 @@
+{% load static %}
+<div id="djast-consent-banner"
+     class="djast-consent-banner"
+     role="dialog"
+     aria-labelledby="djast-consent-title"
+     aria-describedby="djast-consent-desc"
+     hidden>
+    <div class="djast-consent-banner__inner">
+        <p id="djast-consent-title" class="djast-consent-banner__title">Cookies &amp; analytics</p>
+        <p id="djast-consent-desc" class="djast-consent-banner__text">
+            We use cookies for analytics to improve {{ PROJECT_NAME }}.
+            See our <a href="{% url 'privacy_policy' %}" class="djast-consent-banner__link">Privacy Policy</a>.
+        </p>
+        <div class="djast-consent-banner__actions">
+            <button type="button" id="djast-consent-reject" class="djast-consent-banner__btn djast-consent-banner__btn--secondary">
+                Reject
+            </button>
+            <button type="button" id="djast-consent-accept" class="djast-consent-banner__btn djast-consent-banner__btn--primary">
+                Accept
+            </button>
+        </div>
+    </div>
+</div>
+<style>
+    .djast-consent-banner {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 9999;
+        background: #1a1a1a;
+        border-top: 1px solid rgba(45, 212, 191, 0.35);
+        padding: 1rem 1.25rem;
+        box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.35);
+        font-family: "Poppins", system-ui, sans-serif;
+    }
+    .djast-consent-banner[hidden] { display: none !important; }
+    .djast-consent-banner__inner {
+        max-width: 56rem;
+        margin: 0 auto;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 1rem;
+        justify-content: space-between;
+    }
+    .djast-consent-banner__title {
+        font-weight: 600;
+        color: #f3f4f6;
+        margin: 0;
+        font-size: 0.95rem;
+        width: 100%;
+    }
+    @media (min-width: 640px) {
+        .djast-consent-banner__title { width: auto; flex: 0 0 auto; }
+    }
+    .djast-consent-banner__text {
+        color: #9ca3af;
+        font-size: 0.875rem;
+        margin: 0;
+        flex: 1 1 16rem;
+        line-height: 1.45;
+    }
+    .djast-consent-banner__link {
+        color: #2dd4bf;
+        text-decoration: underline;
+    }
+    .djast-consent-banner__actions {
+        display: flex;
+        gap: 0.5rem;
+        flex-shrink: 0;
+    }
+    .djast-consent-banner__btn {
+        padding: 0.5rem 1rem;
+        border-radius: 0.5rem;
+        font-size: 0.875rem;
+        font-weight: 600;
+        cursor: pointer;
+        border: none;
+    }
+    .djast-consent-banner__btn--primary {
+        background: #facc15;
+        color: #111827;
+    }
+    .djast-consent-banner__btn--primary:hover { background: #fde047; }
+    .djast-consent-banner__btn--secondary {
+        background: transparent;
+        color: #d1d5db;
+        border: 1px solid #4b5563;
+    }
+    .djast-consent-banner__btn--secondary:hover { border-color: #9ca3af; }
+</style>
+<script>
+(function () {
+    "use strict";
+    var KEY = "djast_consent_v1";
+    var VERSION = 1;
+
+    function readStored() {
+        try {
+            var raw = localStorage.getItem(KEY);
+            return raw ? JSON.parse(raw) : null;
+        } catch (e) {
+            return null;
+        }
+    }
+
+    function writeStored(choice) {
+        try {
+            localStorage.setItem(KEY, JSON.stringify({
+                choice: choice,
+                ts: Date.now(),
+                version: VERSION
+            }));
+        } catch (e) { /* private mode */ }
+    }
+
+    function applyConsent(granted) {
+        if (typeof gtag !== "function") return;
+        var state = granted ? "granted" : "denied";
+        gtag("consent", "update", {
+            ad_storage: state,
+            ad_user_data: state,
+            ad_personalization: state,
+            analytics_storage: state,
+            functionality_storage: state,
+            personalization_storage: state
+        });
+    }
+
+    function hideBanner() {
+        var el = document.getElementById("djast-consent-banner");
+        if (el) el.setAttribute("hidden", "");
+    }
+
+    function showBanner() {
+        var el = document.getElementById("djast-consent-banner");
+        if (el) el.removeAttribute("hidden");
+    }
+
+    function init() {
+        var stored = readStored();
+        if (stored && stored.version === VERSION && stored.choice) {
+            applyConsent(stored.choice === "accept");
+            hideBanner();
+            return;
+        }
+        showBanner();
+        var acceptBtn = document.getElementById("djast-consent-accept");
+        var rejectBtn = document.getElementById("djast-consent-reject");
+        if (acceptBtn) {
+            acceptBtn.addEventListener("click", function () {
+                writeStored("accept");
+                applyConsent(true);
+                hideBanner();
+            });
+        }
+        if (rejectBtn) {
+            rejectBtn.addEventListener("click", function () {
+                writeStored("reject");
+                applyConsent(false);
+                hideBanner();
+            });
+        }
+    }
+
+    if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", init);
+    } else {
+        init();
+    }
+})();
+</script>

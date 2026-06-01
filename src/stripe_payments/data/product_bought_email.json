@@ -1,0 +1,4 @@
+{
+    "subject": "Thank you for your purchase!",
+    "message": "Thank you for purchasing our product!\n\nA product was bought under this email associated {__user_email__} on {__url__}."
+}

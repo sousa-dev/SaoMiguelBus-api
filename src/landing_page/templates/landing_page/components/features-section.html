@@ -1,0 +1,109 @@
+<section class="py-24" id="features">
+    <div class="max-w-3xl mx-auto">
+        <div class="bg-base-100 max-md:px-8 max-w-3xl">
+            <h2 class="font-bold text-3xl lg:text-5xl tracking-tight mb-8 text-center">
+                Build Your App Faster, Launch Earlier, Save Money and Time
+            </h2>
+            <div class="text-base-content/80 leading-relaxed mb-8 lg:text-lg text-center">
+                Starter covers auth, Tailwind, legal pages, and core AI docs. Premium adds Stripe Checkout, Celery, SEO apps, and the full <code class="text-teal-400">.cursor/</code> agent layer — spend time shipping, not wiring packages.
+            </div>
+        </div>
+    </div>
+    <div>
+        <div class="grid grid-cols-2 md:grid-cols-4 lg:flex justify-start gap-4 md:gap-12 max-md:px-8 max-w-3xl mx-auto mb-8" id="feature-items">
+            <!-- Dynamic feature items will be injected here -->
+        </div>
+        <div class="bg-base-200" id="feature-content">
+            <!-- Dynamic content will be injected here -->
+            <div class="max-w-3xl mx-auto flex flex-col md:flex-row justify-center md:justify-start md:items-center gap-12">
+                <div class="text-base-content/80 leading-relaxed space-y-4 px-12 md:px-0 py-12 max-w-xl animate-opacity" id="dynamic-content">
+                    <!-- Default content will be shown here -->
+                </div>
+                <div class="hidden aspect-square max-md:w-full md:h-[28rem] bg-neutral md:order-first"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        
+        {% include "landing_page/components/features-content.html" %}
+        
+        function generateFeatureItems() {
+            const featureItemsContainer = document.getElementById('feature-items');
+            featureItemsContainer.innerHTML = '';
+    
+            for (const feature in featureData) {
+                const { icon, title } = featureData[feature];
+                const featureItem = document.createElement('span');
+                featureItem.className = "feature-item flex flex-col items-center justify-center gap-3 select-none cursor-pointer p-4 duration-200 hover:text-primary hover:bg-gray-100 rounded-lg";
+                featureItem.setAttribute('data-feature', feature);
+                featureItem.innerHTML = `
+                    <i class="${icon}"></i>
+                    <span class="font-medium text-sm">${title}</span>
+                `;
+                featureItemsContainer.appendChild(featureItem);
+            }
+        }
+    
+        function generateFeatureContent(feature) {
+            const { title, details, timeSaved, link } = featureData[feature];
+            return `
+                <p class="font-bold text-2xl text-teal-600 mb-4">${title}</p>
+                <ul class="space-y-2 text-gray-500">
+                    ${details.map(detail => `
+                        <li class="flex items-center">
+                            <span class="text-teal-600 mr-2">✓</span>
+                            <span>${detail}</span>
+                        </li>
+                    `).join('')}
+                    <li class="flex items-center text-green-500 font-semibold mt-2">
+                        <span class="mr-2">✓</span>
+                        <span>Time saved: ${timeSaved} hours</span>
+                    </li>
+                </ul>
+                ${link ? `<div class="pt-3 flex items-center gap-2 text-sm font-semibold text-gray-700">
+                    <span>with <a class="text-blue-600 hover:underline" href="${link.url}" target="_blank" aria-label="${link.text}">${link.text}</a></span>
+                </div>` : ''}
+            `;
+        }
+    
+        function setActiveFeature(feature) {
+            const featureContent = document.getElementById('dynamic-content');
+            featureContent.innerHTML = generateFeatureContent(feature);
+
+            if (window.djast && typeof window.djast.track === 'function') {
+                window.djast.track('feature_tab_view', {
+                    feature: feature,
+                    page_section: 'features'
+                });
+            }
+    
+            const featureItems = document.querySelectorAll('[data-feature]');
+            featureItems.forEach(el => {
+                el.classList.remove('text-teal-300');
+                el.classList.add('text-gray-600');
+            });
+    
+            const activeFeatureItem = document.querySelector(`[data-feature="${feature}"]`);
+            activeFeatureItem.classList.add('text-teal-300');
+            activeFeatureItem.classList.remove('text-gray-600');
+        }
+    
+        generateFeatureItems();
+    
+        const featureItems = document.querySelectorAll('[data-feature]');
+        featureItems.forEach(item => {
+            item.addEventListener('click', event => {
+                const feature = event.currentTarget.getAttribute('data-feature');
+                setActiveFeature(feature);
+            });
+        });
+    
+        // Select the first feature by default
+        if (featureItems.length > 0) {
+            featureItems[0].click();
+        }
+    });
+</script>

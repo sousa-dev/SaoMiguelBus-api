@@ -1,0 +1,46 @@
+{% load user_tags %}
+
+<nav>
+
+  <a href="/" class="logo">
+    <img src="{% url 'get_media' path='logo.png' %}" alt="{{ PROJECT_NAME }} Logo" class="logo-image">
+    <p class="logo-text">{{ PROJECT_NAME }}</p>
+  </a>
+  <button class="hamburger hamburger-button" aria-label="Toggle navigation">&#9776;</button>
+  <ul class="nav-links">
+    <li>
+        <a href="#demo" data-ga-event="nav_cta_click" data-ga-params='{"cta_label":"demo","page_section":"nav"}'>Demo</a>
+    </li>
+    <li>
+        <a href="#how-it-works">How it Works</a>
+    </li>
+    <li>
+        <a href="#ai-agents">AI Agents</a>
+    </li>
+    <li>
+        <a href="#features">Features</a>
+    </li>
+    <li>
+        <a href="#pricing" data-ga-event="nav_cta_click" data-ga-params='{"cta_label":"pricing","page_section":"nav"}'>Pricing</a>
+    </li>
+    <li>
+        <a href="{% url 'blog:post_list' %}" data-ga-event="nav_cta_click" data-ga-params='{"cta_label":"blog","page_section":"nav"}'>Blog</a>
+    </li>
+    <li>
+        <a href="{% url 'free_tools:tool_index' %}">Tools</a>
+    </li>
+    <li>
+        {% if user.is_authenticated %}
+            <form method="post" action="{% url 'logout' %}" data-ga-event="logout" data-ga-params='{"page_section":"nav"}'>
+                {% csrf_token %}
+                <button type="submit">       
+                    <i class="fa-regular fa-user"></i>
+                </button>
+            </form>
+        {% else %}
+            <a href="{% url 'login' %}" data-ga-event="nav_cta_click" data-ga-params='{"cta_label":"login","page_section":"nav"}'><i class="fas fa-sign-in-alt"></i></a>
+        {% endif %}
+    </li>
+  </ul>
+</nav>
+</br>

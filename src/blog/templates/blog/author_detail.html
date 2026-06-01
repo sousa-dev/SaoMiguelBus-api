@@ -1,0 +1,38 @@
+{% extends 'landing_page/base.html' %}
+
+{% block title %}Posts by {{ author.get_full_name|default:author.username }} | Blog | {{ PROJECT_NAME }}{% endblock %}
+
+{% block css %}
+<meta name="description" content="All blog posts written by {{ author.get_full_name|default:author.username }}.">
+{% endblock %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 py-10">
+    <nav class="text-sm text-gray-400 mb-6" aria-label="Breadcrumb">
+        <a href="/" class="hover:text-teal-300">Home</a>
+        <span class="mx-2">/</span>
+        <a href="{% url 'blog:post_list' %}" class="hover:text-teal-300">Blog</a>
+        <span class="mx-2">/</span>
+        <span class="text-white">{{ author.get_full_name|default:author.username }}</span>
+    </nav>
+
+    <div class="flex items-center gap-4 mb-8">
+        <div class="w-16 h-16 bg-gray-800 text-teal-300 rounded-full flex items-center justify-center font-bold text-2xl">
+            {{ author.username|make_list|first|upper }}
+        </div>
+        <div>
+            <h1 class="text-3xl font-bold text-white">{{ author.get_full_name|default:author.username }}</h1>
+            <p class="text-gray-400">{{ page_obj.paginator.count }} article{{ page_obj.paginator.count|pluralize }}</p>
+        </div>
+    </div>
+
+    {% if page_obj.object_list %}
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+        {% for post in page_obj %}
+            {% include "blog/components/post_card.html" with post=post %}
+        {% endfor %}
+    </div>
+    {% include "blog/components/pagination.html" with page_obj=page_obj %}
+    {% endif %}
+</div>
+{% endblock %}

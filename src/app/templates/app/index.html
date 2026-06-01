@@ -1,0 +1,142 @@
+{% extends 'app/base.html' %}
+
+{% load user_tags %}
+
+{% block title %}
+    Home Page
+{% endblock title %}
+
+{% block css %}
+<!-- Tailwind CSS is usually included via a CDN or built into the project. Assuming it is already available. -->
+{% endblock %}
+
+{% block content %}
+<div class="flex flex-col items-center justify-center min-h-screen bg-gray-900 px-4 mt-8">
+    <h1 class="text-6xl text-green-500 font-extrabold mb-6 text-center">
+        🎉 CONGRATS 🎉
+    </h1>
+    <p class="text-2xl sm:text-4xl text-gray-100 mb-10 text-center max-w-2xl">
+        You just saved <span class="text-blue-500 font-bold">30+</span> hours of boring, repetitive work by building your project with djast
+    </p>
+    <div class="w-full max-w-lg mx-auto">
+        <h2 class="text-2xl sm:text-4xl text-purple-500 font-bold mb-6 text-center">
+            Want to save <span class="text-blue-500">more</span>?
+        </h2>
+        <a href="https://forms.gle/ZG99oqZsEWohmzK88" class="block text-lg sm:text-2xl text-white bg-blue-500 hover:bg-blue-700 font-bold py-3 px-6 rounded transition duration-300 ease-in-out mb-8 text-center">
+            Help me improve djast
+        </a>
+
+        <hr class="border-t-2 border-gray-600 my-8 shadow-lg rounded-lg">
+
+        <h2 class="text-2xl sm:text-4xl text-teal-300 font-bold mb-6 text-center">
+            <i class="fas fa-arrow-down"></i> What is already done? <i class="fas fa-arrow-down"></i>
+        </h2>
+        <ul class="text-xl sm:text-2xl text-gray-100 space-y-4 mb-8">
+            <li class="bg-gray-800 p-4 rounded-lg shadow-md flex flex-col hover:bg-gray-700 transition ease-in-out duration-200 cursor-pointer group">
+                <div class="flex items-center justify-between">
+                    <span class="flex items-center">
+                        <span class="text-2xl mr-4">📝</span> Authentication Logic
+                    </span>
+                    <span class="text-gray-500 transition duration-200 transform group-hover:rotate-90">&#x25BC;</span>
+                </div>
+                <ul class="pl-8 mt-2 hidden subitems border-l border-gray-600 ml-4">
+                    <li class="text-gray-400 text-lg py-1 hover:text-white transition duration-200">Create New Account</li>
+                    <li class="text-gray-400 text-lg py-1 hover:text-white transition duration-200">Validate Email</li>
+                    <li class="text-gray-400 text-lg py-1 hover:text-white transition duration-200">Change Password Form</li>
+                </ul>
+            </li>
+            <li class="bg-gray-800 p-4 rounded-lg shadow-md flex flex-col hover:bg-gray-700 transition ease-in-out duration-200 cursor-pointer group">
+                <div class="flex items-center justify-between">
+                    <span class="flex items-center">
+                        <span class="text-2xl mr-4">🔐</span> OAuth Authentication
+                    </span>
+                    <span class="text-gray-500 transition duration-200 transform group-hover:rotate-90">&#x25BC;</span>
+                </div>
+                <ul class="pl-8 mt-2 hidden subitems border-l border-gray-600 ml-4">
+                    <li class="text-gray-400 text-lg py-1 hover:text-white transition duration-200">Sign in with Google</li>
+                    <li class="text-gray-400 text-lg py-1 hover:text-white transition duration-200">Sign in with Github</li>
+                </ul>
+            </li>
+            <li class="bg-gray-800 p-4 rounded-lg shadow-md flex flex-col hover:bg-gray-700 transition ease-in-out duration-200 cursor-pointer group">
+                <div class="flex items-center justify-between">
+                    <span class="flex items-center">
+                        <span class="text-2xl mr-4">💳</span> Payment Gateway
+                    </span>
+                    <span class="text-gray-500 transition duration-200 transform group-hover:rotate-90">&#x25BC;</span>
+                </div>
+                <ul class="pl-8 mt-2 hidden subitems border-l border-gray-600 ml-4">
+                    <li class="text-gray-400 text-lg py-1 hover:text-white transition duration-200">Stripe Integration</li>
+                    <li class="text-gray-400 text-lg py-1 hover:text-white transition duration-200">Set Up Payment Method</li>
+                    <li class="text-gray-400 text-lg py-1 hover:text-white transition duration-200">Process Transactions</li>
+                </ul>
+            </li>
+            <li class="bg-gray-800 p-4 rounded-lg shadow-md flex flex-col hover:bg-gray-700 transition ease-in-out duration-200 cursor-pointer group">
+                <div class="flex items-center justify-between">
+                    <span class="flex items-center">
+                        <span class="text-2xl mr-4">🎨</span> Styling
+                    </span>
+                    <span class="text-gray-500 transition duration-200 transform group-hover:rotate-90">&#x25BC;</span>
+                </div>
+                <ul class="pl-8 mt-2 hidden subitems border-l border-gray-600 ml-4">
+                    <li class="text-gray-400 text-lg py-1 hover:text-white transition duration-200">Tailwind CSS Integration</li>
+                    <li class="text-gray-400 text-lg py-1 hover:text-white transition duration-200">Font Awesome Integration</li>
+                    <li class="text-gray-400 text-lg py-1 hover:text-white transition duration-200">Login/Register Pages Styling</li>
+                    <li class="text-gray-400 text-lg py-1 hover:text-white transition duration-200">Responsive Design</li>
+                    <li class="text-gray-400 text-lg py-1 hover:text-white transition duration-200">Animations</li>
+                </ul>
+            </li>
+            <li class="bg-gray-800 p-4 rounded-lg shadow-md flex flex-col hover:bg-gray-700 transition ease-in-out duration-200 cursor-pointer group">
+                <div class="flex items-center justify-between">
+                    <span class="flex items-center">
+                        <span class="text-2xl mr-4">🛡️</span> Security
+                    </span>
+                    <span class="text-gray-500 transition duration-200 transform group-hover:rotate-90">&#x25BC;</span>
+                </div>
+                <ul class="pl-8 mt-2 hidden subitems border-l border-gray-600 ml-4">
+                    <li class="text-gray-400 text-lg py-1 hover:text-white transition duration-200">Django-Axes Integration</li>
+                    <li class="text-gray-400 text-lg py-1 hover:text-white transition duration-200">Protect Against CSRF Attacks</li>
+                    <li class="text-gray-400 text-lg py-1 hover:text-white transition duration-200">Protect Against Brute Force Attacks</li>
+                    <li class="text-gray-400 text-lg py-1 hover:text-white transition duration-200">Block/Timeout Suspicious Users/IPs</li>
+                </ul>
+            </li>
+            <li class="bg-gray-800 p-4 rounded-lg shadow-md flex flex-col hover:bg-gray-700 transition ease-in-out duration-200 cursor-pointer group">
+                <div class="flex items-center justify-between">
+                    <span class="flex items-center">
+                        <span class="text-2xl mr-4">🚀</span> More
+                    </span>
+                    <span class="text-gray-500 transition duration-200 transform group-hover:rotate-90">&#x25BC;</span>
+                </div>
+                <ul class="pl-8 mt-2 hidden subitems border-l border-gray-600 ml-4">
+                    <li class="text-gray-400 text-lg py-1 hover:text-white transition duration-200">Documentation Page Generation through Markdown Files</li>
+                    <li class="text-gray-400 text-lg py-1 hover:text-white transition duration-200">TOS, Privacy Policy & Licenses Template Pages</li>
+                    <li class="text-gray-400 text-lg py-1 hover:text-white transition duration-200">Regular updates as I ship new startups and add features to it</li>
+                    <li class="text-gray-400 text-lg py-1 hover:text-white transition duration-200">...</li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div>
+{% endblock %}
+
+{% block js %}
+    {% include "shared/animation/long_confetti_full_page.html" %}
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Select all list items that contain subitems
+            const listItems = document.querySelectorAll('ul > li');
+        
+            // Add click event listeners to toggle subitems
+            listItems.forEach(item => {
+                item.addEventListener('click', function () {
+                    const subitems = item.querySelector('.subitems');
+                    if (subitems) {
+                        subitems.classList.toggle('hidden');
+                        // Toggle arrow rotation
+                        const arrow = item.querySelector('span.text-gray-500');
+                        arrow.classList.toggle('rotate-180');
+                    }
+                });
+            });
+        });
+    </script>
+{% endblock %}
