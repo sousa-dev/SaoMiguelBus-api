@@ -51,3 +51,49 @@ def cancel_all_celery_jobs(request: Request) -> Response:
             **result,
         }
     )
+
+
+@api_view(['GET', 'POST'])
+@permission_classes([AllowAny])
+def trigger_feed_sync(request: Request) -> Response:
+    """
+    Run or queue feed sync tasks (news, seismic, trails) for debugging.
+
+    Query params:
+      - key / X-Auth-Key: AUTH_KEY (required)
+      - feed: all | news | seismic | trails (default all)
+      - island: island key slug, e.g. sao-miguel (optional)
+      - async: true to queue on Celery; false to run inline and return counts (default false)
+    """
+    denied = _require_auth_key(request)
+    if denied:
+        return denied
+
+    from shared.feed_syncs import FEED_LABELS, normalize_feed_param, trigger_feed_syncs
+
+    feed_param = request.query_params.get('feed', 'all')
+    island_key = (request.query_params.get('island') or '').strip() or None
+    run_async = request.query_params.get('async', 'false').lower() in ('1', 'true', 'yes')
+
+    try:
+        labels = normalize_feed_param(feed_param)
+    except ValueError as exc:
+        return Response(
+            {
+                'error': str(exc),
+                'allowed_feeds': ['all', *FEED_LABELS],
+            },
+            status=400,
+        )
+
+    results = trigger_feed_syncs(labels, island_key=island_key, run_async=run_async)
+    all_ok = all(item.get('ok') for item in results.values())
+    return Response(
+        {
+            'ok': all_ok,
+            'island_key': island_key,
+            'async': run_async,
+            'feeds': results,
+        },
+        status=200 if all_ok else 502,
+    )

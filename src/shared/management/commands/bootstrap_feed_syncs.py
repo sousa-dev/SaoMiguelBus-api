@@ -6,13 +6,9 @@ import logging
 
 from django.core.management.base import BaseCommand
 
-logger = logging.getLogger(__name__)
+from shared.feed_syncs import FEED_LABELS, queue_feed_sync
 
-FEED_TASKS: tuple[tuple[str, str], ...] = (
-    ('news', 'news.poll_sources'),
-    ('seismic', 'seismic.sync_events'),
-    ('trails', 'trails.sync_open_data'),
-)
+logger = logging.getLogger(__name__)
 
 
 class Command(BaseCommand):
@@ -20,23 +16,12 @@ class Command(BaseCommand):
 
     def handle(self, *args: object, **options: object) -> None:
         queued: list[str] = []
-        for label, task_name in FEED_TASKS:
+        for label in FEED_LABELS:
             try:
-                if label == 'news':
-                    from news.tasks import poll_sources_task
-
-                    poll_sources_task.delay()
-                elif label == 'seismic':
-                    from seismic.tasks import sync_events_task
-
-                    sync_events_task.delay()
-                elif label == 'trails':
-                    from trails.tasks import sync_open_data_task
-
-                    sync_open_data_task.delay()
-                queued.append(task_name)
+                info = queue_feed_sync(label)
+                queued.append(info['task'])
             except Exception:
-                logger.exception('bootstrap_feed_syncs failed to queue %s', task_name)
+                logger.exception('bootstrap_feed_syncs failed to queue %s', label)
 
         if queued:
             self.stdout.write(f'Queued feed sync tasks: {", ".join(queued)}')
