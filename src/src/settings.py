@@ -40,6 +40,7 @@ apps = [
     ('news', True),
     ('seismic', True),
     ('trails', True),
+    ('marketplace', True),
 ]
 
 import os
@@ -83,6 +84,7 @@ REST_FRAMEWORK = {
     ],
     'DEFAULT_THROTTLE_RATES': {
         'directions': '30/min',
+        'marketplace_write': '20/min',
     },
 }
 
