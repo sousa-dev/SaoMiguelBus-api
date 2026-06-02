@@ -27,7 +27,8 @@ class SeismicEvent(TenantScopedModel):
 class FeltReport(TenantScopedModel):
     event = models.ForeignKey(SeismicEvent, on_delete=models.CASCADE, related_name='felt_reports')
     session_hash = models.CharField(max_length=64, db_index=True)
-    intensity = models.PositiveSmallIntegerField()
+    felt = models.BooleanField(default=True)
+    intensity = models.PositiveSmallIntegerField(null=True, blank=True)
     latitude = models.FloatField(null=True, blank=True)
     longitude = models.FloatField(null=True, blank=True)
     reported_at = models.DateTimeField(auto_now_add=True)
@@ -36,4 +37,8 @@ class FeltReport(TenantScopedModel):
         ordering = ['-reported_at']
 
     def __str__(self) -> str:
-        return f'felt {self.intensity} on {self.event_id}'
+        if not self.felt:
+            return f'not felt on {self.event_id}'
+        if self.intensity is not None:
+            return f'felt {self.intensity} on {self.event_id}'
+        return f'felt (no intensity) on {self.event_id}'

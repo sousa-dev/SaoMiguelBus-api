@@ -5,8 +5,9 @@ from unittest.mock import MagicMock, patch
 
 from django.test import TestCase
 
-from seismic.models import SeismicEvent
-from seismic.services import _parse_feature, sync_events_for_island
+from seismic.models import FeltReport, SeismicEvent
+from seismic.services import _parse_feature, submit_felt_report, sync_events_for_island
+from tenancy.services import for_island
 from tenancy.services import get_or_create_default_island
 
 
@@ -99,3 +100,68 @@ class SeismicServicesTestCase(TestCase):
         counts = sync_events_for_island(self.island)
         self.assertEqual(counts['created'], 0)
         self.assertEqual(SeismicEvent.objects.count(), 0)
+
+
+class FeltReportServicesTestCase(TestCase):
+    def setUp(self):
+        self.island = get_or_create_default_island()
+        self.event = SeismicEvent.objects.create(
+            island=self.island,
+            emsc_id='felt_test_event',
+            magnitude=4.0,
+            latitude=37.78,
+            longitude=-25.50,
+            occurred_at=datetime(2026, 6, 1, 12, 0, tzinfo=dt_timezone.utc),
+        )
+
+    def test_felt_true_with_intensity(self):
+        with for_island(self.island):
+            payload, created = submit_felt_report(
+                event_id=self.event.id,
+                session_hash='hash-a',
+                felt=True,
+                intensity=6,
+            )
+        self.assertTrue(created)
+        self.assertEqual(payload['feltYesCount'], 1)
+        self.assertEqual(payload['feltNoCount'], 0)
+        report = FeltReport.objects.get()
+        self.assertTrue(report.felt)
+        self.assertEqual(report.intensity, 6)
+
+    def test_felt_false_clears_intensity(self):
+        with for_island(self.island):
+            submit_felt_report(
+                event_id=self.event.id,
+                session_hash='hash-a',
+                felt=True,
+                intensity=5,
+            )
+            payload, created = submit_felt_report(
+                event_id=self.event.id,
+                session_hash='hash-a',
+                felt=False,
+                intensity=9,
+            )
+        self.assertFalse(created)
+        self.assertEqual(payload['feltYesCount'], 0)
+        self.assertEqual(payload['feltNoCount'], 1)
+        report = FeltReport.objects.get()
+        self.assertFalse(report.felt)
+        self.assertIsNone(report.intensity)
+
+    def test_upsert_flips_yes_to_no(self):
+        with for_island(self.island):
+            submit_felt_report(
+                event_id=self.event.id,
+                session_hash='hash-b',
+                felt=True,
+                intensity=3,
+            )
+            payload, _ = submit_felt_report(
+                event_id=self.event.id,
+                session_hash='hash-b',
+                felt=False,
+            )
+        self.assertEqual(payload['feltYesCount'], 0)
+        self.assertEqual(payload['feltNoCount'], 1)

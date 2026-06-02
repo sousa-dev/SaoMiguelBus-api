@@ -175,9 +175,15 @@ def sync_all_events(*, island_key: str | None = None) -> dict[str, int]:
     return totals
 
 
+def _felt_counts(event: SeismicEvent) -> tuple[int, int]:
+    felt_yes = event.felt_reports.filter(felt=True).count()
+    felt_no = event.felt_reports.filter(felt=False).count()
+    return felt_yes, felt_no
+
+
 def _felt_summary(event: SeismicEvent) -> dict[str, int]:
     rows = (
-        FeltReport.objects.filter(event=event)
+        FeltReport.objects.filter(event=event, felt=True, intensity__isnull=False)
         .values('intensity')
         .annotate(count=Count('id'))
         .order_by('intensity')
@@ -197,7 +203,10 @@ def serialize_event(event: SeismicEvent, *, include_felt: bool = True) -> dict[s
         'region': event.region,
     }
     if include_felt:
-        payload['feltCount'] = event.felt_reports.count()
+        felt_yes, felt_no = _felt_counts(event)
+        payload['feltYesCount'] = felt_yes
+        payload['feltNoCount'] = felt_no
+        payload['feltCount'] = felt_yes
         payload['feltSummary'] = _felt_summary(event)
     return payload
 
@@ -222,13 +231,17 @@ def submit_felt_report(
     *,
     event_id: int,
     session_hash: str,
-    intensity: int,
+    felt: bool,
+    intensity: int | None = None,
     latitude: float | None = None,
     longitude: float | None = None,
 ) -> tuple[dict[str, Any], bool]:
     """Upsert felt report. Returns (payload, created)."""
     event = SeismicEvent.objects.get(id=event_id)
-    defaults: dict[str, Any] = {'intensity': intensity}
+    defaults: dict[str, Any] = {
+        'felt': felt,
+        'intensity': intensity if felt else None,
+    }
     if latitude is not None:
         defaults['latitude'] = round(latitude, 2)
     if longitude is not None:
@@ -240,9 +253,13 @@ def submit_felt_report(
         session_hash=session_hash,
         defaults=defaults,
     )
+    felt_yes, felt_no = _felt_counts(event)
     return {
         'eventId': event.id,
+        'felt': report.felt,
         'intensity': report.intensity,
-        'feltCount': event.felt_reports.count(),
+        'feltYesCount': felt_yes,
+        'feltNoCount': felt_no,
+        'feltCount': felt_yes,
         'feltSummary': _felt_summary(event),
     }, created

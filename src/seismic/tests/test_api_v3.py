@@ -46,39 +46,66 @@ class SeismicAPITestCase(TestCase):
         self.assertEqual(events[0]['id'], self.event.id)
         self.assertEqual(events[1]['id'], older.id)
 
-    def test_detail_includes_felt_count(self):
+    def test_detail_includes_felt_counts(self):
         FeltReport.objects.create(
             island=self.island,
             event=self.event,
             session_hash='hash-a',
+            felt=True,
             intensity=5,
+        )
+        FeltReport.objects.create(
+            island=self.island,
+            event=self.event,
+            session_hash='hash-b',
+            felt=False,
         )
         response = self.client.get(f'/api/v3/seismic/events/{self.event.id}', **self.headers)
         self.assertEqual(response.status_code, 200)
         body = response.json()
+        self.assertEqual(body['feltYesCount'], 1)
+        self.assertEqual(body['feltNoCount'], 1)
         self.assertEqual(body['feltCount'], 1)
         self.assertEqual(body['feltSummary']['5'], 1)
 
     def test_post_felt_creates_report(self):
         response = self.client.post(
             f'/api/v3/seismic/events/{self.event.id}/felt',
-            {'session_id': 'session-abc', 'intensity': 6},
+            {'session_id': 'session-abc', 'felt': True, 'intensity': 6},
             format='json',
             **self.headers,
         )
         self.assertEqual(response.status_code, 201)
         self.assertEqual(FeltReport.objects.count(), 1)
+        body = response.json()
+        self.assertEqual(body['feltYesCount'], 1)
+        self.assertEqual(body['feltNoCount'], 0)
+
+    def test_post_felt_not_felt(self):
+        response = self.client.post(
+            f'/api/v3/seismic/events/{self.event.id}/felt',
+            {'session_id': 'session-abc', 'felt': False},
+            format='json',
+            **self.headers,
+        )
+        self.assertEqual(response.status_code, 201)
+        report = FeltReport.objects.get()
+        self.assertFalse(report.felt)
+        self.assertIsNone(report.intensity)
+        body = response.json()
+        self.assertEqual(body['feltYesCount'], 0)
+        self.assertEqual(body['feltNoCount'], 1)
 
     def test_post_felt_upserts_intensity(self):
         self.client.post(
             f'/api/v3/seismic/events/{self.event.id}/felt',
-            {'session_id': 'session-abc', 'intensity': 4},
+            {'session_id': 'session-abc', 'felt': True, 'intensity': 4},
             format='json',
             **self.headers,
         )
         response = self.client.post(
             f'/api/v3/seismic/events/{self.event.id}/felt',
-            {'session_id': 'session-abc', 'intensity': 7},
+            {'session_id': 'session-abc', 'felt': True, 'intensity': 7},
             format='json',
             **self.headers,
         )
@@ -86,10 +113,37 @@ class SeismicAPITestCase(TestCase):
         self.assertEqual(FeltReport.objects.count(), 1)
         self.assertEqual(FeltReport.objects.get().intensity, 7)
 
+    def test_post_felt_upsert_yes_to_no(self):
+        self.client.post(
+            f'/api/v3/seismic/events/{self.event.id}/felt',
+            {'session_id': 'session-abc', 'felt': True, 'intensity': 4},
+            format='json',
+            **self.headers,
+        )
+        response = self.client.post(
+            f'/api/v3/seismic/events/{self.event.id}/felt',
+            {'session_id': 'session-abc', 'felt': False},
+            format='json',
+            **self.headers,
+        )
+        self.assertEqual(response.status_code, 200)
+        report = FeltReport.objects.get()
+        self.assertFalse(report.felt)
+        self.assertIsNone(report.intensity)
+
     def test_post_felt_requires_session(self):
         response = self.client.post(
             f'/api/v3/seismic/events/{self.event.id}/felt',
-            {'intensity': 5},
+            {'felt': True, 'intensity': 5},
+            format='json',
+            **self.headers,
+        )
+        self.assertEqual(response.status_code, 400)
+
+    def test_post_felt_requires_felt_field(self):
+        response = self.client.post(
+            f'/api/v3/seismic/events/{self.event.id}/felt',
+            {'session_id': 'session-abc', 'intensity': 5},
             format='json',
             **self.headers,
         )
@@ -98,7 +152,7 @@ class SeismicAPITestCase(TestCase):
     def test_post_felt_invalid_intensity(self):
         response = self.client.post(
             f'/api/v3/seismic/events/{self.event.id}/felt',
-            {'session_id': 'session-abc', 'intensity': 13},
+            {'session_id': 'session-abc', 'felt': True, 'intensity': 13},
             format='json',
             **self.headers,
         )
@@ -107,7 +161,7 @@ class SeismicAPITestCase(TestCase):
     def test_post_felt_unknown_event(self):
         response = self.client.post(
             '/api/v3/seismic/events/99999/felt',
-            {'session_id': 'session-abc', 'intensity': 5},
+            {'session_id': 'session-abc', 'felt': True, 'intensity': 5},
             format='json',
             **self.headers,
         )

@@ -98,7 +98,8 @@ def seismic_event_felt_view(request: Request, event_id: int) -> Response:
         payload, created = submit_felt_report(
             event_id=event_id,
             session_hash=session_hash,
-            intensity=data['intensity'],
+            felt=data['felt'],
+            intensity=data.get('intensity'),
             latitude=data.get('latitude'),
             longitude=data.get('longitude'),
         )
