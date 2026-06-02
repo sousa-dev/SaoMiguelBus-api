@@ -42,6 +42,7 @@ apps = [
     ('trails', True),
     ('marketplace', True),
     ('traffic', True),
+    ('events', True),
 ]
 
 import os
