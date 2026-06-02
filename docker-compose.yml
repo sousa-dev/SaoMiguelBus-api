@@ -11,6 +11,19 @@ x-app-env: &app-env
       required: false
     - path: ./src/src/.env
       required: false
+  environment:
+    # Compose service hostnames — override localhost defaults from .env.example
+    DB_HOST: ${DB_HOST:-db}
+    DB_PORT: ${DB_PORT:-5432}
+    DB_NAME: ${DB_NAME:-djast}
+    DB_USER: ${DB_USER:-djast}
+    DB_PASSWORD: ${DB_PASSWORD:-djast}
+    REDIS_HOST: ${REDIS_HOST:-redis}
+    REDIS_PORT: ${REDIS_PORT:-6379}
+    CELERY_BROKER_URL: ${CELERY_BROKER_URL:-redis://redis:6379/0}
+    CELERY_RESULT_BACKEND: ${CELERY_RESULT_BACKEND:-redis://redis:6379/0}
+    REDIS_URL: ${REDIS_URL:-redis://redis:6379/1}
+    DEBUG: ${DEBUG:-False}
 
 services:
 
@@ -80,7 +93,9 @@ services:
       context: .
       dockerfile: Dockerfile
     restart: unless-stopped
-    command: celery -A src worker --loglevel=info --concurrency=${CELERY_CONCURRENCY:-2}
+    command: >
+      bash ./celery-entrypoint.sh
+      celery -A src worker --loglevel=info --concurrency=${CELERY_CONCURRENCY:-2}
     volumes:
       - media_files:/usr/src/app/media
     <<: *app-env
@@ -98,7 +113,10 @@ services:
       context: .
       dockerfile: Dockerfile
     restart: unless-stopped
-    command: celery -A src beat --loglevel=info --scheduler django_celery_beat.schedulers:DatabaseScheduler
+    command: >
+      bash ./celery-entrypoint.sh
+      celery -A src beat --loglevel=info
+      --scheduler django_celery_beat.schedulers:DatabaseScheduler
     <<: *app-env
     depends_on:
       db:
