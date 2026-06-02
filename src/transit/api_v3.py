@@ -3,18 +3,22 @@
 from __future__ import annotations
 
 from rest_framework import status
-from rest_framework.decorators import api_view, permission_classes
+from rest_framework.decorators import api_view, permission_classes, throttle_classes
 from rest_framework.permissions import AllowAny
 from rest_framework.request import Request
 from rest_framework.response import Response
 
 from tenancy.services import for_island
-from transit.models import Stop, Trip
+from transit.models import Trip
+from transit.services.directions_v3 import get_directions_v3
 from transit.services.v3 import (
+    get_line_v3,
+    get_trip_v3,
     search_transit_v3,
     serialize_stops_v3,
     serialize_trip_detail,
 )
+from transit.throttling import DirectionsSessionThrottle
 
 
 def _require_island(request: Request) -> Response | None:
@@ -33,6 +37,8 @@ def transit_stops_view(request: Request) -> Response:
     if err:
         return err
     with for_island(request.island):
+        from transit.models import Stop
+
         stops = Stop.objects.all().order_by('name')
         return Response({'stops': serialize_stops_v3(stops)})
 
@@ -68,6 +74,81 @@ def transit_search_view(request: Request) -> Response:
                 status=status.HTTP_400_BAD_REQUEST,
             )
         return Response({'results': results})
+
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
+@throttle_classes([DirectionsSessionThrottle])
+def transit_directions_view(request: Request) -> Response:
+    err = _require_island(request)
+    if err:
+        return err
+
+    origin = request.GET.get('origin', '').strip()
+    destination = request.GET.get('destination', '').strip()
+    if not origin or not destination:
+        return Response(
+            {'error': {'code': 'invalid_params', 'message': 'origin and destination are required'}},
+            status=status.HTTP_400_BAD_REQUEST,
+        )
+
+    locale = request.GET.get('locale') or request.GET.get('languageCode') or 'pt'
+    with for_island(request.island):
+        payload, status_code, from_cache = get_directions_v3(
+            island=request.island,
+            origin=origin,
+            destination=destination,
+            language_code=locale,
+            arrival_departure=request.GET.get('arrival_departure', 'departure'),
+            day=request.GET.get('day', ''),
+            start=request.GET.get('start', ''),
+            date=request.GET.get('date', ''),
+        )
+
+    if status_code == 400 and isinstance(payload.get('error'), str):
+        return Response(
+            {'error': {'code': 'maps_disabled', 'message': payload['error']}},
+            status=status.HTTP_400_BAD_REQUEST,
+        )
+
+    response = Response(payload, status=status_code)
+    if from_cache:
+        response['X-Directions-Cache'] = 'hit'
+    return response
+
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def transit_trip_detail_view(request: Request, trip_id: int) -> Response:
+    err = _require_island(request)
+    if err:
+        return err
+
+    with for_island(request.island):
+        payload = get_trip_v3(trip_id)
+        if payload is None:
+            return Response(
+                {'error': {'code': 'not_found', 'message': 'Trip not found'}},
+                status=status.HTTP_404_NOT_FOUND,
+            )
+        return Response(payload)
+
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def transit_line_detail_view(request: Request, line_code: str) -> Response:
+    err = _require_island(request)
+    if err:
+        return err
+
+    with for_island(request.island):
+        payload = get_line_v3(line_code)
+        if payload is None:
+            return Response(
+                {'error': {'code': 'not_found', 'message': 'Line not found'}},
+                status=status.HTTP_404_NOT_FOUND,
+            )
+        return Response(payload)
 
 
 @api_view(['POST'])

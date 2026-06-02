@@ -5,7 +5,7 @@ from __future__ import annotations
 import ast
 import re
 
-from transit.models import Stop, StopTime, Trip
+from transit.models import Line, Stop, StopTime, Trip
 from transit.services.compat import serialize_legacy_stops_v2
 from transit.services.search import search_routes
 
@@ -68,6 +68,43 @@ def serialize_trip_detail(trip: Trip) -> dict:
                 'sequence': st.sequence,
             }
             for st in stop_times
+        ],
+    }
+
+
+def get_trip_v3(trip_id: int) -> dict | None:
+    try:
+        trip = Trip.objects.select_related('line', 'calendar').get(id=trip_id)
+    except Trip.DoesNotExist:
+        return None
+    return serialize_trip_detail(trip)
+
+
+def get_line_v3(line_code: str) -> dict | None:
+    try:
+        line = Line.objects.select_related('operator').get(code=line_code)
+    except Line.DoesNotExist:
+        return None
+
+    trips = (
+        Trip.objects.filter(line=line, line__disabled=False)
+        .select_related('calendar')
+        .order_by('calendar__service_type', 'id')[:50]
+    )
+    return {
+        'code': line.code,
+        'displayName': line.display_name,
+        'operator': line.operator.name,
+        'disabled': line.disabled,
+        'trips': [
+            {
+                'id': trip.id,
+                'typeOfDay': trip.calendar.service_type,
+                'headsign': trip.headsign,
+                'likes': trip.likes,
+                'dislikes': trip.dislikes,
+            }
+            for trip in trips
         ],
     }
 

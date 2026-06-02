@@ -56,6 +56,7 @@ class Island(models.Model):
             },
             'feature_flags': {
                 'transit': True,
+                'maps': True,
                 'news': False,
                 'seismic': False,
                 'marketplace': False,
