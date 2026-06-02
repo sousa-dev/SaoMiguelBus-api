@@ -30,6 +30,22 @@ def run_legacy_import_job(self, job_id: str) -> dict:
     if job is None:
         raise ValueError(f'Legacy import job not found: {job_id}')
 
+    if job.status == LegacyImportJob.STATUS_COMPLETED:
+        logger.info('Import job %s already completed', job_id)
+        return {
+            'job_id': job.job_id,
+            'status': job.status,
+            'skipped': True,
+        }
+
+    if job.status == LegacyImportJob.STATUS_CANCELLED:
+        logger.info('Import job %s cancelled — not running', job_id)
+        return {
+            'job_id': job.job_id,
+            'status': job.status,
+            'skipped': True,
+        }
+
     if not job.celery_task_id:
         job.celery_task_id = self.request.id or ''
         job.save(update_fields=['celery_task_id'])

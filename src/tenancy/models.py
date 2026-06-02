@@ -73,11 +73,13 @@ class LegacyImportJob(models.Model):
     STATUS_RUNNING = 'running'
     STATUS_COMPLETED = 'completed'
     STATUS_FAILED = 'failed'
+    STATUS_CANCELLED = 'cancelled'
     STATUS_CHOICES = [
         (STATUS_PENDING, 'Pending'),
         (STATUS_RUNNING, 'Running'),
         (STATUS_COMPLETED, 'Completed'),
         (STATUS_FAILED, 'Failed'),
+        (STATUS_CANCELLED, 'Cancelled'),
     ]
 
     job_id = models.CharField(max_length=32, unique=True, editable=False)

@@ -70,6 +70,9 @@ def execute_import_job(job_id: str) -> LegacyImportJob:
     if job.status == LegacyImportJob.STATUS_COMPLETED:
         logger.info('Import job %s already completed', job_id)
         return job
+    if job.status == LegacyImportJob.STATUS_CANCELLED:
+        logger.info('Import job %s was cancelled — skipping', job_id)
+        return job
 
     job.status = LegacyImportJob.STATUS_RUNNING
     job.error = ''

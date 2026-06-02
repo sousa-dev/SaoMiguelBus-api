@@ -127,8 +127,9 @@ python manage.py import_legacy \
   --async
 
 # Monitor: Django admin → Legacy import jobs (current_step, step_reports, errors)
-# Re-run failed job manually:
-python manage.py import_legacy --job-id JOB_ID
+# Cancel stale/failing Celery work:
+curl -X POST 'https://api.saomiguelbus.com/api/v1/ops/celery/cancel-all?key=$AUTH_KEY'
+# Or: python manage.py cancel_celery_jobs
 ```
 
 Importer reads: `legacy/src/db.sqlite3`, `legacy/src/data.json`, `legacy/scripts/csv/`, `legacy/scripts/groups.json`, or `--legacy-db` Postgres URL. Never writes to legacy DB.
