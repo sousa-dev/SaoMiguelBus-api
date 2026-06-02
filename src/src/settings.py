@@ -40,6 +40,7 @@ apps = [
     ('news', True),
     ('seismic', True),
     ('trails', True),
+    ('marketplace', True),
 ]
 
 import os
