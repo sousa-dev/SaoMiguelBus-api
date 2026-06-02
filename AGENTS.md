@@ -57,6 +57,12 @@ Docker Compose host mappings: `WEB_PORT`, `WEB_CONTAINER_PORT`, `DB_PORT_EXPOSE`
 
 **Disable for SMB:** `app`, `free_tools`, `landing_page` (optional: keep `blog` for SEO)
 
+### Viator tours (`events` app — shipped)
+
+- `GET /api/v3/events/tours`, `GET /api/v3/events/tours/{product_code}` — Partner API proxy, Redis cache 1h; no ORM models.
+- Requires `VIATOR_API_KEY` in `src/src/.env` (see `.env.example`: `VIATOR_PARTNER_ID`, `VIATOR_CAMPAIGN`, `VIATOR_DESTINATION_ID`).
+- Bootstrap module key: `events` (`tenancy` migration `0010_enable_events_feature_flag`). SDD: `../SaoMiguelBus/SDD/04-api-design.md` §2.4, `09-modules.md` §7.
+
 ### Legacy data import
 
 ```bash
