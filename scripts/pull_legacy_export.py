@@ -55,8 +55,36 @@ EXPORT_TABLE_ORDER = [
     'app_emailopen',
 ]
 
+# Not needed for webapp / schedule search — safe to skip (app_data is huge JSON blobs).
+OPTIONAL_TABLES = frozenset({
+    'app_data',       # cached Google Directions responses from /api/v1/gmaps
+    'app_trip',       # legacy side-table (NOT app_route schedules)
+    'app_tripstop',   # legacy side-table (NOT app_stop)
+    'app_aifeedback', # AI survey responses
+    'app_emailopen',  # email open tracking
+})
 
-def fetch_json(url: str, timeout: Optional[int]) -> dict:
+
+def parse_cursor(cursor: str) -> tuple[str, int]:
+    table, raw_id = cursor.split(':', 1)
+    return table, int(raw_id)
+
+
+def advance_past_skipped(cursor: Optional[str], skip_tables: frozenset[str]) -> Optional[str]:
+    """Return the next cursor, jumping over skipped tables without API calls."""
+    if not skip_tables or not cursor:
+        return cursor
+    table, _last_id = parse_cursor(cursor)
+    if table not in skip_tables:
+        return cursor
+    try:
+        index = EXPORT_TABLE_ORDER.index(table)
+    except ValueError:
+        return cursor
+    for next_table in EXPORT_TABLE_ORDER[index + 1:]:
+        if next_table not in skip_tables:
+            return f'{next_table}:0'
+    return None
     request = urllib.request.Request(url, headers={'Accept': 'application/json'})
     with urllib.request.urlopen(request, timeout=timeout) as response:
         return json.loads(response.read().decode('utf-8'))
@@ -440,6 +468,7 @@ def main() -> int:
             retry_base_seconds=args.retry_base_seconds,
             fresh=args.fresh,
             finalize_only=args.finalize_only,
+            skip_tables=skip_tables,
         )
     except RuntimeError as exc:
         print(str(exc), file=sys.stderr)
