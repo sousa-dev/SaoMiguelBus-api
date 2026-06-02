@@ -36,6 +36,7 @@ class TrailStage(TenantScopedModel):
 
 
 class POI(TenantScopedModel):
+    source_ref = models.CharField(max_length=128)
     name = models.CharField(max_length=200)
     category = models.CharField(max_length=64, blank=True, default='')
     latitude = models.FloatField()
@@ -43,6 +44,7 @@ class POI(TenantScopedModel):
 
     class Meta:
         ordering = ['name']
+        unique_together = [('island', 'source_ref')]
         verbose_name = 'POI'
         verbose_name_plural = 'POIs'
 

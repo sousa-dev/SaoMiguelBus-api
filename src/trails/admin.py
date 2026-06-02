@@ -18,6 +18,6 @@ class TrailAdmin(admin.ModelAdmin):
 
 @admin.register(POI)
 class POIAdmin(admin.ModelAdmin):
-    list_display = ('name', 'category', 'island')
+    list_display = ('name', 'category', 'source_ref', 'island')
     list_filter = ('island', 'category')
-    search_fields = ('name',)
+    search_fields = ('name', 'source_ref')
