@@ -103,9 +103,10 @@ def poll_source(source: NewsSource) -> tuple[int, int]:
 
 def poll_all_sources(*, island_key: str | None = None) -> dict[str, int]:
     """Poll active RSS sources. Returns aggregate counts."""
-    islands = Island.objects.filter(is_live=True)
     if island_key:
-        islands = islands.filter(key=island_key)
+        islands = Island.objects.filter(key=island_key)
+    else:
+        islands = Island.objects.filter(is_live=True)
 
     totals = {'sources': 0, 'created': 0, 'skipped': 0}
     for island in islands:

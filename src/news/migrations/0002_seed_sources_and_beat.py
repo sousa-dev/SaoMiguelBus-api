@@ -4,13 +4,13 @@ from django.db import migrations
 
 DEFAULT_SOURCES = (
     {
-        'name': 'Açoriano Oriental',
-        'rss_url': 'https://www.acorianooriental.pt/rss/',
+        'name': 'ALRA (Açores)',
+        'rss_url': 'https://xn--aores-yra.net/rss/alra.xml',
         'language': 'pt',
     },
     {
-        'name': 'Jornal dos Açores',
-        'rss_url': 'https://www.jornaldosacores.com/feed/',
+        'name': 'JORAA (Açores)',
+        'rss_url': 'https://xn--aores-yra.net/rss/joraa.xml',
         'language': 'pt',
     },
 )
