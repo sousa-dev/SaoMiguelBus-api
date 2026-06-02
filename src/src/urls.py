@@ -17,6 +17,7 @@ urlpatterns = [
     path('api/v3/analytics/', include('analytics.urls_v3')),
     path('api/v3/transit/', include('transit.urls_v3')),
     path('api/v3/news/', include('news.urls_v3')),
+    path('api/v3/seismic/', include('seismic.urls_v3')),
 ]
 
 if 'legal' in settings.INSTALLED_APPS:
