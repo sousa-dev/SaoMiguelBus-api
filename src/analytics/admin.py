@@ -1,6 +1,14 @@
 from django.contrib import admin
 
-from analytics.models import Stat
+from analytics.models import AnalyticsEvent, Stat
+
+
+@admin.register(AnalyticsEvent)
+class AnalyticsEventAdmin(admin.ModelAdmin):
+    list_display = ('module', 'event_type', 'platform', 'locale', 'occurred_at')
+    list_filter = ('module', 'event_type', 'platform')
+    date_hierarchy = 'occurred_at'
+    ordering = ('-occurred_at',)
 
 
 @admin.register(Stat)

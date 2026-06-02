@@ -33,6 +33,7 @@ apps = [
     ('tenancy', True),
     ('transit', True),
     ('analytics', True),
+    ('consent', True),
     ('billing', True),
     ('compat', True),
     ('legacy_archive', True),
