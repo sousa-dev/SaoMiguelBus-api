@@ -7,12 +7,14 @@ from django.test import TestCase
 from trails.models import POI, Trail
 from trails.services import (
     feature_in_island,
+    nearest_stop,
     parse_poi_feature,
     parse_trail_feature,
     sync_open_data_for_island,
     sync_pois_for_island,
     sync_trails_for_island,
 )
+from transit.models import Stop
 from tenancy.services import get_or_create_default_island
 
 SAMPLE_TRAIL_COLLECTION = {
@@ -134,3 +136,26 @@ class TrailsServicesTestCase(TestCase):
             from trails.services import fetch_dataset_geojson
 
             fetch_dataset_geojson('test-dataset')
+
+    def test_nearest_stop_returns_closest(self):
+        Stop.objects.create(
+            island=self.island,
+            name='Far Stop',
+            cleaned_name='far stop',
+            latitude=37.70,
+            longitude=-25.60,
+        )
+        near = Stop.objects.create(
+            island=self.island,
+            name='Near Stop',
+            cleaned_name='near stop',
+            latitude=37.781,
+            longitude=-25.501,
+        )
+        result = nearest_stop(self.island, 37.78, -25.50)
+        assert result is not None
+        self.assertEqual(result['name'], near.name)
+        self.assertLess(result['distanceKm'], 5)
+
+    def test_nearest_stop_none_without_coords(self):
+        self.assertIsNone(nearest_stop(self.island, None, -25.5))

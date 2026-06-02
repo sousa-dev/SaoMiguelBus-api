@@ -529,12 +529,39 @@ def sync_all_open_data(*, island_key: str | None = None) -> dict[str, int]:
     return totals
 
 
+def nearest_stop(island: Island, lat: float | None, lng: float | None) -> dict[str, Any] | None:
+    if lat is None or lng is None:
+        return None
+
+    from transit.models import Stop
+
+    best: Stop | None = None
+    best_dist = float('inf')
+    for stop in Stop.objects.filter(island=island):
+        dist = _haversine_km(lat, lng, stop.latitude, stop.longitude)
+        if dist < best_dist:
+            best_dist = dist
+            best = stop
+
+    if best is None:
+        return None
+
+    return {
+        'name': best.name,
+        'distanceKm': round(best_dist, 2),
+        'lat': best.latitude,
+        'lng': best.longitude,
+    }
+
+
 def serialize_trail_summary(trail: Trail) -> dict[str, Any]:
     return {
         'id': trail.id,
         'name': trail.name,
         'difficulty': trail.difficulty,
         'distanceKm': trail.distance_km,
+        'shape': trail.shape,
+        'durationMin': trail.duration_min,
     }
 
 
@@ -548,8 +575,19 @@ def serialize_trail_detail(trail: Trail) -> dict[str, Any]:
         }
         for stage in trail.stages.order_by('sequence')
     ]
+    nearest = nearest_stop(trail.island, trail.start_lat, trail.start_lon)
     return {
         **serialize_trail_summary(trail),
+        'descriptionPt': trail.description_pt,
+        'descriptionEn': trail.description_en,
+        'gpxUrl': trail.gpx_url,
+        'kmlUrl': trail.kml_url,
+        'mapImageUrl': trail.map_image_url,
+        'leafletUrl': trail.leaflet_url,
+        'startLat': trail.start_lat,
+        'startLng': trail.start_lon,
+        'waypoints': trail.waypoints or [],
+        'nearestStop': nearest,
         'geojson': trail.geojson,
         'stages': stages,
         'attribution': trails_attribution(),
@@ -575,10 +613,23 @@ def trails_attribution() -> str:
         return OPEN_DATA_ATTRIBUTION
 
 
-def list_trails(*, difficulty: str = '', limit: int = 50) -> dict[str, Any]:
+def list_trails(
+    *,
+    difficulty: str = '',
+    shape: str = '',
+    min_length: float | None = None,
+    max_length: float | None = None,
+    limit: int = 50,
+) -> dict[str, Any]:
     qs = Trail.objects.order_by('name')
     if difficulty:
         qs = qs.filter(difficulty__iexact=difficulty.strip())
+    if shape:
+        qs = qs.filter(shape__iexact=shape.strip())
+    if min_length is not None:
+        qs = qs.filter(distance_km__gte=min_length)
+    if max_length is not None:
+        qs = qs.filter(distance_km__lte=max_length)
     limit = max(1, min(limit, 100))
     return {
         'trails': [serialize_trail_summary(trail) for trail in qs[:limit]],

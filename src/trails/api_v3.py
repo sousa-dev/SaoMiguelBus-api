@@ -29,6 +29,28 @@ def trails_list_view(request: Request) -> Response:
         return err
 
     difficulty = request.GET.get('difficulty', '').strip()
+    shape = request.GET.get('shape', '').strip()
+    min_length = None
+    max_length = None
+    min_length_raw = request.GET.get('min_length', '').strip()
+    max_length_raw = request.GET.get('max_length', '').strip()
+    if min_length_raw:
+        try:
+            min_length = float(min_length_raw)
+        except ValueError:
+            return Response(
+                {'error': {'code': 'invalid_min_length', 'message': 'min_length must be a number'}},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+    if max_length_raw:
+        try:
+            max_length = float(max_length_raw)
+        except ValueError:
+            return Response(
+                {'error': {'code': 'invalid_max_length', 'message': 'max_length must be a number'}},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
     limit_raw = request.GET.get('limit', '50').strip()
     try:
         limit = int(limit_raw)
@@ -36,7 +58,13 @@ def trails_list_view(request: Request) -> Response:
         limit = 50
 
     with for_island(request.island):
-        payload = list_trails(difficulty=difficulty, limit=limit)
+        payload = list_trails(
+            difficulty=difficulty,
+            shape=shape,
+            min_length=min_length,
+            max_length=max_length,
+            limit=limit,
+        )
     return Response(payload)
 
 

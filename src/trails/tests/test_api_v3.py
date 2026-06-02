@@ -4,6 +4,7 @@ from django.test import TestCase
 from rest_framework.test import APIClient
 
 from trails.models import POI, Trail
+from transit.models import Stop
 from tenancy.services import get_or_create_default_island
 
 
@@ -24,6 +25,14 @@ class TrailsAPITestCase(TestCase):
             name='Alpha Trail',
             difficulty='easy',
             distance_km=3.2,
+            shape='circular',
+            duration_min=90,
+            description_en='Alpha EN',
+            description_pt='Alpha PT',
+            gpx_url='https://example.test/a.gpx',
+            start_lat=37.78,
+            start_lon=-25.50,
+            waypoints=[{'name': 'Start', 'lat': 37.78, 'lng': -25.50}],
             geojson={'type': 'LineString', 'coordinates': [[-25.5, 37.78], [-25.49, 37.79]]},
         )
         self.trail_b = Trail.objects.create(
@@ -32,6 +41,8 @@ class TrailsAPITestCase(TestCase):
             name='Beta Trail',
             difficulty='hard',
             distance_km=8.0,
+            shape='linear',
+            duration_min=240,
             geojson={'type': 'LineString', 'coordinates': [[-25.51, 37.77], [-25.48, 37.80]]},
         )
         self.poi = POI.objects.create(
@@ -41,6 +52,13 @@ class TrailsAPITestCase(TestCase):
             category='Miradouro',
             latitude=37.78,
             longitude=-25.50,
+        )
+        Stop.objects.create(
+            island=self.island,
+            name='Ponta Delgada',
+            cleaned_name='ponta delgada',
+            latitude=37.781,
+            longitude=-25.501,
         )
 
     def test_list_trails_ordered_by_name(self):
@@ -60,13 +78,38 @@ class TrailsAPITestCase(TestCase):
         self.assertEqual(len(trails), 1)
         self.assertEqual(trails[0]['id'], self.trail_b.id)
 
-    def test_detail_includes_geojson(self):
+    def test_list_trails_shape_and_length_filters(self):
+        response = self.client.get('/api/v3/trails/?shape=circular&max_length=5', **self.headers)
+        self.assertEqual(response.status_code, 200)
+        trails = response.json()['trails']
+        self.assertEqual(len(trails), 1)
+        self.assertEqual(trails[0]['id'], self.trail_a.id)
+        self.assertEqual(trails[0]['shape'], 'circular')
+        self.assertEqual(trails[0]['durationMin'], 90)
+
+    def test_list_trails_invalid_length_returns_400(self):
+        response = self.client.get('/api/v3/trails/?min_length=abc', **self.headers)
+        self.assertEqual(response.status_code, 400)
+
+    def test_detail_includes_enriched_fields(self):
         response = self.client.get(f'/api/v3/trails/{self.trail_a.id}', **self.headers)
         self.assertEqual(response.status_code, 200)
         body = response.json()
         self.assertEqual(body['geojson']['type'], 'LineString')
         self.assertEqual(body['stages'], [])
         self.assertIn('attribution', body)
+        self.assertEqual(body['descriptionEn'], 'Alpha EN')
+        self.assertEqual(body['descriptionPt'], 'Alpha PT')
+        self.assertEqual(body['gpxUrl'], 'https://example.test/a.gpx')
+        self.assertEqual(body['startLat'], 37.78)
+        self.assertEqual(len(body['waypoints']), 1)
+        self.assertEqual(body['nearestStop']['name'], 'Ponta Delgada')
+
+    def test_detail_includes_geojson(self):
+        response = self.client.get(f'/api/v3/trails/{self.trail_a.id}', **self.headers)
+        self.assertEqual(response.status_code, 200)
+        body = response.json()
+        self.assertEqual(body['geojson']['type'], 'LineString')
 
     def test_detail_not_found(self):
         response = self.client.get('/api/v3/trails/99999', **self.headers)

@@ -12,6 +12,17 @@ class Trail(TenantScopedModel):
     name = models.CharField(max_length=200)
     difficulty = models.CharField(max_length=32, blank=True, default='')
     distance_km = models.FloatField(null=True, blank=True)
+    shape = models.CharField(max_length=32, blank=True, default='')
+    duration_min = models.PositiveIntegerField(null=True, blank=True)
+    description_pt = models.TextField(blank=True, default='')
+    description_en = models.TextField(blank=True, default='')
+    gpx_url = models.CharField(max_length=500, blank=True, default='')
+    kml_url = models.CharField(max_length=500, blank=True, default='')
+    map_image_url = models.CharField(max_length=500, blank=True, default='')
+    leaflet_url = models.CharField(max_length=500, blank=True, default='')
+    start_lat = models.FloatField(null=True, blank=True)
+    start_lon = models.FloatField(null=True, blank=True)
+    waypoints = models.JSONField(default=list, blank=True)
     geojson = models.JSONField(default=dict, blank=True)
 
     class Meta:

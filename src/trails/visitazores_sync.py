@@ -1,9 +1,4 @@
-"""Sync official Azores trails from trails.visitazores.com (Visit Azores).
-
-azores-hub.net/trails uses the same upstream: it scrapes Visit Azores, caches
-list/detail at /api/trails/*, and downloads GPX/KML from trails.visitazores.com.
-We read the listing + detail pages directly and extract embedded GeoJSON.
-"""
+"""Sync official Azores trails from trails.visitazores.com (Visit Azores)."""
 
 from __future__ import annotations
 
@@ -20,7 +15,7 @@ from django.conf import settings
 
 from tenancy.models import Island
 from tenancy.services import for_island
-from trails.models import Trail
+from trails.models import Trail, TrailStage
 from trails.services import (
     OPEN_DATA_ATTRIBUTION,
     REQUEST_TIMEOUT_SECONDS,
@@ -39,11 +34,6 @@ VISITAZORES_ATTRIBUTION = (
 # Island.key -> Visit Azores listing slug (path segment under /en/trails-azores/)
 VISITAZORES_ISLAND_SLUGS: dict[str, str] = {
     'sao-miguel': 'sao-miguel',
-}
-
-# Island.key -> azores-hub feed islandId (optional metadata merge)
-AZORES_HUB_ISLAND_IDS: dict[str, str] = {
-    'sao-miguel': 'sm',
 }
 
 REF_PATTERN = re.compile(
@@ -68,13 +58,12 @@ def _visitazores_base() -> str:
     ).rstrip('/')
 
 
-def _trails_feed_base() -> str | None:
-    value = (
-        getattr(settings, 'TRAILS_FEED_BASE_URL', None)
-        or os.environ.get('TRAILS_FEED_BASE_URL')
-        or 'https://azores-hub.net/api/trails'
-    )
-    return str(value).rstrip('/') if value else None
+def _absolute_url(url: str) -> str:
+    if not url:
+        return ''
+    if url.startswith('http://') or url.startswith('https://'):
+        return url
+    return urljoin(f'{_visitazores_base()}/', url.lstrip('/'))
 
 
 def _get_html(url: str) -> str:
@@ -142,6 +131,17 @@ def _parse_field_items(html: str) -> dict[str, str]:
     return fields
 
 
+def _parse_field_href(html: str, field_name: str) -> str:
+    match = re.search(
+        rf'field-name-field-{field_name}.*?href="([^"]+)"',
+        html,
+        re.IGNORECASE | re.DOTALL,
+    )
+    if not match:
+        return ''
+    return _absolute_url(match.group(1))
+
+
 def _parse_difficulty(fields: dict[str, str]) -> str:
     raw = fields.get('difficulty', '')
     if ' - ' in raw:
@@ -158,6 +158,36 @@ def _parse_distance_km(fields: dict[str, str]) -> float | None:
         return float(match.group(1).replace(',', '.'))
     except ValueError:
         return None
+
+
+def _parse_shape(fields: dict[str, str]) -> str:
+    raw = fields.get('category', '')
+    if ' - ' in raw:
+        raw = raw.split(' - ', 1)[1]
+    value = raw.strip().lower()
+    if 'circular' in value:
+        return 'circular'
+    if 'linear' in value:
+        return 'linear'
+    return value[:32]
+
+
+def _parse_duration_min(fields: dict[str, str]) -> int | None:
+    raw = fields.get('time_average', '')
+    if ' - ' in raw:
+        raw = raw.split(' - ', 1)[1]
+    raw = raw.strip().lower()
+    hours = 0
+    minutes = 0
+    hour_match = re.search(r'(\d+)\s*h', raw)
+    if hour_match:
+        hours = int(hour_match.group(1))
+    minute_match = re.search(r'(\d+)\s*min', raw)
+    if minute_match:
+        minutes = int(minute_match.group(1))
+    if hours or minutes:
+        return hours * 60 + minutes
+    return None
 
 
 def _parse_trail_ref(html: str) -> str:
@@ -183,9 +213,30 @@ def _parse_trail_name(html: str) -> str:
     return ''
 
 
+def _parse_node_id(html: str) -> int | None:
+    for pattern in (r'geofield-map-entity-node-(\d+)', r'/node/(\d+)'):
+        match = re.search(pattern, html)
+        if match:
+            return int(match.group(1))
+    return None
+
+
+def _parse_description(html: str) -> str:
+    match = re.search(
+        r'field-name-body[^>]*>.*?property="content:encoded"[^>]*>(.*?)</div>',
+        html,
+        re.IGNORECASE | re.DOTALL,
+    )
+    if not match:
+        return ''
+    text = re.sub(r'<[^>]+>', ' ', match.group(1))
+    return re.sub(r'\s+', ' ', text).strip()
+
+
 def _gpx_url(html: str) -> str:
-    match = re.search(r'href="(https?://[^"]+\.gpx)"', html, re.IGNORECASE)
-    return match.group(1) if match else ''
+    return _parse_field_href(html, 'gpx-file') or (
+        (match.group(1) if (match := re.search(r'href="(https?://[^"]+\.gpx)"', html, re.IGNORECASE)) else '')
+    )
 
 
 def _gpx_ns(tag: str) -> str:
@@ -218,17 +269,125 @@ def gpx_to_linestring(gpx_text: str) -> dict[str, Any] | None:
     return None
 
 
-def _download_geometry(html: str) -> dict[str, Any] | None:
-    geometry = _extract_geofield_linestring(html)
-    if geometry:
-        return geometry
+def gpx_to_waypoints(gpx_text: str) -> list[dict[str, Any]]:
+    try:
+        root = ET.fromstring(gpx_text)
+    except ET.ParseError:
+        return []
 
+    waypoints: list[dict[str, Any]] = []
+    for elem in root.iter():
+        if _gpx_ns(elem.tag) != 'wpt':
+            continue
+        lat = elem.get('lat')
+        lon = elem.get('lon')
+        if not lat or not lon:
+            continue
+        name = ''
+        for child in elem:
+            if _gpx_ns(child.tag) == 'name' and child.text:
+                name = child.text.strip()
+                break
+        if not name:
+            continue
+        waypoints.append(
+            {
+                'name': name[:200],
+                'lat': float(lat),
+                'lng': float(lon),
+            },
+        )
+    return waypoints
+
+
+def gpx_to_stages(gpx_text: str) -> list[dict[str, Any]]:
+    """Return stage rows when GPX has multiple named tracks."""
+    try:
+        root = ET.fromstring(gpx_text)
+    except ET.ParseError:
+        return []
+
+    stages: list[dict[str, Any]] = []
+    for trk in root:
+        if _gpx_ns(trk.tag) != 'trk':
+            continue
+        name = ''
+        coordinates: list[list[float]] = []
+        for child in trk:
+            tag = _gpx_ns(child.tag)
+            if tag == 'name' and child.text:
+                name = child.text.strip()
+            elif tag == 'trkseg':
+                for trkpt in child:
+                    if _gpx_ns(trkpt.tag) == 'trkpt' and trkpt.get('lat') and trkpt.get('lon'):
+                        coordinates.append(
+                            [float(trkpt.get('lon')), float(trkpt.get('lat'))],
+                        )
+        if len(coordinates) >= 2:
+            stages.append(
+                {
+                    'name': (name or f'Stage {len(stages) + 1}')[:200],
+                    'geojson': {'type': 'LineString', 'coordinates': coordinates},
+                },
+            )
+
+    if len(stages) <= 1:
+        return []
+    return stages
+
+
+def _start_from_geometry(geometry: dict[str, Any] | None) -> tuple[float | None, float | None]:
+    if not geometry:
+        return None, None
+    coords = geometry.get('coordinates') or []
+    geom_type = geometry.get('type')
+    if geom_type == 'LineString' and coords:
+        return float(coords[0][1]), float(coords[0][0])
+    if geom_type == 'MultiLineString' and coords and coords[0]:
+        return float(coords[0][0][1]), float(coords[0][0][0])
+    return None, None
+
+
+def _start_from_waypoints(waypoints: list[dict[str, Any]]) -> tuple[float | None, float | None]:
+    for waypoint in waypoints:
+        sym = str(waypoint.get('name', '')).lower()
+        if 'trail head' in sym or waypoint.get('name', '').upper().startswith(('PRC', 'PR', 'GR')):
+            return waypoint.get('lat'), waypoint.get('lng')
+    if waypoints:
+        return waypoints[0].get('lat'), waypoints[0].get('lng')
+    return None, None
+
+
+def _download_gpx_text(html: str) -> str:
     gpx_link = _gpx_url(html)
     if not gpx_link:
-        return None
+        return ''
     response = requests.get(gpx_link, timeout=REQUEST_TIMEOUT_SECONDS)
     response.raise_for_status()
-    return gpx_to_linestring(response.text)
+    return response.text
+
+
+def _download_geometry(html: str) -> tuple[dict[str, Any] | None, str]:
+    geometry = _extract_geofield_linestring(html)
+    gpx_text = ''
+    try:
+        gpx_text = _download_gpx_text(html)
+    except Exception as exc:
+        logger.warning('visitazores gpx download skipped: %s', exc)
+
+    if not geometry and gpx_text:
+        geometry = gpx_to_linestring(gpx_text)
+    return geometry, gpx_text
+
+
+def fetch_pt_translation(node_id: int) -> dict[str, str]:
+    url = f'{_visitazores_base()}/pt-pt/node/{node_id}'
+    try:
+        html = _get_html(url)
+    except Exception as exc:
+        logger.warning('visitazores PT page skipped node=%s: %s', node_id, exc)
+        return {}
+    return {'description_pt': _parse_description(html)}
 
 
 def parse_trail_detail_page(html: str, *, page_url: str = '') -> dict[str, Any] | None:
@@ -237,20 +396,42 @@ def parse_trail_detail_page(html: str, *, page_url: str = '') -> dict[str, Any] 
         logger.warning('visitazores trail missing ref url=%s', page_url)
         return None
 
-    geometry = _download_geometry(html)
+    geometry, gpx_text = _download_geometry(html)
     if not geometry:
         logger.warning('visitazores trail missing geometry ref=%s url=%s', source_ref, page_url)
         return None
 
     fields = _parse_field_items(html)
     name = _parse_trail_name(html) or source_ref
+    waypoints = gpx_to_waypoints(gpx_text) if gpx_text else []
+    start_lat, start_lon = _start_from_geometry(geometry)
+    if start_lat is None or start_lon is None:
+        start_lat, start_lon = _start_from_waypoints(waypoints)
+
+    node_id = _parse_node_id(html)
+    description_pt = ''
+    if node_id is not None:
+        pt = fetch_pt_translation(node_id)
+        description_pt = pt.get('description_pt', '')
 
     return {
         'source_ref': source_ref,
         'name': name,
         'difficulty': _parse_difficulty(fields),
         'distance_km': _parse_distance_km(fields),
+        'shape': _parse_shape(fields),
+        'duration_min': _parse_duration_min(fields),
+        'description_en': _parse_description(html),
+        'description_pt': description_pt,
+        'gpx_url': _gpx_url(html),
+        'kml_url': _parse_field_href(html, 'kml-file'),
+        'map_image_url': _parse_field_href(html, 'map-file'),
+        'leaflet_url': _parse_field_href(html, 'downloads'),
+        'start_lat': start_lat,
+        'start_lon': start_lon,
+        'waypoints': waypoints,
         'geojson': geometry,
+        'stages': gpx_to_stages(gpx_text) if gpx_text else [],
     }
 
 
@@ -270,46 +451,24 @@ def fetch_island_trail_paths(island_slug: str) -> list[str]:
     return paths
 
 
-def fetch_feed_trail_summaries(island_key: str) -> dict[str, dict[str, Any]]:
-    base = _trails_feed_base()
-    island_id = AZORES_HUB_ISLAND_IDS.get(island_key)
-    if not base or not island_id:
-        return {}
+def _sync_trail_stages(trail: Trail, stages: list[dict[str, Any]]) -> None:
+    if not stages:
+        TrailStage.objects.filter(trail=trail).delete()
+        return
 
-    try:
-        response = requests.get(f'{base}/list', timeout=REQUEST_TIMEOUT_SECONDS)
-        response.raise_for_status()
-        payload = response.json()
-    except Exception as exc:
-        logger.warning('trails feed list skipped base=%s: %s', base, exc)
-        return {}
-
-    trails = payload.get('trails') if isinstance(payload, dict) else None
-    if not isinstance(trails, list):
-        return {}
-
-    by_ref: dict[str, dict[str, Any]] = {}
-    for trail in trails:
-        if not isinstance(trail, dict):
-            continue
-        if trail.get('islandId') != island_id:
-            continue
-        ref = str(trail.get('ref') or '').upper()
-        if ref:
-            by_ref[ref] = trail
-    return by_ref
-
-
-def _merge_feed_metadata(row: dict[str, Any], feed: dict[str, Any] | None) -> dict[str, Any]:
-    if not feed:
-        return row
-    if feed.get('namePt') or feed.get('nameEn'):
-        row['name'] = str(feed.get('namePt') or feed.get('nameEn'))[:200]
-    if feed.get('lengthKm') is not None and row.get('distance_km') is None:
-        row['distance_km'] = feed.get('lengthKm')
-    if feed.get('difficulty') and not row.get('difficulty'):
-        row['difficulty'] = _normalize_difficulty(str(feed['difficulty']))
-    return row
+    seen_sequences: set[int] = set()
+    for index, stage in enumerate(stages, start=1):
+        seen_sequences.add(index)
+        TrailStage.objects.update_or_create(
+            trail=trail,
+            sequence=index,
+            defaults={
+                'island': trail.island,
+                'name': stage['name'],
+                'geojson': stage['geojson'],
+            },
+        )
+    TrailStage.objects.filter(trail=trail).exclude(sequence__in=seen_sequences).delete()
 
 
 def sync_visitazores_trails_for_island(island: Island) -> dict[str, int]:
@@ -319,7 +478,6 @@ def sync_visitazores_trails_for_island(island: Island) -> dict[str, int]:
         logger.info('visitazores sync skipped — no slug for island=%s', island.key)
         return counts
 
-    feed_by_ref = fetch_feed_trail_summaries(island.key)
     paths = fetch_island_trail_paths(island_slug)
     if not paths:
         raise ValueError(f'No trails found on Visit Azores listing for {island_slug}')
@@ -345,17 +503,29 @@ def sync_visitazores_trails_for_island(island: Island) -> dict[str, int]:
                 counts['skipped'] += 1
                 continue
 
-            row = _merge_feed_metadata(row, feed_by_ref.get(row['source_ref']))
-            _, created = Trail.objects.update_or_create(
+            stages = row.pop('stages', [])
+            trail, created = Trail.objects.update_or_create(
                 island=island,
                 source_ref=row['source_ref'],
                 defaults={
                     'name': row['name'],
                     'difficulty': row['difficulty'],
                     'distance_km': row['distance_km'],
+                    'shape': row['shape'],
+                    'duration_min': row['duration_min'],
+                    'description_en': row['description_en'],
+                    'description_pt': row['description_pt'],
+                    'gpx_url': row['gpx_url'],
+                    'kml_url': row['kml_url'],
+                    'map_image_url': row['map_image_url'],
+                    'leaflet_url': row['leaflet_url'],
+                    'start_lat': row['start_lat'],
+                    'start_lon': row['start_lon'],
+                    'waypoints': row['waypoints'],
                     'geojson': row['geojson'],
                 },
             )
+            _sync_trail_stages(trail, stages)
             if created:
                 counts['created'] += 1
             else:
