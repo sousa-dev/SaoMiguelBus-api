@@ -41,6 +41,7 @@ apps = [
     ('seismic', True),
     ('trails', True),
     ('marketplace', True),
+    ('traffic', True),
 ]
 
 import os
@@ -85,6 +86,7 @@ REST_FRAMEWORK = {
     'DEFAULT_THROTTLE_RATES': {
         'directions': '30/min',
         'marketplace_write': '20/min',
+        'traffic_write': '30/min',
     },
 }
 

@@ -54,3 +54,19 @@ class BootstrapModulesTestCase(TestCase):
         island.save(update_fields=['feature_flags'])
         modules = enabled_modules(island)
         self.assertNotIn('marketplace', modules)
+
+    def test_enabled_modules_includes_traffic_when_flag_set(self):
+        island = get_or_create_default_island()
+        island.feature_flags = {**island.feature_flags, 'traffic': True, 'transit': True}
+        island.save(update_fields=['feature_flags'])
+        modules = enabled_modules(island)
+        self.assertIn('traffic', modules)
+
+    def test_enabled_modules_omits_traffic_when_flag_false(self):
+        island = get_or_create_default_island()
+        flags = dict(island.feature_flags or {})
+        flags['traffic'] = False
+        island.feature_flags = flags
+        island.save(update_fields=['feature_flags'])
+        modules = enabled_modules(island)
+        self.assertNotIn('traffic', modules)
