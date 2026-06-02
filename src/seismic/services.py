@@ -18,8 +18,10 @@ from tenancy.services import for_island
 logger = logging.getLogger(__name__)
 
 FDSN_EVENT_URL = 'https://www.seismicportal.eu/fdsnws/event/1/query'
-DEFAULT_MIN_MAGNITUDE = 2.5
-DEFAULT_LOOKBACK_DAYS = 7
+DEFAULT_MIN_MAGNITUDE = 2.0
+DEFAULT_LOOKBACK_DAYS = 30
+# Island.radius_km is transit-local (~50); seismic covers the whole archipelago.
+SEISMIC_MIN_RADIUS_KM = 400
 KM_PER_DEGREE_LAT = 111.0
 REQUEST_TIMEOUT_SECONDS = 30
 
@@ -85,7 +87,8 @@ def _parse_feature(feature: dict[str, Any]) -> dict[str, Any] | None:
 
 def build_fdsn_params(island: Island) -> dict[str, str]:
     start = timezone.now() - timedelta(days=DEFAULT_LOOKBACK_DAYS)
-    max_radius_deg = _km_to_degrees(float(island.radius_km))
+    radius_km = max(float(island.radius_km), float(SEISMIC_MIN_RADIUS_KM))
+    max_radius_deg = _km_to_degrees(radius_km)
     return {
         'format': 'json',
         'starttime': start.strftime('%Y-%m-%dT%H:%M:%S'),
@@ -103,6 +106,8 @@ def fetch_events_for_island(island: Island) -> list[dict[str, Any]]:
     params = build_fdsn_params(island)
     response = requests.get(FDSN_EVENT_URL, params=params, timeout=REQUEST_TIMEOUT_SECONDS)
     response.raise_for_status()
+    if response.status_code == 204 or not response.content.strip():
+        return []
     payload = response.json()
     features = payload.get('features') or []
     if not isinstance(features, list):

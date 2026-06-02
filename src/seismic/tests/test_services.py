@@ -59,6 +59,8 @@ class SeismicServicesTestCase(TestCase):
     @patch('seismic.services.requests.get')
     def test_sync_events_upserts_without_duplicates(self, mock_get):
         mock_response = MagicMock()
+        mock_response.status_code = 200
+        mock_response.content = b'{"features": []}'
         mock_response.raise_for_status = MagicMock()
         mock_response.json.return_value = SAMPLE_FEATURES
         mock_get.return_value = mock_response
@@ -76,8 +78,22 @@ class SeismicServicesTestCase(TestCase):
     @patch('seismic.services.requests.get')
     def test_sync_empty_features(self, mock_get):
         mock_response = MagicMock()
+        mock_response.status_code = 200
+        mock_response.content = b'{"features": []}'
         mock_response.raise_for_status = MagicMock()
         mock_response.json.return_value = {'features': []}
+        mock_get.return_value = mock_response
+
+        counts = sync_events_for_island(self.island)
+        self.assertEqual(counts['created'], 0)
+        self.assertEqual(SeismicEvent.objects.count(), 0)
+
+    @patch('seismic.services.requests.get')
+    def test_sync_emsc_nodata_204(self, mock_get):
+        mock_response = MagicMock()
+        mock_response.status_code = 204
+        mock_response.content = b''
+        mock_response.raise_for_status = MagicMock()
         mock_get.return_value = mock_response
 
         counts = sync_events_for_island(self.island)
