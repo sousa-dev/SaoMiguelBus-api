@@ -20,6 +20,7 @@ urlpatterns = [
     path('api/v3/seismic/', include('seismic.urls_v3')),
     path('api/v3/trails/', include('trails.urls_v3')),
     path('api/v3/marketplace/', include('marketplace.urls_v3')),
+    path('api/v3/traffic/', include('traffic.urls_v3')),
 ]
 
 if 'legal' in settings.INSTALLED_APPS:
