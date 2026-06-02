@@ -10,7 +10,7 @@ import sqlite3
 from dataclasses import dataclass, field
 from datetime import datetime, time
 from pathlib import Path
-from typing import Any, Union
+from typing import Any, Callable, Iterator, Union
 from urllib.parse import urlparse
 
 from django.db import connection, models, transaction
@@ -51,6 +51,36 @@ OPERATOR_PREFIXES = (
 
 LEGACY_EXPORT_FORMAT_VERSION = 2
 SUPPORTED_EXPORT_FORMAT_VERSIONS = {1, 2}
+
+FULL_IMPORT_ORDER = [
+    'islands',
+    'operators',
+    'stops',
+    'stop_groups',
+    'calendars',
+    'holidays',
+    'lines_trips',
+    'infos',
+    'ads',
+    'subscriptions',
+    'stats',
+    'data',
+    'legacy_trips',
+    'legacy_tripstops',
+    'aifeedback',
+    'emailopens',
+]
+
+# Safe to skip when export omitted optional archive tables (e.g. no app_data).
+OPTIONAL_IMPORT_STEPS = frozenset({
+    'data',
+    'legacy_trips',
+    'legacy_tripstops',
+    'aifeedback',
+    'emailopens',
+})
+
+BULK_IMPORT_BATCH_SIZE = 5000
 
 QUERY_VARIABLES = (
     'SELECT id, version, maps, populate_maps_routes FROM app_variables ORDER BY id'
@@ -275,6 +305,9 @@ class LegacyDatabase:
             for row in self.fetchall(sql)
         ]
 
+    def iter_records(self, table: str) -> Iterator[dict[str, Any]]:
+        yield from self.get_records(table)
+
 
 def _coerce_record_dict(table: str, record: dict[str, Any]) -> dict[str, Any]:
     coerced = dict(record)
@@ -319,32 +352,40 @@ class LegacyExportSource:
                 f'Unsupported export format_version={version!r} '
                 f'(expected one of {sorted(SUPPORTED_EXPORT_FORMAT_VERSIONS)})'
             )
+        self.export_path = path
         self.format_version = version
+        self.exported_at = payload.get('exported_at')
+        self.source = payload.get('source')
         self.tables: dict[str, Any] = payload.get('tables', {})
 
-    def get_records(self, table: str) -> list[dict[str, Any]]:
-        raw = self.tables.get(table, [])
-        if not raw:
-            return []
-        if isinstance(raw[0], dict):
-            return [_coerce_record_dict(table, row) for row in raw]
+    def table_counts(self) -> dict[str, int]:
+        return {name: len(rows) for name, rows in self.tables.items() if rows}
+
+    def _coerce_row(self, table: str, row: Any) -> dict[str, Any]:
+        if isinstance(row, dict):
+            return _coerce_record_dict(table, row)
         columns = TABLE_COLUMNS[table]
-        return [
-            _coerce_record_dict(
-                table,
-                dict(
-                    zip(
-                        columns,
-                        (
-                            _coerce_export_cell(table, index, value)
-                            for index, value in enumerate(row)
-                        ),
-                        strict=True,
-                    )
-                ),
-            )
-            for row in raw
-        ]
+        return _coerce_record_dict(
+            table,
+            dict(
+                zip(
+                    columns,
+                    (
+                        _coerce_export_cell(table, index, value)
+                        for index, value in enumerate(row)
+                    ),
+                    strict=True,
+                )
+            ),
+        )
+
+    def iter_records(self, table: str) -> Iterator[dict[str, Any]]:
+        raw = self.tables.get(table, [])
+        for row in raw:
+            yield self._coerce_row(table, row)
+
+    def get_records(self, table: str) -> list[dict[str, Any]]:
+        return list(self.iter_records(table))
 
     def fetchall(self, sql: str, params: tuple = ()) -> list[tuple]:
         if params:
@@ -369,6 +410,33 @@ def open_legacy_source(
     return LegacyDatabase(
         legacy_db_url or 'sqlite:///../legacy/src/db.sqlite3'
     )
+
+
+def summarize_export_source(legacy: LegacySource) -> dict[str, Any]:
+    """Inspect export payload without re-parsing."""
+    if isinstance(legacy, LegacyExportSource):
+        return {
+            'format_version': legacy.format_version,
+            'exported_at': legacy.exported_at,
+            'source': legacy.source,
+            'export_file': str(legacy.export_path),
+            'table_counts': legacy.table_counts(),
+        }
+    return {'source_type': 'database', 'legacy_db_url': legacy.legacy_db_url}
+
+
+def resolve_import_steps(
+    *,
+    skip_steps: list[str] | None = None,
+    essential_only: bool = False,
+) -> list[str]:
+    skipped = set(skip_steps or [])
+    if essential_only:
+        skipped |= OPTIONAL_IMPORT_STEPS
+    unknown = skipped - set(FULL_IMPORT_ORDER)
+    if unknown:
+        raise ValueError(f'Unknown import steps to skip: {sorted(unknown)}')
+    return [step for step in FULL_IMPORT_ORDER if step not in skipped]
 
 
 def write_report(report: MigrationReport) -> Path:
@@ -664,20 +732,55 @@ def _import_table_records(
     table: str,
     model: type[models.Model],
     step: str,
+    batch_size: int = BULK_IMPORT_BATCH_SIZE,
 ) -> MigrationReport:
     report = MigrationReport(step=step)
-    records = legacy.get_records(table)
-    with transaction.atomic():
-        for record in records:
-            pk = record.get('id')
-            defaults = {key: value for key, value in record.items() if key != 'id'}
-            if pk is None:
-                model.objects.create(**defaults)
-                report.created += 1
-                continue
-            _, created = model.objects.update_or_create(id=pk, defaults=defaults)
-            report.created += int(created)
-            report.updated += int(not created)
+    batch: list[models.Model] = []
+    use_postgres_bulk = connection.vendor == 'postgresql'
+
+    def flush_batch() -> None:
+        nonlocal batch
+        if not batch:
+            return
+        if use_postgres_bulk and hasattr(model.objects, 'bulk_create'):
+            update_fields = [
+                field.name
+                for field in model._meta.fields
+                if field.name != 'id' and not field.auto_created
+            ]
+            model.objects.bulk_create(
+                batch,
+                batch_size=batch_size,
+                update_conflicts=True,
+                unique_fields=['id'],
+                update_fields=update_fields,
+            )
+            report.updated += len(batch)
+        else:
+            for instance in batch:
+                pk = instance.pk
+                defaults = {
+                    field.name: getattr(instance, field.name)
+                    for field in model._meta.fields
+                    if field.name != 'id' and not field.auto_created
+                }
+                _, created = model.objects.update_or_create(id=pk, defaults=defaults)
+                report.created += int(created)
+                report.updated += int(not created)
+        batch = []
+
+    for record in legacy.iter_records(table):
+        pk = record.get('id')
+        defaults = {key: value for key, value in record.items() if key != 'id'}
+        if pk is None:
+            model.objects.create(**defaults)
+            report.created += 1
+            continue
+        batch.append(model(id=pk, **defaults))
+        if len(batch) >= batch_size:
+            flush_batch()
+
+    flush_batch()
     return report
 
 
@@ -749,10 +852,12 @@ def run_migration_step(
     *,
     legacy_db_url: str | None = None,
     export_file: str | Path | None = None,
+    legacy: LegacySource | None = None,
 ) -> MigrationReport:
     if step not in MIGRATION_STEPS:
         raise ValueError(f'Unknown migration step: {step}')
-    legacy = open_legacy_source(legacy_db_url=legacy_db_url, export_file=export_file)
+    if legacy is None:
+        legacy = open_legacy_source(legacy_db_url=legacy_db_url, export_file=export_file)
     report = MIGRATION_STEPS[step](island, legacy)
     write_report(report)
     return report
@@ -764,36 +869,28 @@ def run_full_import(
     legacy_db_url: str | None = None,
     export_file: str | Path | None = None,
     dry_run: bool = False,
+    legacy: LegacySource | None = None,
+    steps: list[str] | None = None,
+    skip_steps: list[str] | None = None,
+    essential_only: bool = False,
+    on_step_start: Callable[[str], None] | None = None,
+    on_step_complete: Callable[[MigrationReport], None] | None = None,
 ) -> list[MigrationReport]:
-    order = [
-        'islands',
-        'operators',
-        'stops',
-        'stop_groups',
-        'calendars',
-        'holidays',
-        'lines_trips',
-        'infos',
-        'ads',
-        'subscriptions',
-        'stats',
-        'data',
-        'legacy_trips',
-        'legacy_tripstops',
-        'aifeedback',
-        'emailopens',
-    ]
+    order = steps or resolve_import_steps(skip_steps=skip_steps, essential_only=essential_only)
     reports: list[MigrationReport] = []
     if dry_run:
         logger.info('Dry run — would execute steps: %s', order)
         return reports
+
+    if legacy is None:
+        legacy = open_legacy_source(legacy_db_url=legacy_db_url, export_file=export_file)
+
     for step in order:
-        reports.append(
-            run_migration_step(
-                step,
-                island,
-                legacy_db_url=legacy_db_url,
-                export_file=export_file,
-            )
-        )
+        if on_step_start:
+            on_step_start(step)
+        report = MIGRATION_STEPS[step](island, legacy)
+        write_report(report)
+        reports.append(report)
+        if on_step_complete:
+            on_step_complete(report)
     return reports

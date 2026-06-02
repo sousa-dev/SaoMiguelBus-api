@@ -2,8 +2,11 @@
 
 from __future__ import annotations
 
+import uuid
+
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
+from django.utils import timezone
 
 from tenancy.managers import TenantManager
 
@@ -61,6 +64,47 @@ class Island(models.Model):
                 'events': False,
             },
         }
+
+
+class LegacyImportJob(models.Model):
+    """Background legacy ETL job (runs via Celery worker)."""
+
+    STATUS_PENDING = 'pending'
+    STATUS_RUNNING = 'running'
+    STATUS_COMPLETED = 'completed'
+    STATUS_FAILED = 'failed'
+    STATUS_CHOICES = [
+        (STATUS_PENDING, 'Pending'),
+        (STATUS_RUNNING, 'Running'),
+        (STATUS_COMPLETED, 'Completed'),
+        (STATUS_FAILED, 'Failed'),
+    ]
+
+    job_id = models.CharField(max_length=32, unique=True, editable=False)
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default=STATUS_PENDING)
+    island_key = models.SlugField(max_length=64, default='sao-miguel')
+    export_file_path = models.CharField(max_length=500, blank=True)
+    legacy_db_url = models.CharField(max_length=500, blank=True)
+    skip_steps = models.JSONField(default=list, blank=True)
+    current_step = models.CharField(max_length=64, blank=True)
+    step_reports = models.JSONField(default=list, blank=True)
+    table_counts = models.JSONField(null=True, blank=True)
+    celery_task_id = models.CharField(max_length=64, blank=True)
+    error = models.TextField(blank=True)
+    started_at = models.DateTimeField(default=timezone.now)
+    finished_at = models.DateTimeField(null=True, blank=True)
+
+    class Meta:
+        ordering = ['-started_at']
+        verbose_name = 'Legacy import job'
+        verbose_name_plural = 'Legacy import jobs'
+
+    def __str__(self) -> str:
+        return f'{self.job_id} ({self.status})'
+
+    @classmethod
+    def new_job_id(cls) -> str:
+        return uuid.uuid4().hex[:16]
 
 
 class TenantScopedModel(models.Model):

@@ -112,6 +112,17 @@ curl -o /tmp/smb_legacy_export.json \
   'https://api.saomiguelbus.com/api/v1/export/legacy/download?key=$AUTH_KEY&job_id=JOB_ID'
 
 python manage.py import_legacy --export-file /tmp/smb_legacy_export.json
+
+# Large export (400MB+): queue on Celery — no HTTP timeout, 6h task limit
+# Copy JSON into shared media volume first (web + celery-worker both mount media_files)
+python manage.py import_legacy \
+  --export-file media/legacy_imports/final_smb_legacy_export.json \
+  --essential-only \
+  --async
+
+# Monitor: Django admin → Legacy import jobs (current_step, step_reports, errors)
+# Re-run failed job manually:
+python manage.py import_legacy --job-id JOB_ID
 ```
 
 Importer reads: `legacy/src/db.sqlite3`, `legacy/src/data.json`, `legacy/scripts/csv/`, `legacy/scripts/groups.json`, or `--legacy-db` Postgres URL. Never writes to legacy DB.

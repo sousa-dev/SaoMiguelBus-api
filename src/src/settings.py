@@ -394,6 +394,13 @@ CELERY_TIMEZONE = TIME_ZONE
 CELERY_TASK_TRACK_STARTED = True
 CELERY_TASK_TIME_LIMIT = 30 * 60  # 30 minutes hard limit
 CELERY_TASK_SOFT_TIME_LIMIT = 25 * 60  # 25 minutes soft limit
+# Large legacy JSON imports override per-task (see tenancy.tasks.run_legacy_import_job)
+LEGACY_IMPORT_TASK_TIME_LIMIT = config('LEGACY_IMPORT_TASK_TIME_LIMIT', default=6 * 60 * 60, cast=int)
+LEGACY_IMPORT_TASK_SOFT_TIME_LIMIT = config(
+    'LEGACY_IMPORT_TASK_SOFT_TIME_LIMIT',
+    default=5 * 60 * 60,
+    cast=int,
+)
 CELERY_BROKER_CONNECTION_RETRY_ON_STARTUP = True
 CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
 
