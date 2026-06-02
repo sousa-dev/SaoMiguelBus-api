@@ -92,9 +92,6 @@ class Trip(TenantScopedModel):
     calendar = models.ForeignKey(Calendar, on_delete=models.PROTECT, related_name='trips')
     headsign = models.CharField(max_length=200, blank=True, default='')
     direction = models.CharField(max_length=32, blank=True, default='')
-    information = models.ForeignKey(
-        RouteInfo, null=True, blank=True, on_delete=models.SET_NULL, related_name='trips'
-    )
     likes = models.IntegerField(default=0)
     dislikes = models.IntegerField(default=0)
     source = models.CharField(max_length=16, choices=SOURCE_CHOICES, default=SOURCE_OPERATOR)
