@@ -22,9 +22,19 @@ DEFAULT_PURPOSES = {
 
 
 def hash_session_id(raw_session_id: str, island_key: str) -> str:
-    """Pseudonymous session hash for consent + analytics."""
+    """Stable pseudonymous hash for consent lookup."""
     secret = settings.SECRET_KEY.encode()
     payload = f'{raw_session_id}:{island_key}'.encode()
+    return hmac.new(secret, payload, hashlib.sha256).hexdigest()
+
+
+def hash_analytics_session_id(raw_session_id: str, island_key: str) -> str:
+    """Rotating-salt hash so analytics rows are not linkable long-term."""
+    from consent.session_salt import get_session_salt
+
+    secret = settings.SECRET_KEY.encode()
+    salt = get_session_salt()
+    payload = f'{raw_session_id}:{island_key}:{salt}'.encode()
     return hmac.new(secret, payload, hashlib.sha256).hexdigest()
 
 

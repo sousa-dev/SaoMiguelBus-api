@@ -8,6 +8,7 @@ from rest_framework.permissions import AllowAny
 from rest_framework.request import Request
 from rest_framework.response import Response
 
+from consent.dsar import dsar_delete, dsar_export_bundle, resolve_session_hash
 from consent.serializers import ConsentWriteSerializer
 from consent.services import (
     CONSENT_POLICY_VERSION,
@@ -62,3 +63,47 @@ def consent_view(request: Request) -> Response:
     payload = serialize_consent(record)
     payload['policy_version'] = record.policy_version or CONSENT_POLICY_VERSION
     return Response(payload, status=status.HTTP_201_CREATED)
+
+
+@api_view(['POST'])
+@permission_classes([AllowAny])
+def dsar_export_view(request: Request) -> Response:
+    err = _require_island(request)
+    if err:
+        return err
+
+    session_id = str(request.data.get('session_id', '')).strip()
+    session_hash = str(request.data.get('session_hash', '')).strip()
+    resolved = resolve_session_hash(
+        session_id=session_id or None,
+        session_hash=session_hash or None,
+        island_key=request.island.key,
+    )
+    if not resolved:
+        return Response(
+            {'error': {'code': 'session_required', 'message': 'session_id or session_hash required'}},
+            status=status.HTTP_400_BAD_REQUEST,
+        )
+    return Response(dsar_export_bundle(session_hash=resolved))
+
+
+@api_view(['POST'])
+@permission_classes([AllowAny])
+def dsar_delete_view(request: Request) -> Response:
+    err = _require_island(request)
+    if err:
+        return err
+
+    session_id = str(request.data.get('session_id', '')).strip()
+    session_hash = str(request.data.get('session_hash', '')).strip()
+    resolved = resolve_session_hash(
+        session_id=session_id or None,
+        session_hash=session_hash or None,
+        island_key=request.island.key,
+    )
+    if not resolved:
+        return Response(
+            {'error': {'code': 'session_required', 'message': 'session_id or session_hash required'}},
+            status=status.HTTP_400_BAD_REQUEST,
+        )
+    return Response(dsar_delete(session_hash=resolved))

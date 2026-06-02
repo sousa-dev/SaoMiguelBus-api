@@ -13,6 +13,7 @@ urlpatterns = [
     path('api/v1/ops/', include('tenancy.urls')),
     path('api/v3/bootstrap', bootstrap_view),
     path('api/v3/consent/', include('consent.urls')),
+    path('api/v3/privacy/', include('consent.urls_privacy')),
     path('api/v3/analytics/', include('analytics.urls_v3')),
     path('api/v3/transit/', include('transit.urls_v3')),
 ]

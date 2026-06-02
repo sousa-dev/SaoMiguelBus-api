@@ -18,6 +18,7 @@ def ingest_events(
     island: Island,
     events: list[dict[str, Any]],
     session_hash: str,
+    consent_session_hash: str,
     platform: str,
     locale: str,
     app_version: str,
@@ -26,7 +27,9 @@ def ingest_events(
     Store batch of events. Returns (accepted_count, dropped_count).
     Drops row-level storage when analytics consent is not granted.
     """
-    consent_record = get_latest_consent(session_hash=session_hash) if session_hash else None
+    consent_record = (
+        get_latest_consent(session_hash=consent_session_hash) if consent_session_hash else None
+    )
     purposes = normalize_purposes(consent_record.purposes if consent_record else None)
     consent_snapshot = purposes
 
