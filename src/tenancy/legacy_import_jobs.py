@@ -26,14 +26,14 @@ logger = logging.getLogger(__name__)
 
 def _resolve_export_path(export_file_path: str) -> Path:
     raw = Path(export_file_path)
-    if raw.is_file():
+    if raw.is_file() or raw.is_dir():
         return raw.resolve()
     media_root = Path(settings.MEDIA_ROOT)
     candidate = media_root / export_file_path
-    if candidate.is_file():
+    if candidate.is_file() or candidate.is_dir():
         return candidate.resolve()
     raise FileNotFoundError(
-        f'Export file not found: {export_file_path!r} '
+        f'Export path not found: {export_file_path!r} '
         f'(also tried {candidate})'
     )
 

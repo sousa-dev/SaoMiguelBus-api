@@ -82,6 +82,26 @@ OPTIONAL_IMPORT_STEPS = frozenset({
 
 BULK_IMPORT_BATCH_SIZE = 5000
 
+# Tables in legacy export JSON (matches pull_legacy_export / main-temp batch order).
+LEGACY_EXPORT_TABLE_ORDER = [
+    'app_variables',
+    'app_stop',
+    'app_holiday',
+    'app_group',
+    'app_route',
+    'app_ad',
+    'app_info',
+    'subscriptions',
+    'app_stat',
+    'app_data',
+    'app_trip',
+    'app_tripstop',
+    'app_aifeedback',
+    'app_emailopen',
+]
+
+BATCHED_EXPORT_LAYOUT = 'batched_jsonl'
+
 QUERY_VARIABLES = (
     'SELECT id, version, maps, populate_maps_routes FROM app_variables ORDER BY id'
 )
@@ -200,7 +220,7 @@ _LEGACY_DATETIME_FIELDS: dict[str, set[str]] = {
     'subscriptions': {'created_at', 'updated_at'},
 }
 
-LegacySource = Union['LegacyDatabase', 'LegacyExportSource']
+LegacySource = Union['LegacyDatabase', 'LegacyExportSource', 'LegacyBatchedExportSource']
 
 
 @dataclass
@@ -338,6 +358,91 @@ def _coerce_export_cell(table: str, index: int, value: Any) -> Any:
     return value
 
 
+def _coerce_export_row(table: str, row: Any) -> dict[str, Any]:
+    if isinstance(row, dict):
+        return _coerce_record_dict(table, row)
+    columns = TABLE_COLUMNS[table]
+    return _coerce_record_dict(
+        table,
+        dict(
+            zip(
+                columns,
+                (
+                    _coerce_export_cell(table, index, value)
+                    for index, value in enumerate(row)
+                ),
+                strict=True,
+            )
+        ),
+    )
+
+
+class LegacyBatchedExportSource:
+    """Stream rows from a split export directory (manifest.json + JSONL batch files)."""
+
+    def __init__(self, export_dir: str | Path):
+        self.export_dir = Path(export_dir).resolve()
+        manifest_path = self.export_dir / 'manifest.json'
+        if not manifest_path.is_file():
+            raise FileNotFoundError(
+                f'Batched export manifest not found: {manifest_path}'
+            )
+        manifest = json.loads(manifest_path.read_text(encoding='utf-8'))
+        version = manifest.get('format_version')
+        if version not in SUPPORTED_EXPORT_FORMAT_VERSIONS:
+            raise ValueError(
+                f'Unsupported export format_version={version!r} '
+                f'(expected one of {sorted(SUPPORTED_EXPORT_FORMAT_VERSIONS)})'
+            )
+        if manifest.get('layout') != BATCHED_EXPORT_LAYOUT:
+            raise ValueError(
+                f'Unsupported batched export layout={manifest.get("layout")!r} '
+                f'(expected {BATCHED_EXPORT_LAYOUT!r})'
+            )
+        self.format_version = version
+        self.exported_at = manifest.get('exported_at')
+        self.source = manifest.get('source')
+        self.table_counts: dict[str, int] = dict(manifest.get('table_counts') or {})
+        self._batches: list[dict[str, Any]] = sorted(
+            manifest.get('batches') or [],
+            key=lambda item: int(item.get('seq', 0)),
+        )
+        batches_by_table: dict[str, list[dict[str, Any]]] = {}
+        for batch in self._batches:
+            batches_by_table.setdefault(batch['table'], []).append(batch)
+        self._batches_by_table = batches_by_table
+
+    def _iter_jsonl_rows(self, relative_file: str) -> Iterator[Any]:
+        path = self.export_dir / relative_file
+        if not path.is_file():
+            raise FileNotFoundError(f'Export batch file not found: {path}')
+        with path.open('r', encoding='utf-8') as handle:
+            for line in handle:
+                stripped = line.strip()
+                if stripped:
+                    yield json.loads(stripped)
+
+    def iter_records(self, table: str) -> Iterator[dict[str, Any]]:
+        for batch in self._batches_by_table.get(table, []):
+            for row in self._iter_jsonl_rows(batch['file']):
+                yield _coerce_export_row(table, row)
+
+    def get_records(self, table: str) -> list[dict[str, Any]]:
+        return list(self.iter_records(table))
+
+    def fetchall(self, sql: str, params: tuple = ()) -> list[tuple]:
+        if params:
+            raise NotImplementedError('Parameterized legacy export queries are not supported')
+        table = LEGACY_SQL_TABLE_MAP.get(_normalize_sql(sql))
+        if table is None:
+            raise ValueError(f'Unsupported legacy export query: {sql}')
+        columns = TABLE_COLUMNS[table]
+        return [
+            tuple(record.get(column) for column in columns)
+            for record in self.iter_records(table)
+        ]
+
+
 class LegacyExportSource:
     """Read legacy rows from JSON produced by GET /api/v1/export/legacy."""
 
@@ -362,22 +467,7 @@ class LegacyExportSource:
         return {name: len(rows) for name, rows in self.tables.items() if rows}
 
     def _coerce_row(self, table: str, row: Any) -> dict[str, Any]:
-        if isinstance(row, dict):
-            return _coerce_record_dict(table, row)
-        columns = TABLE_COLUMNS[table]
-        return _coerce_record_dict(
-            table,
-            dict(
-                zip(
-                    columns,
-                    (
-                        _coerce_export_cell(table, index, value)
-                        for index, value in enumerate(row)
-                    ),
-                    strict=True,
-                )
-            ),
-        )
+        return _coerce_export_row(table, row)
 
     def iter_records(self, table: str) -> Iterator[dict[str, Any]]:
         raw = self.tables.get(table, [])
@@ -404,9 +494,16 @@ def open_legacy_source(
     *,
     legacy_db_url: str | None = None,
     export_file: str | Path | None = None,
+    export_dir: str | Path | None = None,
 ) -> LegacySource:
-    if export_file:
-        return LegacyExportSource(export_file)
+    path_raw = export_dir or export_file
+    if path_raw:
+        path = Path(path_raw)
+        if path.is_dir():
+            return LegacyBatchedExportSource(path)
+        if path.is_file():
+            return LegacyExportSource(path)
+        raise FileNotFoundError(f'Legacy export path not found: {path}')
     return LegacyDatabase(
         legacy_db_url or 'sqlite:///../legacy/src/db.sqlite3'
     )
@@ -414,6 +511,16 @@ def open_legacy_source(
 
 def summarize_export_source(legacy: LegacySource) -> dict[str, Any]:
     """Inspect export payload without re-parsing."""
+    if isinstance(legacy, LegacyBatchedExportSource):
+        return {
+            'format_version': legacy.format_version,
+            'exported_at': legacy.exported_at,
+            'source': legacy.source,
+            'export_dir': str(legacy.export_dir),
+            'layout': BATCHED_EXPORT_LAYOUT,
+            'table_counts': legacy.table_counts,
+            'batch_count': len(legacy._batches),
+        }
     if isinstance(legacy, LegacyExportSource):
         return {
             'format_version': legacy.format_version,

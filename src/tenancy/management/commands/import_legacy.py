@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from pathlib import Path
+
 from django.core.management.base import BaseCommand, CommandError
 
 from tenancy.models import LegacyImportJob
@@ -31,7 +33,11 @@ class Command(BaseCommand):
         )
         parser.add_argument(
             '--export-file',
-            help='JSON export from GET /api/v1/export/legacy on production (overrides --legacy-db)',
+            help='Legacy export JSON file OR batched export directory with manifest.json',
+        )
+        parser.add_argument(
+            '--export-dir',
+            help='Batched export directory (manifest.json + JSONL batches). Overrides --export-file.',
         )
         parser.add_argument(
             '--island',
@@ -71,7 +77,7 @@ class Command(BaseCommand):
 
         island_key = options['island']
         legacy_db = options['legacy_db']
-        export_file = options.get('export_file')
+        export_file = options.get('export_dir') or options.get('export_file')
         dry_run = options['dry_run']
         run_async = options['run_async']
         essential_only = options['essential_only']
@@ -81,7 +87,8 @@ class Command(BaseCommand):
         island = get_or_create_default_island(island_key)
         self.stdout.write(f'Target island: {island.key} (id={island.id})')
         if export_file:
-            self.stdout.write(f'Import source: export file {export_file}')
+            kind = 'batched directory' if Path(export_file).is_dir() else 'JSON file'
+            self.stdout.write(f'Import source: export {kind} {export_file}')
         else:
             self.stdout.write(f'Import source: legacy database {legacy_db}')
 

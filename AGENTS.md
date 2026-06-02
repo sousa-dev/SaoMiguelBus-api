@@ -113,10 +113,16 @@ curl -o /tmp/smb_legacy_export.json \
 
 python manage.py import_legacy --export-file /tmp/smb_legacy_export.json
 
-# Large export (400MB+): queue on Celery — no HTTP timeout, 6h task limit
-# Copy JSON into shared media volume first (web + celery-worker both mount media_files)
+# Large export (400MB+): split into batches, then queue on Celery (low memory)
+python3 scripts/split_legacy_export.py \
+  --input final_smb_legacy_export.json \
+  --output-dir smb_export_batches \
+  --batch-size 5000
+# Or memory-safe from pull checkpoint:
+# python3 scripts/split_legacy_export.py --checkpoint-dir final.json.checkpoint --output-dir smb_export_batches
+
 python manage.py import_legacy \
-  --export-file media/legacy_imports/final_smb_legacy_export.json \
+  --export-dir media/legacy_imports/smb_export_batches \
   --essential-only \
   --async
 
