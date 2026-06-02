@@ -25,7 +25,7 @@ apps = [
     ('documentation', False),
     ('app', False),
     ('legal', True),
-    ('stripe_payments', True),
+    ('stripe_payments', False),
     ('blog', False),
     ('free_tools', False),
     ('tailwind', False),
