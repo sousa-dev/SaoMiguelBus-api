@@ -47,6 +47,10 @@ class ServiceCategory(TenantScopedModel):
     name = models.CharField(max_length=80)
     slug = models.SlugField(max_length=80)
     icon = models.CharField(max_length=64, blank=True, default='')
+    user_suggested = models.BooleanField(
+        default=False,
+        help_text='Created by a user when listing a service; review name/slug in admin.',
+    )
 
     class Meta:
         ordering = ['name']

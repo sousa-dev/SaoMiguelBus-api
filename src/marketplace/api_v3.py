@@ -91,8 +91,17 @@ def providers_view(request: Request) -> Response:
     session_id = data['session_id'].strip()
     if not session_id:
         return _error('session_required', 'session_id is required', status.HTTP_400_BAD_REQUEST)
-    if not data.get('name') or not data.get('category_slug'):
-        return _error('validation_error', 'name and category_slug are required', status.HTTP_400_BAD_REQUEST)
+    name = (data.get('name') or '').strip()
+    category_slug = (data.get('category_slug') or '').strip()
+    category_name = (data.get('category_name') or '').strip()
+    if not name:
+        return _error('validation_error', 'name is required', status.HTTP_400_BAD_REQUEST)
+    if not category_slug and not category_name:
+        return _error(
+            'validation_error',
+            'category_slug or category_name is required',
+            status.HTTP_400_BAD_REQUEST,
+        )
 
     session_hash = hash_session_id(session_id, request.island.key)
     with for_island(request.island):
@@ -102,6 +111,12 @@ def providers_view(request: Request) -> Response:
             )
         except services.CategoryNotFound:
             return _error('invalid_category', 'Unknown category', status.HTTP_400_BAD_REQUEST)
+        except services.InvalidCategoryName:
+            return _error(
+                'invalid_category_name',
+                'Invalid category name (2–80 characters, at least one letter)',
+                status.HTTP_400_BAD_REQUEST,
+            )
     return Response(payload, status=status.HTTP_201_CREATED)
 
 
@@ -152,6 +167,12 @@ def provider_detail_view(request: Request, provider_id: int) -> Response:
             return _error('not_owner', 'Not allowed', status.HTTP_403_FORBIDDEN)
         except services.CategoryNotFound:
             return _error('invalid_category', 'Unknown category', status.HTTP_400_BAD_REQUEST)
+        except services.InvalidCategoryName:
+            return _error(
+                'invalid_category_name',
+                'Invalid category name (2–80 characters, at least one letter)',
+                status.HTTP_400_BAD_REQUEST,
+            )
     if payload is None:
         return _error('not_found', 'Provider not found', status.HTTP_404_NOT_FOUND)
     return Response(payload)

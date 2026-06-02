@@ -8,7 +8,8 @@ from rest_framework import serializers
 class ProviderWriteSerializer(serializers.Serializer):
     session_id = serializers.CharField(max_length=128)
     name = serializers.CharField(max_length=160, required=False)
-    category_slug = serializers.SlugField(required=False)
+    category_slug = serializers.SlugField(required=False, allow_blank=True)
+    category_name = serializers.CharField(max_length=80, required=False, allow_blank=True)
     bio = serializers.CharField(required=False, allow_blank=True)
     hourly_rate = serializers.DecimalField(
         max_digits=8, decimal_places=2, required=False, allow_null=True
@@ -18,6 +19,19 @@ class ProviderWriteSerializer(serializers.Serializer):
     email = serializers.EmailField(required=False, allow_blank=True)
     latitude = serializers.FloatField(required=False, allow_null=True)
     longitude = serializers.FloatField(required=False, allow_null=True)
+
+    def validate(self, attrs: dict) -> dict:
+        slug = (attrs.get('category_slug') or '').strip()
+        name = (attrs.get('category_name') or '').strip()
+        if slug and name:
+            raise serializers.ValidationError(
+                'Provide category_slug or category_name, not both.'
+            )
+        if slug:
+            attrs['category_slug'] = slug
+        if name:
+            attrs['category_name'] = name
+        return attrs
 
 
 class ReviewWriteSerializer(serializers.Serializer):

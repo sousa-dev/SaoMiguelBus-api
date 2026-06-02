@@ -44,6 +44,44 @@ class MarketplaceServiceTests(TestCase):
                 data={'category_slug': 'nope', 'name': 'X'},
             )
 
+    def test_create_with_new_category_name(self):
+        result = services.create_provider(
+            island=self.island,
+            session_hash='owner',
+            data={'category_name': 'Dog Walking', 'name': 'Rex Walks'},
+        )
+        cat = ServiceCategory.objects.get(slug='dog-walking')
+        self.assertTrue(cat.user_suggested)
+        self.assertEqual(result['category']['slug'], 'dog-walking')
+
+    def test_create_reuses_existing_category_by_similar_name(self):
+        services.create_provider(
+            island=self.island,
+            session_hash='a',
+            data={'category_name': 'Dog Walking', 'name': 'A'},
+        )
+        before = ServiceCategory.objects.filter(slug='dog-walking').count()
+        services.create_provider(
+            island=self.island,
+            session_hash='b',
+            data={'category_name': 'dog walking', 'name': 'B'},
+        )
+        self.assertEqual(ServiceCategory.objects.filter(slug='dog-walking').count(), before)
+
+    def test_invalid_category_name_rejected(self):
+        with self.assertRaises(services.InvalidCategoryName):
+            services.create_provider(
+                island=self.island,
+                session_hash='x',
+                data={'category_name': '!!', 'name': 'X'},
+            )
+        with self.assertRaises(services.InvalidCategoryName):
+            services.create_provider(
+                island=self.island,
+                session_hash='x',
+                data={'category_slug': 'electricians', 'category_name': 'Other', 'name': 'X'},
+            )
+
     def test_moderate_invalid_action_raises(self):
         result = self._create()
         with self.assertRaises(ValueError):

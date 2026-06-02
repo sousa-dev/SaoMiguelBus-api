@@ -13,6 +13,7 @@ from decimal import Decimal
 from typing import Any
 
 from django.db.models import Avg, Count
+from django.utils.text import slugify
 
 from marketplace.models import Review, ServiceCategory, ServiceProvider
 
@@ -33,6 +34,14 @@ class CategoryNotFound(MarketplaceError):
     """Raised when a write references an unknown category slug."""
 
 
+class InvalidCategoryName(MarketplaceError):
+    """Raised when a suggested category name fails validation."""
+
+
+_CATEGORY_NAME_MIN = 2
+_CATEGORY_NAME_MAX = 80
+
+
 # --------------------------------------------------------------------------- #
 # Serialization
 # --------------------------------------------------------------------------- #
@@ -43,6 +52,7 @@ def serialize_category(category: ServiceCategory) -> dict[str, Any]:
         'name': category.name,
         'slug': category.slug,
         'icon': category.icon,
+        'userSuggested': category.user_suggested,
     }
 
 
@@ -95,6 +105,48 @@ def _resolve_category(slug: str) -> ServiceCategory:
         return ServiceCategory.objects.get(slug=slug)
     except ServiceCategory.DoesNotExist as exc:
         raise CategoryNotFound(slug) from exc
+
+
+def _normalize_category_name(name: str) -> str:
+    cleaned = ' '.join(name.split())
+    if len(cleaned) < _CATEGORY_NAME_MIN or len(cleaned) > _CATEGORY_NAME_MAX:
+        raise InvalidCategoryName('length')
+    if not any(ch.isalpha() for ch in cleaned):
+        raise InvalidCategoryName('letters')
+    slug = slugify(cleaned)[: _CATEGORY_NAME_MAX]
+    if not slug:
+        raise InvalidCategoryName('slug')
+    return cleaned
+
+
+def get_or_create_category_by_name(*, island, name: str) -> ServiceCategory:
+    """Resolve an existing category or create a user-suggested one."""
+    cleaned = _normalize_category_name(name)
+    slug = slugify(cleaned)[: _CATEGORY_NAME_MAX]
+    existing = ServiceCategory.objects.filter(island=island, slug=slug).first()
+    if existing:
+        return existing
+    existing = ServiceCategory.objects.filter(island=island, name__iexact=cleaned).first()
+    if existing:
+        return existing
+    return ServiceCategory.objects.create(
+        island=island,
+        name=cleaned,
+        slug=slug,
+        user_suggested=True,
+    )
+
+
+def _resolve_category_from_write(*, island, data: dict[str, Any]) -> ServiceCategory:
+    slug = (data.get('category_slug') or '').strip()
+    name = (data.get('category_name') or '').strip()
+    if slug and name:
+        raise InvalidCategoryName('both')
+    if slug:
+        return _resolve_category(slug)
+    if name:
+        return get_or_create_category_by_name(island=island, name=name)
+    raise CategoryNotFound('')
 
 
 # --------------------------------------------------------------------------- #
@@ -180,15 +232,20 @@ _PROVIDER_WRITE_FIELDS = (
 
 
 def _apply_provider_fields(provider: ServiceProvider, data: dict[str, Any]) -> None:
-    if 'category_slug' in data and data['category_slug']:
-        provider.category = _resolve_category(data['category_slug'])
+    slug = (data.get('category_slug') or '').strip() if 'category_slug' in data else ''
+    name = (data.get('category_name') or '').strip() if 'category_name' in data else ''
+    if slug or name:
+        provider.category = _resolve_category_from_write(
+            island=provider.island,
+            data={'category_slug': slug, 'category_name': name},
+        )
     for field in _PROVIDER_WRITE_FIELDS:
         if field in data:
             setattr(provider, field, data[field])
 
 
 def create_provider(*, island, session_hash: str, data: dict[str, Any]) -> dict[str, Any]:
-    category = _resolve_category(data.get('category_slug', ''))
+    category = _resolve_category_from_write(island=island, data=data)
     provider = ServiceProvider(
         island=island,
         category=category,

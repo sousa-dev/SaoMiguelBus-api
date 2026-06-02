@@ -95,6 +95,49 @@ class MarketplaceAPITests(TestCase):
         self.assertEqual(resp.status_code, 400)
         self.assertEqual(resp.json()['error']['code'], 'invalid_category')
 
+    def test_create_with_category_name(self):
+        resp = self.client.post(
+            '/api/v3/marketplace/providers',
+            {
+                'session_id': 'owner',
+                'name': 'Rex Walks',
+                'category_name': 'Dog Walking',
+            },
+            format='json',
+            **SM,
+        )
+        self.assertEqual(resp.status_code, 201)
+        self.assertEqual(resp.json()['category']['slug'], 'dog-walking')
+        cats = self.client.get('/api/v3/marketplace/categories', **SM).json()['categories']
+        slugs = [c['slug'] for c in cats]
+        self.assertIn('dog-walking', slugs)
+        cat = next(c for c in cats if c['slug'] == 'dog-walking')
+        self.assertTrue(cat['userSuggested'])
+
+    def test_create_rejects_both_category_fields(self):
+        resp = self.client.post(
+            '/api/v3/marketplace/providers',
+            {
+                'session_id': 's',
+                'name': 'X',
+                'category_slug': 'electricians',
+                'category_name': 'Other',
+            },
+            format='json',
+            **SM,
+        )
+        self.assertEqual(resp.status_code, 400)
+
+    def test_create_rejects_invalid_category_name(self):
+        resp = self.client.post(
+            '/api/v3/marketplace/providers',
+            {'session_id': 's', 'name': 'X', 'category_name': '!!'},
+            format='json',
+            **SM,
+        )
+        self.assertEqual(resp.status_code, 400)
+        self.assertEqual(resp.json()['error']['code'], 'invalid_category_name')
+
     # --- ownership ----------------------------------------------------------
 
     def test_patch_non_owner_forbidden(self):
