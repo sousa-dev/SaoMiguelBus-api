@@ -490,13 +490,14 @@ def sync_open_data_for_island(island: Island) -> dict[str, int]:
         'skipped': 0,
     }
     try:
-        trails_collection = fetch_dataset_geojson(_trails_dataset_id())
-        trail_counts = sync_trails_for_island(island, collection=trails_collection)
+        from trails.visitazores_sync import sync_visitazores_trails_for_island
+
+        trail_counts = sync_visitazores_trails_for_island(island)
         totals['trails_created'] += trail_counts['created']
         totals['trails_updated'] += trail_counts['updated']
         totals['skipped'] += trail_counts['skipped']
     except Exception:
-        logger.exception('trails sync failed for island=%s', island.key)
+        logger.exception('visitazores trails sync failed for island=%s', island.key)
         raise
 
     try:
@@ -551,7 +552,7 @@ def serialize_trail_detail(trail: Trail) -> dict[str, Any]:
         **serialize_trail_summary(trail),
         'geojson': trail.geojson,
         'stages': stages,
-        'attribution': OPEN_DATA_ATTRIBUTION,
+        'attribution': trails_attribution(),
     }
 
 
@@ -565,6 +566,15 @@ def serialize_poi(poi: POI) -> dict[str, Any]:
     }
 
 
+def trails_attribution() -> str:
+    try:
+        from trails.visitazores_sync import VISITAZORES_ATTRIBUTION
+
+        return VISITAZORES_ATTRIBUTION
+    except ImportError:
+        return OPEN_DATA_ATTRIBUTION
+
+
 def list_trails(*, difficulty: str = '', limit: int = 50) -> dict[str, Any]:
     qs = Trail.objects.order_by('name')
     if difficulty:
@@ -572,7 +582,7 @@ def list_trails(*, difficulty: str = '', limit: int = 50) -> dict[str, Any]:
     limit = max(1, min(limit, 100))
     return {
         'trails': [serialize_trail_summary(trail) for trail in qs[:limit]],
-        'attribution': OPEN_DATA_ATTRIBUTION,
+        'attribution': trails_attribution(),
     }
 
 
@@ -591,5 +601,5 @@ def list_pois(*, category: str = '', limit: int = 50) -> dict[str, Any]:
     limit = max(1, min(limit, 100))
     return {
         'pois': [serialize_poi(poi) for poi in qs[:limit]],
-        'attribution': OPEN_DATA_ATTRIBUTION,
+        'attribution': trails_attribution(),
     }

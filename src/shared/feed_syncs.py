@@ -36,11 +36,31 @@ def _run_trails(island_key: str | None) -> dict[str, Any]:
     return {'status': 'ok', **sync_all_open_data(island_key=island_key)}
 
 
+FEED_MODULE_FLAGS: dict[str, str] = {
+    'news': 'news',
+    'seismic': 'seismic',
+    'trails': 'trails',
+}
+
 FEED_RUNNERS: dict[str, FeedRunner] = {
     'news': _run_news,
     'seismic': _run_seismic,
     'trails': _run_trails,
 }
+
+
+def enabled_feed_labels() -> list[str]:
+    """Feeds to refresh on deploy when at least one live island enables the module."""
+    from tenancy.models import Island
+
+    enabled: set[str] = set()
+    for island in Island.objects.filter(is_live=True):
+        flags = island.feature_flags or {}
+        for label, module_key in FEED_MODULE_FLAGS.items():
+            if flags.get(module_key):
+                enabled.add(label)
+    labels = [label for label in FEED_LABELS if label in enabled]
+    return labels or list(FEED_LABELS)
 
 
 def _queue_news(island_key: str | None):

@@ -119,8 +119,10 @@ class TrailsServicesTestCase(TestCase):
         self.assertEqual(Trail.objects.count(), 0)
 
     @patch('trails.services.fetch_dataset_geojson')
-    def test_sync_open_data_for_island(self, mock_fetch):
-        mock_fetch.side_effect = [SAMPLE_TRAIL_COLLECTION, SAMPLE_POI_COLLECTION]
+    @patch('trails.visitazores_sync.sync_visitazores_trails_for_island')
+    def test_sync_open_data_for_island(self, mock_trails, mock_fetch):
+        mock_trails.return_value = {'created': 1, 'updated': 0, 'skipped': 0}
+        mock_fetch.return_value = SAMPLE_POI_COLLECTION
         totals = sync_open_data_for_island(self.island)
         self.assertEqual(totals['trails_created'], 1)
         self.assertEqual(totals['pois_created'], 1)
