@@ -1,8 +1,9 @@
 """Seismic v3 API tests."""
 
-from datetime import datetime, timezone as dt_timezone
+from datetime import datetime, timedelta, timezone as dt_timezone
 
 from django.test import TestCase
+from django.utils import timezone
 from rest_framework.test import APIClient
 
 from seismic.models import FeltReport, SeismicEvent
@@ -40,11 +41,50 @@ class SeismicAPITestCase(TestCase):
             longitude=-25.0,
             occurred_at=datetime(2026, 5, 1, 12, 0, tzinfo=dt_timezone.utc),
         )
-        response = self.client.get('/api/v3/seismic/events', **self.headers)
+        response = self.client.get(
+            '/api/v3/seismic/events?since_hours=0', **self.headers
+        )
         self.assertEqual(response.status_code, 200)
         events = response.json()['events']
         self.assertEqual(events[0]['id'], self.event.id)
         self.assertEqual(events[1]['id'], older.id)
+
+    def test_list_default_24h_excludes_old_event(self):
+        response = self.client.get('/api/v3/seismic/events', **self.headers)
+        self.assertEqual(response.status_code, 200)
+        ids = [e['id'] for e in response.json()['events']]
+        self.assertNotIn(self.event.id, ids)
+
+    def test_list_since_hours_includes_old_event(self):
+        response = self.client.get(
+            '/api/v3/seismic/events?since_hours=168', **self.headers
+        )
+        self.assertEqual(response.status_code, 200)
+        ids = [e['id'] for e in response.json()['events']]
+        self.assertIn(self.event.id, ids)
+
+    def test_list_invalid_since_hours(self):
+        response = self.client.get(
+            '/api/v3/seismic/events?since_hours=abc', **self.headers
+        )
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(response.json()['error']['code'], 'invalid_since_hours')
+
+    def test_list_recent_event_within_24h(self):
+        recent = SeismicEvent.objects.create(
+            island=self.island,
+            emsc_id='recent_event',
+            magnitude=3.0,
+            latitude=37.8,
+            longitude=-25.5,
+            occurred_at=timezone.now() - timedelta(hours=2),
+            region='AZORES',
+        )
+        response = self.client.get('/api/v3/seismic/events', **self.headers)
+        self.assertEqual(response.status_code, 200)
+        ids = [e['id'] for e in response.json()['events']]
+        self.assertIn(recent.id, ids)
+        self.assertNotIn(self.event.id, ids)
 
     def test_detail_includes_felt_counts(self):
         FeltReport.objects.create(

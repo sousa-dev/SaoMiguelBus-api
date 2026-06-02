@@ -48,8 +48,42 @@ def seismic_events_view(request: Request) -> Response:
     except ValueError:
         limit = 50
 
+    since_hours_raw = request.GET.get('since_hours', '24').strip()
+    since_hours: int | None = 24
+    if since_hours_raw:
+        try:
+            since_hours = int(since_hours_raw)
+        except ValueError:
+            return Response(
+                {
+                    'error': {
+                        'code': 'invalid_since_hours',
+                        'message': 'since_hours must be an integer',
+                    }
+                },
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+        if since_hours < 0:
+            return Response(
+                {
+                    'error': {
+                        'code': 'invalid_since_hours',
+                        'message': 'since_hours must be non-negative',
+                    }
+                },
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+        if since_hours == 0:
+            since_hours = None
+        else:
+            since_hours = min(since_hours, 720)
+
     with for_island(request.island):
-        events = list_events(min_magnitude=min_magnitude, limit=limit)
+        events = list_events(
+            min_magnitude=min_magnitude,
+            since_hours=since_hours,
+            limit=limit,
+        )
     return Response({'events': events})
 
 

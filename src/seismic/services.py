@@ -211,10 +211,18 @@ def serialize_event(event: SeismicEvent, *, include_felt: bool = True) -> dict[s
     return payload
 
 
-def list_events(*, min_magnitude: float | None = None, limit: int = 50) -> list[dict[str, Any]]:
+def list_events(
+    *,
+    min_magnitude: float | None = None,
+    since_hours: int | None = None,
+    limit: int = 50,
+) -> list[dict[str, Any]]:
     qs = SeismicEvent.objects.order_by('-occurred_at')
     if min_magnitude is not None:
         qs = qs.filter(magnitude__gte=min_magnitude)
+    if since_hours is not None and since_hours > 0:
+        cutoff = timezone.now() - timedelta(hours=since_hours)
+        qs = qs.filter(occurred_at__gte=cutoff)
     limit = max(1, min(limit, 100))
     return [serialize_event(event, include_felt=True) for event in qs[:limit]]
 
