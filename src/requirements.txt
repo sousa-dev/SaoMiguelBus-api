@@ -33,3 +33,7 @@ django-axes==6.5.1
 celery[redis]==5.4.0
 django-celery-beat==2.7.0
 redis==5.2.1
+
+## Feeds (news RSS)
+feedparser==6.0.11
+requests==2.32.3

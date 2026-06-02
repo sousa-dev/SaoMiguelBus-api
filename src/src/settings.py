@@ -37,6 +37,9 @@ apps = [
     ('billing', True),
     ('compat', True),
     ('legacy_archive', True),
+    ('news', True),
+    ('seismic', True),
+    ('trails', True),
 ]
 
 import os

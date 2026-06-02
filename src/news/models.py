@@ -1,0 +1,42 @@
+"""News RSS sources and articles."""
+
+from __future__ import annotations
+
+from django.db import models
+
+from tenancy.models import TenantScopedModel
+
+
+class NewsSource(TenantScopedModel):
+    name = models.CharField(max_length=120)
+    rss_url = models.URLField(max_length=500)
+    language = models.CharField(max_length=8, default='pt')
+    active = models.BooleanField(default=True)
+
+    class Meta:
+        ordering = ['name']
+        unique_together = [('island', 'rss_url')]
+
+    def __str__(self) -> str:
+        return self.name
+
+
+class NewsArticle(TenantScopedModel):
+    source = models.ForeignKey(NewsSource, on_delete=models.CASCADE, related_name='articles')
+    title = models.CharField(max_length=500)
+    summary = models.TextField(blank=True, default='')
+    link = models.URLField(max_length=1000)
+    published_at = models.DateTimeField(db_index=True)
+    category = models.CharField(max_length=64, blank=True, default='')
+    content_hash = models.CharField(max_length=64, db_index=True)
+
+    class Meta:
+        ordering = ['-published_at']
+        unique_together = [('island', 'link')]
+        indexes = [
+            models.Index(fields=['island', '-published_at']),
+            models.Index(fields=['island', 'category']),
+        ]
+
+    def __str__(self) -> str:
+        return self.title[:80]

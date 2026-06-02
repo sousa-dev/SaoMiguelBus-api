@@ -21,6 +21,7 @@ class V3APITestCase(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.json()['island']['key'], 'sao-miguel')
         self.assertIn('transit', response.json()['island']['enabledModules'])
+        self.assertIn('consentPolicyVersion', response.json())
 
     def test_consent_and_analytics_gated(self):
         session_id = 'test-session-abc'
