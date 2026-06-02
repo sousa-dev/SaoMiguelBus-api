@@ -16,7 +16,10 @@ Example:
     --timeout 0
 
 Resume after failure (same command — detects checkpoint):
-  python3 scripts/pull_legacy_export.py --key "$AUTH_KEY" --output smb_legacy_export.json --limit 0 --timeout 0
+  python3 scripts/pull_legacy_export.py --key "$AUTH_KEY" --output smb_legacy_export.json --essential-only
+
+If app_stat is done and you're stuck on app_data, finalize immediately:
+  python3 scripts/pull_legacy_export.py --output smb_legacy_export.json --finalize-only
 
 Start over:
   python3 scripts/pull_legacy_export.py ... --fresh
@@ -85,6 +88,9 @@ def advance_past_skipped(cursor: Optional[str], skip_tables: frozenset[str]) -> 
         if next_table not in skip_tables:
             return f'{next_table}:0'
     return None
+
+
+def fetch_json(url: str, timeout: Optional[int]) -> dict:
     request = urllib.request.Request(url, headers={'Accept': 'application/json'})
     with urllib.request.urlopen(request, timeout=timeout) as response:
         return json.loads(response.read().decode('utf-8'))
@@ -240,6 +246,7 @@ def pull_export(
     retry_base_seconds: float,
     fresh: bool,
     finalize_only: bool,
+    skip_tables: frozenset[str],
 ) -> dict[str, int]:
     if fresh and checkpoint.exists():
         print(f'Removing checkpoint dir {checkpoint}', flush=True)
@@ -304,7 +311,44 @@ def pull_export(
         )
         print(f'Checkpoint dir: {checkpoint}', flush=True)
 
+    if skip_tables:
+        skipped = ', '.join(sorted(skip_tables))
+        print(f'Skipping tables: {skipped}', flush=True)
+
+    cursor = advance_past_skipped(cursor, skip_tables)
+    if cursor is None and batch_num > 0:
+        print('All remaining tables skipped — finalizing from checkpoint...', flush=True)
+        save_state(
+            checkpoint,
+            {
+                'cursor': None,
+                'batch_num': batch_num,
+                'table_counts': table_counts,
+                'format_version': format_version,
+                'export_complete': True,
+                'updated_at': datetime.now(timezone.utc).isoformat(),
+            },
+        )
+        counts = finalize_output(checkpoint, output_path, format_version=format_version)
+        print(f'Wrote {output_path} ({sum(counts.values())} rows)', flush=True)
+        return counts
+
     while True:
+        cursor = advance_past_skipped(cursor, skip_tables)
+        if cursor is None and batch_num > 0:
+            save_state(
+                checkpoint,
+                {
+                    'cursor': None,
+                    'batch_num': batch_num,
+                    'table_counts': table_counts,
+                    'format_version': format_version,
+                    'export_complete': True,
+                    'updated_at': datetime.now(timezone.utc).isoformat(),
+                },
+            )
+            break
+
         params = {'key': key, 'limit': str(limit)}
         if cursor:
             params['next'] = cursor
@@ -350,6 +394,11 @@ def pull_export(
 
         export_complete = bool(payload.get('export_complete'))
         cursor = payload.get('next')
+        if export_complete:
+            cursor = None
+        cursor = advance_past_skipped(cursor, skip_tables)
+        if cursor is None:
+            export_complete = True
 
         save_state(
             checkpoint,
@@ -437,7 +486,24 @@ def main() -> int:
         action='store_true',
         help='Build output JSON from existing checkpoint without fetching',
     )
+    parser.add_argument(
+        '--essential-only',
+        action='store_true',
+        help='Skip optional tables (app_data, app_trip, app_tripstop, aifeedback, emailopen)',
+    )
+    parser.add_argument(
+        '--skip-tables',
+        help='Comma-separated table names to skip (e.g. app_data,app_trip)',
+    )
     args = parser.parse_args()
+
+    skip_tables: frozenset[str] = frozenset()
+    if args.essential_only:
+        skip_tables = OPTIONAL_TABLES
+    if args.skip_tables:
+        skip_tables = skip_tables | frozenset(
+            part.strip() for part in args.skip_tables.split(',') if part.strip()
+        )
 
     if not args.finalize_only and not args.key:
         print('--key is required unless using --finalize-only', file=sys.stderr)
