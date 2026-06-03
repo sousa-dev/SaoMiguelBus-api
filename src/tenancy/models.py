@@ -63,6 +63,7 @@ class Island(models.Model):
                 'trails': False,
                 'traffic': False,
                 'events': False,
+                'weather': False,
             },
         }
 

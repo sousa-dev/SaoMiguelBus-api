@@ -1,0 +1,457 @@
+[
+  {
+    "name": "Água de Pau",
+    "slug": "agua-de-pau-lagoa",
+    "concelho": "Lagoa",
+    "lat": 37.72,
+    "lon": -25.58
+  },
+  {
+    "name": "Cabouco",
+    "slug": "cabouco-lagoa",
+    "concelho": "Lagoa",
+    "lat": 37.72,
+    "lon": -25.58
+  },
+  {
+    "name": "Nossa Senhora do Rosário",
+    "slug": "nossa-senhora-do-rosario-lagoa",
+    "concelho": "Lagoa",
+    "lat": 37.745348,
+    "lon": -25.590239
+  },
+  {
+    "name": "Ribeira Chã",
+    "slug": "ribeira-cha-lagoa",
+    "concelho": "Lagoa",
+    "lat": 37.72,
+    "lon": -25.58
+  },
+  {
+    "name": "Santa Cruz",
+    "slug": "santa-cruz-lagoa",
+    "concelho": "Lagoa",
+    "lat": 37.72,
+    "lon": -25.58
+  },
+  {
+    "name": "São Miguel",
+    "slug": "sao-miguel-lagoa",
+    "concelho": "Lagoa",
+    "lat": 37.72,
+    "lon": -25.58
+  },
+  {
+    "name": "Achada",
+    "slug": "achada-nordeste",
+    "concelho": "Nordeste",
+    "lat": 37.83,
+    "lon": -25.15
+  },
+  {
+    "name": "Achadinha",
+    "slug": "achadinha-nordeste",
+    "concelho": "Nordeste",
+    "lat": 37.83,
+    "lon": -25.15
+  },
+  {
+    "name": "Algarvia",
+    "slug": "algarvia-nordeste",
+    "concelho": "Nordeste",
+    "lat": 37.83,
+    "lon": -25.15
+  },
+  {
+    "name": "Biscoitos",
+    "slug": "biscoitos-nordeste",
+    "concelho": "Nordeste",
+    "lat": 37.83,
+    "lon": -25.15
+  },
+  {
+    "name": "Nordeste",
+    "slug": "nordeste-nordeste",
+    "concelho": "Nordeste",
+    "lat": 37.83,
+    "lon": -25.15
+  },
+  {
+    "name": "Pedreira",
+    "slug": "pedreira-nordeste",
+    "concelho": "Nordeste",
+    "lat": 37.83,
+    "lon": -25.15
+  },
+  {
+    "name": "Salga",
+    "slug": "salga-nordeste",
+    "concelho": "Nordeste",
+    "lat": 37.83,
+    "lon": -25.15
+  },
+  {
+    "name": "Santana",
+    "slug": "santana-nordeste",
+    "concelho": "Nordeste",
+    "lat": 37.83,
+    "lon": -25.15
+  },
+  {
+    "name": "São Jorge",
+    "slug": "sao-jorge-nordeste",
+    "concelho": "Nordeste",
+    "lat": 37.83,
+    "lon": -25.15
+  },
+  {
+    "name": "Ajuda da Bretanha",
+    "slug": "ajuda-da-bretanha-ponta-delgada",
+    "concelho": "Ponta Delgada",
+    "lat": 37.74,
+    "lon": -25.67
+  },
+  {
+    "name": "Arrifes",
+    "slug": "arrifes-ponta-delgada",
+    "concelho": "Ponta Delgada",
+    "lat": 37.74,
+    "lon": -25.67
+  },
+  {
+    "name": "Candelária",
+    "slug": "candelaria-ponta-delgada",
+    "concelho": "Ponta Delgada",
+    "lat": 37.74,
+    "lon": -25.67
+  },
+  {
+    "name": "Capelas",
+    "slug": "capelas-ponta-delgada",
+    "concelho": "Ponta Delgada",
+    "lat": 37.74,
+    "lon": -25.67
+  },
+  {
+    "name": "Covoada",
+    "slug": "covoada-ponta-delgada",
+    "concelho": "Ponta Delgada",
+    "lat": 37.74,
+    "lon": -25.67
+  },
+  {
+    "name": "Fajã de Baixo",
+    "slug": "faja-de-baixo-ponta-delgada",
+    "concelho": "Ponta Delgada",
+    "lat": 37.74,
+    "lon": -25.67
+  },
+  {
+    "name": "Fajã de Cima",
+    "slug": "faja-de-cima-ponta-delgada",
+    "concelho": "Ponta Delgada",
+    "lat": 37.74,
+    "lon": -25.67
+  },
+  {
+    "name": "Fenais da Luz",
+    "slug": "fenais-da-luz-ponta-delgada",
+    "concelho": "Ponta Delgada",
+    "lat": 37.74,
+    "lon": -25.67
+  },
+  {
+    "name": "Feteiras",
+    "slug": "feteiras-ponta-delgada",
+    "concelho": "Ponta Delgada",
+    "lat": 37.74,
+    "lon": -25.67
+  },
+  {
+    "name": "Ginetes",
+    "slug": "ginetes-ponta-delgada",
+    "concelho": "Ponta Delgada",
+    "lat": 37.74,
+    "lon": -25.67
+  },
+  {
+    "name": "Mosteiros",
+    "slug": "mosteiros-ponta-delgada",
+    "concelho": "Ponta Delgada",
+    "lat": 37.74,
+    "lon": -25.67
+  },
+  {
+    "name": "Pilar da Bretanha",
+    "slug": "pilar-da-bretanha-ponta-delgada",
+    "concelho": "Ponta Delgada",
+    "lat": 37.74,
+    "lon": -25.67
+  },
+  {
+    "name": "Relva",
+    "slug": "relva-ponta-delgada",
+    "concelho": "Ponta Delgada",
+    "lat": 37.74,
+    "lon": -25.67
+  },
+  {
+    "name": "Remédios",
+    "slug": "remedios-ponta-delgada",
+    "concelho": "Ponta Delgada",
+    "lat": 37.74,
+    "lon": -25.67
+  },
+  {
+    "name": "Santa Bárbara",
+    "slug": "santa-barbara-ponta-delgada",
+    "concelho": "Ponta Delgada",
+    "lat": 37.74,
+    "lon": -25.67
+  },
+  {
+    "name": "Santa Clara",
+    "slug": "santa-clara-ponta-delgada",
+    "concelho": "Ponta Delgada",
+    "lat": 37.74,
+    "lon": -25.67
+  },
+  {
+    "name": "Santo António",
+    "slug": "santo-antonio-ponta-delgada",
+    "concelho": "Ponta Delgada",
+    "lat": 37.74,
+    "lon": -25.67
+  },
+  {
+    "name": "Santo Espírito",
+    "slug": "santo-espirito-ponta-delgada",
+    "concelho": "Ponta Delgada",
+    "lat": 37.74,
+    "lon": -25.67
+  },
+  {
+    "name": "São José",
+    "slug": "sao-jose-ponta-delgada",
+    "concelho": "Ponta Delgada",
+    "lat": 37.74,
+    "lon": -25.67
+  },
+  {
+    "name": "São Pedro",
+    "slug": "sao-pedro-ponta-delgada",
+    "concelho": "Ponta Delgada",
+    "lat": 37.74,
+    "lon": -25.67
+  },
+  {
+    "name": "São Roque",
+    "slug": "sao-roque-ponta-delgada",
+    "concelho": "Ponta Delgada",
+    "lat": 37.74,
+    "lon": -25.67
+  },
+  {
+    "name": "São Sebastião",
+    "slug": "sao-sebastiao-ponta-delgada",
+    "concelho": "Ponta Delgada",
+    "lat": 37.74,
+    "lon": -25.67
+  },
+  {
+    "name": "São Vicente Ferreira",
+    "slug": "sao-vicente-ferreira-ponta-delgada",
+    "concelho": "Ponta Delgada",
+    "lat": 37.74,
+    "lon": -25.67
+  },
+  {
+    "name": "Sete Cidades",
+    "slug": "sete-cidades-ponta-delgada",
+    "concelho": "Ponta Delgada",
+    "lat": 37.74,
+    "lon": -25.67
+  },
+  {
+    "name": "Faial da Terra",
+    "slug": "faial-da-terra-povoacao",
+    "concelho": "Povoação",
+    "lat": 37.74,
+    "lon": -25.24
+  },
+  {
+    "name": "Furnas",
+    "slug": "furnas-povoacao",
+    "concelho": "Povoação",
+    "lat": 37.777684,
+    "lon": -25.341853
+  },
+  {
+    "name": "Nossa Senhora dos Remédios",
+    "slug": "nossa-senhora-dos-remedios-povoacao",
+    "concelho": "Povoação",
+    "lat": 37.74,
+    "lon": -25.24
+  },
+  {
+    "name": "Povoação",
+    "slug": "povoacao-povoacao",
+    "concelho": "Povoação",
+    "lat": 37.74,
+    "lon": -25.24
+  },
+  {
+    "name": "Ribeira Quente",
+    "slug": "ribeira-quente-povoacao",
+    "concelho": "Povoação",
+    "lat": 37.74,
+    "lon": -25.24
+  },
+  {
+    "name": "São Pedro",
+    "slug": "sao-pedro-povoacao",
+    "concelho": "Povoação",
+    "lat": 37.74,
+    "lon": -25.24
+  },
+  {
+    "name": "Calhetas",
+    "slug": "calhetas-ribeira-grande",
+    "concelho": "Ribeira Grande",
+    "lat": 37.82,
+    "lon": -25.52
+  },
+  {
+    "name": "Fenais da Ajuda",
+    "slug": "fenais-da-ajuda-ribeira-grande",
+    "concelho": "Ribeira Grande",
+    "lat": 37.82,
+    "lon": -25.52
+  },
+  {
+    "name": "Lomba da Maia",
+    "slug": "lomba-da-maia-ribeira-grande",
+    "concelho": "Ribeira Grande",
+    "lat": 37.82,
+    "lon": -25.52
+  },
+  {
+    "name": "Lomba de São Pedro",
+    "slug": "lomba-de-sao-pedro-ribeira-grande",
+    "concelho": "Ribeira Grande",
+    "lat": 37.82,
+    "lon": -25.52
+  },
+  {
+    "name": "Maia",
+    "slug": "maia-ribeira-grande",
+    "concelho": "Ribeira Grande",
+    "lat": 37.831775,
+    "lon": -25.390812
+  },
+  {
+    "name": "Pico da Pedra",
+    "slug": "pico-da-pedra-ribeira-grande",
+    "concelho": "Ribeira Grande",
+    "lat": 37.82,
+    "lon": -25.52
+  },
+  {
+    "name": "Porto Formoso",
+    "slug": "porto-formoso-ribeira-grande",
+    "concelho": "Ribeira Grande",
+    "lat": 37.82,
+    "lon": -25.52
+  },
+  {
+    "name": "Rabo de Peixe",
+    "slug": "rabo-de-peixe-ribeira-grande",
+    "concelho": "Ribeira Grande",
+    "lat": 37.82,
+    "lon": -25.52
+  },
+  {
+    "name": "Ribeira Grande (Conceição)",
+    "slug": "ribeira-grande-conceicao-ribeira-grande",
+    "concelho": "Ribeira Grande",
+    "lat": 37.82,
+    "lon": -25.52
+  },
+  {
+    "name": "Ribeira Grande (Matriz)",
+    "slug": "ribeira-grande-matriz-ribeira-grande",
+    "concelho": "Ribeira Grande",
+    "lat": 37.82,
+    "lon": -25.52
+  },
+  {
+    "name": "Ribeira Seca",
+    "slug": "ribeira-seca-ribeira-grande",
+    "concelho": "Ribeira Grande",
+    "lat": 37.82,
+    "lon": -25.52
+  },
+  {
+    "name": "Ribeirinha",
+    "slug": "ribeirinha-ribeira-grande",
+    "concelho": "Ribeira Grande",
+    "lat": 37.82,
+    "lon": -25.52
+  },
+  {
+    "name": "Santa Bárbara",
+    "slug": "santa-barbara-ribeira-grande",
+    "concelho": "Ribeira Grande",
+    "lat": 37.82,
+    "lon": -25.52
+  },
+  {
+    "name": "São Brás",
+    "slug": "sao-bras-ribeira-grande",
+    "concelho": "Ribeira Grande",
+    "lat": 37.82,
+    "lon": -25.52
+  },
+  {
+    "name": "Água de Alto",
+    "slug": "agua-de-alto-vila-franca-do-campo",
+    "concelho": "Vila Franca do Campo",
+    "lat": 37.71,
+    "lon": -25.43
+  },
+  {
+    "name": "Ponta Garça",
+    "slug": "ponta-garca-vila-franca-do-campo",
+    "concelho": "Vila Franca do Campo",
+    "lat": 37.71,
+    "lon": -25.43
+  },
+  {
+    "name": "Ribeira das Tainhas",
+    "slug": "ribeira-das-tainhas-vila-franca-do-campo",
+    "concelho": "Vila Franca do Campo",
+    "lat": 37.71,
+    "lon": -25.43
+  },
+  {
+    "name": "Ribeira Seca",
+    "slug": "ribeira-seca-vila-franca-do-campo",
+    "concelho": "Vila Franca do Campo",
+    "lat": 37.71,
+    "lon": -25.43
+  },
+  {
+    "name": "São Miguel",
+    "slug": "sao-miguel-vila-franca-do-campo",
+    "concelho": "Vila Franca do Campo",
+    "lat": 37.715951,
+    "lon": -25.436259
+  },
+  {
+    "name": "São Pedro",
+    "slug": "sao-pedro-vila-franca-do-campo",
+    "concelho": "Vila Franca do Campo",
+    "lat": 37.715701,
+    "lon": -25.438246
+  }
+]

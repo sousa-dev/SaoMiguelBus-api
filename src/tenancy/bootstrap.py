@@ -18,6 +18,7 @@ MODULE_KEYS = (
     'trails',
     'traffic',
     'events',
+    'weather',
 )
 
 

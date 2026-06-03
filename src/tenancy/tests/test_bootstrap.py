@@ -86,3 +86,19 @@ class BootstrapModulesTestCase(TestCase):
         island.save(update_fields=['feature_flags'])
         modules = enabled_modules(island)
         self.assertNotIn('events', modules)
+
+    def test_enabled_modules_includes_weather_when_flag_set(self):
+        island = get_or_create_default_island()
+        island.feature_flags = {**island.feature_flags, 'weather': True, 'transit': True}
+        island.save(update_fields=['feature_flags'])
+        modules = enabled_modules(island)
+        self.assertIn('weather', modules)
+
+    def test_enabled_modules_omits_weather_when_flag_false(self):
+        island = get_or_create_default_island()
+        flags = dict(island.feature_flags or {})
+        flags['weather'] = False
+        island.feature_flags = flags
+        island.save(update_fields=['feature_flags'])
+        modules = enabled_modules(island)
+        self.assertNotIn('weather', modules)

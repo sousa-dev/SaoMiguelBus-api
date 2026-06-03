@@ -43,6 +43,7 @@ apps = [
     ('marketplace', True),
     ('traffic', True),
     ('events', True),
+    ('weather', True),
 ]
 
 import os

@@ -51,7 +51,7 @@ Docker Compose host mappings: `WEB_PORT`, `WEB_CONTAINER_PORT`, `DB_PORT_EXPOSE`
 
 ### SMB domain apps (to add via toggles)
 
-`tenancy`, `transit`, `analytics`, `consent`, `billing`, `news`, `seismic`, `marketplace`, `trails`, `traffic`, `events`, `compat`
+`tenancy`, `transit`, `analytics`, `consent`, `billing`, `news`, `seismic`, `marketplace`, `trails`, `traffic`, `events`, `weather`, `compat`
 
 **Reuse from boilerplate:** `stripe_payments`, `legal`, `user_management`, `documentation`, `shared`, `theme`
 
@@ -62,6 +62,13 @@ Docker Compose host mappings: `WEB_PORT`, `WEB_CONTAINER_PORT`, `DB_PORT_EXPOSE`
 - `GET /api/v3/events/tours`, `GET /api/v3/events/tours/{product_code}` — Partner API proxy, Redis cache 1h; no ORM models.
 - Requires `VIATOR_API_KEY` in `src/src/.env` (see `.env.example`: `VIATOR_PARTNER_ID`, `VIATOR_CAMPAIGN`, `VIATOR_DESTINATION_ID`).
 - Bootstrap module key: `events` (`tenancy` migration `0010_enable_events_feature_flag`). SDD: `../SaoMiguelBus/SDD/04-api-design.md` §2.4, `09-modules.md` §7.
+
+### Parish weather (`weather` app — shipped)
+
+- `GET /api/v3/weather/parishes`, `GET /api/v3/weather/parishes/{slug}` — Open-Meteo proxy, Redis cache 1h per parish; `Parish` model seeded from `weather/data/parishes_sao_miguel.json`.
+- No API key required (optional `OPEN_METEO_BASE_URL`, `OPEN_METEO_TIMEOUT` in `.env.example`).
+- Celery beat: `weather.refresh_forecasts` hourly warms cache for all active parishes (one batched upstream call per island).
+- Bootstrap module key: `weather` (`tenancy` migration `0011_enable_weather_feature_flag`).
 
 ### Legacy data import
 
