@@ -113,7 +113,7 @@ def _create_article(
     NewsArticle.objects.create(
         island=source.island,
         source=source,
-        title=title,
+        title=title[:500],
         summary=summary,
         link=link,
         published_at=published_at,
