@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import hashlib
 import re
+import unicodedata
 from datetime import datetime, timezone as dt_timezone
 from email.utils import parsedate_to_datetime
 from html import unescape
@@ -20,10 +21,27 @@ from tenancy.services import for_island
 
 TAG_RE = re.compile(r'<[^>]+>')
 SUMMARY_MAX_LEN = 2000
+USER_AGENT = 'SaoMiguelBusBot/1.0 (+https://saomiguelbus.com)'
 
 
 def _strip_html(value: str) -> str:
     return unescape(TAG_RE.sub('', value or '')).strip()
+
+
+def _fold(text: str) -> str:
+    normalized = unicodedata.normalize('NFKD', text or '')
+    stripped = ''.join(ch for ch in normalized if not unicodedata.combining(ch))
+    return stripped.lower()
+
+
+def _matches_terms(folded_text: str, terms: list[str] | None) -> bool:
+    if not terms:
+        return False
+    for term in terms:
+        folded_term = _fold(str(term))
+        if folded_term and folded_term in folded_text:
+            return True
+    return False
 
 
 def _entry_hash(source_id: int, link: str, title: str) -> str:
@@ -163,17 +181,40 @@ def _ingest_azores_digest_entry(source: NewsSource, entry: dict[str, Any]) -> tu
     return created, skipped
 
 
+def _ingest_national_filtered_entry(source: NewsSource, entry: dict[str, Any]) -> tuple[int, int]:
+    link = str(entry.get('link', '')).strip()
+    title = _strip_html(str(entry.get('title', '')).strip())
+    if not link or not title:
+        return 0, 1
+
+    summary_raw = entry.get('summary') or entry.get('description') or ''
+    summary = _strip_html(str(summary_raw))
+    haystack = _fold(f'{title} {summary}')
+    if not _matches_terms(haystack, source.filter_terms):
+        return 0, 1
+
+    return _ingest_generic_entry(source, entry)
+
+
 def poll_source(source: NewsSource) -> tuple[int, int]:
     """Fetch RSS for one source. Returns (created, skipped)."""
-    parsed = feedparser.parse(source.rss_url)
+    parsed = feedparser.parse(source.rss_url, agent=USER_AGENT)
     created = 0
     skipped = 0
+    cap = source.max_items_per_poll
 
     for entry in parsed.entries:
+        if cap > 0 and created >= cap:
+            skipped += 1
+            continue
+
         if source.kind == NewsSourceKind.AZORES_DIGEST:
             entry_created, entry_skipped = _ingest_azores_digest_entry(source, entry)
+        elif source.kind == NewsSourceKind.NATIONAL_FILTERED:
+            entry_created, entry_skipped = _ingest_national_filtered_entry(source, entry)
         else:
             entry_created, entry_skipped = _ingest_generic_entry(source, entry)
+
         created += entry_created
         skipped += entry_skipped
 

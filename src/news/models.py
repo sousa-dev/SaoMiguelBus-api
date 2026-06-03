@@ -10,6 +10,7 @@ from tenancy.models import TenantScopedModel
 class NewsSourceKind(models.TextChoices):
     GENERIC = 'generic', 'Generic RSS'
     AZORES_DIGEST = 'azores_digest', 'Açores.net daily digest'
+    NATIONAL_FILTERED = 'national_filtered', 'National RSS, Azores-filtered'
 
 
 class NewsSource(TenantScopedModel):
@@ -23,6 +24,8 @@ class NewsSource(TenantScopedModel):
         default=NewsSourceKind.GENERIC,
     )
     default_category = models.CharField(max_length=64, blank=True, default='')
+    filter_terms = models.JSONField(default=list, blank=True)
+    max_items_per_poll = models.PositiveIntegerField(default=0)
 
     class Meta:
         ordering = ['name']

@@ -7,9 +7,46 @@ from django.test import TestCase
 from rest_framework.test import APIClient
 
 from news.models import NewsArticle, NewsSource, NewsSourceKind
-from news.services import poll_source
+from news.services import USER_AGENT, poll_source
 from news.tests.test_azores_adapter import ALRA_FIXTURE, JORAA_FIXTURE
 from tenancy.services import get_or_create_default_island
+
+AZORES_FILTER_TERMS = [
+    'acores',
+    'sao miguel',
+    'santa maria',
+    'terceira',
+    'graciosa',
+    'sao jorge',
+    'pico',
+    'faial',
+    'flores',
+    'corvo',
+    'ponta delgada',
+    'ribeira grande',
+    'lagoa',
+    'vila franca do campo',
+    'nordeste',
+    'povoacao',
+    'angra do heroismo',
+    'praia da vitoria',
+    'horta',
+    'velas',
+    'madalena',
+    'lajes',
+    'santa cruz',
+]
+
+
+def _entry(title: str, link: str, summary: str = '', **extra) -> dict:
+    base = {
+        'title': title,
+        'link': link,
+        'summary': summary,
+        'published_parsed': (2026, 6, 3, 12, 0, 0, 0, 0, 0),
+    }
+    base.update(extra)
+    return base
 
 
 class NewsServicesTestCase(TestCase):
@@ -176,6 +213,128 @@ class NewsServicesTestCase(TestCase):
         created, _ = poll_source(joraa)
         self.assertEqual(created, 2)
         self.assertTrue(all(a.category == 'pagamentos' for a in NewsArticle.objects.filter(source=joraa)))
+
+    def _national_source(self, **kwargs) -> NewsSource:
+        defaults = {
+            'island': self.island,
+            'name': 'National filtered',
+            'rss_url': 'https://example.com/national.xml',
+            'language': 'pt',
+            'kind': NewsSourceKind.NATIONAL_FILTERED,
+            'filter_terms': AZORES_FILTER_TERMS,
+            'max_items_per_poll': 0,
+            'active': True,
+        }
+        defaults.update(kwargs)
+        return NewsSource.objects.create(**defaults)
+
+    @patch('news.services.feedparser.parse')
+    def test_poll_source_passes_user_agent(self, mock_parse):
+        mock_parse.return_value = MagicMock(entries=[])
+        poll_source(self.source)
+        mock_parse.assert_called_once_with(self.source.rss_url, agent=USER_AGENT)
+
+    @patch('news.services.feedparser.parse')
+    def test_national_filtered_creates_azores_skips_mainland(self, mock_parse):
+        source = self._national_source()
+        mock_parse.return_value = MagicMock(
+            entries=[
+                _entry('Governo em Lisboa', 'https://example.com/lisboa'),
+                _entry('Erupção em São Jorge', 'https://example.com/sao-jorge'),
+            ],
+        )
+        created, skipped = poll_source(source)
+        self.assertEqual(created, 1)
+        self.assertEqual(skipped, 1)
+        article = NewsArticle.objects.get()
+        self.assertEqual(article.title, 'Erupção em São Jorge')
+
+    @patch('news.services.feedparser.parse')
+    def test_national_filtered_accent_and_case_insensitive(self, mock_parse):
+        source = self._national_source(filter_terms=['acores', 'sao miguel'])
+        mock_parse.return_value = MagicMock(
+            entries=[
+                _entry('AÇORES em destaque', 'https://example.com/a1'),
+                _entry('Tempestade', 'https://example.com/a2', summary='na ilha de açores'),
+                _entry('Alerta', 'https://example.com/a3', summary='São Miguel amanhã'),
+            ],
+        )
+        created, skipped = poll_source(source)
+        self.assertEqual(created, 3)
+        self.assertEqual(skipped, 0)
+
+    @patch('news.services.feedparser.parse')
+    def test_national_filtered_match_in_summary_only(self, mock_parse):
+        source = self._national_source(filter_terms=['ponta delgada'])
+        mock_parse.return_value = MagicMock(
+            entries=[
+                _entry('Câmara municipal', 'https://example.com/pd', summary='reunião em Ponta Delgada'),
+            ],
+        )
+        created, skipped = poll_source(source)
+        self.assertEqual(created, 1)
+        self.assertEqual(skipped, 0)
+
+    @patch('news.services.feedparser.parse')
+    def test_national_filtered_cap_limits_created(self, mock_parse):
+        source = self._national_source(max_items_per_poll=2)
+        mock_parse.return_value = MagicMock(
+            entries=[
+                _entry('Notícia Açores 1', 'https://example.com/a1', summary='Açores'),
+                _entry('Notícia Açores 2', 'https://example.com/a2', summary='São Miguel'),
+                _entry('Notícia Açores 3', 'https://example.com/a3', summary='Terceira'),
+                _entry('Notícia Açores 4', 'https://example.com/a4', summary='Faial'),
+                _entry('Notícia Açores 5', 'https://example.com/a5', summary='Pico'),
+            ],
+        )
+        created, skipped = poll_source(source)
+        self.assertEqual(created, 2)
+        self.assertEqual(skipped, 3)
+
+    @patch('news.services.feedparser.parse')
+    def test_generic_source_unlimited_when_cap_zero(self, mock_parse):
+        mock_parse.return_value = MagicMock(
+            entries=[
+                _entry('One', 'https://example.com/1'),
+                _entry('Two', 'https://example.com/2'),
+                _entry('Three', 'https://example.com/3'),
+            ],
+        )
+        created, skipped = poll_source(self.source)
+        self.assertEqual(created, 3)
+        self.assertEqual(skipped, 0)
+
+    @patch('news.services.feedparser.parse')
+    def test_national_filtered_empty_terms_skips_all(self, mock_parse):
+        source = self._national_source(filter_terms=[])
+        mock_parse.return_value = MagicMock(
+            entries=[_entry('Açores', 'https://example.com/acores', summary='Açores')],
+        )
+        created, skipped = poll_source(source)
+        self.assertEqual(created, 0)
+        self.assertEqual(skipped, 1)
+
+    @patch('news.services.feedparser.parse')
+    def test_national_filtered_mixed_feed_realistic(self, mock_parse):
+        source = self._national_source(max_items_per_poll=10)
+        mock_parse.return_value = MagicMock(
+            entries=[
+                _entry('Homem detido no Almada Fórum', 'https://example.com/1'),
+                _entry('Incêndio em Porto', 'https://example.com/2'),
+                _entry('Metro de Lisboa', 'https://example.com/3'),
+                _entry('Erupção em São Jorge preocupa autoridades', 'https://example.com/4'),
+                _entry(
+                    'Câmara de Ponta Delgada aprova orçamento',
+                    'https://example.com/5',
+                ),
+            ],
+        )
+        created, skipped = poll_source(source)
+        self.assertEqual(created, 2)
+        self.assertEqual(skipped, 3)
+        titles = set(NewsArticle.objects.values_list('title', flat=True))
+        self.assertIn('Erupção em São Jorge preocupa autoridades', titles)
+        self.assertIn('Câmara de Ponta Delgada aprova orçamento', titles)
 
 
 class NewsAPITestCase(TestCase):
