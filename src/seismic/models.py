@@ -15,6 +15,10 @@ class SeismicEvent(TenantScopedModel):
     longitude = models.FloatField()
     occurred_at = models.DateTimeField(db_index=True)
     region = models.CharField(max_length=200, blank=True, default='')
+    nearest_island_key = models.CharField(max_length=32, null=True, blank=True)
+    nearest_island_name = models.CharField(max_length=64, null=True, blank=True)
+    nearest_island_distance_km = models.FloatField(null=True, blank=True)
+    nearest_island_bearing = models.CharField(max_length=4, null=True, blank=True)
 
     class Meta:
         ordering = ['-occurred_at']

@@ -6,7 +6,12 @@ from unittest.mock import MagicMock, patch
 from django.test import TestCase
 
 from seismic.models import FeltReport, SeismicEvent
-from seismic.services import _parse_feature, submit_felt_report, sync_events_for_island
+from seismic.services import (
+    _parse_feature,
+    serialize_event,
+    submit_felt_report,
+    sync_events_for_island,
+)
 from tenancy.services import for_island
 from tenancy.services import get_or_create_default_island
 
@@ -56,6 +61,46 @@ class SeismicServicesTestCase(TestCase):
         self.assertEqual(row['emsc_id'], '20260601_0000001')
         self.assertEqual(row['magnitude'], 3.4)
         self.assertEqual(row['region'], 'AZORES REGION')
+        self.assertEqual(row['nearest_island_key'], 'sao-miguel')
+        self.assertEqual(row['nearest_island_name'], 'São Miguel')
+        self.assertIsNotNone(row['nearest_island_distance_km'])
+        self.assertLess(row['nearest_island_distance_km'], 5.0)
+        self.assertIn(row['nearest_island_bearing'], ('N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW'))
+
+    def test_serialize_event_includes_nearest_island(self):
+        with for_island(self.island):
+            event = SeismicEvent.objects.create(
+                island=self.island,
+                emsc_id='serialize_nearest',
+                magnitude=3.4,
+                latitude=37.8,
+                longitude=-25.5,
+                occurred_at=datetime(2026, 6, 1, 10, 0, tzinfo=dt_timezone.utc),
+                region='AZORES REGION',
+                nearest_island_key='sao-miguel',
+                nearest_island_name='São Miguel',
+                nearest_island_distance_km=2.3,
+                nearest_island_bearing='NE',
+            )
+            payload = serialize_event(event, include_felt=False)
+        self.assertEqual(payload['nearestIsland']['key'], 'sao-miguel')
+        self.assertEqual(payload['nearestIsland']['name'], 'São Miguel')
+        self.assertEqual(payload['nearestIsland']['distanceKm'], 2.3)
+        self.assertEqual(payload['nearestIsland']['bearing'], 'NE')
+        self.assertEqual(payload['region'], 'AZORES REGION')
+
+    def test_serialize_event_nearest_island_null_without_fields(self):
+        with for_island(self.island):
+            event = SeismicEvent.objects.create(
+                island=self.island,
+                emsc_id='serialize_no_nearest',
+                magnitude=2.0,
+                latitude=37.7,
+                longitude=-25.4,
+                occurred_at=datetime(2026, 6, 1, 11, 0, tzinfo=dt_timezone.utc),
+            )
+            payload = serialize_event(event, include_felt=False)
+        self.assertIsNone(payload['nearestIsland'])
 
     @patch('seismic.services.requests.get')
     def test_sync_events_upserts_without_duplicates(self, mock_get):

@@ -11,6 +11,7 @@ from django.db.models import Count
 from django.utils import timezone
 from django.utils.dateparse import parse_datetime
 
+from seismic.data import compute_nearest_fields
 from seismic.models import FeltReport, SeismicEvent
 from tenancy.models import Island
 from tenancy.services import for_island
@@ -74,7 +75,7 @@ def _parse_feature(feature: dict[str, Any]) -> dict[str, Any] | None:
     region = str(props.get('flynn_region') or props.get('place') or '').strip()[:200]
     occurred_at = _parse_occurred_at(props.get('time'))
 
-    return {
+    row = {
         'emsc_id': emsc_id,
         'magnitude': magnitude,
         'depth_km': depth_km,
@@ -83,6 +84,8 @@ def _parse_feature(feature: dict[str, Any]) -> dict[str, Any] | None:
         'occurred_at': occurred_at,
         'region': region,
     }
+    row.update(compute_nearest_fields(latitude, longitude))
+    return row
 
 
 def build_fdsn_params(island: Island) -> dict[str, str]:
@@ -144,6 +147,10 @@ def sync_events_for_island(island: Island) -> dict[str, int]:
                     'longitude': row['longitude'],
                     'occurred_at': row['occurred_at'],
                     'region': row['region'],
+                    'nearest_island_key': row['nearest_island_key'],
+                    'nearest_island_name': row['nearest_island_name'],
+                    'nearest_island_distance_km': row['nearest_island_distance_km'],
+                    'nearest_island_bearing': row['nearest_island_bearing'],
                 },
             )
             if created:
@@ -191,6 +198,17 @@ def _felt_summary(event: SeismicEvent) -> dict[str, int]:
     return {str(row['intensity']): row['count'] for row in rows}
 
 
+def _serialize_nearest_island(event: SeismicEvent) -> dict[str, Any] | None:
+    if event.nearest_island_key is None or event.nearest_island_distance_km is None:
+        return None
+    return {
+        'key': event.nearest_island_key,
+        'name': event.nearest_island_name or '',
+        'distanceKm': round(event.nearest_island_distance_km, 1),
+        'bearing': event.nearest_island_bearing or '',
+    }
+
+
 def serialize_event(event: SeismicEvent, *, include_felt: bool = True) -> dict[str, Any]:
     payload: dict[str, Any] = {
         'id': event.id,
@@ -201,6 +219,7 @@ def serialize_event(event: SeismicEvent, *, include_felt: bool = True) -> dict[s
         'longitude': event.longitude,
         'occurredAt': event.occurred_at.isoformat(),
         'region': event.region,
+        'nearestIsland': _serialize_nearest_island(event),
     }
     if include_felt:
         felt_yes, felt_no = _felt_counts(event)
