@@ -992,12 +992,20 @@ def run_full_import(
     if legacy is None:
         legacy = open_legacy_source(legacy_db_url=legacy_db_url, export_file=export_file)
 
-    for step in order:
-        if on_step_start:
-            on_step_start(step)
-        report = MIGRATION_STEPS[step](island, legacy)
-        write_report(report)
-        reports.append(report)
-        if on_step_complete:
-            on_step_complete(report)
+    # Imported lazily to avoid a circular import (offline_bundle → v3 → search → legacy_import).
+    from transit.services.offline_bundle import bump_data_revision, suppress_revision_bumps
+
+    with suppress_revision_bumps():
+        for step in order:
+            if on_step_start:
+                on_step_start(step)
+            report = MIGRATION_STEPS[step](island, legacy)
+            write_report(report)
+            reports.append(report)
+            if on_step_complete:
+                on_step_complete(report)
+
+    # Single revision bump after a bulk import so offline clients detect new data
+    # without thousands of per-row writes during the import itself.
+    bump_data_revision(island.id)
     return reports
