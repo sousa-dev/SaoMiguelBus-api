@@ -993,7 +993,11 @@ def run_full_import(
         legacy = open_legacy_source(legacy_db_url=legacy_db_url, export_file=export_file)
 
     # Imported lazily to avoid a circular import (offline_bundle → v3 → search → legacy_import).
-    from transit.services.offline_bundle import bump_data_revision, suppress_revision_bumps
+    from transit.services.offline_bundle import (
+        bump_data_revision,
+        prewarm_offline_bundle,
+        suppress_revision_bumps,
+    )
 
     with suppress_revision_bumps():
         for step in order:
@@ -1006,6 +1010,9 @@ def run_full_import(
                 on_step_complete(report)
 
     # Single revision bump after a bulk import so offline clients detect new data
-    # without thousands of per-row writes during the import itself.
+    # without thousands of per-row writes during the import itself, then warm the
+    # bundle cache so the first client download does not pay the rebuild cost.
     bump_data_revision(island.id)
+    island.refresh_from_db()
+    prewarm_offline_bundle(island)
     return reports

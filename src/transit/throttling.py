@@ -5,10 +5,8 @@ from __future__ import annotations
 from rest_framework.throttling import SimpleRateThrottle
 
 
-class DirectionsSessionThrottle(SimpleRateThrottle):
-    """Rate-limit directions by pseudonymous session (falls back to client IP)."""
-
-    scope = 'directions'
+class _SessionScopedThrottle(SimpleRateThrottle):
+    """Rate-limit by pseudonymous session (falls back to client IP), scoped per island."""
 
     def get_cache_key(self, request, view):
         session_id = (
@@ -19,3 +17,13 @@ class DirectionsSessionThrottle(SimpleRateThrottle):
         island_key = island.key if island else 'unknown'
         ident = session_id or self.get_ident(request)
         return self.cache_format % {'scope': self.scope, 'ident': f'{island_key}:{ident}'}
+
+
+class DirectionsSessionThrottle(_SessionScopedThrottle):
+    scope = 'directions'
+
+
+class OfflineBundleThrottle(_SessionScopedThrottle):
+    """Rate-limit offline-bundle downloads (large payload) per session/IP."""
+
+    scope = 'offline-bundle'

@@ -11,16 +11,22 @@ from __future__ import annotations
 import contextlib
 import contextvars
 import hashlib
+import time as _time
 
+from django.core.cache import cache
 from django.db import transaction
 from django.utils import timezone
 
 from tenancy.models import Island
+from tenancy.services import for_island
 from transit.models import Holiday, Stop, Trip
 from transit.services.compat import _serialize_active_infos, _trip_to_load_route
 from transit.services.v3 import serialize_stops_v3
 
 _REVISION_FLAG = 'data_revision'
+
+_BUNDLE_CACHE_TTL = 24 * 3600
+_BUNDLE_LOCK_TTL = 30
 
 # Set during bulk imports so per-row writes do not each trigger a revision bump;
 # callers issue a single bump after the import completes.
@@ -109,3 +115,48 @@ def build_offline_bundle(island: Island) -> dict:
         'infos': _serialize_active_infos(),
         'routes': routes,
     }
+
+
+def _bundle_cache_key(island_key: str, version: str) -> str:
+    return f'transit:offline:bundle:{island_key}:{version}'
+
+
+def get_offline_bundle_cached(island: Island) -> dict:
+    """Return the offline bundle, served from Redis when warm.
+
+    Keyed by version: a data change produces a new version (cache miss → rebuild)
+    while stale entries expire naturally. A single-flight lock prevents a rebuild
+    stampede when many clients request a cold version at once.
+    """
+    with for_island(island):
+        version = compute_bundle_version(island)
+        cache_key = _bundle_cache_key(island.key, version)
+        cached = cache.get(cache_key)
+        if cached is not None:
+            return cached
+
+        lock_key = f'transit:offline:lock:{island.key}'
+        if cache.add(lock_key, '1', _BUNDLE_LOCK_TTL):
+            try:
+                bundle = build_offline_bundle(island)
+                cache.set(cache_key, bundle, _BUNDLE_CACHE_TTL)
+                return bundle
+            finally:
+                cache.delete(lock_key)
+
+        # Another worker is building; briefly wait for it to populate the cache.
+        for _ in range(30):
+            _time.sleep(0.1)
+            cached = cache.get(cache_key)
+            if cached is not None:
+                return cached
+        # Fallback: build without caching rather than block the client.
+        return build_offline_bundle(island)
+
+
+def prewarm_offline_bundle(island: Island) -> None:
+    """Best-effort cache warmup (e.g. after a bulk import)."""
+    try:
+        get_offline_bundle_cached(island)
+    except Exception:  # pragma: no cover - warmup must never break the caller
+        pass

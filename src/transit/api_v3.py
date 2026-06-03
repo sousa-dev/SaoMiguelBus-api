@@ -11,6 +11,7 @@ from rest_framework.response import Response
 from tenancy.services import for_island
 from transit.models import Trip
 from transit.services.directions_v3 import get_directions_v3
+from transit.services.offline_bundle import compute_bundle_version, get_offline_bundle_cached
 from transit.services.v3 import (
     get_line_v3,
     get_trip_v3,
@@ -18,7 +19,7 @@ from transit.services.v3 import (
     serialize_stops_v3,
     serialize_trip_detail,
 )
-from transit.throttling import DirectionsSessionThrottle
+from transit.throttling import DirectionsSessionThrottle, OfflineBundleThrottle
 
 
 def _require_island(request: Request) -> Response | None:
@@ -41,6 +42,47 @@ def transit_stops_view(request: Request) -> Response:
 
         stops = Stop.objects.all().order_by('name')
         return Response({'stops': serialize_stops_v3(stops)})
+
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def transit_offline_version_view(request: Request) -> Response:
+    """Lightweight staleness probe — client polls this before downloading."""
+    err = _require_island(request)
+    if err:
+        return err
+    with for_island(request.island):
+        version = compute_bundle_version(request.island)
+    return Response({'version': version, 'island': request.island.key})
+
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
+@throttle_classes([OfflineBundleThrottle])
+def transit_offline_bundle_view(request: Request) -> Response:
+    """Self-contained transit dataset for offline route search.
+
+    Supports conditional GET via ETag (secondary to the /version poll): a client
+    that sends a matching If-None-Match gets 304 without the payload.
+    """
+    err = _require_island(request)
+    if err:
+        return err
+
+    with for_island(request.island):
+        version = compute_bundle_version(request.island)
+        if_none_match = request.headers.get('If-None-Match', '').strip().strip('"')
+        if if_none_match and if_none_match == version:
+            not_modified = Response(status=status.HTTP_304_NOT_MODIFIED)
+            not_modified['ETag'] = f'"{version}"'
+            return not_modified
+
+        bundle = get_offline_bundle_cached(request.island)
+
+    response = Response(bundle)
+    response['ETag'] = f'"{bundle["version"]}"'
+    response['Cache-Control'] = 'no-cache'
+    return response
 
 
 @api_view(['GET'])
