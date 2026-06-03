@@ -114,6 +114,17 @@ class VisitAzoresSyncTestCase(TestCase):
             payload = fetch_pt_translation(86)
         self.assertIn('Descrição portuguesa', payload['description_pt'])
 
+    def test_parse_trail_detail_page_strips_missing_translation_placeholder(self):
+        html = SAMPLE_DETAIL_HTML.replace(
+            'English trail description here.',
+            'No site não aparece o texto em ingles.',
+        )
+        with patch('trails.visitazores_sync.fetch_pt_translation', return_value={'description_pt': 'Descrição real.'}):
+            row = parse_trail_detail_page(html, page_url='https://example.test/trail')
+        assert row is not None
+        self.assertEqual(row['description_en'], '')
+        self.assertEqual(row['description_pt'], 'Descrição real.')
+
     @patch('trails.visitazores_sync.fetch_island_trail_paths', return_value=['/en/trails-azores/sao-miguel/test'])
     @patch('trails.visitazores_sync._get_html', return_value=SAMPLE_DETAIL_HTML)
     @patch('trails.visitazores_sync._download_gpx_text', return_value=SAMPLE_GPX)

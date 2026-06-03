@@ -221,6 +221,32 @@ def _parse_node_id(html: str) -> int | None:
     return None
 
 
+_MISSING_TRANSLATION_PATTERNS = (
+    re.compile(r'no\s+site\s+n[aã]o\s+aparece', re.IGNORECASE),
+    re.compile(r'texto\s+em\s+ingl[eê]s', re.IGNORECASE),
+    re.compile(r'texto\s+em\s+portugu[eê]s', re.IGNORECASE),
+    re.compile(r'english\s+text\s+(is\s+)?not\s+available', re.IGNORECASE),
+    re.compile(r'text\s+is\s+not\s+available\s+in\s+english', re.IGNORECASE),
+    re.compile(r'n[aã]o\s+est[aá]\s+dispon[ií]vel\s+em\s+ingl[eê]s', re.IGNORECASE),
+)
+
+
+def _is_missing_translation_placeholder(text: str) -> bool:
+    normalized = text.strip()
+    if not normalized:
+        return True
+    if len(normalized) > 280:
+        return False
+    return any(pattern.search(normalized) for pattern in _MISSING_TRANSLATION_PATTERNS)
+
+
+def _sanitize_description(text: str) -> str:
+    cleaned = text.strip()
+    if _is_missing_translation_placeholder(cleaned):
+        return ''
+    return cleaned
+
+
 def _parse_description(html: str) -> str:
     match = re.search(
         r'field-name-body[^>]*>.*?property="content:encoded"[^>]*>(.*?)</div>',
@@ -230,7 +256,7 @@ def _parse_description(html: str) -> str:
     if not match:
         return ''
     text = re.sub(r'<[^>]+>', ' ', match.group(1))
-    return re.sub(r'\s+', ' ', text).strip()
+    return _sanitize_description(re.sub(r'\s+', ' ', text).strip())
 
 
 def _gpx_url(html: str) -> str:
