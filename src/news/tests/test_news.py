@@ -24,7 +24,6 @@ AZORES_FILTER_TERMS = [
     'corvo',
     'ponta delgada',
     'ribeira grande',
-    'lagoa',
     'vila franca do campo',
     'nordeste',
     'povoacao',
