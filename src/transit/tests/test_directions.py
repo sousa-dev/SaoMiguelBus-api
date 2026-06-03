@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from unittest.mock import patch
 
+from django.core.cache import cache
 from django.test import TestCase, override_settings
 
 from tenancy.services import get_or_create_default_island
@@ -13,6 +14,7 @@ from transit.services.directions_v3 import fetch_gmaps_directions, get_direction
 
 class DirectionsServiceTests(TestCase):
     def setUp(self):
+        cache.clear()
         self.island = get_or_create_default_island()
         self.island.feature_flags = {**(self.island.feature_flags or {}), 'maps': True}
         self.island.save(update_fields=['feature_flags'])
