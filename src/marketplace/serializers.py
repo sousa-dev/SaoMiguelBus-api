@@ -17,6 +17,9 @@ class ProviderWriteSerializer(serializers.Serializer):
     phone = serializers.CharField(max_length=32, required=False, allow_blank=True)
     whatsapp = serializers.CharField(max_length=32, required=False, allow_blank=True)
     email = serializers.EmailField(required=False, allow_blank=True)
+    claimed_owner = serializers.BooleanField(required=False, default=False)
+    internal_email = serializers.EmailField(required=False, allow_blank=True)
+    internal_phone = serializers.CharField(max_length=32, required=False, allow_blank=True)
     latitude = serializers.FloatField(required=False, allow_null=True)
     longitude = serializers.FloatField(required=False, allow_null=True)
 

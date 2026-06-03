@@ -27,9 +27,19 @@ class ServiceCategoryAdmin(admin.ModelAdmin):
 
 @admin.register(ServiceProvider)
 class ServiceProviderAdmin(admin.ModelAdmin):
-    list_display = ('name', 'category', 'status', 'is_promoted', 'rating', 'review_count', 'island')
-    list_filter = ('island', 'status', 'is_promoted', 'category')
-    search_fields = ('name', 'bio', 'phone', 'email')
+    list_display = (
+        'name',
+        'category',
+        'status',
+        'claimed_owner',
+        'verified_by_owner',
+        'is_promoted',
+        'rating',
+        'review_count',
+        'island',
+    )
+    list_filter = ('island', 'status', 'claimed_owner', 'verified_by_owner', 'is_promoted', 'category')
+    search_fields = ('name', 'bio', 'phone', 'email', 'internal_email', 'internal_phone')
     actions = [_publish, _reject]
 
 

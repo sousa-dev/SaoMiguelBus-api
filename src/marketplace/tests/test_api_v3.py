@@ -214,6 +214,56 @@ class MarketplaceAPITests(TestCase):
         self.assertEqual(resp.status_code, 201)
         self.assertIsNone(resp.json().get('hourlyRate'))
 
+    def test_create_claimed_owner_with_internal_email(self):
+        resp = self._create_provider(
+            claimed_owner=True,
+            internal_email='owner@example.com',
+        )
+        self.assertEqual(resp.status_code, 201)
+        body = resp.json()
+        self.assertTrue(body['claimedOwner'])
+        self.assertEqual(body['internalEmail'], 'owner@example.com')
+        self.assertFalse(body['verifiedByOwner'])
+
+    def test_create_claimed_owner_requires_internal_contact(self):
+        resp = self._create_provider(claimed_owner=True)
+        self.assertEqual(resp.status_code, 400)
+        self.assertEqual(resp.json()['error']['code'], 'owner_contact_required')
+
+    def test_create_claimed_owner_false_omits_internal_fields(self):
+        resp = self._create_provider(claimed_owner=False)
+        self.assertEqual(resp.status_code, 201)
+        body = resp.json()
+        self.assertFalse(body['claimedOwner'])
+        self.assertEqual(body.get('internalEmail', ''), '')
+        self.assertFalse(body['verifiedByOwner'])
+
+    def test_public_list_omits_owner_private_fields(self):
+        pid = self._create_provider(
+            claimed_owner=True,
+            internal_email='secret@example.com',
+        ).json()['id']
+        self._publish(pid)
+        listed = self.client.get('/api/v3/marketplace/providers', **SM).json()['providers'][0]
+        self.assertNotIn('claimedOwner', listed)
+        self.assertNotIn('internalEmail', listed)
+        self.assertNotIn('verifiedByOwner', listed)
+
+    def test_patch_owner_updates_internal_phone(self):
+        resp = self._create_provider(session='owner', claimed_owner=True, internal_phone='+351911111111')
+        pid = resp.json()['id']
+        patch = self.client.patch(
+            f'/api/v3/marketplace/providers/{pid}',
+            {
+                'session_id': 'owner',
+                'internal_phone': '+351922222222',
+            },
+            format='json',
+            **SM,
+        )
+        self.assertEqual(patch.status_code, 200)
+        self.assertEqual(patch.json()['internalPhone'], '+351922222222')
+
     # --- ownership ----------------------------------------------------------
 
     def test_patch_non_owner_forbidden(self):

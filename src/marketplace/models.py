@@ -75,6 +75,26 @@ class ServiceProvider(TenantScopedModel, ModeratedModel):
     phone = models.CharField(max_length=32, blank=True, default='')
     whatsapp = models.CharField(max_length=32, blank=True, default='')
     email = models.EmailField(blank=True, default='')
+    claimed_owner = models.BooleanField(
+        default=False,
+        help_text='Submitter declared they are the business owner.',
+    )
+    internal_email = models.EmailField(
+        blank=True,
+        default='',
+        help_text='Owner contact for SMB Hub staff only; not shown on public listings.',
+    )
+    internal_phone = models.CharField(
+        max_length=32,
+        blank=True,
+        default='',
+        help_text='Owner contact for SMB Hub staff only; not shown on public listings.',
+    )
+    verified_by_owner = models.BooleanField(
+        default=False,
+        db_index=True,
+        help_text='Staff-confirmed business ownership; set only in Django admin.',
+    )
     latitude = models.FloatField(null=True, blank=True)
     longitude = models.FloatField(null=True, blank=True)
     is_promoted = models.BooleanField(default=False)

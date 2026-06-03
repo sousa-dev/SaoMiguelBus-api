@@ -78,6 +78,10 @@ def serialize_provider(provider: ServiceProvider, *, include_private: bool = Fal
     }
     if include_private:
         payload['status'] = provider.status
+        payload['claimedOwner'] = provider.claimed_owner
+        payload['internalEmail'] = provider.internal_email
+        payload['internalPhone'] = provider.internal_phone
+        payload['verifiedByOwner'] = provider.verified_by_owner
     return payload
 
 
@@ -227,7 +231,17 @@ def get_provider(
 # --------------------------------------------------------------------------- #
 
 _PROVIDER_WRITE_FIELDS = (
-    'name', 'bio', 'hourly_rate', 'phone', 'whatsapp', 'email', 'latitude', 'longitude',
+    'name',
+    'bio',
+    'hourly_rate',
+    'phone',
+    'whatsapp',
+    'email',
+    'claimed_owner',
+    'internal_email',
+    'internal_phone',
+    'latitude',
+    'longitude',
 )
 
 

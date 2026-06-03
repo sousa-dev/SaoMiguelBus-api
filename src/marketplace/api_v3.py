@@ -52,19 +52,31 @@ def _write_data(validated: dict) -> dict:
     return {k: v for k, v in validated.items() if k != 'session_id'}
 
 
-def _validate_provider_create(data: dict) -> Response | None:
-    bio = (data.get('bio') or '').strip()
-    if not bio:
-        return _error('bio_required', 'bio is required', status.HTTP_400_BAD_REQUEST)
-    phone = (data.get('phone') or '').strip()
-    whatsapp = (data.get('whatsapp') or '').strip()
-    email = (data.get('email') or '').strip()
-    if not phone and not whatsapp and not email:
-        return _error(
-            'contact_required',
-            'At least one contact method is required',
-            status.HTTP_400_BAD_REQUEST,
-        )
+def _validate_provider_write(data: dict, *, require_bio: bool) -> Response | None:
+    if require_bio:
+        bio = (data.get('bio') or '').strip()
+        if not bio:
+            return _error('bio_required', 'bio is required', status.HTTP_400_BAD_REQUEST)
+    check_contact = require_bio or any(k in data for k in ('phone', 'whatsapp', 'email'))
+    if check_contact:
+        phone = (data.get('phone') or '').strip()
+        whatsapp = (data.get('whatsapp') or '').strip()
+        email = (data.get('email') or '').strip()
+        if not phone and not whatsapp and not email:
+            return _error(
+                'contact_required',
+                'At least one contact method is required',
+                status.HTTP_400_BAD_REQUEST,
+            )
+    if data.get('claimed_owner'):
+        internal_email = (data.get('internal_email') or '').strip()
+        internal_phone = (data.get('internal_phone') or '').strip()
+        if not internal_email and not internal_phone:
+            return _error(
+                'owner_contact_required',
+                'An owner contact is required when you are the business owner',
+                status.HTTP_400_BAD_REQUEST,
+            )
     return None
 
 
@@ -111,9 +123,9 @@ def providers_view(request: Request) -> Response:
     if not name:
         return _error('validation_error', 'name is required', status.HTTP_400_BAD_REQUEST)
 
-    create_err = _validate_provider_create(data)
-    if create_err:
-        return create_err
+    write_err = _validate_provider_write(data, require_bio=True)
+    if write_err:
+        return write_err
 
     session_hash = hash_session_id(session_id, request.island.key)
     with for_island(request.island):
@@ -168,6 +180,9 @@ def provider_detail_view(request: Request, provider_id: int) -> Response:
     serializer = ProviderWriteSerializer(data=request.data, partial=True)
     serializer.is_valid(raise_exception=True)
     data = serializer.validated_data
+    write_err = _validate_provider_write(data, require_bio=False)
+    if write_err:
+        return write_err
     write_session = data.get('session_id', '').strip() or _session_id(request)
     write_hash = _hash_or_empty(write_session, request)
     with for_island(request.island):
