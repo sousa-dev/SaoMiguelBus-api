@@ -30,6 +30,7 @@ class TrailsAPITestCase(TestCase):
             description_en='Alpha EN',
             description_pt='Alpha PT',
             gpx_url='https://example.test/a.gpx',
+            map_image_url='https://example.test/alpha-map.png',
             start_lat=37.78,
             start_lon=-25.50,
             waypoints=[{'name': 'Start', 'lat': 37.78, 'lng': -25.50}],
@@ -70,6 +71,15 @@ class TrailsAPITestCase(TestCase):
         self.assertEqual(trails[0]['name'], 'Alpha Trail')
         self.assertEqual(trails[1]['name'], 'Beta Trail')
         self.assertNotIn('geojson', trails[0])
+
+    def test_list_trails_includes_map_image_url(self):
+        response = self.client.get('/api/v3/trails/', **self.headers)
+        self.assertEqual(response.status_code, 200)
+        trails = response.json()['trails']
+        alpha = next(t for t in trails if t['id'] == self.trail_a.id)
+        beta = next(t for t in trails if t['id'] == self.trail_b.id)
+        self.assertEqual(alpha['mapImageUrl'], 'https://example.test/alpha-map.png')
+        self.assertEqual(beta['mapImageUrl'], '')
 
     def test_list_trails_difficulty_filter(self):
         response = self.client.get('/api/v3/trails/?difficulty=hard', **self.headers)

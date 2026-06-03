@@ -562,6 +562,7 @@ def serialize_trail_summary(trail: Trail) -> dict[str, Any]:
         'distanceKm': trail.distance_km,
         'shape': trail.shape,
         'durationMin': trail.duration_min,
+        'mapImageUrl': trail.map_image_url,
     }
 
 
