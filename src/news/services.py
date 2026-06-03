@@ -11,6 +11,8 @@ from html import unescape
 from typing import Any
 
 import feedparser
+from django.db.models import F, Window
+from django.db.models.functions import RowNumber
 from django.utils import timezone
 from django.utils.dateparse import parse_datetime
 
@@ -22,6 +24,7 @@ from tenancy.services import for_island
 TAG_RE = re.compile(r'<[^>]+>')
 SUMMARY_MAX_LEN = 2000
 USER_AGENT = 'SaoMiguelBusBot/1.0 (+https://saomiguelbus.com)'
+ARTICLES_PER_SOURCE_LIMIT = 25
 
 
 def _strip_html(value: str) -> str:
@@ -255,6 +258,22 @@ def serialize_article(article: NewsArticle) -> dict[str, Any]:
     }
 
 
+def _articles_queryset(
+    *,
+    category: str = '',
+    source_id: int | None = None,
+    query: str = '',
+):
+    qs = NewsArticle.objects.select_related('source')
+    if category:
+        qs = qs.filter(category__iexact=category)
+    if source_id:
+        qs = qs.filter(source_id=source_id)
+    if query:
+        qs = qs.filter(title__icontains=query)
+    return qs
+
+
 def list_articles(
     *,
     category: str = '',
@@ -262,15 +281,28 @@ def list_articles(
     query: str = '',
     limit: int = 50,
 ) -> list[dict[str, Any]]:
-    qs = NewsArticle.objects.select_related('source').order_by('-published_at')
-    if category:
-        qs = qs.filter(category__iexact=category)
+    per_source = ARTICLES_PER_SOURCE_LIMIT
+    qs = _articles_queryset(category=category, source_id=source_id, query=query)
+
     if source_id:
-        qs = qs.filter(source_id=source_id)
-    if query:
-        qs = qs.filter(title__icontains=query)
-    limit = max(1, min(limit, 100))
-    return [serialize_article(a) for a in qs[:limit]]
+        take = per_source
+        if limit > 0:
+            take = min(per_source, max(1, limit))
+        articles = list(qs.order_by('-published_at')[:take])
+    else:
+        articles = list(
+            qs.annotate(
+                source_rank=Window(
+                    expression=RowNumber(),
+                    partition_by=[F('source_id')],
+                    order_by=F('published_at').desc(),
+                ),
+            )
+            .filter(source_rank__lte=per_source)
+            .order_by('-published_at')
+        )
+
+    return [serialize_article(a) for a in articles]
 
 
 def get_article(article_id: int) -> dict[str, Any] | None:

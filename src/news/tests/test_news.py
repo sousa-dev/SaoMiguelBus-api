@@ -1,6 +1,6 @@
 """News RSS poll and v3 API tests."""
 
-from datetime import datetime, timezone as dt_timezone
+from datetime import datetime, timedelta, timezone as dt_timezone
 from unittest.mock import MagicMock, patch
 
 from django.test import TestCase
@@ -8,7 +8,7 @@ from rest_framework.test import APIClient
 
 from news.azores_filter_terms import AZORES_FILTER_TERMS
 from news.models import NewsArticle, NewsSource, NewsSourceKind
-from news.services import USER_AGENT, poll_source
+from news.services import ARTICLES_PER_SOURCE_LIMIT, USER_AGENT, list_articles, poll_source
 from news.tests.test_azores_adapter import ALRA_FIXTURE, JORAA_FIXTURE
 from tenancy.services import get_or_create_default_island
 
@@ -385,6 +385,37 @@ class NewsAPITestCase(TestCase):
         self.assertEqual(response.status_code, 200)
         articles = response.json()['articles']
         self.assertEqual(len(articles), 2)
+
+    def test_list_articles_caps_per_source_and_orders_by_date(self):
+        base = datetime(2026, 6, 3, 12, 0, tzinfo=dt_timezone.utc)
+        for index in range(ARTICLES_PER_SOURCE_LIMIT + 5):
+            NewsArticle.objects.create(
+                island=self.island,
+                source=self.alra_source,
+                title=f'ALRA old {index}',
+                summary='',
+                link=f'https://example.com/alra-{index}',
+                published_at=base - timedelta(hours=index),
+                category='noticias',
+                content_hash=f'hash-alra-cap-{index}',
+            )
+        NewsArticle.objects.create(
+            island=self.island,
+            source=self.joraa_source,
+            title='JORAA newest',
+            summary='',
+            link='https://example.com/joraa-new',
+            published_at=base + timedelta(hours=1),
+            category='pagamentos',
+            content_hash='hash-joraa-new',
+        )
+
+        articles = list_articles()
+        alra_count = sum(1 for a in articles if a['source']['id'] == self.alra_source.id)
+        self.assertEqual(alra_count, ARTICLES_PER_SOURCE_LIMIT)
+        self.assertEqual(articles[0]['title'], 'JORAA newest')
+        published = [a['publishedAt'] for a in articles]
+        self.assertEqual(published, sorted(published, reverse=True))
 
     def test_list_articles_filter_noticias(self):
         response = self.client.get('/api/v3/news/articles?category=noticias', **self.headers)
