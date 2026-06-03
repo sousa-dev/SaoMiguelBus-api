@@ -79,6 +79,7 @@ class TrailsAPITestCase(TestCase):
         alpha = next(t for t in trails if t['id'] == self.trail_a.id)
         beta = next(t for t in trails if t['id'] == self.trail_b.id)
         self.assertEqual(alpha['mapImageUrl'], 'https://example.test/alpha-map.png')
+        self.assertEqual(alpha['sourceRef'], 'trail-a')
         self.assertEqual(beta['mapImageUrl'], '')
 
     def test_list_trails_difficulty_filter(self):

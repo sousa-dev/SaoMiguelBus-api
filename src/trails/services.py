@@ -557,6 +557,7 @@ def nearest_stop(island: Island, lat: float | None, lng: float | None) -> dict[s
 def serialize_trail_summary(trail: Trail) -> dict[str, Any]:
     return {
         'id': trail.id,
+        'sourceRef': trail.source_ref,
         'name': trail.name,
         'difficulty': trail.difficulty,
         'distanceKm': trail.distance_km,
