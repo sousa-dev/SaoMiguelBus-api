@@ -52,6 +52,22 @@ def _write_data(validated: dict) -> dict:
     return {k: v for k, v in validated.items() if k != 'session_id'}
 
 
+def _validate_provider_create(data: dict) -> Response | None:
+    bio = (data.get('bio') or '').strip()
+    if not bio:
+        return _error('bio_required', 'bio is required', status.HTTP_400_BAD_REQUEST)
+    phone = (data.get('phone') or '').strip()
+    whatsapp = (data.get('whatsapp') or '').strip()
+    email = (data.get('email') or '').strip()
+    if not phone and not whatsapp and not email:
+        return _error(
+            'contact_required',
+            'At least one contact method is required',
+            status.HTTP_400_BAD_REQUEST,
+        )
+    return None
+
+
 @api_view(['GET'])
 @permission_classes([AllowAny])
 def categories_view(request: Request) -> Response:
@@ -92,16 +108,12 @@ def providers_view(request: Request) -> Response:
     if not session_id:
         return _error('session_required', 'session_id is required', status.HTTP_400_BAD_REQUEST)
     name = (data.get('name') or '').strip()
-    category_slug = (data.get('category_slug') or '').strip()
-    category_name = (data.get('category_name') or '').strip()
     if not name:
         return _error('validation_error', 'name is required', status.HTTP_400_BAD_REQUEST)
-    if not category_slug and not category_name:
-        return _error(
-            'validation_error',
-            'category_slug or category_name is required',
-            status.HTTP_400_BAD_REQUEST,
-        )
+
+    create_err = _validate_provider_create(data)
+    if create_err:
+        return create_err
 
     session_hash = hash_session_id(session_id, request.island.key)
     with for_island(request.island):

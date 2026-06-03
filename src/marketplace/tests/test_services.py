@@ -18,6 +18,9 @@ class MarketplaceServiceTests(TestCase):
         self.cat2 = ServiceCategory.objects.create(
             island=self.island, name='Plumbers', slug='plumbers'
         )
+        ServiceCategory.objects.create(
+            island=self.island, name='Other', slug='other'
+        )
 
     def _create(self, session='owner', **data):
         payload = {'category_slug': 'electricians', 'name': 'Joana Electrics'}
@@ -53,6 +56,14 @@ class MarketplaceServiceTests(TestCase):
         cat = ServiceCategory.objects.get(slug='dog-walking')
         self.assertTrue(cat.user_suggested)
         self.assertEqual(result['category']['slug'], 'dog-walking')
+
+    def test_create_without_category_defaults_to_other(self):
+        result = services.create_provider(
+            island=self.island,
+            session_hash='owner',
+            data={'name': 'Generic Service'},
+        )
+        self.assertEqual(result['category']['slug'], 'other')
 
     def test_create_reuses_existing_category_by_similar_name(self):
         services.create_provider(

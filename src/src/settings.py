@@ -49,6 +49,7 @@ apps = [
 import os
 from pathlib import Path
 from decouple import config
+from corsheaders.defaults import default_headers
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -80,6 +81,12 @@ GOOGLE_MAPS_API_KEY = config('GOOGLE_MAPS_API_KEY', default='dummy_key')
 
 # Public transit API — allow webapp/PWA cross-origin requests
 CORS_ALLOW_ALL_ORIGINS = config('CORS_ALLOW_ALL_ORIGINS', default=True, cast=bool)
+
+CORS_ALLOW_HEADERS = (
+    *default_headers,
+    'x-island',
+    'x-session-id',
+)
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [

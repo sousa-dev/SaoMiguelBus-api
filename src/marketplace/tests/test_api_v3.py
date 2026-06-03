@@ -22,6 +22,9 @@ class MarketplaceAPITests(TestCase):
         self.category = ServiceCategory.objects.create(
             island=self.island, name='Electricians', slug='electricians'
         )
+        ServiceCategory.objects.create(
+            island=self.island, name='Other', slug='other'
+        )
         self.staff = get_user_model().objects.create_user(
             username='staff', password='pw', is_staff=True
         )
@@ -29,7 +32,14 @@ class MarketplaceAPITests(TestCase):
     # --- helpers ------------------------------------------------------------
 
     def _create_provider(self, session='owner', name='Joana Electrics', **extra):
-        body = {'session_id': session, 'name': name, 'category_slug': 'electricians', **extra}
+        body = {
+            'session_id': session,
+            'name': name,
+            'category_slug': 'electricians',
+            'bio': 'Licensed electrician on São Miguel.',
+            'phone': '+351910000000',
+            **extra,
+        }
         return self.client.post('/api/v3/marketplace/providers', body, format='json', **SM)
 
     def _publish(self, provider_id):
@@ -90,7 +100,15 @@ class MarketplaceAPITests(TestCase):
     def test_create_unknown_category(self):
         resp = self.client.post(
             '/api/v3/marketplace/providers',
-            {'session_id': 's', 'name': 'X', 'category_slug': 'ghost'}, format='json', **SM,
+            {
+                'session_id': 's',
+                'name': 'X',
+                'category_slug': 'ghost',
+                'bio': 'Desc',
+                'phone': '123',
+            },
+            format='json',
+            **SM,
         )
         self.assertEqual(resp.status_code, 400)
         self.assertEqual(resp.json()['error']['code'], 'invalid_category')
@@ -102,6 +120,8 @@ class MarketplaceAPITests(TestCase):
                 'session_id': 'owner',
                 'name': 'Rex Walks',
                 'category_name': 'Dog Walking',
+                'bio': 'Daily dog walks in Ponta Delgada.',
+                'email': 'rex@example.com',
             },
             format='json',
             **SM,
@@ -131,12 +151,68 @@ class MarketplaceAPITests(TestCase):
     def test_create_rejects_invalid_category_name(self):
         resp = self.client.post(
             '/api/v3/marketplace/providers',
-            {'session_id': 's', 'name': 'X', 'category_name': '!!'},
+            {
+                'session_id': 's',
+                'name': 'X',
+                'category_name': '!!',
+                'bio': 'Desc',
+                'phone': '123',
+            },
             format='json',
             **SM,
         )
         self.assertEqual(resp.status_code, 400)
         self.assertEqual(resp.json()['error']['code'], 'invalid_category_name')
+
+    def test_create_without_category_defaults_to_other(self):
+        resp = self.client.post(
+            '/api/v3/marketplace/providers',
+            {
+                'session_id': 'owner',
+                'name': 'Generic Help',
+                'bio': 'Handyman services.',
+                'whatsapp': '+351910000001',
+            },
+            format='json',
+            **SM,
+        )
+        self.assertEqual(resp.status_code, 201)
+        self.assertEqual(resp.json()['category']['slug'], 'other')
+
+    def test_create_requires_bio(self):
+        resp = self.client.post(
+            '/api/v3/marketplace/providers',
+            {
+                'session_id': 's',
+                'name': 'X',
+                'category_slug': 'electricians',
+                'phone': '123',
+            },
+            format='json',
+            **SM,
+        )
+        self.assertEqual(resp.status_code, 400)
+        self.assertEqual(resp.json()['error']['code'], 'bio_required')
+
+    def test_create_requires_contact(self):
+        resp = self.client.post(
+            '/api/v3/marketplace/providers',
+            {
+                'session_id': 's',
+                'name': 'X',
+                'category_slug': 'electricians',
+                'bio': 'Some work.',
+            },
+            format='json',
+            **SM,
+        )
+        self.assertEqual(resp.status_code, 400)
+        self.assertEqual(resp.json()['error']['code'], 'contact_required')
+
+    def test_create_without_hourly_rate(self):
+        resp = self._create_provider(hourly_rate=None)
+        self.assertEqual(resp.status_code, 201)
+        self.assertIsNone(resp.json().get('hourlyRate'))
 
     # --- ownership ----------------------------------------------------------
 

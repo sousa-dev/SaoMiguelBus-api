@@ -146,7 +146,7 @@ def _resolve_category_from_write(*, island, data: dict[str, Any]) -> ServiceCate
         return _resolve_category(slug)
     if name:
         return get_or_create_category_by_name(island=island, name=name)
-    raise CategoryNotFound('')
+    return _resolve_category('other')
 
 
 # --------------------------------------------------------------------------- #
