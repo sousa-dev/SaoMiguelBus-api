@@ -5,8 +5,8 @@ from news.models import NewsArticle, NewsSource
 
 @admin.register(NewsSource)
 class NewsSourceAdmin(admin.ModelAdmin):
-    list_display = ('name', 'island', 'language', 'active', 'rss_url')
-    list_filter = ('active', 'language', 'island')
+    list_display = ('name', 'island', 'kind', 'default_category', 'language', 'active', 'rss_url')
+    list_filter = ('active', 'kind', 'language', 'island')
     search_fields = ('name', 'rss_url')
 
 

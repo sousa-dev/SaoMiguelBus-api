@@ -7,11 +7,22 @@ from django.db import models
 from tenancy.models import TenantScopedModel
 
 
+class NewsSourceKind(models.TextChoices):
+    GENERIC = 'generic', 'Generic RSS'
+    AZORES_DIGEST = 'azores_digest', 'Açores.net daily digest'
+
+
 class NewsSource(TenantScopedModel):
     name = models.CharField(max_length=120)
     rss_url = models.URLField(max_length=500)
     language = models.CharField(max_length=8, default='pt')
     active = models.BooleanField(default=True)
+    kind = models.CharField(
+        max_length=32,
+        choices=NewsSourceKind.choices,
+        default=NewsSourceKind.GENERIC,
+    )
+    default_category = models.CharField(max_length=64, blank=True, default='')
 
     class Meta:
         ordering = ['name']
@@ -32,7 +43,7 @@ class NewsArticle(TenantScopedModel):
 
     class Meta:
         ordering = ['-published_at']
-        unique_together = [('island', 'link')]
+        unique_together = [('island', 'content_hash')]
         indexes = [
             models.Index(fields=['island', '-published_at']),
             models.Index(fields=['island', 'category']),

@@ -13,11 +13,13 @@ import feedparser
 from django.utils import timezone
 from django.utils.dateparse import parse_datetime
 
-from news.models import NewsArticle, NewsSource
+from news.adapters.azores import parse_azores_digest
+from news.models import NewsArticle, NewsSource, NewsSourceKind
 from tenancy.models import Island
 from tenancy.services import for_island
 
 TAG_RE = re.compile(r'<[^>]+>')
+SUMMARY_MAX_LEN = 2000
 
 
 def _strip_html(value: str) -> str:
@@ -26,6 +28,11 @@ def _strip_html(value: str) -> str:
 
 def _entry_hash(source_id: int, link: str, title: str) -> str:
     payload = f'{source_id}:{link}:{title}'.encode()
+    return hashlib.sha256(payload).hexdigest()
+
+
+def _item_hash(source_id: int, link: str, summary: str) -> str:
+    payload = f'{source_id}:{link}:{summary}'.encode()
     return hashlib.sha256(payload).hexdigest()
 
 
@@ -60,6 +67,102 @@ def _entry_category(entry: dict[str, Any]) -> str:
     return ''
 
 
+def _format_item_summary(section: str, item_summary: str) -> str:
+    if section:
+        body = f'{section}\n\n{item_summary}'
+    else:
+        body = item_summary
+    return body[:SUMMARY_MAX_LEN]
+
+
+def _article_exists(island: Island, content_hash: str) -> bool:
+    return NewsArticle.objects.filter(island=island, content_hash=content_hash).exists()
+
+
+def _create_article(
+    *,
+    source: NewsSource,
+    title: str,
+    summary: str,
+    link: str,
+    published_at: datetime,
+    category: str,
+    content_hash: str,
+) -> bool:
+    if _article_exists(source.island, content_hash):
+        return False
+
+    NewsArticle.objects.create(
+        island=source.island,
+        source=source,
+        title=title,
+        summary=summary,
+        link=link,
+        published_at=published_at,
+        category=category,
+        content_hash=content_hash,
+    )
+    return True
+
+
+def _ingest_generic_entry(source: NewsSource, entry: dict[str, Any]) -> tuple[int, int]:
+    link = str(entry.get('link', '')).strip()
+    title = _strip_html(str(entry.get('title', '')).strip())
+    if not link or not title:
+        return 0, 1
+
+    summary_raw = entry.get('summary') or entry.get('description') or ''
+    summary = _strip_html(str(summary_raw))[:SUMMARY_MAX_LEN]
+    published_at = _parse_published(entry)
+    category = _entry_category(entry) or source.default_category
+    content_hash = _entry_hash(source.id, link, title)
+
+    if _create_article(
+        source=source,
+        title=title,
+        summary=summary,
+        link=link,
+        published_at=published_at,
+        category=category,
+        content_hash=content_hash,
+    ):
+        return 1, 0
+    return 0, 1
+
+
+def _ingest_azores_digest_entry(source: NewsSource, entry: dict[str, Any]) -> tuple[int, int]:
+    summary_raw = entry.get('summary') or entry.get('description') or ''
+    items = parse_azores_digest(str(summary_raw))
+    if not items:
+        return _ingest_generic_entry(source, entry)
+
+    published_at = _parse_published(entry)
+    created = 0
+    skipped = 0
+
+    for item in items:
+        title = item['title']
+        link = item['link']
+        item_summary = item['summary']
+        summary = _format_item_summary(item.get('section', ''), item_summary)
+        content_hash = _item_hash(source.id, link, item_summary)
+
+        if _create_article(
+            source=source,
+            title=title,
+            summary=summary,
+            link=link,
+            published_at=published_at,
+            category=source.default_category,
+            content_hash=content_hash,
+        ):
+            created += 1
+        else:
+            skipped += 1
+
+    return created, skipped
+
+
 def poll_source(source: NewsSource) -> tuple[int, int]:
     """Fetch RSS for one source. Returns (created, skipped)."""
     parsed = feedparser.parse(source.rss_url)
@@ -67,36 +170,12 @@ def poll_source(source: NewsSource) -> tuple[int, int]:
     skipped = 0
 
     for entry in parsed.entries:
-        link = str(entry.get('link', '')).strip()
-        title = _strip_html(str(entry.get('title', '')).strip())
-        if not link or not title:
-            skipped += 1
-            continue
-
-        summary_raw = entry.get('summary') or entry.get('description') or ''
-        summary = _strip_html(str(summary_raw))[:2000]
-        published_at = _parse_published(entry)
-        category = _entry_category(entry)
-        content_hash = _entry_hash(source.id, link, title)
-
-        if NewsArticle.objects.filter(island=source.island, link=link).exists():
-            skipped += 1
-            continue
-        if NewsArticle.objects.filter(island=source.island, content_hash=content_hash).exists():
-            skipped += 1
-            continue
-
-        NewsArticle.objects.create(
-            island=source.island,
-            source=source,
-            title=title,
-            summary=summary,
-            link=link,
-            published_at=published_at,
-            category=category,
-            content_hash=content_hash,
-        )
-        created += 1
+        if source.kind == NewsSourceKind.AZORES_DIGEST:
+            entry_created, entry_skipped = _ingest_azores_digest_entry(source, entry)
+        else:
+            entry_created, entry_skipped = _ingest_generic_entry(source, entry)
+        created += entry_created
+        skipped += entry_skipped
 
     return created, skipped
 

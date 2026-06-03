@@ -36,4 +36,5 @@ redis==5.2.1
 
 ## Feeds (news RSS)
 feedparser==6.0.11
+beautifulsoup4==4.12.3
 requests==2.32.3
