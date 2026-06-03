@@ -4,6 +4,13 @@ from __future__ import annotations
 
 from rest_framework import serializers
 
+MAX_SOCIAL_LINKS = 10
+
+
+class SocialLinkSerializer(serializers.Serializer):
+    label = serializers.CharField(max_length=40)
+    url = serializers.URLField(max_length=300)
+
 
 class ProviderWriteSerializer(serializers.Serializer):
     session_id = serializers.CharField(max_length=128)
@@ -17,6 +24,8 @@ class ProviderWriteSerializer(serializers.Serializer):
     phone = serializers.CharField(max_length=32, required=False, allow_blank=True)
     whatsapp = serializers.CharField(max_length=32, required=False, allow_blank=True)
     email = serializers.EmailField(required=False, allow_blank=True)
+    website = serializers.URLField(required=False, allow_blank=True, max_length=300)
+    socials = SocialLinkSerializer(many=True, required=False)
     claimed_owner = serializers.BooleanField(required=False, default=False)
     internal_email = serializers.EmailField(required=False, allow_blank=True)
     internal_phone = serializers.CharField(max_length=32, required=False, allow_blank=True)
@@ -34,6 +43,28 @@ class ProviderWriteSerializer(serializers.Serializer):
             attrs['category_slug'] = slug
         if name:
             attrs['category_name'] = name
+
+        if 'website' in attrs:
+            attrs['website'] = (attrs.get('website') or '').strip()
+
+        if 'socials' in attrs:
+            raw_socials = attrs.get('socials') or []
+            cleaned: list[dict[str, str]] = []
+            for entry in raw_socials:
+                label = (entry.get('label') or '').strip()
+                url = (entry.get('url') or '').strip()
+                if not label and not url:
+                    continue
+                if not label or not url:
+                    raise serializers.ValidationError(
+                        {'socials': 'Each social link needs a label and a URL.'}
+                    )
+                cleaned.append({'label': label, 'url': url})
+            if len(cleaned) > MAX_SOCIAL_LINKS:
+                raise serializers.ValidationError(
+                    {'socials': f'At most {MAX_SOCIAL_LINKS} social links allowed.'}
+                )
+            attrs['socials'] = cleaned
         return attrs
 
 

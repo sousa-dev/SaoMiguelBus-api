@@ -249,6 +249,59 @@ class MarketplaceAPITests(TestCase):
         self.assertNotIn('internalEmail', listed)
         self.assertNotIn('verifiedByOwner', listed)
 
+    def test_create_with_website_and_socials(self):
+        resp = self._create_provider(
+            website='https://example.com',
+            socials=[
+                {'label': 'Instagram', 'url': 'https://instagram.com/joana'},
+                {'label': 'My Blog', 'url': 'https://blog.example.com'},
+            ],
+        )
+        self.assertEqual(resp.status_code, 201)
+        body = resp.json()
+        self.assertEqual(body['website'], 'https://example.com')
+        self.assertEqual(len(body['socials']), 2)
+        self.assertEqual(body['socials'][0]['label'], 'Instagram')
+
+    def test_create_invalid_website(self):
+        resp = self._create_provider(website='notaurl')
+        self.assertEqual(resp.status_code, 400)
+
+    def test_create_too_many_socials(self):
+        socials = [
+            {'label': f'Link{i}', 'url': f'https://example.com/{i}'} for i in range(11)
+        ]
+        resp = self._create_provider(socials=socials)
+        self.assertEqual(resp.status_code, 400)
+
+    def test_public_list_includes_website_socials(self):
+        pid = self._create_provider(
+            website='https://example.com',
+            socials=[{'label': 'Facebook', 'url': 'https://facebook.com/page'}],
+        ).json()['id']
+        self._publish(pid)
+        listed = self.client.get('/api/v3/marketplace/providers', **SM).json()['providers'][0]
+        self.assertEqual(listed['website'], 'https://example.com')
+        self.assertEqual(listed['socials'][0]['label'], 'Facebook')
+
+    def test_patch_owner_replaces_socials(self):
+        resp = self._create_provider(
+            session='owner',
+            socials=[{'label': 'X', 'url': 'https://x.com/old'}],
+        )
+        pid = resp.json()['id']
+        patch = self.client.patch(
+            f'/api/v3/marketplace/providers/{pid}',
+            {
+                'session_id': 'owner',
+                'socials': [{'label': 'YouTube', 'url': 'https://youtube.com/@new'}],
+            },
+            format='json',
+            **SM,
+        )
+        self.assertEqual(patch.status_code, 200)
+        self.assertEqual(patch.json()['socials'][0]['label'], 'YouTube')
+
     def test_patch_owner_updates_internal_phone(self):
         resp = self._create_provider(session='owner', claimed_owner=True, internal_phone='+351911111111')
         pid = resp.json()['id']

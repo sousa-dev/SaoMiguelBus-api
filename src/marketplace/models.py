@@ -75,6 +75,8 @@ class ServiceProvider(TenantScopedModel, ModeratedModel):
     phone = models.CharField(max_length=32, blank=True, default='')
     whatsapp = models.CharField(max_length=32, blank=True, default='')
     email = models.EmailField(blank=True, default='')
+    website = models.URLField(blank=True, default='', max_length=300)
+    socials = models.JSONField(default=list, blank=True)
     claimed_owner = models.BooleanField(
         default=False,
         help_text='Submitter declared they are the business owner.',

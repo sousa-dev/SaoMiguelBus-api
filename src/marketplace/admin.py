@@ -36,10 +36,11 @@ class ServiceProviderAdmin(admin.ModelAdmin):
         'is_promoted',
         'rating',
         'review_count',
+        'website',
         'island',
     )
     list_filter = ('island', 'status', 'claimed_owner', 'verified_by_owner', 'is_promoted', 'category')
-    search_fields = ('name', 'bio', 'phone', 'email', 'internal_email', 'internal_phone')
+    search_fields = ('name', 'bio', 'phone', 'email', 'website', 'internal_email', 'internal_phone')
     actions = [_publish, _reject]
 
 
