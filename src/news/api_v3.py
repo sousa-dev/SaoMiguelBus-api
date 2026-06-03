@@ -8,7 +8,7 @@ from rest_framework.permissions import AllowAny
 from rest_framework.request import Request
 from rest_framework.response import Response
 
-from news.services import get_article, list_articles
+from news.services import get_article, list_articles, list_sources
 from tenancy.services import for_island
 
 
@@ -19,6 +19,18 @@ def _require_island(request: Request) -> Response | None:
             status=status.HTTP_400_BAD_REQUEST,
         )
     return None
+
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def news_sources_view(request: Request) -> Response:
+    err = _require_island(request)
+    if err:
+        return err
+
+    with for_island(request.island):
+        sources = list_sources()
+    return Response({'sources': sources})
 
 
 @api_view(['GET'])

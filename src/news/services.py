@@ -305,6 +305,22 @@ def list_articles(
     return [serialize_article(a) for a in articles]
 
 
+def list_sources(*, active_only: bool = True) -> list[dict[str, Any]]:
+    qs = NewsSource.objects.order_by('name')
+    if active_only:
+        qs = qs.filter(active=True)
+    return [
+        {
+            'id': source.id,
+            'name': source.name,
+            'language': source.language,
+            'kind': source.kind,
+            'defaultCategory': source.default_category,
+        }
+        for source in qs
+    ]
+
+
 def get_article(article_id: int) -> dict[str, Any] | None:
     try:
         article = NewsArticle.objects.select_related('source').get(id=article_id)

@@ -417,6 +417,25 @@ class NewsAPITestCase(TestCase):
         published = [a['publishedAt'] for a in articles]
         self.assertEqual(published, sorted(published, reverse=True))
 
+    def test_list_sources(self):
+        response = self.client.get('/api/v3/news/sources', **self.headers)
+        self.assertEqual(response.status_code, 200)
+        sources = response.json()['sources']
+        self.assertEqual(len(sources), 2)
+        names = {s['name'] for s in sources}
+        self.assertIn('ALRA (Açores)', names)
+        self.assertIn('JORAA (Açores)', names)
+
+    def test_list_articles_filter_by_source(self):
+        response = self.client.get(
+            f'/api/v3/news/articles?source={self.alra_source.id}',
+            **self.headers,
+        )
+        self.assertEqual(response.status_code, 200)
+        articles = response.json()['articles']
+        self.assertEqual(len(articles), 1)
+        self.assertEqual(articles[0]['source']['id'], self.alra_source.id)
+
     def test_list_articles_filter_noticias(self):
         response = self.client.get('/api/v3/news/articles?category=noticias', **self.headers)
         self.assertEqual(response.status_code, 200)
