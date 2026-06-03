@@ -1,0 +1,26 @@
+"""Shared Azores keyword list for national_filtered news sources (pre-folded)."""
+
+AZORES_FILTER_TERMS = [
+    'acores',
+    'sao miguel',
+    'santa maria',
+    'terceira',
+    'graciosa',
+    'sao jorge',
+    'pico',
+    'faial',
+    'flores',
+    'corvo',
+    'ponta delgada',
+    'ribeira grande',
+    'vila franca do campo',
+    'nordeste',
+    'povoacao',
+    'angra do heroismo',
+    'praia da vitoria',
+    'horta',
+    'velas',
+    'madalena',
+    'lajes',
+    'santa cruz',
+]

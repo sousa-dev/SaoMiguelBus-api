@@ -6,35 +6,11 @@ from unittest.mock import MagicMock, patch
 from django.test import TestCase
 from rest_framework.test import APIClient
 
+from news.azores_filter_terms import AZORES_FILTER_TERMS
 from news.models import NewsArticle, NewsSource, NewsSourceKind
 from news.services import USER_AGENT, poll_source
 from news.tests.test_azores_adapter import ALRA_FIXTURE, JORAA_FIXTURE
 from tenancy.services import get_or_create_default_island
-
-AZORES_FILTER_TERMS = [
-    'acores',
-    'sao miguel',
-    'santa maria',
-    'terceira',
-    'graciosa',
-    'sao jorge',
-    'pico',
-    'faial',
-    'flores',
-    'corvo',
-    'ponta delgada',
-    'ribeira grande',
-    'vila franca do campo',
-    'nordeste',
-    'povoacao',
-    'angra do heroismo',
-    'praia da vitoria',
-    'horta',
-    'velas',
-    'madalena',
-    'lajes',
-    'santa cruz',
-]
 
 
 def _entry(title: str, link: str, summary: str = '', **extra) -> dict:
@@ -334,6 +310,29 @@ class NewsServicesTestCase(TestCase):
         titles = set(NewsArticle.objects.values_list('title', flat=True))
         self.assertIn('Erupção em São Jorge preocupa autoridades', titles)
         self.assertIn('Câmara de Ponta Delgada aprova orçamento', titles)
+
+    @patch('news.services.feedparser.parse')
+    def test_rtp_pais_filtered_ingests_azores_headline(self, mock_parse):
+        source = self._national_source(
+            name='RTP Notícias (País)',
+            rss_url='https://www.rtp.pt/noticias/rss/pais',
+        )
+        mock_parse.return_value = MagicMock(
+            entries=[
+                _entry('Greve Geral em Lisboa', 'https://rtp.pt/1'),
+                _entry(
+                    'Aeroporto de Ponta Delgada. Milhares aguardam voo',
+                    'https://rtp.pt/2',
+                ),
+            ],
+        )
+        created, skipped = poll_source(source)
+        self.assertEqual(created, 1)
+        self.assertEqual(skipped, 1)
+        self.assertEqual(
+            NewsArticle.objects.get().title,
+            'Aeroporto de Ponta Delgada. Milhares aguardam voo',
+        )
 
 
 class NewsAPITestCase(TestCase):
