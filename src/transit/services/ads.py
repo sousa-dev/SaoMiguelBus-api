@@ -5,6 +5,7 @@ from __future__ import annotations
 from datetime import datetime
 from difflib import SequenceMatcher
 
+from django.db.models import Q
 from django.utils import timezone
 
 from transit.models import Ad, Stop, StopGroup
@@ -62,7 +63,9 @@ def select_ad(*, advertise_on: str, platform: str, now_ts: float | None = None) 
 
     ads = Ad.objects.filter(status='active', start__lte=ad_dt, end__gte=ad_dt)
     if platform != 'all':
-        ads = ads.filter(platform=platform)
+        # A specific client platform (e.g. ios/android) is eligible for both its
+        # own targeted campaigns and any cross-platform `platform='all'` campaign.
+        ads = ads.filter(Q(platform=platform) | Q(platform='all'))
 
     if advertise_on in ('home', 'all'):
         if advertise_on != 'all':
@@ -77,11 +80,10 @@ def select_ad(*, advertise_on: str, platform: str, now_ts: float | None = None) 
 
     ad = ads.order_by('?').first()
     if ad is None:
-        ad = (
-            Ad.objects.filter(platform=platform, status='default')
-            .order_by('?')
-            .first()
-        )
+        default_qs = Ad.objects.filter(status='default')
+        if platform != 'all':
+            default_qs = default_qs.filter(Q(platform=platform) | Q(platform='all'))
+        ad = default_qs.order_by('?').first()
     if ad is None and platform not in ('all', ''):
         # Dev sqlite often has android-only defaults; serve any default rather than 404
         ad = Ad.objects.filter(status='default').order_by('?').first()
