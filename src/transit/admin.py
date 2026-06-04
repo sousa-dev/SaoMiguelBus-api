@@ -99,3 +99,12 @@ class AdAdmin(IslandScopedAdmin):
     list_filter = ('island', 'platform', 'status')
     search_fields = ('entity', 'description')
     date_hierarchy = 'start'
+    actions = ('set_platform_to_all',)
+
+    @admin.action(description='Set platform to all (selected)')
+    def set_platform_to_all(self, request, queryset):
+        updated = queryset.update(platform='all')
+        self.message_user(
+            request,
+            f'{updated} ad{"s" if updated != 1 else ""} set to platform=all.',
+        )
