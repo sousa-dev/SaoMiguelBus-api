@@ -89,6 +89,13 @@ CORS_ALLOW_HEADERS = (
 )
 
 REST_FRAMEWORK = {
+    # Token auth for the mobile client; session auth for the browsable API/admin.
+    # Permissions stay AllowAny by default so public transit endpoints remain open;
+    # account-bound endpoints opt into IsAuthenticated per-view.
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ],
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.AllowAny',
     ],
@@ -424,7 +431,25 @@ if 'allauth' in INSTALLED_APPS:
     MIDDLEWARE.append('allauth.account.middleware.AccountMiddleware')
 if 'axes' in INSTALLED_APPS:
     MIDDLEWARE.append('axes.middleware.AxesMiddleware')
-    
+
+### REST API account auth ###
+# Load DRF token auth + user_management's REST surface for the mobile client WITHOUT
+# enabling the allauth/session login wall. user_management is appended here (after the
+# middleware block above) on purpose so LoginRequiredMiddleware is NOT added when
+# AUTHENTICATION_REQUIRED is False — public/API routes stay open.
+if 'rest_framework.authtoken' not in INSTALLED_APPS:
+    INSTALLED_APPS.append('rest_framework.authtoken')
+if 'user_management.apps.UserManagementConfig' not in INSTALLED_APPS:
+    INSTALLED_APPS.append('user_management.apps.UserManagementConfig')
+
+# Native social sign-in (Apple/Google) verification config — see user_management.social
+APPLE_BUNDLE_IDS = _csv_env('APPLE_BUNDLE_IDS', default='com.hsousa-apps.Autocarros')
+GOOGLE_OAUTH_CLIENT_IDS = _csv_env('GOOGLE_OAUTH_CLIENT_IDS', default='')
+
+# RevenueCat webhook shared secret (future IAP reconcile seam)
+REVENUECAT_WEBHOOK_SECRET = config('REVENUECAT_WEBHOOK_SECRET', default='')
+
+
 ### Celery Configuration ###
 _default_redis = f'redis://{REDIS_HOST}:{REDIS_PORT}'
 CELERY_BROKER_URL = config('CELERY_BROKER_URL', default=f'{_default_redis}/0')

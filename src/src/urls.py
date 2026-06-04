@@ -12,6 +12,8 @@ urlpatterns = [
     path('api/v2/', include('compat.urls_v2')),
     path('api/v1/ops/', include('tenancy.urls')),
     path('api/v3/bootstrap', bootstrap_view),
+    path('api/v3/auth/', include('user_management.urls_v3')),
+    path('api/v3/billing/', include('billing.urls_v3')),
     path('api/v3/consent/', include('consent.urls')),
     path('api/v3/privacy/', include('consent.urls_privacy')),
     path('api/v3/analytics/', include('analytics.urls_v3')),

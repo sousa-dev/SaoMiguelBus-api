@@ -293,7 +293,7 @@ def verify_subscription_view(request: Request) -> Response:
         body = request.data if isinstance(request.data, dict) else json.loads(request.body or '{}')
     except json.JSONDecodeError:
         return Response({'error': 'Invalid JSON'}, status=400)
-    email = (body.get('email') or '').strip()
+    email = (body.get('email') or '').strip().lower()
     if not email:
         return Response({'error': 'Invalid request data', 'details': {'email': ['required']}}, status=400)
     result = verify_subscription(
