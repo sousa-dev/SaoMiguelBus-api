@@ -443,7 +443,10 @@ if 'user_management.apps.UserManagementConfig' not in INSTALLED_APPS:
     INSTALLED_APPS.append('user_management.apps.UserManagementConfig')
 
 # Native social sign-in (Apple/Google) verification config — see user_management.social
-APPLE_BUNDLE_IDS = _csv_env('APPLE_BUNDLE_IDS', default='com.hsousa-apps.Autocarros')
+APPLE_BUNDLE_IDS = _csv_env(
+    'APPLE_BUNDLE_IDS',
+    default='com.sousadev.saomiguelhub,com.hsousa-apps.Autocarros',
+)
 GOOGLE_OAUTH_CLIENT_IDS = _csv_env('GOOGLE_OAUTH_CLIENT_IDS', default='')
 
 # RevenueCat webhook shared secret (future IAP reconcile seam)
