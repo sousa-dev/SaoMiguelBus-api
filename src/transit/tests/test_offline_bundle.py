@@ -15,6 +15,7 @@ from transit.services.offline_bundle import (
     get_data_revision,
     suppress_revision_bumps,
 )
+from transit.services.v3 import serialize_trip_detail
 from transit.tests.fixtures import ensure_transit_fixtures
 
 
@@ -34,6 +35,26 @@ class OfflineBundleServiceTests(TestCase):
         self.assertEqual(bundle['island'], 'sao-miguel')
         self.assertGreater(len(bundle['routes']), 0)
         self.assertGreater(bundle['counts']['stops'], 0)
+
+    def test_bundle_route_includes_vote_percents(self):
+        self.trip.likes = 3
+        self.trip.dislikes = 7
+        self.trip.save(update_fields=['likes', 'dislikes'])
+        with for_island(self.island):
+            bundle = build_offline_bundle(self.island)
+        route = next(row for row in bundle['routes'] if row['id'] == self.trip.id)
+        self.assertEqual(route['likes'], 3)
+        self.assertEqual(route['dislikes'], 7)
+        self.assertEqual(route['likes_percent'], 30)
+        self.assertEqual(route['dislikes_percent'], 70)
+
+    def test_trip_detail_includes_vote_percents(self):
+        self.trip.likes = 2
+        self.trip.dislikes = 8
+        self.trip.save(update_fields=['likes', 'dislikes'])
+        payload = serialize_trip_detail(self.trip)
+        self.assertEqual(payload['likesPercent'], 20)
+        self.assertEqual(payload['dislikesPercent'], 80)
 
     def test_schedule_edit_bumps_revision(self):
         before = self._revision()

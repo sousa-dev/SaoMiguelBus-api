@@ -43,6 +43,11 @@ def _trip_dislikes_percent(trip: Trip) -> int:
     return int(trip.dislikes / total * 100) if total > 0 else 0
 
 
+def trip_vote_percents(trip: Trip) -> tuple[int, int]:
+    """Return (likes_percent, dislikes_percent) for a trip."""
+    return _trip_likes_percent(trip), _trip_dislikes_percent(trip)
+
+
 def build_legacy_stops_string(trip: Trip) -> str:
     stop_times = trip.stop_times.select_related('stop').order_by('sequence')
     parts = []

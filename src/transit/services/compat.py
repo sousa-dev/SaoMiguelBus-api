@@ -6,6 +6,7 @@ from django.utils import timezone
 
 from tenancy.models import Island
 from transit.models import Calendar, Holiday, RouteInfo, Stop, StopTime, Trip
+from transit.services.search import trip_vote_percents
 
 
 def serialize_legacy_stops_v2(stops) -> list[dict]:
@@ -54,6 +55,7 @@ def _trip_to_load_route(trip: Trip) -> dict:
     route_stops = [st.stop.name for st in stop_times]
     all_times = [st.departure_time.strftime('%H:%M').replace(':', 'h') for st in stop_times]
     information = trip.information if trip.information else {}
+    likes_percent, dislikes_percent = trip_vote_percents(trip)
     return {
         'id': trip.id,
         'route': trip.line.code,
@@ -61,6 +63,10 @@ def _trip_to_load_route(trip: Trip) -> dict:
         'times': all_times,
         'weekday': _legacy_service_type(trip.calendar),
         'information': information,
+        'likes': trip.likes,
+        'dislikes': trip.dislikes,
+        'likes_percent': likes_percent,
+        'dislikes_percent': dislikes_percent,
     }
 
 

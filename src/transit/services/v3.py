@@ -7,7 +7,7 @@ import re
 
 from transit.models import Line, Stop, StopTime, Trip
 from transit.services.compat import serialize_legacy_stops_v2
-from transit.services.search import search_routes
+from transit.services.search import search_routes, trip_vote_percents
 
 
 def serialize_stops_v3(stops) -> list[dict]:
@@ -54,12 +54,15 @@ def serialize_trip_detail(trip: Trip) -> dict:
     stop_times = list(
         StopTime.objects.filter(trip=trip).select_related('stop').order_by('sequence')
     )
+    likes_percent, dislikes_percent = trip_vote_percents(trip)
     return {
         'id': trip.id,
         'route': trip.line.code,
         'typeOfDay': trip.calendar.service_type,
         'likes': trip.likes,
         'dislikes': trip.dislikes,
+        'likesPercent': likes_percent,
+        'dislikesPercent': dislikes_percent,
         'information': trip.information if trip.information else {},
         'stops': [
             {
