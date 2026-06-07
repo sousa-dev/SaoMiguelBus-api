@@ -3,14 +3,23 @@
 from django.contrib import admin
 from django.urls import include, path
 from django.conf import settings
+from drf_spectacular.views import (
+    SpectacularAPIView,
+    SpectacularRedocView,
+    SpectacularSwaggerView,
+)
 
 from tenancy.api_v3 import bootstrap_view
 
 urlpatterns = [
     path('dashboard/admin/', admin.site.urls),
+    path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
+    path('api/docs/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
+    path('api/docs/redoc/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
     path('api/v1/', include('compat.urls_v1')),
     path('api/v2/', include('compat.urls_v2')),
     path('api/v1/ops/', include('tenancy.urls')),
+    path('api/v3/agent-docs/', include('agent_docs.urls_v3')),
     path('api/v3/bootstrap', bootstrap_view),
     path('api/v3/auth/', include('user_management.urls_v3')),
     path('api/v3/billing/', include('billing.urls_v3')),

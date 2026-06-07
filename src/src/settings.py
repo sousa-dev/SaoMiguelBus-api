@@ -99,12 +99,24 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.AllowAny',
     ],
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
     'DEFAULT_THROTTLE_RATES': {
         'directions': '30/min',
         'offline-bundle': '12/min',
         'marketplace_write': '20/min',
         'traffic_write': '30/min',
     },
+}
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'São Miguel Bus API',
+    'DESCRIPTION': (
+        'Azores Hub platform API — v3 modules (transit, weather, events, …) '
+        'plus legacy compat /api/v1 and /api/v2. '
+        'Agent context files: GET /api/v3/agent-docs/'
+    ),
+    'VERSION': '3.0.0',
+    'SERVE_INCLUDE_SCHEMA': False,
 }
 
 
@@ -417,6 +429,8 @@ for app, should_add in apps:
         elif app == 'stripe_payments':
             define_stripe_payments_settings()
 INSTALLED_APPS.append('shared')
+INSTALLED_APPS.append('drf_spectacular')
+INSTALLED_APPS.append('agent_docs')
             
 if 'landing_page' in INSTALLED_APPS and 'app' not in INSTALLED_APPS:
     raise Exception('The \'landing_page\' requires the \'app\' to be enabled. Please enable it.')

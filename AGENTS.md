@@ -202,6 +202,23 @@ See SDD `04-api-design.md` §4 — full inventory from `legacy/src/SaoMiguelBus/
 
 ---
 
+## Agent docs API (LLM / Cursor)
+
+Machine-readable context and OpenAPI for any agent:
+
+| URL | Purpose |
+|-----|---------|
+| `GET /api/v3/agent-docs/` | Catalog of docs + OpenAPI links |
+| `GET /api/v3/agent-docs/{slug}` | Single doc as JSON (`content` field) |
+| `GET /api/v3/agent-docs/{slug}?raw=1` | Plain-text body only |
+| `GET /api/schema/` | OpenAPI 3 schema (YAML; add `Accept: application/vnd.oai.openapi+json` for JSON) |
+| `GET /api/docs/` | Swagger UI |
+| `GET /api/docs/redoc/` | ReDoc |
+
+**Slugs:** `agents-md`, `readme`, `env-example`, `ai-agents-handbook`, `feature-toggles`, `adding-an-app`, `traffic-readme`. The index also lists external SDD/webapp links.
+
+---
+
 ## Cross-repo pointers
 
 - **SDD:** `../SaoMiguelBus/SDD/` (or github.com/sousa-dev/SaoMiguelBus/tree/revamp/SDD)
