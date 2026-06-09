@@ -97,6 +97,52 @@ class DeleteAccountTests(APITestCase):
         self.assertEqual(self.client.post('/api/v3/auth/account').status_code, 200)
         self.assertFalse(User.objects.filter(email='postdel@me.com').exists())
 
+    def test_delete_without_apple_connection_skips_revoke(self):
+        token = self._register('noapple@x.com')
+        self.client.credentials(HTTP_AUTHORIZATION=f'Token {token}')
+        with patch('user_management.apple_oauth.revoke_refresh_token') as revoke:
+            self.assertEqual(self.client.delete('/api/v3/auth/account').status_code, 200)
+        revoke.assert_not_called()
+
+
+class AppleRevocationTests(APITestCase):
+    """Sign in with Apple: store the refresh token and revoke it on deletion."""
+
+    def _sign_in_with_apple(self, email='siwa@user.com', code='auth-code'):
+        identity = SocialIdentity(email=email, name='SIWA', provider='apple', subject='apple-sub-1')
+        with (
+            patch('user_management.api_v3.verify_social_identity', return_value=identity),
+            patch(
+                'user_management.apple_oauth.exchange_code_for_refresh_token',
+                return_value='refresh-xyz',
+            ) as exchange,
+        ):
+            resp = self.client.post(
+                '/api/v3/auth/social',
+                {'provider': 'apple', 'identity_token': 'tok', 'authorization_code': code},
+                format='json',
+            )
+        return resp, exchange
+
+    def test_apple_sign_in_stores_refresh_token(self):
+        from user_management.models import SocialConnection
+
+        resp, exchange = self._sign_in_with_apple()
+        self.assertEqual(resp.status_code, 200)
+        exchange.assert_called_once_with('auth-code')
+        conn = SocialConnection.objects.get(provider='apple')
+        self.assertEqual(conn.refresh_token, 'refresh-xyz')
+        self.assertEqual(conn.subject, 'apple-sub-1')
+
+    def test_account_deletion_revokes_apple_token(self):
+        resp, _ = self._sign_in_with_apple()
+        self.client.credentials(HTTP_AUTHORIZATION=f"Token {resp.data['token']}")
+        with patch('user_management.apple_oauth.revoke_refresh_token', return_value=True) as revoke:
+            del_resp = self.client.delete('/api/v3/auth/account')
+        self.assertEqual(del_resp.status_code, 200)
+        revoke.assert_called_once_with('refresh-xyz')
+        self.assertFalse(User.objects.filter(email='siwa@user.com').exists())
+
 
 class SocialTests(APITestCase):
     def test_social_new_email_creates_user(self):

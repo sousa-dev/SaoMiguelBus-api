@@ -95,6 +95,20 @@ def social_view(request: Request) -> Response:
         )
     else:
         services.honor_legacy_entitlement(user)
+
+    if identity.provider == 'apple':
+        from user_management.apple_oauth import exchange_code_for_refresh_token
+
+        refresh_token = exchange_code_for_refresh_token(
+            serializer.validated_data.get('authorization_code', '')
+        )
+        services.link_social_connection(
+            user=user,
+            provider='apple',
+            subject=identity.subject,
+            refresh_token=refresh_token or '',
+        )
+
     return Response(_auth_payload(user))
 
 

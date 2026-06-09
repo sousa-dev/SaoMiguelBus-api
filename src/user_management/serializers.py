@@ -29,6 +29,9 @@ class SocialSerializer(serializers.Serializer):
     identity_token = serializers.CharField()
     nonce = serializers.CharField(required=False, allow_blank=True)
     display_name = serializers.CharField(max_length=150, required=False, allow_blank=True)
+    # Apple-only: native authorizationCode, exchanged for a refresh token so the
+    # grant can be revoked when the account is deleted.
+    authorization_code = serializers.CharField(required=False, allow_blank=True)
 
 
 class UserSerializer(serializers.ModelSerializer):
