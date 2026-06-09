@@ -20,6 +20,10 @@ CURRENT_VARS = (
 DAILY_VARS = (
     'weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max'
 )
+HOURLY_VARS = (
+    'temperature_2m,weather_code,wind_speed_10m,relative_humidity_2m,'
+    'precipitation,precipitation_probability'
+)
 
 
 class OpenMeteoError(Exception):
@@ -71,3 +75,39 @@ def fetch_forecast(coords: list[Coord]) -> list[dict[str, Any]]:
             )
         return payload
     raise OpenMeteoError('Unexpected Open-Meteo multi-location response shape')
+
+
+def fetch_hourly(coord: Coord, *, forecast_days: int) -> dict[str, Any]:
+    """Fetch hourly forecast for a single coordinate."""
+    if forecast_days < 1 or forecast_days > 3:
+        raise ValueError('forecast_days must be between 1 and 3')
+
+    params = {
+        'latitude': str(coord.latitude),
+        'longitude': str(coord.longitude),
+        'hourly': HOURLY_VARS,
+        'timezone': 'auto',
+        'forecast_days': str(forecast_days),
+    }
+    url = f'{OPEN_METEO_BASE_URL}/forecast'
+
+    try:
+        response = requests.get(url, params=params, timeout=OPEN_METEO_TIMEOUT)
+    except requests.RequestException as exc:
+        logger.exception('Open-Meteo hourly request failed')
+        raise OpenMeteoError(str(exc)) from exc
+
+    if not response.ok:
+        logger.warning('Open-Meteo hourly HTTP %s: %s', response.status_code, response.text[:500])
+        raise OpenMeteoError(f'Open-Meteo HTTP {response.status_code}')
+
+    try:
+        payload = response.json()
+    except ValueError as exc:
+        raise OpenMeteoError('Invalid JSON from Open-Meteo') from exc
+
+    hourly = payload.get('hourly')
+    if not hourly or not hourly.get('time'):
+        raise OpenMeteoError('Missing hourly data from Open-Meteo')
+
+    return payload
