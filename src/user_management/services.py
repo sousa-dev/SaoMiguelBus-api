@@ -67,6 +67,60 @@ def rotate_token(user):
     Token.objects.filter(user=user).delete()
 
 
+def link_social_connection(*, user, provider: str, subject: str = '', refresh_token: str = ''):
+    """Create/update the user's social connection (used to revoke on deletion)."""
+    from user_management.models import SocialConnection
+
+    defaults = {'subject': subject}
+    # Only overwrite a stored refresh token when we actually obtained a new one.
+    if refresh_token:
+        defaults['refresh_token'] = refresh_token
+    connection, _ = SocialConnection.objects.update_or_create(
+        user=user, provider=provider, defaults=defaults
+    )
+    return connection
+
+
+def revoke_social_tokens(user) -> None:
+    """Best-effort: revoke the user's Apple grant before the account is deleted."""
+    from user_management.apple_oauth import revoke_refresh_token
+    from user_management.models import SocialConnection
+
+    try:
+        connections = list(
+            SocialConnection.objects.filter(
+                user=user, provider=SocialConnection.PROVIDER_APPLE
+            ).exclude(refresh_token='')
+        )
+    except Exception:  # pragma: no cover - never block deletion on a model/query hiccup
+        logger.exception('Loading social connections failed for user %s', getattr(user, 'pk', None))
+        return
+    for connection in connections:
+        revoke_refresh_token(connection.refresh_token)
+
+
+def delete_account(user) -> None:
+    """Permanently and irreversibly delete the account and its personal data.
+
+    Required by App Store Guideline 5.1.1(v) / GDPR right to erasure. Revokes any
+    Sign in with Apple grant first (Apple requirement for SIWA + deletion), then
+    deletes the ``auth.User`` — which cascades the auth token, ``billing``
+    entitlements and ``SocialConnection`` rows (FK ``on_delete=CASCADE``). The
+    legacy premium allow-list row is keyed by email (no FK), so it is removed
+    explicitly to avoid leaving PII behind.
+    """
+    revoke_social_tokens(user)
+    email = normalize_email(user.email or user.username)
+    if email:
+        try:
+            from billing.models import Subscription
+
+            Subscription.objects.filter(email__iexact=email).delete()
+        except Exception:  # pragma: no cover - never block deletion on billing errors
+            logger.exception('Legacy subscription cleanup failed for user %s', getattr(user, 'pk', None))
+    user.delete()
+
+
 def honor_legacy_entitlement(user) -> None:
     """Best-effort: mint/refresh a legacy_email entitlement if one is owed."""
     try:

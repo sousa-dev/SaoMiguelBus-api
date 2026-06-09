@@ -463,6 +463,19 @@ APPLE_BUNDLE_IDS = _csv_env(
 )
 GOOGLE_OAUTH_CLIENT_IDS = _csv_env('GOOGLE_OAUTH_CLIENT_IDS', default='')
 
+# Sign in with Apple server-to-server (token exchange + revocation on account
+# deletion — App Store Guideline 5.1.1(v)). All optional: when the AuthKey is not
+# configured the flow degrades to identity-token-only and revocation is skipped.
+APPLE_TEAM_ID = config('APPLE_TEAM_ID', default='28NZ2LLDF5')
+# client_id for a native iOS app is its bundle id; defaults to the first bundle id.
+APPLE_CLIENT_ID = config(
+    'APPLE_CLIENT_ID',
+    default=(APPLE_BUNDLE_IDS[0] if APPLE_BUNDLE_IDS else ''),
+)
+APPLE_KEY_ID = config('APPLE_KEY_ID', default='')
+# Contents of the AuthKey_XXX.p8 (PEM). Newlines may be sent as literal "\n".
+APPLE_PRIVATE_KEY = config('APPLE_PRIVATE_KEY', default='').replace('\\n', '\n')
+
 # RevenueCat webhook shared secret (future IAP reconcile seam)
 REVENUECAT_WEBHOOK_SECRET = config('REVENUECAT_WEBHOOK_SECRET', default='')
 

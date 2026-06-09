@@ -8,4 +8,5 @@ urlpatterns = [
     path('social', api_v3.social_view, name='v3-auth-social'),
     path('me', api_v3.me_view, name='v3-auth-me'),
     path('logout', api_v3.logout_view, name='v3-auth-logout'),
+    path('account', api_v3.delete_account_view, name='v3-auth-delete-account'),
 ]

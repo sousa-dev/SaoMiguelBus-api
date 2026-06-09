@@ -95,6 +95,20 @@ def social_view(request: Request) -> Response:
         )
     else:
         services.honor_legacy_entitlement(user)
+
+    if identity.provider == 'apple':
+        from user_management.apple_oauth import exchange_code_for_refresh_token
+
+        refresh_token = exchange_code_for_refresh_token(
+            serializer.validated_data.get('authorization_code', '')
+        )
+        services.link_social_connection(
+            user=user,
+            provider='apple',
+            subject=identity.subject,
+            refresh_token=refresh_token or '',
+        )
+
     return Response(_auth_payload(user))
 
 
@@ -110,3 +124,16 @@ def me_view(request: Request) -> Response:
 def logout_view(request: Request) -> Response:
     services.rotate_token(request.user)
     return Response({'status': 'ok'})
+
+
+@api_view(['DELETE', 'POST'])
+@permission_classes([IsAuthenticated])
+@csrf_exempt
+def delete_account_view(request: Request) -> Response:
+    """Permanently delete the authenticated user's account (App Store 5.1.1(v)).
+
+    Accepts DELETE (RESTful) and POST (for clients/proxies that cannot send a
+    DELETE) — both perform the same irreversible deletion.
+    """
+    services.delete_account(request.user)
+    return Response({'status': 'deleted'}, status=status.HTTP_200_OK)
