@@ -67,6 +67,25 @@ def rotate_token(user):
     Token.objects.filter(user=user).delete()
 
 
+def delete_account(user) -> None:
+    """Permanently and irreversibly delete the account and its personal data.
+
+    Required by App Store Guideline 5.1.1(v) / GDPR right to erasure. Deleting
+    the ``auth.User`` cascades its auth token and ``billing.Entitlement`` rows
+    (FK ``on_delete=CASCADE``). The legacy premium allow-list row is keyed by
+    email (no FK), so it is removed explicitly to avoid leaving PII behind.
+    """
+    email = normalize_email(user.email or user.username)
+    if email:
+        try:
+            from billing.models import Subscription
+
+            Subscription.objects.filter(email__iexact=email).delete()
+        except Exception:  # pragma: no cover - never block deletion on billing errors
+            logger.exception('Legacy subscription cleanup failed for user %s', getattr(user, 'pk', None))
+    user.delete()
+
+
 def honor_legacy_entitlement(user) -> None:
     """Best-effort: mint/refresh a legacy_email entitlement if one is owed."""
     try:

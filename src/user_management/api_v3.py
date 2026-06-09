@@ -110,3 +110,16 @@ def me_view(request: Request) -> Response:
 def logout_view(request: Request) -> Response:
     services.rotate_token(request.user)
     return Response({'status': 'ok'})
+
+
+@api_view(['DELETE', 'POST'])
+@permission_classes([IsAuthenticated])
+@csrf_exempt
+def delete_account_view(request: Request) -> Response:
+    """Permanently delete the authenticated user's account (App Store 5.1.1(v)).
+
+    Accepts DELETE (RESTful) and POST (for clients/proxies that cannot send a
+    DELETE) — both perform the same irreversible deletion.
+    """
+    services.delete_account(request.user)
+    return Response({'status': 'deleted'}, status=status.HTTP_200_OK)

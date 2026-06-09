@@ -54,6 +54,50 @@ class RegisterLoginTests(APITestCase):
         self.assertEqual(self.client.get('/api/v3/auth/me').status_code, 401)
 
 
+class DeleteAccountTests(APITestCase):
+    def _register(self, email='del@me.com'):
+        reg = self.client.post(
+            '/api/v3/auth/register', {'email': email, 'password': PW}, format='json'
+        )
+        return reg.data['token']
+
+    def test_delete_requires_auth(self):
+        self.assertEqual(self.client.delete('/api/v3/auth/account').status_code, 401)
+
+    def test_delete_removes_user_token_and_entitlements(self):
+        from rest_framework.authtoken.models import Token
+
+        token = self._register('del@me.com')
+        user = User.objects.get(email='del@me.com')
+        # Legacy allow-list row + linked entitlement should also be purged.
+        Subscription.objects.create(email='del@me.com', is_active=True)
+        from billing.models import Entitlement
+
+        Entitlement.objects.create(user=user, source=Entitlement.SOURCE_MANUAL)
+
+        self.client.credentials(HTTP_AUTHORIZATION=f'Token {token}')
+        resp = self.client.delete('/api/v3/auth/account')
+        self.assertEqual(resp.status_code, 200)
+        self.assertEqual(resp.data['status'], 'deleted')
+
+        self.assertFalse(User.objects.filter(email='del@me.com').exists())
+        self.assertFalse(Token.objects.filter(key=token).exists())
+        self.assertFalse(Entitlement.objects.filter(email='del@me.com').exists())
+        self.assertFalse(Subscription.objects.filter(email__iexact='del@me.com').exists())
+
+    def test_delete_invalidates_token(self):
+        token = self._register('gone@me.com')
+        self.client.credentials(HTTP_AUTHORIZATION=f'Token {token}')
+        self.assertEqual(self.client.delete('/api/v3/auth/account').status_code, 200)
+        self.assertEqual(self.client.get('/api/v3/auth/me').status_code, 401)
+
+    def test_delete_via_post_also_works(self):
+        token = self._register('postdel@me.com')
+        self.client.credentials(HTTP_AUTHORIZATION=f'Token {token}')
+        self.assertEqual(self.client.post('/api/v3/auth/account').status_code, 200)
+        self.assertFalse(User.objects.filter(email='postdel@me.com').exists())
+
+
 class SocialTests(APITestCase):
     def test_social_new_email_creates_user(self):
         identity = SocialIdentity(email='apple@user.com', name='Apple User', provider='apple')
