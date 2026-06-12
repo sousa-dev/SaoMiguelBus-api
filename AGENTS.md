@@ -70,6 +70,24 @@ Docker Compose host mappings: `WEB_PORT`, `WEB_CONTAINER_PORT`, `DB_PORT_EXPOSE`
 - Celery beat: `weather.refresh_forecasts` hourly warms cache for all active parishes (one batched upstream call per island).
 - Bootstrap module key: `weather` (`tenancy` migration `0011_enable_weather_feature_flag`).
 
+### Analytics reporting + stats dashboard (`analytics` app — shipped)
+
+Read-side, **AUTH_KEY-protected** endpoints (via `X-Auth-Key` header or `?key=`) that aggregate stored analytics. v3 endpoints are tenant-scoped (`X-Island`); legacy ones are global.
+
+| Endpoint | Purpose |
+|---|---|
+| `GET /api/v3/analytics/reports/overview` | v3 `AnalyticsEvent`: totals, time series, breakdowns (module, event_type, platform, locale) |
+| `GET /api/v3/analytics/reports/events` | v3 raw events — paginated + filterable |
+| `GET /api/v3/analytics/reports/meta` | v3 distinct filter values + date bounds |
+| `GET /api/v3/analytics/reports/legacy/overview` | legacy `Stat`: totals, series, breakdowns (request, top routes/origins/destinations, platform, language, day type) |
+| `GET /api/v3/analytics/reports/legacy/events` | legacy raw stats — paginated |
+| `GET /api/v3/analytics/reports/legacy/meta` | legacy distinct filter values |
+
+- Params: `start`, `end` (`YYYY-MM-DD`), `interval` (`hour\|day\|month`, auto by range), `page`, `page_size`, plus per-source filters (`module`, `event_type`, `platform`, `locale` / `request`, `language`).
+- Logic: `analytics/services_reporting.py`; views: `analytics/api_reporting.py`.
+- `CORS_ALLOW_HEADERS` allows `x-auth-key` / `x-api-key` so the static dashboard can call cross-origin.
+- **Dashboard:** `docs/` — zero-build umami-style HTML/CSS/JS for GitHub Pages (Settings → Pages → `/docs`). Tabs for Hub (v3) / Legacy, date-range presets, time-series chart, breakdowns, paginated table. Connection config (API base, AUTH key, island) lives in browser `localStorage`. See `docs/README.md`.
+
 ### Legacy data import
 
 ```bash
