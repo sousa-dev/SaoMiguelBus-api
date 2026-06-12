@@ -86,6 +86,9 @@ CORS_ALLOW_HEADERS = (
     *default_headers,
     'x-island',
     'x-session-id',
+    # Analytics stats dashboard (GitHub Pages) authenticates with these.
+    'x-auth-key',
+    'x-api-key',
 )
 
 REST_FRAMEWORK = {
