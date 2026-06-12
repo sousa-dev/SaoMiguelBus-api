@@ -5,7 +5,7 @@
   'use strict';
 
   var CONFIG_KEY = 'smb_analytics_config';
-  var DEFAULTS = { apiBase: 'https://api.saomiguelbus.com', authKey: '', island: 'sao-miguel' };
+  var DEFAULTS = { apiBase: 'https://api.saomiguelhub.com', authKey: '', island: 'sao-miguel' };
 
   var SOURCES = {
     v3: {

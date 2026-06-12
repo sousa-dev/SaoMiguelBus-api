@@ -41,7 +41,7 @@ Common query params: `start`, `end` (`YYYY-MM-DD`), `interval`
 
 Open **⚙ Settings** in the dashboard and set:
 
-- **API base URL** — e.g. `https://api.saomiguelbus.com` (default).
+- **API base URL** — e.g. `https://api.saomiguelhub.com` (default).
 - **AUTH key** — the backend `AUTH_KEY`.
 - **Island key** — tenant slug, default `sao-miguel`.
 
