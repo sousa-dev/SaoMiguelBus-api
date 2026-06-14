@@ -12,9 +12,13 @@ Two data sources, switchable from the top tabs:
 
 - **Hub (v3)** — the first-party `AnalyticsEvent` stream (`/api/v3/analytics/reports/*`).
   Metrics: events, sessions. Breakdowns: modules, event types, platforms, locales.
+  **Search & content insights:** auto-discovered top values for every meaningful
+  event property (most-searched origins, destinations, day types, start times,
+  results counts, news sources/articles, parishes, trails, …) plus a combined
+  origin→destination routes breakdown.
 - **Legacy** — the legacy `Stat` table (`/api/v3/analytics/reports/legacy/*`).
   Metrics: requests, route searches. Breakdowns: request types, top routes /
-  origins / destinations, platforms, languages, day type.
+  origins / destinations, platforms, languages, day type, time of day.
 
 Each source has date-range presets (24h → 1y) + custom range, a time-series
 chart, breakdown panels, and a paginated raw-events table with filters.
@@ -25,6 +29,7 @@ chart, breakdown panels, and a paginated raw-events table with filters.
 |----------|---------|
 | `GET /api/v3/analytics/reports/overview` | v3 totals, time series, breakdowns |
 | `GET /api/v3/analytics/reports/events` | v3 raw events (paginated, filterable) |
+| `GET /api/v3/analytics/reports/properties` | v3 property top-values + origin→destination routes (most-searched data) |
 | `GET /api/v3/analytics/reports/meta` | v3 distinct filter values + bounds |
 | `GET /api/v3/analytics/reports/legacy/overview` | legacy totals, series, breakdowns |
 | `GET /api/v3/analytics/reports/legacy/events` | legacy raw stats (paginated) |

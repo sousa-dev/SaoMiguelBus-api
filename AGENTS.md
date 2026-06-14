@@ -78,8 +78,9 @@ Read-side, **AUTH_KEY-protected** endpoints (via `X-Auth-Key` header or `?key=`)
 |---|---|
 | `GET /api/v3/analytics/reports/overview` | v3 `AnalyticsEvent`: totals, time series, breakdowns (module, event_type, platform, locale) |
 | `GET /api/v3/analytics/reports/events` | v3 raw events — paginated + filterable |
+| `GET /api/v3/analytics/reports/properties` | v3 `properties` JSON: auto-discovered per-key top values + origin→destination routes (most-searched data). `?prop=` for one key |
 | `GET /api/v3/analytics/reports/meta` | v3 distinct filter values + date bounds |
-| `GET /api/v3/analytics/reports/legacy/overview` | legacy `Stat`: totals, series, breakdowns (request, top routes/origins/destinations, platform, language, day type) |
+| `GET /api/v3/analytics/reports/legacy/overview` | legacy `Stat`: totals, series, breakdowns (request, top routes/origins/destinations, platform, language, day type, time of day) |
 | `GET /api/v3/analytics/reports/legacy/events` | legacy raw stats — paginated |
 | `GET /api/v3/analytics/reports/legacy/meta` | legacy distinct filter values |
 
