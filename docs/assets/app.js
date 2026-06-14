@@ -13,6 +13,7 @@
       overview: '/api/v3/analytics/reports/overview',
       events: '/api/v3/analytics/reports/events',
       meta: '/api/v3/analytics/reports/meta',
+      properties: '/api/v3/analytics/reports/properties',
       needsIsland: true,
       metrics: [
         { key: 'events', label: 'Events' },
@@ -60,7 +61,8 @@
         { key: 'top_destinations', title: 'Top destinations' },
         { key: 'platform', title: 'Platforms' },
         { key: 'language', title: 'Languages' },
-        { key: 'type_of_day', title: 'Day type' }
+        { key: 'type_of_day', title: 'Day type' },
+        { key: 'time', title: 'Time of day' }
       ],
       filters: [
         { param: 'request', metaKey: 'requests', label: 'Request' },
@@ -77,6 +79,28 @@
         { key: 'type_of_day', label: 'Day' }
       ]
     }
+  };
+
+  // Friendly titles for auto-discovered v3 property keys.
+  var PROP_LABELS = {
+    origin: 'Top origins',
+    destination: 'Top destinations',
+    day_type: 'Day type',
+    start_time: 'Start time',
+    results_count: 'Results count',
+    source: 'News source',
+    article_id: 'Top articles (id)',
+    slug: 'Parish / slug',
+    screen: 'Screen',
+    trail_id: 'Top trails (id)',
+    difficulty: 'Difficulty',
+    kind: 'Kind',
+    event_id: 'Event id',
+    magnitude: 'Magnitude',
+    window_hours: 'Window (hours)',
+    radius_km: 'Radius (km)',
+    date: 'Date',
+    locale: 'Locale'
   };
 
   var state = {
@@ -119,6 +143,8 @@
     els.seriesInterval = document.getElementById('seriesInterval');
     els.seriesChart = document.getElementById('seriesChart');
     els.breakdownGrid = document.getElementById('breakdownGrid');
+    els.insightsGrid = document.getElementById('insightsGrid');
+    els.insightsTitle = document.getElementById('insightsTitle');
     els.eventsTable = document.getElementById('eventsTable');
     els.pageLabel = document.getElementById('pageLabel');
     els.prevPage = document.getElementById('prevPage');
@@ -272,6 +298,7 @@
     var src = SOURCES[state.source];
     setError('');
     loadMeta(src);
+    loadInsights(src);
     Promise.all([
       api(src.overview, commonParams()),
       loadEvents()
@@ -281,6 +308,20 @@
     }).catch(function (err) {
       setConn('err');
       setError(err.message || String(err));
+    });
+  }
+
+  function loadInsights(src) {
+    if (!src.properties) {
+      els.insightsGrid.innerHTML = '';
+      els.insightsTitle.hidden = true;
+      return;
+    }
+    api(src.properties, commonParams()).then(function (data) {
+      renderInsights(data);
+    }).catch(function () {
+      els.insightsGrid.innerHTML = '';
+      els.insightsTitle.hidden = true;
     });
   }
 
@@ -357,16 +398,37 @@
 
   function renderBreakdowns(src, breakdowns) {
     els.breakdownGrid.innerHTML = src.breakdowns.map(function (b) {
-      var rows = breakdowns[b.key] || [];
-      var max = rows.reduce(function (m, r) { return Math.max(m, r.count); }, 0) || 1;
-      var body = rows.length ? rows.map(function (r) {
-        var pct = Math.round((r.count / max) * 100);
-        return '<div class="bar-row"><span class="bar-row__fill" style="width:' + pct + '%"></span>' +
-          '<span class="bar-row__key" title="' + esc(r.key) + '">' + esc(r.key || '—') + '</span>' +
-          '<span class="bar-row__count">' + fmt(r.count) + '</span></div>';
-      }).join('') : '<div class="panel__empty">No data in range.</div>';
-      return '<div class="panel"><h3>' + esc(b.title) + '</h3><div class="panel__body">' + body + '</div></div>';
+      return panelHtml(b.title, breakdowns[b.key] || []);
     }).join('');
+  }
+
+  function renderInsights(data) {
+    var panels = [];
+    if (data.routes && data.routes.length) {
+      panels.push(panelHtml('Top routes (origin \u2192 destination)', data.routes));
+    }
+    var breakdowns = data.breakdowns || {};
+    (data.keys || []).forEach(function (key) {
+      panels.push(panelHtml(propLabel(key), breakdowns[key] || []));
+    });
+    els.insightsGrid.innerHTML = panels.join('');
+    els.insightsTitle.hidden = panels.length === 0;
+  }
+
+  function panelHtml(title, rows) {
+    var max = rows.reduce(function (m, r) { return Math.max(m, r.count); }, 0) || 1;
+    var body = rows.length ? rows.map(function (r) {
+      var pct = Math.round((r.count / max) * 100);
+      return '<div class="bar-row"><span class="bar-row__fill" style="width:' + pct + '%"></span>' +
+        '<span class="bar-row__key" title="' + esc(r.key) + '">' + esc(r.key || '—') + '</span>' +
+        '<span class="bar-row__count">' + fmt(r.count) + '</span></div>';
+    }).join('') : '<div class="panel__empty">No data in range.</div>';
+    return '<div class="panel"><h3>' + esc(title) + '</h3><div class="panel__body">' + body + '</div></div>';
+  }
+
+  function propLabel(key) {
+    if (PROP_LABELS[key]) return PROP_LABELS[key];
+    return key.charAt(0).toUpperCase() + key.slice(1).replace(/_/g, ' ');
   }
 
   function renderFilters(src, meta) {

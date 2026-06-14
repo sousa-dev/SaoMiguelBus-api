@@ -11,6 +11,7 @@ from datetime import datetime, timedelta
 from typing import Any
 
 from django.db.models import Count, Max, Min, Q, QuerySet
+from django.db.models.fields.json import KeyTextTransform
 from django.db.models.functions import TruncDay, TruncHour, TruncMonth
 from django.utils import timezone
 from django.utils.dateparse import parse_date, parse_datetime
@@ -22,6 +23,13 @@ DEFAULT_RANGE_DAYS = 30
 MAX_PAGE_SIZE = 500
 DEFAULT_PAGE_SIZE = 50
 BREAKDOWN_LIMIT = 20
+
+# Property-breakdown tuning (v3 event ``properties`` JSON).
+PROPERTY_SAMPLE = 5000
+PROPERTY_KEY_LIMIT = 16
+PROPERTY_VALUE_LIMIT = 20
+# Keys excluded from auto-discovery (high-cardinality / not meaningful as a top-N list).
+PROPERTY_KEY_DENYLIST = {'lat', 'lng', 'latitude', 'longitude'}
 
 _TRUNCATORS = {
     'hour': TruncHour,
@@ -161,6 +169,122 @@ def v3_meta(island: Island) -> dict[str, Any]:
     }
 
 
+def v3_properties(
+    *,
+    island: Island,
+    start: datetime,
+    end: datetime,
+    module: str | None = None,
+    event_type: str | None = None,
+    platform: str | None = None,
+    key: str | None = None,
+) -> dict[str, Any]:
+    """
+    Top values for the v3 ``properties`` JSON — the "most searched X" data.
+
+    Without ``key`` it auto-discovers the meaningful property keys in range and
+    returns a top-values breakdown for each, plus a combined origin→destination
+    routes breakdown. With ``key`` it returns the top values for that one key.
+    """
+    qs = _v3_queryset(island, start, end, module, event_type, platform)
+    base = {'range': {'start': _iso(start), 'end': _iso(end)}, 'total': qs.count()}
+
+    if key:
+        return {**base, 'key': key, 'values': _property_values(qs, key)}
+
+    keys = _discover_property_keys(qs)
+    breakdowns = {}
+    for prop_key in keys:
+        values = _property_values(qs, prop_key)
+        if values:
+            breakdowns[prop_key] = values
+
+    return {
+        **base,
+        'keys': list(breakdowns.keys()),
+        'breakdowns': breakdowns,
+        'routes': _v3_route_breakdown(qs),
+    }
+
+
+def _property_values(qs: QuerySet, key: str) -> list[dict[str, Any]]:
+    # Blank/empty values are filtered in Python: comparing a KeyTextTransform to
+    # '' in SQL trips SQLite's JSON path ("malformed JSON").
+    rows = (
+        qs.annotate(_pv=KeyTextTransform(key, 'properties'))
+        .exclude(_pv__isnull=True)
+        .values('_pv')
+        .annotate(count=Count('id'))
+        .order_by('-count')
+    )
+    out = []
+    for row in rows:
+        value = row['_pv']
+        if value is None or value == '':
+            continue
+        out.append({'key': value, 'count': row['count']})
+        if len(out) >= PROPERTY_VALUE_LIMIT:
+            break
+    return out
+
+
+def _v3_route_breakdown(qs: QuerySet) -> list[dict[str, Any]]:
+    rows = (
+        qs.annotate(
+            _o=KeyTextTransform('origin', 'properties'),
+            _d=KeyTextTransform('destination', 'properties'),
+        )
+        .exclude(_o__isnull=True)
+        .exclude(_d__isnull=True)
+        .values('_o', '_d')
+        .annotate(count=Count('id'))
+        .order_by('-count')
+    )
+    out = []
+    for row in rows:
+        origin, destination = row['_o'], row['_d']
+        if not origin or not destination:
+            continue
+        out.append({
+            'key': f"{origin} \u2192 {destination}",
+            'origin': origin,
+            'destination': destination,
+            'count': row['count'],
+        })
+        if len(out) >= PROPERTY_VALUE_LIMIT:
+            break
+    return out
+
+
+def _discover_property_keys(qs: QuerySet) -> list[str]:
+    """Pick meaningful scalar property keys from a recent sample, by frequency.
+
+    Skips nested values, the float-coordinate denylist, and keys whose sampled
+    values are mostly non-integer floats (e.g. raw lat/lng).
+    """
+    sample = qs.order_by('-occurred_at').values_list('properties', flat=True)[:PROPERTY_SAMPLE]
+    freq: dict[str, int] = {}
+    floatish: dict[str, int] = {}
+    for props in sample:
+        if not isinstance(props, dict):
+            continue
+        for prop_key, value in props.items():
+            if prop_key in PROPERTY_KEY_DENYLIST:
+                continue
+            if value is None or value == '' or isinstance(value, (dict, list)):
+                continue
+            freq[prop_key] = freq.get(prop_key, 0) + 1
+            if isinstance(value, float) and not float(value).is_integer():
+                floatish[prop_key] = floatish.get(prop_key, 0) + 1
+
+    keys: list[str] = []
+    for prop_key, count in sorted(freq.items(), key=lambda item: -item[1]):
+        if floatish.get(prop_key, 0) / count > 0.5:
+            continue
+        keys.append(prop_key)
+    return keys[:PROPERTY_KEY_LIMIT]
+
+
 # --- legacy Stat -------------------------------------------------------------
 
 def legacy_overview(
@@ -217,6 +341,7 @@ def legacy_overview(
             'platform': _breakdown(qs, 'platform'),
             'language': _breakdown(qs, 'language'),
             'type_of_day': _breakdown(qs, 'type_of_day'),
+            'time': _breakdown(qs.exclude(time='').exclude(time='NA'), 'time'),
             'top_origins': _breakdown(qs.exclude(origin=''), 'origin'),
             'top_destinations': _breakdown(qs.exclude(destination=''), 'destination'),
             'top_routes': top_routes,

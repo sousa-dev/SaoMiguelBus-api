@@ -113,8 +113,12 @@ code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0
 .chart-wrap { padding: 1rem 1.2rem; height: 300px; }
 canvas { max-width: 100%; }
 
+/* Section title (between grids) */
+.section-title { font-size: 1rem; margin: 0 0 0.85rem; }
+
 /* Breakdown grid */
 .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.25rem; margin-bottom: 1.25rem; }
+.grid:empty { margin-bottom: 0; }
 .panel { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); }
 .panel h3 { font-size: 0.85rem; margin: 0; padding: 0.85rem 1.1rem; border-bottom: 1px solid var(--line); }
 .panel__body { padding: 0.4rem 1.1rem 0.9rem; }

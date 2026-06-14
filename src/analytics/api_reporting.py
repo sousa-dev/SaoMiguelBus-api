@@ -89,6 +89,26 @@ def v3_events_view(request: Request) -> Response:
 
 @api_view(['GET'])
 @permission_classes([AllowAny])
+def v3_properties_view(request: Request) -> Response:
+    denied = _denied(request) or _require_island(request)
+    if denied:
+        return denied
+
+    start, end = reporting.parse_range(_q(request, 'start'), _q(request, 'end'))
+    payload = reporting.v3_properties(
+        island=request.island,
+        start=start,
+        end=end,
+        module=_q(request, 'module'),
+        event_type=_q(request, 'event_type'),
+        platform=_q(request, 'platform'),
+        key=_q(request, 'prop'),
+    )
+    return Response(payload)
+
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
 def v3_meta_view(request: Request) -> Response:
     denied = _denied(request) or _require_island(request)
     if denied:

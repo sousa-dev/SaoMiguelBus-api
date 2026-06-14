@@ -129,3 +129,75 @@ class ReportingApiTests(TestCase):
         data = resp.json()
         self.assertIn('GET_ROUTE', data['requests'])
         self.assertEqual(data['total'], 5)
+
+    def _make_search(self, origin, destination, **extra):
+        props = {'origin': origin, 'destination': destination}
+        props.update(extra)
+        AnalyticsEvent.objects.create(
+            island=self.island,
+            module='transit',
+            event_type='search',
+            properties=props,
+            session_hash='s',
+            consent_state={'analytics': True},
+            platform='web',
+            locale='pt',
+            occurred_at=timezone.now(),
+        )
+
+    def test_v3_properties_breakdowns_and_routes(self):
+        for _ in range(3):
+            self._make_search('Ponta Delgada', 'Furnas', day_type='weekday', results_count=2)
+        self._make_search('Lagoa', 'Furnas', day_type='sunday', results_count=0)
+
+        resp = self._get('/api/v3/analytics/reports/properties', module='transit', event_type='search')
+        self.assertEqual(resp.status_code, 200)
+        data = resp.json()
+
+        origins = {r['key']: r['count'] for r in data['breakdowns']['origin']}
+        self.assertEqual(origins['Ponta Delgada'], 3)
+        self.assertEqual(origins['Lagoa'], 1)
+
+        dests = {r['key']: r['count'] for r in data['breakdowns']['destination']}
+        self.assertEqual(dests['Furnas'], 4)
+
+        top_route = data['routes'][0]
+        self.assertEqual(top_route['origin'], 'Ponta Delgada')
+        self.assertEqual(top_route['destination'], 'Furnas')
+        self.assertEqual(top_route['count'], 3)
+
+        # day_type and results_count are discovered too
+        self.assertIn('day_type', data['breakdowns'])
+        self.assertIn('results_count', data['breakdowns'])
+
+    def test_v3_properties_single_key(self):
+        self._make_search('Vila Franca', 'Nordeste')
+        self._make_search('Vila Franca', 'Furnas')
+        resp = self._get('/api/v3/analytics/reports/properties', module='transit', prop='origin')
+        data = resp.json()
+        self.assertEqual(data['key'], 'origin')
+        values = {r['key']: r['count'] for r in data['values']}
+        self.assertEqual(values['Vila Franca'], 2)
+
+    def test_v3_properties_skips_coordinates(self):
+        AnalyticsEvent.objects.create(
+            island=self.island, module='trails', event_type='weather_view',
+            properties={'lat': 37.8387, 'lng': -25.3624}, session_hash='s',
+            consent_state={'analytics': True}, platform='web', locale='pt',
+            occurred_at=timezone.now(),
+        )
+        resp = self._get('/api/v3/analytics/reports/properties', module='trails')
+        data = resp.json()
+        self.assertNotIn('lat', data.get('breakdowns', {}))
+        self.assertNotIn('lng', data.get('breakdowns', {}))
+
+    def test_legacy_overview_time_breakdown(self):
+        Stat.objects.create(request='GET_ROUTE', origin='A', destination='B',
+                            platform='web', language='pt', time='08:00')
+        Stat.objects.create(request='GET_ROUTE', origin='A', destination='B',
+                            platform='web', language='pt', time='08:00')
+        resp = self._get('/api/v3/analytics/reports/legacy/overview')
+        data = resp.json()
+        times = {r['key']: r['count'] for r in data['breakdowns']['time']}
+        self.assertEqual(times.get('08:00'), 2)
+        self.assertNotIn('NA', times)
