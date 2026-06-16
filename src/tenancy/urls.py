@@ -1,5 +1,6 @@
 from django.urls import path
 
+from marketplace.api_ops import fix_provider_phones_view
 from tenancy import views
 
 urlpatterns = [
@@ -12,5 +13,10 @@ urlpatterns = [
         'feeds/sync',
         views.trigger_feed_sync,
         name='ops_feed_sync',
+    ),
+    path(
+        'marketplace/fix-phones',
+        fix_provider_phones_view,
+        name='ops_marketplace_fix_phones',
     ),
 ]

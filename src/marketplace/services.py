@@ -16,6 +16,7 @@ from django.db.models import Avg, Count
 from django.utils.text import slugify
 
 from marketplace.models import Review, ServiceCategory, ServiceProvider
+from marketplace.phone import normalize_pt_phone
 
 MAX_LIMIT = 100
 DEFAULT_LIMIT = 50
@@ -410,3 +411,75 @@ def recompute_rating(provider: ServiceProvider) -> None:
     provider.rating = Decimal(str(round(avg, 2)))
     provider.review_count = agg['count'] or 0
     provider.save(update_fields=['rating', 'review_count', 'updated_at'])
+
+
+# --------------------------------------------------------------------------- #
+# Phone normalization (one-off / ops)
+# --------------------------------------------------------------------------- #
+
+_PROVIDER_PHONE_FIELDS = ('phone', 'whatsapp')
+
+
+def fix_provider_phone_numbers(
+    *,
+    island=None,
+    dry_run: bool = False,
+) -> dict[str, Any]:
+    """Normalize ``phone`` and ``whatsapp`` on all service providers to ``+351XXXXXXXXX``."""
+    qs = ServiceProvider.objects.unscoped().select_related('island')
+    if island is not None:
+        qs = qs.filter(island=island)
+
+    scanned = 0
+    updated = 0
+    unchanged = 0
+    skipped_fields = 0
+    changes: list[dict[str, Any]] = []
+
+    for provider in qs.iterator():
+        scanned += 1
+        field_updates: dict[str, str] = {}
+        field_skipped: list[str] = []
+
+        for field in _PROVIDER_PHONE_FIELDS:
+            raw = getattr(provider, field) or ''
+            if not str(raw).strip():
+                continue
+            normalized = normalize_pt_phone(raw)
+            if normalized is None:
+                field_skipped.append(field)
+                continue
+            if normalized != raw:
+                field_updates[field] = normalized
+
+        if field_skipped:
+            skipped_fields += len(field_skipped)
+
+        if not field_updates:
+            unchanged += 1
+            continue
+
+        updated += 1
+        change_row: dict[str, Any] = {
+            'id': provider.id,
+            'name': provider.name,
+            'island': provider.island.key,
+        }
+        for field, new_value in field_updates.items():
+            change_row[field] = {'from': getattr(provider, field), 'to': new_value}
+        changes.append(change_row)
+
+        if not dry_run:
+            for field, new_value in field_updates.items():
+                setattr(provider, field, new_value)
+            provider.save(update_fields=[*field_updates.keys(), 'updated_at'])
+
+    return {
+        'dry_run': dry_run,
+        'island_key': getattr(island, 'key', None),
+        'scanned': scanned,
+        'updated': updated,
+        'unchanged': unchanged,
+        'skipped_fields': skipped_fields,
+        'changes': changes,
+    }
