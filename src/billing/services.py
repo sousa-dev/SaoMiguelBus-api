@@ -18,6 +18,9 @@ CREATION_VERIFICATION_CODE = (
     'a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6q7r8s9t0u1v2w3x4y5z6'
 )
 
+# Must match the Expo client's `REVENUECAT_APP_USER_ID_PREFIX` in lib/revenuecat.ts.
+REVENUECAT_APP_USER_ID_PREFIX = 'smb_user_'
+
 # Higher wins when a user holds multiple active entitlements.
 _SOURCE_PRIORITY = {
     Entitlement.SOURCE_STRIPE: 3,
@@ -168,26 +171,42 @@ def _datetime_from_ms(ms) -> _dt.datetime | None:
         return None
 
 
-def reconcile_revenuecat(event: dict) -> Entitlement | None:
-    """Reconcile a RevenueCat webhook event into an Entitlement (future-IAP seam).
-
-    Expects the client to set RevenueCat ``app_user_id`` to the Django user id
-    (or username/email). Unknown users are ignored.
-    """
-    app_user_id = event.get('app_user_id') or event.get('original_app_user_id')
+def resolve_user_from_revenuecat_app_user_id(app_user_id: str | None):
+    """Map a RevenueCat app_user_id to a Django user."""
     if not app_user_id:
         return None
 
-    user = None
-    if str(app_user_id).isdigit():
-        user = User.objects.filter(pk=int(app_user_id)).first()
+    raw = str(app_user_id)
+    if raw.startswith('$RCAnonymousID:'):
+        return None
+
+    if raw.startswith(REVENUECAT_APP_USER_ID_PREFIX):
+        suffix = raw[len(REVENUECAT_APP_USER_ID_PREFIX) :]
+        if suffix.isdigit():
+            return User.objects.filter(pk=int(suffix)).first()
+
+    if raw.isdigit():
+        return User.objects.filter(pk=int(raw)).first()
+
+    return (
+        User.objects.filter(username__iexact=raw).first()
+        or User.objects.filter(email__iexact=raw).first()
+    )
+
+
+def reconcile_revenuecat(event: dict) -> Entitlement | None:
+    """Reconcile a RevenueCat webhook event into an Entitlement (future-IAP seam).
+
+    Expects the client to set RevenueCat ``app_user_id`` to ``smb_user_<id>`` for
+    signed-in users. Unknown users are ignored.
+    """
+    app_user_id = event.get('app_user_id') or event.get('original_app_user_id')
+    user = resolve_user_from_revenuecat_app_user_id(app_user_id)
     if user is None:
-        user = (
-            User.objects.filter(username__iexact=str(app_user_id)).first()
-            or User.objects.filter(email__iexact=str(app_user_id)).first()
-        )
-    if user is None:
-        logger.warning('RevenueCat event for unknown app_user_id=%s', app_user_id)
+        if app_user_id and not str(app_user_id).startswith('$RCAnonymousID:'):
+            logger.warning('RevenueCat event for unknown app_user_id=%s', app_user_id)
+        else:
+            logger.debug('RevenueCat event for anonymous app_user_id=%s', app_user_id)
         return None
 
     store = (event.get('store') or '').upper()

@@ -124,3 +124,51 @@ class RevenueCatWebhookTests(APITestCase):
         )
         self.assertEqual(resp.status_code, 400)
         self.assertEqual(Entitlement.objects.count(), 0)
+
+    def test_smb_user_prefix_app_user_id_creates_entitlement(self):
+        payload = {
+            'event': {
+                'type': 'INITIAL_PURCHASE',
+                'app_user_id': f'smb_user_{self.user.id}',
+                'store': 'APP_STORE',
+                'expiration_at_ms': int((timezone.now() + timezone.timedelta(days=30)).timestamp() * 1000),
+            }
+        }
+        resp = self.client.post(
+            '/api/v3/billing/webhooks/revenuecat',
+            payload,
+            format='json',
+            HTTP_AUTHORIZATION='shh',
+        )
+        self.assertEqual(resp.status_code, 200)
+        ent = services.resolve_entitlement(self.user)
+        self.assertEqual(ent.source, 'revenuecat')
+        self.assertEqual(ent.external_id, f'smb_user_{self.user.id}')
+
+    def test_anonymous_app_user_id_is_ignored(self):
+        resp = self.client.post(
+            '/api/v3/billing/webhooks/revenuecat',
+            {'event': {'app_user_id': '$RCAnonymousID:abc123', 'type': 'INITIAL_PURCHASE'}},
+            format='json',
+            HTTP_AUTHORIZATION='shh',
+        )
+        self.assertEqual(resp.status_code, 200)
+        self.assertEqual(Entitlement.objects.count(), 0)
+
+    def test_cancellation_marks_entitlement_canceled(self):
+        services.reconcile_revenuecat(
+            {
+                'type': 'INITIAL_PURCHASE',
+                'app_user_id': f'smb_user_{self.user.id}',
+                'store': 'PLAY_STORE',
+            }
+        )
+        services.reconcile_revenuecat(
+            {
+                'type': 'CANCELLATION',
+                'app_user_id': f'smb_user_{self.user.id}',
+                'store': 'PLAY_STORE',
+            }
+        )
+        ent = Entitlement.objects.get(user=self.user, source='revenuecat')
+        self.assertEqual(ent.status, 'canceled')

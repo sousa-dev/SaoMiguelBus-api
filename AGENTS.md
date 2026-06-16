@@ -187,6 +187,13 @@ Services: `db`, `redis`, `web`, `celery-worker`, `celery-beat`.
 - `.cursor/agents/` — `djast-backend-engineer`, `djast-db-migrations-specialist`, …
 - `boilerplate/CLAUDE.md` — entry point until promoted to root
 
+### RevenueCat webhook (mobile IAP)
+
+- Webhook: `POST /api/v3/billing/webhooks/revenuecat` — auth via `Authorization: <REVENUECAT_WEBHOOK_SECRET>` header.
+- Client App User ID format: `smb_user_<django_user_pk>` (`billing.services.REVENUECAT_APP_USER_ID_PREFIX`). Anonymous `$RCAnonymousID:*` events are ignored (no backend entitlement until login transfer).
+- Configure in RevenueCat dashboard: webhook URL + secret; enable **transfer purchases to new App User ID** on the client side so anonymous purchases move to `smb_user_<id>` on login.
+- Required env: `REVENUECAT_WEBHOOK_SECRET` in `src/src/.env`.
+
 ---
 
 ## Legacy API
