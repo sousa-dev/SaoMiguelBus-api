@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from unittest.mock import patch
+
 from django.test import TestCase
 
 from marketplace import services
@@ -201,6 +203,67 @@ class MarketplaceServiceTests(TestCase):
             services.moderate_provider(r['id'], 'publish')
         ordered = services.list_providers(lat=37.74, lng=-25.67)
         self.assertEqual([p['name'] for p in ordered], ['Near', 'Far'])
+
+    def test_list_randomizes_equal_rating_ties(self):
+        a = self._create(session='a', name='Alpha')
+        b = self._create(session='b', name='Beta')
+        c = self._create(session='c', name='Charlie')
+        for provider in (a, b, c):
+            services.moderate_provider(provider['id'], 'publish')
+
+        with patch('marketplace.services.random.random', side_effect=[0.9, 0.1, 0.5]):
+            ordered = [p['name'] for p in services.list_providers()]
+
+        self.assertEqual(ordered, ['Beta', 'Charlie', 'Alpha'])
+
+    def test_list_keeps_higher_rating_above_lower(self):
+        low = self._create(session='a', name='Low Rated')
+        high = self._create(session='b', name='High Rated')
+        for provider in (low, high):
+            services.moderate_provider(provider['id'], 'publish')
+        ServiceProvider.objects.filter(id=low['id']).update(rating='2.00')
+        ServiceProvider.objects.filter(id=high['id']).update(rating='4.50')
+
+        with patch('marketplace.services.random.random', side_effect=[0.1, 0.9]):
+            ordered = [p['name'] for p in services.list_providers()]
+
+        self.assertEqual(ordered, ['High Rated', 'Low Rated'])
+
+    def test_list_randomizes_among_promoted_then_non_promoted(self):
+        plain_a = self._create(session='a', name='Plain A')
+        plain_b = self._create(session='b', name='Plain B')
+        promo_a = self._create(session='c', name='Promo A')
+        promo_b = self._create(session='d', name='Promo B')
+        for provider in (plain_a, plain_b, promo_a, promo_b):
+            services.moderate_provider(provider['id'], 'publish')
+        ServiceProvider.objects.filter(id__in=[promo_a['id'], promo_b['id']]).update(is_promoted=True)
+
+        with patch('marketplace.services.random.random', side_effect=[0.2, 0.8, 0.4, 0.6]):
+            ordered = [p['name'] for p in services.list_providers()]
+
+        self.assertEqual(ordered[:2], ['Promo A', 'Promo B'])
+        self.assertEqual(set(ordered[2:]), {'Plain A', 'Plain B'})
+
+    def test_category_and_search_use_same_randomized_ordering(self):
+        plumber = services.create_provider(
+            island=self.island,
+            session_hash='p1',
+            data={'category_slug': 'plumbers', 'name': 'Plumber One'},
+        )
+        other = services.create_provider(
+            island=self.island,
+            session_hash='p2',
+            data={'category_slug': 'plumbers', 'name': 'Plumber Two'},
+        )
+        for provider in (plumber, other):
+            services.moderate_provider(provider['id'], 'publish')
+
+        with patch('marketplace.services.random.random', side_effect=[0.7, 0.3, 0.7, 0.3]):
+            category_order = [p['name'] for p in services.list_providers(category='plumbers')]
+            search_order = [p['name'] for p in services.list_providers(q='Plumber')]
+
+        self.assertEqual(category_order, ['Plumber Two', 'Plumber One'])
+        self.assertEqual(search_order, ['Plumber Two', 'Plumber One'])
 
     def test_soft_delete_excludes_from_list(self):
         result = self._create(session='owner', name='Gone')

@@ -9,10 +9,11 @@ Creates pass ``island`` explicitly. Ownership is pseudonymous, keyed on the
 from __future__ import annotations
 
 import math
+import random
 from decimal import Decimal
 from typing import Any
 
-from django.db.models import Avg, Count
+from django.db.models import Avg, Count, Q
 from django.utils.text import slugify
 
 from marketplace.models import Review, ServiceCategory, ServiceProvider
@@ -171,6 +172,36 @@ def _haversine_km(lat1: float, lng1: float, lat2: float, lng2: float) -> float:
     return radius * 2 * math.asin(math.sqrt(a))
 
 
+def _random_tiebreakers(providers: list[ServiceProvider]) -> dict[int, float]:
+    return {provider.id: random.random() for provider in providers}
+
+
+def _sort_providers_for_listing(
+    providers: list[ServiceProvider],
+    *,
+    lat: float | None = None,
+    lng: float | None = None,
+) -> list[ServiceProvider]:
+    """Order: promoted first, then rating or distance, random tie-break within each tier."""
+    tiebreakers = _random_tiebreakers(providers)
+    use_proximity = lat is not None and lng is not None
+
+    def sort_key(provider: ServiceProvider) -> tuple:
+        promoted_rank = 0 if provider.is_promoted else 1
+        rating_rank = -float(provider.rating)
+        random_rank = tiebreakers[provider.id]
+        if not use_proximity:
+            return (promoted_rank, rating_rank, random_rank)
+        if provider.latitude is None or provider.longitude is None:
+            distance = float('inf')
+        else:
+            distance = _haversine_km(lat, lng, provider.latitude, provider.longitude)
+        return (promoted_rank, distance, rating_rank, random_rank)
+
+    providers.sort(key=sort_key)
+    return providers
+
+
 def list_providers(
     *,
     category: str | None = None,
@@ -186,25 +217,11 @@ def list_providers(
     if category:
         qs = qs.filter(category__slug=category)
     if q:
-        from django.db.models import Q
-
         qs = qs.filter(Q(name__icontains=q) | Q(bio__icontains=q))
 
     limit = max(1, min(limit, MAX_LIMIT))
-
-    if lat is not None and lng is not None:
-        providers = list(qs)
-
-        def sort_key(p: ServiceProvider) -> tuple[bool, float]:
-            if p.latitude is None or p.longitude is None:
-                return (not p.is_promoted, float('inf'))
-            return (not p.is_promoted, _haversine_km(lat, lng, p.latitude, p.longitude))
-
-        providers.sort(key=sort_key)
-        return [serialize_provider(p) for p in providers[:limit]]
-
-    # DB default ordering: -is_promoted, -rating, name
-    return [serialize_provider(p) for p in qs[:limit]]
+    providers = _sort_providers_for_listing(list(qs), lat=lat, lng=lng)
+    return [serialize_provider(provider) for provider in providers[:limit]]
 
 
 def _get_provider_or_none(provider_id: int) -> ServiceProvider | None:
