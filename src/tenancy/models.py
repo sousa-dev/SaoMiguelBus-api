@@ -48,7 +48,7 @@ class Island(models.Model):
             'radius_km': 50,
             'timezone': 'Atlantic/Azores',
             'default_locale': 'pt',
-            'locales': ['pt', 'en', 'es', 'fr', 'de', 'it', 'nl', 'pl'],
+            'locales': ['pt', 'en', 'de', 'es', 'fr', 'it', 'uk', 'zh'],
             'theme': {
                 'primaryColor': '#28a745',
                 'secondaryColor': '#1e7e34',
