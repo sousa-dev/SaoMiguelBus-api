@@ -509,7 +509,6 @@ def search_minibus_routes(
     origin: str,
     destination: str,
     locale: str,
-    request,
 ) -> dict[str, Any]:
     """Full route-search payload: resolves tokens, searches, enriches with line metadata."""
     network = load_network_stops()

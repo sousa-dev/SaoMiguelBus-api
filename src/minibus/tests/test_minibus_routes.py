@@ -1,6 +1,7 @@
 """Mini Bus route-search (origin -> destination) tests."""
 
-from django.test import SimpleTestCase
+from django.test import SimpleTestCase, TestCase
+from rest_framework.test import APIClient
 
 from minibus.services import (
     build_network_graph,
@@ -8,7 +9,9 @@ from minibus.services import (
     normalize_token,
     resolve_stop_refs,
     search_routes,
+    seed_catalog,
 )
+from tenancy.services import get_or_create_default_island
 
 
 class NetworkGraphTestCase(SimpleTestCase):
@@ -105,3 +108,45 @@ class SearchRoutesTestCase(SimpleTestCase):
 
     def test_unknown_stop_yields_no_journeys(self):
         self.assertEqual(search_routes(self.graph, [], ['a-08']), [])
+
+
+class RouteSearchApiTestCase(TestCase):
+    def setUp(self):
+        self.client = APIClient()
+        self.island = get_or_create_default_island()
+        flags = dict(self.island.feature_flags or {})
+        flags['minibus'] = True
+        self.island.feature_flags = flags
+        self.island.save(update_fields=['feature_flags'])
+        seed_catalog(self.island)
+
+    def test_route_search_returns_enriched_journeys(self):
+        response = self.client.get(
+            '/api/v3/minibus/route?origin=a-01&destination=a-08&locale=pt',
+            HTTP_X_ISLAND='sao-miguel',
+        )
+        self.assertEqual(response.status_code, 200)
+        body = response.json()
+        self.assertTrue(body['origin']['matched'])
+        self.assertTrue(body['journeys'])
+        leg = body['journeys'][0]['legs'][0]
+        self.assertEqual(leg['line_code'], 'A')
+        self.assertEqual(leg['line_name'], 'Linha A — Amarela')
+        self.assertEqual(leg['line_color'], '#fbc707')
+
+    def test_route_search_requires_origin_and_destination(self):
+        response = self.client.get(
+            '/api/v3/minibus/route?origin=a-01',
+            HTTP_X_ISLAND='sao-miguel',
+        )
+        self.assertEqual(response.status_code, 400)
+
+    def test_route_search_unmatched_token_returns_empty_journeys(self):
+        response = self.client.get(
+            '/api/v3/minibus/route?origin=nowhere&destination=a-08',
+            HTTP_X_ISLAND='sao-miguel',
+        )
+        self.assertEqual(response.status_code, 200)
+        body = response.json()
+        self.assertFalse(body['origin']['matched'])
+        self.assertEqual(body['journeys'], [])

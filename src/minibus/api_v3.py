@@ -15,8 +15,10 @@ from minibus.services import (
     document_file_url,
     open_document_file,
     resolve_locale,
+    search_minibus_routes,
     serialize_document,
     serialize_line,
+    serialize_network_stops,
     serialize_tariff,
 )
 from tenancy.services import for_island
@@ -116,6 +118,47 @@ def schematic_view(request: Request) -> Response:
                 status=status.HTTP_404_NOT_FOUND,
             )
         payload = serialize_document(document, locale=locale, request=request)
+
+    return Response({**payload, **build_meta_payload(request.island)})
+
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def network_stops_view(request: Request) -> Response:
+    err = _require_island(request)
+    if err:
+        return err
+
+    locale = resolve_locale(request)
+    with for_island(request.island):
+        payload = serialize_network_stops(island=request.island, locale=locale, request=request)
+
+    return Response({**payload, **build_meta_payload(request.island)})
+
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def route_search_view(request: Request) -> Response:
+    err = _require_island(request)
+    if err:
+        return err
+
+    origin = request.GET.get('origin', '').strip()
+    destination = request.GET.get('destination', '').strip()
+    if not origin or not destination:
+        return Response(
+            {'error': {'code': 'invalid_request', 'message': 'origin and destination are required'}},
+            status=status.HTTP_400_BAD_REQUEST,
+        )
+
+    locale = resolve_locale(request)
+    with for_island(request.island):
+        payload = search_minibus_routes(
+            island=request.island,
+            origin=origin,
+            destination=destination,
+            locale=locale,
+        )
 
     return Response({**payload, **build_meta_payload(request.island)})
 
