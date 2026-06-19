@@ -120,7 +120,7 @@
       "title_pt": "Horário Linha A — Amarela",
       "title_en": "Timetable Line A — Yellow",
       "doc_type": "timetable",
-      "source_filename": "A - LINHA A - AMARELA.pdf",
+      "source_filename": "line-a.png",
       "line_code": "A"
     },
     {
@@ -128,7 +128,7 @@
       "title_pt": "Horário Linha B — Verde",
       "title_en": "Timetable Line B — Green",
       "doc_type": "timetable",
-      "source_filename": "B - LINHA B - VERDE.pdf",
+      "source_filename": "line-b.png",
       "line_code": "B"
     },
     {
@@ -136,7 +136,7 @@
       "title_pt": "Horário Linha C — Azul",
       "title_en": "Timetable Line C — Blue",
       "doc_type": "timetable",
-      "source_filename": "C - LINHA C - AZUL.pdf",
+      "source_filename": "line-c.png",
       "line_code": "C"
     },
     {
@@ -144,7 +144,7 @@
       "title_pt": "Horário Linha D — Laranja",
       "title_en": "Timetable Line D — Orange",
       "doc_type": "timetable",
-      "source_filename": "D - LINHA D - LARANJA.pdf",
+      "source_filename": "line-d.png",
       "line_code": "D"
     },
     {

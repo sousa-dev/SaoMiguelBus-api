@@ -7,7 +7,7 @@ from django.test import TestCase, override_settings
 from rest_framework.test import APIClient
 
 from minibus.models import MinibusDocument, MinibusLine, MinibusTariff
-from minibus.services import ATTRIBUTION, SOURCE_URL, combine_source_revisions, load_catalog, seed_catalog
+from minibus.services import ATTRIBUTION, SOURCE_URL, combine_source_revisions, load_catalog, load_network_stops, seed_catalog
 from tenancy.services import get_or_create_default_island
 
 CATALOG_PATH = Path(__file__).resolve().parent.parent / 'data' / 'catalog_sao_miguel.json'
@@ -24,6 +24,18 @@ class CatalogTestCase(TestCase):
             line_c['service_summary']['saturday_departures'],
             ['09:00', '10:00', '11:00', '12:00', '13:00'],
         )
+
+    def test_network_stops_shape(self):
+        network = load_network_stops()
+        self.assertEqual(len(network['lines']), 4)
+        line_b = next(row for row in network['lines'] if row['code'] == 'B')
+        self.assertEqual(line_b['stop_count'], 22)
+        morgado = [s for s in line_b['stops'] if s['match_key'].startswith('rua-morgado-botelho')]
+        self.assertEqual(len(morgado), 2)
+        juventude = next(s for s in line_b['stops'] if 'Juventude' in s['name_pt'])
+        self.assertEqual(juventude['name_pt'], 'Rua da Juventude')
+        praca = next(s for s in line_b['stops'] if s['match_key'] == 'praca-vasco-da-gama')
+        self.assertEqual(praca['interchange_lines'], ['C', 'D'])
 
 
 class SeedCatalogTestCase(TestCase):
@@ -99,7 +111,7 @@ class MinibusApiTestCase(TestCase):
             HTTP_X_ISLAND='sao-miguel',
         )
         self.assertEqual(response.status_code, 200)
-        self.assertIn('application/pdf', response['Content-Type'])
+        self.assertIn('image/png', response['Content-Type'])
 
     def test_document_file_stream_from_bundled_source_without_media(self):
         document = MinibusDocument.objects.get(island=self.island, slug='schematic')
@@ -158,3 +170,15 @@ class MinibusApiTestCase(TestCase):
         self.assertEqual(response.status_code, 200)
         line_a = next(row for row in response.json()['lines'] if row['code'] == 'A')
         self.assertEqual(line_a['name'], 'Line A — Yellow')
+
+    def test_network_stops(self):
+        response = self.client.get('/api/v3/minibus/network', HTTP_X_ISLAND='sao-miguel')
+        self.assertEqual(response.status_code, 200)
+        body = response.json()
+        self.assertEqual(len(body['lines']), 4)
+        line_a = next(row for row in body['lines'] if row['code'] == 'A')
+        self.assertEqual(line_a['stop_count'], 21)
+        self.assertEqual(line_a['color'], '#fbc707')
+        monaco = next(s for s in line_a['stops'] if s['match_key'] == 'avenida-principe-do-monaco')
+        self.assertEqual(monaco['interchange_lines'], ['D'])
+        self.assertIn('centro-de-saude', body['interchanges_by_key'])

@@ -1,0 +1,910 @@
+{
+  "source": "pdlminibus.pt line schematic (lines_scheme.svg)",
+  "extracted_at": "2026-06-19",
+  "match_key_notes": "match_key keeps parenthetical qualifiers and only strips ordinal suffixes (1ª, 2ª, 1.º, …). interchange_key applies a small alias map so cross-line stops on the same street can transfer (e.g. Centro de Saúde ↔ Centro de Saúde (Rotunda)). interchange_lines lists other line codes.",
+  "interchange_aliases": {
+    "centro-de-saude-rotunda": "centro-de-saude",
+    "rua-de-sao-goncalo-universidade": "rua-de-sao-goncalo",
+    "rua-de-sao-goncalo-torres-loreto": "rua-de-sao-goncalo",
+    "rua-ramalho-edificio-monaco": "rua-ramalho",
+    "rua-santa-clara-farol": "rua-santa-clara",
+    "avenida-principe-do-monaco-clinica": "avenida-principe-do-monaco"
+  },
+  "interchanges_by_key": {
+    "avenida-antero-de-quental": [
+      "A",
+      "D"
+    ],
+    "avenida-dom-joao-iii": [
+      "B",
+      "C"
+    ],
+    "avenida-principe-do-monaco": [
+      "A",
+      "D"
+    ],
+    "centro-de-saude": [
+      "B",
+      "D"
+    ],
+    "hospital-visitas": [
+      "B",
+      "D"
+    ],
+    "praca-vasco-da-gama": [
+      "B",
+      "C",
+      "D"
+    ],
+    "rua-arcanjo-lar": [
+      "B",
+      "D"
+    ],
+    "rua-coronel-silva-leal": [
+      "B",
+      "D"
+    ],
+    "rua-da-juventude": [
+      "B",
+      "D"
+    ],
+    "rua-de-sao-goncalo": [
+      "B",
+      "C",
+      "D"
+    ],
+    "rua-eng-jose-cordeiro": [
+      "B",
+      "C"
+    ],
+    "rua-ramalho": [
+      "A",
+      "D"
+    ],
+    "rua-santa-clara": [
+      "A",
+      "D"
+    ]
+  },
+  "lines": [
+    {
+      "code": "A",
+      "slug": "line-a",
+      "direction": "circular",
+      "stop_count": 21,
+      "stops": [
+        {
+          "sequence": 1,
+          "key": "a-01",
+          "name_pt": "Avenida Infante D. Henrique (Alfândega)",
+          "match_key": "avenida-infante-d-henrique-alfandega",
+          "interchange_key": "avenida-infante-d-henrique-alfandega",
+          "interchange_lines": []
+        },
+        {
+          "sequence": 2,
+          "key": "a-02",
+          "name_pt": "Avenida Infante D. Henrique",
+          "match_key": "avenida-infante-d-henrique",
+          "interchange_key": "avenida-infante-d-henrique",
+          "interchange_lines": []
+        },
+        {
+          "sequence": 3,
+          "key": "a-03",
+          "name_pt": "Rua da Vitória (Escola)",
+          "match_key": "rua-da-vitoria-escola",
+          "interchange_key": "rua-da-vitoria-escola",
+          "interchange_lines": []
+        },
+        {
+          "sequence": 4,
+          "key": "a-04",
+          "name_pt": "Rua Almirante Botelho Sousa (Segurança Social)",
+          "match_key": "rua-almirante-botelho-sousa-seguranca-social",
+          "interchange_key": "rua-almirante-botelho-sousa-seguranca-social",
+          "interchange_lines": []
+        },
+        {
+          "sequence": 5,
+          "key": "a-05",
+          "name_pt": "Avenida Antero de Quental",
+          "match_key": "avenida-antero-de-quental",
+          "interchange_key": "avenida-antero-de-quental",
+          "interchange_lines": [
+            "D"
+          ]
+        },
+        {
+          "sequence": 6,
+          "key": "a-06",
+          "name_pt": "Rua Nicolau Sousa Lima (Rua Francisco M. Supico)",
+          "match_key": "rua-nicolau-sousa-lima-rua-francisco-m-supico",
+          "interchange_key": "rua-nicolau-sousa-lima-rua-francisco-m-supico",
+          "interchange_lines": []
+        },
+        {
+          "sequence": 7,
+          "key": "a-07",
+          "name_pt": "Rua São Bento Menni",
+          "match_key": "rua-sao-bento-menni",
+          "interchange_key": "rua-sao-bento-menni",
+          "interchange_lines": []
+        },
+        {
+          "sequence": 8,
+          "key": "a-08",
+          "name_pt": "Rua Paim",
+          "match_key": "rua-paim",
+          "interchange_key": "rua-paim",
+          "interchange_lines": []
+        },
+        {
+          "sequence": 9,
+          "key": "a-09",
+          "name_pt": "Rua Ramalho (Edifício Mónaco)",
+          "match_key": "rua-ramalho-edificio-monaco",
+          "interchange_key": "rua-ramalho",
+          "interchange_lines": [
+            "D"
+          ]
+        },
+        {
+          "sequence": 10,
+          "key": "a-10",
+          "name_pt": "Rua Ramalho (1ª)",
+          "match_key": "rua-ramalho",
+          "interchange_key": "rua-ramalho",
+          "interchange_lines": [
+            "D"
+          ]
+        },
+        {
+          "sequence": 11,
+          "key": "a-11",
+          "name_pt": "Rua Ramalho (2ª)",
+          "match_key": "rua-ramalho",
+          "interchange_key": "rua-ramalho",
+          "interchange_lines": [
+            "D"
+          ]
+        },
+        {
+          "sequence": 12,
+          "key": "a-12",
+          "name_pt": "Rua José Neves Ferreira (Antiga Aerogare)",
+          "match_key": "rua-jose-neves-ferreira-antiga-aerogare",
+          "interchange_key": "rua-jose-neves-ferreira-antiga-aerogare",
+          "interchange_lines": []
+        },
+        {
+          "sequence": 13,
+          "key": "a-13",
+          "name_pt": "Rua José Neves Ferreira",
+          "match_key": "rua-jose-neves-ferreira",
+          "interchange_key": "rua-jose-neves-ferreira",
+          "interchange_lines": []
+        },
+        {
+          "sequence": 14,
+          "key": "a-14",
+          "name_pt": "Rua Padre Fernando Vieira Gomes",
+          "match_key": "rua-padre-fernando-vieira-gomes",
+          "interchange_key": "rua-padre-fernando-vieira-gomes",
+          "interchange_lines": []
+        },
+        {
+          "sequence": 15,
+          "key": "a-15",
+          "name_pt": "Rua Santa Clara (Farol)",
+          "match_key": "rua-santa-clara-farol",
+          "interchange_key": "rua-santa-clara",
+          "interchange_lines": [
+            "D"
+          ]
+        },
+        {
+          "sequence": 16,
+          "key": "a-16",
+          "name_pt": "Rua Santa Clara (2.ª)",
+          "match_key": "rua-santa-clara",
+          "interchange_key": "rua-santa-clara",
+          "interchange_lines": [
+            "D"
+          ]
+        },
+        {
+          "sequence": 17,
+          "key": "a-17",
+          "name_pt": "Avenida Príncipe do Mónaco",
+          "match_key": "avenida-principe-do-monaco",
+          "interchange_key": "avenida-principe-do-monaco",
+          "interchange_lines": [
+            "D"
+          ]
+        },
+        {
+          "sequence": 18,
+          "key": "a-18",
+          "name_pt": "Rua de Lisboa (1ª)",
+          "match_key": "rua-de-lisboa",
+          "interchange_key": "rua-de-lisboa",
+          "interchange_lines": []
+        },
+        {
+          "sequence": 19,
+          "key": "a-19",
+          "name_pt": "Rua de Lisboa (2ª)",
+          "match_key": "rua-de-lisboa",
+          "interchange_key": "rua-de-lisboa",
+          "interchange_lines": []
+        },
+        {
+          "sequence": 20,
+          "key": "a-20",
+          "name_pt": "Rua João Francisco Cabral",
+          "match_key": "rua-joao-francisco-cabral",
+          "interchange_key": "rua-joao-francisco-cabral",
+          "interchange_lines": []
+        },
+        {
+          "sequence": 21,
+          "key": "a-21",
+          "name_pt": "Avenida Infante D. Henrique (Alfândega)",
+          "match_key": "avenida-infante-d-henrique-alfandega",
+          "interchange_key": "avenida-infante-d-henrique-alfandega",
+          "interchange_lines": []
+        }
+      ]
+    },
+    {
+      "code": "B",
+      "slug": "line-b",
+      "direction": "circular",
+      "stop_count": 22,
+      "stops": [
+        {
+          "sequence": 1,
+          "key": "b-01",
+          "name_pt": "Praça Vasco da Gama",
+          "match_key": "praca-vasco-da-gama",
+          "interchange_key": "praca-vasco-da-gama",
+          "interchange_lines": [
+            "C",
+            "D"
+          ]
+        },
+        {
+          "sequence": 2,
+          "key": "b-02",
+          "name_pt": "Largo Almirante Dunn",
+          "match_key": "largo-almirante-dunn",
+          "interchange_key": "largo-almirante-dunn",
+          "interchange_lines": []
+        },
+        {
+          "sequence": 3,
+          "key": "b-03",
+          "name_pt": "Rua Eng. José Cordeiro",
+          "match_key": "rua-eng-jose-cordeiro",
+          "interchange_key": "rua-eng-jose-cordeiro",
+          "interchange_lines": [
+            "C"
+          ]
+        },
+        {
+          "sequence": 4,
+          "key": "b-04",
+          "name_pt": "Avenida Dom João III (1ª)",
+          "match_key": "avenida-dom-joao-iii",
+          "interchange_key": "avenida-dom-joao-iii",
+          "interchange_lines": [
+            "C"
+          ]
+        },
+        {
+          "sequence": 5,
+          "key": "b-05",
+          "name_pt": "Avenida Dom João III (2ª)",
+          "match_key": "avenida-dom-joao-iii",
+          "interchange_key": "avenida-dom-joao-iii",
+          "interchange_lines": [
+            "C"
+          ]
+        },
+        {
+          "sequence": 6,
+          "key": "b-06",
+          "name_pt": "Rua de São Gonçalo",
+          "match_key": "rua-de-sao-goncalo",
+          "interchange_key": "rua-de-sao-goncalo",
+          "interchange_lines": [
+            "C",
+            "D"
+          ]
+        },
+        {
+          "sequence": 7,
+          "key": "b-07",
+          "name_pt": "Rua de São Gonçalo (Universidade)",
+          "match_key": "rua-de-sao-goncalo-universidade",
+          "interchange_key": "rua-de-sao-goncalo",
+          "interchange_lines": [
+            "C",
+            "D"
+          ]
+        },
+        {
+          "sequence": 8,
+          "key": "b-08",
+          "name_pt": "Rua Morgado Botelho (1ª)",
+          "match_key": "rua-morgado-botelho",
+          "interchange_key": "rua-morgado-botelho",
+          "interchange_lines": []
+        },
+        {
+          "sequence": 9,
+          "key": "b-09",
+          "name_pt": "Rua Morgado Botelho (2ª)",
+          "match_key": "rua-morgado-botelho",
+          "interchange_key": "rua-morgado-botelho",
+          "interchange_lines": []
+        },
+        {
+          "sequence": 10,
+          "key": "b-10",
+          "name_pt": "Caminho da Levada",
+          "match_key": "caminho-da-levada",
+          "interchange_key": "caminho-da-levada",
+          "interchange_lines": []
+        },
+        {
+          "sequence": 11,
+          "key": "b-11",
+          "name_pt": "Rua Dr. Alberto Oliveira",
+          "match_key": "rua-dr-alberto-oliveira",
+          "interchange_key": "rua-dr-alberto-oliveira",
+          "interchange_lines": []
+        },
+        {
+          "sequence": 12,
+          "key": "b-12",
+          "name_pt": "Rua Ilha de São Jorge",
+          "match_key": "rua-ilha-de-sao-jorge",
+          "interchange_key": "rua-ilha-de-sao-jorge",
+          "interchange_lines": []
+        },
+        {
+          "sequence": 13,
+          "key": "b-13",
+          "name_pt": "Rua Dr. José Estrela Rego",
+          "match_key": "rua-dr-jose-estrela-rego",
+          "interchange_key": "rua-dr-jose-estrela-rego",
+          "interchange_lines": []
+        },
+        {
+          "sequence": 14,
+          "key": "b-14",
+          "name_pt": "Centro de Saúde (Rotunda)",
+          "match_key": "centro-de-saude-rotunda",
+          "interchange_key": "centro-de-saude",
+          "interchange_lines": [
+            "D"
+          ]
+        },
+        {
+          "sequence": 15,
+          "key": "b-15",
+          "name_pt": "Hospital (Visitas)",
+          "match_key": "hospital-visitas",
+          "interchange_key": "hospital-visitas",
+          "interchange_lines": [
+            "D"
+          ]
+        },
+        {
+          "sequence": 16,
+          "key": "b-16",
+          "name_pt": "Rua Arcanjo Lar (1ª)",
+          "match_key": "rua-arcanjo-lar",
+          "interchange_key": "rua-arcanjo-lar",
+          "interchange_lines": [
+            "D"
+          ]
+        },
+        {
+          "sequence": 17,
+          "key": "b-17",
+          "name_pt": "Rua Arcanjo Lar (2ª)",
+          "match_key": "rua-arcanjo-lar",
+          "interchange_key": "rua-arcanjo-lar",
+          "interchange_lines": [
+            "D"
+          ]
+        },
+        {
+          "sequence": 18,
+          "key": "b-18",
+          "name_pt": "Rua Prof. Luciano M. Vieira",
+          "match_key": "rua-prof-luciano-m-vieira",
+          "interchange_key": "rua-prof-luciano-m-vieira",
+          "interchange_lines": []
+        },
+        {
+          "sequence": 19,
+          "key": "b-19",
+          "name_pt": "Rua da Juventude",
+          "match_key": "rua-da-juventude",
+          "interchange_key": "rua-da-juventude",
+          "interchange_lines": [
+            "D"
+          ]
+        },
+        {
+          "sequence": 20,
+          "key": "b-20",
+          "name_pt": "Rua Manuel Augusto Amaral",
+          "match_key": "rua-manuel-augusto-amaral",
+          "interchange_key": "rua-manuel-augusto-amaral",
+          "interchange_lines": []
+        },
+        {
+          "sequence": 21,
+          "key": "b-21",
+          "name_pt": "Rua Coronel Silva Leal",
+          "match_key": "rua-coronel-silva-leal",
+          "interchange_key": "rua-coronel-silva-leal",
+          "interchange_lines": [
+            "D"
+          ]
+        },
+        {
+          "sequence": 22,
+          "key": "b-22",
+          "name_pt": "Praça Vasco da Gama",
+          "match_key": "praca-vasco-da-gama",
+          "interchange_key": "praca-vasco-da-gama",
+          "interchange_lines": [
+            "C",
+            "D"
+          ]
+        }
+      ]
+    },
+    {
+      "code": "C",
+      "slug": "line-c",
+      "direction": "circular",
+      "stop_count": 21,
+      "stops": [
+        {
+          "sequence": 1,
+          "key": "c-01",
+          "name_pt": "Praça Vasco da Gama",
+          "match_key": "praca-vasco-da-gama",
+          "interchange_key": "praca-vasco-da-gama",
+          "interchange_lines": [
+            "B",
+            "D"
+          ]
+        },
+        {
+          "sequence": 2,
+          "key": "c-02",
+          "name_pt": "Rua Machado dos Santos (1ª)",
+          "match_key": "rua-machado-dos-santos",
+          "interchange_key": "rua-machado-dos-santos",
+          "interchange_lines": []
+        },
+        {
+          "sequence": 3,
+          "key": "c-03",
+          "name_pt": "Rua Machado dos Santos (2ª)",
+          "match_key": "rua-machado-dos-santos",
+          "interchange_key": "rua-machado-dos-santos",
+          "interchange_lines": []
+        },
+        {
+          "sequence": 4,
+          "key": "c-04",
+          "name_pt": "Rua São João",
+          "match_key": "rua-sao-joao",
+          "interchange_key": "rua-sao-joao",
+          "interchange_lines": []
+        },
+        {
+          "sequence": 5,
+          "key": "c-05",
+          "name_pt": "Rua do Mercado",
+          "match_key": "rua-do-mercado",
+          "interchange_key": "rua-do-mercado",
+          "interchange_lines": []
+        },
+        {
+          "sequence": 6,
+          "key": "c-06",
+          "name_pt": "Ladeira das Águas Quentes",
+          "match_key": "ladeira-das-aguas-quentes",
+          "interchange_key": "ladeira-das-aguas-quentes",
+          "interchange_lines": []
+        },
+        {
+          "sequence": 7,
+          "key": "c-07",
+          "name_pt": "Rua da Boa Nova",
+          "match_key": "rua-da-boa-nova",
+          "interchange_key": "rua-da-boa-nova",
+          "interchange_lines": []
+        },
+        {
+          "sequence": 8,
+          "key": "c-08",
+          "name_pt": "Bairro das Laranjeiras (Residência Universitária)",
+          "match_key": "bairro-das-laranjeiras-residencia-universitaria",
+          "interchange_key": "bairro-das-laranjeiras-residencia-universitaria",
+          "interchange_lines": []
+        },
+        {
+          "sequence": 9,
+          "key": "c-09",
+          "name_pt": "Bairro das Laranjeiras",
+          "match_key": "bairro-das-laranjeiras",
+          "interchange_key": "bairro-das-laranjeiras",
+          "interchange_lines": []
+        },
+        {
+          "sequence": 10,
+          "key": "c-10",
+          "name_pt": "Rua das Laranjeiras",
+          "match_key": "rua-das-laranjeiras",
+          "interchange_key": "rua-das-laranjeiras",
+          "interchange_lines": []
+        },
+        {
+          "sequence": 11,
+          "key": "c-11",
+          "name_pt": "Rua das Laranjeiras (Escola)",
+          "match_key": "rua-das-laranjeiras-escola",
+          "interchange_key": "rua-das-laranjeiras-escola",
+          "interchange_lines": []
+        },
+        {
+          "sequence": 12,
+          "key": "c-12",
+          "name_pt": "Rua de São Gonçalo (Torres Loreto)",
+          "match_key": "rua-de-sao-goncalo-torres-loreto",
+          "interchange_key": "rua-de-sao-goncalo",
+          "interchange_lines": [
+            "B",
+            "D"
+          ]
+        },
+        {
+          "sequence": 13,
+          "key": "c-13",
+          "name_pt": "Rua de São Gonçalo",
+          "match_key": "rua-de-sao-goncalo",
+          "interchange_key": "rua-de-sao-goncalo",
+          "interchange_lines": [
+            "B",
+            "D"
+          ]
+        },
+        {
+          "sequence": 14,
+          "key": "c-14",
+          "name_pt": "Rua Dr. Friedman",
+          "match_key": "rua-dr-friedman",
+          "interchange_key": "rua-dr-friedman",
+          "interchange_lines": []
+        },
+        {
+          "sequence": 15,
+          "key": "c-15",
+          "name_pt": "Avenida Dom João III (1ª)",
+          "match_key": "avenida-dom-joao-iii",
+          "interchange_key": "avenida-dom-joao-iii",
+          "interchange_lines": [
+            "B"
+          ]
+        },
+        {
+          "sequence": 16,
+          "key": "c-16",
+          "name_pt": "Avenida Dom João III (2ª)",
+          "match_key": "avenida-dom-joao-iii",
+          "interchange_key": "avenida-dom-joao-iii",
+          "interchange_lines": [
+            "B"
+          ]
+        },
+        {
+          "sequence": 17,
+          "key": "c-17",
+          "name_pt": "Avenida Dom João III (3ª)",
+          "match_key": "avenida-dom-joao-iii",
+          "interchange_key": "avenida-dom-joao-iii",
+          "interchange_lines": [
+            "B"
+          ]
+        },
+        {
+          "sequence": 18,
+          "key": "c-18",
+          "name_pt": "Rua Eng. José Cordeiro",
+          "match_key": "rua-eng-jose-cordeiro",
+          "interchange_key": "rua-eng-jose-cordeiro",
+          "interchange_lines": [
+            "B"
+          ]
+        },
+        {
+          "sequence": 19,
+          "key": "c-19",
+          "name_pt": "Rua Ernesto do Canto",
+          "match_key": "rua-ernesto-do-canto",
+          "interchange_key": "rua-ernesto-do-canto",
+          "interchange_lines": []
+        },
+        {
+          "sequence": 20,
+          "key": "c-20",
+          "name_pt": "Rua Dr. José Bruno Tavares",
+          "match_key": "rua-dr-jose-bruno-tavares",
+          "interchange_key": "rua-dr-jose-bruno-tavares",
+          "interchange_lines": []
+        },
+        {
+          "sequence": 21,
+          "key": "c-21",
+          "name_pt": "Praça Vasco da Gama",
+          "match_key": "praca-vasco-da-gama",
+          "interchange_key": "praca-vasco-da-gama",
+          "interchange_lines": [
+            "B",
+            "D"
+          ]
+        }
+      ]
+    },
+    {
+      "code": "D",
+      "slug": "line-d",
+      "direction": "circular",
+      "stop_count": 25,
+      "stops": [
+        {
+          "sequence": 1,
+          "key": "d-01",
+          "name_pt": "Praça Vasco da Gama",
+          "match_key": "praca-vasco-da-gama",
+          "interchange_key": "praca-vasco-da-gama",
+          "interchange_lines": [
+            "B",
+            "C"
+          ]
+        },
+        {
+          "sequence": 2,
+          "key": "d-02",
+          "name_pt": "Rua Teófilo Braga",
+          "match_key": "rua-teofilo-braga",
+          "interchange_key": "rua-teofilo-braga",
+          "interchange_lines": []
+        },
+        {
+          "sequence": 3,
+          "key": "d-03",
+          "name_pt": "Rua Santa Clara (1.º)",
+          "match_key": "rua-santa-clara",
+          "interchange_key": "rua-santa-clara",
+          "interchange_lines": [
+            "A"
+          ]
+        },
+        {
+          "sequence": 4,
+          "key": "d-04",
+          "name_pt": "Rua Santa Clara (1.ª)",
+          "match_key": "rua-santa-clara",
+          "interchange_key": "rua-santa-clara",
+          "interchange_lines": [
+            "A"
+          ]
+        },
+        {
+          "sequence": 5,
+          "key": "d-05",
+          "name_pt": "Avenida Príncipe do Mónaco",
+          "match_key": "avenida-principe-do-monaco",
+          "interchange_key": "avenida-principe-do-monaco",
+          "interchange_lines": [
+            "A"
+          ]
+        },
+        {
+          "sequence": 6,
+          "key": "d-06",
+          "name_pt": "Avenida Príncipe do Mónaco (Clínica)",
+          "match_key": "avenida-principe-do-monaco-clinica",
+          "interchange_key": "avenida-principe-do-monaco",
+          "interchange_lines": [
+            "A"
+          ]
+        },
+        {
+          "sequence": 7,
+          "key": "d-07",
+          "name_pt": "Rua Ramalho",
+          "match_key": "rua-ramalho",
+          "interchange_key": "rua-ramalho",
+          "interchange_lines": [
+            "A"
+          ]
+        },
+        {
+          "sequence": 8,
+          "key": "d-08",
+          "name_pt": "Rua Direita de Santa Catarina",
+          "match_key": "rua-direita-de-santa-catarina",
+          "interchange_key": "rua-direita-de-santa-catarina",
+          "interchange_lines": []
+        },
+        {
+          "sequence": 9,
+          "key": "d-09",
+          "name_pt": "Avenida Antero de Quental",
+          "match_key": "avenida-antero-de-quental",
+          "interchange_key": "avenida-antero-de-quental",
+          "interchange_lines": [
+            "A"
+          ]
+        },
+        {
+          "sequence": 10,
+          "key": "d-10",
+          "name_pt": "Rua Eng. Luís A. Gomes",
+          "match_key": "rua-eng-luis-a-gomes",
+          "interchange_key": "rua-eng-luis-a-gomes",
+          "interchange_lines": []
+        },
+        {
+          "sequence": 11,
+          "key": "d-11",
+          "name_pt": "Rua Arcanjo Lar",
+          "match_key": "rua-arcanjo-lar",
+          "interchange_key": "rua-arcanjo-lar",
+          "interchange_lines": [
+            "B"
+          ]
+        },
+        {
+          "sequence": 12,
+          "key": "d-12",
+          "name_pt": "Hospital (Centro de Radioncologia)",
+          "match_key": "hospital-centro-de-radioncologia",
+          "interchange_key": "hospital-centro-de-radioncologia",
+          "interchange_lines": []
+        },
+        {
+          "sequence": 13,
+          "key": "d-13",
+          "name_pt": "Hospital (Consultas Externas)",
+          "match_key": "hospital-consultas-externas",
+          "interchange_key": "hospital-consultas-externas",
+          "interchange_lines": []
+        },
+        {
+          "sequence": 14,
+          "key": "d-14",
+          "name_pt": "Centro de Saúde",
+          "match_key": "centro-de-saude",
+          "interchange_key": "centro-de-saude",
+          "interchange_lines": [
+            "B"
+          ]
+        },
+        {
+          "sequence": 15,
+          "key": "d-15",
+          "name_pt": "Hospital (Visitas)",
+          "match_key": "hospital-visitas",
+          "interchange_key": "hospital-visitas",
+          "interchange_lines": [
+            "B"
+          ]
+        },
+        {
+          "sequence": 16,
+          "key": "d-16",
+          "name_pt": "Rua da Juventude",
+          "match_key": "rua-da-juventude",
+          "interchange_key": "rua-da-juventude",
+          "interchange_lines": [
+            "B"
+          ]
+        },
+        {
+          "sequence": 17,
+          "key": "d-17",
+          "name_pt": "Rua José do Canto",
+          "match_key": "rua-jose-do-canto",
+          "interchange_key": "rua-jose-do-canto",
+          "interchange_lines": []
+        },
+        {
+          "sequence": 18,
+          "key": "d-18",
+          "name_pt": "Rua de São Gonçalo (Universidade)",
+          "match_key": "rua-de-sao-goncalo-universidade",
+          "interchange_key": "rua-de-sao-goncalo",
+          "interchange_lines": [
+            "B",
+            "C"
+          ]
+        },
+        {
+          "sequence": 19,
+          "key": "d-19",
+          "name_pt": "Rua Dr. Hugo Moreira (1ª)",
+          "match_key": "rua-dr-hugo-moreira",
+          "interchange_key": "rua-dr-hugo-moreira",
+          "interchange_lines": []
+        },
+        {
+          "sequence": 20,
+          "key": "d-20",
+          "name_pt": "Rua Dr. Hugo Moreira (2ª)",
+          "match_key": "rua-dr-hugo-moreira",
+          "interchange_key": "rua-dr-hugo-moreira",
+          "interchange_lines": []
+        },
+        {
+          "sequence": 21,
+          "key": "d-21",
+          "name_pt": "Rua Mãe de Deus",
+          "match_key": "rua-mae-de-deus",
+          "interchange_key": "rua-mae-de-deus",
+          "interchange_lines": []
+        },
+        {
+          "sequence": 22,
+          "key": "d-22",
+          "name_pt": "Rua Margarida de Chaves",
+          "match_key": "rua-margarida-de-chaves",
+          "interchange_key": "rua-margarida-de-chaves",
+          "interchange_lines": []
+        },
+        {
+          "sequence": 23,
+          "key": "d-23",
+          "name_pt": "Largo do Colégio",
+          "match_key": "largo-do-colegio",
+          "interchange_key": "largo-do-colegio",
+          "interchange_lines": []
+        },
+        {
+          "sequence": 24,
+          "key": "d-24",
+          "name_pt": "Rua Coronel Silva Leal",
+          "match_key": "rua-coronel-silva-leal",
+          "interchange_key": "rua-coronel-silva-leal",
+          "interchange_lines": [
+            "B"
+          ]
+        },
+        {
+          "sequence": 25,
+          "key": "d-25",
+          "name_pt": "Praça Vasco da Gama",
+          "match_key": "praca-vasco-da-gama",
+          "interchange_key": "praca-vasco-da-gama",
+          "interchange_lines": [
+            "B",
+            "C"
+          ]
+        }
+      ]
+    }
+  ]
+}
