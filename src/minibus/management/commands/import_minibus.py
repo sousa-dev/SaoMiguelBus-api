@@ -10,7 +10,7 @@ from django.core.files.base import ContentFile
 from django.core.management.base import BaseCommand, CommandError
 
 from minibus.models import MinibusDocument
-from minibus.services import default_source_dir, load_catalog, mark_imported, seed_catalog
+from minibus.services import default_source_dir, load_catalog, mark_imported, seed_catalog, combine_source_revisions
 from tenancy.services import for_island, get_or_create_default_island
 
 
@@ -79,7 +79,7 @@ class Command(BaseCommand):
                 document.file.save(filename, ContentFile(content), save=True)
                 copied += 1
 
-            mark_imported(island, source_revision='-'.join(sorted(set(revisions))[:4]))
+            mark_imported(island, source_revision=combine_source_revisions(revisions))
 
         self.stdout.write(
             self.style.SUCCESS(

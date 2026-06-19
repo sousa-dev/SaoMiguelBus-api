@@ -7,7 +7,7 @@ from django.test import TestCase, override_settings
 from rest_framework.test import APIClient
 
 from minibus.models import MinibusDocument, MinibusLine, MinibusTariff
-from minibus.services import ATTRIBUTION, SOURCE_URL, load_catalog, seed_catalog
+from minibus.services import ATTRIBUTION, SOURCE_URL, combine_source_revisions, load_catalog, seed_catalog
 from tenancy.services import get_or_create_default_island
 
 CATALOG_PATH = Path(__file__).resolve().parent.parent / 'data' / 'catalog_sao_miguel.json'
@@ -53,6 +53,17 @@ class ImportMinibusCommandTestCase(TestCase):
             MinibusDocument.objects.filter(island=self.island).exclude(file='').count(),
             7,
         )
+        from minibus.services import get_import_meta
+
+        meta = get_import_meta(self.island)
+        self.assertIsNotNone(meta)
+        self.assertLessEqual(len(meta.source_revision), 64)
+
+    def test_combine_source_revisions_fits_db_field(self):
+        revisions = ['a' * 16, 'b' * 16, 'c' * 16, 'd' * 16, 'e' * 16, 'f' * 16, 'g' * 16]
+        combined = combine_source_revisions(revisions)
+        self.assertLessEqual(len(combined), 64)
+        self.assertGreater(len(combined), 0)
 
 
 class MinibusApiTestCase(TestCase):

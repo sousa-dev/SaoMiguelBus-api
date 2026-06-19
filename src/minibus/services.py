@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import hashlib
 import json
 import os
 from datetime import date
@@ -218,6 +219,14 @@ def resolve_locale(request) -> str:
     if island and island.default_locale:
         return island.default_locale.split('-')[0].lower()
     return 'pt'
+
+
+def combine_source_revisions(revisions: list[str]) -> str:
+    """Single stable digest for all bundled file revisions (fits source_revision max_length=64)."""
+    normalized = ''.join(sorted(set(revisions)))
+    if not normalized:
+        return ''
+    return hashlib.sha256(normalized.encode()).hexdigest()[:32]
 
 
 def mark_imported(island: Island, *, source_revision: str) -> None:
