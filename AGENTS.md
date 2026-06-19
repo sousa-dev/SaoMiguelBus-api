@@ -191,6 +191,35 @@ docker compose up -d --build
 
 Services: `db`, `redis`, `web`, `celery-worker`, `celery-beat`.
 
+### Dokploy (single web container)
+
+Use the repo-root **`Dockerfile`** — default **`CMD ["bash", "./runserver.sh"]`**. Do **not** override the start command unless you replicate the full sequence below.
+
+On every deploy, `runserver.sh` runs (in order):
+
+1. `collectstatic`
+2. `migrate`
+3. **`import_minibus --island ${DEFAULT_ISLAND_KEY:-sao-miguel}`** — copies bundled PDFs/SVG into `MEDIA_ROOT` (idempotent)
+4. `bootstrap_feed_syncs`
+5. `ensure_superuser`
+6. Gunicorn
+
+Required env (Dokploy **Environment** tab / repo-root `.env`):
+
+```env
+DEFAULT_ISLAND_KEY=sao-miguel
+DEBUG=False
+DB_HOST=...
+DB_NAME=...
+DB_USER=...
+DB_PASSWORD=...
+ALLOWED_HOSTS=staging.api.saomiguelhub.com,api.saomiguelbus.com
+```
+
+Optional but recommended: mount a persistent volume on **`/usr/src/app/media`** so imported minibus files survive redeploys. If media is empty, the API still streams from bundled `minibus/data/source/` as fallback.
+
+Celery worker/beat containers use `celery-entrypoint.sh` (migrate only) — they do not need `import_minibus`.
+
 ### Agent tooling (boilerplate)
 
 - `.cursor/commands/` — `/new-app`, `/new-api-endpoint`, `/new-task`, …

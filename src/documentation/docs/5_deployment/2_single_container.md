@@ -21,7 +21,10 @@ The Dockerfile runs `runserver.sh` which:
 
 1. Collects static files
 2. Runs migrations
-3. Starts Gunicorn on port 8000
+3. Imports Mini Bus PDFs/SVG (`import_minibus --island ${DEFAULT_ISLAND_KEY:-sao-miguel}`)
+4. Bootstraps news feed sync schedules
+5. Ensures admin superuser (when `DB_*` env is set)
+6. Starts Gunicorn on port 8000
 
 ## External Dependencies
 

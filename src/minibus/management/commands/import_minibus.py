@@ -11,8 +11,7 @@ from django.core.management.base import BaseCommand, CommandError
 
 from minibus.models import MinibusDocument
 from minibus.services import default_source_dir, load_catalog, mark_imported, seed_catalog
-from tenancy.models import Island
-from tenancy.services import for_island
+from tenancy.services import for_island, get_or_create_default_island
 
 
 def file_revision(path: Path) -> str:
@@ -41,9 +40,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         island_key = options['island']
-        island = Island.objects.filter(key=island_key).first()
-        if island is None:
-            raise CommandError(f'Island not found: {island_key}')
+        island = get_or_create_default_island(island_key)
 
         source_dir = Path(options['source_dir']) if options['source_dir'] else default_source_dir()
         if not source_dir.is_dir():
