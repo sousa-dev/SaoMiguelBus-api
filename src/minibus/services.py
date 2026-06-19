@@ -16,6 +16,7 @@ from decimal import Decimal
 from pathlib import Path
 from typing import Any
 
+from django.core.cache import cache
 from django.utils import timezone
 
 from minibus.models import MinibusDocument, MinibusImportMeta, MinibusLine, MinibusTariff
@@ -532,3 +533,59 @@ def search_minibus_routes(
         'destination': echo(destination, destination_keys),
         'journeys': journeys,
     }
+
+
+# --- Offline bundle (ungated single-snapshot for on-device caching) --- #
+
+BUNDLE_CACHE_TTL = 60 * 60  # 1 hour
+
+
+def compute_bundle_version(island: Island) -> str:
+    """Stable digest of the static datasets + import revision (host-independent)."""
+    digest = hashlib.sha256()
+    digest.update(catalog_path().read_bytes())
+    digest.update(network_stops_path().read_bytes())
+    meta = get_import_meta(island)
+    digest.update((meta.source_revision if meta else '').encode())
+    return digest.hexdigest()[:16]
+
+
+def build_offline_bundle(*, island: Island, locale: str, request) -> dict[str, Any]:
+    """Everything the app caches for offline Mini Bus: lines, tariffs, network, images."""
+    host = request.get_host()
+    cache_key = f'minibus:offline:{island.key}:{locale}:{host}'
+    cached = cache.get(cache_key)
+    if cached is not None:
+        return cached
+
+    lines = [
+        serialize_line(line, locale=locale, request=request)
+        for line in MinibusLine.objects.filter(island=island, is_active=True).order_by('sort_order', 'code')
+    ]
+    tariffs = [
+        serialize_tariff(tariff, locale=locale)
+        for tariff in MinibusTariff.objects.filter(island=island, is_active=True).order_by('sort_order', 'key')
+    ]
+    network = serialize_network_stops(island=island, locale=locale, request=request)
+    images = [
+        {
+            'line_code': line['code'],
+            'line_slug': line['slug'],
+            'slug': line['timetable_slug'],
+            'url': line['timetable_file_url'],
+        }
+        for line in lines
+        if line.get('timetable_file_url')
+    ]
+
+    payload = {
+        'version': compute_bundle_version(island),
+        'generated_at': timezone.now().isoformat(),
+        'lines': lines,
+        'tariffs': tariffs,
+        'network': network,
+        'images': images,
+        **build_meta_payload(island),
+    }
+    cache.set(cache_key, payload, BUNDLE_CACHE_TTL)
+    return payload

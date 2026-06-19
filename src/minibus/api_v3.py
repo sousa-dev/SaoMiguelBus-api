@@ -12,6 +12,8 @@ from rest_framework.response import Response
 from minibus.models import MinibusDocument, MinibusLine, MinibusTariff
 from minibus.services import (
     build_meta_payload,
+    build_offline_bundle,
+    compute_bundle_version,
     document_file_url,
     open_document_file,
     resolve_locale,
@@ -161,6 +163,33 @@ def route_search_view(request: Request) -> Response:
         )
 
     return Response({**payload, **build_meta_payload(request.island)})
+
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def offline_bundle_view(request: Request) -> Response:
+    err = _require_island(request)
+    if err:
+        return err
+
+    locale = resolve_locale(request)
+    with for_island(request.island):
+        payload = build_offline_bundle(island=request.island, locale=locale, request=request)
+
+    return Response(payload)
+
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def offline_bundle_version_view(request: Request) -> Response:
+    err = _require_island(request)
+    if err:
+        return err
+
+    with for_island(request.island):
+        version = compute_bundle_version(request.island)
+
+    return Response({'version': version})
 
 
 @api_view(['GET'])
