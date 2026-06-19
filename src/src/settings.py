@@ -44,6 +44,7 @@ apps = [
     ('traffic', True),
     ('events', True),
     ('weather', True),
+    ('minibus', True),
 ]
 
 import os

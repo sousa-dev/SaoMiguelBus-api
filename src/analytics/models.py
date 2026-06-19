@@ -15,6 +15,7 @@ class AnalyticsEvent(TenantScopedModel):
     MODULE_TRAILS = 'trails'
     MODULE_TRAFFIC = 'traffic'
     MODULE_EVENTS = 'events'
+    MODULE_MINIBUS = 'minibus'
 
     module = models.CharField(max_length=32, db_index=True)
     event_type = models.CharField(max_length=32, db_index=True)

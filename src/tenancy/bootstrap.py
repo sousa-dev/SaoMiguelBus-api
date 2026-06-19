@@ -19,6 +19,7 @@ MODULE_KEYS = (
     'traffic',
     'events',
     'weather',
+    'minibus',
 )
 
 

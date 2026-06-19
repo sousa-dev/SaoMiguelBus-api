@@ -70,6 +70,16 @@ Docker Compose host mappings: `WEB_PORT`, `WEB_CONTAINER_PORT`, `DB_PORT_EXPOSE`
 - Celery beat: `weather.refresh_forecasts` hourly warms cache for all active parishes (one batched upstream call per island).
 - Bootstrap module key: `weather` (`tenancy` migration `0011_enable_weather_feature_flag`).
 
+### PDL Mini Bus (`minibus` app — shipped)
+
+Urban Ponta Delgada network (lines A–D), separate from interurban `transit`. Read-only catalog + PDF/SVG documents sourced from [pdlminibus.pt](https://pdlminibus.pt).
+
+- `GET /api/v3/minibus/lines`, `/lines/{slug}`, `/tariffs`, `/documents`, `/schematic`
+- `GET /api/v3/minibus/documents/{slug}/file` — streams PDF/SVG (not raw `/media/` URLs)
+- Seed: `minibus/data/catalog_sao_miguel.json`; binaries via `python manage.py import_minibus`
+- Bootstrap module key: `minibus` (`tenancy` migration `0013_enable_minibus_feature_flag`)
+- Expo module linked from Buses (`transit`) promo card + profile info row
+
 ### Analytics reporting + stats dashboard (`analytics` app — shipped)
 
 Read-side, **AUTH_KEY-protected** endpoints (via `X-Auth-Key` header or `?key=`) that aggregate stored analytics. v3 endpoints are tenant-scoped (`X-Island`); legacy ones are global.

@@ -65,6 +65,19 @@ class SelectAdPlatformTests(TestCase):
             selected = select_ad(advertise_on='home', platform='ios')
         self.assertEqual(selected, ad)
 
+    def test_interstitial_slot_matches_interstitial_campaign(self):
+        ad = self._make_ad(platform='ios', advertise_on='interstitial')
+        self._make_ad(platform='ios', advertise_on='home')
+        with for_island(self.island):
+            selected = select_ad(advertise_on='interstitial', platform='ios')
+        self.assertEqual(selected, ad)
+
+    def test_interstitial_slot_does_not_match_home_only_campaign(self):
+        self._make_ad(platform='ios', advertise_on='home')
+        with for_island(self.island):
+            selected = select_ad(advertise_on='interstitial', platform='ios')
+        self.assertIsNone(selected)
+
 
 class AdAdminBulkActionTests(TestCase):
     def setUp(self):

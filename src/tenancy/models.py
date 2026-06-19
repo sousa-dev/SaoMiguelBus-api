@@ -64,6 +64,7 @@ class Island(models.Model):
                 'traffic': False,
                 'events': False,
                 'weather': False,
+                'minibus': False,
             },
         }
 

@@ -67,7 +67,7 @@ def select_ad(*, advertise_on: str, platform: str, now_ts: float | None = None) 
         # own targeted campaigns and any cross-platform `platform='all'` campaign.
         ads = ads.filter(Q(platform=platform) | Q(platform='all'))
 
-    if advertise_on in ('home', 'all'):
+    if advertise_on in ('home', 'interstitial', 'all'):
         if advertise_on != 'all':
             ads = ads.filter(advertise_on__icontains=advertise_on)
     else:

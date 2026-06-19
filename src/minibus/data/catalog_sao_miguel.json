@@ -1,0 +1,175 @@
+{
+  "source_url": "https://pdlminibus.pt",
+  "attribution": "Schedules and fares sourced from pdlminibus.pt",
+  "tariffs_effective_date": "2021-11-29",
+  "lines": [
+    {
+      "code": "A",
+      "slug": "line-a",
+      "name_pt": "Linha A — Amarela",
+      "name_en": "Line A — Yellow",
+      "color": "#fbc707",
+      "sort_order": 1,
+      "service_summary": {
+        "weekday": { "start": "07:30", "end": "19:30" },
+        "saturday_departures": null
+      },
+      "document_slug": "line-a"
+    },
+    {
+      "code": "B",
+      "slug": "line-b",
+      "name_pt": "Linha B — Verde",
+      "name_en": "Line B — Green",
+      "color": "#99d420",
+      "sort_order": 2,
+      "service_summary": {
+        "weekday": { "start": "07:30", "end": "19:30" },
+        "saturday_departures": null
+      },
+      "document_slug": "line-b"
+    },
+    {
+      "code": "C",
+      "slug": "line-c",
+      "name_pt": "Linha C — Azul",
+      "name_en": "Line C — Blue",
+      "color": "#00adef",
+      "sort_order": 3,
+      "service_summary": {
+        "weekday": { "start": "07:30", "end": "19:30" },
+        "saturday_departures": ["09:00", "10:00", "11:00", "12:00", "13:00"]
+      },
+      "document_slug": "line-c"
+    },
+    {
+      "code": "D",
+      "slug": "line-d",
+      "name_pt": "Linha D — Laranja",
+      "name_en": "Line D — Orange",
+      "color": "#f47216",
+      "sort_order": 4,
+      "service_summary": {
+        "weekday": { "start": "07:30", "end": "19:30" },
+        "saturday_departures": ["08:30", "09:30", "10:30", "11:30", "12:30"]
+      },
+      "document_slug": "line-d"
+    }
+  ],
+  "tariffs": [
+    {
+      "key": "single_on_board",
+      "label_pt": "Bilhete Simples (bordo)",
+      "label_en": "Single ticket (on board)",
+      "price_eur": "0.50",
+      "sort_order": 1
+    },
+    {
+      "key": "ten_trips_normal",
+      "label_pt": "10 Viagens Normal",
+      "label_en": "10 trips — standard",
+      "price_eur": "4.00",
+      "sort_order": 2
+    },
+    {
+      "key": "ten_trips_senior",
+      "label_pt": "10 Viagens 3ª idade e Pensionistas",
+      "label_en": "10 trips — senior / pensioner",
+      "price_eur": "2.50",
+      "sort_order": 3
+    },
+    {
+      "key": "weekly_normal",
+      "label_pt": "Passe Semanal Normal",
+      "label_en": "Weekly pass — standard",
+      "price_eur": "5.00",
+      "sort_order": 4
+    },
+    {
+      "key": "weekly_senior",
+      "label_pt": "Passe Semanal Senior +65",
+      "label_en": "Weekly pass — senior 65+",
+      "price_eur": "2.00",
+      "sort_order": 5
+    },
+    {
+      "key": "monthly_normal",
+      "label_pt": "Passe Mensal Normal",
+      "label_en": "Monthly pass — standard",
+      "price_eur": "16.00",
+      "sort_order": 6
+    },
+    {
+      "key": "monthly_senior",
+      "label_pt": "Passe Mensal Senior +65",
+      "label_en": "Monthly pass — senior 65+",
+      "price_eur": "0.00",
+      "sort_order": 7
+    },
+    {
+      "key": "monthly_student",
+      "label_pt": "Passe Mensal Estudante",
+      "label_en": "Monthly pass — student",
+      "price_eur": "0.00",
+      "sort_order": 8
+    }
+  ],
+  "documents": [
+    {
+      "slug": "line-a",
+      "title_pt": "Horário Linha A — Amarela",
+      "title_en": "Timetable Line A — Yellow",
+      "doc_type": "timetable",
+      "source_filename": "A - LINHA A - AMARELA.pdf",
+      "line_code": "A"
+    },
+    {
+      "slug": "line-b",
+      "title_pt": "Horário Linha B — Verde",
+      "title_en": "Timetable Line B — Green",
+      "doc_type": "timetable",
+      "source_filename": "B - LINHA B - VERDE.pdf",
+      "line_code": "B"
+    },
+    {
+      "slug": "line-c",
+      "title_pt": "Horário Linha C — Azul",
+      "title_en": "Timetable Line C — Blue",
+      "doc_type": "timetable",
+      "source_filename": "C - LINHA C - AZUL.pdf",
+      "line_code": "C"
+    },
+    {
+      "slug": "line-d",
+      "title_pt": "Horário Linha D — Laranja",
+      "title_en": "Timetable Line D — Orange",
+      "doc_type": "timetable",
+      "source_filename": "D - LINHA D - LARANJA.pdf",
+      "line_code": "D"
+    },
+    {
+      "slug": "network-map",
+      "title_pt": "Mapa de rede",
+      "title_en": "Network map",
+      "doc_type": "network_map",
+      "source_filename": "mapa_de_rede.pdf",
+      "line_code": null
+    },
+    {
+      "slug": "tariffs",
+      "title_pt": "Tarifários",
+      "title_en": "Fares",
+      "doc_type": "tariffs",
+      "source_filename": "Tarifários - PDL Mini Bus.pdf",
+      "line_code": null
+    },
+    {
+      "slug": "schematic",
+      "title_pt": "Esquema de linhas",
+      "title_en": "Line schematic",
+      "doc_type": "schematic",
+      "source_filename": "lines_scheme.svg",
+      "line_code": null
+    }
+  ]
+}

@@ -38,6 +38,9 @@ urlpatterns = [
 if 'weather' in settings.INSTALLED_APPS:
     urlpatterns.append(path('api/v3/weather/', include('weather.urls_v3')))
 
+if 'minibus' in settings.INSTALLED_APPS:
+    urlpatterns.append(path('api/v3/minibus/', include('minibus.urls_v3')))
+
 if 'legal' in settings.INSTALLED_APPS:
     urlpatterns.append(path('legal/', include('legal.urls')))
 
