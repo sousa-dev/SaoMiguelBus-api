@@ -94,3 +94,39 @@ class MinibusApiTestCase(TestCase):
         response = self.client.get('/api/v3/bootstrap', HTTP_X_ISLAND='sao-miguel')
         self.assertEqual(response.status_code, 200)
         self.assertIn('minibus', response.json()['island']['enabledModules'])
+
+    def test_tariffs_locale_pt(self):
+        response = self.client.get(
+            '/api/v3/minibus/tariffs?locale=pt',
+            HTTP_X_ISLAND='sao-miguel',
+        )
+        self.assertEqual(response.status_code, 200)
+        single = next(row for row in response.json()['tariffs'] if row['key'] == 'single_on_board')
+        self.assertEqual(single['label'], 'Bilhete Simples (bordo)')
+
+    def test_tariffs_locale_en(self):
+        response = self.client.get(
+            '/api/v3/minibus/tariffs?locale=en',
+            HTTP_X_ISLAND='sao-miguel',
+        )
+        self.assertEqual(response.status_code, 200)
+        single = next(row for row in response.json()['tariffs'] if row['key'] == 'single_on_board')
+        self.assertEqual(single['label'], 'Single ticket (on board)')
+
+    def test_lines_locale_pt_uses_portuguese_color_name(self):
+        response = self.client.get(
+            '/api/v3/minibus/lines?locale=pt',
+            HTTP_X_ISLAND='sao-miguel',
+        )
+        self.assertEqual(response.status_code, 200)
+        line_a = next(row for row in response.json()['lines'] if row['code'] == 'A')
+        self.assertEqual(line_a['name'], 'Linha A — Amarela')
+
+    def test_lines_locale_de_falls_back_to_english(self):
+        response = self.client.get(
+            '/api/v3/minibus/lines?locale=de',
+            HTTP_X_ISLAND='sao-miguel',
+        )
+        self.assertEqual(response.status_code, 200)
+        line_a = next(row for row in response.json()['lines'] if row['code'] == 'A')
+        self.assertEqual(line_a['name'], 'Line A — Yellow')

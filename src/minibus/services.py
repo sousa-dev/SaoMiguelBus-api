@@ -117,8 +117,13 @@ def build_meta_payload(island: Island) -> dict[str, Any]:
     }
 
 
+def pick_bilingual_text(*, pt: str, en: str, locale: str) -> str:
+    """Catalog is PT + EN only: Portuguese app locale, English for all others."""
+    return pt if locale.startswith('pt') else en
+
+
 def serialize_line(line: MinibusLine, *, locale: str, request) -> dict[str, Any]:
-    name = line.name_en if locale.startswith('en') else line.name_pt
+    name = pick_bilingual_text(pt=line.name_pt, en=line.name_en, locale=locale)
     timetable = line.documents.filter(doc_type=MinibusDocument.DOC_TIMETABLE, is_active=True).first()
     return {
         'code': line.code,
@@ -133,7 +138,7 @@ def serialize_line(line: MinibusLine, *, locale: str, request) -> dict[str, Any]
 
 
 def serialize_tariff(tariff: MinibusTariff, *, locale: str) -> dict[str, Any]:
-    label = tariff.label_en if locale.startswith('en') else tariff.label_pt
+    label = pick_bilingual_text(pt=tariff.label_pt, en=tariff.label_en, locale=locale)
     return {
         'key': tariff.key,
         'label': label,
@@ -143,7 +148,7 @@ def serialize_tariff(tariff: MinibusTariff, *, locale: str) -> dict[str, Any]:
 
 
 def serialize_document(document: MinibusDocument, *, locale: str, request) -> dict[str, Any]:
-    title = document.title_en if locale.startswith('en') else document.title_pt
+    title = pick_bilingual_text(pt=document.title_pt, en=document.title_en, locale=locale)
     return {
         'slug': document.slug,
         'title': title,
@@ -166,12 +171,9 @@ def resolve_locale(request) -> str:
     query = request.GET.get('locale', '').strip()
     if query:
         return query.split('-')[0].lower()
-    header = request.headers.get('Accept-Language') or request.META.get('HTTP_ACCEPT_LANGUAGE') or ''
-    if header:
-        return header.split(',')[0].strip().split('-')[0].lower()
     island = getattr(request, 'island', None)
     if island and island.default_locale:
-        return island.default_locale
+        return island.default_locale.split('-')[0].lower()
     return 'pt'
 
 
