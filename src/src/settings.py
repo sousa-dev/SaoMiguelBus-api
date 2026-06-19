@@ -134,6 +134,10 @@ ALLOWED_HOSTS = _csv_env(
     default='127.0.0.1,localhost,0.0.0.0,.vercel.app',
 )
 
+if not DEBUG:
+    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+    USE_X_FORWARDED_HOST = True
+
 _cors_default = (
     f'http://127.0.0.1:{WEB_PORT},http://localhost:{WEB_PORT}'
     if DEBUG
