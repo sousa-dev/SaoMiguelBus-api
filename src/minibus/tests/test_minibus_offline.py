@@ -42,6 +42,14 @@ class OfflineBundleApiTestCase(TestCase):
         self.assertEqual(body['network_map']['slug'], 'network-map')
         self.assertTrue(body['network_map']['url'].endswith('/api/v3/minibus/documents/network-map/file'))
 
+    def test_bundle_network_stops_include_coordinates(self):
+        response = self.client.get('/api/v3/minibus/offline-bundle', HTTP_X_ISLAND='sao-miguel')
+        body = response.json()
+        line_a = next(line for line in body['network']['lines'] if line['code'] == 'A')
+        stop = line_a['stops'][0]
+        self.assertIsNotNone(stop.get('latitude'))
+        self.assertIsNotNone(stop.get('longitude'))
+
     def test_version_endpoint_matches_bundle_version(self):
         version = compute_bundle_version(self.island)
         response = self.client.get('/api/v3/minibus/offline-bundle/version', HTTP_X_ISLAND='sao-miguel')

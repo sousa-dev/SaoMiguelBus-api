@@ -77,6 +77,7 @@ Urban Ponta Delgada network (lines A–D), separate from interurban `transit`. R
 - `GET /api/v3/minibus/lines`, `/lines/{slug}`, `/tariffs`, `/documents`, `/schematic`, `/network`
 - `GET /api/v3/minibus/route?origin=&destination=` — origin→destination journey search over line stops + name-matched interchanges (schedule-free; legs reserve `departure_time`/`arrival_time` for later schedules). Ranks by fewest transfers, then fewest stops; returns up to 3 journeys.
 - `GET /api/v3/minibus/offline-bundle`, `/offline-bundle/version` — single snapshot (lines + tariffs + network stops + line image URLs) for ungated offline caching on the mobile app
+- Network stops include `external_id`, `latitude`, `longitude` (merged from `minibus/data/stops_registry_sao_miguel.json` via `python minibus/data/merge_coordinates.py` or `manage.py merge_minibus_coordinates`). Offline cache key suffix `v3` invalidates stale Redis entries after coordinate deploy.
 - `GET /api/v3/minibus/documents/{slug}/file` — streams PDF/SVG/PNG (not raw `/media/` URLs)
 - Seed: `minibus/data/catalog_sao_miguel.json`; binaries via `python manage.py import_minibus` (also runs on deploy in `runserver.sh`). Until media import completes, bundled files under `minibus/data/source/` are streamed as fallback.
 - Bootstrap module key: `minibus` (`tenancy` migration `0013_enable_minibus_feature_flag`)

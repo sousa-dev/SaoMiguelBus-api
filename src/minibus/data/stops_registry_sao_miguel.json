@@ -1,0 +1,812 @@
+[
+  {
+    "id": "403",
+    "name": "1ª RUA DE SANTA CLARA",
+    "nameShort": "D 03",
+    "position": {
+      "lat": 37.734974,
+      "lon": -25.677191
+    }
+  },
+  {
+    "id": "404",
+    "name": "1ª RUA DE SANTA CLARA",
+    "nameShort": "D 04",
+    "position": {
+      "lat": 37.735304,
+      "lon": -25.680192
+    }
+  },
+  {
+    "id": "116",
+    "name": "2ª RUA DE SANTA CLARA (CENTRO CULTURAL E CÍVICO)",
+    "nameShort": "A 16",
+    "position": {
+      "lat": 37.734414,
+      "lon": -25.683554
+    }
+  },
+  {
+    "id": "115",
+    "name": "2ª RUA DE SANTA CLARA (FAROL)",
+    "nameShort": "A 15",
+    "position": {
+      "lat": 37.733787,
+      "lon": -25.686456
+    }
+  },
+  {
+    "id": "105",
+    "name": "AVENIDA ANTERO DE QUENTAL",
+    "nameShort": "A 05",
+    "position": {
+      "lat": 37.743677,
+      "lon": -25.680908
+    }
+  },
+  {
+    "id": "409",
+    "name": "AVENIDA ANTERO DE QUENTAL",
+    "nameShort": "D 09",
+    "position": {
+      "lat": 37.743222,
+      "lon": -25.681516
+    }
+  },
+  {
+    "id": "315",
+    "name": "AVENIDA D. JOÃO III",
+    "nameShort": "C 15",
+    "position": {
+      "lat": 37.750111,
+      "lon": -25.658049
+    }
+  },
+  {
+    "id": "316",
+    "name": "AVENIDA D. JOÃO III",
+    "nameShort": "C 16",
+    "position": {
+      "lat": 37.74683,
+      "lon": -25.657057
+    }
+  },
+  {
+    "id": "317",
+    "name": "AVENIDA D. JOÃO III",
+    "nameShort": "C 17",
+    "position": {
+      "lat": 37.744073,
+      "lon": -25.656825
+    }
+  },
+  {
+    "id": "204",
+    "name": "AVENIDA D. JOÃO III - 1",
+    "nameShort": "B 04",
+    "position": {
+      "lat": 37.744644,
+      "lon": -25.65666
+    }
+  },
+  {
+    "id": "205",
+    "name": "AVENIDA D. JOÃO III - 2",
+    "nameShort": "B 05",
+    "position": {
+      "lat": 37.748277,
+      "lon": -25.65731
+    }
+  },
+  {
+    "id": "102",
+    "name": "AVENIDA INFANTE D. HENRIQUE",
+    "nameShort": "A 02",
+    "position": {
+      "lat": 37.737257,
+      "lon": -25.672122
+    }
+  },
+  {
+    "id": "322",
+    "name": "AVENIDA INFANTE D. HENRIQUE",
+    "nameShort": "N/D",
+    "position": {
+      "lat": 37.739972,
+      "lon": -25.665908
+    }
+  },
+  {
+    "id": "101",
+    "name": "AVENIDA INFANTE D. HENRIQUE - ALFÂNDEGA",
+    "nameShort": "A 01",
+    "position": {
+      "lat": 37.737862,
+      "lon": -25.670026
+    }
+  },
+  {
+    "id": "321",
+    "name": "AVENIDA INFANTE D. HENRIQUE - PORTAS MAR",
+    "nameShort": "N/D",
+    "position": {
+      "lat": 37.740411,
+      "lon": -25.661704
+    }
+  },
+  {
+    "id": "405",
+    "name": "AVENIDA PRÍNCIPE DO MÓNACO",
+    "nameShort": "D 05",
+    "position": {
+      "lat": 37.735259,
+      "lon": -25.682787
+    }
+  },
+  {
+    "id": "117",
+    "name": "AVENIDA PRÍNCIPE DO MÓNACO",
+    "nameShort": "A 17",
+    "position": {
+      "lat": 37.735263,
+      "lon": -25.682778
+    }
+  },
+  {
+    "id": "406",
+    "name": "AVENIDA PRÍNCIPE DO MÓNACO (CLÍNICA DO BOM JESUS)",
+    "nameShort": "D 06",
+    "position": {
+      "lat": 37.741203,
+      "lon": -25.687278
+    }
+  },
+  {
+    "id": "411",
+    "name": "BAIRRO ARCANJO LAR",
+    "nameShort": "D 11",
+    "position": {
+      "lat": 37.747855,
+      "lon": -25.679733
+    }
+  },
+  {
+    "id": "309",
+    "name": "BAIRRO DAS LARANJEIRAS",
+    "nameShort": "C 09",
+    "position": {
+      "lat": 37.746629,
+      "lon": -25.652778
+    }
+  },
+  {
+    "id": "308",
+    "name": "BAIRRO DAS LARANJEIRAS (RESIDÊNCIA UNIVERSITÁRIA)",
+    "nameShort": "C 08",
+    "position": {
+      "lat": 37.74605,
+      "lon": -25.650484
+    }
+  },
+  {
+    "id": "210",
+    "name": "CAMINHO DA LEVADA",
+    "nameShort": "B 10",
+    "position": {
+      "lat": 37.750177,
+      "lon": -25.667618
+    }
+  },
+  {
+    "id": "412",
+    "name": "CENTRO DE RADIONCOLOGIA MADALENA PAIVA",
+    "nameShort": "N/D",
+    "position": {
+      "lat": 37.750913,
+      "lon": -25.678073
+    }
+  },
+  {
+    "id": "214",
+    "name": "CENTRO DE SAÚDE (ROTUNDA)",
+    "nameShort": "B 14",
+    "position": {
+      "lat": 37.753787,
+      "lon": -25.675142
+    }
+  },
+  {
+    "id": "414",
+    "name": "CENTRO DE SAÚDE DE PONTA DELGADA",
+    "nameShort": "D 14",
+    "position": {
+      "lat": 37.753218,
+      "lon": -25.676575
+    }
+  },
+  {
+    "id": "413",
+    "name": "HOSPITAL (CONSULTA EXTERNA)",
+    "nameShort": "N/D",
+    "position": {
+      "lat": 37.752405,
+      "lon": -25.676009
+    }
+  },
+  {
+    "id": "425",
+    "name": "HOSPITAL (ESTÁTUA SOLDADO)",
+    "nameShort": "D 15",
+    "position": {
+      "lat": 37.751974,
+      "lon": -25.673939
+    }
+  },
+  {
+    "id": "222",
+    "name": "HOSPITAL (ESTÁTUA SOLDADO)",
+    "nameShort": "B 15",
+    "position": {
+      "lat": 37.751976,
+      "lon": -25.673934
+    }
+  },
+  {
+    "id": "215",
+    "name": "HOSPITAL (VISITAS)",
+    "nameShort": "N/D",
+    "position": {
+      "lat": 37.751948,
+      "lon": -25.674941
+    }
+  },
+  {
+    "id": "415",
+    "name": "HOSPITAL (VISITAS)",
+    "nameShort": "N/D",
+    "position": {
+      "lat": 37.751828,
+      "lon": -25.674924
+    }
+  },
+  {
+    "id": "306",
+    "name": "LADEIRA DAS ÁGUAS QUENTES",
+    "nameShort": "C 06",
+    "position": {
+      "lat": 37.74254,
+      "lon": -25.659504
+    }
+  },
+  {
+    "id": "202",
+    "name": "LARGO ALMIRANTE DUNN",
+    "nameShort": "B 02",
+    "position": {
+      "lat": 37.740871,
+      "lon": -25.662758
+    }
+  },
+  {
+    "id": "423",
+    "name": "LARGO DO COLÉGIO",
+    "nameShort": "D 23",
+    "position": {
+      "lat": 37.743277,
+      "lon": -25.669925
+    }
+  },
+  {
+    "id": "201",
+    "name": "PRAÇA VASCO DA GAMA",
+    "nameShort": "B 01",
+    "position": {
+      "lat": 37.7385,
+      "lon": -25.670094
+    }
+  },
+  {
+    "id": "301",
+    "name": "PRAÇA VASCO DA GAMA",
+    "nameShort": "C 01",
+    "position": {
+      "lat": 37.739067,
+      "lon": -25.670492
+    }
+  },
+  {
+    "id": "401",
+    "name": "PRAÇA VASCO DA GAMA",
+    "nameShort": "D 01",
+    "position": {
+      "lat": 37.738625,
+      "lon": -25.670207
+    }
+  },
+  {
+    "id": "104",
+    "name": "RUA ALMIRANTE BOTELHO DE SOUSA (SEGURANÇA SOCIAL)",
+    "nameShort": "A 04",
+    "position": {
+      "lat": 37.745478,
+      "lon": -25.678179
+    }
+  },
+  {
+    "id": "216",
+    "name": "RUA ARCANJO LAR",
+    "nameShort": "B 16",
+    "position": {
+      "lat": 37.749489,
+      "lon": -25.678246
+    }
+  },
+  {
+    "id": "217",
+    "name": "RUA ARCANJO LAR (IGREJA N. S. FÁTIMA)",
+    "nameShort": "B 17",
+    "position": {
+      "lat": 37.747778,
+      "lon": -25.679817
+    }
+  },
+  {
+    "id": "221",
+    "name": "RUA CORONEL SILVA LEAL",
+    "nameShort": "B 21",
+    "position": {
+      "lat": 37.74062,
+      "lon": -25.672299
+    }
+  },
+  {
+    "id": "424",
+    "name": "RUA CORONEL SILVA LEAL",
+    "nameShort": "D 24",
+    "position": {
+      "lat": 37.740611,
+      "lon": -25.672222
+    }
+  },
+  {
+    "id": "307",
+    "name": "RUA DA BOA NOVA",
+    "nameShort": "C 07",
+    "position": {
+      "lat": 37.742428,
+      "lon": -25.655176
+    }
+  },
+  {
+    "id": "219",
+    "name": "RUA DA JUVENTUDE",
+    "nameShort": "B 19",
+    "position": {
+      "lat": 37.746302,
+      "lon": -25.675814
+    }
+  },
+  {
+    "id": "416",
+    "name": "RUA DA JUVENTUDE",
+    "nameShort": "D 16",
+    "position": {
+      "lat": 37.746302,
+      "lon": -25.675814
+    }
+  },
+  {
+    "id": "103",
+    "name": "RUA DA VITÓRIA (ESCOLA)",
+    "nameShort": "A 03",
+    "position": {
+      "lat": 37.742495,
+      "lon": -25.676898
+    }
+  },
+  {
+    "id": "310",
+    "name": "RUA DAS LARANJEIRAS",
+    "nameShort": "C 10",
+    "position": {
+      "lat": 37.748483,
+      "lon": -25.654509
+    }
+  },
+  {
+    "id": "311",
+    "name": "RUA DAS LARANJEIRAS (ESCOLA)",
+    "nameShort": "C 11",
+    "position": {
+      "lat": 37.75013,
+      "lon": -25.653243
+    }
+  },
+  {
+    "id": "119",
+    "name": "RUA DE LISBOA",
+    "nameShort": "A 19",
+    "position": {
+      "lat": 37.738519,
+      "lon": -25.677227
+    }
+  },
+  {
+    "id": "118",
+    "name": "RUA DE LISBOA (SINAGA)",
+    "nameShort": "A 18",
+    "position": {
+      "lat": 37.737879,
+      "lon": -25.679669
+    }
+  },
+  {
+    "id": "107",
+    "name": "RUA DE SÃO BENTO MENNI",
+    "nameShort": "A 07",
+    "position": {
+      "lat": 37.747763,
+      "lon": -25.684538
+    }
+  },
+  {
+    "id": "206",
+    "name": "RUA DE SÃO GONÇALO",
+    "nameShort": "B 06",
+    "position": {
+      "lat": 37.750018,
+      "lon": -25.659535
+    }
+  },
+  {
+    "id": "313",
+    "name": "RUA DE SÃO GONÇALO",
+    "nameShort": "C 13",
+    "position": {
+      "lat": 37.75148,
+      "lon": -25.656248
+    }
+  },
+  {
+    "id": "312",
+    "name": "RUA DE SÃO GONÇALO (LORETO)",
+    "nameShort": "C 12",
+    "position": {
+      "lat": 37.75244,
+      "lon": -25.651558
+    }
+  },
+  {
+    "id": "207",
+    "name": "RUA DE SÃO GONÇALO (UNIVERSIDADE)",
+    "nameShort": "B 07",
+    "position": {
+      "lat": 37.748326,
+      "lon": -25.664162
+    }
+  },
+  {
+    "id": "418",
+    "name": "RUA DE SÃO GONÇALO (UNIVERSIDADE)",
+    "nameShort": "D 18",
+    "position": {
+      "lat": 37.748201,
+      "lon": -25.664044
+    }
+  },
+  {
+    "id": "304",
+    "name": "RUA DE SÃO JOÃO",
+    "nameShort": "C 04",
+    "position": {
+      "lat": 37.742102,
+      "lon": -25.66563
+    }
+  },
+  {
+    "id": "408",
+    "name": "RUA DIREITA DE SANTA CATARINA",
+    "nameShort": "D 08",
+    "position": {
+      "lat": 37.741715,
+      "lon": -25.68186
+    }
+  },
+  {
+    "id": "110",
+    "name": "RUA DIREITA DO RAMALHO",
+    "nameShort": "A 10",
+    "position": {
+      "lat": 37.743202,
+      "lon": -25.691325
+    }
+  },
+  {
+    "id": "111",
+    "name": "RUA DIREITA DO RAMALHO",
+    "nameShort": "A 11",
+    "position": {
+      "lat": 37.744087,
+      "lon": -25.693808
+    }
+  },
+  {
+    "id": "109",
+    "name": "RUA DIREITA DO RAMALHO (EDIFÍCIOS MÓNACO)",
+    "nameShort": "A 09",
+    "position": {
+      "lat": 37.742378,
+      "lon": -25.686894
+    }
+  },
+  {
+    "id": "305",
+    "name": "RUA DO MERCADO",
+    "nameShort": "C 05",
+    "position": {
+      "lat": 37.742282,
+      "lon": -25.663718
+    }
+  },
+  {
+    "id": "108",
+    "name": "RUA DO PAÍM",
+    "nameShort": "A 08",
+    "position": {
+      "lat": 37.742467,
+      "lon": -25.683692
+    }
+  },
+  {
+    "id": "407",
+    "name": "RUA DO RAMALHO",
+    "nameShort": "D 07",
+    "position": {
+      "lat": 37.741986,
+      "lon": -25.684891
+    }
+  },
+  {
+    "id": "211",
+    "name": "RUA DR. ALBERTO PAULA DE OLIVEIRA",
+    "nameShort": "B 11",
+    "position": {
+      "lat": 37.751626,
+      "lon": -25.668936
+    }
+  },
+  {
+    "id": "314",
+    "name": "RUA DR. FRIEDMAN (FARMÁCIA SOCORROS MÚTUOS)",
+    "nameShort": "C 14",
+    "position": {
+      "lat": 37.751546,
+      "lon": -25.658581
+    }
+  },
+  {
+    "id": "420",
+    "name": "RUA DR. HUGO MOREIRA",
+    "nameShort": "D 20",
+    "position": {
+      "lat": 37.745719,
+      "lon": -25.658016
+    }
+  },
+  {
+    "id": "419",
+    "name": "RUA DR. HUGO MOREIRA (NORTE)",
+    "nameShort": "D 19",
+    "position": {
+      "lat": 37.749176,
+      "lon": -25.658823
+    }
+  },
+  {
+    "id": "320",
+    "name": "RUA DR. JOSÉ BRUNO TAVARES CARREIRO",
+    "nameShort": "C 20",
+    "position": {
+      "lat": 37.740485,
+      "lon": -25.665496
+    }
+  },
+  {
+    "id": "213",
+    "name": "RUA DR. JOSÉ ESTRELA REGO",
+    "nameShort": "B 13",
+    "position": {
+      "lat": 37.752931,
+      "lon": -25.67186
+    }
+  },
+  {
+    "id": "426",
+    "name": "RUA ENG. ABEL FERIN COUTINHO",
+    "nameShort": "D 03",
+    "position": {
+      "lat": 37.734761,
+      "lon": -25.68003
+    }
+  },
+  {
+    "id": "203",
+    "name": "RUA ENG.º JOSÉ CORDEIRO",
+    "nameShort": "B 03",
+    "position": {
+      "lat": 37.742589,
+      "lon": -25.658244
+    }
+  },
+  {
+    "id": "410",
+    "name": "RUA ENG.º LUIS AFONSO GOMES ",
+    "nameShort": "D 10",
+    "position": {
+      "lat": 37.745867,
+      "lon": -25.679871
+    }
+  },
+  {
+    "id": "318",
+    "name": "RUA ENGº JOSÉ CORDEIRO",
+    "nameShort": "C 18",
+    "position": {
+      "lat": 37.742574,
+      "lon": -25.657121
+    }
+  },
+  {
+    "id": "319",
+    "name": "RUA ERNESTO DO CANTO",
+    "nameShort": "C 19",
+    "position": {
+      "lat": 37.741197,
+      "lon": -25.662989
+    }
+  },
+  {
+    "id": "212",
+    "name": "RUA ILHA DE SÃO JORGE",
+    "nameShort": "B 12",
+    "position": {
+      "lat": 37.75359,
+      "lon": -25.670791
+    }
+  },
+  {
+    "id": "120",
+    "name": "RUA JOÃO FRANCISCO CABRAL",
+    "nameShort": "A 20",
+    "position": {
+      "lat": 37.736171,
+      "lon": -25.674877
+    }
+  },
+  {
+    "id": "113",
+    "name": "RUA JOSÉ DAS NEVES FERREIRA",
+    "nameShort": "A 13",
+    "position": {
+      "lat": 37.739615,
+      "lon": -25.685976
+    }
+  },
+  {
+    "id": "112",
+    "name": "RUA JOSÉ DAS NEVES FERREIRA (ANTIGA AEROGARE)",
+    "nameShort": "A 12",
+    "position": {
+      "lat": 37.74397,
+      "lon": -25.695819
+    }
+  },
+  {
+    "id": "417",
+    "name": "RUA JOSÉ DO CANTO (ESCOLA DAS ANEXAS)",
+    "nameShort": "D 17",
+    "position": {
+      "lat": 37.746547,
+      "lon": -25.669316
+    }
+  },
+  {
+    "id": "302",
+    "name": "RUA MACHADO DOS SANTOS",
+    "nameShort": "C 02",
+    "position": {
+      "lat": 37.740631,
+      "lon": -25.669942
+    }
+  },
+  {
+    "id": "303",
+    "name": "RUA MACHADO DOS SANTOS",
+    "nameShort": "C 03",
+    "position": {
+      "lat": 37.741621,
+      "lon": -25.668235
+    }
+  },
+  {
+    "id": "421",
+    "name": "RUA MÃE DE DEUS",
+    "nameShort": "D 21",
+    "position": {
+      "lat": 37.744561,
+      "lon": -25.660539
+    }
+  },
+  {
+    "id": "220",
+    "name": "RUA MANUEL AUGUSTO AMARAL",
+    "nameShort": "B 20",
+    "position": {
+      "lat": 37.743253,
+      "lon": -25.673275
+    }
+  },
+  {
+    "id": "422",
+    "name": "RUA MARGARIDA DE CHAVES",
+    "nameShort": "D 22",
+    "position": {
+      "lat": 37.743785,
+      "lon": -25.665064
+    }
+  },
+  {
+    "id": "208",
+    "name": "RUA MORGADO BOTELHO",
+    "nameShort": "B 08",
+    "position": {
+      "lat": 37.748672,
+      "lon": -25.665663
+    }
+  },
+  {
+    "id": "209",
+    "name": "RUA MORGADO BOTELHO",
+    "nameShort": "B 09",
+    "position": {
+      "lat": 37.751044,
+      "lon": -25.66626
+    }
+  },
+  {
+    "id": "106",
+    "name": "RUA NICOLAU DE SOUSA LIMA (RUA FRANCISCO SUPICO)",
+    "nameShort": "A 06",
+    "position": {
+      "lat": 37.745281,
+      "lon": -25.682718
+    }
+  },
+  {
+    "id": "114",
+    "name": "RUA PADRE FERNANDO VIEIRA GOMES",
+    "nameShort": "A 14",
+    "position": {
+      "lat": 37.733957,
+      "lon": -25.683002
+    }
+  },
+  {
+    "id": "218",
+    "name": "RUA PROFESSOR LUCIANO MOTA VIEIRA",
+    "nameShort": "B 18",
+    "position": {
+      "lat": 37.747744,
+      "lon": -25.677442
+    }
+  },
+  {
+    "id": "402",
+    "name": "RUA TEÓFILO BRAGA",
+    "nameShort": "D 02",
+    "position": {
+      "lat": 37.736591,
+      "lon": -25.673819
+    }
+  }
+]

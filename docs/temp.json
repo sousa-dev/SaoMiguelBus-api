@@ -1,0 +1,3 @@
+{
+  "_note": "Official PDL stop coordinates moved to src/minibus/data/stops_registry_sao_miguel.json. Re-merge with: cd src && python minibus/data/merge_coordinates.py"
+}

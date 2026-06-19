@@ -179,6 +179,16 @@ class MinibusApiTestCase(TestCase):
         line_a = next(row for row in response.json()['lines'] if row['code'] == 'A')
         self.assertEqual(line_a['name'], 'Line A — Yellow')
 
+    def test_network_stops_include_coordinates(self):
+        response = self.client.get('/api/v3/minibus/network', HTTP_X_ISLAND='sao-miguel')
+        self.assertEqual(response.status_code, 200)
+        body = response.json()
+        line_a = next(line for line in body['lines'] if line['code'] == 'A')
+        stop = next(s for s in line_a['stops'] if s['key'] == 'a-05')
+        self.assertEqual(stop['external_id'], '105')
+        self.assertAlmostEqual(stop['latitude'], 37.743677, places=5)
+        self.assertAlmostEqual(stop['longitude'], -25.680908, places=5)
+
     def test_network_stops(self):
         response = self.client.get('/api/v3/minibus/network', HTTP_X_ISLAND='sao-miguel')
         self.assertEqual(response.status_code, 200)

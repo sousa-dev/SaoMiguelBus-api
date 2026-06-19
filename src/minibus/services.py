@@ -314,6 +314,9 @@ class StopNode:
     name_pt: str
     match_key: str
     interchange_key: str
+    external_id: str | None = None
+    latitude: float | None = None
+    longitude: float | None = None
 
 
 @dataclass
@@ -343,6 +346,9 @@ def build_network_graph(network: dict[str, Any]) -> NetworkGraph:
                 name_pt=stop['name_pt'],
                 match_key=stop['match_key'],
                 interchange_key=stop['interchange_key'],
+                external_id=stop.get('external_id'),
+                latitude=stop.get('latitude'),
+                longitude=stop.get('longitude'),
             )
             interchange_groups[stop['interchange_key']].append(stop['key'])
         for current, nxt in zip(stops, stops[1:]):
@@ -399,6 +405,9 @@ def _path_to_journey(graph: NetworkGraph, path: tuple[str, ...]) -> dict[str, An
             'name': node.name_pt,
             'line_code': node.line_code,
             'sequence': node.sequence,
+            'external_id': node.external_id,
+            'latitude': node.latitude,
+            'longitude': node.longitude,
         }
 
     legs: list[dict[str, Any]] = []
@@ -553,7 +562,7 @@ def compute_bundle_version(island: Island) -> str:
 def build_offline_bundle(*, island: Island, locale: str, request) -> dict[str, Any]:
     """Everything the app caches for offline Mini Bus: lines, tariffs, network, images."""
     host = request.get_host()
-    cache_key = f'minibus:offline:v2:{island.key}:{locale}:{host}'
+    cache_key = f'minibus:offline:v3:{island.key}:{locale}:{host}'
     cached = cache.get(cache_key)
     if cached is not None:
         return cached

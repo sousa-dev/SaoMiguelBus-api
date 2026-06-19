@@ -79,7 +79,10 @@
           "name_pt": "Avenida Infante D. Henrique (Alfândega)",
           "match_key": "avenida-infante-d-henrique-alfandega",
           "interchange_key": "avenida-infante-d-henrique-alfandega",
-          "interchange_lines": []
+          "interchange_lines": [],
+          "external_id": "101",
+          "latitude": 37.737862,
+          "longitude": -25.670026
         },
         {
           "sequence": 2,
@@ -87,7 +90,10 @@
           "name_pt": "Avenida Infante D. Henrique",
           "match_key": "avenida-infante-d-henrique",
           "interchange_key": "avenida-infante-d-henrique",
-          "interchange_lines": []
+          "interchange_lines": [],
+          "external_id": "102",
+          "latitude": 37.737257,
+          "longitude": -25.672122
         },
         {
           "sequence": 3,
@@ -95,7 +101,10 @@
           "name_pt": "Rua da Vitória (Escola)",
           "match_key": "rua-da-vitoria-escola",
           "interchange_key": "rua-da-vitoria-escola",
-          "interchange_lines": []
+          "interchange_lines": [],
+          "external_id": "103",
+          "latitude": 37.742495,
+          "longitude": -25.676898
         },
         {
           "sequence": 4,
@@ -103,7 +112,10 @@
           "name_pt": "Rua Almirante Botelho Sousa (Segurança Social)",
           "match_key": "rua-almirante-botelho-sousa-seguranca-social",
           "interchange_key": "rua-almirante-botelho-sousa-seguranca-social",
-          "interchange_lines": []
+          "interchange_lines": [],
+          "external_id": "104",
+          "latitude": 37.745478,
+          "longitude": -25.678179
         },
         {
           "sequence": 5,
@@ -113,7 +125,10 @@
           "interchange_key": "avenida-antero-de-quental",
           "interchange_lines": [
             "D"
-          ]
+          ],
+          "external_id": "105",
+          "latitude": 37.743677,
+          "longitude": -25.680908
         },
         {
           "sequence": 6,
@@ -121,7 +136,10 @@
           "name_pt": "Rua Nicolau Sousa Lima (Rua Francisco M. Supico)",
           "match_key": "rua-nicolau-sousa-lima-rua-francisco-m-supico",
           "interchange_key": "rua-nicolau-sousa-lima-rua-francisco-m-supico",
-          "interchange_lines": []
+          "interchange_lines": [],
+          "external_id": "106",
+          "latitude": 37.745281,
+          "longitude": -25.682718
         },
         {
           "sequence": 7,
@@ -129,7 +147,10 @@
           "name_pt": "Rua São Bento Menni",
           "match_key": "rua-sao-bento-menni",
           "interchange_key": "rua-sao-bento-menni",
-          "interchange_lines": []
+          "interchange_lines": [],
+          "external_id": "107",
+          "latitude": 37.747763,
+          "longitude": -25.684538
         },
         {
           "sequence": 8,
@@ -137,7 +158,10 @@
           "name_pt": "Rua Paim",
           "match_key": "rua-paim",
           "interchange_key": "rua-paim",
-          "interchange_lines": []
+          "interchange_lines": [],
+          "external_id": "108",
+          "latitude": 37.742467,
+          "longitude": -25.683692
         },
         {
           "sequence": 9,
@@ -147,7 +171,10 @@
           "interchange_key": "rua-ramalho",
           "interchange_lines": [
             "D"
-          ]
+          ],
+          "external_id": "109",
+          "latitude": 37.742378,
+          "longitude": -25.686894
         },
         {
           "sequence": 10,
@@ -157,7 +184,10 @@
           "interchange_key": "rua-ramalho",
           "interchange_lines": [
             "D"
-          ]
+          ],
+          "external_id": "110",
+          "latitude": 37.743202,
+          "longitude": -25.691325
         },
         {
           "sequence": 11,
@@ -167,7 +197,10 @@
           "interchange_key": "rua-ramalho",
           "interchange_lines": [
             "D"
-          ]
+          ],
+          "external_id": "111",
+          "latitude": 37.744087,
+          "longitude": -25.693808
         },
         {
           "sequence": 12,
@@ -175,7 +208,10 @@
           "name_pt": "Rua José Neves Ferreira (Antiga Aerogare)",
           "match_key": "rua-jose-neves-ferreira-antiga-aerogare",
           "interchange_key": "rua-jose-neves-ferreira-antiga-aerogare",
-          "interchange_lines": []
+          "interchange_lines": [],
+          "external_id": "112",
+          "latitude": 37.74397,
+          "longitude": -25.695819
         },
         {
           "sequence": 13,
@@ -183,7 +219,10 @@
           "name_pt": "Rua José Neves Ferreira",
           "match_key": "rua-jose-neves-ferreira",
           "interchange_key": "rua-jose-neves-ferreira",
-          "interchange_lines": []
+          "interchange_lines": [],
+          "external_id": "113",
+          "latitude": 37.739615,
+          "longitude": -25.685976
         },
         {
           "sequence": 14,
@@ -191,7 +230,10 @@
           "name_pt": "Rua Padre Fernando Vieira Gomes",
           "match_key": "rua-padre-fernando-vieira-gomes",
           "interchange_key": "rua-padre-fernando-vieira-gomes",
-          "interchange_lines": []
+          "interchange_lines": [],
+          "external_id": "114",
+          "latitude": 37.733957,
+          "longitude": -25.683002
         },
         {
           "sequence": 15,
@@ -201,7 +243,10 @@
           "interchange_key": "rua-santa-clara",
           "interchange_lines": [
             "D"
-          ]
+          ],
+          "external_id": "115",
+          "latitude": 37.733787,
+          "longitude": -25.686456
         },
         {
           "sequence": 16,
@@ -211,7 +256,10 @@
           "interchange_key": "rua-santa-clara",
           "interchange_lines": [
             "D"
-          ]
+          ],
+          "external_id": "116",
+          "latitude": 37.734414,
+          "longitude": -25.683554
         },
         {
           "sequence": 17,
@@ -221,7 +269,10 @@
           "interchange_key": "avenida-principe-do-monaco",
           "interchange_lines": [
             "D"
-          ]
+          ],
+          "external_id": "117",
+          "latitude": 37.735263,
+          "longitude": -25.682778
         },
         {
           "sequence": 18,
@@ -229,7 +280,10 @@
           "name_pt": "Rua de Lisboa (1ª)",
           "match_key": "rua-de-lisboa",
           "interchange_key": "rua-de-lisboa",
-          "interchange_lines": []
+          "interchange_lines": [],
+          "external_id": "118",
+          "latitude": 37.737879,
+          "longitude": -25.679669
         },
         {
           "sequence": 19,
@@ -237,7 +291,10 @@
           "name_pt": "Rua de Lisboa (2ª)",
           "match_key": "rua-de-lisboa",
           "interchange_key": "rua-de-lisboa",
-          "interchange_lines": []
+          "interchange_lines": [],
+          "external_id": "119",
+          "latitude": 37.738519,
+          "longitude": -25.677227
         },
         {
           "sequence": 20,
@@ -245,7 +302,10 @@
           "name_pt": "Rua João Francisco Cabral",
           "match_key": "rua-joao-francisco-cabral",
           "interchange_key": "rua-joao-francisco-cabral",
-          "interchange_lines": []
+          "interchange_lines": [],
+          "external_id": "120",
+          "latitude": 37.736171,
+          "longitude": -25.674877
         },
         {
           "sequence": 21,
@@ -253,7 +313,10 @@
           "name_pt": "Avenida Infante D. Henrique (Alfândega)",
           "match_key": "avenida-infante-d-henrique-alfandega",
           "interchange_key": "avenida-infante-d-henrique-alfandega",
-          "interchange_lines": []
+          "interchange_lines": [],
+          "external_id": "101",
+          "latitude": 37.737862,
+          "longitude": -25.670026
         }
       ]
     },
@@ -272,7 +335,10 @@
           "interchange_lines": [
             "C",
             "D"
-          ]
+          ],
+          "external_id": "201",
+          "latitude": 37.7385,
+          "longitude": -25.670094
         },
         {
           "sequence": 2,
@@ -280,7 +346,10 @@
           "name_pt": "Largo Almirante Dunn",
           "match_key": "largo-almirante-dunn",
           "interchange_key": "largo-almirante-dunn",
-          "interchange_lines": []
+          "interchange_lines": [],
+          "external_id": "202",
+          "latitude": 37.740871,
+          "longitude": -25.662758
         },
         {
           "sequence": 3,
@@ -290,7 +359,10 @@
           "interchange_key": "rua-eng-jose-cordeiro",
           "interchange_lines": [
             "C"
-          ]
+          ],
+          "external_id": "203",
+          "latitude": 37.742589,
+          "longitude": -25.658244
         },
         {
           "sequence": 4,
@@ -300,7 +372,10 @@
           "interchange_key": "avenida-dom-joao-iii",
           "interchange_lines": [
             "C"
-          ]
+          ],
+          "external_id": "204",
+          "latitude": 37.744644,
+          "longitude": -25.65666
         },
         {
           "sequence": 5,
@@ -310,7 +385,10 @@
           "interchange_key": "avenida-dom-joao-iii",
           "interchange_lines": [
             "C"
-          ]
+          ],
+          "external_id": "205",
+          "latitude": 37.748277,
+          "longitude": -25.65731
         },
         {
           "sequence": 6,
@@ -321,7 +399,10 @@
           "interchange_lines": [
             "C",
             "D"
-          ]
+          ],
+          "external_id": "206",
+          "latitude": 37.750018,
+          "longitude": -25.659535
         },
         {
           "sequence": 7,
@@ -332,7 +413,10 @@
           "interchange_lines": [
             "C",
             "D"
-          ]
+          ],
+          "external_id": "207",
+          "latitude": 37.748326,
+          "longitude": -25.664162
         },
         {
           "sequence": 8,
@@ -340,7 +424,10 @@
           "name_pt": "Rua Morgado Botelho (1ª)",
           "match_key": "rua-morgado-botelho",
           "interchange_key": "rua-morgado-botelho",
-          "interchange_lines": []
+          "interchange_lines": [],
+          "external_id": "208",
+          "latitude": 37.748672,
+          "longitude": -25.665663
         },
         {
           "sequence": 9,
@@ -348,7 +435,10 @@
           "name_pt": "Rua Morgado Botelho (2ª)",
           "match_key": "rua-morgado-botelho",
           "interchange_key": "rua-morgado-botelho",
-          "interchange_lines": []
+          "interchange_lines": [],
+          "external_id": "209",
+          "latitude": 37.751044,
+          "longitude": -25.66626
         },
         {
           "sequence": 10,
@@ -356,7 +446,10 @@
           "name_pt": "Caminho da Levada",
           "match_key": "caminho-da-levada",
           "interchange_key": "caminho-da-levada",
-          "interchange_lines": []
+          "interchange_lines": [],
+          "external_id": "210",
+          "latitude": 37.750177,
+          "longitude": -25.667618
         },
         {
           "sequence": 11,
@@ -364,7 +457,10 @@
           "name_pt": "Rua Dr. Alberto Oliveira",
           "match_key": "rua-dr-alberto-oliveira",
           "interchange_key": "rua-dr-alberto-oliveira",
-          "interchange_lines": []
+          "interchange_lines": [],
+          "external_id": "211",
+          "latitude": 37.751626,
+          "longitude": -25.668936
         },
         {
           "sequence": 12,
@@ -372,7 +468,10 @@
           "name_pt": "Rua Ilha de São Jorge",
           "match_key": "rua-ilha-de-sao-jorge",
           "interchange_key": "rua-ilha-de-sao-jorge",
-          "interchange_lines": []
+          "interchange_lines": [],
+          "external_id": "212",
+          "latitude": 37.75359,
+          "longitude": -25.670791
         },
         {
           "sequence": 13,
@@ -380,7 +479,10 @@
           "name_pt": "Rua Dr. José Estrela Rego",
           "match_key": "rua-dr-jose-estrela-rego",
           "interchange_key": "rua-dr-jose-estrela-rego",
-          "interchange_lines": []
+          "interchange_lines": [],
+          "external_id": "213",
+          "latitude": 37.752931,
+          "longitude": -25.67186
         },
         {
           "sequence": 14,
@@ -390,7 +492,10 @@
           "interchange_key": "centro-de-saude",
           "interchange_lines": [
             "D"
-          ]
+          ],
+          "external_id": "214",
+          "latitude": 37.753787,
+          "longitude": -25.675142
         },
         {
           "sequence": 15,
@@ -400,7 +505,10 @@
           "interchange_key": "hospital-visitas",
           "interchange_lines": [
             "D"
-          ]
+          ],
+          "external_id": "215",
+          "latitude": 37.751948,
+          "longitude": -25.674941
         },
         {
           "sequence": 16,
@@ -410,7 +518,10 @@
           "interchange_key": "rua-arcanjo-lar",
           "interchange_lines": [
             "D"
-          ]
+          ],
+          "external_id": "216",
+          "latitude": 37.749489,
+          "longitude": -25.678246
         },
         {
           "sequence": 17,
@@ -420,7 +531,10 @@
           "interchange_key": "rua-arcanjo-lar",
           "interchange_lines": [
             "D"
-          ]
+          ],
+          "external_id": "217",
+          "latitude": 37.747778,
+          "longitude": -25.679817
         },
         {
           "sequence": 18,
@@ -428,7 +542,10 @@
           "name_pt": "Rua Prof. Luciano M. Vieira",
           "match_key": "rua-prof-luciano-m-vieira",
           "interchange_key": "rua-prof-luciano-m-vieira",
-          "interchange_lines": []
+          "interchange_lines": [],
+          "external_id": "218",
+          "latitude": 37.747744,
+          "longitude": -25.677442
         },
         {
           "sequence": 19,
@@ -438,7 +555,10 @@
           "interchange_key": "rua-da-juventude",
           "interchange_lines": [
             "D"
-          ]
+          ],
+          "external_id": "219",
+          "latitude": 37.746302,
+          "longitude": -25.675814
         },
         {
           "sequence": 20,
@@ -446,7 +566,10 @@
           "name_pt": "Rua Manuel Augusto Amaral",
           "match_key": "rua-manuel-augusto-amaral",
           "interchange_key": "rua-manuel-augusto-amaral",
-          "interchange_lines": []
+          "interchange_lines": [],
+          "external_id": "220",
+          "latitude": 37.743253,
+          "longitude": -25.673275
         },
         {
           "sequence": 21,
@@ -456,7 +579,10 @@
           "interchange_key": "rua-coronel-silva-leal",
           "interchange_lines": [
             "D"
-          ]
+          ],
+          "external_id": "221",
+          "latitude": 37.74062,
+          "longitude": -25.672299
         },
         {
           "sequence": 22,
@@ -467,7 +593,10 @@
           "interchange_lines": [
             "C",
             "D"
-          ]
+          ],
+          "external_id": "201",
+          "latitude": 37.7385,
+          "longitude": -25.670094
         }
       ]
     },
@@ -486,7 +615,10 @@
           "interchange_lines": [
             "B",
             "D"
-          ]
+          ],
+          "external_id": "301",
+          "latitude": 37.739067,
+          "longitude": -25.670492
         },
         {
           "sequence": 2,
@@ -494,7 +626,10 @@
           "name_pt": "Rua Machado dos Santos (1ª)",
           "match_key": "rua-machado-dos-santos",
           "interchange_key": "rua-machado-dos-santos",
-          "interchange_lines": []
+          "interchange_lines": [],
+          "external_id": "302",
+          "latitude": 37.740631,
+          "longitude": -25.669942
         },
         {
           "sequence": 3,
@@ -502,7 +637,10 @@
           "name_pt": "Rua Machado dos Santos (2ª)",
           "match_key": "rua-machado-dos-santos",
           "interchange_key": "rua-machado-dos-santos",
-          "interchange_lines": []
+          "interchange_lines": [],
+          "external_id": "303",
+          "latitude": 37.741621,
+          "longitude": -25.668235
         },
         {
           "sequence": 4,
@@ -510,7 +648,10 @@
           "name_pt": "Rua São João",
           "match_key": "rua-sao-joao",
           "interchange_key": "rua-sao-joao",
-          "interchange_lines": []
+          "interchange_lines": [],
+          "external_id": "304",
+          "latitude": 37.742102,
+          "longitude": -25.66563
         },
         {
           "sequence": 5,
@@ -518,7 +659,10 @@
           "name_pt": "Rua do Mercado",
           "match_key": "rua-do-mercado",
           "interchange_key": "rua-do-mercado",
-          "interchange_lines": []
+          "interchange_lines": [],
+          "external_id": "305",
+          "latitude": 37.742282,
+          "longitude": -25.663718
         },
         {
           "sequence": 6,
@@ -526,7 +670,10 @@
           "name_pt": "Ladeira das Águas Quentes",
           "match_key": "ladeira-das-aguas-quentes",
           "interchange_key": "ladeira-das-aguas-quentes",
-          "interchange_lines": []
+          "interchange_lines": [],
+          "external_id": "306",
+          "latitude": 37.74254,
+          "longitude": -25.659504
         },
         {
           "sequence": 7,
@@ -534,7 +681,10 @@
           "name_pt": "Rua da Boa Nova",
           "match_key": "rua-da-boa-nova",
           "interchange_key": "rua-da-boa-nova",
-          "interchange_lines": []
+          "interchange_lines": [],
+          "external_id": "307",
+          "latitude": 37.742428,
+          "longitude": -25.655176
         },
         {
           "sequence": 8,
@@ -542,7 +692,10 @@
           "name_pt": "Bairro das Laranjeiras (Residência Universitária)",
           "match_key": "bairro-das-laranjeiras-residencia-universitaria",
           "interchange_key": "bairro-das-laranjeiras-residencia-universitaria",
-          "interchange_lines": []
+          "interchange_lines": [],
+          "external_id": "308",
+          "latitude": 37.74605,
+          "longitude": -25.650484
         },
         {
           "sequence": 9,
@@ -550,7 +703,10 @@
           "name_pt": "Bairro das Laranjeiras",
           "match_key": "bairro-das-laranjeiras",
           "interchange_key": "bairro-das-laranjeiras",
-          "interchange_lines": []
+          "interchange_lines": [],
+          "external_id": "309",
+          "latitude": 37.746629,
+          "longitude": -25.652778
         },
         {
           "sequence": 10,
@@ -558,7 +714,10 @@
           "name_pt": "Rua das Laranjeiras",
           "match_key": "rua-das-laranjeiras",
           "interchange_key": "rua-das-laranjeiras",
-          "interchange_lines": []
+          "interchange_lines": [],
+          "external_id": "310",
+          "latitude": 37.748483,
+          "longitude": -25.654509
         },
         {
           "sequence": 11,
@@ -566,7 +725,10 @@
           "name_pt": "Rua das Laranjeiras (Escola)",
           "match_key": "rua-das-laranjeiras-escola",
           "interchange_key": "rua-das-laranjeiras-escola",
-          "interchange_lines": []
+          "interchange_lines": [],
+          "external_id": "311",
+          "latitude": 37.75013,
+          "longitude": -25.653243
         },
         {
           "sequence": 12,
@@ -577,7 +739,10 @@
           "interchange_lines": [
             "B",
             "D"
-          ]
+          ],
+          "external_id": "312",
+          "latitude": 37.75244,
+          "longitude": -25.651558
         },
         {
           "sequence": 13,
@@ -588,7 +753,10 @@
           "interchange_lines": [
             "B",
             "D"
-          ]
+          ],
+          "external_id": "313",
+          "latitude": 37.75148,
+          "longitude": -25.656248
         },
         {
           "sequence": 14,
@@ -596,7 +764,10 @@
           "name_pt": "Rua Dr. Friedman",
           "match_key": "rua-dr-friedman",
           "interchange_key": "rua-dr-friedman",
-          "interchange_lines": []
+          "interchange_lines": [],
+          "external_id": "314",
+          "latitude": 37.751546,
+          "longitude": -25.658581
         },
         {
           "sequence": 15,
@@ -606,7 +777,10 @@
           "interchange_key": "avenida-dom-joao-iii",
           "interchange_lines": [
             "B"
-          ]
+          ],
+          "external_id": "315",
+          "latitude": 37.750111,
+          "longitude": -25.658049
         },
         {
           "sequence": 16,
@@ -616,7 +790,10 @@
           "interchange_key": "avenida-dom-joao-iii",
           "interchange_lines": [
             "B"
-          ]
+          ],
+          "external_id": "316",
+          "latitude": 37.74683,
+          "longitude": -25.657057
         },
         {
           "sequence": 17,
@@ -626,7 +803,10 @@
           "interchange_key": "avenida-dom-joao-iii",
           "interchange_lines": [
             "B"
-          ]
+          ],
+          "external_id": "317",
+          "latitude": 37.744073,
+          "longitude": -25.656825
         },
         {
           "sequence": 18,
@@ -636,7 +816,10 @@
           "interchange_key": "rua-eng-jose-cordeiro",
           "interchange_lines": [
             "B"
-          ]
+          ],
+          "external_id": "318",
+          "latitude": 37.742574,
+          "longitude": -25.657121
         },
         {
           "sequence": 19,
@@ -644,7 +827,10 @@
           "name_pt": "Rua Ernesto do Canto",
           "match_key": "rua-ernesto-do-canto",
           "interchange_key": "rua-ernesto-do-canto",
-          "interchange_lines": []
+          "interchange_lines": [],
+          "external_id": "319",
+          "latitude": 37.741197,
+          "longitude": -25.662989
         },
         {
           "sequence": 20,
@@ -652,7 +838,10 @@
           "name_pt": "Rua Dr. José Bruno Tavares",
           "match_key": "rua-dr-jose-bruno-tavares",
           "interchange_key": "rua-dr-jose-bruno-tavares",
-          "interchange_lines": []
+          "interchange_lines": [],
+          "external_id": "320",
+          "latitude": 37.740485,
+          "longitude": -25.665496
         },
         {
           "sequence": 21,
@@ -663,7 +852,10 @@
           "interchange_lines": [
             "B",
             "D"
-          ]
+          ],
+          "external_id": "301",
+          "latitude": 37.739067,
+          "longitude": -25.670492
         }
       ]
     },
@@ -682,7 +874,10 @@
           "interchange_lines": [
             "B",
             "C"
-          ]
+          ],
+          "external_id": "401",
+          "latitude": 37.738625,
+          "longitude": -25.670207
         },
         {
           "sequence": 2,
@@ -690,7 +885,10 @@
           "name_pt": "Rua Teófilo Braga",
           "match_key": "rua-teofilo-braga",
           "interchange_key": "rua-teofilo-braga",
-          "interchange_lines": []
+          "interchange_lines": [],
+          "external_id": "402",
+          "latitude": 37.736591,
+          "longitude": -25.673819
         },
         {
           "sequence": 3,
@@ -700,7 +898,10 @@
           "interchange_key": "rua-santa-clara",
           "interchange_lines": [
             "A"
-          ]
+          ],
+          "external_id": "403",
+          "latitude": 37.734974,
+          "longitude": -25.677191
         },
         {
           "sequence": 4,
@@ -710,7 +911,10 @@
           "interchange_key": "rua-santa-clara",
           "interchange_lines": [
             "A"
-          ]
+          ],
+          "external_id": "404",
+          "latitude": 37.735304,
+          "longitude": -25.680192
         },
         {
           "sequence": 5,
@@ -720,7 +924,10 @@
           "interchange_key": "avenida-principe-do-monaco",
           "interchange_lines": [
             "A"
-          ]
+          ],
+          "external_id": "405",
+          "latitude": 37.735259,
+          "longitude": -25.682787
         },
         {
           "sequence": 6,
@@ -730,7 +937,10 @@
           "interchange_key": "avenida-principe-do-monaco",
           "interchange_lines": [
             "A"
-          ]
+          ],
+          "external_id": "406",
+          "latitude": 37.741203,
+          "longitude": -25.687278
         },
         {
           "sequence": 7,
@@ -740,7 +950,10 @@
           "interchange_key": "rua-ramalho",
           "interchange_lines": [
             "A"
-          ]
+          ],
+          "external_id": "407",
+          "latitude": 37.741986,
+          "longitude": -25.684891
         },
         {
           "sequence": 8,
@@ -748,7 +961,10 @@
           "name_pt": "Rua Direita de Santa Catarina",
           "match_key": "rua-direita-de-santa-catarina",
           "interchange_key": "rua-direita-de-santa-catarina",
-          "interchange_lines": []
+          "interchange_lines": [],
+          "external_id": "408",
+          "latitude": 37.741715,
+          "longitude": -25.68186
         },
         {
           "sequence": 9,
@@ -758,7 +974,10 @@
           "interchange_key": "avenida-antero-de-quental",
           "interchange_lines": [
             "A"
-          ]
+          ],
+          "external_id": "409",
+          "latitude": 37.743222,
+          "longitude": -25.681516
         },
         {
           "sequence": 10,
@@ -766,7 +985,10 @@
           "name_pt": "Rua Eng. Luís A. Gomes",
           "match_key": "rua-eng-luis-a-gomes",
           "interchange_key": "rua-eng-luis-a-gomes",
-          "interchange_lines": []
+          "interchange_lines": [],
+          "external_id": "410",
+          "latitude": 37.745867,
+          "longitude": -25.679871
         },
         {
           "sequence": 11,
@@ -776,7 +998,10 @@
           "interchange_key": "rua-arcanjo-lar",
           "interchange_lines": [
             "B"
-          ]
+          ],
+          "external_id": "411",
+          "latitude": 37.747855,
+          "longitude": -25.679733
         },
         {
           "sequence": 12,
@@ -784,7 +1009,10 @@
           "name_pt": "Hospital (Centro de Radioncologia)",
           "match_key": "hospital-centro-de-radioncologia",
           "interchange_key": "hospital-centro-de-radioncologia",
-          "interchange_lines": []
+          "interchange_lines": [],
+          "external_id": "412",
+          "latitude": 37.750913,
+          "longitude": -25.678073
         },
         {
           "sequence": 13,
@@ -792,7 +1020,10 @@
           "name_pt": "Hospital (Consultas Externas)",
           "match_key": "hospital-consultas-externas",
           "interchange_key": "hospital-consultas-externas",
-          "interchange_lines": []
+          "interchange_lines": [],
+          "external_id": "413",
+          "latitude": 37.752405,
+          "longitude": -25.676009
         },
         {
           "sequence": 14,
@@ -802,7 +1033,10 @@
           "interchange_key": "centro-de-saude",
           "interchange_lines": [
             "B"
-          ]
+          ],
+          "external_id": "414",
+          "latitude": 37.753218,
+          "longitude": -25.676575
         },
         {
           "sequence": 15,
@@ -812,7 +1046,10 @@
           "interchange_key": "hospital-visitas",
           "interchange_lines": [
             "B"
-          ]
+          ],
+          "external_id": "415",
+          "latitude": 37.751828,
+          "longitude": -25.674924
         },
         {
           "sequence": 16,
@@ -822,7 +1059,10 @@
           "interchange_key": "rua-da-juventude",
           "interchange_lines": [
             "B"
-          ]
+          ],
+          "external_id": "416",
+          "latitude": 37.746302,
+          "longitude": -25.675814
         },
         {
           "sequence": 17,
@@ -830,7 +1070,10 @@
           "name_pt": "Rua José do Canto",
           "match_key": "rua-jose-do-canto",
           "interchange_key": "rua-jose-do-canto",
-          "interchange_lines": []
+          "interchange_lines": [],
+          "external_id": "417",
+          "latitude": 37.746547,
+          "longitude": -25.669316
         },
         {
           "sequence": 18,
@@ -841,7 +1084,10 @@
           "interchange_lines": [
             "B",
             "C"
-          ]
+          ],
+          "external_id": "418",
+          "latitude": 37.748201,
+          "longitude": -25.664044
         },
         {
           "sequence": 19,
@@ -849,7 +1095,10 @@
           "name_pt": "Rua Dr. Hugo Moreira (1ª)",
           "match_key": "rua-dr-hugo-moreira",
           "interchange_key": "rua-dr-hugo-moreira",
-          "interchange_lines": []
+          "interchange_lines": [],
+          "external_id": "419",
+          "latitude": 37.749176,
+          "longitude": -25.658823
         },
         {
           "sequence": 20,
@@ -857,7 +1106,10 @@
           "name_pt": "Rua Dr. Hugo Moreira (2ª)",
           "match_key": "rua-dr-hugo-moreira",
           "interchange_key": "rua-dr-hugo-moreira",
-          "interchange_lines": []
+          "interchange_lines": [],
+          "external_id": "420",
+          "latitude": 37.745719,
+          "longitude": -25.658016
         },
         {
           "sequence": 21,
@@ -865,7 +1117,10 @@
           "name_pt": "Rua Mãe de Deus",
           "match_key": "rua-mae-de-deus",
           "interchange_key": "rua-mae-de-deus",
-          "interchange_lines": []
+          "interchange_lines": [],
+          "external_id": "421",
+          "latitude": 37.744561,
+          "longitude": -25.660539
         },
         {
           "sequence": 22,
@@ -873,7 +1128,10 @@
           "name_pt": "Rua Margarida de Chaves",
           "match_key": "rua-margarida-de-chaves",
           "interchange_key": "rua-margarida-de-chaves",
-          "interchange_lines": []
+          "interchange_lines": [],
+          "external_id": "422",
+          "latitude": 37.743785,
+          "longitude": -25.665064
         },
         {
           "sequence": 23,
@@ -881,7 +1139,10 @@
           "name_pt": "Largo do Colégio",
           "match_key": "largo-do-colegio",
           "interchange_key": "largo-do-colegio",
-          "interchange_lines": []
+          "interchange_lines": [],
+          "external_id": "423",
+          "latitude": 37.743277,
+          "longitude": -25.669925
         },
         {
           "sequence": 24,
@@ -891,7 +1152,10 @@
           "interchange_key": "rua-coronel-silva-leal",
           "interchange_lines": [
             "B"
-          ]
+          ],
+          "external_id": "424",
+          "latitude": 37.740611,
+          "longitude": -25.672222
         },
         {
           "sequence": 25,
@@ -902,7 +1166,10 @@
           "interchange_lines": [
             "B",
             "C"
-          ]
+          ],
+          "external_id": "401",
+          "latitude": 37.738625,
+          "longitude": -25.670207
         }
       ]
     }

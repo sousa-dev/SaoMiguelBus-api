@@ -133,6 +133,19 @@ class RouteSearchApiTestCase(TestCase):
         self.assertEqual(leg['line_code'], 'A')
         self.assertEqual(leg['line_name'], 'Linha A — Amarela')
         self.assertEqual(leg['line_color'], '#fbc707')
+        self.assertAlmostEqual(leg['board']['latitude'], 37.737862, places=5)
+        self.assertIsNotNone(leg['alight']['latitude'])
+
+    def test_route_leg_stops_include_coordinates(self):
+        response = self.client.get(
+            '/api/v3/minibus/route?origin=a-01&destination=a-08',
+            HTTP_X_ISLAND='sao-miguel',
+        )
+        self.assertEqual(response.status_code, 200)
+        leg = response.json()['journeys'][0]['legs'][0]
+        for stop in leg['stops']:
+            self.assertIsNotNone(stop['latitude'])
+            self.assertIsNotNone(stop['longitude'])
 
     def test_route_search_requires_origin_and_destination(self):
         response = self.client.get(
