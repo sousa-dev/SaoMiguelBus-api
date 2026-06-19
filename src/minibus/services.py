@@ -553,7 +553,7 @@ def compute_bundle_version(island: Island) -> str:
 def build_offline_bundle(*, island: Island, locale: str, request) -> dict[str, Any]:
     """Everything the app caches for offline Mini Bus: lines, tariffs, network, images."""
     host = request.get_host()
-    cache_key = f'minibus:offline:{island.key}:{locale}:{host}'
+    cache_key = f'minibus:offline:v2:{island.key}:{locale}:{host}'
     cached = cache.get(cache_key)
     if cached is not None:
         return cached
@@ -578,6 +578,19 @@ def build_offline_bundle(*, island: Island, locale: str, request) -> dict[str, A
         if line.get('timetable_file_url')
     ]
 
+    network_map_doc = MinibusDocument.objects.filter(
+        island=island,
+        slug='network-map',
+        doc_type=MinibusDocument.DOC_NETWORK_MAP,
+        is_active=True,
+    ).first()
+    network_map = None
+    if document_is_available(network_map_doc):
+        network_map = {
+            'slug': network_map_doc.slug,
+            'url': document_file_url(request, network_map_doc),
+        }
+
     payload = {
         'version': compute_bundle_version(island),
         'generated_at': timezone.now().isoformat(),
@@ -585,6 +598,7 @@ def build_offline_bundle(*, island: Island, locale: str, request) -> dict[str, A
         'tariffs': tariffs,
         'network': network,
         'images': images,
+        'network_map': network_map,
         **build_meta_payload(island),
     }
     cache.set(cache_key, payload, BUNDLE_CACHE_TTL)

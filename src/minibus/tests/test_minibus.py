@@ -113,6 +113,14 @@ class MinibusApiTestCase(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertIn('image/png', response['Content-Type'])
 
+    def test_network_map_file_stream_is_png(self):
+        response = self.client.get(
+            '/api/v3/minibus/documents/network-map/file',
+            HTTP_X_ISLAND='sao-miguel',
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertIn('image/png', response['Content-Type'])
+
     def test_document_file_stream_from_bundled_source_without_media(self):
         document = MinibusDocument.objects.get(island=self.island, slug='schematic')
         if document.file:

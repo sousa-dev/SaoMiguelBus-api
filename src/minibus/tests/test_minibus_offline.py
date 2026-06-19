@@ -35,6 +35,13 @@ class OfflineBundleApiTestCase(TestCase):
         self.assertEqual(line_a['slug'], 'line-a')
         self.assertTrue(line_a['url'].endswith('/api/v3/minibus/documents/line-a/file'))
 
+    def test_bundle_includes_network_map_png(self):
+        response = self.client.get('/api/v3/minibus/offline-bundle', HTTP_X_ISLAND='sao-miguel')
+        body = response.json()
+        self.assertIsNotNone(body['network_map'])
+        self.assertEqual(body['network_map']['slug'], 'network-map')
+        self.assertTrue(body['network_map']['url'].endswith('/api/v3/minibus/documents/network-map/file'))
+
     def test_version_endpoint_matches_bundle_version(self):
         version = compute_bundle_version(self.island)
         response = self.client.get('/api/v3/minibus/offline-bundle/version', HTTP_X_ISLAND='sao-miguel')
