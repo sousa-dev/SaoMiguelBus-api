@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import os
 from datetime import date
 from decimal import Decimal
 from pathlib import Path
@@ -15,6 +16,48 @@ from tenancy.models import Island
 
 SOURCE_URL = 'https://pdlminibus.pt'
 ATTRIBUTION = 'Schedules and fares sourced from pdlminibus.pt'
+
+
+def default_source_dir() -> Path:
+    override = os.environ.get('MINIBUS_SOURCE_DIR', '').strip()
+    if override:
+        return Path(override)
+    return Path(__file__).resolve().parent / 'data' / 'source'
+
+
+def bundled_document_path(document: MinibusDocument) -> Path | None:
+    if not document.source_filename:
+        return None
+    path = default_source_dir() / document.source_filename
+    return path if path.is_file() else None
+
+
+def document_is_available(document: MinibusDocument | None) -> bool:
+    if document is None:
+        return False
+    if document.file:
+        return True
+    return bundled_document_path(document) is not None
+
+
+def open_document_file(document: MinibusDocument):
+    """Return (file_handle, content_type, filename). Caller must close the handle."""
+    import mimetypes
+
+    if document.file:
+        content_type, _ = mimetypes.guess_type(document.file.name)
+        if content_type is None:
+            content_type = 'application/octet-stream'
+        return document.file.open('rb'), content_type, document.source_filename
+
+    bundled = bundled_document_path(document)
+    if bundled is None:
+        raise FileNotFoundError(document.slug)
+
+    content_type, _ = mimetypes.guess_type(bundled.name)
+    if content_type is None:
+        content_type = 'application/octet-stream'
+    return bundled.open('rb'), content_type, document.source_filename
 
 
 def catalog_path() -> Path:
@@ -155,12 +198,12 @@ def serialize_document(document: MinibusDocument, *, locale: str, request) -> di
         'doc_type': document.doc_type,
         'line_code': document.line.code if document.line_id else None,
         'file_url': document_file_url(request, document),
-        'has_file': bool(document.file),
+        'has_file': document_is_available(document),
     }
 
 
 def document_file_url(request, document: MinibusDocument | None) -> str | None:
-    if document is None or not document.file:
+    if not document_is_available(document):
         return None
     return request.build_absolute_uri(
         f'/api/v3/minibus/documents/{document.slug}/file',

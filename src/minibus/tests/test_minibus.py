@@ -90,6 +90,23 @@ class MinibusApiTestCase(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertIn('application/pdf', response['Content-Type'])
 
+    def test_document_file_stream_from_bundled_source_without_media(self):
+        document = MinibusDocument.objects.get(island=self.island, slug='schematic')
+        if document.file:
+            document.file.delete(save=True)
+
+        response = self.client.get(
+            '/api/v3/minibus/documents/schematic/file',
+            HTTP_X_ISLAND='sao-miguel',
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertIn('image/svg', response['Content-Type'])
+
+        docs = self.client.get('/api/v3/minibus/documents', HTTP_X_ISLAND='sao-miguel')
+        schematic = next(row for row in docs.json()['documents'] if row['slug'] == 'schematic')
+        self.assertTrue(schematic['has_file'])
+        self.assertTrue(schematic['file_url'].endswith('/api/v3/minibus/documents/schematic/file'))
+
     def test_bootstrap_includes_minibus_flag(self):
         response = self.client.get('/api/v3/bootstrap', HTTP_X_ISLAND='sao-miguel')
         self.assertEqual(response.status_code, 200)

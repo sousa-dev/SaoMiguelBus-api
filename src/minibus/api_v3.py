@@ -2,8 +2,6 @@
 
 from __future__ import annotations
 
-import mimetypes
-
 from django.http import FileResponse, Http404
 from rest_framework import status
 from rest_framework.decorators import api_view, permission_classes
@@ -15,6 +13,7 @@ from minibus.models import MinibusDocument, MinibusLine, MinibusTariff
 from minibus.services import (
     build_meta_payload,
     document_file_url,
+    open_document_file,
     resolve_locale,
     serialize_document,
     serialize_line,
@@ -130,11 +129,12 @@ def document_file_view(request: Request, slug: str) -> FileResponse | Response:
 
     with for_island(request.island):
         document = MinibusDocument.objects.filter(island=request.island, slug=slug, is_active=True).first()
-        if document is None or not document.file:
+        if document is None:
             raise Http404('Document not found')
 
-        content_type, _ = mimetypes.guess_type(document.file.name)
-        if content_type is None:
-            content_type = 'application/octet-stream'
+        try:
+            handle, content_type, filename = open_document_file(document)
+        except FileNotFoundError:
+            raise Http404('Document not found') from None
 
-        return FileResponse(document.file.open('rb'), content_type=content_type, filename=document.source_filename)
+        return FileResponse(handle, content_type=content_type, filename=filename)

@@ -76,7 +76,7 @@ Urban Ponta Delgada network (lines A–D), separate from interurban `transit`. R
 
 - `GET /api/v3/minibus/lines`, `/lines/{slug}`, `/tariffs`, `/documents`, `/schematic`
 - `GET /api/v3/minibus/documents/{slug}/file` — streams PDF/SVG (not raw `/media/` URLs)
-- Seed: `minibus/data/catalog_sao_miguel.json`; binaries via `python manage.py import_minibus`
+- Seed: `minibus/data/catalog_sao_miguel.json`; binaries via `python manage.py import_minibus` (also runs on deploy in `runserver.sh`). Until media import completes, bundled files under `minibus/data/source/` are streamed as fallback.
 - Bootstrap module key: `minibus` (`tenancy` migration `0013_enable_minibus_feature_flag`)
 - Expo module linked from Buses (`transit`) promo card + profile info row
 

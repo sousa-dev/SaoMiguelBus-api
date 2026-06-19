@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 import hashlib
-import os
 from pathlib import Path
 
 from django.conf import settings
@@ -11,16 +10,9 @@ from django.core.files.base import ContentFile
 from django.core.management.base import BaseCommand, CommandError
 
 from minibus.models import MinibusDocument
-from minibus.services import load_catalog, mark_imported, seed_catalog
+from minibus.services import default_source_dir, load_catalog, mark_imported, seed_catalog
 from tenancy.models import Island
 from tenancy.services import for_island
-
-
-def default_source_dir() -> Path:
-    override = os.environ.get('MINIBUS_SOURCE_DIR', '').strip()
-    if override:
-        return Path(override)
-    return Path(__file__).resolve().parent.parent.parent / 'data' / 'source'
 
 
 def file_revision(path: Path) -> str:
