@@ -248,6 +248,18 @@ def _apply_radius_filter(
     ]
 
 
+def _catalog_review_meta(providers: list[ServiceProvider]) -> dict[str, Any]:
+    total = len(providers)
+    if total == 0:
+        return {'reviewedShare': 0.0, 'reviewedCount': 0, 'totalCount': 0}
+    reviewed_count = sum(1 for provider in providers if provider.review_count > 0)
+    return {
+        'reviewedShare': round(reviewed_count / total, 4),
+        'reviewedCount': reviewed_count,
+        'totalCount': total,
+    }
+
+
 def list_providers(
     *,
     category: str | None = None,
@@ -260,7 +272,7 @@ def list_providers(
     verified: bool | None = None,
     sort: str = DEFAULT_SORT,
     limit: int = DEFAULT_LIMIT,
-) -> list[dict[str, Any]]:
+) -> dict[str, Any]:
     if sort not in VALID_SORTS:
         raise InvalidSort(sort)
     if sort == 'distance' and (lat is None or lng is None):
@@ -274,8 +286,6 @@ def list_providers(
         qs = qs.filter(category__slug=category)
     if q:
         qs = qs.filter(Q(name__icontains=q) | Q(bio__icontains=q))
-    if min_rating is not None:
-        qs = qs.filter(rating__gte=min_rating)
     if has_rate:
         qs = qs.filter(hourly_rate__isnull=False)
     if verified:
@@ -284,8 +294,14 @@ def list_providers(
     limit = max(1, min(limit, MAX_LIMIT))
     providers = list(qs)
     providers = _apply_radius_filter(providers, lat=lat, lng=lng, radius_km=radius_km)
+    meta = _catalog_review_meta(providers)
+    if min_rating is not None:
+        providers = [provider for provider in providers if float(provider.rating) >= min_rating]
     providers = _sort_providers_for_listing(providers, sort=sort, lat=lat, lng=lng)
-    return [serialize_provider(provider) for provider in providers[:limit]]
+    return {
+        'providers': [serialize_provider(provider) for provider in providers[:limit]],
+        'meta': meta,
+    }
 
 
 def _get_provider_or_none(provider_id: int) -> ServiceProvider | None:

@@ -270,6 +270,15 @@ class MarketplaceAPITests(TestCase):
         self.assertIn('verifiedByOwner', listed)
         self.assertFalse(listed['verifiedByOwner'])
 
+    def test_public_list_includes_review_meta(self):
+        pid = self._create_provider().json()['id']
+        self._publish(pid)
+        body = self.client.get('/api/v3/marketplace/providers', **SM).json()
+        self.assertIn('meta', body)
+        self.assertEqual(body['meta']['totalCount'], 1)
+        self.assertEqual(body['meta']['reviewedCount'], 0)
+        self.assertEqual(body['meta']['reviewedShare'], 0.0)
+
     def test_create_with_website_and_socials(self):
         resp = self._create_provider(
             website='https://example.com',

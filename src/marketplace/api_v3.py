@@ -114,7 +114,7 @@ def providers_view(request: Request) -> Response:
             limit = 50
         try:
             with for_island(request.island):
-                providers = services.list_providers(
+                result = services.list_providers(
                     category=category,
                     q=q,
                     lat=lat,
@@ -138,7 +138,7 @@ def providers_view(request: Request) -> Response:
                 f'sort must be one of: {", ".join(sorted(services.VALID_SORTS))}',
                 status.HTTP_400_BAD_REQUEST,
             )
-        return Response({'providers': providers})
+        return Response(result)
 
     serializer = ProviderWriteSerializer(data=request.data)
     serializer.is_valid(raise_exception=True)
