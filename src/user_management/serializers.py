@@ -37,10 +37,14 @@ class SocialSerializer(serializers.Serializer):
 class UserSerializer(serializers.ModelSerializer):
     displayName = serializers.SerializerMethodField()
     dateJoined = serializers.DateTimeField(source='date_joined', read_only=True)
+    isSuperuser = serializers.SerializerMethodField()
 
     class Meta:
         model = User
-        fields = ['id', 'email', 'displayName', 'dateJoined']
+        fields = ['id', 'email', 'displayName', 'dateJoined', 'isSuperuser']
 
     def get_displayName(self, obj) -> str:  # noqa: N802 (camelCase API field)
         return obj.first_name or obj.email
+
+    def get_isSuperuser(self, obj) -> bool:  # noqa: N802 (camelCase API field)
+        return bool(obj.is_superuser)

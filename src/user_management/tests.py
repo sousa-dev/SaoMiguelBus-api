@@ -53,6 +53,32 @@ class RegisterLoginTests(APITestCase):
     def test_me_requires_auth(self):
         self.assertEqual(self.client.get('/api/v3/auth/me').status_code, 401)
 
+    def test_me_includes_is_superuser_flag(self):
+        User.objects.create_superuser(
+            username='admin@x.com', email='admin@x.com', password=PW
+        )
+        User.objects.create_user(username='user@x.com', email='user@x.com', password=PW)
+
+        login = self.client.post(
+            '/api/v3/auth/login', {'email': 'admin@x.com', 'password': PW}, format='json'
+        )
+        self.assertTrue(login.data['user']['isSuperuser'])
+
+        self.client.credentials(HTTP_AUTHORIZATION=f"Token {login.data['token']}")
+        me = self.client.get('/api/v3/auth/me')
+        self.assertTrue(me.data['isSuperuser'])
+
+        reg = self.client.post(
+            '/api/v3/auth/register', {'email': 'new@user.com', 'password': PW}, format='json'
+        )
+        self.assertFalse(reg.data['user']['isSuperuser'])
+
+        self.client.credentials()
+        user_login = self.client.post(
+            '/api/v3/auth/login', {'email': 'user@x.com', 'password': PW}, format='json'
+        )
+        self.assertFalse(user_login.data['user']['isSuperuser'])
+
 
 class DeleteAccountTests(APITestCase):
     def _register(self, email='del@me.com'):
