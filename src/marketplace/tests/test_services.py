@@ -19,13 +19,13 @@ class MarketplaceServiceTests(TestCase):
     def setUp(self):
         self.island = get_or_create_default_island()
         self.cat = ServiceCategory.objects.create(
-            island=self.island, name='Electricians', slug='electricians'
+            island=self.island, name='Electricians', slug='electricians', is_active=True
         )
         self.cat2 = ServiceCategory.objects.create(
-            island=self.island, name='Plumbers', slug='plumbers'
+            island=self.island, name='Plumbers', slug='plumbers', is_active=True
         )
         ServiceCategory.objects.create(
-            island=self.island, name='Other', slug='other'
+            island=self.island, name='Other', slug='other', is_active=True
         )
 
     def _create(self, session='owner', **data):
@@ -61,7 +61,10 @@ class MarketplaceServiceTests(TestCase):
         )
         cat = ServiceCategory.objects.get(slug='dog-walking')
         self.assertTrue(cat.user_suggested)
+        self.assertFalse(cat.is_active)
         self.assertEqual(result['category']['slug'], 'dog-walking')
+        slugs = [c['slug'] for c in services.list_categories()]
+        self.assertNotIn('dog-walking', slugs)
 
     def test_create_without_category_defaults_to_other(self):
         result = services.create_provider(

@@ -51,6 +51,11 @@ class ServiceCategory(TenantScopedModel):
         default=False,
         help_text='Created by a user when listing a service; review name/slug in admin.',
     )
+    is_active = models.BooleanField(
+        default=False,
+        db_index=True,
+        help_text='Inactive categories are hidden from public browse/filter UI until staff activates them.',
+    )
 
     class Meta:
         ordering = ['name']

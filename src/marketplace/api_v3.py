@@ -19,6 +19,7 @@ from marketplace.serializers import (
     ProviderWriteSerializer,
     ReviewWriteSerializer,
 )
+from marketplace.permissions import is_marketplace_superuser
 from marketplace.throttling import MarketplaceWriteThrottle
 from tenancy.services import for_island
 
@@ -43,9 +44,8 @@ def _session_id(request: Request) -> str:
     )
 
 
-def _is_staff(request: Request) -> bool:
-    user = getattr(request, 'user', None)
-    return bool(user and user.is_authenticated and user.is_staff)
+def _is_superuser(request: Request) -> bool:
+    return is_marketplace_superuser(request)
 
 
 def _write_data(validated: dict) -> dict:
@@ -180,7 +180,7 @@ def provider_detail_view(request: Request, provider_id: int) -> Response:
         return err
 
     session_hash = _hash_or_empty(_session_id(request), request)
-    is_staff = _is_staff(request)
+    is_staff = _is_superuser(request)
 
     if request.method == 'GET':
         with for_island(request.island):
@@ -272,7 +272,7 @@ def review_detail_view(request: Request, review_id: int) -> Response:
     if err:
         return err
 
-    is_staff = _is_staff(request)
+    is_staff = _is_superuser(request)
 
     if request.method == 'DELETE':
         session_hash = _hash_or_empty(_session_id(request), request)
@@ -311,8 +311,8 @@ def provider_moderate_view(request: Request, provider_id: int) -> Response:
     err = _require_island(request)
     if err:
         return err
-    if not _is_staff(request):
-        return _error('not_authorized', 'Staff only', status.HTTP_403_FORBIDDEN)
+    if not _is_superuser(request):
+        return _error('not_authorized', 'Superuser only', status.HTTP_403_FORBIDDEN)
     serializer = ModerateSerializer(data=request.data)
     serializer.is_valid(raise_exception=True)
     with for_island(request.island):
@@ -328,8 +328,8 @@ def review_moderate_view(request: Request, review_id: int) -> Response:
     err = _require_island(request)
     if err:
         return err
-    if not _is_staff(request):
-        return _error('not_authorized', 'Staff only', status.HTTP_403_FORBIDDEN)
+    if not _is_superuser(request):
+        return _error('not_authorized', 'Superuser only', status.HTTP_403_FORBIDDEN)
     serializer = ModerateSerializer(data=request.data)
     serializer.is_valid(raise_exception=True)
     with for_island(request.island):

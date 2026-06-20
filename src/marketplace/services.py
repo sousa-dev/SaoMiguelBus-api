@@ -38,6 +38,10 @@ class CategoryNotFound(MarketplaceError):
     """Raised when a write references an unknown category slug."""
 
 
+class CategorySlugConflict(MarketplaceError):
+    """Raised when a category slug is already in use on this island."""
+
+
 class InvalidCategoryName(MarketplaceError):
     """Raised when a suggested category name fails validation."""
 
@@ -65,6 +69,7 @@ def serialize_category(category: ServiceCategory) -> dict[str, Any]:
         'slug': category.slug,
         'icon': category.icon,
         'userSuggested': category.user_suggested,
+        'isActive': category.is_active,
     }
 
 
@@ -116,12 +121,12 @@ def serialize_review(review: Review) -> dict[str, Any]:
 # --------------------------------------------------------------------------- #
 
 def list_categories() -> list[dict[str, Any]]:
-    return [serialize_category(c) for c in ServiceCategory.objects.all()]
+    return [serialize_category(c) for c in ServiceCategory.objects.filter(is_active=True)]
 
 
 def _resolve_category(slug: str) -> ServiceCategory:
     try:
-        return ServiceCategory.objects.get(slug=slug)
+        return ServiceCategory.objects.get(slug=slug, is_active=True)
     except ServiceCategory.DoesNotExist as exc:
         raise CategoryNotFound(slug) from exc
 
@@ -508,6 +513,147 @@ def recompute_rating(provider: ServiceProvider) -> None:
     provider.rating = Decimal(str(round(avg, 2)))
     provider.review_count = agg['count'] or 0
     provider.save(update_fields=['rating', 'review_count', 'updated_at'])
+
+
+# --------------------------------------------------------------------------- #
+# Admin (superuser) moderation queues
+# --------------------------------------------------------------------------- #
+
+_VALID_ADMIN_STATUSES = frozenset(
+    {ServiceProvider.PENDING, ServiceProvider.PUBLISHED, ServiceProvider.REJECTED}
+)
+
+
+def serialize_review_admin(review: Review) -> dict[str, Any]:
+    payload = serialize_review(review)
+    payload['providerName'] = review.provider.name
+    return payload
+
+
+def admin_queue_summary() -> dict[str, int]:
+    return {
+        'pendingProviders': ServiceProvider.objects.filter(
+            status=ServiceProvider.PENDING
+        ).count(),
+        'pendingReviews': Review.objects.filter(status=Review.PENDING).count(),
+        'suggestedCategories': ServiceCategory.objects.filter(user_suggested=True).count(),
+    }
+
+
+def list_admin_providers(
+    *,
+    status: str | None = ServiceProvider.PENDING,
+    limit: int = DEFAULT_LIMIT,
+    offset: int = 0,
+) -> dict[str, Any]:
+    limit = min(max(limit, 1), MAX_LIMIT)
+    offset = max(offset, 0)
+    qs = ServiceProvider.objects.select_related('category').exclude(
+        status=ServiceProvider.DELETED
+    )
+    if status:
+        qs = qs.filter(status=status)
+    total = qs.count()
+    rows = qs.order_by('-created_at')[offset : offset + limit]
+    return {
+        'providers': [serialize_provider(p, include_private=True) for p in rows],
+        'total': total,
+        'limit': limit,
+        'offset': offset,
+    }
+
+
+def list_admin_reviews(
+    *,
+    status: str | None = Review.PENDING,
+    limit: int = DEFAULT_LIMIT,
+    offset: int = 0,
+) -> dict[str, Any]:
+    limit = min(max(limit, 1), MAX_LIMIT)
+    offset = max(offset, 0)
+    qs = Review.objects.select_related('provider').exclude(status=Review.DELETED)
+    if status:
+        qs = qs.filter(status=status)
+    total = qs.count()
+    rows = qs.order_by('-created_at')[offset : offset + limit]
+    return {
+        'reviews': [serialize_review_admin(r) for r in rows],
+        'total': total,
+        'limit': limit,
+        'offset': offset,
+    }
+
+
+def list_admin_categories(*, suggested_only: bool = True) -> list[dict[str, Any]]:
+    qs = ServiceCategory.objects.all()
+    if suggested_only:
+        qs = qs.filter(user_suggested=True)
+    return [serialize_category(c) for c in qs.order_by('name')]
+
+
+def update_provider_admin(provider_id: int, data: dict[str, Any]) -> dict[str, Any] | None:
+    provider = _get_provider_or_none(provider_id)
+    if provider is None or provider.status == ServiceProvider.DELETED:
+        return None
+    _apply_provider_fields(provider, data)
+    for field in ('is_promoted', 'verified_by_owner'):
+        if field in data:
+            setattr(provider, field, data[field])
+    if 'status' in data and data['status'] in _VALID_ADMIN_STATUSES:
+        provider.status = data['status']
+    provider.save()
+    return serialize_provider(provider, include_private=True)
+
+
+def update_review_admin(review_id: int, data: dict[str, Any]) -> dict[str, Any] | None:
+    try:
+        review = Review.objects.select_related('provider').get(id=review_id)
+    except Review.DoesNotExist:
+        return None
+    if review.status == Review.DELETED:
+        return None
+    if 'rating' in data:
+        review.rating = data['rating']
+    if 'text' in data:
+        review.text = data['text']
+    if 'status' in data and data['status'] in _VALID_ADMIN_STATUSES:
+        review.status = data['status']
+    review.save()
+    recompute_rating(review.provider)
+    return serialize_review_admin(review)
+
+
+def update_category_admin(
+    category_id: int,
+    data: dict[str, Any],
+    *,
+    approve: bool = False,
+) -> dict[str, Any] | None:
+    try:
+        category = ServiceCategory.objects.get(id=category_id)
+    except ServiceCategory.DoesNotExist:
+        return None
+    if 'name' in data:
+        category.name = data['name'].strip()
+    if 'slug' in data:
+        new_slug = data['slug'].strip()
+        conflict = (
+            ServiceCategory.objects.filter(island=category.island, slug=new_slug)
+            .exclude(id=category.id)
+            .exists()
+        )
+        if conflict:
+            raise CategorySlugConflict(new_slug)
+        category.slug = new_slug
+    if 'icon' in data:
+        category.icon = data['icon']
+    if 'is_active' in data:
+        category.is_active = data['is_active']
+    if approve or data.get('approve'):
+        category.user_suggested = False
+        category.is_active = True
+    category.save()
+    return serialize_category(category)
 
 
 # --------------------------------------------------------------------------- #

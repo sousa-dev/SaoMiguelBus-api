@@ -20,13 +20,13 @@ class MarketplaceAPITests(TestCase):
         self.client = APIClient()
         self.island = get_or_create_default_island()
         self.category = ServiceCategory.objects.create(
-            island=self.island, name='Electricians', slug='electricians'
+            island=self.island, name='Electricians', slug='electricians', is_active=True
         )
         ServiceCategory.objects.create(
-            island=self.island, name='Other', slug='other'
+            island=self.island, name='Other', slug='other', is_active=True
         )
-        self.staff = get_user_model().objects.create_user(
-            username='staff', password='pw', is_staff=True
+        self.staff = get_user_model().objects.create_superuser(
+            username='staff', email='staff@x.com', password='pw'
         )
 
     # --- helpers ------------------------------------------------------------
@@ -97,11 +97,23 @@ class MarketplaceAPITests(TestCase):
         listed = self.client.get('/api/v3/marketplace/providers', **SM).json()['providers']
         self.assertEqual(listed, [])
 
-    def test_moderate_requires_staff(self):
+    def test_moderate_requires_superuser(self):
         pid = self._create_provider().json()['id']
         resp = self.client.post(
             f'/api/v3/marketplace/providers/{pid}/moderate', {'action': 'publish'}, format='json', **SM
         )
+        self.assertEqual(resp.status_code, 403)
+
+    def test_moderate_staff_non_superuser_forbidden(self):
+        staff_only = get_user_model().objects.create_user(
+            username='staffonly', password='pw', is_staff=True
+        )
+        pid = self._create_provider().json()['id']
+        self.client.force_authenticate(staff_only)
+        resp = self.client.post(
+            f'/api/v3/marketplace/providers/{pid}/moderate', {'action': 'publish'}, format='json', **SM
+        )
+        self.client.force_authenticate(None)
         self.assertEqual(resp.status_code, 403)
 
     def test_moderate_publishes(self):
@@ -148,11 +160,43 @@ class MarketplaceAPITests(TestCase):
         )
         self.assertEqual(resp.status_code, 201)
         self.assertEqual(resp.json()['category']['slug'], 'dog-walking')
+        cat = ServiceCategory.objects.get(slug='dog-walking')
+        self.assertTrue(cat.user_suggested)
+        self.assertFalse(cat.is_active)
+        cats = self.client.get('/api/v3/marketplace/categories', **SM).json()['categories']
+        slugs = [c['slug'] for c in cats]
+        self.assertNotIn('dog-walking', slugs)
+
+    def test_approve_category_makes_it_public(self):
+        resp = self.client.post(
+            '/api/v3/marketplace/providers',
+            {
+                'session_id': 'owner',
+                'name': 'Rex Walks',
+                'category_name': 'Dog Walking',
+                'bio': 'Daily dog walks in Ponta Delgada.',
+                'email': 'rex@example.com',
+            },
+            format='json',
+            **SM,
+        )
+        self.assertEqual(resp.status_code, 201)
+        category_id = ServiceCategory.objects.get(slug='dog-walking').id
+        self.client.force_authenticate(self.staff)
+        approve = self.client.patch(
+            f'/api/v3/marketplace/admin/categories/{category_id}',
+            {'approve': True},
+            format='json',
+            **SM,
+        )
+        self.assertEqual(approve.status_code, 200)
+        self.assertTrue(approve.json()['isActive'])
         cats = self.client.get('/api/v3/marketplace/categories', **SM).json()['categories']
         slugs = [c['slug'] for c in cats]
         self.assertIn('dog-walking', slugs)
         cat = next(c for c in cats if c['slug'] == 'dog-walking')
-        self.assertTrue(cat['userSuggested'])
+        self.assertTrue(cat['isActive'])
+        self.client.force_authenticate(None)
 
     def test_create_rejects_both_category_fields(self):
         resp = self.client.post(

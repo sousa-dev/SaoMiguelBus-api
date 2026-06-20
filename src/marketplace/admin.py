@@ -19,8 +19,8 @@ _reject.short_description = 'Reject selected'
 
 @admin.register(ServiceCategory)
 class ServiceCategoryAdmin(admin.ModelAdmin):
-    list_display = ('name', 'slug', 'user_suggested', 'island', 'icon')
-    list_filter = ('island', 'user_suggested')
+    list_display = ('name', 'slug', 'is_active', 'user_suggested', 'island', 'icon')
+    list_filter = ('island', 'is_active', 'user_suggested')
     search_fields = ('name', 'slug')
     prepopulated_fields = {'slug': ('name',)}
 

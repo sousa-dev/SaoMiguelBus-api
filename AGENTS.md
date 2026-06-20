@@ -70,6 +70,30 @@ Docker Compose host mappings: `WEB_PORT`, `WEB_CONTAINER_PORT`, `DB_PORT_EXPOSE`
 - Celery beat: `weather.refresh_forecasts` hourly warms cache for all active parishes (one batched upstream call per island).
 - Bootstrap module key: `weather` (`tenancy` migration `0011_enable_weather_feature_flag`).
 
+### Marketplace services directory (`marketplace` app — shipped)
+
+Session-owned UGC: providers and reviews use `ModeratedModel.status` (`pending` → staff publish/reject); categories can be user-suggested (`user_suggested`).
+
+**Public:** `GET /api/v3/marketplace/categories`, `GET/POST providers`, `GET/POST providers/{id}/reviews`, session-scoped writes via `X-Session-Id`.
+
+**Superuser moderation (mobile admin):** Token auth + `user.is_superuser` only (not `is_staff` alone).
+
+| Endpoint | Purpose |
+|---|---|
+| `GET /api/v3/marketplace/admin/queue` | Counts: pending providers, pending reviews, suggested categories |
+| `GET /api/v3/marketplace/admin/providers?status=pending` | Paginated admin provider list (private fields) |
+| `GET /api/v3/marketplace/admin/reviews?status=pending` | Cross-provider pending reviews |
+| `GET /api/v3/marketplace/admin/categories?suggested=1` | User-suggested categories |
+| `PATCH /api/v3/marketplace/admin/providers/{id}` | Superuser edit (`is_promoted`, `verified_by_owner`, `status`, …) |
+| `PATCH /api/v3/marketplace/admin/reviews/{id}` | Edit rating/text/status |
+| `PATCH /api/v3/marketplace/admin/categories/{id}` | Edit name/slug/icon; `approve: true` clears `user_suggested` |
+| `POST …/admin/providers/{id}/moderate` | `{action: publish\|reject}` |
+| `POST …/admin/reviews/{id}/moderate` | same |
+
+Legacy `POST /api/v3/marketplace/providers/{id}/moderate` and `reviews/{id}/moderate` also require superuser. Django admin remains for bulk ops and category deletion.
+
+Auth: `GET /api/v3/auth/me` exposes read-only `isSuperuser` for the Expo client.
+
 ### PDL Mini Bus (`minibus` app — shipped)
 
 Urban Ponta Delgada network (lines A–D), separate from interurban `transit`. Read-only catalog + PDF/SVG documents sourced from [pdlminibus.pt](https://pdlminibus.pt).

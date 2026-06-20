@@ -52,7 +52,7 @@ class FixProviderPhoneNumbersTests(TestCase):
     def setUp(self):
         self.island = get_or_create_default_island()
         self.category = ServiceCategory.objects.create(
-            island=self.island, name='Other', slug='other'
+            island=self.island, name='Other', slug='other', is_active=True
         )
 
     def _provider(self, **fields) -> ServiceProvider:
@@ -96,7 +96,7 @@ class FixProviderPhonesOpsTests(TestCase):
         self.url = '/api/v1/ops/marketplace/fix-phones'
         self.island = get_or_create_default_island()
         self.category = ServiceCategory.objects.create(
-            island=self.island, name='Other', slug='other'
+            island=self.island, name='Other', slug='other', is_active=True
         )
         ServiceProvider.objects.create(
             island=self.island,
