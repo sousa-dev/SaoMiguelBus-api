@@ -103,13 +103,40 @@ def providers_view(request: Request) -> Response:
         q = request.GET.get('q', '').strip() or None
         lat = _float_or_none(request.GET.get('lat'))
         lng = _float_or_none(request.GET.get('lng'))
+        radius_km = _float_or_none(request.GET.get('radius_km'))
+        min_rating = _float_or_none(request.GET.get('min_rating'))
+        has_rate = _bool_or_none(request.GET.get('has_rate'))
+        verified = _bool_or_none(request.GET.get('verified'))
+        sort = request.GET.get('sort', services.DEFAULT_SORT).strip().lower() or services.DEFAULT_SORT
         try:
             limit = int(request.GET.get('limit', '50'))
         except ValueError:
             limit = 50
-        with for_island(request.island):
-            providers = services.list_providers(
-                category=category, q=q, lat=lat, lng=lng, limit=limit
+        try:
+            with for_island(request.island):
+                providers = services.list_providers(
+                    category=category,
+                    q=q,
+                    lat=lat,
+                    lng=lng,
+                    radius_km=radius_km,
+                    min_rating=min_rating,
+                    has_rate=has_rate,
+                    verified=verified,
+                    sort=sort,
+                    limit=limit,
+                )
+        except services.SortDistanceRequiresCoords:
+            return _error(
+                'coords_required',
+                'sort=distance requires lat and lng',
+                status.HTTP_400_BAD_REQUEST,
+            )
+        except services.InvalidSort:
+            return _error(
+                'invalid_sort',
+                f'sort must be one of: {", ".join(sorted(services.VALID_SORTS))}',
+                status.HTTP_400_BAD_REQUEST,
             )
         return Response({'providers': providers})
 
@@ -319,6 +346,17 @@ def _float_or_none(raw: str | None) -> float | None:
         return float(raw)
     except ValueError:
         return None
+
+
+def _bool_or_none(raw: str | None) -> bool | None:
+    if raw is None or str(raw).strip() == '':
+        return None
+    normalized = str(raw).strip().lower()
+    if normalized in {'1', 'true', 'yes'}:
+        return True
+    if normalized in {'0', 'false', 'no'}:
+        return False
+    return None
 
 
 def _hash_or_empty(session_id: str, request: Request) -> str:

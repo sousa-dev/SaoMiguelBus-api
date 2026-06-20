@@ -22,6 +22,8 @@ from marketplace.phone import normalize_pt_phone
 MAX_LIMIT = 100
 DEFAULT_LIMIT = 50
 VALID_MODERATE_ACTIONS = {'publish': ServiceProvider.PUBLISHED, 'reject': ServiceProvider.REJECTED}
+VALID_SORTS = frozenset({'random', 'rating', 'distance', 'name', 'newest'})
+DEFAULT_SORT = 'random'
 
 
 class MarketplaceError(Exception):
@@ -38,6 +40,14 @@ class CategoryNotFound(MarketplaceError):
 
 class InvalidCategoryName(MarketplaceError):
     """Raised when a suggested category name fails validation."""
+
+
+class InvalidSort(MarketplaceError):
+    """Raised when list sort params are invalid."""
+
+
+class SortDistanceRequiresCoords(MarketplaceError):
+    """Raised when sort=distance without lat/lng."""
 
 
 _CATEGORY_NAME_MIN = 2
@@ -77,6 +87,7 @@ def serialize_provider(provider: ServiceProvider, *, include_private: bool = Fal
         'latitude': provider.latitude,
         'longitude': provider.longitude,
         'isPromoted': provider.is_promoted,
+        'verifiedByOwner': provider.verified_by_owner,
         'rating': float(provider.rating),
         'reviewCount': provider.review_count,
     }
@@ -176,30 +187,65 @@ def _random_tiebreakers(providers: list[ServiceProvider]) -> dict[int, float]:
     return {provider.id: random.random() for provider in providers}
 
 
+def _provider_distance_km(
+    provider: ServiceProvider,
+    *,
+    lat: float | None,
+    lng: float | None,
+) -> float:
+    if lat is None or lng is None or provider.latitude is None or provider.longitude is None:
+        return float('inf')
+    return _haversine_km(lat, lng, provider.latitude, provider.longitude)
+
+
 def _sort_providers_for_listing(
     providers: list[ServiceProvider],
     *,
+    sort: str = DEFAULT_SORT,
     lat: float | None = None,
     lng: float | None = None,
 ) -> list[ServiceProvider]:
-    """Order: promoted first, then rating or distance, random tie-break within each tier."""
+    """Order: promoted first, then user-selected sort (default random within tier)."""
+    if sort not in VALID_SORTS:
+        raise InvalidSort(sort)
+    if sort == 'distance' and (lat is None or lng is None):
+        raise SortDistanceRequiresCoords()
+
     tiebreakers = _random_tiebreakers(providers)
-    use_proximity = lat is not None and lng is not None
 
     def sort_key(provider: ServiceProvider) -> tuple:
         promoted_rank = 0 if provider.is_promoted else 1
-        rating_rank = -float(provider.rating)
         random_rank = tiebreakers[provider.id]
-        if not use_proximity:
-            return (promoted_rank, rating_rank, random_rank)
-        if provider.latitude is None or provider.longitude is None:
-            distance = float('inf')
-        else:
-            distance = _haversine_km(lat, lng, provider.latitude, provider.longitude)
-        return (promoted_rank, distance, rating_rank, random_rank)
+        if sort == 'random':
+            return (promoted_rank, random_rank)
+        if sort == 'rating':
+            return (promoted_rank, -float(provider.rating), random_rank)
+        if sort == 'distance':
+            return (promoted_rank, _provider_distance_km(provider, lat=lat, lng=lng), random_rank)
+        if sort == 'name':
+            return (promoted_rank, provider.name.lower())
+        if sort == 'newest':
+            return (promoted_rank, -provider.created_at.timestamp())
+        raise InvalidSort(sort)
 
     providers.sort(key=sort_key)
     return providers
+
+
+def _apply_radius_filter(
+    providers: list[ServiceProvider],
+    *,
+    lat: float | None,
+    lng: float | None,
+    radius_km: float | None,
+) -> list[ServiceProvider]:
+    if radius_km is None or lat is None or lng is None:
+        return providers
+    return [
+        provider
+        for provider in providers
+        if _provider_distance_km(provider, lat=lat, lng=lng) <= radius_km
+    ]
 
 
 def list_providers(
@@ -208,8 +254,18 @@ def list_providers(
     q: str | None = None,
     lat: float | None = None,
     lng: float | None = None,
+    radius_km: float | None = None,
+    min_rating: float | None = None,
+    has_rate: bool | None = None,
+    verified: bool | None = None,
+    sort: str = DEFAULT_SORT,
     limit: int = DEFAULT_LIMIT,
 ) -> list[dict[str, Any]]:
+    if sort not in VALID_SORTS:
+        raise InvalidSort(sort)
+    if sort == 'distance' and (lat is None or lng is None):
+        raise SortDistanceRequiresCoords()
+
     qs = (
         ServiceProvider.objects.select_related('category')
         .filter(status=ServiceProvider.PUBLISHED)
@@ -218,9 +274,17 @@ def list_providers(
         qs = qs.filter(category__slug=category)
     if q:
         qs = qs.filter(Q(name__icontains=q) | Q(bio__icontains=q))
+    if min_rating is not None:
+        qs = qs.filter(rating__gte=min_rating)
+    if has_rate:
+        qs = qs.filter(hourly_rate__isnull=False)
+    if verified:
+        qs = qs.filter(verified_by_owner=True)
 
     limit = max(1, min(limit, MAX_LIMIT))
-    providers = _sort_providers_for_listing(list(qs), lat=lat, lng=lng)
+    providers = list(qs)
+    providers = _apply_radius_filter(providers, lat=lat, lng=lng, radius_km=radius_km)
+    providers = _sort_providers_for_listing(providers, sort=sort, lat=lat, lng=lng)
     return [serialize_provider(provider) for provider in providers[:limit]]
 
 

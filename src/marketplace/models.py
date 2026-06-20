@@ -104,7 +104,7 @@ class ServiceProvider(TenantScopedModel, ModeratedModel):
     review_count = models.PositiveIntegerField(default=0)
 
     class Meta:
-        ordering = ['-is_promoted', '-rating', 'name']
+        ordering = ['-is_promoted', 'name']  # admin only; public list sort is in services.list_providers
         indexes = [models.Index(fields=['island', 'status'])]
 
     def __str__(self) -> str:

@@ -68,6 +68,26 @@ class MarketplaceAPITests(TestCase):
         names = [p['name'] for p in self.client.get('/api/v3/marketplace/providers', **SM).json()['providers']]
         self.assertEqual(names, ['Promoted Co', 'Plain'])
 
+    def test_list_sort_distance_requires_coords(self):
+        resp = self.client.get('/api/v3/marketplace/providers?sort=distance', **SM)
+        self.assertEqual(resp.status_code, 400)
+        self.assertEqual(resp.json()['error']['code'], 'coords_required')
+
+    def test_list_invalid_sort(self):
+        resp = self.client.get('/api/v3/marketplace/providers?sort=popularity', **SM)
+        self.assertEqual(resp.status_code, 400)
+        self.assertEqual(resp.json()['error']['code'], 'invalid_sort')
+
+    def test_list_filter_params_forwarded(self):
+        pid = self._create_provider(session='a', name='Filtered Co', hourly_rate='30.00').json()['id']
+        self._publish(pid)
+        resp = self.client.get(
+            '/api/v3/marketplace/providers?has_rate=true&sort=name&verified=false',
+            **SM,
+        )
+        self.assertEqual(resp.status_code, 200)
+        self.assertEqual(resp.json()['providers'][0]['name'], 'Filtered Co')
+
     # --- create / moderate --------------------------------------------------
 
     def test_create_provider_pending_not_public(self):
@@ -247,7 +267,8 @@ class MarketplaceAPITests(TestCase):
         listed = self.client.get('/api/v3/marketplace/providers', **SM).json()['providers'][0]
         self.assertNotIn('claimedOwner', listed)
         self.assertNotIn('internalEmail', listed)
-        self.assertNotIn('verifiedByOwner', listed)
+        self.assertIn('verifiedByOwner', listed)
+        self.assertFalse(listed['verifiedByOwner'])
 
     def test_create_with_website_and_socials(self):
         resp = self._create_provider(

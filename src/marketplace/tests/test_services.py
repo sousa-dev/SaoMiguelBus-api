@@ -201,8 +201,34 @@ class MarketplaceServiceTests(TestCase):
         far = self._create(session='b', name='Far', latitude=38.5, longitude=-28.2)
         for r in (near, far):
             services.moderate_provider(r['id'], 'publish')
-        ordered = services.list_providers(lat=37.74, lng=-25.67)
+        ordered = services.list_providers(lat=37.74, lng=-25.67, sort='distance')
         self.assertEqual([p['name'] for p in ordered], ['Near', 'Far'])
+
+    def test_default_sort_ignores_rating(self):
+        low = self._create(session='a', name='Low Rated')
+        high = self._create(session='b', name='High Rated')
+        for provider in (low, high):
+            services.moderate_provider(provider['id'], 'publish')
+        ServiceProvider.objects.filter(id=low['id']).update(rating='2.00')
+        ServiceProvider.objects.filter(id=high['id']).update(rating='4.50')
+
+        with patch('marketplace.services.random.random', side_effect=[0.9, 0.1]):
+            ordered = [p['name'] for p in services.list_providers()]
+
+        self.assertEqual(ordered, ['Low Rated', 'High Rated'])
+
+    def test_sort_rating_orders_by_rating(self):
+        low = self._create(session='a', name='Low Rated')
+        high = self._create(session='b', name='High Rated')
+        for provider in (low, high):
+            services.moderate_provider(provider['id'], 'publish')
+        ServiceProvider.objects.filter(id=low['id']).update(rating='2.00')
+        ServiceProvider.objects.filter(id=high['id']).update(rating='4.50')
+
+        with patch('marketplace.services.random.random', side_effect=[0.1, 0.9]):
+            ordered = [p['name'] for p in services.list_providers(sort='rating')]
+
+        self.assertEqual(ordered, ['High Rated', 'Low Rated'])
 
     def test_list_randomizes_equal_rating_ties(self):
         a = self._create(session='a', name='Alpha')
@@ -215,19 +241,6 @@ class MarketplaceServiceTests(TestCase):
             ordered = [p['name'] for p in services.list_providers()]
 
         self.assertEqual(ordered, ['Beta', 'Charlie', 'Alpha'])
-
-    def test_list_keeps_higher_rating_above_lower(self):
-        low = self._create(session='a', name='Low Rated')
-        high = self._create(session='b', name='High Rated')
-        for provider in (low, high):
-            services.moderate_provider(provider['id'], 'publish')
-        ServiceProvider.objects.filter(id=low['id']).update(rating='2.00')
-        ServiceProvider.objects.filter(id=high['id']).update(rating='4.50')
-
-        with patch('marketplace.services.random.random', side_effect=[0.1, 0.9]):
-            ordered = [p['name'] for p in services.list_providers()]
-
-        self.assertEqual(ordered, ['High Rated', 'Low Rated'])
 
     def test_list_randomizes_among_promoted_then_non_promoted(self):
         plain_a = self._create(session='a', name='Plain A')
@@ -264,6 +277,61 @@ class MarketplaceServiceTests(TestCase):
 
         self.assertEqual(category_order, ['Plumber Two', 'Plumber One'])
         self.assertEqual(search_order, ['Plumber Two', 'Plumber One'])
+
+    def test_sort_name_alphabetical(self):
+        a = self._create(session='a', name='Zeta Co')
+        b = self._create(session='b', name='Alpha Co')
+        for provider in (a, b):
+            services.moderate_provider(provider['id'], 'publish')
+        ordered = [p['name'] for p in services.list_providers(sort='name')]
+        self.assertEqual(ordered, ['Alpha Co', 'Zeta Co'])
+
+    def test_sort_newest_first(self):
+        older = self._create(session='a', name='Older')
+        newer = self._create(session='b', name='Newer')
+        for provider in (older, newer):
+            services.moderate_provider(provider['id'], 'publish')
+        ordered = [p['name'] for p in services.list_providers(sort='newest')]
+        self.assertEqual(ordered[0], 'Newer')
+
+    def test_min_rating_filter(self):
+        low = self._create(session='a', name='Low')
+        high = self._create(session='b', name='High')
+        for provider in (low, high):
+            services.moderate_provider(provider['id'], 'publish')
+        ServiceProvider.objects.filter(id=low['id']).update(rating='2.00')
+        ServiceProvider.objects.filter(id=high['id']).update(rating='4.50')
+        names = [p['name'] for p in services.list_providers(min_rating=4)]
+        self.assertEqual(names, ['High'])
+
+    def test_has_rate_filter(self):
+        with_rate = self._create(session='a', name='Priced', hourly_rate='25.00')
+        no_rate = self._create(session='b', name='Unpriced')
+        for provider in (with_rate, no_rate):
+            services.moderate_provider(provider['id'], 'publish')
+        names = [p['name'] for p in services.list_providers(has_rate=True)]
+        self.assertEqual(names, ['Priced'])
+
+    def test_verified_filter(self):
+        plain = self._create(session='a', name='Plain')
+        verified = self._create(session='b', name='Verified Co')
+        for provider in (plain, verified):
+            services.moderate_provider(provider['id'], 'publish')
+        ServiceProvider.objects.filter(id=verified['id']).update(verified_by_owner=True)
+        names = [p['name'] for p in services.list_providers(verified=True)]
+        self.assertEqual(names, ['Verified Co'])
+
+    def test_radius_km_excludes_far_providers(self):
+        near = self._create(session='a', name='Near', latitude=37.74, longitude=-25.67)
+        far = self._create(session='b', name='Far', latitude=38.5, longitude=-28.2)
+        for provider in (near, far):
+            services.moderate_provider(provider['id'], 'publish')
+        names = [p['name'] for p in services.list_providers(lat=37.74, lng=-25.67, radius_km=50)]
+        self.assertEqual(names, ['Near'])
+
+    def test_sort_distance_requires_coords(self):
+        with self.assertRaises(services.SortDistanceRequiresCoords):
+            services.list_providers(sort='distance')
 
     def test_soft_delete_excludes_from_list(self):
         result = self._create(session='owner', name='Gone')
