@@ -481,6 +481,8 @@ def search_routes(
 
         if node in destinations:
             journey = _path_to_journey(graph, path)
+            if any(leg['board']['key'] == leg['alight']['key'] for leg in journey['legs']):
+                continue
             signature = _leg_signature(journey)
             if signature not in seen:
                 seen.add(signature)
