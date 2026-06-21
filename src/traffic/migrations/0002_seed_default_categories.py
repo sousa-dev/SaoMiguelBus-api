@@ -12,11 +12,11 @@ DEFAULT_CATEGORIES = [
     ('transito', 'Trânsito', '🚗', 60, False, 2),
     ('radar', 'Radar', '📷', 90, True, 3),
     ('policia', 'Polícia', '🚓', 90, False, 4),
-    ('obras', 'Obras', '🚧', 1440, False, 5),
-    ('desvio', 'Desvio', '↪️', 480, False, 6),
-    ('inundacao', 'Inundação', '🌊', 240, False, 7),
-    ('perigo', 'Perigo na via', '⚠️', 90, False, 8),
-    ('tempo', 'Tempo / Nevoeiro', '🌫️', 180, False, 9),
+    ('obras', 'Obras', '🚧', 10080, False, 5),
+    ('desvio', 'Desvio', '↪️', 10080, False, 6),
+    ('inundacao', 'Inundação', '🌊', 1440, False, 7),
+    ('perigo', 'Perigo na via', '⚠️', 1440, False, 8),
+    ('tempo', 'Tempo / Nevoeiro', '🌫️', 1440, False, 9),
 ]
 
 
