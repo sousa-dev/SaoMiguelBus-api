@@ -24,6 +24,7 @@ urlpatterns = [
     path('api/v3/auth/', include('user_management.urls_v3')),
     path('api/v3/billing/', include('billing.urls_v3')),
     path('api/v3/consent/', include('consent.urls')),
+    path('api/v3/personalization/', include('personalization.urls')),
     path('api/v3/privacy/', include('consent.urls_privacy')),
     path('api/v3/analytics/', include('analytics.urls_v3')),
     path('api/v3/transit/', include('transit.urls_v3')),

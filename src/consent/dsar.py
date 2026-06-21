@@ -36,10 +36,25 @@ def dsar_export_bundle(*, session_hash: str) -> dict[str, Any]:
     except Exception:
         analytics_rows = []
 
+    personalization_rows = []
+    try:
+        from personalization.models import PersonalizationProfile
+        from personalization.services import serialize_profile
+
+        personalization_rows = [
+            serialize_profile(row)
+            for row in PersonalizationProfile.objects.filter(session_hash=session_hash).order_by(
+                '-updated_at'
+            )[:50]
+        ]
+    except Exception:
+        personalization_rows = []
+
     return {
         'session_hash': session_hash,
         'consent': [serialize_consent(row) for row in consent_rows],
         'analytics_events': analytics_rows,
+        'personalization': personalization_rows,
         'note': 'Stub export — extend with favorites, UGC, and billing when those modules ship.',
     }
 
@@ -61,9 +76,20 @@ def dsar_delete(*, session_hash: str) -> dict[str, Any]:
     except Exception:
         pass
 
+    personalization_deleted = 0
+    try:
+        from personalization.models import PersonalizationProfile
+
+        personalization_deleted, _ = PersonalizationProfile.objects.filter(
+            session_hash=session_hash
+        ).delete()
+    except Exception:
+        pass
+
     return {
         'session_hash': session_hash,
         'consent_records_deleted': consent_deleted,
         'analytics_events_anonymized': analytics_anonymized,
+        'personalization_profiles_deleted': personalization_deleted,
         'note': 'Stub delete — extend with cross-module erasure when UGC modules ship.',
     }

@@ -34,6 +34,7 @@ apps = [
     ('transit', True),
     ('analytics', True),
     ('consent', True),
+    ('personalization', True),
     ('billing', True),
     ('compat', True),
     ('legacy_archive', True),
