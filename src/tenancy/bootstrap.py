@@ -8,6 +8,7 @@ from consent.services import CONSENT_POLICY_VERSION
 from tenancy.models import Island
 from transit.models import Holiday
 from transit.services.compat import _serialize_active_infos
+from user_management.social import social_auth_capabilities
 
 
 MODULE_KEYS = (
@@ -59,6 +60,7 @@ def serialize_bootstrap(island: Island) -> dict:
         'version': flags.get('version', '6.0.0'),
         'mapsEnabled': bool(flags.get('maps', False)),
         'consentPolicyVersion': flags.get('consentPolicyVersion', CONSENT_POLICY_VERSION),
+        'socialAuth': social_auth_capabilities(),
         'holidays': holidays,
         'infos': _serialize_active_infos(),
         'generatedAt': timezone.now().isoformat(),

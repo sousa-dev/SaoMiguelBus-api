@@ -36,6 +36,14 @@ class SocialIdentity:
 _jwk_clients: dict[str, PyJWKClient] = {}
 
 
+def social_auth_capabilities() -> dict[str, bool]:
+    """Provider availability for v3 bootstrap (mobile sign-in button gating)."""
+    return {
+        'google': bool(getattr(settings, 'GOOGLE_OAUTH_CLIENT_IDS', [])),
+        'apple': bool(getattr(settings, 'APPLE_BUNDLE_IDS', [])),
+    }
+
+
 def _jwk_client(url: str) -> PyJWKClient:
     client = _jwk_clients.get(url)
     if client is None:
