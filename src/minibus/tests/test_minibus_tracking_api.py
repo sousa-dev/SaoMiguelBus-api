@@ -77,6 +77,7 @@ class MinibusTrackingApiTestCase(TestCase):
         self.assertEqual(body['vehicles'], FLEET_FIXTURE)
         self.assertEqual(body['vehicles'][0]['id'], '11010939')
         self.assertEqual(body['cacheMaxAgeSeconds'], 10)
+        self.assertEqual(body['trackingCacheStatus'], 'miss')
         self.assertEqual(response['X-Minibus-Tracking-Cache'], 'miss')
 
     @patch.dict('os.environ', {'MINIBUS_TRACKING_CACHE_TTL': '5'})
@@ -90,7 +91,9 @@ class MinibusTrackingApiTestCase(TestCase):
 
         response = self.client.get('/api/v3/minibus/vehicles', HTTP_X_ISLAND='sao-miguel')
 
-        self.assertEqual(response.json()['cacheMaxAgeSeconds'], 5)
+        body = response.json()
+        self.assertEqual(body['cacheMaxAgeSeconds'], 5)
+        self.assertEqual(body['trackingCacheStatus'], 'hit')
         self.assertEqual(response['X-Minibus-Tracking-Cache'], 'hit')
 
     @patch('minibus.api_v3.get_vehicle_tracking')
@@ -146,5 +149,7 @@ class MinibusTrackingApiTestCase(TestCase):
 
         response = self.client.get('/api/v3/minibus/vehicles', HTTP_X_ISLAND='sao-miguel')
 
-        self.assertTrue(response.json()['stale'])
+        body = response.json()
+        self.assertTrue(body['stale'])
+        self.assertEqual(body['trackingCacheStatus'], 'stale')
         self.assertEqual(response['X-Minibus-Tracking-Cache'], 'stale')

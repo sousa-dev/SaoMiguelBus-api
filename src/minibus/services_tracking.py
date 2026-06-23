@@ -115,6 +115,7 @@ def build_tracking_response_meta(meta: CacheMeta) -> dict[str, Any]:
     return {
         'cachedAt': meta.cached_at.isoformat(),
         'stale': meta.stale,
+        'trackingCacheStatus': meta.cache_status,
         'cacheMaxAgeSeconds': cfg['cache_max_age_seconds'],
         'trackingAttribution': TRACKING_ATTRIBUTION,
         'trackingSourceUrl': TRACKING_SOURCE_URL,
