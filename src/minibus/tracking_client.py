@@ -1,4 +1,9 @@
-"""Eleven Systems PDL Mini Bus live AVL HTTP client."""
+"""Eleven Systems PDL Mini Bus live AVL HTTP client.
+
+Upstream base URL is configurable via MINIBUS_TRACKING_BASE_URL (default: direct Eleven
+Systems). When Cloudflare blocks datacenter IPs, point it at a Tailscale home proxy —
+see minibus/docs/tailscale-tracking-proxy.md.
+"""
 
 from __future__ import annotations
 
@@ -14,7 +19,10 @@ MINIBUS_TRACKING_BASE_URL = config(
     'MINIBUS_TRACKING_BASE_URL',
     default='https://pdl.elevensystems.pt/publicapi',
 ).rstrip('/')
+MINIBUS_TRACKING_PROXY_KEY = config('MINIBUS_TRACKING_PROXY_KEY', default='')
 MINIBUS_TRACKING_TIMEOUT = config('MINIBUS_TRACKING_TIMEOUT', default=10, cast=int)
+
+_TRACKING_PROXY_KEY_HEADER = 'X-Tracking-Proxy-Key'
 
 
 class MinibusTrackingError(Exception):
@@ -46,9 +54,19 @@ def fetch_vehicle_location(tracking_id: str) -> dict[str, Any]:
     return payload
 
 
+def _tracking_headers() -> dict[str, str]:
+    if not MINIBUS_TRACKING_PROXY_KEY:
+        return {}
+    return {_TRACKING_PROXY_KEY_HEADER: MINIBUS_TRACKING_PROXY_KEY}
+
+
 def _request_json(url: str, *, not_found_exc: type[MinibusTrackingError]) -> Any:
     try:
-        response = requests.get(url, timeout=MINIBUS_TRACKING_TIMEOUT)
+        response = requests.get(
+            url,
+            timeout=MINIBUS_TRACKING_TIMEOUT,
+            headers=_tracking_headers(),
+        )
     except requests.RequestException as exc:
         logger.exception('Minibus tracking request failed url=%s', url)
         raise MinibusTrackingError(str(exc)) from exc

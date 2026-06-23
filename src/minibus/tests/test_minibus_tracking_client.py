@@ -31,6 +31,7 @@ class TrackingClientTestCase(SimpleTestCase):
         mock_get.assert_called_once_with(
             'https://example.test/publicapi/locations',
             timeout=10,
+            headers={},
         )
 
     @patch('minibus.tracking_client.requests.get')
@@ -62,6 +63,28 @@ class TrackingClientTestCase(SimpleTestCase):
         mock_get.assert_called_once_with(
             'https://example.test/publicapi/locations/11010939',
             timeout=10,
+            headers={},
+        )
+
+    @patch('minibus.tracking_client.requests.get')
+    @patch('minibus.tracking_client.MINIBUS_TRACKING_PROXY_KEY', 'pi-proxy-secret')
+    @patch(
+        'minibus.tracking_client.MINIBUS_TRACKING_BASE_URL',
+        'http://100.64.0.1:8080/publicapi',
+    )
+    def test_fetch_fleet_locations_sends_proxy_key_header(self, mock_get):
+        mock_get.return_value = MagicMock(
+            ok=True,
+            status_code=200,
+            json=lambda: [{'id': '11010939'}],
+        )
+
+        fetch_fleet_locations()
+
+        mock_get.assert_called_once_with(
+            'http://100.64.0.1:8080/publicapi/locations',
+            timeout=10,
+            headers={'X-Tracking-Proxy-Key': 'pi-proxy-secret'},
         )
 
     @patch('minibus.tracking_client.requests.get')

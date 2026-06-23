@@ -113,12 +113,15 @@ Urban Ponta Delgada network (lines A–D), separate from interurban `transit`. R
 | Variable | Default | Purpose |
 |----------|---------|---------|
 | `MINIBUS_TRACKING_BASE_URL` | `https://pdl.elevensystems.pt/publicapi` | Upstream AVL root |
+| `MINIBUS_TRACKING_PROXY_KEY` | (empty) | Optional `X-Tracking-Proxy-Key` for Tailscale Pi proxy |
 | `MINIBUS_TRACKING_CACHE_TTL` | `10` | Cache age in seconds (primary tuning knob) |
 | `MINIBUS_TRACKING_STALE_GRACE` | `60` | Serve last good snapshot on upstream failure |
 | `MINIBUS_TRACKING_TIMEOUT` | `10` | Upstream HTTP timeout (seconds) |
 | `MINIBUS_TRACKING_LOCK_TTL` | `5` | Single-flight lock while refreshing |
 
 Restart the web container after changing `MINIBUS_TRACKING_CACHE_TTL`.
+
+**Cloudflare / datacenter egress:** If upstream returns 403 from Hetzner, see `src/minibus/docs/tailscale-tracking-proxy.md` (Tailscale Raspberry Pi reverse proxy + `MINIBUS_TRACKING_BASE_URL` override). Long-term fix: Eleven Systems IP allowlist for API servers.
 
 ### Analytics reporting + stats dashboard (`analytics` app — shipped)
 

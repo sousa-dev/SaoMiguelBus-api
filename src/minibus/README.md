@@ -33,6 +33,8 @@ Bootstrap module key: `minibus` (`tenancy` migration `0013_enable_minibus_featur
 
 Proxies [Eleven Systems](https://pdl.elevensystems.pt/publicapi/locations) with Redis caching. Tune freshness via `MINIBUS_TRACKING_CACHE_TTL` (default **10** seconds). See `src/src/.env.example` for all `MINIBUS_TRACKING_*` vars.
 
+**Datacenter / Cloudflare:** Hetzner and other VPS egress IPs may get **403** from Cloudflare while residential IPs work. Use a [Tailscale Raspberry Pi proxy](docs/tailscale-tracking-proxy.md) (`MINIBUS_TRACKING_BASE_URL=http://100.x.x.z:8080/publicapi`, optional `MINIBUS_TRACKING_PROXY_KEY` for `X-Tracking-Proxy-Key`) or request upstream IP allowlisting.
+
 ## Attribution
 
 Schedules and fares are sourced from pdlminibus.pt. Live vehicle data is attributed to Eleven Systems in API responses (`trackingAttribution`).
