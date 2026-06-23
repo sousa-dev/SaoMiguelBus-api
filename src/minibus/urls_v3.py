@@ -11,6 +11,7 @@ from minibus.api_v3 import (
     route_search_view,
     schematic_view,
     tariffs_list_view,
+    tracking_health_view,
     vehicle_detail_view,
     vehicles_list_view,
 )
@@ -22,6 +23,7 @@ urlpatterns = [
     path('route', route_search_view, name='v3-minibus-route'),
     path('offline-bundle', offline_bundle_view, name='v3-minibus-offline-bundle'),
     path('offline-bundle/version', offline_bundle_version_view, name='v3-minibus-offline-bundle-version'),
+    path('tracking/health', tracking_health_view, name='v3-minibus-tracking-health'),
     path('vehicles', vehicles_list_view, name='v3-minibus-vehicles'),
     path('vehicles/<str:tracking_id>', vehicle_detail_view, name='v3-minibus-vehicle-detail'),
     path('tariffs', tariffs_list_view, name='v3-minibus-tariffs'),

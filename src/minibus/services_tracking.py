@@ -29,6 +29,8 @@ STALE_GRACE_MAX = 600
 LOCK_TTL_MAX = 30
 LOCK_POLL_ATTEMPTS = 30
 LOCK_POLL_INTERVAL = 0.1
+HEALTH_CACHE_TTL_MIN = 5
+HEALTH_CACHE_TTL_MAX = 120
 
 
 @dataclass(frozen=True)
@@ -81,6 +83,33 @@ def get_vehicle_tracking(island: Island, tracking_id: str) -> tuple[dict[str, An
     )
 
 
+def get_health_cache_config() -> dict[str, int]:
+    health_ttl = config('MINIBUS_TRACKING_HEALTH_CACHE_TTL', default=30, cast=int)
+    health_ttl = max(HEALTH_CACHE_TTL_MIN, min(health_ttl, HEALTH_CACHE_TTL_MAX))
+    return {
+        'health_cache_ttl': health_ttl,
+        'recheck_after_seconds': health_ttl,
+    }
+
+
+def get_tracking_health(island: Island, *, force: bool = False) -> dict[str, Any]:
+    """Probe upstream AVL reachability; cache result separately from fleet snapshots."""
+    cache_key = _health_cache_key(island.key)
+    cfg = get_health_cache_config()
+
+    if not force:
+        cached = cache.get(cache_key)
+        if cached is not None:
+            return cached
+
+    result = _probe_tracking_health(cfg['recheck_after_seconds'])
+
+    if not force:
+        cache.set(cache_key, result, cfg['health_cache_ttl'])
+
+    return result
+
+
 def build_tracking_response_meta(meta: CacheMeta) -> dict[str, Any]:
     cfg = get_tracking_config()
     return {
@@ -91,6 +120,42 @@ def build_tracking_response_meta(meta: CacheMeta) -> dict[str, Any]:
         'trackingSourceUrl': TRACKING_SOURCE_URL,
         'trackingUpstreamBaseUrl': MINIBUS_TRACKING_BASE_URL,
     }
+
+
+def _health_cache_key(island_key: str) -> str:
+    return f'minibus:tracking:health:{island_key}'
+
+
+def _probe_tracking_health(recheck_after_seconds: int) -> dict[str, Any]:
+    checked_at = timezone.now().isoformat()
+    try:
+        fleet = fetch_fleet_locations()
+        return {
+            'available': True,
+            'checkedAt': checked_at,
+            'recheckAfterSeconds': recheck_after_seconds,
+            'vehicleCount': len(fleet),
+        }
+    except MinibusTrackingError as exc:
+        return {
+            'available': False,
+            'reason': _map_tracking_error_reason(exc),
+            'checkedAt': checked_at,
+            'recheckAfterSeconds': recheck_after_seconds,
+        }
+
+
+def _map_tracking_error_reason(exc: MinibusTrackingError) -> str:
+    message = str(exc).lower()
+    if '403' in message:
+        return 'upstream_http_403'
+    if '404' in message:
+        return 'upstream_http_404'
+    if 'timeout' in message or 'timed out' in message:
+        return 'upstream_timeout'
+    if any(token in message for token in ('connection', 'unreachable', 'network', 'refused')):
+        return 'upstream_unreachable'
+    return 'upstream_error'
 
 
 def _fleet_cache_key(island_key: str) -> str:

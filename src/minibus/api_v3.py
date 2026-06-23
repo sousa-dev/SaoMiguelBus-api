@@ -26,6 +26,7 @@ from minibus.services import (
 from minibus.services_tracking import (
     build_tracking_response_meta,
     get_fleet_tracking,
+    get_tracking_health,
     get_vehicle_tracking,
 )
 from minibus.throttling import MinibusTrackingThrottle
@@ -197,6 +198,23 @@ def offline_bundle_version_view(request: Request) -> Response:
         version = compute_bundle_version(request.island)
 
     return Response({'version': version})
+
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
+@throttle_classes([MinibusTrackingThrottle])
+def tracking_health_view(request: Request) -> Response:
+    err = _require_island(request)
+    if err:
+        return err
+
+    force_param = request.GET.get('force', '').strip().lower()
+    force = force_param in ('1', 'true', 'yes')
+
+    with for_island(request.island):
+        payload = get_tracking_health(request.island, force=force)
+
+    return Response({**payload, **build_meta_payload(request.island)})
 
 
 @api_view(['GET'])
