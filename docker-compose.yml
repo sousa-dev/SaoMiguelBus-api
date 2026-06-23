@@ -4,6 +4,7 @@
 #
 # Compose ${VAR:-default} reads from the shell / project .env at deploy time.
 # Container config: env_file entries below (injected into process env).
+# Optional minibus live tracking: MINIBUS_TRACKING_CACHE_TTL, MINIBUS_TRACKING_BASE_URL (see src/src/.env.example).
 
 x-app-env: &app-env
   env_file:

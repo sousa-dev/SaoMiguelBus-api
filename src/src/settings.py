@@ -110,6 +110,7 @@ REST_FRAMEWORK = {
         'offline-bundle': '12/min',
         'marketplace_write': '20/min',
         'traffic_write': '30/min',
+        'minibus_tracking': '60/min',
     },
 }
 

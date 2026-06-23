@@ -100,12 +100,25 @@ Urban Ponta Delgada network (lines A–D), separate from interurban `transit`. R
 
 - `GET /api/v3/minibus/lines`, `/lines/{slug}`, `/tariffs`, `/documents`, `/schematic`, `/network`
 - `GET /api/v3/minibus/route?origin=&destination=` — origin→destination journey search over line stops + name-matched interchanges (schedule-free; legs reserve `departure_time`/`arrival_time` for later schedules). Ranks by fewest transfers, then fewest stops; returns up to 3 journeys.
+- `GET /api/v3/minibus/vehicles`, `/vehicles/{tracking_id}` — live AVL proxy to Eleven Systems (`pdl.elevensystems.pt/publicapi`); full upstream payload passthrough (positions, ETAs, route shape). Redis cache age defaults to **10s** (`MINIBUS_TRACKING_CACHE_TTL`); single-flight refresh; stale fallback on upstream errors. Throttled at 60/min per island+session/IP. Response header `X-Minibus-Tracking-Cache: hit|miss|stale`.
 - `GET /api/v3/minibus/offline-bundle`, `/offline-bundle/version` — single snapshot (lines + tariffs + network stops + line image URLs) for ungated offline caching on the mobile app
 - Network stops include `external_id`, `latitude`, `longitude` (merged from `minibus/data/stops_registry_sao_miguel.json` via `python minibus/data/merge_coordinates.py` or `manage.py merge_minibus_coordinates`). Offline cache key suffix `v3` invalidates stale Redis entries after coordinate deploy.
 - `GET /api/v3/minibus/documents/{slug}/file` — streams PDF/SVG/PNG (not raw `/media/` URLs)
 - Seed: `minibus/data/catalog_sao_miguel.json`; binaries via `python manage.py import_minibus` (also runs on deploy in `runserver.sh`). Until media import completes, bundled files under `minibus/data/source/` are streamed as fallback.
 - Bootstrap module key: `minibus` (`tenancy` migration `0013_enable_minibus_feature_flag`)
 - Expo module linked from Buses (`transit`) promo card + profile info row
+
+**Live tracking env (Dokploy Environment tab / `src/src/.env`):**
+
+| Variable | Default | Purpose |
+|----------|---------|---------|
+| `MINIBUS_TRACKING_BASE_URL` | `https://pdl.elevensystems.pt/publicapi` | Upstream AVL root |
+| `MINIBUS_TRACKING_CACHE_TTL` | `10` | Cache age in seconds (primary tuning knob) |
+| `MINIBUS_TRACKING_STALE_GRACE` | `60` | Serve last good snapshot on upstream failure |
+| `MINIBUS_TRACKING_TIMEOUT` | `10` | Upstream HTTP timeout (seconds) |
+| `MINIBUS_TRACKING_LOCK_TTL` | `5` | Single-flight lock while refreshing |
+
+Restart the web container after changing `MINIBUS_TRACKING_CACHE_TTL`.
 
 ### Analytics reporting + stats dashboard (`analytics` app — shipped)
 
