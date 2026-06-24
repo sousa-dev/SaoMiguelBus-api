@@ -15,6 +15,9 @@ python manage.py import_minibus --island "${ISLAND_KEY}"
 echo "[deploy] bootstrap_feed_syncs"
 python manage.py bootstrap_feed_syncs
 
+echo "[deploy] bootstrap_minibus_route_shapes (island=${ISLAND_KEY})"
+python manage.py bootstrap_minibus_route_shapes --island "${ISLAND_KEY}"
+
 echo "[deploy] ensure_superuser"
 python manage.py ensure_superuser
 

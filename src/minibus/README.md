@@ -29,6 +29,14 @@ Source files live in `minibus/data/source/`. Override with `MINIBUS_SOURCE_DIR` 
 
 Bootstrap module key: `minibus` (`tenancy` migration `0013_enable_minibus_feature_flag`).
 
+## Route shapes (line map polylines)
+
+Road-following route geometry is harvested from Eleven Systems vehicle detail (`journey.shape`) and stored on `MinibusLine.route_shapes` (Postgres `jsonb`). Exposed on line list/detail and the offline bundle as `route_shapes`.
+
+- **Deploy:** `bootstrap_minibus_route_shapes` queues a one-shot Celery harvest when shapes are missing
+- **Beat:** `minibus.harvest_route_shapes` every 30 min during service hours until all lines are populated
+- **Manual:** `python manage.py harvest_minibus_route_shapes --island sao-miguel --sync` (add `--force` to refresh)
+
 ## Live tracking
 
 Proxies [Eleven Systems](https://pdl.elevensystems.pt/publicapi/locations) with Redis caching. Tune freshness via `MINIBUS_TRACKING_CACHE_TTL` (default **10** seconds). See `src/src/.env.example` for all `MINIBUS_TRACKING_*` vars.

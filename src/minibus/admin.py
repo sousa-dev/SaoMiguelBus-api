@@ -8,6 +8,7 @@ class MinibusLineAdmin(admin.ModelAdmin):
     list_display = ('code', 'name_pt', 'slug', 'island', 'is_active', 'sort_order')
     list_filter = ('island', 'is_active')
     search_fields = ('code', 'slug', 'name_pt', 'name_en')
+    readonly_fields = ('route_shapes',)
 
 
 @admin.register(MinibusTariff)

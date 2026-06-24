@@ -3,7 +3,8 @@
 from django.test import TestCase
 from rest_framework.test import APIClient
 
-from minibus.services import compute_bundle_version, seed_catalog
+from minibus.models import MinibusLine
+from minibus.services import compute_bundle_version, route_shapes_revision, seed_catalog
 from tenancy.services import get_or_create_default_island
 
 
@@ -60,3 +61,38 @@ class OfflineBundleApiTestCase(TestCase):
         first = compute_bundle_version(self.island)
         second = compute_bundle_version(self.island)
         self.assertEqual(first, second)
+
+    def test_bundle_version_changes_when_route_shapes_update(self):
+        before = compute_bundle_version(self.island)
+        line = MinibusLine.objects.get(island=self.island, code='A')
+        line.route_shapes = [
+            {
+                'direction': 0,
+                'encoded_polyline': 'uxieF~tt{CLMRA',
+                'journey_id': '1',
+                'source_vehicle_id': '11010943',
+                'captured_at': '2026-06-24T18:51:45+00:00',
+            },
+        ]
+        line.save(update_fields=['route_shapes'])
+        after = compute_bundle_version(self.island)
+        self.assertNotEqual(before, after)
+        self.assertNotEqual(route_shapes_revision(self.island), 'e3b0c44298fc1c14')
+
+    def test_offline_bundle_includes_route_shapes(self):
+        line = MinibusLine.objects.get(island=self.island, code='C')
+        line.route_shapes = [
+            {
+                'direction': 0,
+                'encoded_polyline': 'uxieF~tt{CLMRA',
+                'journey_id': '3',
+                'source_vehicle_id': '11010936',
+                'captured_at': '2026-06-24T18:51:45+00:00',
+            },
+        ]
+        line.save(update_fields=['route_shapes'])
+
+        response = self.client.get('/api/v3/minibus/offline-bundle', HTTP_X_ISLAND='sao-miguel')
+        body = response.json()
+        line_c = next(row for row in body['lines'] if row['code'] == 'C')
+        self.assertEqual(len(line_c['route_shapes']), 1)

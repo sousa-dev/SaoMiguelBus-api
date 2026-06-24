@@ -104,6 +104,26 @@ class MinibusApiTestCase(TestCase):
         self.assertEqual(body['attribution'], ATTRIBUTION)
         line_a = next(row for row in body['lines'] if row['code'] == 'A')
         self.assertTrue(line_a['timetable_file_url'].endswith('/api/v3/minibus/documents/line-a/file'))
+        self.assertEqual(line_a['route_shapes'], [])
+
+    def test_line_detail_includes_route_shapes(self):
+        line = MinibusLine.objects.get(island=self.island, code='B')
+        line.route_shapes = [
+            {
+                'direction': 0,
+                'encoded_polyline': 'uxieF~tt{CLMRA',
+                'journey_id': '2',
+                'source_vehicle_id': '11010933',
+                'captured_at': '2026-06-24T18:51:45+00:00',
+            },
+        ]
+        line.save(update_fields=['route_shapes'])
+
+        response = self.client.get('/api/v3/minibus/lines/line-b', HTTP_X_ISLAND='sao-miguel')
+        self.assertEqual(response.status_code, 200)
+        body = response.json()
+        self.assertEqual(len(body['route_shapes']), 1)
+        self.assertEqual(body['route_shapes'][0]['encoded_polyline'], 'uxieF~tt{CLMRA')
 
     def test_document_file_stream(self):
         response = self.client.get(

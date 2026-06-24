@@ -224,6 +224,7 @@ def serialize_line(line: MinibusLine, *, locale: str, request) -> dict[str, Any]
         'color': line.color,
         'sort_order': line.sort_order,
         'service_summary': line.service_summary,
+        'route_shapes': line.route_shapes or [],
         'timetable_slug': timetable.slug if timetable else None,
         'timetable_file_url': document_file_url(request, timetable) if timetable else None,
     }
@@ -551,6 +552,16 @@ def search_minibus_routes(
 BUNDLE_CACHE_TTL = 60 * 60  # 1 hour
 
 
+def route_shapes_revision(island: Island) -> str:
+    """Stable digest of stored AVL route polylines (invalidates offline cache after harvest)."""
+    digest = hashlib.sha256()
+    for line in MinibusLine.objects.filter(island=island, is_active=True).order_by('code'):
+        digest.update(
+            json.dumps(line.route_shapes or [], sort_keys=True, separators=(',', ':')).encode(),
+        )
+    return digest.hexdigest()[:16]
+
+
 def compute_bundle_version(island: Island) -> str:
     """Stable digest of the static datasets + import revision (host-independent)."""
     digest = hashlib.sha256()
@@ -558,13 +569,15 @@ def compute_bundle_version(island: Island) -> str:
     digest.update(network_stops_path().read_bytes())
     meta = get_import_meta(island)
     digest.update((meta.source_revision if meta else '').encode())
+    digest.update(route_shapes_revision(island).encode())
     return digest.hexdigest()[:16]
 
 
 def build_offline_bundle(*, island: Island, locale: str, request) -> dict[str, Any]:
     """Everything the app caches for offline Mini Bus: lines, tariffs, network, images."""
     host = request.get_host()
-    cache_key = f'minibus:offline:v3:{island.key}:{locale}:{host}'
+    shapes_revision = route_shapes_revision(island)
+    cache_key = f'minibus:offline:v3:{island.key}:{locale}:{host}:{shapes_revision}'
     cached = cache.get(cache_key)
     if cached is not None:
         return cached

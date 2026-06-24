@@ -15,6 +15,7 @@ class MinibusLine(TenantScopedModel):
     color = models.CharField(max_length=7)
     sort_order = models.PositiveSmallIntegerField(default=0)
     service_summary = models.JSONField(default=dict, blank=True)
+    route_shapes = models.JSONField(default=list, blank=True)
     is_active = models.BooleanField(default=True)
 
     class Meta:

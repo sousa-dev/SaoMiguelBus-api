@@ -244,8 +244,9 @@ On every deploy, `runserver.sh` runs (in order):
 2. `migrate`
 3. **`import_minibus --island ${DEFAULT_ISLAND_KEY:-sao-miguel}`** — copies bundled PDFs/SVG into `MEDIA_ROOT` (idempotent)
 4. `bootstrap_feed_syncs`
-5. `ensure_superuser`
-6. Gunicorn
+5. **`bootstrap_minibus_route_shapes --island ${DEFAULT_ISLAND_KEY:-sao-miguel}`** — queues Celery harvest of AVL route polylines when any line is missing stored geometry
+6. `ensure_superuser`
+7. Gunicorn
 
 Required env (Dokploy **Environment** tab / repo-root `.env`):
 
@@ -261,7 +262,7 @@ ALLOWED_HOSTS=staging.api.saomiguelhub.com,api.saomiguelbus.com
 
 Optional but recommended: mount a persistent volume on **`/usr/src/app/media`** so imported minibus files survive redeploys. If media is empty, the API still streams from bundled `minibus/data/source/` as fallback.
 
-Celery worker/beat containers use `celery-entrypoint.sh` (migrate only) — they do not need `import_minibus`.
+Celery worker/beat containers use `celery-entrypoint.sh` (migrate only) — they do not need `import_minibus`. Beat runs **`minibus.harvest_route_shapes`** every 30 minutes (Mon–Sat 07:00–19:59 Atlantic/Azores) until all lines A–D have stored polylines in `MinibusLine.route_shapes`.
 
 ### Agent tooling (boilerplate)
 
