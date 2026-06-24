@@ -27,3 +27,8 @@ class PersonalizationWriteSerializer(serializers.Serializer):
         allow_blank=True,
         default='',
     )
+    platform = serializers.ChoiceField(
+        choices=['android', 'ios', 'web'],
+        required=False,
+        allow_blank=True,
+    )

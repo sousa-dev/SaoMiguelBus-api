@@ -13,16 +13,20 @@ def save_profile(
     user_type: str,
     interests: list[str],
     home_municipality: str = '',
+    platform: str | None = None,
     user=None,
 ) -> PersonalizationProfile:
+    defaults: dict = {
+        'user': user,
+        'user_type': user_type,
+        'interests': interests,
+        'home_municipality': home_municipality,
+    }
+    if platform is not None:
+        defaults['platform'] = platform
     return PersonalizationProfile.objects.update_or_create(
         session_hash=session_hash,
-        defaults={
-            'user': user,
-            'user_type': user_type,
-            'interests': interests,
-            'home_municipality': home_municipality,
-        },
+        defaults=defaults,
     )[0]
 
 
@@ -42,12 +46,14 @@ def serialize_profile(record: PersonalizationProfile | None) -> dict:
             'user_type': None,
             'interests': [],
             'home_municipality': '',
+            'platform': '',
             'updated_at': None,
         }
     return {
         'user_type': record.user_type,
         'interests': record.interests,
         'home_municipality': record.home_municipality,
+        'platform': record.platform,
         'updated_at': record.updated_at.isoformat() if record.updated_at else None,
     }
 

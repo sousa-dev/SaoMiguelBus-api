@@ -36,6 +36,7 @@ class PersonalizationAPITestCase(TestCase):
         self.assertEqual(post.json()['user_type'], 'tourist')
         self.assertEqual(post.json()['interests'], ['trails', 'events'])
         self.assertEqual(post.json()['home_municipality'], 'ponta-delgada')
+        self.assertEqual(post.json()['platform'], '')
         self.assertEqual(PersonalizationProfile.objects.count(), 1)
 
         get = self.client.get(
@@ -151,3 +152,85 @@ class PersonalizationAPITestCase(TestCase):
         self.assertEqual(delete.status_code, 200)
         self.assertEqual(delete.json()['personalization_profiles_deleted'], 1)
         self.assertEqual(PersonalizationProfile.objects.count(), 0)
+
+    def test_get_empty_profile_returns_blank_platform(self):
+        response = self.client.get(
+            f'/api/v3/personalization/?session_id={self.session_id}',
+            **self.headers,
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json()['platform'], '')
+
+    def test_post_with_platform(self):
+        post = self.client.post(
+            '/api/v3/personalization/',
+            {
+                'session_id': self.session_id,
+                'user_type': 'tourist',
+                'interests': ['transit'],
+                'platform': 'ios',
+            },
+            format='json',
+            **self.headers,
+        )
+        self.assertEqual(post.status_code, 201)
+        self.assertEqual(post.json()['platform'], 'ios')
+
+        get = self.client.get(
+            f'/api/v3/personalization/?session_id={self.session_id}',
+            **self.headers,
+        )
+        self.assertEqual(get.json()['platform'], 'ios')
+        self.assertEqual(PersonalizationProfile.objects.get().platform, 'ios')
+
+    def test_post_without_platform_preserves_existing_platform(self):
+        self.client.post(
+            '/api/v3/personalization/',
+            {
+                'session_id': self.session_id,
+                'user_type': 'tourist',
+                'interests': ['transit'],
+                'platform': 'android',
+            },
+            format='json',
+            **self.headers,
+        )
+        self.client.post(
+            '/api/v3/personalization/',
+            {
+                'session_id': self.session_id,
+                'user_type': 'resident',
+                'interests': ['news'],
+            },
+            format='json',
+            **self.headers,
+        )
+        profile = PersonalizationProfile.objects.get()
+        self.assertEqual(profile.user_type, 'resident')
+        self.assertEqual(profile.platform, 'android')
+
+    def test_post_with_platform_backfills_blank_row(self):
+        self.client.post(
+            '/api/v3/personalization/',
+            {
+                'session_id': self.session_id,
+                'user_type': 'tourist',
+                'interests': ['events'],
+            },
+            format='json',
+            **self.headers,
+        )
+        self.assertEqual(PersonalizationProfile.objects.get().platform, '')
+
+        self.client.post(
+            '/api/v3/personalization/',
+            {
+                'session_id': self.session_id,
+                'user_type': 'tourist',
+                'interests': ['events'],
+                'platform': 'android',
+            },
+            format='json',
+            **self.headers,
+        )
+        self.assertEqual(PersonalizationProfile.objects.get().platform, 'android')

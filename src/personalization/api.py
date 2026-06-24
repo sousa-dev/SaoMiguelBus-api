@@ -48,11 +48,14 @@ def personalization_view(request: Request) -> Response:
     serializer.is_valid(raise_exception=True)
     session_id = serializer.validated_data['session_id']
     session_hash = _session_hash(request, session_id)
-    record = save_profile(
-        session_hash=session_hash,
-        user_type=serializer.validated_data['user_type'],
-        interests=serializer.validated_data['interests'],
-        home_municipality=serializer.validated_data.get('home_municipality', ''),
-        user=request.user if request.user.is_authenticated else None,
-    )
+    save_kwargs: dict = {
+        'session_hash': session_hash,
+        'user_type': serializer.validated_data['user_type'],
+        'interests': serializer.validated_data['interests'],
+        'home_municipality': serializer.validated_data.get('home_municipality', ''),
+        'user': request.user if request.user.is_authenticated else None,
+    }
+    if 'platform' in serializer.validated_data:
+        save_kwargs['platform'] = serializer.validated_data['platform']
+    record = save_profile(**save_kwargs)
     return Response(serialize_profile(record), status=status.HTTP_201_CREATED)

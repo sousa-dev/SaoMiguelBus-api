@@ -24,6 +24,7 @@ class PersonalizationProfile(models.Model):
     user_type = models.CharField(max_length=20, choices=USER_TYPE_CHOICES)
     interests = models.JSONField(default=list)
     home_municipality = models.CharField(max_length=255, blank=True, default='')
+    platform = models.CharField(max_length=16, blank=True, default='')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
