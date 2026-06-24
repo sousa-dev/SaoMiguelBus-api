@@ -21,7 +21,7 @@ from minibus.tracking_client import (
 from tenancy.models import Island
 
 TRACKING_ATTRIBUTION = 'Live vehicle data via Eleven Systems (PDL Mini Bus)'
-TRACKING_SOURCE_URL = 'https://pdl.elevensystems.pt'
+TRACKING_SOURCE_URL = 'https://tracking.elevensystems.pt/pdl'
 
 CACHE_TTL_MIN = 1
 CACHE_TTL_MAX = 300
