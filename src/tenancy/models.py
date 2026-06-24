@@ -141,6 +141,10 @@ class AppReleaseConfig(models.Model):
     )
     ios_store_url = models.URLField(max_length=500)
     android_store_url = models.URLField(max_length=500)
+    in_app_review_enabled = models.BooleanField(
+        default=False,
+        help_text='When enabled, native clients may show the store in-app review prompt.',
+    )
     updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:

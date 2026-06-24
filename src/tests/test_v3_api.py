@@ -25,6 +25,18 @@ class V3APITestCase(TestCase):
         self.assertIn('socialAuth', response.json())
         self.assertIn('google', response.json()['socialAuth'])
         self.assertIn('apple', response.json()['socialAuth'])
+        self.assertFalse(response.json()['inAppReviewEnabled'])
+        self.assertIn('storeUrls', response.json())
+
+    def test_bootstrap_in_app_review_enabled_when_admin_sets_flag(self):
+        from tenancy.services_release import get_or_create_app_release_config
+
+        config = get_or_create_app_release_config(self.island)
+        config.in_app_review_enabled = True
+        config.save(update_fields=['in_app_review_enabled'])
+        response = self.client.get('/api/v3/bootstrap', **self.headers)
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue(response.json()['inAppReviewEnabled'])
 
     @override_settings(GOOGLE_OAUTH_CLIENT_IDS=['web-client.apps.googleusercontent.com'])
     def test_bootstrap_social_auth_google_enabled_when_client_ids_set(self):

@@ -6,6 +6,7 @@ from django.utils import timezone
 
 from consent.services import CONSENT_POLICY_VERSION
 from tenancy.models import Island
+from tenancy.services_release import get_or_create_app_release_config
 from transit.models import Holiday
 from transit.services.compat import _serialize_active_infos
 from user_management.social import social_auth_capabilities
@@ -37,6 +38,8 @@ def serialize_bootstrap(island: Island) -> dict:
         for h in Holiday.objects.all().order_by('date')
     ]
 
+    release = get_or_create_app_release_config(island)
+
     return {
         'island': {
             'key': island.key,
@@ -60,6 +63,11 @@ def serialize_bootstrap(island: Island) -> dict:
         'version': flags.get('version', '6.0.0'),
         'mapsEnabled': bool(flags.get('maps', False)),
         'consentPolicyVersion': flags.get('consentPolicyVersion', CONSENT_POLICY_VERSION),
+        'inAppReviewEnabled': bool(release.in_app_review_enabled),
+        'storeUrls': {
+            'ios': release.ios_store_url,
+            'android': release.android_store_url,
+        },
         'socialAuth': social_auth_capabilities(),
         'holidays': holidays,
         'infos': _serialize_active_infos(),

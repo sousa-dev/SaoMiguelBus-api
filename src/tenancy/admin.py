@@ -108,4 +108,10 @@ class AppReleaseConfigAdmin(admin.ModelAdmin):
                 ),
             },
         ),
+        (
+            'In-app review',
+            {
+                'fields': ('in_app_review_enabled',),
+            },
+        ),
     )

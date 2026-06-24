@@ -2,8 +2,9 @@
 
 from django.test import TestCase
 
-from tenancy.bootstrap import enabled_modules
+from tenancy.bootstrap import enabled_modules, serialize_bootstrap
 from tenancy.services import get_or_create_default_island
+from tenancy.services_release import get_or_create_app_release_config
 
 
 class BootstrapModulesTestCase(TestCase):
@@ -102,3 +103,25 @@ class BootstrapModulesTestCase(TestCase):
         island.save(update_fields=['feature_flags'])
         modules = enabled_modules(island)
         self.assertNotIn('weather', modules)
+
+
+class BootstrapInAppReviewTestCase(TestCase):
+    def test_bootstrap_in_app_review_disabled_by_default(self):
+        island = get_or_create_default_island()
+        payload = serialize_bootstrap(island)
+        self.assertFalse(payload['inAppReviewEnabled'])
+        self.assertIn('ios', payload['storeUrls'])
+        self.assertIn('android', payload['storeUrls'])
+
+    def test_bootstrap_in_app_review_enabled_when_admin_sets_flag(self):
+        island = get_or_create_default_island()
+        config = get_or_create_app_release_config(island)
+        config.in_app_review_enabled = True
+        config.save(update_fields=['in_app_review_enabled'])
+        payload = serialize_bootstrap(island)
+        self.assertTrue(payload['inAppReviewEnabled'])
+
+    def test_get_or_create_app_release_config_seeds_in_app_review_disabled(self):
+        island = get_or_create_default_island()
+        config = get_or_create_app_release_config(island)
+        self.assertFalse(config.in_app_review_enabled)

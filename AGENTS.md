@@ -20,6 +20,14 @@ Remote nudge / force-update for native builds. Compares the client semver to per
 - **Live values:** edit `ios_current_version`, `android_current_version`, update modes, and store URLs in admin — takes effect immediately (no redeploy).
 - **Env bootstrap:** `APP_RELEASE_*`, `APP_UPDATE_*_MODE`, `APP_STORE_*_URL` seed new rows via `get_or_create` and the `0014_appreleaseconfig` migration (see `src/src/.env.example`). Changing env after a row exists does not override admin values.
 
+## In-app store review (`tenancy` — shipped)
+
+Remote kill switch for native store rating prompts, stored on **`AppReleaseConfig`** alongside update/store settings.
+
+- `GET /api/v3/bootstrap` includes `inAppReviewEnabled` (bool, default `false`) and `storeUrls: { ios, android }` from the island's release config row.
+- **Live toggle:** Django admin → **App release configs** → **In-app review** → `in_app_review_enabled`. Takes effect on next bootstrap fetch (client cache ~5 min).
+- Migration: `0015_appreleaseconfig_in_app_review_enabled.py`. New rows default to disabled.
+
 ---
 
 ## New backend (djast / boilerplate)
