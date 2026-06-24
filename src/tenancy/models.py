@@ -112,6 +112,45 @@ class LegacyImportJob(models.Model):
         return uuid.uuid4().hex[:16]
 
 
+class AppReleaseConfig(models.Model):
+    """Per-island native app store release settings (editable in admin)."""
+
+    UPDATE_MODE_OPTIONAL = 'optional'
+    UPDATE_MODE_REQUIRED = 'required'
+    UPDATE_MODE_CHOICES = [
+        (UPDATE_MODE_OPTIONAL, 'Optional'),
+        (UPDATE_MODE_REQUIRED, 'Required'),
+    ]
+
+    island = models.OneToOneField(
+        Island,
+        on_delete=models.CASCADE,
+        related_name='app_release',
+    )
+    ios_current_version = models.CharField(max_length=32)
+    android_current_version = models.CharField(max_length=32)
+    ios_update_mode = models.CharField(
+        max_length=16,
+        choices=UPDATE_MODE_CHOICES,
+        default=UPDATE_MODE_OPTIONAL,
+    )
+    android_update_mode = models.CharField(
+        max_length=16,
+        choices=UPDATE_MODE_CHOICES,
+        default=UPDATE_MODE_OPTIONAL,
+    )
+    ios_store_url = models.URLField(max_length=500)
+    android_store_url = models.URLField(max_length=500)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name = 'App release config'
+        verbose_name_plural = 'App release configs'
+
+    def __str__(self) -> str:
+        return f'{self.island.key} app release'
+
+
 class TenantScopedModel(models.Model):
     """Abstract base: every domain row belongs to an island."""
 

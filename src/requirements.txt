@@ -11,6 +11,7 @@ markdown2==2.5.0
 
 ## For env variables
 python-decouple==3.8
+packaging==24.2
 
 # For OAuth2
 PyJWT==2.8.0

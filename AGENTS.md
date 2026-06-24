@@ -12,6 +12,16 @@ São Miguel Bus API — branch **`revamp`**.
 
 ---
 
+## Mobile app update check (`tenancy` — shipped)
+
+Remote nudge / force-update for native builds. Compares the client semver to per-platform release settings stored in **`AppReleaseConfig`** (one row per island, editable in Django admin under **App release configs**).
+
+- `GET /api/v3/app/update-check?platform=ios|android&version=<semver>` — tenant-scoped (`X-Island`). Returns `updateRequired`, `currentVersion`, `clientVersion`; when behind also `updateMode` (`optional` \| `required`) and `storeUrl`.
+- **Live values:** edit `ios_current_version`, `android_current_version`, update modes, and store URLs in admin — takes effect immediately (no redeploy).
+- **Env bootstrap:** `APP_RELEASE_*`, `APP_UPDATE_*_MODE`, `APP_STORE_*_URL` seed new rows via `get_or_create` and the `0014_appreleaseconfig` migration (see `src/src/.env.example`). Changing env after a row exists does not override admin values.
+
+---
+
 ## New backend (djast / boilerplate)
 
 After promoting `boilerplate/` to root, all commands run from **`src/`**.

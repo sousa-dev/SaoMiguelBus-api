@@ -1,7 +1,7 @@
 from django.contrib import admin, messages
 from django.utils.html import format_html
 
-from tenancy.models import Island, LegacyImportJob
+from tenancy.models import AppReleaseConfig, Island, LegacyImportJob
 from tenancy.legacy_import_jobs import enqueue_import_job
 
 
@@ -70,3 +70,42 @@ class LegacyImportJobAdmin(admin.ModelAdmin):
         return format_html('<pre style="white-space:pre-wrap">{}</pre>', preview)
 
     error_preview.short_description = 'Error'
+
+
+@admin.register(AppReleaseConfig)
+class AppReleaseConfigAdmin(admin.ModelAdmin):
+    list_display = (
+        'island',
+        'ios_current_version',
+        'android_current_version',
+        'ios_update_mode',
+        'android_update_mode',
+        'updated_at',
+    )
+    list_filter = ('ios_update_mode', 'android_update_mode')
+    search_fields = ('island__key', 'island__name')
+    readonly_fields = ('updated_at',)
+    autocomplete_fields = ('island',)
+    fieldsets = (
+        (None, {'fields': ('island', 'updated_at')}),
+        (
+            'iOS',
+            {
+                'fields': (
+                    'ios_current_version',
+                    'ios_update_mode',
+                    'ios_store_url',
+                ),
+            },
+        ),
+        (
+            'Android',
+            {
+                'fields': (
+                    'android_current_version',
+                    'android_update_mode',
+                    'android_store_url',
+                ),
+            },
+        ),
+    )

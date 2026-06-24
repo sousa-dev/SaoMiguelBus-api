@@ -9,7 +9,7 @@ from drf_spectacular.views import (
     SpectacularSwaggerView,
 )
 
-from tenancy.api_v3 import bootstrap_view
+from tenancy.api_v3 import app_update_check_view, bootstrap_view
 
 urlpatterns = [
     path('dashboard/admin/', admin.site.urls),
@@ -21,6 +21,7 @@ urlpatterns = [
     path('api/v1/ops/', include('tenancy.urls')),
     path('api/v3/agent-docs/', include('agent_docs.urls_v3')),
     path('api/v3/bootstrap', bootstrap_view),
+    path('api/v3/app/update-check', app_update_check_view),
     path('api/v3/auth/', include('user_management.urls_v3')),
     path('api/v3/billing/', include('billing.urls_v3')),
     path('api/v3/consent/', include('consent.urls')),

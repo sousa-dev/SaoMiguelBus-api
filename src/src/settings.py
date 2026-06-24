@@ -489,6 +489,28 @@ APPLE_PRIVATE_KEY = config('APPLE_PRIVATE_KEY', default='').replace('\\n', '\n')
 # RevenueCat webhook shared secret (future IAP reconcile seam)
 REVENUECAT_WEBHOOK_SECRET = config('REVENUECAT_WEBHOOK_SECRET', default='')
 
+# Mobile app store release control (GET /api/v3/app/update-check)
+# Bootstrap defaults for AppReleaseConfig — live values are edited in Django admin.
+APP_RELEASE_IOS_VERSION = config('APP_RELEASE_IOS_VERSION', default='5.1.6')
+APP_RELEASE_ANDROID_VERSION = config('APP_RELEASE_ANDROID_VERSION', default='5.1.6')
+APP_STORE_IOS_URL = config(
+    'APP_STORE_IOS_URL',
+    default='https://apps.apple.com/pt/app/s%C3%A3o-miguel-bus/id6777066837',
+)
+APP_STORE_ANDROID_URL = config(
+    'APP_STORE_ANDROID_URL',
+    default='https://play.google.com/store/apps/details?id=com.hsousa_apps.Autocarros',
+)
+
+
+def _app_update_mode(name: str, *, default: str = 'optional') -> str:
+    value = config(name, default=default).strip().lower()
+    return value if value in ('optional', 'required') else default
+
+
+APP_UPDATE_IOS_MODE = _app_update_mode('APP_UPDATE_IOS_MODE')
+APP_UPDATE_ANDROID_MODE = _app_update_mode('APP_UPDATE_ANDROID_MODE')
+
 
 ### Celery Configuration ###
 _default_redis = f'redis://{REDIS_HOST}:{REDIS_PORT}'
