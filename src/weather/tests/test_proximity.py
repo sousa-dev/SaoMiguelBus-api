@@ -98,6 +98,44 @@ class ParishProximityTestCase(TestCase):
         self.assertEqual(first, second)
         self.assertEqual(ParishProximity.objects.count(), 1)
 
+    def test_resolve_parish_updates_stale_mapping(self):
+        lat = 37.7758512621779
+        lon = -25.70775245961612
+        ajuda = Parish.objects.create(
+            island=self.island,
+            name='Ajuda da Bretanha',
+            slug='test-proximity-ajuda',
+            concelho='Ponta Delgada',
+            latitude=37.74,
+            longitude=-25.67,
+            is_active=True,
+        )
+        arrifes = Parish.objects.create(
+            island=self.island,
+            name='Arrifes',
+            slug='test-proximity-arrifes',
+            concelho='Ponta Delgada',
+            latitude=37.7675,
+            longitude=-25.6975,
+            is_active=True,
+        )
+        ParishProximity.objects.create(
+            island=self.island,
+            source_module='transit_stop',
+            source_ref='quartel',
+            parish=ajuda,
+            distance_km=5.0,
+            latitude=lat,
+            longitude=lon,
+        )
+
+        parish = resolve_parish(self.island, 'transit_stop', 'quartel', lat, lon)
+
+        self.assertEqual(parish, arrifes)
+        row = ParishProximity.objects.get(source_ref='quartel')
+        self.assertEqual(row.parish, arrifes)
+        self.assertLess(row.distance_km, 2.0)
+
 
 class ParishSnapshotTestCase(TestCase):
     def setUp(self):

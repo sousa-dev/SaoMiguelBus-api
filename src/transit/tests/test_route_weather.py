@@ -126,3 +126,54 @@ class RouteWeatherServiceTestCase(TestCase):
 
         self.assertIsNone(payload['origin'])
         self.assertIsNotNone(payload['destination'])
+
+    @override_settings(CACHES=LOC_MEM_CACHE)
+    @patch(
+        'weather.services.fetch_forecast',
+        side_effect=lambda coords: [SAMPLE_RAW] * len(coords),
+    )
+    def test_get_route_weather_quartel_maps_to_arrifes_not_ajuda(self, _mock_forecast):
+        from transit.models import Stop
+
+        Stop.objects.get_or_create(
+            island=self.island,
+            cleaned_name='quartel',
+            defaults={
+                'name': 'Quartel',
+                'latitude': 37.7758512621779,
+                'longitude': -25.70775245961612,
+            },
+        )
+        ajuda, _ = Parish.objects.update_or_create(
+            island=self.island,
+            slug='ajuda-da-bretanha-ponta-delgada',
+            defaults={
+                'name': 'Ajuda da Bretanha',
+                'concelho': 'Ponta Delgada',
+                'latitude': 37.89874231024076,
+                'longitude': -25.75499373056614,
+                'is_active': True,
+            },
+        )
+        arrifes, _ = Parish.objects.update_or_create(
+            island=self.island,
+            slug='arrifes-ponta-delgada',
+            defaults={
+                'name': 'Arrifes',
+                'concelho': 'Ponta Delgada',
+                'latitude': 37.7675,
+                'longitude': -25.6975,
+                'is_active': True,
+            },
+        )
+
+        payload = get_route_weather(
+            self.island,
+            origin='Quartel',
+            destination='Ribeira Grande',
+        )
+
+        self.assertIsNotNone(payload['origin'])
+        assert payload['origin'] is not None
+        self.assertEqual(payload['origin']['slug'], arrifes.slug)
+        self.assertNotEqual(payload['origin']['slug'], ajuda.slug)

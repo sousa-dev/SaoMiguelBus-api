@@ -156,15 +156,16 @@ def nearest_parish(island: Island, lat: float, lon: float) -> tuple[Parish | Non
         return None, 0.0
 
     best: Parish | None = None
-    best_distance = float('inf')
+    best_key: tuple[float, str] = (float('inf'), '')
     for parish in parishes:
         distance = haversine_km(lat, lon, parish.latitude, parish.longitude)
-        if distance < best_distance:
+        key = (distance, parish.slug)
+        if key < best_key:
             best = parish
-            best_distance = distance
+            best_key = key
     if best is None:
         return None, 0.0
-    return best, best_distance
+    return best, best_key[0]
 
 
 def resolve_parish(
@@ -184,12 +185,26 @@ def resolve_parish(
         source_module=source_module,
         source_ref=source_ref,
     ).select_related('parish').first()
-    if existing is not None:
-        return existing.parish
 
     parish, distance_km = nearest_parish(island, lat, lon)
     if parish is None:
         return None
+
+    if existing is not None:
+        if (
+            existing.parish_id != parish.pk
+            or abs(existing.distance_km - distance_km) > 0.001
+            or abs(existing.latitude - lat) > 1e-6
+            or abs(existing.longitude - lon) > 1e-6
+        ):
+            existing.parish = parish
+            existing.distance_km = distance_km
+            existing.latitude = lat
+            existing.longitude = lon
+            existing.save(
+                update_fields=['parish', 'distance_km', 'latitude', 'longitude'],
+            )
+        return parish
 
     ParishProximity.objects.create(
         island=island,

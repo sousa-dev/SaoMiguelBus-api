@@ -16,7 +16,14 @@ def _resolve_stop(island: Island, name: str) -> Stop | None:
     cleaned = clean_string(name)
     if not cleaned:
         return None
-    return Stop.objects.filter(island=island, cleaned_name__icontains=cleaned).first()
+    exact = Stop.objects.filter(island=island, cleaned_name=cleaned).first()
+    if exact is not None:
+        return exact
+    return (
+        Stop.objects.filter(island=island, cleaned_name__icontains=cleaned)
+        .order_by('cleaned_name')
+        .first()
+    )
 
 
 def _weather_cell_for_stop(
