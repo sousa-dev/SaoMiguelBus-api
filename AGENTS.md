@@ -157,6 +157,7 @@ Read-side, **AUTH_KEY-protected** endpoints (via `X-Auth-Key` header or `?key=`)
 
 - Params: `start`, `end` (`YYYY-MM-DD`), `interval` (`hour\|day\|month`, auto by range), `page`, `page_size`, plus per-source filters (`module`, `event_type`, `platform`, `locale` / `request`, `language`).
 - Logic: `analytics/services_reporting.py`; views: `analytics/api_reporting.py`.
+- **Ingest validation (v1):** `POST /api/v3/analytics/events` runs `analytics/event_registry/` for `module=minibus` only — unknown keys stripped, invalid rows increment `dropped`. Schema: `analytics/event_registry/minibus.py`. Other modules pass through until registered. Client live helpers: `../SaoMiguelBus/features/minibus/lib/live-analytics.ts` (+ pure prop builders in `live-analytics-props.ts`; SDD `06-analytics-tracking.md` §2).
 - `CORS_ALLOW_HEADERS` allows `x-auth-key` / `x-api-key` so the static dashboard can call cross-origin.
 - **Dashboard:** `docs/` — zero-build umami-style HTML/CSS/JS for GitHub Pages (Settings → Pages → `/docs`). Tabs for Hub (v3) / Legacy, date-range presets, time-series chart, breakdowns, paginated table. Connection config (API base, AUTH key, island) lives in browser `localStorage`. See `docs/README.md`.
 

@@ -2,15 +2,19 @@
 
 from __future__ import annotations
 
+import logging
 from datetime import datetime
 from typing import Any
 
 from django.utils import timezone
 from django.utils.dateparse import parse_datetime
 
+from analytics.event_registry import validate_event
 from analytics.models import AnalyticsEvent
 from consent.services import get_latest_consent, normalize_purposes
 from tenancy.models import Island
+
+logger = logging.getLogger(__name__)
 
 
 def ingest_events(
@@ -48,11 +52,21 @@ def ingest_events(
         if not isinstance(properties, dict):
             properties = {}
 
+        cleaned_properties, drop_reason = validate_event(module, event_type, properties)
+        if drop_reason:
+            logger.debug(
+                'analytics event dropped module=%s event_type=%s reason=%s',
+                module,
+                event_type,
+                drop_reason,
+            )
+            continue
+
         AnalyticsEvent.objects.create(
             island=island,
             module=module,
             event_type=event_type,
-            properties=properties,
+            properties=cleaned_properties or {},
             session_hash=session_hash if purposes.get('analytics') else '',
             consent_state=consent_snapshot,
             platform=platform or 'web',
