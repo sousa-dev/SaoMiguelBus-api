@@ -3,13 +3,14 @@
 from __future__ import annotations
 
 import logging
-from datetime import date
+from datetime import date, datetime
 from typing import Any
 
 from django.core.cache import cache
 
+from shared.geo import haversine_km
 from tenancy.models import Island
-from weather.models import Parish
+from weather.models import Parish, ParishProximity
 from weather.open_meteo_client import Coord, OpenMeteoError, fetch_forecast, fetch_hourly
 
 logger = logging.getLogger(__name__)
@@ -144,6 +145,126 @@ def list_parish_weather(island: Island) -> list[dict[str, Any]]:
 
     results.sort(key=lambda row: (row.get('concelho', ''), row.get('name', '')))
     return results
+
+
+def nearest_parish(island: Island, lat: float, lon: float) -> tuple[Parish | None, float]:
+    """Return the closest active parish and its distance in km."""
+    parishes = list(
+        Parish.objects.filter(island=island, is_active=True).order_by('concelho', 'name'),
+    )
+    if not parishes:
+        return None, 0.0
+
+    best: Parish | None = None
+    best_distance = float('inf')
+    for parish in parishes:
+        distance = haversine_km(lat, lon, parish.latitude, parish.longitude)
+        if distance < best_distance:
+            best = parish
+            best_distance = distance
+    if best is None:
+        return None, 0.0
+    return best, best_distance
+
+
+def resolve_parish(
+    island: Island,
+    source_module: str,
+    source_ref: str,
+    lat: float,
+    lon: float,
+) -> Parish | None:
+    """Resolve a coordinate source to its nearest parish, persisting the mapping lazily.
+
+    Other modules can reuse this by passing a distinct ``source_module`` string and a stable
+    ``source_ref`` for their entity (for example ``transit_stop`` + stop id).
+    """
+    existing = ParishProximity.objects.filter(
+        island=island,
+        source_module=source_module,
+        source_ref=source_ref,
+    ).select_related('parish').first()
+    if existing is not None:
+        return existing.parish
+
+    parish, distance_km = nearest_parish(island, lat, lon)
+    if parish is None:
+        return None
+
+    ParishProximity.objects.create(
+        island=island,
+        source_module=source_module,
+        source_ref=source_ref,
+        parish=parish,
+        distance_km=distance_km,
+        latitude=lat,
+        longitude=lon,
+    )
+    return parish
+
+
+def parish_snapshot(
+    parish: Parish,
+    at: datetime | None = None,
+    *,
+    distance_km: float | None = None,
+) -> dict[str, Any] | None:
+    """Return a compact weather cell for inline module UIs (current or forecast-at-hour)."""
+    if at is None:
+        parish_weather = get_parish_weather(parish)
+        current = parish_weather.get('current') or {}
+        cell: dict[str, Any] = {
+            'slug': parish.slug,
+            'name': parish.name,
+            'concelho': parish.concelho,
+            'at': None,
+            'source': 'current',
+            'temperature': current.get('temperature'),
+            'weatherCode': current.get('weatherCode'),
+            'windSpeed': current.get('windSpeed'),
+            'humidity': current.get('humidity'),
+            'precipitation': current.get('precipitation'),
+        }
+        if distance_km is not None:
+            cell['distanceKm'] = distance_km
+        return cell
+
+    date_str = at.date().isoformat()
+    parish_weather = get_parish_weather(parish)
+    if date_str not in _allowed_forecast_dates(parish_weather):
+        return None
+
+    hourly_payload = get_parish_hourly(parish, date_str)
+    target_hour = at.strftime('%H:00')
+    slot = next(
+        (
+            row
+            for row in hourly_payload.get('hours') or []
+            if str(row.get('time', '')).endswith(target_hour)
+        ),
+        None,
+    )
+    if slot is None:
+        return None
+
+    cell = {
+        'slug': parish.slug,
+        'name': parish.name,
+        'concelho': parish.concelho,
+        'at': at.replace(second=0, microsecond=0).strftime('%Y-%m-%dT%H:%M'),
+        'source': 'forecast',
+        'temperature': slot.get('temperature'),
+        'weatherCode': slot.get('weatherCode'),
+        'windSpeed': slot.get('windSpeed'),
+        'humidity': slot.get('humidity'),
+        'precipitation': slot.get('precipitation'),
+    }
+    precip_prob = slot.get('precipitationProbability')
+    if precip_prob is not None:
+        cell['precipitationProbability'] = precip_prob
+    if distance_km is not None:
+        cell['distanceKm'] = distance_km
+    return cell
 
 
 def _allowed_forecast_dates(parish_weather: dict[str, Any]) -> set[str]:

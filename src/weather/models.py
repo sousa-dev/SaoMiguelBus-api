@@ -25,3 +25,23 @@ class Parish(TenantScopedModel):
 
     def __str__(self) -> str:
         return f'{self.name} ({self.concelho})'
+
+
+class ParishProximity(TenantScopedModel):
+    """Lazy mapping from a module-specific coordinate source to the nearest parish."""
+
+    source_module = models.CharField(max_length=64, db_index=True)
+    source_ref = models.CharField(max_length=128, db_index=True)
+    parish = models.ForeignKey(Parish, on_delete=models.CASCADE, related_name='proximity_mappings')
+    distance_km = models.FloatField()
+    latitude = models.FloatField()
+    longitude = models.FloatField()
+
+    class Meta:
+        unique_together = [('island', 'source_module', 'source_ref')]
+        indexes = [
+            models.Index(fields=['island', 'source_module', 'source_ref']),
+        ]
+
+    def __str__(self) -> str:
+        return f'{self.source_module}:{self.source_ref} → {self.parish.slug}'

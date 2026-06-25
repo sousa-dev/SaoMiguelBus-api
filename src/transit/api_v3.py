@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from django.utils.dateparse import parse_datetime
 from rest_framework import status
 from rest_framework.decorators import api_view, permission_classes, throttle_classes
 from rest_framework.permissions import AllowAny
@@ -12,6 +13,7 @@ from tenancy.services import for_island
 from transit.models import Trip
 from transit.services.directions_v3 import get_directions_v3
 from transit.services.offline_bundle import compute_bundle_version, get_offline_bundle_cached
+from transit.services.route_weather import get_route_weather
 from transit.services.v3 import (
     get_line_v3,
     get_trip_v3,
@@ -20,6 +22,7 @@ from transit.services.v3 import (
     serialize_trip_detail,
 )
 from transit.throttling import DirectionsSessionThrottle, OfflineBundleThrottle
+from weather.open_meteo_client import OpenMeteoError
 
 
 def _require_island(request: Request) -> Response | None:
@@ -116,6 +119,44 @@ def transit_search_view(request: Request) -> Response:
                 status=status.HTTP_400_BAD_REQUEST,
             )
         return Response({'results': results})
+
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def transit_route_weather_view(request: Request) -> Response:
+    err = _require_island(request)
+    if err:
+        return err
+
+    origin = request.GET.get('origin', '').strip()
+    destination = request.GET.get('destination', '').strip()
+    if not origin or not destination:
+        return Response(
+            {'error': {'code': 'invalid_params', 'message': 'origin and destination are required'}},
+            status=status.HTTP_400_BAD_REQUEST,
+        )
+
+    origin_at_raw = request.GET.get('origin_at', '').strip()
+    destination_at_raw = request.GET.get('destination_at', '').strip()
+    origin_at = parse_datetime(origin_at_raw) if origin_at_raw else None
+    destination_at = parse_datetime(destination_at_raw) if destination_at_raw else None
+
+    try:
+        with for_island(request.island):
+            payload = get_route_weather(
+                island=request.island,
+                origin=origin,
+                destination=destination,
+                origin_at=origin_at,
+                destination_at=destination_at,
+            )
+    except OpenMeteoError as exc:
+        return Response(
+            {'error': {'code': 'weather_unavailable', 'message': str(exc)}},
+            status=status.HTTP_502_BAD_GATEWAY,
+        )
+
+    return Response(payload)
 
 
 @api_view(['GET'])
