@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from django.db import models
+from django.utils import timezone
 
 from tenancy.models import TenantScopedModel
 
@@ -160,3 +161,29 @@ class Ad(TenantScopedModel):
 
     def __str__(self) -> str:
         return self.entity
+
+
+class AdEvent(TenantScopedModel):
+    """Time-stamped ad impression/click, complementing the lifetime counters on Ad.
+
+    Not routed through AnalyticsEvent: ads are served to everyone regardless of
+    analytics consent, and these rows carry no session or personal data.
+    """
+
+    KIND_IMPRESSION = 'impression'
+    KIND_CLICK = 'click'
+
+    ad = models.ForeignKey(Ad, on_delete=models.CASCADE, related_name='events')
+    kind = models.CharField(max_length=16, db_index=True)
+    platform = models.CharField(max_length=16, blank=True, default='')
+    occurred_at = models.DateTimeField(db_index=True, default=timezone.now)
+
+    class Meta:
+        db_table = 'transit_ad_event'
+        indexes = [
+            models.Index(fields=['island', 'kind', 'occurred_at']),
+            models.Index(fields=['ad', 'kind', 'occurred_at']),
+        ]
+
+    def __str__(self) -> str:
+        return f'{self.ad_id} {self.kind} @ {self.occurred_at:%Y-%m-%d %H:%M}'

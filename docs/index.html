@@ -19,7 +19,9 @@
     </div>
 
     <nav class="tabs" role="tablist" aria-label="Data source">
-      <button class="tab is-active" data-source="v3" role="tab">Hub (v3)</button>
+      <button class="tab is-active" data-source="v3" role="tab">Overview</button>
+      <button class="tab" data-source="transit" role="tab">Transit</button>
+      <button class="tab" data-source="ads" role="tab">Ads</button>
       <button class="tab" data-source="legacy" role="tab">Legacy</button>
     </nav>
 
@@ -46,6 +48,8 @@
       <button id="refreshBtn" class="btn btn--primary" type="button">Refresh</button>
     </section>
 
+    <div id="activeFilters" class="filter-chips" aria-label="Active filters" hidden></div>
+
     <div id="errorBanner" class="banner banner--error" hidden></div>
 
     <section class="cards" id="metricCards" aria-label="Key metrics"></section>
@@ -63,7 +67,20 @@
     <h2 class="section-title" id="insightsTitle" hidden>Search &amp; content insights</h2>
     <section class="grid" id="insightsGrid" aria-label="Property insights"></section>
 
-    <section class="card table-card">
+    <section class="card table-card" id="adsTableCard" hidden>
+      <header class="card__head">
+        <h2>Ad performance</h2>
+        <span class="muted" id="adsTableCaption"></span>
+      </header>
+      <div class="table-scroll">
+        <table id="adsTable">
+          <thead></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="card table-card" id="eventsCard">
       <header class="card__head">
         <h2>Raw events</h2>
         <div class="pager">

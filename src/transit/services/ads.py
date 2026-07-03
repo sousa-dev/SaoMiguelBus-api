@@ -8,7 +8,7 @@ from difflib import SequenceMatcher
 from django.db.models import Q
 from django.utils import timezone
 
-from transit.models import Ad, Stop, StopGroup
+from transit.models import Ad, AdEvent, Stop, StopGroup
 
 
 def _serialize_ad(ad: Ad) -> dict:
@@ -96,14 +96,28 @@ def get_ad_payload(*, advertise_on: str, platform: str, now_ts: float | None = N
         return None
     ad.seen += 1
     ad.save(update_fields=['seen'])
+    # island_id comes from the ad: click/impression recording may run outside
+    # a for_island() tenant context.
+    AdEvent.objects.create(
+        island_id=ad.island_id,
+        ad=ad,
+        kind=AdEvent.KIND_IMPRESSION,
+        platform=platform if platform != 'all' else '',
+    )
     return _serialize_ad(ad)
 
 
-def record_ad_click(ad_id: int) -> bool:
+def record_ad_click(ad_id: int, platform: str = '') -> bool:
     try:
         ad = Ad.objects.get(id=ad_id)
     except Ad.DoesNotExist:
         return False
     ad.clicked += 1
     ad.save(update_fields=['clicked'])
+    AdEvent.objects.create(
+        island_id=ad.island_id,
+        ad=ad,
+        kind=AdEvent.KIND_CLICK,
+        platform=platform if platform != 'all' else '',
+    )
     return True

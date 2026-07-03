@@ -10,8 +10,8 @@ from django.utils import timezone
 
 from tenancy.services import for_island
 from transit.admin import AdAdmin
-from transit.models import Ad
-from transit.services.ads import select_ad
+from transit.models import Ad, AdEvent
+from transit.services.ads import get_ad_payload, record_ad_click, select_ad
 from transit.tests.fixtures import ensure_transit_fixtures
 
 
@@ -77,6 +77,54 @@ class SelectAdPlatformTests(TestCase):
         with for_island(self.island):
             selected = select_ad(advertise_on='interstitial', platform='ios')
         self.assertIsNone(selected)
+
+
+class AdEventEmissionTests(TestCase):
+    def setUp(self):
+        self.island, _, _ = ensure_transit_fixtures()
+        self.now = timezone.now()
+        self.ad = Ad.objects.create(
+            island=self.island,
+            entity='event-test',
+            media='https://example.com/banner.png',
+            start=self.now - timedelta(days=1),
+            end=self.now + timedelta(days=1),
+            advertise_on='home',
+            platform='all',
+            status='active',
+        )
+
+    def test_get_ad_payload_records_impression(self):
+        with for_island(self.island):
+            payload = get_ad_payload(advertise_on='home', platform='ios')
+        self.assertIsNotNone(payload)
+        event = AdEvent.objects.unscoped().get()
+        self.assertEqual(event.kind, AdEvent.KIND_IMPRESSION)
+        self.assertEqual(event.ad_id, self.ad.id)
+        self.assertEqual(event.island_id, self.island.id)
+        self.assertEqual(event.platform, 'ios')
+        self.ad.refresh_from_db()
+        self.assertEqual(self.ad.seen, 1)
+
+    def test_impression_platform_all_stored_blank(self):
+        with for_island(self.island):
+            get_ad_payload(advertise_on='home', platform='all')
+        event = AdEvent.objects.unscoped().get()
+        self.assertEqual(event.platform, '')
+
+    def test_record_ad_click_records_click_event(self):
+        # Clicks arrive outside any island context (compat endpoint).
+        self.assertTrue(record_ad_click(self.ad.id, platform='android'))
+        event = AdEvent.objects.unscoped().get()
+        self.assertEqual(event.kind, AdEvent.KIND_CLICK)
+        self.assertEqual(event.island_id, self.island.id)
+        self.assertEqual(event.platform, 'android')
+        self.ad.refresh_from_db()
+        self.assertEqual(self.ad.clicked, 1)
+
+    def test_record_ad_click_missing_ad(self):
+        self.assertFalse(record_ad_click(999999))
+        self.assertEqual(AdEvent.objects.unscoped().count(), 0)
 
 
 class AdAdminBulkActionTests(TestCase):

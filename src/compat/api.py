@@ -280,7 +280,7 @@ def click_ad_v1(request: Request) -> Response:
     ad_id = request.GET.get('id', '')
     if not ad_id:
         return Response(status=404)
-    if not record_ad_click(int(ad_id)):
+    if not record_ad_click(int(ad_id), platform=request.GET.get('platform', '')):
         return Response(status=404)
     return Response({'status': 'ok'})
 
