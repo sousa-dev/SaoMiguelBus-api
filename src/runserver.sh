@@ -9,6 +9,9 @@ python manage.py collectstatic --no-input
 echo "[deploy] migrate"
 python manage.py migrate --no-input
 
+echo "[deploy] bootstrap_atlas"
+python manage.py bootstrap_atlas
+
 echo "[deploy] import_minibus (island=${ISLAND_KEY})"
 python manage.py import_minibus --island "${ISLAND_KEY}"
 

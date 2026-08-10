@@ -1,0 +1,1043 @@
+[
+  {
+    "osm_id": "node/25270672",
+    "lat": 39.6732365,
+    "lon": -31.1137067,
+    "tags": {
+      "capital": "7",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/e/e0/Ilha_do_Corvo_A%C3%A7ores%2C_Vila_Nova_do_Corvo_1%2C_Arquivo_de_Villa_Maria%2C_ilha_Terceira%2C_A%C3%A7ores.JPG",
+      "name": "Vila do Corvo",
+      "name:ca": "Corvo",
+      "name:ce": "Вила ду Корву",
+      "name:el": "Βίλα ντο Κόρβο",
+      "name:fr": "Corvo",
+      "name:ko": "빌라두코르부",
+      "name:lt": "Vila do Korvas",
+      "name:ms": "Corvo, Azores",
+      "name:nl": "Vila Nova do Corvo",
+      "name:ru": "Вила-ду-Корву",
+      "name:tr": "Corvo",
+      "name:tt": "Вила ду Корву",
+      "name:uk": "Віла-ду-Корву",
+      "name:zh": "科爾武鎮",
+      "place": "town",
+      "wikipedia": "pt:Vila do Corvo"
+    }
+  },
+  {
+    "osm_id": "node/1162456253",
+    "lat": 39.6844169,
+    "lon": -31.0982772,
+    "tags": {
+      "description": "Vértice geodésico de 2ª ordem; pilar prismático sobre terreno.",
+      "ele": "261",
+      "height": "1.09",
+      "man_made": "survey_point",
+      "name": "Corvo 1",
+      "natural": "peak",
+      "note": "Beware: elevation is top of the survey_point.",
+      "note:en": "Survey Points are meant to be used to rectify aerial imagery and not the other way around. Please do not move nor delete them. Their position corresponds to official reference ground measures.",
+      "note:pt": "Os Vértices Geodésicos servem para melhorar o alinhamento da fotografia aérea e não o inverso. Por favor não os mova nem apague. A sua posição corresponde a medidas de referência oficiais, obtidas in loco.",
+      "ref": "977",
+      "source": "DGT - Rede Geodésica Nacional",
+      "source:pkey": "977",
+      "survey:date": "2005",
+      "website": "http://dev.igeo.pt/produtos/geodesia/vg/rgn/ficha.asp?num=977",
+      "width": "0.40"
+    }
+  },
+  {
+    "osm_id": "node/1162456254",
+    "lat": 39.6761905,
+    "lon": -31.1109687,
+    "tags": {
+      "description": "Vértice geodésico de 2ª ordem; pilar prismático sobre prisma.",
+      "ele": "162",
+      "height": "1.5",
+      "man_made": "survey_point",
+      "name": "Corvo 2",
+      "natural": "peak",
+      "note": "Beware: elevation is top of the survey_point.",
+      "note:en": "Survey Points are meant to be used to rectify aerial imagery and not the other way around. Please do not move nor delete them. Their position corresponds to official reference ground measures.",
+      "note:pt": "Os Vértices Geodésicos servem para melhorar o alinhamento da fotografia aérea e não o inverso. Por favor não os mova nem apague. A sua posição corresponde a medidas de referência oficiais, obtidas in loco.",
+      "ref": "978",
+      "source": "DGT - Rede Geodésica Nacional",
+      "source:pkey": "978",
+      "survey:date": "2005",
+      "website": "http://dev.igeo.pt/produtos/geodesia/vg/rgn/ficha.asp?num=978",
+      "width": "0.42"
+    }
+  },
+  {
+    "osm_id": "node/1162456255",
+    "lat": 39.7107948,
+    "lon": -31.0988205,
+    "tags": {
+      "description": "Vértice geodésico de 2ª ordem; pilar prismático sobre prisma.",
+      "ele": "597",
+      "height": "1.45",
+      "man_made": "survey_point",
+      "name": "Espigãozinho",
+      "natural": "peak",
+      "note": "Beware: elevation is top of the survey_point.",
+      "note:en": "Survey Points are meant to be used to rectify aerial imagery and not the other way around. Please do not move nor delete them. Their position corresponds to official reference ground measures.",
+      "note:pt": "Os Vértices Geodésicos servem para melhorar o alinhamento da fotografia aérea e não o inverso. Por favor não os mova nem apague. A sua posição corresponde a medidas de referência oficiais, obtidas in loco.",
+      "ref": "979",
+      "source": "DGT - Rede Geodésica Nacional",
+      "source:pkey": "979",
+      "survey:date": "2005",
+      "website": "http://dev.igeo.pt/produtos/geodesia/vg/rgn/ficha.asp?num=979",
+      "width": "0.40"
+    }
+  },
+  {
+    "osm_id": "node/1162456257",
+    "lat": 39.6813433,
+    "lon": -31.1095321,
+    "tags": {
+      "description": "Vértice geodésico de 2ª ordem; bolembreano sobre cilindro.",
+      "ele": "372",
+      "height": "3.25",
+      "man_made": "survey_point",
+      "name": "Morro da Fonte",
+      "natural": "peak",
+      "note": "Beware: elevation is top of the survey_point.",
+      "note:en": "Survey Points are meant to be used to rectify aerial imagery and not the other way around. Please do not move nor delete them. Their position corresponds to official reference ground measures.",
+      "note:pt": "Os Vértices Geodésicos servem para melhorar o alinhamento da fotografia aérea e não o inverso. Por favor não os mova nem apague. A sua posição corresponde a medidas de referência oficiais, obtidas in loco.",
+      "ref": "980",
+      "source": "DGT - Rede Geodésica Nacional",
+      "source:pkey": "980",
+      "survey:date": "2005",
+      "website": "http://dev.igeo.pt/produtos/geodesia/vg/rgn/ficha.asp?num=980",
+      "width": "0.80"
+    }
+  },
+  {
+    "osm_id": "node/1162456259",
+    "lat": 39.690895,
+    "lon": -31.1126617,
+    "tags": {
+      "description": "Vértice geodésico de 2ª ordem; pilar prismático sobre prisma.",
+      "ele": "494",
+      "height": "1.28",
+      "man_made": "survey_point",
+      "name": "Coroinha",
+      "natural": "peak",
+      "note": "Beware: elevation is top of the survey_point.",
+      "note:en": "Survey Points are meant to be used to rectify aerial imagery and not the other way around. Please do not move nor delete them. Their position corresponds to official reference ground measures.",
+      "note:pt": "Os Vértices Geodésicos servem para melhorar o alinhamento da fotografia aérea e não o inverso. Por favor não os mova nem apague. A sua posição corresponde a medidas de referência oficiais, obtidas in loco.",
+      "ref": "981",
+      "source": "DGT - Rede Geodésica Nacional",
+      "source:pkey": "981",
+      "survey:date": "2005",
+      "website": "http://dev.igeo.pt/produtos/geodesia/vg/rgn/ficha.asp?num=981",
+      "width": "0.40"
+    }
+  },
+  {
+    "osm_id": "node/1162456262",
+    "lat": 39.705997,
+    "lon": -31.0858518,
+    "tags": {
+      "description": "Vértice geodésico de 2ª ordem; pilar prismático sobre construção.",
+      "ele": "282",
+      "height": "2.05",
+      "historic": "memorial",
+      "man_made": "survey_point",
+      "name": "Vigia (João Moura)",
+      "natural": "peak",
+      "note": "Beware: elevation is top of the survey_point.",
+      "note:en": "Survey Points are meant to be used to rectify aerial imagery and not the other way around. Please do not move nor delete them. Their position corresponds to official reference ground measures.",
+      "note:pt": "Os Vértices Geodésicos servem para melhorar o alinhamento da fotografia aérea e não o inverso. Por favor não os mova nem apague. A sua posição corresponde a medidas de referência oficiais, obtidas in loco.",
+      "ref": "982",
+      "source": "DGT - Rede Geodésica Nacional",
+      "source:pkey": "982",
+      "survey:date": "2005",
+      "website": "http://dev.igeo.pt/produtos/geodesia/vg/rgn/ficha.asp?num=982",
+      "width": "0.45"
+    }
+  },
+  {
+    "osm_id": "node/1577206377",
+    "lat": 39.6718807,
+    "lon": -31.109803,
+    "tags": {
+      "man_made": "lighthouse",
+      "seamark:light:character": "Fl",
+      "seamark:light:colour": "red",
+      "seamark:light:height": "8",
+      "seamark:light:period": "4",
+      "seamark:light:range": "3",
+      "seamark:light:sequence": "1+(3)",
+      "seamark:name": "Porto da Casa",
+      "seamark:type": "light_minor",
+      "source": "US NGA Pub. 113. 2011-10-20."
+    }
+  },
+  {
+    "osm_id": "node/1577206436",
+    "lat": 39.7173658,
+    "lon": -31.0890979,
+    "tags": {
+      "man_made": "lighthouse",
+      "name": "Farol do Canto de Carneira",
+      "note": "Beware: elevation is top of the survey_point.",
+      "seamark:light:character": "Fl",
+      "seamark:light:colour": "white",
+      "seamark:light:height": "238",
+      "seamark:light:period": "6",
+      "seamark:light:range": "9",
+      "seamark:light:reference": "D 2714",
+      "seamark:light:sequence": "0.5+(5.5)",
+      "seamark:name": "Canto de Carneira",
+      "seamark:type": "light_minor",
+      "source": "US NGA Pub. 113. 2011-10-20."
+    }
+  },
+  {
+    "osm_id": "node/3394869116",
+    "lat": 39.7123596,
+    "lon": -31.1133327,
+    "tags": {
+      "ele": "412",
+      "geological": "volcanic_vent",
+      "natural": "peak",
+      "source": "Bing"
+    }
+  },
+  {
+    "osm_id": "node/3394869120",
+    "lat": 39.7100656,
+    "lon": -31.1124637,
+    "tags": {
+      "ele": "414",
+      "geological": "volcanic_vent",
+      "natural": "peak",
+      "source": "Bing"
+    }
+  },
+  {
+    "osm_id": "node/3394869131",
+    "lat": 39.7112784,
+    "lon": -31.1129894,
+    "tags": {
+      "ele": "404",
+      "geological": "volcanic_vent",
+      "natural": "peak",
+      "source": "Bing"
+    }
+  },
+  {
+    "osm_id": "node/3559445879",
+    "lat": 39.7083544,
+    "lon": -31.0987431,
+    "tags": {
+      "ele": "540",
+      "name": "Miradouro Monte Gordo",
+      "natural": "peak",
+      "tourism": "viewpoint"
+    }
+  },
+  {
+    "osm_id": "node/3559457516",
+    "lat": 39.6994238,
+    "lon": -31.1152828,
+    "tags": {
+      "ele": "719",
+      "name": "Miradouro do Morro dos Homens",
+      "natural": "peak",
+      "tourism": "viewpoint"
+    }
+  },
+  {
+    "osm_id": "node/3559457518",
+    "lat": 39.7017585,
+    "lon": -31.1195485,
+    "tags": {
+      "ele": "697",
+      "name": "Estreitinho",
+      "natural": "peak",
+      "wikidata": "Q5731616",
+      "wikipedia": "en:Estreitinho"
+    }
+  },
+  {
+    "osm_id": "node/3559487843",
+    "lat": 39.7133636,
+    "lon": -31.1062247,
+    "tags": {
+      "ele": "424",
+      "name": "Montinho do Queijo",
+      "natural": "peak"
+    }
+  },
+  {
+    "osm_id": "node/3559505168",
+    "lat": 39.7117937,
+    "lon": -31.108748,
+    "tags": {
+      "ele": "431",
+      "natural": "peak"
+    }
+  },
+  {
+    "osm_id": "node/3609186822",
+    "lat": 39.7067802,
+    "lon": -31.1121256,
+    "tags": {
+      "amenity": "drinking_water",
+      "name": "Poço da velha"
+    }
+  },
+  {
+    "osm_id": "node/3615928975",
+    "lat": 39.6731263,
+    "lon": -31.1131269,
+    "tags": {
+      "amenity": "atm"
+    }
+  },
+  {
+    "osm_id": "node/3616499030",
+    "lat": 39.6980201,
+    "lon": -31.0872933,
+    "tags": {
+      "amenity": "drinking_water"
+    }
+  },
+  {
+    "osm_id": "node/3616499066",
+    "lat": 39.6831034,
+    "lon": -31.10395,
+    "tags": {
+      "amenity": "drinking_water"
+    }
+  },
+  {
+    "osm_id": "node/3616503311",
+    "lat": 39.682178,
+    "lon": -31.106032,
+    "tags": {
+      "amenity": "drinking_water",
+      "name": "Fonte dos Lagos"
+    }
+  },
+  {
+    "osm_id": "node/3616544253",
+    "lat": 39.683884,
+    "lon": -31.105997,
+    "tags": {
+      "historic": "memorial",
+      "name": "Cruzeiro Rego Água"
+    }
+  },
+  {
+    "osm_id": "node/3616544259",
+    "lat": 39.6846675,
+    "lon": -31.115797,
+    "tags": {
+      "name": "Miradouro Cara do Índio",
+      "tourism": "viewpoint"
+    }
+  },
+  {
+    "osm_id": "node/3616544577",
+    "lat": 39.6750278,
+    "lon": -31.1086008,
+    "tags": {
+      "name": "Miradouro Sítio do Portão",
+      "tourism": "viewpoint"
+    }
+  },
+  {
+    "osm_id": "node/3616544580",
+    "lat": 39.696175,
+    "lon": -31.098667,
+    "tags": {
+      "amenity": "drinking_water"
+    }
+  },
+  {
+    "osm_id": "node/3617401796",
+    "lat": 39.671306,
+    "lon": -31.1114447,
+    "tags": {
+      "amenity": "restaurant",
+      "cuisine": "regional",
+      "name": "Restaurante Traineira"
+    }
+  },
+  {
+    "osm_id": "node/3617401872",
+    "lat": 39.6726598,
+    "lon": -31.1151229,
+    "tags": {
+      "name": "Hotel Comodoro",
+      "tourism": "guest_house",
+      "website": "https://www.comodoroazores.com/"
+    }
+  },
+  {
+    "osm_id": "node/3617402063",
+    "lat": 39.6743795,
+    "lon": -31.1130486,
+    "tags": {
+      "name": "JMC Loja do Cabral",
+      "shop": "convenience"
+    }
+  },
+  {
+    "osm_id": "node/3617402232",
+    "lat": 39.6734092,
+    "lon": -31.1101233,
+    "tags": {
+      "name": "Miradouro Porto da Casa",
+      "tourism": "viewpoint"
+    }
+  },
+  {
+    "osm_id": "node/3617402334",
+    "lat": 39.6733886,
+    "lon": -31.1115766,
+    "tags": {
+      "historic": "monument",
+      "name": "Império Espírito Santo ou Casa do Espirito Santo"
+    }
+  },
+  {
+    "osm_id": "node/3617402373",
+    "lat": 39.6742483,
+    "lon": -31.1216738,
+    "tags": {
+      "name": "Miradouro Ponta do Topo",
+      "tourism": "viewpoint"
+    }
+  },
+  {
+    "osm_id": "node/3617402377",
+    "lat": 39.6733151,
+    "lon": -31.1112213,
+    "tags": {
+      "name": "Mini-Mercado",
+      "shop": "convenience"
+    }
+  },
+  {
+    "osm_id": "node/3777308557",
+    "lat": 39.6718804,
+    "lon": -31.1139111,
+    "tags": {
+      "name": "Loja da Mãe",
+      "opening_hours": "10:00-19:00",
+      "shop": "supermarket"
+    }
+  },
+  {
+    "osm_id": "node/3876930851",
+    "lat": 39.6707984,
+    "lon": -31.1117376,
+    "tags": {
+      "amenity": "fuel",
+      "brand": "Galp",
+      "brand:wikidata": "Q1492739",
+      "check_date": "2025-10-02",
+      "compressed_air": "yes",
+      "name": "Bomba de Gasolina"
+    }
+  },
+  {
+    "osm_id": "node/3877235415",
+    "lat": 39.6705271,
+    "lon": -31.113703,
+    "tags": {
+      "amenity": "parking",
+      "parking": "street_side"
+    }
+  },
+  {
+    "osm_id": "node/4400730394",
+    "lat": 39.6714163,
+    "lon": -31.110913,
+    "tags": {
+      "amenity": "toilets"
+    }
+  },
+  {
+    "osm_id": "node/5218853671",
+    "lat": 39.6741002,
+    "lon": -31.1105206,
+    "tags": {
+      "historic": "monument",
+      "name": "Lavadouro da Fonte"
+    }
+  },
+  {
+    "osm_id": "node/5218860353",
+    "lat": 39.6701756,
+    "lon": -31.1121175,
+    "tags": {
+      "man_made": "lighthouse",
+      "seamark:type": "light_major"
+    }
+  },
+  {
+    "osm_id": "node/5218860354",
+    "lat": 39.6699139,
+    "lon": -31.1146436,
+    "tags": {
+      "man_made": "lighthouse",
+      "seamark:type": "light_major"
+    }
+  },
+  {
+    "osm_id": "node/5218899505",
+    "lat": 39.6732465,
+    "lon": -31.1121787,
+    "tags": {
+      "amenity": "atm"
+    }
+  },
+  {
+    "osm_id": "node/7799525310",
+    "lat": 39.6747076,
+    "lon": -31.1141671,
+    "tags": {
+      "amenity": "cafe",
+      "name": "Snack-bar Irmãos Metralha"
+    }
+  },
+  {
+    "osm_id": "node/9117901458",
+    "lat": 39.6705056,
+    "lon": -31.1134243,
+    "tags": {
+      "addr:city": "Vila do Corvo",
+      "addr:postcode": "9980-032",
+      "addr:street": "Caminho dos Moinhos",
+      "amenity": "police",
+      "check_date": "2025-10-02",
+      "name": "Posto Policial da Ilha do Corvo",
+      "operator": "Polícia de Segurança Pública",
+      "operator:short": "PSP",
+      "operator:wikidata": "Q3460075",
+      "operator:wikipedia": "en:Polícia de Segurança Pública",
+      "wheelchair": "yes"
+    }
+  },
+  {
+    "osm_id": "node/11061864177",
+    "lat": 39.7189294,
+    "lon": -31.1131973,
+    "tags": {
+      "tourism": "viewpoint"
+    }
+  },
+  {
+    "osm_id": "node/11228733855",
+    "lat": 39.6728429,
+    "lon": -31.1136148,
+    "tags": {
+      "access": "yes",
+      "amenity": "charging_station",
+      "authentication:membership_card": "yes",
+      "authentication:none": "no",
+      "brand": "Galp electric",
+      "brand:wikidata": "Q135275372",
+      "capacity": "2",
+      "email": "veiculoeletrico@galp.com",
+      "fee": "yes",
+      "maxstay": "unlimited",
+      "motorcar": "yes",
+      "name": "CRV-00003",
+      "network": "Mobi.E",
+      "old_operator": "SEGMA;JH Ornelas",
+      "old_ref": "CRV-00001;CRV-00002",
+      "opening_hours": "24/7",
+      "operator": "Galp Power",
+      "operator:wikidata": "Q135275372",
+      "parking:fee": "no",
+      "payment:app": "yes",
+      "payment:cards": "no",
+      "payment:cash": "no",
+      "payment:membership_card": "yes",
+      "phone": "+351 800 249 249",
+      "ref": "CRV-00003",
+      "ref:EU:EVSE": "PT*GLP*ECRV*00003*01;PT*GLP*ECRV*00003*02",
+      "socket:type2": "2",
+      "socket:type2:current": "32",
+      "socket:type2:output": "22 kW",
+      "socket:type2:voltage": "400",
+      "website": "https://www.mobie.pt/"
+    }
+  },
+  {
+    "osm_id": "node/12165383102",
+    "lat": 39.6767179,
+    "lon": -31.1111435,
+    "tags": {
+      "direction": "S",
+      "informal": "yes",
+      "name": "Miradouro da Vila",
+      "tourism": "viewpoint"
+    }
+  },
+  {
+    "osm_id": "node/12165383107",
+    "lat": 39.6721399,
+    "lon": -31.1111771,
+    "tags": {
+      "name": "Miradouro da Canada da Rocha",
+      "tourism": "viewpoint"
+    }
+  },
+  {
+    "osm_id": "node/13808388594",
+    "lat": 39.6722311,
+    "lon": -31.1206724,
+    "tags": {
+      "amenity": "parking",
+      "capacity": "10"
+    }
+  },
+  {
+    "osm_id": "node/13808388595",
+    "lat": 39.6714982,
+    "lon": -31.1214186,
+    "tags": {
+      "amenity": "parking",
+      "capacity": "10"
+    }
+  },
+  {
+    "osm_id": "node/13808388596",
+    "lat": 39.6729206,
+    "lon": -31.1115831,
+    "tags": {
+      "amenity": "parking",
+      "capacity": "6"
+    }
+  },
+  {
+    "osm_id": "node/13808388597",
+    "lat": 39.6736817,
+    "lon": -31.1114712,
+    "tags": {
+      "amenity": "parking",
+      "capacity": "5"
+    }
+  },
+  {
+    "osm_id": "node/13808388598",
+    "lat": 39.6741298,
+    "lon": -31.111296,
+    "tags": {
+      "amenity": "parking",
+      "capacity": "8"
+    }
+  },
+  {
+    "osm_id": "node/13808388599",
+    "lat": 39.6747252,
+    "lon": -31.1137042,
+    "tags": {
+      "amenity": "parking",
+      "capacity": "6"
+    }
+  },
+  {
+    "osm_id": "node/13808392811",
+    "lat": 39.6721711,
+    "lon": -31.1115958,
+    "tags": {
+      "addr:street": "Rua da Matriz",
+      "internet_access": "yes",
+      "name": "Joe&Vera Vintage Place",
+      "rooms": "4",
+      "tourism": "guest_house"
+    }
+  },
+  {
+    "osm_id": "node/13923254980",
+    "lat": 39.674593,
+    "lon": -31.1121138,
+    "tags": {
+      "name": "Mural do Corvo",
+      "tourism": "artwork"
+    }
+  },
+  {
+    "osm_id": "node/13923254981",
+    "lat": 39.6736124,
+    "lon": -31.112905,
+    "tags": {
+      "artwork_type": "installation",
+      "name": "Cagarro by Bordalo II.",
+      "tourism": "artwork"
+    }
+  },
+  {
+    "osm_id": "node/13923315485",
+    "lat": 39.6733979,
+    "lon": -31.1116129,
+    "tags": {
+      "amenity": "toilets",
+      "unisex": "yes",
+      "wheelchair": "no"
+    }
+  },
+  {
+    "osm_id": "node/13923315486",
+    "lat": 39.6734312,
+    "lon": -31.1135129,
+    "tags": {
+      "access": "yes",
+      "amenity": "toilets",
+      "unisex": "yes",
+      "wheelchair": "yes"
+    }
+  },
+  {
+    "osm_id": "node/13923381844",
+    "lat": 39.6728528,
+    "lon": -31.1209765,
+    "tags": {
+      "artwork_type": "installation",
+      "name": "Mero by Bordalo II",
+      "tourism": "artwork"
+    }
+  },
+  {
+    "osm_id": "way/173773361",
+    "lat": 39.6720281,
+    "lon": -31.1116538,
+    "tags": {
+      "amenity": "place_of_worship",
+      "building": "church",
+      "denomination": "roman_catholic",
+      "name": "Igreja de Nossa Senhora dos Milagres",
+      "name:en": "Church of Our Lady of Miracles",
+      "name:pt": "Igreja de Nossa Senhora dos Milagres",
+      "religion": "christian",
+      "wikidata": "Q5116940",
+      "wikimedia_commons": "Category:Igreja da Nossa Senhora dos Milagres (Corvo)",
+      "wikipedia": "en:Church of Nossa Senhora dos Milagres (Corvo)"
+    }
+  },
+  {
+    "osm_id": "way/173773378",
+    "lat": 39.670525,
+    "lon": -31.1126399,
+    "tags": {
+      "amenity": "fuel",
+      "building": "yes",
+      "name": "Gás Butano"
+    }
+  },
+  {
+    "osm_id": "way/173773406",
+    "lat": 39.6731118,
+    "lon": -31.1131387,
+    "tags": {
+      "addr:city": "Vila do Corvo",
+      "addr:postcode": "9980-024",
+      "amenity": "bank",
+      "branch": "Corvo",
+      "branch:type": "retail",
+      "brand": "Caixa Geral de Depósitos",
+      "brand:website": "https://www.cgd.pt/",
+      "brand:wikidata": "Q1026044",
+      "brand:wikipedia": "pt:Caixa Geral de Depósitos",
+      "building": "yes",
+      "contact:facebook": "caixageraldedepositos",
+      "contact:instagram": "caixageraldedepositos",
+      "contact:linkedin": "https://www.linkedin.com/company/caixageraldedepositos/",
+      "contact:phone": "+351 217 900 790",
+      "contact:youtube": "http://www.youtube.com/user/mediacgd",
+      "name": "Caixa Geral de Depósitos",
+      "opening_hours": "Mo-Fr 08:30-12:30,13:30-15:00; Sa,Su,PH off",
+      "operator": "Caixa Geral de Depósitos",
+      "operator:wikidata": "Q1026044",
+      "operator:wikipedia": "pt:Caixa Geral de Depósitos",
+      "ref": "1650",
+      "short_name": "CGD",
+      "source:contact": "website",
+      "source:opening_hours": "website",
+      "website": "https://www.cgd.pt/Corporativo/Rede-CGD/Pages/CORVO.aspx"
+    }
+  },
+  {
+    "osm_id": "way/173773410",
+    "lat": 39.670417,
+    "lon": -31.1142768,
+    "tags": {
+      "amenity": "restaurant",
+      "landuse": "retail",
+      "name": "O Caldeirão"
+    }
+  },
+  {
+    "osm_id": "way/173773417",
+    "lat": 39.6721525,
+    "lon": -31.1145898,
+    "tags": {
+      "addr:city": "Vila do Corvo",
+      "addr:postcode": "9980-026",
+      "addr:street": "Rua da Cruz",
+      "amenity": "police",
+      "building": "yes",
+      "name": "GNR - Posto Territorial do Corvo",
+      "operator": "Guarda Nacional Republicana",
+      "operator:wikidata": "Q1280906",
+      "operator:wikipedia": "pt:Guarda Nacional Republicana",
+      "wheelchair": "limited"
+    }
+  },
+  {
+    "osm_id": "way/173773418",
+    "lat": 39.6732563,
+    "lon": -31.1129611,
+    "tags": {
+      "amenity": "post_office",
+      "building": "yes",
+      "name": "Correios",
+      "opening_hours": "Mo, We, Fr 9:00-12:30; Tu, Th 14:00-17:30"
+    }
+  },
+  {
+    "osm_id": "way/173773419",
+    "lat": 39.6729297,
+    "lon": -31.1128844,
+    "tags": {
+      "amenity": "pharmacy",
+      "building": "yes",
+      "name": "Posto da Farmácia da Santa Casa da Misericórdia",
+      "operator": "Farmácia"
+    }
+  },
+  {
+    "osm_id": "way/173773423",
+    "lat": 39.6737371,
+    "lon": -31.1158896,
+    "tags": {
+      "building": "yes",
+      "check_date": "2026-07-25",
+      "name": "Joe&Vera Place",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "osm_id": "way/296775627",
+    "lat": 39.6713282,
+    "lon": -31.1166906,
+    "tags": {
+      "aerodrome:type": "public",
+      "aeroway": "aerodrome",
+      "contact:email": "cvuowsp@sata.pt",
+      "contact:fax": "+351 292 596170",
+      "contact:phone": "+351 292590310",
+      "ele": "18",
+      "iata": "CVU",
+      "icao": "LPCR",
+      "international_flights": "no",
+      "name": "Aérodromo da Ilha do Corvo",
+      "name:en": "Corvo Airport",
+      "name:pt": "Aérodromo da Ilha do Corvo",
+      "operator": "SATA Gestão de Aeródromos SA",
+      "start_date": "1983-09-28",
+      "wikidata": "Q1431141",
+      "wikipedia": "pt:Aeródromo do Corvo"
+    }
+  },
+  {
+    "osm_id": "way/319142969",
+    "lat": 39.6724085,
+    "lon": -31.1215708,
+    "tags": {
+      "name": "Praia da Areia",
+      "natural": "beach",
+      "surface": "sand"
+    }
+  },
+  {
+    "osm_id": "way/319142970",
+    "lat": 39.6731596,
+    "lon": -31.1217408,
+    "tags": {
+      "natural": "beach"
+    }
+  },
+  {
+    "osm_id": "way/355981589",
+    "lat": 39.6724295,
+    "lon": -31.1207687,
+    "tags": {
+      "amenity": "toilets",
+      "building": "yes",
+      "changing_table": "no",
+      "fee": "no",
+      "name": "Balneários",
+      "wheelchair": "no"
+    }
+  },
+  {
+    "osm_id": "way/356092145",
+    "lat": 39.6726125,
+    "lon": -31.1207079,
+    "tags": {
+      "fee": "no",
+      "internet_access": "no",
+      "name": "Parque de Campismo do Corvo",
+      "tourism": "camp_site",
+      "wheelchair": "no"
+    }
+  },
+  {
+    "osm_id": "way/356092148",
+    "lat": 39.6713683,
+    "lon": -31.1116921,
+    "tags": {
+      "amenity": "police",
+      "building": "yes",
+      "name": "Polícia Maritima"
+    }
+  },
+  {
+    "osm_id": "way/384338297",
+    "lat": 39.6724724,
+    "lon": -31.1121874,
+    "tags": {
+      "addr:city": "Vila do Corvo",
+      "addr:postcode": "9980",
+      "addr:street": "Avenida Nova",
+      "amenity": "cafe",
+      "building": "yes",
+      "cuisine": "burger",
+      "internet_access": "wlan",
+      "name": "BBC - Bar Bombeiros do Corvo"
+    }
+  },
+  {
+    "osm_id": "way/390803369",
+    "lat": 39.6731879,
+    "lon": -31.1122791,
+    "tags": {
+      "addr:city": "Vila do Corvo",
+      "addr:postcode": "9980-010",
+      "addr:street": "Largo da Cancela",
+      "amenity": "bank",
+      "branch": "Corvo",
+      "brand": "Santander",
+      "brand:website": "https://www.santander.pt/",
+      "brand:wikidata": "Q4854116",
+      "brand:wikipedia": "pt:Banco Santander Portugal",
+      "building": "yes",
+      "cash_out": "yes",
+      "contact:email": "corvo@santander.pt",
+      "contact:facebook": "santanderpt",
+      "contact:instagram": "santanderpt",
+      "contact:linkedin": "https://www.linkedin.com/company/santanderpt/",
+      "contact:phone": "+351 292 241 370",
+      "contact:twitter": "santanderpt",
+      "contact:youtube": "@santanderpt",
+      "internet_access": "wlan",
+      "language:en": "yes",
+      "language:es": "yes",
+      "language:pt": "yes",
+      "name": "Santander",
+      "opening_hours": "Mo-Fr 08:30-13:00; Sa-Su off; Jan 01,Apr 25,May 25,Jun 01,Jun 26,Aug 10,Aug 24,Oct 15,Nov 05,Dec 01,Dec 08,Dec 25 off",
+      "operator": "Banco Santander (Portugal)",
+      "operator:wikidata": "Q4854116",
+      "operator:wikipedia": "pt:Banco Santander Portugal",
+      "ref": "8735",
+      "source:contact": "website",
+      "source:opening_hours": "website",
+      "website": "https://www.santander.pt/"
+    }
+  },
+  {
+    "osm_id": "way/402775571",
+    "lat": 39.6728416,
+    "lon": -31.1115422,
+    "tags": {
+      "addr:city": "Vila do Corvo",
+      "addr:postcode": "9980",
+      "addr:street": "Rua das Pedras",
+      "building": "yes",
+      "name": "Pedras & Pedras",
+      "opening_hours": "Mo-Fr 10:00-18:30; Sa 10:00-18:00",
+      "shop": "supermarket"
+    }
+  },
+  {
+    "osm_id": "way/539313987",
+    "lat": 39.6728029,
+    "lon": -31.1153703,
+    "tags": {
+      "building": "yes",
+      "name": "Casa Dias",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "osm_id": "way/962320627",
+    "lat": 39.6725596,
+    "lon": -31.1126901,
+    "tags": {
+      "addr:city": "Vila do Corvo",
+      "addr:country": "PT",
+      "addr:postcode": "9980-039",
+      "addr:street": "Avenida Nova",
+      "amenity": "clinic",
+      "email": "sres-usic@azores.gov.pt",
+      "fax": "+351 292596176",
+      "name": "Centro de Saúde do Corvo",
+      "operator": "USI Corvo",
+      "phone": "+351 292596153",
+      "related_law": "Decreto Regulamentar Regional n.º 20/2010/A de 19 de novembro",
+      "source:related_law": "https://dre.pt/application/conteudo/308713"
+    }
+  },
+  {
+    "osm_id": "way/1010370274",
+    "lat": 39.6703938,
+    "lon": -31.1139655,
+    "tags": {
+      "access": "yes",
+      "amenity": "parking",
+      "fee": "no",
+      "parking": "surface"
+    }
+  },
+  {
+    "osm_id": "way/1010371812",
+    "lat": 39.6747135,
+    "lon": -31.1146082,
+    "tags": {
+      "amenity": "parking"
+    }
+  },
+  {
+    "osm_id": "way/1011011837",
+    "lat": 39.6705456,
+    "lon": -31.1130773,
+    "tags": {
+      "amenity": "parking"
+    }
+  },
+  {
+    "osm_id": "way/1011868912",
+    "lat": 39.6731551,
+    "lon": -31.1126545,
+    "tags": {
+      "amenity": "parking"
+    }
+  },
+  {
+    "osm_id": "way/1527892079",
+    "lat": 39.6715499,
+    "lon": -31.1110581,
+    "tags": {
+      "tourism": "viewpoint"
+    }
+  }
+]

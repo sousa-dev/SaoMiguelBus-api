@@ -46,6 +46,7 @@ apps = [
     ('events', True),
     ('weather', True),
     ('minibus', True),
+    ('atlas', True),
 ]
 
 import os
@@ -111,6 +112,7 @@ REST_FRAMEWORK = {
         'marketplace_write': '20/min',
         'traffic_write': '30/min',
         'minibus_tracking': '60/min',
+        'atlas_sync': '60/min',
     },
 }
 

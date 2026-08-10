@@ -1,0 +1,4379 @@
+[
+  {
+    "osm_id": "node/25270680",
+    "lat": 38.6797531,
+    "lon": -28.2052961,
+    "tags": {
+      "capital": "7",
+      "ele": "27",
+      "name": "Velas",
+      "name:lt": "Velašas",
+      "place": "town",
+      "wikidata": "Q1010468",
+      "wikimedia_commons": "Category:Velas (Azores)",
+      "wikipedia": "pt:Velas"
+    }
+  },
+  {
+    "osm_id": "node/25270687",
+    "lat": 38.6055151,
+    "lon": -28.0187906,
+    "tags": {
+      "capital": "7",
+      "name": "Calheta",
+      "place": "town",
+      "wikidata": "Q1019047",
+      "wikimedia_commons": "Category:Calheta (Azores)",
+      "wikipedia": "pt:Calheta (Açores)"
+    }
+  },
+  {
+    "osm_id": "node/578233909",
+    "lat": 38.7254796,
+    "lon": -28.2265531,
+    "tags": {
+      "tourism": "viewpoint"
+    }
+  },
+  {
+    "osm_id": "node/614986400",
+    "lat": 38.518437,
+    "lon": -28.3062876,
+    "tags": {
+      "name": "Águas Cristalinas",
+      "tourism": "guest_house"
+    }
+  },
+  {
+    "osm_id": "node/615075717",
+    "lat": 38.6456387,
+    "lon": -28.1264794,
+    "tags": {
+      "capital": "8",
+      "name": "Urzelina (São Mateus)",
+      "name:ru": "Урзелина",
+      "place": "village",
+      "wikidata": "Q2652541",
+      "wikimedia_commons": "Category:Urzelina",
+      "wikipedia": "en:Urzelina"
+    }
+  },
+  {
+    "osm_id": "node/615075810",
+    "lat": 38.753644,
+    "lon": -28.31156,
+    "tags": {
+      "height": "27",
+      "man_made": "lighthouse",
+      "name": "Farol da Ponta dos Rosais",
+      "name:en": "Lighthouse of Ponta dos Rosais",
+      "seamark:light:character": "Fl",
+      "seamark:light:colour": "white",
+      "seamark:light:group": "2",
+      "seamark:light:height": "261",
+      "seamark:light:period": "10",
+      "seamark:light:range": "8",
+      "seamark:light:reference": "D 2683",
+      "seamark:light:sequence": "1+(2)+1+(6)",
+      "seamark:name": "Ponta Rosais",
+      "seamark:type": "light_minor",
+      "start_date": "1958",
+      "wikidata": "Q6546366",
+      "wikimedia_commons": "Category:Rosais Lighthouse",
+      "wikipedia": "en:Lighthouse of Ponta dos Rosais"
+    }
+  },
+  {
+    "osm_id": "node/615075848",
+    "lat": 38.6892531,
+    "lon": -28.2156471,
+    "tags": {
+      "name": "Quinta do Canavial",
+      "phone": "+351 295 412 981",
+      "tourism": "guest_house"
+    }
+  },
+  {
+    "osm_id": "node/615076016",
+    "lat": 38.6804684,
+    "lon": -28.1838986,
+    "tags": {
+      "capital": "8",
+      "name": "Santo Amaro",
+      "place": "village",
+      "wikidata": "Q2451546",
+      "wikimedia_commons": "Category:Santo Amaro (Velas)",
+      "wikipedia": "pt:Santo Amaro (Velas)"
+    }
+  },
+  {
+    "osm_id": "node/615076390",
+    "lat": 38.669459,
+    "lon": -28.0601859,
+    "tags": {
+      "capital": "8",
+      "name": "Norte Grande",
+      "place": "village"
+    }
+  },
+  {
+    "osm_id": "node/615076545",
+    "lat": 38.6471063,
+    "lon": -28.0015775,
+    "tags": {
+      "capital": "8",
+      "name": "Norte Pequeno",
+      "place": "village"
+    }
+  },
+  {
+    "osm_id": "node/615076547",
+    "lat": 38.6410683,
+    "lon": -27.9666248,
+    "tags": {
+      "name": "Fajã dos Cubres",
+      "place": "hamlet",
+      "wikidata": "Q1800460",
+      "wikimedia_commons": "Category:Lagoa da Fajã dos Cubres",
+      "wikipedia": "de:Lagoa da Fajã dos Cubres"
+    }
+  },
+  {
+    "osm_id": "node/615076553",
+    "lat": 38.5490808,
+    "lon": -27.8598606,
+    "tags": {
+      "name": "Fajã de São João",
+      "place": "hamlet",
+      "wikidata": "Q10279815",
+      "wikimedia_commons": "Category:Fajã de São João",
+      "wikipedia": "pt:Fajã de São João"
+    }
+  },
+  {
+    "osm_id": "node/615076704",
+    "lat": 38.6247102,
+    "lon": -27.928701,
+    "tags": {
+      "name": "Fajã da Caldeira de Santo Cristo",
+      "place": "hamlet",
+      "wikidata": "Q10279785",
+      "wikimedia_commons": "Category:Fajã da Caldeira de Santo Cristo",
+      "wikipedia": "pt:Fajã da Caldeira de Santo Cristo"
+    }
+  },
+  {
+    "osm_id": "node/615076732",
+    "lat": 38.625321,
+    "lon": -27.9269396,
+    "tags": {
+      "amenity": "place_of_worship",
+      "denomination": "roman_catholic",
+      "name": "Ermida de Santo Cristo",
+      "religion": "christian"
+    }
+  },
+  {
+    "osm_id": "node/615076835",
+    "lat": 38.6800652,
+    "lon": -28.0989205,
+    "tags": {
+      "name": "Santo António",
+      "place": "hamlet"
+    }
+  },
+  {
+    "osm_id": "node/615076879",
+    "lat": 38.6792694,
+    "lon": -28.0799729,
+    "tags": {
+      "tourism": "viewpoint"
+    }
+  },
+  {
+    "osm_id": "node/615076948",
+    "lat": 38.680056,
+    "lon": -28.0744347,
+    "tags": {
+      "name": "Fajã de Além",
+      "place": "hamlet"
+    }
+  },
+  {
+    "osm_id": "node/615077070",
+    "lat": 38.6751814,
+    "lon": -28.0513541,
+    "tags": {
+      "name": "Fajã do Ouvidor",
+      "place": "hamlet"
+    }
+  },
+  {
+    "osm_id": "node/615338495",
+    "lat": 38.6794402,
+    "lon": -28.2077637,
+    "tags": {
+      "amenity": "pharmacy",
+      "healthcare": "pharmacy",
+      "name": "Farmácia Santa Casa da Misericórdia de Velas",
+      "opening_hours": "Mo-Fr 08:30-19:00, Sa 09:00-13:00, Su off"
+    }
+  },
+  {
+    "osm_id": "node/615338534",
+    "lat": 38.6794837,
+    "lon": -28.205142,
+    "tags": {
+      "addr:city": "Velas",
+      "addr:housenumber": "1",
+      "addr:postcode": "9800-527",
+      "addr:street": "Largo Doutor João Pereira",
+      "amenity": "police",
+      "name": "Esquadra de Velas",
+      "operator": "Polícia de Segurança Pública",
+      "operator:short": "PSP",
+      "operator:wikidata": "Q3460075",
+      "operator:wikipedia": "en:Polícia de Segurança Pública"
+    }
+  },
+  {
+    "osm_id": "node/615338554",
+    "lat": 38.678958,
+    "lon": -28.2045101,
+    "tags": {
+      "amenity": "restaurant",
+      "cuisine": "regional",
+      "email": "clubenavaldevelas@gmail.com",
+      "level": "0",
+      "name": "Clube Naval de Velas",
+      "opening_hours": "Sa off",
+      "phone": "+351 295 098 091"
+    }
+  },
+  {
+    "osm_id": "node/615338558",
+    "lat": 38.6807021,
+    "lon": -28.2064868,
+    "tags": {
+      "amenity": "post_office",
+      "name": "Loja CTT",
+      "opening_hours": "Mo-Fr 09:00-12:30,14:00-17:30"
+    }
+  },
+  {
+    "osm_id": "node/615338623",
+    "lat": 38.6801894,
+    "lon": -28.2056478,
+    "tags": {
+      "amenity": "restaurant",
+      "cuisine": "regional",
+      "name": "Restaurant Açor",
+      "phone": "+351 295 432 463",
+      "smoking": "yes"
+    }
+  },
+  {
+    "osm_id": "node/615338628",
+    "lat": 38.6806675,
+    "lon": -28.2060359,
+    "tags": {
+      "addr:housenumber": "31",
+      "addr:street": "Rua Francisco Lacerda",
+      "amenity": "restaurant",
+      "cuisine": "regional",
+      "name": "Restaurante São Jorge",
+      "opening_hours": "Mo-Fr 08:00-22:00, Sa 08:00-15:00,18:00-22:00; Su off",
+      "phone": "+351295412861"
+    }
+  },
+  {
+    "osm_id": "node/787666455",
+    "lat": 38.5132724,
+    "lon": -28.3034266,
+    "tags": {
+      "amenity": "parking",
+      "parking": "street_side"
+    }
+  },
+  {
+    "osm_id": "node/1591274282",
+    "lat": 38.6015562,
+    "lon": -28.0128007,
+    "tags": {
+      "historic": "monument",
+      "image": "https://wiki.openstreetmap.org/w/images/7/7a/Francisco-lacerda-mark.jpg",
+      "name": "Maestro Francisco de Lacerda"
+    }
+  },
+  {
+    "osm_id": "node/1836614772",
+    "lat": 38.6806686,
+    "lon": -28.1974252,
+    "tags": {
+      "name": "Miradouro de Velas",
+      "tourism": "viewpoint"
+    }
+  },
+  {
+    "osm_id": "node/1836630876",
+    "lat": 38.6474988,
+    "lon": -27.9881726,
+    "tags": {
+      "name": "Miradouro Fajã dos Cubres",
+      "tourism": "viewpoint"
+    }
+  },
+  {
+    "osm_id": "node/1836635165",
+    "lat": 38.6730375,
+    "lon": -28.0564045,
+    "tags": {
+      "name": "Fajã do Ouvidor",
+      "tourism": "viewpoint"
+    }
+  },
+  {
+    "osm_id": "node/1837788558",
+    "lat": 38.6316208,
+    "lon": -27.9431288,
+    "tags": {
+      "name": "Fajã do Belo",
+      "place": "hamlet"
+    }
+  },
+  {
+    "osm_id": "node/1886350513",
+    "lat": 38.6126255,
+    "lon": -27.9202013,
+    "tags": {
+      "height": "6",
+      "waterway": "waterfall"
+    }
+  },
+  {
+    "osm_id": "node/2147735552",
+    "lat": 38.6338418,
+    "lon": -28.0912442,
+    "tags": {
+      "capital": "8",
+      "name": "Manadas (Santa Bárbara)",
+      "place": "village"
+    }
+  },
+  {
+    "osm_id": "node/2482625780",
+    "lat": 38.6593534,
+    "lon": -28.1467292,
+    "tags": {
+      "name": "Ribeira do Nabo",
+      "place": "hamlet"
+    }
+  },
+  {
+    "osm_id": "node/2482680649",
+    "lat": 38.6296038,
+    "lon": -28.0820745,
+    "tags": {
+      "name": "Fajã das Almas",
+      "tourism": "viewpoint"
+    }
+  },
+  {
+    "osm_id": "node/2482680652",
+    "lat": 38.6432163,
+    "lon": -28.1259864,
+    "tags": {
+      "name": "Furna das Pombas",
+      "tourism": "viewpoint"
+    }
+  },
+  {
+    "osm_id": "node/2482680655",
+    "lat": 38.62907,
+    "lon": -28.0807979,
+    "tags": {
+      "name": "Fajã das Almas",
+      "place": "hamlet"
+    }
+  },
+  {
+    "osm_id": "node/2482949487",
+    "lat": 38.6338024,
+    "lon": -28.0784472,
+    "tags": {
+      "tourism": "viewpoint"
+    }
+  },
+  {
+    "osm_id": "node/2482972560",
+    "lat": 38.6447089,
+    "lon": -28.0582541,
+    "tags": {
+      "tourism": "viewpoint"
+    }
+  },
+  {
+    "osm_id": "node/2484016292",
+    "lat": 38.6153441,
+    "lon": -28.0320725,
+    "tags": {
+      "name": "Biscoitos",
+      "place": "hamlet"
+    }
+  },
+  {
+    "osm_id": "node/2484109156",
+    "lat": 38.5494167,
+    "lon": -27.8573517,
+    "tags": {
+      "name": "Fajã de São João",
+      "tourism": "viewpoint"
+    }
+  },
+  {
+    "osm_id": "node/2484109204",
+    "lat": 38.5569029,
+    "lon": -27.8537054,
+    "tags": {
+      "tourism": "viewpoint"
+    }
+  },
+  {
+    "osm_id": "node/2484323891",
+    "lat": 38.6815118,
+    "lon": -28.2059072,
+    "tags": {
+      "amenity": "restaurant",
+      "cuisine": "regional",
+      "name": "Café Flor do Jardim",
+      "opening_hours": "Mo-Su 08:00-02:00",
+      "smoking": "no"
+    }
+  },
+  {
+    "osm_id": "node/2485776394",
+    "lat": 38.6657981,
+    "lon": -28.1668768,
+    "tags": {
+      "name": "Fajã de Santo Amaro",
+      "place": "hamlet",
+      "wikidata": "Q10279816",
+      "wikimedia_commons": "Category:Fajã de Santo Amaro"
+    }
+  },
+  {
+    "osm_id": "node/2485776396",
+    "lat": 38.6887228,
+    "lon": -28.2137902,
+    "tags": {
+      "name": "Miradouro do Canavial",
+      "tourism": "viewpoint"
+    }
+  },
+  {
+    "osm_id": "node/2485776404",
+    "lat": 38.6691675,
+    "lon": -28.1845228,
+    "tags": {
+      "name": "Queimada",
+      "place": "hamlet"
+    }
+  },
+  {
+    "osm_id": "node/2485776406",
+    "lat": 38.6795246,
+    "lon": -28.2047995,
+    "tags": {
+      "amenity": "restaurant",
+      "cuisine": "regional",
+      "name": "Velense"
+    }
+  },
+  {
+    "osm_id": "node/2485776475",
+    "lat": 38.6630679,
+    "lon": -28.1285103,
+    "tags": {
+      "tourism": "viewpoint"
+    }
+  },
+  {
+    "osm_id": "node/2485776590",
+    "lat": 38.6751602,
+    "lon": -28.1628022,
+    "tags": {
+      "ele": "400",
+      "name": "Miradouro do Canal",
+      "source": "gps survey",
+      "tourism": "viewpoint"
+    }
+  },
+  {
+    "osm_id": "node/2486189103",
+    "lat": 38.7344009,
+    "lon": -28.2621694,
+    "tags": {
+      "amenity": "parking",
+      "parking": "surface"
+    }
+  },
+  {
+    "osm_id": "node/2832350935",
+    "lat": 38.6811903,
+    "lon": -28.2059325,
+    "tags": {
+      "amenity": "bank",
+      "atm": "yes",
+      "brand": "Crédito Agrícola",
+      "brand:wikidata": "Q10262017",
+      "brand:wikipedia": "pt:Crédito Agrícola",
+      "name": "Crédito Agrícola",
+      "opening_hours": "Mo-Fr 08:30-12:00,13:00-15:30; Sa, Su off",
+      "operator": "Crédito Agrícola",
+      "operator:alt_name": "Caixa de Crédito Agrícola",
+      "operator:wikidata": "Q10262017",
+      "operator:wikipedia": "pt:Crédito Agrícola",
+      "short_name": "CA"
+    }
+  },
+  {
+    "osm_id": "node/2832356147",
+    "lat": 38.6805996,
+    "lon": -28.2044217,
+    "tags": {
+      "addr:city": "Velas",
+      "addr:country": "PT",
+      "addr:housenumber": "21",
+      "addr:postcode": "9800-544",
+      "addr:street": "Rua Infante D. Henrique",
+      "name": "Casa do António",
+      "tourism": "guest_house",
+      "website": "https://www.casadoantonio.com/"
+    }
+  },
+  {
+    "osm_id": "node/2832356148",
+    "lat": 38.6797127,
+    "lon": -28.2051004,
+    "tags": {
+      "amenity": "taxi"
+    }
+  },
+  {
+    "osm_id": "node/2832356151",
+    "lat": 38.6811293,
+    "lon": -28.2061065,
+    "tags": {
+      "amenity": "taxi"
+    }
+  },
+  {
+    "osm_id": "node/2837292866",
+    "lat": 38.5477078,
+    "lon": -27.859653,
+    "tags": {
+      "amenity": "restaurant",
+      "level": "0",
+      "name": "Taberna Águeda",
+      "outdoor_seating": "yes",
+      "shop": "convenience"
+    }
+  },
+  {
+    "osm_id": "node/2837292942",
+    "lat": 38.5479689,
+    "lon": -27.8598331,
+    "tags": {
+      "amenity": "place_of_worship",
+      "denomination": "roman_catholic",
+      "name": "Igreja da Nossa Senhora da Guia",
+      "religion": "christian"
+    }
+  },
+  {
+    "osm_id": "node/2837292959",
+    "lat": 38.5507934,
+    "lon": -27.8655655,
+    "tags": {
+      "access": "yes",
+      "amenity": "toilets",
+      "fee": "no",
+      "wheelchair": "no"
+    }
+  },
+  {
+    "osm_id": "node/2837292960",
+    "lat": 38.5509545,
+    "lon": -27.8655466,
+    "tags": {
+      "access": "yes",
+      "amenity": "parking",
+      "fee": "no",
+      "parking": "surface"
+    }
+  },
+  {
+    "osm_id": "node/2837292961",
+    "lat": 38.5512764,
+    "lon": -27.8662471,
+    "tags": {
+      "access": "yes",
+      "amenity": "parking",
+      "fee": "no",
+      "parking": "surface"
+    }
+  },
+  {
+    "osm_id": "node/2837338432",
+    "lat": 38.5619846,
+    "lon": -27.8819679,
+    "tags": {
+      "name": "Fajã do Ginjal",
+      "place": "hamlet",
+      "wikidata": "Q10279827",
+      "wikipedia": "pt:Fajã do Ginjal"
+    }
+  },
+  {
+    "osm_id": "node/2837338433",
+    "lat": 38.5685245,
+    "lon": -27.8909976,
+    "tags": {
+      "name": "Loural",
+      "place": "hamlet"
+    }
+  },
+  {
+    "osm_id": "node/2844912301",
+    "lat": 38.612009,
+    "lon": -27.9197097,
+    "tags": {
+      "name": "Fajã da Caldeira de Cima",
+      "place": "hamlet",
+      "wikidata": "Q10279784",
+      "wikipedia": "pt:Fajã da Caldeira de Cima"
+    }
+  },
+  {
+    "osm_id": "node/2844912302",
+    "lat": 38.62487,
+    "lon": -27.9291975,
+    "tags": {
+      "amenity": "cafe",
+      "name": "O Borges"
+    }
+  },
+  {
+    "osm_id": "node/2844912326",
+    "lat": 38.6252087,
+    "lon": -27.9268099,
+    "tags": {
+      "fee": "no",
+      "tourism": "camp_site"
+    }
+  },
+  {
+    "osm_id": "node/2844912328",
+    "lat": 38.6251882,
+    "lon": -27.9270544,
+    "tags": {
+      "access": "yes",
+      "amenity": "toilets",
+      "fee": "no"
+    }
+  },
+  {
+    "osm_id": "node/2844912384",
+    "lat": 38.6416632,
+    "lon": -27.9757566,
+    "tags": {
+      "tourism": "viewpoint"
+    }
+  },
+  {
+    "osm_id": "node/2845191853",
+    "lat": 38.5745164,
+    "lon": -27.9190391,
+    "tags": {
+      "name": "Fajã dos Bodes",
+      "place": "hamlet",
+      "wikidata": "Q10279840",
+      "wikimedia_commons": "Category:Fajã dos Bodes",
+      "wikipedia": "pt:Fajã dos Bodes"
+    }
+  },
+  {
+    "osm_id": "node/2845191854",
+    "lat": 38.583499,
+    "lon": -27.9311695,
+    "tags": {
+      "name": "Fajã dos Vimes",
+      "place": "hamlet",
+      "wikidata": "Q10279841",
+      "wikimedia_commons": "Category:Fajã dos Vimes",
+      "wikipedia": "pt:Fajã dos Vimes"
+    }
+  },
+  {
+    "osm_id": "node/2845191881",
+    "lat": 38.5744537,
+    "lon": -27.9184529,
+    "tags": {
+      "amenity": "drinking_water"
+    }
+  },
+  {
+    "osm_id": "node/2845191942",
+    "lat": 38.5823242,
+    "lon": -27.9302858,
+    "tags": {
+      "amenity": "drinking_water",
+      "start_date": "2006"
+    }
+  },
+  {
+    "osm_id": "node/2845191946",
+    "lat": 38.5825535,
+    "lon": -27.9305077,
+    "tags": {
+      "access": "yes",
+      "amenity": "toilets",
+      "fee": "no"
+    }
+  },
+  {
+    "osm_id": "node/2846230833",
+    "lat": 38.7292684,
+    "lon": -28.2637085,
+    "tags": {
+      "tourism": "viewpoint"
+    }
+  },
+  {
+    "osm_id": "node/2846230850",
+    "lat": 38.7311014,
+    "lon": -28.2635556,
+    "tags": {
+      "tourism": "viewpoint"
+    }
+  },
+  {
+    "osm_id": "node/2913563990",
+    "lat": 38.6055446,
+    "lon": -28.0152413,
+    "tags": {
+      "amenity": "fuel",
+      "compressed_air": "yes"
+    }
+  },
+  {
+    "osm_id": "node/2913621193",
+    "lat": 38.6008499,
+    "lon": -28.0127022,
+    "tags": {
+      "amenity": "post_office",
+      "name": "Loja CTT"
+    }
+  },
+  {
+    "osm_id": "node/2913621197",
+    "lat": 38.6016823,
+    "lon": -28.0122498,
+    "tags": {
+      "amenity": "atm"
+    }
+  },
+  {
+    "osm_id": "node/2913621198",
+    "lat": 38.601417,
+    "lon": -28.0119432,
+    "tags": {
+      "name": "Hotel Solmar",
+      "phone": "+351 295 416 120;+351 914 851 034",
+      "stars": "2",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "osm_id": "node/2913621199",
+    "lat": 38.601123,
+    "lon": -28.011214,
+    "tags": {
+      "amenity": "pharmacy",
+      "healthcare": "pharmacy",
+      "name": "Farmácia Tristão da Cunha",
+      "opening_hours": "Mo-Fr 09:00-19:00; Sa 09:00-13:00"
+    }
+  },
+  {
+    "osm_id": "node/2913621200",
+    "lat": 38.6014008,
+    "lon": -28.0108202,
+    "tags": {
+      "name": "Bom Dia",
+      "shop": "supermarket",
+      "wheelchair": "yes"
+    }
+  },
+  {
+    "osm_id": "node/3078100909",
+    "lat": 38.4891674,
+    "lon": -28.2448507,
+    "tags": {
+      "direction": "45-135",
+      "name": "Ponta do Misterio",
+      "tourism": "viewpoint"
+    }
+  },
+  {
+    "osm_id": "node/3100806996",
+    "lat": 38.7358595,
+    "lon": -28.2629073,
+    "tags": {
+      "amenity": "place_of_worship",
+      "building": "chapel",
+      "check_date": "2025-06-30",
+      "name": "Ermida",
+      "religion": "christian"
+    }
+  },
+  {
+    "osm_id": "node/3100806999",
+    "lat": 38.7357094,
+    "lon": -28.2626067,
+    "tags": {
+      "historic": "monument"
+    }
+  },
+  {
+    "osm_id": "node/3100837378",
+    "lat": 38.6700784,
+    "lon": -28.0610234,
+    "tags": {
+      "amenity": "cafe",
+      "cuisine": "regional",
+      "name": "Café Esperança"
+    }
+  },
+  {
+    "osm_id": "node/3100869457",
+    "lat": 38.6417263,
+    "lon": -27.9758316,
+    "tags": {
+      "amenity": "parking",
+      "parking": "street_side"
+    }
+  },
+  {
+    "osm_id": "node/3266813294",
+    "lat": 38.5198122,
+    "lon": -28.3114774,
+    "tags": {
+      "amenity": "fuel",
+      "brand": "Azoria"
+    }
+  },
+  {
+    "osm_id": "node/3266933915",
+    "lat": 38.5030823,
+    "lon": -28.2856959,
+    "tags": {
+      "name": "Miradouro de São Miguel Arcanjo",
+      "tourism": "viewpoint",
+      "wikidata": "Q10330553",
+      "wikipedia": "pt:Miradouro de São Miguel Arcanjo"
+    }
+  },
+  {
+    "osm_id": "node/3479439582",
+    "lat": 38.5192444,
+    "lon": -28.3128561,
+    "tags": {
+      "addr:city": "São Roque do Pico",
+      "addr:housenumber": "9",
+      "addr:postcode": "9940-308",
+      "addr:street": "Rua do Laranjal",
+      "name": "Sportfish.pt",
+      "operator": "SPORTFISH",
+      "phone": "+351 914 20 15 64",
+      "smoking": "outside",
+      "source": "http://sportfish.pt/home.php?lang=pt&page=contacte_nos",
+      "tourism": "hotel",
+      "website": "http://sportfish.pt/",
+      "wheelchair": "no"
+    }
+  },
+  {
+    "osm_id": "node/3699868041",
+    "lat": 38.5039543,
+    "lon": -28.2918099,
+    "tags": {
+      "addr:housenumber": "17",
+      "addr:street": "Rua de baixo",
+      "name": "Casa do Comendador",
+      "tourism": "guest_house"
+    }
+  },
+  {
+    "osm_id": "node/3714142784",
+    "lat": 38.5033295,
+    "lon": -28.2899169,
+    "tags": {
+      "name": "São Miguel Arcanjo",
+      "place": "hamlet"
+    }
+  },
+  {
+    "osm_id": "node/3719214493",
+    "lat": 38.6028894,
+    "lon": -28.0249663,
+    "tags": {
+      "name": "Compre Bem",
+      "opening_hours": "Mo-Sa 08:30-19:30; Su,PH 09:00-18:00",
+      "shop": "supermarket"
+    }
+  },
+  {
+    "osm_id": "node/3820859285",
+    "lat": 38.5734959,
+    "lon": -27.9122152,
+    "tags": {
+      "waterway": "waterfall"
+    }
+  },
+  {
+    "osm_id": "node/4279088701",
+    "lat": 38.7365765,
+    "lon": -28.2611312,
+    "tags": {
+      "access": "yes",
+      "leisure": "playground"
+    }
+  },
+  {
+    "osm_id": "node/4279088708",
+    "lat": 38.7370972,
+    "lon": -28.2606045,
+    "tags": {
+      "amenity": "toilets",
+      "check_date": "2025-06-30",
+      "fee": "no"
+    }
+  },
+  {
+    "osm_id": "node/4333712010",
+    "lat": 38.5949523,
+    "lon": -27.9581042,
+    "tags": {
+      "name": "Portal overlooking Ribeira Seca",
+      "tourism": "viewpoint"
+    }
+  },
+  {
+    "osm_id": "node/4333712696",
+    "lat": 38.5799147,
+    "lon": -27.9250493,
+    "tags": {
+      "name": "Town of Faja dos Bodes",
+      "tourism": "viewpoint"
+    }
+  },
+  {
+    "osm_id": "node/4404851091",
+    "lat": 38.5836421,
+    "lon": -27.9317756,
+    "tags": {
+      "tourism": "camp_site"
+    }
+  },
+  {
+    "osm_id": "node/4435068647",
+    "lat": 38.6659815,
+    "lon": -28.167968,
+    "tags": {
+      "name": "A Quinta",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "osm_id": "node/4436584286",
+    "lat": 38.6451569,
+    "lon": -28.1326375,
+    "tags": {
+      "natural": "beach",
+      "surface": "paved"
+    }
+  },
+  {
+    "osm_id": "node/4436610087",
+    "lat": 38.6494347,
+    "lon": -28.1329215,
+    "tags": {
+      "addr:city": "Urzelina",
+      "addr:housenumber": "6",
+      "addr:postcode": "9800-405",
+      "addr:street": "S. Mateus",
+      "internet_access": "wlan",
+      "name": "Urzelina GuestHouse",
+      "rooms": "3",
+      "tourism": "guest_house"
+    }
+  },
+  {
+    "osm_id": "node/4442004017",
+    "lat": 38.5234047,
+    "lon": -28.3106629,
+    "tags": {
+      "man_made": "windmill",
+      "name": "Moinho da Avenida do Mar",
+      "tourism": "viewpoint",
+      "wheelchair": "no",
+      "wikidata": "Q66815761",
+      "wikimedia_commons": "Category:Moinho da Avenida do Mar"
+    }
+  },
+  {
+    "osm_id": "node/4887271324",
+    "lat": 38.6039872,
+    "lon": -28.0261898,
+    "tags": {
+      "internet_access": "wlan",
+      "name": "Casa de Lara",
+      "name:pt": "Casa de Lara",
+      "tourism": "hostel"
+    }
+  },
+  {
+    "osm_id": "node/4970457323",
+    "lat": 38.6001753,
+    "lon": -28.0151492,
+    "tags": {
+      "amenity": "restaurant",
+      "cuisine": "portuguese",
+      "internet_access": "wlan",
+      "name": "Os Amigos",
+      "phone": "+351 295 416 421;+351 916 802 784"
+    }
+  },
+  {
+    "osm_id": "node/5041863915",
+    "lat": 38.7066482,
+    "lon": -28.1544507,
+    "tags": {
+      "name": "Cascata do Poço das Airoses",
+      "waterway": "waterfall"
+    }
+  },
+  {
+    "osm_id": "node/5049180430",
+    "lat": 38.6817181,
+    "lon": -28.2079139,
+    "tags": {
+      "addr:city": "Velas (São Jorge)",
+      "addr:housenumber": "37",
+      "addr:postcode": "9800-539",
+      "addr:street": "Rua de S. João",
+      "email": "Azresdream@hotmail.com",
+      "internet_access": "yes",
+      "internet_access:fee": "yes",
+      "name": "Azores Dream",
+      "rooms": "6",
+      "smoking": "no",
+      "tourism": "hostel"
+    }
+  },
+  {
+    "osm_id": "node/5419147957",
+    "lat": 38.5977006,
+    "lon": -27.9795116,
+    "tags": {
+      "capital": "8",
+      "name": "Ribeira Seca",
+      "place": "village"
+    }
+  },
+  {
+    "osm_id": "node/5420406992",
+    "lat": 38.7205821,
+    "lon": -28.2519607,
+    "tags": {
+      "capital": "8",
+      "name": "Rosais",
+      "place": "village"
+    }
+  },
+  {
+    "osm_id": "node/5451078522",
+    "lat": 38.6489183,
+    "lon": -28.1314754,
+    "tags": {
+      "amenity": "restaurant",
+      "cuisine": "regional;portuguese",
+      "internet_access": "wlan",
+      "name": "Restaurante Urzelina"
+    }
+  },
+  {
+    "osm_id": "node/5454558721",
+    "lat": 38.6803131,
+    "lon": -28.2069701,
+    "tags": {
+      "addr:city": "Velas",
+      "addr:housenumber": "36",
+      "addr:street": "Rua Doutor Guilherme da Silveira",
+      "charge": "3 EUR",
+      "fee": "yes",
+      "name": "Casa Museu Cunha da Silveira",
+      "opening_hours": "May-Sep Tu-Su 10:30-17:30; Oct-Apr Tu-Su 10:00-17:00; Mo off",
+      "tourism": "museum",
+      "website": "https://www.exploresaojorgeisland.com/mapa-interativo/local/casa-museu-cunha-da-silveira/"
+    }
+  },
+  {
+    "osm_id": "node/5457599565",
+    "lat": 38.7174075,
+    "lon": -28.2491001,
+    "tags": {
+      "amenity": "toilets"
+    }
+  },
+  {
+    "osm_id": "node/5620612905",
+    "lat": 38.4898505,
+    "lon": -28.2371593,
+    "tags": {
+      "name": "Baía de Canas",
+      "place": "hamlet"
+    }
+  },
+  {
+    "osm_id": "node/5626570767",
+    "lat": 38.5139562,
+    "lon": -28.3088064,
+    "tags": {
+      "name": "São Roque",
+      "place": "hamlet"
+    }
+  },
+  {
+    "osm_id": "node/5702518247",
+    "lat": 38.6808938,
+    "lon": -28.2066495,
+    "tags": {
+      "amenity": "cafe",
+      "name": "Café São João",
+      "outdoor_seating": "no",
+      "smoking": "no",
+      "toilets": "yes"
+    }
+  },
+  {
+    "osm_id": "node/5702518248",
+    "lat": 38.6808717,
+    "lon": -28.2059977,
+    "tags": {
+      "addr:housenumber": "44",
+      "amenity": "bank",
+      "atm": "yes",
+      "brand": "Banco Montepio",
+      "brand:wikidata": "Q1946091",
+      "brand:wikipedia": "pt:Banco Montepio",
+      "name": "Banco Montepio",
+      "opening_hours": "Mo-Fr 08:30-15:00",
+      "operator": "Associação Mutualista Montepio",
+      "operator:wikidata": "Q1946091",
+      "operator:wikipedia": "pt:Banco Montepio"
+    }
+  },
+  {
+    "osm_id": "node/5702518250",
+    "lat": 38.6815389,
+    "lon": -28.2064674,
+    "tags": {
+      "addr:city": "Velas",
+      "addr:housenumber": "11",
+      "addr:postcode": "9800-555",
+      "amenity": "bank",
+      "atm": "yes",
+      "branch": "Caixa São Jorge",
+      "branch:type": "retail",
+      "brand": "Caixa Geral de Depósitos",
+      "brand:website": "https://www.cgd.pt/",
+      "brand:wikidata": "Q1026044",
+      "brand:wikipedia": "pt:Caixa Geral de Depósitos",
+      "contact:facebook": "caixageraldedepositos",
+      "contact:instagram": "caixageraldedepositos",
+      "contact:linkedin": "https://www.linkedin.com/company/caixageraldedepositos/",
+      "contact:phone": "+351 217 900 790",
+      "contact:youtube": "http://www.youtube.com/user/mediacgd",
+      "name": "Caixa Geral de Depósitos",
+      "opening_hours": "Mo-Fr 08:30-15:00; Sa,Su off",
+      "operator": "Caixa Geral de Depósitos",
+      "operator:wikidata": "Q1026044",
+      "operator:wikipedia": "pt:Caixa Geral de Depósitos",
+      "ref": "1643",
+      "short_name": "CGD",
+      "source:contact": "website",
+      "website": "https://www.cgd.pt/Corporativo/Rede-CGD/Pages/VELAS-SAO-JORGE.aspx"
+    }
+  },
+  {
+    "osm_id": "node/5702518251",
+    "lat": 38.6806119,
+    "lon": -28.2057448,
+    "tags": {
+      "addr:housenumber": "30",
+      "addr:street": "Rua Ministro Francisco Lacerda",
+      "alt_name": "CEM",
+      "amenity": "bank",
+      "atm": "yes",
+      "branch": "Velas",
+      "brand": "Caixa Económica da Misericórdia de Angra do Heroísmo",
+      "contact:website": "https://www.cemah.pt",
+      "name": "Caixa Económica da Misericórdia de Angra do Heroísmo",
+      "operator": "Caixa Económica da Misericórdia de Angra do Heroísmo",
+      "short_name": "CEMAH"
+    }
+  },
+  {
+    "osm_id": "node/5706315170",
+    "lat": 38.6699963,
+    "lon": -28.0610618,
+    "tags": {
+      "name": "Minimercado Esperança",
+      "opening_hours": "Mo-Su 07:00-18:00",
+      "shop": "convenience"
+    }
+  },
+  {
+    "osm_id": "node/5709056497",
+    "lat": 38.6827095,
+    "lon": -28.2179742,
+    "tags": {
+      "name": "Morro Grande",
+      "natural": "peak"
+    }
+  },
+  {
+    "osm_id": "node/5709057091",
+    "lat": 38.6844308,
+    "lon": -28.2198839,
+    "tags": {
+      "direction": "270",
+      "tourism": "viewpoint"
+    }
+  },
+  {
+    "osm_id": "node/5709826242",
+    "lat": 38.6924103,
+    "lon": -28.2128907,
+    "tags": {
+      "name": "São Pedro",
+      "place": "hamlet"
+    }
+  },
+  {
+    "osm_id": "node/5711060262",
+    "lat": 38.7009848,
+    "lon": -28.2103157,
+    "tags": {
+      "name": "Beira",
+      "place": "hamlet"
+    }
+  },
+  {
+    "osm_id": "node/5714236696",
+    "lat": 38.5779408,
+    "lon": -27.9204203,
+    "tags": {
+      "waterway": "waterfall"
+    }
+  },
+  {
+    "osm_id": "node/5714236724",
+    "lat": 38.593596,
+    "lon": -27.9550553,
+    "tags": {
+      "name": "Portal",
+      "place": "hamlet"
+    }
+  },
+  {
+    "osm_id": "node/5714236861",
+    "lat": 38.599801,
+    "lon": -27.9657841,
+    "tags": {
+      "name": "Poejal",
+      "place": "hamlet"
+    }
+  },
+  {
+    "osm_id": "node/5714236994",
+    "lat": 38.6063912,
+    "lon": -27.9879284,
+    "tags": {
+      "name": "Canto",
+      "place": "hamlet"
+    }
+  },
+  {
+    "osm_id": "node/5714237002",
+    "lat": 38.5968998,
+    "lon": -27.9832077,
+    "tags": {
+      "name": "Rua de Baixo",
+      "place": "hamlet"
+    }
+  },
+  {
+    "osm_id": "node/5714237095",
+    "lat": 38.5988451,
+    "lon": -27.9743457,
+    "tags": {
+      "name": "Grutão Seco",
+      "place": "hamlet"
+    }
+  },
+  {
+    "osm_id": "node/5714238133",
+    "lat": 38.6024589,
+    "lon": -27.9887438,
+    "tags": {
+      "name": "São Bartolomeu",
+      "place": "hamlet"
+    }
+  },
+  {
+    "osm_id": "node/5714238141",
+    "lat": 38.6024673,
+    "lon": -27.9817701,
+    "tags": {
+      "name": "Caminhos Novos",
+      "place": "hamlet"
+    }
+  },
+  {
+    "osm_id": "node/5714238176",
+    "lat": 38.6044377,
+    "lon": -27.9753864,
+    "tags": {
+      "name": "Gança",
+      "place": "hamlet"
+    }
+  },
+  {
+    "osm_id": "node/5714238272",
+    "lat": 38.6111029,
+    "lon": -27.9778862,
+    "tags": {
+      "name": "Silveira",
+      "place": "hamlet"
+    }
+  },
+  {
+    "osm_id": "node/5728598478",
+    "lat": 38.6704587,
+    "lon": -28.0266166,
+    "tags": {
+      "name": "Fajã da Ribeira da Areia",
+      "place": "hamlet"
+    }
+  },
+  {
+    "osm_id": "node/5728598518",
+    "lat": 38.6609004,
+    "lon": -28.030994,
+    "tags": {
+      "name": "Ribeira da Areia",
+      "place": "hamlet"
+    }
+  },
+  {
+    "osm_id": "node/5728598724",
+    "lat": 38.6559574,
+    "lon": -27.9923272,
+    "tags": {
+      "name": "Fajã das Pontas",
+      "place": "hamlet"
+    }
+  },
+  {
+    "osm_id": "node/5728599031",
+    "lat": 38.6585378,
+    "lon": -28.001039,
+    "tags": {
+      "name": "Fajã da Penedia",
+      "place": "hamlet"
+    }
+  },
+  {
+    "osm_id": "node/5730298089",
+    "lat": 38.7240235,
+    "lon": -28.2650972,
+    "tags": {
+      "name": "Ponta",
+      "place": "hamlet"
+    }
+  },
+  {
+    "osm_id": "node/5730301025",
+    "lat": 38.6969321,
+    "lon": -28.1474877,
+    "tags": {
+      "name": "Toledo",
+      "place": "hamlet"
+    }
+  },
+  {
+    "osm_id": "node/5730378676",
+    "lat": 38.7074149,
+    "lon": -28.228941,
+    "tags": {
+      "name": "Figueiras",
+      "place": "hamlet"
+    }
+  },
+  {
+    "osm_id": "node/5730379133",
+    "lat": 38.7139952,
+    "lon": -28.2440257,
+    "tags": {
+      "name": "Caminho de Baixo",
+      "place": "hamlet"
+    }
+  },
+  {
+    "osm_id": "node/5730379160",
+    "lat": 38.7180469,
+    "lon": -28.2416225,
+    "tags": {
+      "name": "Caminho de Cima",
+      "place": "hamlet"
+    }
+  },
+  {
+    "osm_id": "node/5730620618",
+    "lat": 38.6113875,
+    "lon": -28.0355842,
+    "tags": {
+      "name": "Fajã Grande",
+      "place": "hamlet"
+    }
+  },
+  {
+    "osm_id": "node/5730823514",
+    "lat": 38.6009078,
+    "lon": -27.9976273,
+    "tags": {
+      "name": "Vale das Amoras",
+      "place": "hamlet"
+    }
+  },
+  {
+    "osm_id": "node/5730823519",
+    "lat": 38.6068775,
+    "lon": -27.9975415,
+    "tags": {
+      "name": "Calrinhas",
+      "place": "hamlet"
+    }
+  },
+  {
+    "osm_id": "node/5784896953",
+    "lat": 38.6281899,
+    "lon": -28.0784694,
+    "tags": {
+      "addr:postcode": "9800-021",
+      "addr:street": "Fajã das almas",
+      "amenity": "restaurant",
+      "cuisine": "portuguese;seafood",
+      "name": "Restaurante Maré Viva",
+      "opening_hours": "Tu-Su 09:00-00:00",
+      "phone": "+351 295 414275"
+    }
+  },
+  {
+    "osm_id": "node/5784985255",
+    "lat": 38.6830595,
+    "lon": -28.2114211,
+    "tags": {
+      "addr:postcode": "9800-522",
+      "addr:street": "Avenida do Livramento",
+      "amenity": "restaurant",
+      "name": "Restaurante Chinês",
+      "opening_hours": "Mo, We-Sa 12:00-22:30; Su 12:00-21:30"
+    }
+  },
+  {
+    "osm_id": "node/5784999953",
+    "lat": 38.683202,
+    "lon": -28.2118779,
+    "tags": {
+      "addr:postcode": "9800-522",
+      "addr:street": "Avenida do Livramento",
+      "amenity": "cafe",
+      "name": "Snack bar O 30",
+      "opening_hours": "Mo-Su 07:00-23:00"
+    }
+  },
+  {
+    "osm_id": "node/5791859254",
+    "lat": 38.6940735,
+    "lon": -28.1439659,
+    "tags": {
+      "amenity": "place_of_worship",
+      "denomination": "roman_catholic",
+      "name": "Capela de São José",
+      "religion": "christian"
+    }
+  },
+  {
+    "osm_id": "node/5793785954",
+    "lat": 38.6061612,
+    "lon": -27.994614,
+    "tags": {
+      "amenity": "restaurant",
+      "name": "Ponto de Encontro"
+    }
+  },
+  {
+    "osm_id": "node/5795693753",
+    "lat": 38.5955404,
+    "lon": -27.9755784,
+    "tags": {
+      "tourism": "viewpoint"
+    }
+  },
+  {
+    "osm_id": "node/5795723957",
+    "lat": 38.6295017,
+    "lon": -27.9973718,
+    "tags": {
+      "tourism": "viewpoint"
+    }
+  },
+  {
+    "osm_id": "node/5795871453",
+    "lat": 38.6064287,
+    "lon": -28.0050516,
+    "tags": {
+      "name": "Filipe Cabral",
+      "shop": "supermarket"
+    }
+  },
+  {
+    "osm_id": "node/5832374185",
+    "lat": 38.6279812,
+    "lon": -28.0784452,
+    "tags": {
+      "amenity": "restaurant",
+      "name": "Mares Vivas"
+    }
+  },
+  {
+    "osm_id": "node/5840624075",
+    "lat": 38.6815614,
+    "lon": -28.2094894,
+    "tags": {
+      "amenity": "atm",
+      "brand": "Multibanco",
+      "check_date": "2024-05-09",
+      "level": "0",
+      "wheelchair": "yes"
+    }
+  },
+  {
+    "osm_id": "node/5842164730",
+    "lat": 38.6166434,
+    "lon": -27.9202496,
+    "tags": {
+      "direction": "320-90",
+      "tourism": "viewpoint"
+    }
+  },
+  {
+    "osm_id": "node/5842164737",
+    "lat": 38.6474711,
+    "lon": -27.9883197,
+    "tags": {
+      "access": "yes",
+      "amenity": "toilets"
+    }
+  },
+  {
+    "osm_id": "node/5847084468",
+    "lat": 38.5924789,
+    "lon": -27.9485485,
+    "tags": {
+      "tourism": "viewpoint"
+    }
+  },
+  {
+    "osm_id": "node/5847091273",
+    "lat": 38.590964,
+    "lon": -27.9399385,
+    "tags": {
+      "tourism": "viewpoint"
+    }
+  },
+  {
+    "osm_id": "node/5849749339",
+    "lat": 38.6802459,
+    "lon": -28.0512635,
+    "tags": {
+      "man_made": "lighthouse",
+      "name": "Farao",
+      "seamark:type": "light_major"
+    }
+  },
+  {
+    "osm_id": "node/5922332485",
+    "lat": 38.4911751,
+    "lon": -28.2486879,
+    "tags": {
+      "name": "Mistério da Prainha",
+      "tourism": "viewpoint"
+    }
+  },
+  {
+    "osm_id": "node/6022193202",
+    "lat": 38.602195,
+    "lon": -28.0165792,
+    "tags": {
+      "description": "Residencial",
+      "name": "Casa do Grotão",
+      "tourism": "hostel"
+    }
+  },
+  {
+    "osm_id": "node/6022295321",
+    "lat": 38.6018113,
+    "lon": -28.0220069,
+    "tags": {
+      "alt_name": "Calhetense Beach Bar",
+      "amenity": "restaurant",
+      "description": "Café, Snackbar",
+      "name": "Café Calhetense",
+      "opening_hours": "Mo-Su 07:00-02:00",
+      "phone": "+351 295 416 507;+351 912 248 641;+351 969 727 013",
+      "short_name": "Calhetense",
+      "website": "https://cafe-calhetense-calhetense-beach-bar.negocio.site"
+    }
+  },
+  {
+    "osm_id": "node/6022804512",
+    "lat": 38.6013505,
+    "lon": -28.0106335,
+    "tags": {
+      "addr:housenumber": "2",
+      "amenity": "cafe",
+      "description": "serviço de almorços de segunda a sexta feira",
+      "description:en": "only lunch from mo-fr",
+      "name": "Beira-Mar"
+    }
+  },
+  {
+    "osm_id": "node/6022888858",
+    "lat": 38.6009193,
+    "lon": -28.0117462,
+    "tags": {
+      "amenity": "atm"
+    }
+  },
+  {
+    "osm_id": "node/6022890004",
+    "lat": 38.6009272,
+    "lon": -28.0117977,
+    "tags": {
+      "amenity": "taxi"
+    }
+  },
+  {
+    "osm_id": "node/6022890490",
+    "lat": 38.6011495,
+    "lon": -28.0104435,
+    "tags": {
+      "bus": "yes",
+      "highway": "bus_stop",
+      "public_transport": "platform"
+    }
+  },
+  {
+    "osm_id": "node/6255638163",
+    "lat": 38.6531239,
+    "lon": -28.0924574,
+    "tags": {
+      "ele": "945.886",
+      "man_made": "survey_point",
+      "name": "Pico Montoso",
+      "natural": "peak",
+      "note": "Cotas resultantes do ajustamento das observações zenitais 1988 e 1997 O valor da elevação corresponde ao topo do vértice geodésico.",
+      "note:en": "Survey Points are meant to be used to rectify aerial imagery and not the other way around. Please do not move nor delete them. Their position corresponds to official reference ground measures.",
+      "note:pt": "Os Vértices Geodésicos servem para melhorar o alinhamento da fotografia aérea e não o inverso. Por favor não os mova nem apague. A sua posição corresponde a medidas de referência oficiais, obtidas in loco.",
+      "source": "DGT - Rede Geodésica Nacional",
+      "source:ref": "PT_AZO_CEN.zip",
+      "triangulation_point": "yes"
+    }
+  },
+  {
+    "osm_id": "node/6255638174",
+    "lat": 38.6505715,
+    "lon": -28.0740474,
+    "tags": {
+      "ele": "1053.853",
+      "man_made": "survey_point",
+      "name": "Pico da Esperança",
+      "natural": "peak",
+      "note": "Cotas resultantes do ajustamento das observações zenitais 1988 e 1997 O valor da elevação corresponde ao topo do vértice geodésico.",
+      "note:en": "Survey Points are meant to be used to rectify aerial imagery and not the other way around. Please do not move nor delete them. Their position corresponds to official reference ground measures.",
+      "note:pt": "Os Vértices Geodésicos servem para melhorar o alinhamento da fotografia aérea e não o inverso. Por favor não os mova nem apague. A sua posição corresponde a medidas de referência oficiais, obtidas in loco.",
+      "source": "DGT - Rede Geodésica Nacional",
+      "source:ref": "PT_AZO_CEN.zip",
+      "tourism": "viewpoint",
+      "triangulation_point": "yes",
+      "wikidata": "Q7191024",
+      "wikimedia_commons": "Category:Pico da Esperança",
+      "wikipedia": "pt:Pico da Esperança"
+    }
+  },
+  {
+    "osm_id": "node/6380729771",
+    "lat": 38.7304286,
+    "lon": -28.2276039,
+    "tags": {
+      "name": "Fajã de João Dias",
+      "place": "hamlet",
+      "wikidata": "Q5431425",
+      "wikimedia_commons": "Category:Fajã de João Dias",
+      "wikipedia": "pt:Fajã de João Dias"
+    }
+  },
+  {
+    "osm_id": "node/6456306065",
+    "lat": 38.6672888,
+    "lon": -28.1734171,
+    "tags": {
+      "amenity": "place_of_worship",
+      "building": "church",
+      "denomination": "catholic",
+      "religion": "christian"
+    }
+  },
+  {
+    "osm_id": "node/6456306492",
+    "lat": 38.6693624,
+    "lon": -28.1825199,
+    "tags": {
+      "shop": "convenience"
+    }
+  },
+  {
+    "osm_id": "node/6456306501",
+    "lat": 38.6822873,
+    "lon": -28.1905392,
+    "tags": {
+      "shop": "convenience"
+    }
+  },
+  {
+    "osm_id": "node/6456306556",
+    "lat": 38.675676,
+    "lon": -28.1625335,
+    "tags": {
+      "historic": "memorial"
+    }
+  },
+  {
+    "osm_id": "node/6456306790",
+    "lat": 38.6762906,
+    "lon": -28.1623605,
+    "tags": {
+      "leisure": "playground"
+    }
+  },
+  {
+    "osm_id": "node/6456306791",
+    "lat": 38.6765858,
+    "lon": -28.1623967,
+    "tags": {
+      "access": "yes",
+      "amenity": "toilets",
+      "drinking_water": "no",
+      "fee": "no",
+      "female": "yes",
+      "male": "yes",
+      "toilets:disposal": "flush",
+      "toilets:position": "seated;urinal",
+      "wheelchair": "yes"
+    }
+  },
+  {
+    "osm_id": "node/6456306897",
+    "lat": 38.6544828,
+    "lon": -28.086395,
+    "tags": {
+      "historic": "memorial",
+      "memorial": "obelisk",
+      "name": "Em memória das vítimas do Acidente de Aviação em 11 de dezembro de 1999",
+      "name:en": "In memory of December 11st 1999 aviation accident's victims",
+      "name:pt": "Em memória das vítimas do Acidente de Aviação em 11 de dezembro de 1999"
+    }
+  },
+  {
+    "osm_id": "node/6456306919",
+    "lat": 38.6459174,
+    "lon": -28.0057517,
+    "tags": {
+      "amenity": "drinking_water"
+    }
+  },
+  {
+    "osm_id": "node/6456347442",
+    "lat": 38.6819315,
+    "lon": -28.2095285,
+    "tags": {
+      "bench": "yes",
+      "bin": "no",
+      "bus": "yes",
+      "highway": "bus_stop",
+      "lit": "no",
+      "name:signed": "no",
+      "public_transport": "platform",
+      "shelter": "yes",
+      "tactile_paving": "no"
+    }
+  },
+  {
+    "osm_id": "node/6456347473",
+    "lat": 38.6782819,
+    "lon": -28.2080466,
+    "tags": {
+      "bus": "yes",
+      "highway": "bus_stop",
+      "public_transport": "platform"
+    }
+  },
+  {
+    "osm_id": "node/6456350073",
+    "lat": 38.6791854,
+    "lon": -28.2050517,
+    "tags": {
+      "amenity": "police",
+      "name": "Comando Local da Polícia Marítima da Horta - Extensão das Velas",
+      "name:en": "Maritime Police Local Comand Horta - Extention Velas"
+    }
+  },
+  {
+    "osm_id": "node/6456350074",
+    "lat": 38.6798707,
+    "lon": -28.205634,
+    "tags": {
+      "historic": "memorial",
+      "name": "João Inácio de Sousa"
+    }
+  },
+  {
+    "osm_id": "node/6456350098",
+    "lat": 38.6787521,
+    "lon": -28.2044521,
+    "tags": {
+      "access": "yes",
+      "amenity": "parking",
+      "fee": "no",
+      "parking": "surface"
+    }
+  },
+  {
+    "osm_id": "node/6482316485",
+    "lat": 38.6374018,
+    "lon": -27.9619334,
+    "tags": {
+      "amenity": "drinking_water",
+      "man_made": "water_tap"
+    }
+  },
+  {
+    "osm_id": "node/6514970895",
+    "lat": 38.6787766,
+    "lon": -28.2040294,
+    "tags": {
+      "access": "yes",
+      "amenity": "toilets",
+      "fee": "no",
+      "toilets:access": "yes",
+      "toilets:disposal": "flush",
+      "toilets:position": "seated;urinal",
+      "toilets:wheelchair": "yes",
+      "wheelchair": "yes"
+    }
+  },
+  {
+    "osm_id": "node/6515926235",
+    "lat": 38.6817008,
+    "lon": -28.2094625,
+    "tags": {
+      "amenity": "restaurant",
+      "level": "0",
+      "opening_hours": "Mo-Sa 08:30-20:00; Su 09:00-18:00; PH open",
+      "operator": "Compre Bem",
+      "self_service": "yes",
+      "takeaway": "yes",
+      "wheelchair": "yes"
+    }
+  },
+  {
+    "osm_id": "node/6516167580",
+    "lat": 38.6717228,
+    "lon": -28.0485306,
+    "tags": {
+      "direction": "N",
+      "tourism": "viewpoint"
+    }
+  },
+  {
+    "osm_id": "node/6516247459",
+    "lat": 38.6735266,
+    "lon": -28.054679,
+    "tags": {
+      "access": "yes",
+      "amenity": "toilets"
+    }
+  },
+  {
+    "osm_id": "node/6516393438",
+    "lat": 38.6404519,
+    "lon": -27.9682718,
+    "tags": {
+      "access": "yes",
+      "amenity": "parking",
+      "fee": "no",
+      "park_ride": "no",
+      "parking": "surface",
+      "surface": "compacted"
+    }
+  },
+  {
+    "osm_id": "node/6516927648",
+    "lat": 38.6820846,
+    "lon": -28.2060434,
+    "tags": {
+      "access": "yes",
+      "amenity": "toilets"
+    }
+  },
+  {
+    "osm_id": "node/6524244648",
+    "lat": 38.6820031,
+    "lon": -28.2096114,
+    "tags": {
+      "amenity": "cafe",
+      "description": "Café, Bar, Drinks, Burger, Omelette, Salads",
+      "name": "Charlie's Place",
+      "opening_hours": "Mo-Sa 07:00-02:00"
+    }
+  },
+  {
+    "osm_id": "node/6597671856",
+    "lat": 38.4890144,
+    "lon": -28.235297,
+    "tags": {
+      "amenity": "parking"
+    }
+  },
+  {
+    "osm_id": "node/6666658261",
+    "lat": 38.678356,
+    "lon": -28.0504411,
+    "tags": {
+      "amenity": "toilets",
+      "fee": "no"
+    }
+  },
+  {
+    "osm_id": "node/6690892188",
+    "lat": 38.6892869,
+    "lon": -28.217438,
+    "tags": {
+      "email": "gdvelense@sapo.pt",
+      "internet_access": "wlan",
+      "name": "Parque de Campismo de Velas",
+      "phone": "+351 295 412 721",
+      "tourism": "camp_site",
+      "website": "https://parque-de-campismo-das-velas.webnode.pt/"
+    }
+  },
+  {
+    "osm_id": "node/6795106122",
+    "lat": 38.6800884,
+    "lon": -28.2072751,
+    "tags": {
+      "amenity": "restaurant",
+      "name": "O Garfo d'Avó Nanda"
+    }
+  },
+  {
+    "osm_id": "node/6797196424",
+    "lat": 38.7529574,
+    "lon": -28.308538,
+    "tags": {
+      "amenity": "parking",
+      "name": "Parking Vigia de Baleia"
+    }
+  },
+  {
+    "osm_id": "node/6805350288",
+    "lat": 38.6035547,
+    "lon": -28.0122292,
+    "tags": {
+      "name": "Miradouro da Rua de Baixo",
+      "start_date": "2020",
+      "tourism": "viewpoint"
+    }
+  },
+  {
+    "osm_id": "node/6964293387",
+    "lat": 38.6718289,
+    "lon": -28.0289833,
+    "tags": {
+      "name:en": "Natural arch",
+      "tourism": "viewpoint"
+    }
+  },
+  {
+    "osm_id": "node/6988350485",
+    "lat": 38.5740263,
+    "lon": -27.8674017,
+    "tags": {
+      "tourism": "viewpoint"
+    }
+  },
+  {
+    "osm_id": "node/7161038285",
+    "lat": 38.6803182,
+    "lon": -28.2055051,
+    "tags": {
+      "amenity": "restaurant",
+      "name": "Tasca Caldeira"
+    }
+  },
+  {
+    "osm_id": "node/7556739446",
+    "lat": 38.6797959,
+    "lon": -28.2096491,
+    "tags": {
+      "amenity": "parking"
+    }
+  },
+  {
+    "osm_id": "node/7556739449",
+    "lat": 38.6822665,
+    "lon": -28.2062225,
+    "tags": {
+      "amenity": "parking"
+    }
+  },
+  {
+    "osm_id": "node/7556739454",
+    "lat": 38.6833385,
+    "lon": -28.2112659,
+    "tags": {
+      "amenity": "parking"
+    }
+  },
+  {
+    "osm_id": "node/7815077285",
+    "lat": 38.6770752,
+    "lon": -28.0534208,
+    "tags": {
+      "amenity": "toilets",
+      "fee": "no",
+      "wheelchair": "yes"
+    }
+  },
+  {
+    "osm_id": "node/7972944496",
+    "lat": 38.5216008,
+    "lon": -28.3125727,
+    "tags": {
+      "name": "Mini Mar Supermercado",
+      "opening_hours": "08:30-20:45",
+      "shop": "convenience",
+      "website": "https://mini-mar-supermercado.business.site/"
+    }
+  },
+  {
+    "osm_id": "node/8220826492",
+    "lat": 38.60606,
+    "lon": -27.9830602,
+    "tags": {
+      "access": "yes",
+      "addr:city": "Calheta",
+      "addr:street": "ER 2-2",
+      "amenity": "charging_station",
+      "authentication:app": "yes",
+      "authentication:membership_card": "yes",
+      "authentication:none": "no",
+      "brand": "Galp electric",
+      "brand:wikidata": "Q135275372",
+      "capacity": "2",
+      "charging_station:output": "93 kW",
+      "email": "veiculoeletrico@galp.com",
+      "fee": "yes",
+      "maxstay": "unlimited",
+      "motorcar": "yes",
+      "name": "CHT-00001",
+      "network": "Mobi.E",
+      "opening_hours": "24/7",
+      "operator": "Galp Geste",
+      "operator:wikidata": "Q1492739",
+      "parking:fee": "no",
+      "payment:app": "yes",
+      "payment:cards": "no",
+      "payment:cash": "no",
+      "payment:membership_card": "yes",
+      "phone": "+351 800 249 249",
+      "ref": "CHT-00001",
+      "ref:EU:EVSE": "PT*GLG*ECHT*00001*01;PT*GLG*ECHT*00001*02;PT*GLG*ECHT*00001*03",
+      "socket:chademo": "1",
+      "socket:chademo:current": "120",
+      "socket:chademo:output": "50 kW",
+      "socket:chademo:voltage": "500",
+      "socket:type2_cable": "1",
+      "socket:type2_cable:current": "63",
+      "socket:type2_cable:output": "43 kW",
+      "socket:type2_cable:voltage": "400",
+      "socket:type2_combo": "1",
+      "socket:type2_combo:current": "125",
+      "socket:type2_combo:output": "50 kW",
+      "socket:type2_combo:voltage": "500",
+      "website": "https://www.mobie.pt"
+    }
+  },
+  {
+    "osm_id": "node/8599556981",
+    "lat": 38.6775882,
+    "lon": -28.0550543,
+    "tags": {
+      "name": "Casa da Eira Velha, Fajã do Ouvidor",
+      "tourism": "guest_house"
+    }
+  },
+  {
+    "osm_id": "node/8717932519",
+    "lat": 38.5178339,
+    "lon": -28.3102164,
+    "tags": {
+      "amenity": "dentist",
+      "healthcare": "dentist",
+      "name": "Clínica do Cais do Pico"
+    }
+  },
+  {
+    "osm_id": "node/8717932523",
+    "lat": 38.5192279,
+    "lon": -28.3054765,
+    "tags": {
+      "amenity": "cafe",
+      "cuisine": "coffee_shop;sandwich"
+    }
+  },
+  {
+    "osm_id": "node/9117868147",
+    "lat": 38.6017276,
+    "lon": -28.0157812,
+    "tags": {
+      "addr:city": "Calheta",
+      "addr:postcode": "9850-045",
+      "addr:street": "Rua Padre Manuel Azevedo da Cunha",
+      "amenity": "police",
+      "name": "Esquadra da Calheta",
+      "operator": "Polícia de Segurança Pública",
+      "operator:short": "PSP",
+      "operator:wikidata": "Q3460075",
+      "operator:wikipedia": "en:Polícia de Segurança Pública"
+    }
+  },
+  {
+    "osm_id": "node/9174356375",
+    "lat": 38.4884422,
+    "lon": -28.2448491,
+    "tags": {
+      "access": "yes",
+      "amenity": "toilets",
+      "changing_table": "no",
+      "fee": "no",
+      "female": "yes",
+      "male": "yes",
+      "toilets:disposal": "flush",
+      "wheelchair": "no"
+    }
+  },
+  {
+    "osm_id": "node/9212150608",
+    "lat": 38.6792473,
+    "lon": -28.2046043,
+    "tags": {
+      "addr:city": "Velas",
+      "addr:postcode": "9800-530",
+      "addr:street": "Rua Conselheiro Doutor José Pereira",
+      "amenity": "police",
+      "name": "GNR - Posto Territorial das Velas",
+      "operator": "Guarda Nacional Republicana",
+      "operator:wikidata": "Q1280906",
+      "operator:wikipedia": "pt:Guarda Nacional Republicana"
+    }
+  },
+  {
+    "osm_id": "node/9858846669",
+    "lat": 38.6788624,
+    "lon": -28.0502886,
+    "tags": {
+      "tourism": "viewpoint"
+    }
+  },
+  {
+    "osm_id": "node/9858846671",
+    "lat": 38.6769826,
+    "lon": -28.0862663,
+    "tags": {
+      "amenity": "drinking_water",
+      "start_date": "1903"
+    }
+  },
+  {
+    "osm_id": "node/9859207228",
+    "lat": 38.6779968,
+    "lon": -28.0503621,
+    "tags": {
+      "access": "yes",
+      "amenity": "parking",
+      "capacity": "4",
+      "fee": "no",
+      "parking": "surface"
+    }
+  },
+  {
+    "osm_id": "node/9864396870",
+    "lat": 38.6662665,
+    "lon": -28.1702047,
+    "tags": {
+      "amenity": "restaurant",
+      "cuisine": "regional",
+      "level": "0",
+      "name": "A Quinta",
+      "outdoor_seating": "yes"
+    }
+  },
+  {
+    "osm_id": "node/9879077365",
+    "lat": 38.6075581,
+    "lon": -28.0204909,
+    "tags": {
+      "amenity": "restaurant",
+      "name": "Sabores Sopranos",
+      "opening_hours": "Mo-Tu,Th-Su 12:00-15:30,19:00-23:00",
+      "phone": "+351 969 348 476"
+    }
+  },
+  {
+    "osm_id": "node/9889313267",
+    "lat": 38.6770039,
+    "lon": -28.0858885,
+    "tags": {
+      "amenity": "drinking_water",
+      "start_date": "1903"
+    }
+  },
+  {
+    "osm_id": "node/9891380617",
+    "lat": 38.6066631,
+    "lon": -27.9951534,
+    "tags": {
+      "name": "Supermercado Bom Dia São Jorge",
+      "opening_hours": "Mo-Fr 09:00-20:00; Sa 09:00-18:00; PH,Su 10:00-16:00",
+      "shop": "supermarket"
+    }
+  },
+  {
+    "osm_id": "node/9891444281",
+    "lat": 38.6282993,
+    "lon": -27.9414119,
+    "tags": {
+      "waterway": "waterfall"
+    }
+  },
+  {
+    "osm_id": "node/9891444287",
+    "lat": 38.641022,
+    "lon": -27.9673172,
+    "tags": {
+      "access": "yes",
+      "amenity": "toilets",
+      "note": "behind the church"
+    }
+  },
+  {
+    "osm_id": "node/9906255805",
+    "lat": 38.74076,
+    "lon": -28.2636541,
+    "tags": {
+      "direction": "N",
+      "name": "Miradouro Ferrã Alfonso",
+      "tourism": "viewpoint"
+    }
+  },
+  {
+    "osm_id": "node/9936970217",
+    "lat": 38.5188182,
+    "lon": -28.305052,
+    "tags": {
+      "tourism": "viewpoint"
+    }
+  },
+  {
+    "osm_id": "node/9995576086",
+    "lat": 38.6014553,
+    "lon": -28.0130106,
+    "tags": {
+      "access": "yes",
+      "amenity": "toilets"
+    }
+  },
+  {
+    "osm_id": "node/9999434888",
+    "lat": 38.6658809,
+    "lon": -28.1672078,
+    "tags": {
+      "amenity": "cafe",
+      "level": "0",
+      "name": "Bota que tem",
+      "outdoor_seating": "yes"
+    }
+  },
+  {
+    "osm_id": "node/11016455373",
+    "lat": 38.6025009,
+    "lon": -28.0131554,
+    "tags": {
+      "access": "yes",
+      "amenity": "toilets"
+    }
+  },
+  {
+    "osm_id": "node/11078769796",
+    "lat": 38.5188679,
+    "lon": -28.3053498,
+    "tags": {
+      "access": "yes",
+      "amenity": "parking",
+      "fee": "no",
+      "parking": "surface"
+    }
+  },
+  {
+    "osm_id": "node/11125461624",
+    "lat": 38.6059659,
+    "lon": -28.0110612,
+    "tags": {
+      "amenity": "restaurant",
+      "cuisine": "pizza",
+      "name": "Cantinho da Pizza"
+    }
+  },
+  {
+    "osm_id": "node/11231243671",
+    "lat": 38.5152977,
+    "lon": -28.3097041,
+    "tags": {
+      "highway": "bus_stop",
+      "name": "São Roque - Rua do Alves",
+      "public_transport": "platform",
+      "shelter": "no"
+    }
+  },
+  {
+    "osm_id": "node/11231278105",
+    "lat": 38.5104634,
+    "lon": -28.3044711,
+    "tags": {
+      "name": "Sara Village",
+      "tourism": "guest_house"
+    }
+  },
+  {
+    "osm_id": "node/11231278576",
+    "lat": 38.5186856,
+    "lon": -28.3105259,
+    "tags": {
+      "highway": "bus_stop",
+      "name": "São Roque - Rotunda",
+      "public_transport": "platform",
+      "shelter": "no"
+    }
+  },
+  {
+    "osm_id": "node/11231284323",
+    "lat": 38.510797,
+    "lon": -28.3058856,
+    "tags": {
+      "highway": "bus_stop",
+      "name": "São Miguel Arcanjo - Rua da Palha",
+      "public_transport": "platform",
+      "shelter": "no"
+    }
+  },
+  {
+    "osm_id": "node/11232627048",
+    "lat": 38.5903114,
+    "lon": -27.9477594,
+    "tags": {
+      "name": "Fajã da Fragueira",
+      "place": "hamlet"
+    }
+  },
+  {
+    "osm_id": "node/11236866860",
+    "lat": 38.6449739,
+    "lon": -28.1265352,
+    "tags": {
+      "name": "Mini-Market",
+      "opening_hours": "Mo-Sa 08:30-13:00,14:00-18:30; Su 09:00-12:00",
+      "shop": "convenience",
+      "wheelchair": "no"
+    }
+  },
+  {
+    "osm_id": "node/11238395651",
+    "lat": 38.682095,
+    "lon": -28.2149878,
+    "tags": {
+      "amenity": "parking",
+      "capacity": "5",
+      "fee": "no",
+      "parking": "lane"
+    }
+  },
+  {
+    "osm_id": "node/11238847368",
+    "lat": 38.6795998,
+    "lon": -28.2063564,
+    "tags": {
+      "amenity": "post_office"
+    }
+  },
+  {
+    "osm_id": "node/11243300207",
+    "lat": 38.6816419,
+    "lon": -28.2094854,
+    "tags": {
+      "amenity": "pharmacy"
+    }
+  },
+  {
+    "osm_id": "node/11243300208",
+    "lat": 38.6781805,
+    "lon": -28.2077517,
+    "tags": {
+      "amenity": "parking",
+      "fee": "no",
+      "parking": "lane"
+    }
+  },
+  {
+    "osm_id": "node/11243321901",
+    "lat": 38.6780172,
+    "lon": -28.2078754,
+    "tags": {
+      "amenity": "toilets",
+      "fee": "no",
+      "shower": "yes",
+      "toilets:access": "yes",
+      "toilets:handwashing": "yes"
+    }
+  },
+  {
+    "osm_id": "node/11248789161",
+    "lat": 38.6472991,
+    "lon": -28.1379211,
+    "tags": {
+      "amenity": "drinking_water"
+    }
+  },
+  {
+    "osm_id": "node/11248813503",
+    "lat": 38.6523054,
+    "lon": -28.1507734,
+    "tags": {
+      "amenity": "drinking_water"
+    }
+  },
+  {
+    "osm_id": "node/11248884408",
+    "lat": 38.656069,
+    "lon": -28.160041,
+    "tags": {
+      "amenity": "drinking_water"
+    }
+  },
+  {
+    "osm_id": "node/11251116382",
+    "lat": 38.6521796,
+    "lon": -28.1328046,
+    "tags": {
+      "amenity": "fuel",
+      "name": "Azoria"
+    }
+  },
+  {
+    "osm_id": "node/11251128201",
+    "lat": 38.6310987,
+    "lon": -27.942661,
+    "tags": {
+      "name": "Kuanza",
+      "tourism": "guest_house",
+      "website": "https://kuanza.pt/"
+    }
+  },
+  {
+    "osm_id": "node/11251149321",
+    "lat": 38.6450804,
+    "lon": -28.1269308,
+    "tags": {
+      "leisure": "playground"
+    }
+  },
+  {
+    "osm_id": "node/11278275605",
+    "lat": 38.6795643,
+    "lon": -28.2091661,
+    "tags": {
+      "access": "yes",
+      "amenity": "charging_station",
+      "authentication:app": "yes",
+      "authentication:membership_card": "yes",
+      "authentication:none": "no",
+      "capacity": "2",
+      "fee": "yes",
+      "maxstay": "unlimited",
+      "motorcar": "yes",
+      "name": "VLS-00002",
+      "network": "Mobi.E",
+      "opening_hours": "24/7",
+      "operator": "SEGMA",
+      "parking:fee": "no",
+      "payment:app": "yes",
+      "payment:cards": "no",
+      "payment:cash": "no",
+      "payment:membership_card": "yes",
+      "ref": "VLS-00002",
+      "ref:EU:EVSE": "PT*SEG*E*VLS*00002*01;PT*SEG*E*VLS*00002*02",
+      "socket:type2": "2",
+      "socket:type2:current": "32",
+      "socket:type2:output": "22 kW",
+      "socket:type2:voltage": "400",
+      "website": "https://www.mobie.pt/"
+    }
+  },
+  {
+    "osm_id": "node/11862998971",
+    "lat": 38.6238922,
+    "lon": -27.9287877,
+    "tags": {
+      "amenity": "toilets"
+    }
+  },
+  {
+    "osm_id": "node/11862999569",
+    "lat": 38.6238343,
+    "lon": -27.9289224,
+    "tags": {
+      "tourism": "camp_site"
+    }
+  },
+  {
+    "osm_id": "node/11887628352",
+    "lat": 38.6826375,
+    "lon": -28.2178575,
+    "tags": {
+      "direction": "270",
+      "tourism": "viewpoint"
+    }
+  },
+  {
+    "osm_id": "node/11887629475",
+    "lat": 38.683271,
+    "lon": -28.2143696,
+    "tags": {
+      "addr:city": "Velas",
+      "addr:housenumber": "8",
+      "addr:postcode": "9800-522",
+      "addr:street": "Rua do Livramento",
+      "guest_house": "apartment",
+      "internet_access": "yes",
+      "internet_access:fee": "no",
+      "name": "feel... Azores - apartments",
+      "rooms": "2",
+      "tourism": "guest_house"
+    }
+  },
+  {
+    "osm_id": "node/11976502848",
+    "lat": 38.60088,
+    "lon": -28.011045,
+    "tags": {
+      "access": "yes",
+      "amenity": "charging_station",
+      "authentication:app": "yes",
+      "authentication:membership_card": "yes",
+      "authentication:none": "no",
+      "brand": "SEGMA",
+      "capacity": "2",
+      "email": "segma@segma.pt",
+      "fee": "yes",
+      "maxstay": "unlimited",
+      "motorcar": "yes",
+      "name": "CHT-00002",
+      "network": "Mobi.E",
+      "opening_hours": "24/7",
+      "operator": "SEGMA",
+      "parking:fee": "no",
+      "payment:app": "yes",
+      "payment:cards": "no",
+      "payment:cash": "no",
+      "payment:membership_card": "yes",
+      "phone": "+351 296 20 22 09",
+      "ref": "CHT-00002",
+      "ref:EU:EVSE": "PT*SEG*E*CHT*00002*01;PT*SEG*E*CHT*00002*02",
+      "socket:type2": "2",
+      "socket:type2:current": "32",
+      "socket:type2:output": "22 kW",
+      "socket:type2:voltage": "400",
+      "website": "https://www.mobie.pt/"
+    }
+  },
+  {
+    "osm_id": "node/12238995240",
+    "lat": 38.6643361,
+    "lon": -28.1638342,
+    "tags": {
+      "shop": "convenience"
+    }
+  },
+  {
+    "osm_id": "node/12241156781",
+    "lat": 38.645643,
+    "lon": -28.1278576,
+    "tags": {
+      "amenity": "atm",
+      "opening_hours": "24/7",
+      "wheelchair": "yes"
+    }
+  },
+  {
+    "osm_id": "node/12246637002",
+    "lat": 38.680055,
+    "lon": -28.2057014,
+    "tags": {
+      "access": "yes",
+      "amenity": "toilets"
+    }
+  },
+  {
+    "osm_id": "node/12758650084",
+    "lat": 38.7174634,
+    "lon": -28.2496227,
+    "tags": {
+      "access": "yes",
+      "amenity": "drinking_water",
+      "fee": "no"
+    }
+  },
+  {
+    "osm_id": "node/12944708358",
+    "lat": 38.5148588,
+    "lon": -28.3038802,
+    "tags": {
+      "amenity": "toilets",
+      "fee": "no",
+      "wheelchair": "yes"
+    }
+  },
+  {
+    "osm_id": "node/12959369520",
+    "lat": 38.6693954,
+    "lon": -28.0596396,
+    "tags": {
+      "amenity": "cafe"
+    }
+  },
+  {
+    "osm_id": "node/12959394817",
+    "lat": 38.6694124,
+    "lon": -28.0595975,
+    "tags": {
+      "shop": "supermarket"
+    }
+  },
+  {
+    "osm_id": "node/12959767782",
+    "lat": 38.6409728,
+    "lon": -27.9675595,
+    "tags": {
+      "amenity": "toilets"
+    }
+  },
+  {
+    "osm_id": "node/12964199632",
+    "lat": 38.7010137,
+    "lon": -28.1997253,
+    "tags": {
+      "amenity": "cafe"
+    }
+  },
+  {
+    "osm_id": "node/12966164591",
+    "lat": 38.6787431,
+    "lon": -28.050617,
+    "tags": {
+      "tourism": "artwork"
+    }
+  },
+  {
+    "osm_id": "node/12969025078",
+    "lat": 38.6647096,
+    "lon": -28.1683674,
+    "tags": {
+      "amenity": "cafe",
+      "name": "Docilha"
+    }
+  },
+  {
+    "osm_id": "node/12969025079",
+    "lat": 38.6646854,
+    "lon": -28.1682918,
+    "tags": {
+      "amenity": "toilets",
+      "fee": "no",
+      "wheelchair": "yes"
+    }
+  },
+  {
+    "osm_id": "node/12969063647",
+    "lat": 38.6646207,
+    "lon": -28.1684621,
+    "tags": {
+      "amenity": "toilets",
+      "fee": "no",
+      "wheelchair": "yes"
+    }
+  },
+  {
+    "osm_id": "node/12971487611",
+    "lat": 38.6059782,
+    "lon": -27.9833257,
+    "tags": {
+      "amenity": "fuel",
+      "brand": "Galp",
+      "name": "Galp",
+      "shop": "convenience"
+    }
+  },
+  {
+    "osm_id": "node/12974342101",
+    "lat": 38.6555027,
+    "lon": -27.9913528,
+    "tags": {
+      "amenity": "drinking_water",
+      "operator": "Free"
+    }
+  },
+  {
+    "osm_id": "node/12974343201",
+    "lat": 38.6568524,
+    "lon": -27.99485,
+    "tags": {
+      "amenity": "drinking_water",
+      "operator": "Free"
+    }
+  },
+  {
+    "osm_id": "node/12974437701",
+    "lat": 38.64899,
+    "lon": -27.9997001,
+    "tags": {
+      "amenity": "drinking_water",
+      "operator": "Free"
+    }
+  },
+  {
+    "osm_id": "node/13021179915",
+    "lat": 38.6817059,
+    "lon": -28.2070883,
+    "tags": {
+      "addr:city": "Velas",
+      "addr:housenumber": "22",
+      "addr:postcode": "9800-549",
+      "addr:street": "Rua Doutor Manuel Arriaga",
+      "amenity": "bank",
+      "branch": "Velas",
+      "brand": "Santander",
+      "brand:wikidata": "Q4854116",
+      "brand:wikipedia": "pt:Banco Santander Portugal",
+      "cash_out": "yes",
+      "contact:email": "velas@santander.pt",
+      "contact:facebook": "santanderpt",
+      "contact:instagram": "santanderpt",
+      "contact:linkedin": "https://www.linkedin.com/company/santanderpt/",
+      "contact:phone": "+351 295 249 520",
+      "contact:twitter": "santanderpt",
+      "contact:youtube": "@santanderpt",
+      "internet_access": "wlan",
+      "language:en": "yes",
+      "language:es": "yes",
+      "language:pt": "yes",
+      "name": "Santander",
+      "opening_hours": "Mo-Fr 08:30-15:00; Sa-Su off; Jan 01,Apr 25,May 25,Jun 01,Jun 26,Aug 10,Aug 24,Oct 15,Nov 05,Dec 01,Dec 08,Dec 25 off",
+      "operator": "Banco Santander (Portugal)",
+      "operator:wikidata": "Q4854116",
+      "operator:wikipedia": "pt:Banco Santander Portugal",
+      "ref": "8702",
+      "source:contact": "website",
+      "source:opening_hours": "website",
+      "website": "https://www.santander.pt/"
+    }
+  },
+  {
+    "osm_id": "node/13078498843",
+    "lat": 38.5840381,
+    "lon": -27.9320186,
+    "tags": {
+      "amenity": "cafe",
+      "level": "0",
+      "name": "Café Nunes",
+      "outdoor_seating": "yes"
+    }
+  },
+  {
+    "osm_id": "node/13078801042",
+    "lat": 38.5904846,
+    "lon": -27.948397,
+    "tags": {
+      "amenity": "drinking_water",
+      "inscription": "Em homenagem ás gentes do Portal"
+    }
+  },
+  {
+    "osm_id": "node/13096800469",
+    "lat": 38.6007506,
+    "lon": -28.0108827,
+    "tags": {
+      "access": "customers",
+      "amenity": "toilets",
+      "fee": "no"
+    }
+  },
+  {
+    "osm_id": "node/13116823731",
+    "lat": 38.6071536,
+    "lon": -28.0340215,
+    "tags": {
+      "access": "yes",
+      "amenity": "toilets",
+      "fee": "no",
+      "toilets:disposal": "flush"
+    }
+  },
+  {
+    "osm_id": "node/13131394837",
+    "lat": 38.6073862,
+    "lon": -28.0337691,
+    "tags": {
+      "access": "customers",
+      "amenity": "toilets",
+      "female": "yes",
+      "male": "yes",
+      "toilets:disposal": "flush"
+    }
+  },
+  {
+    "osm_id": "node/13134672851",
+    "lat": 38.7213491,
+    "lon": -28.2096653,
+    "tags": {
+      "tourism": "viewpoint"
+    }
+  },
+  {
+    "osm_id": "node/13134672858",
+    "lat": 38.7211388,
+    "lon": -28.2092267,
+    "tags": {
+      "amenity": "parking"
+    }
+  },
+  {
+    "osm_id": "node/13136741973",
+    "lat": 38.5568956,
+    "lon": -27.85359,
+    "tags": {
+      "amenity": "parking"
+    }
+  },
+  {
+    "osm_id": "node/13136902528",
+    "lat": 38.6864592,
+    "lon": -28.2022248,
+    "tags": {
+      "amenity": "fuel",
+      "brand": "Repsol",
+      "name": "Repsol"
+    }
+  },
+  {
+    "osm_id": "node/13136927014",
+    "lat": 38.6917833,
+    "lon": -28.2128571,
+    "tags": {
+      "amenity": "fuel",
+      "brand": "Galp Energia",
+      "brand:wikidata": "Q1492739",
+      "brand:wikipedia": "en:Galp Energia",
+      "compressed_air": "yes",
+      "name": "Galp"
+    }
+  },
+  {
+    "osm_id": "node/13142257131",
+    "lat": 38.6445536,
+    "lon": -28.1298816,
+    "tags": {
+      "access": "customers",
+      "amenity": "toilets",
+      "female": "yes",
+      "male": "yes",
+      "toilets:disposal": "flush"
+    }
+  },
+  {
+    "osm_id": "node/13142261992",
+    "lat": 38.6511753,
+    "lon": -28.1387745,
+    "tags": {
+      "name": "Loja Hortência",
+      "shop": "supermarket"
+    }
+  },
+  {
+    "osm_id": "node/13172907801",
+    "lat": 38.679178,
+    "lon": -28.207528,
+    "tags": {
+      "amenity": "restaurant",
+      "name": "Milénio"
+    }
+  },
+  {
+    "osm_id": "node/13173645833",
+    "lat": 38.515302,
+    "lon": -28.3095984,
+    "tags": {
+      "highway": "bus_stop",
+      "name": "São Roque - Rua do Alves",
+      "public_transport": "platform",
+      "shelter": "no"
+    }
+  },
+  {
+    "osm_id": "node/13173645835",
+    "lat": 38.5187411,
+    "lon": -28.3104177,
+    "tags": {
+      "highway": "bus_stop",
+      "name": "São Roque - Rotunda",
+      "public_transport": "platform",
+      "shelter": "no"
+    }
+  },
+  {
+    "osm_id": "node/13173645837",
+    "lat": 38.5205743,
+    "lon": -28.312157,
+    "tags": {
+      "fixme": "position estimated",
+      "highway": "bus_stop",
+      "name": "São Roque - Escola da Condução Osis",
+      "public_transport": "platform",
+      "shelter": "no"
+    }
+  },
+  {
+    "osm_id": "node/13173645838",
+    "lat": 38.5205491,
+    "lon": -28.3122608,
+    "tags": {
+      "highway": "bus_stop",
+      "name": "São Roque - Escola da Condução Osis",
+      "public_transport": "platform",
+      "shelter": "no"
+    }
+  },
+  {
+    "osm_id": "node/13173845053",
+    "lat": 38.5028033,
+    "lon": -28.2887256,
+    "tags": {
+      "highway": "bus_stop",
+      "name": "São Miguel Arcanjo - Ermida",
+      "public_transport": "platform",
+      "shelter": "no"
+    }
+  },
+  {
+    "osm_id": "node/13173845054",
+    "lat": 38.5027039,
+    "lon": -28.2887521,
+    "tags": {
+      "highway": "bus_stop",
+      "name": "São Miguel Arcanjo - Ermida",
+      "public_transport": "platform",
+      "shelter": "yes"
+    }
+  },
+  {
+    "osm_id": "node/13173845055",
+    "lat": 38.5053895,
+    "lon": -28.2975106,
+    "tags": {
+      "fixme": "position estimated",
+      "highway": "bus_stop",
+      "name": "São Miguel Arcanjo - Rua de Baixo",
+      "public_transport": "platform"
+    }
+  },
+  {
+    "osm_id": "node/13173845056",
+    "lat": 38.5054411,
+    "lon": -28.2974522,
+    "tags": {
+      "highway": "bus_stop",
+      "name": "São Miguel Arcanjo - Rua de Baixo",
+      "public_transport": "platform"
+    }
+  },
+  {
+    "osm_id": "node/13173845057",
+    "lat": 38.506478,
+    "lon": -28.3004581,
+    "tags": {
+      "fixme": "position estimated",
+      "highway": "bus_stop",
+      "name": "São Miguel Arcanjo - Riberira da Fonte",
+      "public_transport": "platform"
+    }
+  },
+  {
+    "osm_id": "node/13173845059",
+    "lat": 38.5087026,
+    "lon": -28.3021058,
+    "tags": {
+      "highway": "bus_stop",
+      "name": "São Miguel Arcanjo - Rua do Paço",
+      "public_transport": "platform",
+      "shelter": "yes"
+    }
+  },
+  {
+    "osm_id": "node/13173845060",
+    "lat": 38.5087972,
+    "lon": -28.3020393,
+    "tags": {
+      "highway": "bus_stop",
+      "name": "São Miguel Arcanjo - Rua do Paço",
+      "public_transport": "platform"
+    }
+  },
+  {
+    "osm_id": "node/13173845062",
+    "lat": 38.5108646,
+    "lon": -28.305848,
+    "tags": {
+      "highway": "bus_stop",
+      "name": "São Miguel Arcanjo - Rua da Palha",
+      "public_transport": "platform",
+      "shelter": "no"
+    }
+  },
+  {
+    "osm_id": "node/13196042761",
+    "lat": 38.6666269,
+    "lon": -28.1707101,
+    "tags": {
+      "name": "Quinta dos Misterios",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "osm_id": "node/13827174115",
+    "lat": 38.5961717,
+    "lon": -27.9797934,
+    "tags": {
+      "amenity": "place_of_worship",
+      "name": "Igreja de São Tiago Maior",
+      "wikipedia": "Igreja de São Tiago Maior (Ribeira Seca)"
+    }
+  },
+  {
+    "osm_id": "node/13970541201",
+    "lat": 38.6692221,
+    "lon": -28.177643,
+    "tags": {
+      "name": "Varandas do Basalto",
+      "tourism": "guest_house"
+    }
+  },
+  {
+    "osm_id": "node/14079249201",
+    "lat": 38.6023697,
+    "lon": -28.0046857,
+    "tags": {
+      "shop": "convenience"
+    }
+  },
+  {
+    "osm_id": "node/14080357901",
+    "lat": 38.6865623,
+    "lon": -28.2175315,
+    "tags": {
+      "amenity": "toilets",
+      "check_date": "2026-08-08",
+      "check_date:opening_hours": "2026-08-08",
+      "level": "0",
+      "opening_hours": "24/7"
+    }
+  },
+  {
+    "osm_id": "node/14080359401",
+    "lat": 38.686763,
+    "lon": -28.2174273,
+    "tags": {
+      "leisure": "playground"
+    }
+  },
+  {
+    "osm_id": "way/145866531",
+    "lat": 38.6007259,
+    "lon": -28.0155363,
+    "tags": {
+      "name": "Museu da Calheta",
+      "tourism": "museum"
+    }
+  },
+  {
+    "osm_id": "way/172533733",
+    "lat": 38.6804596,
+    "lon": -28.2112591,
+    "tags": {
+      "building": "yes",
+      "contact:facebook": "hotelsaojorge",
+      "contact:instagram": "oceanohoteis",
+      "contact:twitter": "oceanohoteis",
+      "email": "central.reservas@hotelsaojorge.pt",
+      "internet_access": "wlan",
+      "name": "Hotel São Jorge Garden",
+      "operator": "Oceano Hotels",
+      "phone": "+351 295 430 100",
+      "stars": "3",
+      "tourism": "hotel",
+      "website": "https://oceanohoteis.com/",
+      "wikidata": "Q111870666"
+    }
+  },
+  {
+    "osm_id": "way/172547115",
+    "lat": 38.6815368,
+    "lon": -28.2097001,
+    "tags": {
+      "building": "retail",
+      "building:levels": "2",
+      "name": "Compre Bem",
+      "opening_hours": "Mo-Sa 08:30-20:00; PH,Su 09:00-18:00",
+      "roof:levels": "0",
+      "shop": "supermarket",
+      "wheelchair": "yes"
+    }
+  },
+  {
+    "osm_id": "way/204798989",
+    "lat": 38.680031,
+    "lon": -28.2052132,
+    "tags": {
+      "amenity": "place_of_worship",
+      "building": "church",
+      "check_date": "2024-05-07",
+      "denomination": "catholic",
+      "name": "Igreja Matriz de São Jorge",
+      "religion": "christian"
+    }
+  },
+  {
+    "osm_id": "way/240570151",
+    "lat": 38.6148269,
+    "lon": -28.0316451,
+    "tags": {
+      "amenity": "parking",
+      "parking": "street_side"
+    }
+  },
+  {
+    "osm_id": "way/280404095",
+    "lat": 38.5827924,
+    "lon": -27.9309667,
+    "tags": {
+      "amenity": "place_of_worship",
+      "building": "chapel",
+      "check_date": "2025-07-01",
+      "denomination": "roman_catholic",
+      "name": "Capela de São Sebastião",
+      "religion": "christian"
+    }
+  },
+  {
+    "osm_id": "way/280971056",
+    "lat": 38.6443479,
+    "lon": -28.1298885,
+    "tags": {
+      "fee": "yes",
+      "name": "Parque de Campismo da Urzelina",
+      "shower": "hot",
+      "tents": "yes",
+      "toilets": "yes",
+      "tourism": "camp_site"
+    }
+  },
+  {
+    "osm_id": "way/310273974",
+    "lat": 38.6291595,
+    "lon": -28.0808319,
+    "tags": {
+      "amenity": "parking",
+      "parking": "surface"
+    }
+  },
+  {
+    "osm_id": "way/368060418",
+    "lat": 38.6043228,
+    "lon": -28.0237784,
+    "tags": {
+      "amenity": "parking"
+    }
+  },
+  {
+    "osm_id": "way/446375453",
+    "lat": 38.6452929,
+    "lon": -28.1333121,
+    "tags": {
+      "access": "yes",
+      "amenity": "parking",
+      "fee": "no",
+      "parking": "surface"
+    }
+  },
+  {
+    "osm_id": "way/481827628",
+    "lat": 38.6698977,
+    "lon": -28.0604244,
+    "tags": {
+      "amenity": "place_of_worship",
+      "building": "yes",
+      "denomination": "roman_catholic",
+      "name": "Igreja de Santo António",
+      "religion": "christian",
+      "wikidata": "Q10300691",
+      "wikimedia_commons": "Category:Church of Santo António (Velas)",
+      "wikipedia": "pt:Igreja de Santo António (Norte Grande)"
+    }
+  },
+  {
+    "osm_id": "way/481852686",
+    "lat": 38.6770212,
+    "lon": -28.0861826,
+    "tags": {
+      "amenity": "place_of_worship",
+      "building": "yes",
+      "denomination": "roman_catholic",
+      "name": "Ermida de Nossa Senhora da Auxiliadora",
+      "religion": "christian",
+      "start_date": "1936"
+    }
+  },
+  {
+    "osm_id": "way/481852753",
+    "lat": 38.6461478,
+    "lon": -28.0029061,
+    "tags": {
+      "amenity": "place_of_worship",
+      "building": "church",
+      "denomination": "roman_catholic",
+      "name": "Igreja de São Lázaro",
+      "religion": "christian",
+      "wikidata": "Q10300781",
+      "wikimedia_commons": "Category:Church of São Lázaro (Calheta)",
+      "wikipedia": "pt:Igreja de São Lázaro (Norte Pequeno)"
+    }
+  },
+  {
+    "osm_id": "way/482014184",
+    "lat": 38.6408763,
+    "lon": -27.9676099,
+    "tags": {
+      "amenity": "place_of_worship",
+      "building": "church",
+      "check_date": "2025-06-28",
+      "name": "Igreja de Nossa Senhora de Lourdes",
+      "religion": "christian"
+    }
+  },
+  {
+    "osm_id": "way/495708657",
+    "lat": 38.637623,
+    "lon": -27.9619779,
+    "tags": {
+      "access": "yes",
+      "amenity": "parking",
+      "fee": "no",
+      "parking": "surface"
+    }
+  },
+  {
+    "osm_id": "way/495708659",
+    "lat": 38.63793,
+    "lon": -27.9618594,
+    "tags": {
+      "access": "yes",
+      "amenity": "parking",
+      "fee": "no",
+      "parking": "surface"
+    }
+  },
+  {
+    "osm_id": "way/496759044",
+    "lat": 38.6150799,
+    "lon": -28.0321336,
+    "tags": {
+      "amenity": "place_of_worship",
+      "building": "yes",
+      "check_date": "2023-10-07",
+      "denomination": "roman_catholic",
+      "name": "Ermida de Nossa Senhora do Socorro",
+      "religion": "christian",
+      "wikidata": "Q10273834",
+      "wikipedia": "pt:Ermida de Nossa Senhora do Socorro"
+    }
+  },
+  {
+    "osm_id": "way/516891640",
+    "lat": 38.7522776,
+    "lon": -28.3087733,
+    "tags": {
+      "alt_name": "Miradouro da Ponta dos Rosais",
+      "building": "yes",
+      "man_made": "tower",
+      "name": "Vigia da Baleia Ponta dos Rosais",
+      "name:de": "Walausguck von Ponta dos Rosais",
+      "tourism": "viewpoint",
+      "tower:type": "watchtower"
+    }
+  },
+  {
+    "osm_id": "way/531951078",
+    "lat": 38.6221666,
+    "lon": -27.9257001,
+    "tags": {
+      "building": "yes",
+      "contact:email": "surfcampcaldeira@gmail.com",
+      "guest_house": "casa_rurale",
+      "name": "Caldeira Surf Camp",
+      "tourism": "guest_house",
+      "website": "https://www.caldeirasurfcamp.com/"
+    }
+  },
+  {
+    "osm_id": "way/550003437",
+    "lat": 38.7176968,
+    "lon": -28.2495373,
+    "tags": {
+      "amenity": "place_of_worship",
+      "building": "church",
+      "name": "Igreja Nossa Senhora do Rosário",
+      "religion": "christian"
+    }
+  },
+  {
+    "osm_id": "way/550003442",
+    "lat": 38.7177236,
+    "lon": -28.2504767,
+    "tags": {
+      "building": "yes",
+      "name": "Edificio SOL",
+      "tourism": "museum"
+    }
+  },
+  {
+    "osm_id": "way/552470048",
+    "lat": 38.5145478,
+    "lon": -28.304618,
+    "tags": {
+      "amenity": "place_of_worship",
+      "building": "church",
+      "denomination": "roman_catholic",
+      "name": "Igreja de São Roque",
+      "name:etymology": "Roque de Montpellier",
+      "name:etymology:wikidata": "Q152457",
+      "name:etymology:wikipedia": "pt:Roque de Montpellier",
+      "name:pt": "Igreja de São Roque",
+      "religion": "christian",
+      "wikidata": "Q10300845",
+      "wikipedia": "pt:Igreja de São Roque (Ilha do Pico)"
+    }
+  },
+  {
+    "osm_id": "way/566786010",
+    "lat": 38.7174009,
+    "lon": -28.249463,
+    "tags": {
+      "leisure": "playground"
+    }
+  },
+  {
+    "osm_id": "way/566786011",
+    "lat": 38.7182584,
+    "lon": -28.2509651,
+    "tags": {
+      "addr:street": "Caminho de Rosais",
+      "amenity": "cafe",
+      "building": "yes",
+      "cuisine": "pizza;burger;café;mercearia",
+      "internet_access": "wlan",
+      "name": "Café e Mercearia \"O Duartino\"",
+      "opening_hours": "Mo-Su 08:00-22:00",
+      "outdoor_seating": "yes"
+    }
+  },
+  {
+    "osm_id": "way/566791306",
+    "lat": 38.7179679,
+    "lon": -28.2501453,
+    "tags": {
+      "amenity": "cafe",
+      "building": "yes"
+    }
+  },
+  {
+    "osm_id": "way/596680430",
+    "lat": 38.6044329,
+    "lon": -28.0236829,
+    "tags": {
+      "addr:postcode": "9850-027",
+      "landuse": "commercial",
+      "name": "Pousada de Juventude de São Jorge",
+      "name:en": "São Jorge Youth Hostel",
+      "phone": "+351 295 460000",
+      "tourism": "hostel",
+      "website": "http://www.pousadasjuvacores.com/"
+    }
+  },
+  {
+    "osm_id": "way/596680440",
+    "lat": 38.6071368,
+    "lon": -28.0338142,
+    "tags": {
+      "caravans": "no",
+      "drinking_water": "yes",
+      "name": "Parque de Campismo da Calheta",
+      "power_supply": "yes",
+      "shower": "hot",
+      "tents": "yes",
+      "toilets": "yes",
+      "tourism": "camp_site"
+    }
+  },
+  {
+    "osm_id": "way/596683532",
+    "lat": 38.6008331,
+    "lon": -28.0132725,
+    "tags": {
+      "amenity": "place_of_worship",
+      "building": "church",
+      "denomination": "roman_catholic",
+      "name": "Igreja Matriz de Santa Catarina",
+      "religion": "christian"
+    }
+  },
+  {
+    "osm_id": "way/599871171",
+    "lat": 38.6792024,
+    "lon": -28.1879157,
+    "tags": {
+      "addr:housenumber": "46",
+      "addr:street": "Travessa de São Tiago",
+      "amenity": "restaurant",
+      "building": "yes",
+      "name": "Restaurante Fornos de Lava",
+      "opening_hours": "Mo-Su 12:00-15:00,18:00-23:00",
+      "operator": "Hotel Os Moinhos",
+      "phone": "+351917394977"
+    }
+  },
+  {
+    "osm_id": "way/599896952",
+    "lat": 38.6319472,
+    "lon": -28.0963965,
+    "tags": {
+      "amenity": "place_of_worship",
+      "building": "church",
+      "name": "Igreja de Santa Bárbara",
+      "religion": "christian",
+      "wikidata": "Q10300603",
+      "wikimedia_commons": "Category:Church of Santa Bárbara (Velas)",
+      "wikipedia": "pt:Igreja de Santa Bárbara (Manadas)"
+    }
+  },
+  {
+    "osm_id": "way/599946342",
+    "lat": 38.6501854,
+    "lon": -28.1356186,
+    "tags": {
+      "amenity": "place_of_worship",
+      "building": "church",
+      "name": "Igreja de São Mateus",
+      "religion": "christian",
+      "start_date": "1822",
+      "wikidata": "Q10300792",
+      "wikimedia_commons": "Category:Church of São Mateus (Velas)",
+      "wikipedia": "pt:Igreja de São Mateus (Urzelina)"
+    }
+  },
+  {
+    "osm_id": "way/599967618",
+    "lat": 38.6823429,
+    "lon": -28.2152247,
+    "tags": {
+      "amenity": "place_of_worship",
+      "building": "yes",
+      "check_date": "2024-05-08",
+      "denomination": "catholic",
+      "name": "Ermida Senhora do Livramento",
+      "religion": "christian"
+    }
+  },
+  {
+    "osm_id": "way/600690732",
+    "lat": 38.678058,
+    "lon": -28.2078785,
+    "tags": {
+      "amenity": "cafe",
+      "building": "yes",
+      "building:levels": "1",
+      "name": "Balneário",
+      "opening_hours": "closed"
+    }
+  },
+  {
+    "osm_id": "way/617863386",
+    "lat": 38.7311714,
+    "lon": -28.2731772,
+    "tags": {
+      "access": "yes",
+      "amenity": "parking",
+      "capacity": "10",
+      "fee": "no",
+      "parking": "surface",
+      "smoothness": "good",
+      "surface": "asphalt"
+    }
+  },
+  {
+    "osm_id": "way/617892707",
+    "lat": 38.681495,
+    "lon": -28.2095805,
+    "tags": {
+      "access": "customers",
+      "amenity": "parking",
+      "capacity": "32",
+      "fee": "no",
+      "operator": "Compre Bem",
+      "parking": "surface",
+      "smoothness": "intermediate",
+      "surface": "asphalt"
+    }
+  },
+  {
+    "osm_id": "way/617899211",
+    "lat": 38.6795511,
+    "lon": -28.2079526,
+    "tags": {
+      "amenity": "parking",
+      "capacity": "8",
+      "parking": "surface",
+      "surface": "asphalt"
+    }
+  },
+  {
+    "osm_id": "way/617899215",
+    "lat": 38.6813023,
+    "lon": -28.2068879,
+    "tags": {
+      "amenity": "place_of_worship",
+      "building": "yes",
+      "religion": "christian",
+      "wheelchair": "no"
+    }
+  },
+  {
+    "osm_id": "way/632645813",
+    "lat": 38.5232055,
+    "lon": -28.3108756,
+    "tags": {
+      "access": "yes",
+      "amenity": "parking",
+      "fee": "no",
+      "parking": "surface"
+    }
+  },
+  {
+    "osm_id": "way/646515907",
+    "lat": 38.7112176,
+    "lon": -28.2373062,
+    "tags": {
+      "amenity": "cafe",
+      "building": "yes"
+    }
+  },
+  {
+    "osm_id": "way/646515909",
+    "lat": 38.7112601,
+    "lon": -28.2369757,
+    "tags": {
+      "amenity": "restaurant",
+      "building": "yes",
+      "name": "\"O Branquinho\""
+    }
+  },
+  {
+    "osm_id": "way/681367975",
+    "lat": 38.730857,
+    "lon": -28.2273387,
+    "tags": {
+      "amenity": "place_of_worship",
+      "building": "chapel",
+      "denomination": "roman_catholic",
+      "name": "Ermida de São João Evangelista",
+      "religion": "christian",
+      "wikidata": "Q10273925",
+      "wikipedia": "pt:Ermida de São João Evangelista"
+    }
+  },
+  {
+    "osm_id": "way/681406152",
+    "lat": 38.7254334,
+    "lon": -28.2265134,
+    "tags": {
+      "amenity": "parking",
+      "fee": "no",
+      "parking": "surface",
+      "surface": "unpaved"
+    }
+  },
+  {
+    "osm_id": "way/683475788",
+    "lat": 38.5750619,
+    "lon": -27.9193328,
+    "tags": {
+      "addr:housenumber": "18",
+      "building": "yes",
+      "name": "Casa da Eira",
+      "tourism": "guest_house"
+    }
+  },
+  {
+    "osm_id": "way/687703961",
+    "lat": 38.7275209,
+    "lon": -28.2706022,
+    "tags": {
+      "air_conditioning": "no",
+      "building": "yes",
+      "building:levels": "1",
+      "museum": "history",
+      "museum_type": "regional",
+      "name": "Núcleo Museológico da Ponta",
+      "opening_hours": "24/7",
+      "toilets": "no",
+      "tourism": "museum",
+      "website": "https://www.visitazores.com/explorar/nucleo-museologico-da-ponta",
+      "wheelchair": "limited"
+    }
+  },
+  {
+    "osm_id": "way/688481818",
+    "lat": 38.6651501,
+    "lon": -28.1680182,
+    "tags": {
+      "access": "yes",
+      "amenity": "parking",
+      "fee": "no",
+      "parking": "surface"
+    }
+  },
+  {
+    "osm_id": "way/688481821",
+    "lat": 38.6693465,
+    "lon": -28.1825197,
+    "tags": {
+      "amenity": "cafe",
+      "building": "yes",
+      "name": "Luz-bar café"
+    }
+  },
+  {
+    "osm_id": "way/688481823",
+    "lat": 38.6825624,
+    "lon": -28.1904898,
+    "tags": {
+      "amenity": "place_of_worship",
+      "building": "church",
+      "denomination": "catholic",
+      "religion": "christian"
+    }
+  },
+  {
+    "osm_id": "way/688487507",
+    "lat": 38.6790763,
+    "lon": -28.2082895,
+    "tags": {
+      "amenity": "parking"
+    }
+  },
+  {
+    "osm_id": "way/688487508",
+    "lat": 38.6788085,
+    "lon": -28.2080925,
+    "tags": {
+      "amenity": "parking"
+    }
+  },
+  {
+    "osm_id": "way/688487509",
+    "lat": 38.6785809,
+    "lon": -28.2082155,
+    "tags": {
+      "amenity": "parking"
+    }
+  },
+  {
+    "osm_id": "way/688487519",
+    "lat": 38.6823153,
+    "lon": -28.2062321,
+    "tags": {
+      "amenity": "parking"
+    }
+  },
+  {
+    "osm_id": "way/720316150",
+    "lat": 38.6978864,
+    "lon": -28.2065809,
+    "tags": {
+      "amenity": "place_of_worship",
+      "building": "church",
+      "denomination": "roman_catholic",
+      "name": "Igreja de Santa Ana",
+      "religion": "christian"
+    }
+  },
+  {
+    "osm_id": "way/721266982",
+    "lat": 38.6435957,
+    "lon": -28.1262102,
+    "tags": {
+      "addr:city": "Urzelina",
+      "addr:housenumber": "1",
+      "addr:postcode": "9800-429",
+      "addr:state": "20",
+      "addr:street": "Caminho do Açougue",
+      "amenity": "restaurant",
+      "bar": "yes",
+      "building": "yes",
+      "cuisine": "coffee_shop;sandwich;tapas;fish;barbecue;burger;portuguese",
+      "email": "info@artrestaurantmanezinho.com",
+      "name": "café Manezinho",
+      "opening_hours": "We-Su 18:30-02:00; PH open",
+      "outdoor_seating": "yes",
+      "phone": "+351 968 990 696",
+      "reservation": "recommended",
+      "website": "https://www.artrestaurantmanezinho.com/",
+      "wheelchair": "yes"
+    }
+  },
+  {
+    "osm_id": "way/721267078",
+    "lat": 38.6447729,
+    "lon": -28.1283848,
+    "tags": {
+      "addr:city": "Urzelina",
+      "addr:postcode": "9800-421",
+      "addr:street": "Caminho da Pscina",
+      "amenity": "restaurant",
+      "building": "yes",
+      "cuisine": "traditional;barbecue",
+      "name": "O Castelinho",
+      "opening_hours": "Mo-We,Fr-Su 07:00-22:00; PH unknown",
+      "opening_hours:kitchen": "Mo-We,Fr-Su 09:00-15:00,19:00-22:00",
+      "outdoor_seating": "yes",
+      "wheelchair": "limited"
+    }
+  },
+  {
+    "osm_id": "way/723241357",
+    "lat": 38.4864402,
+    "lon": -28.2428442,
+    "tags": {
+      "leisure": "playground"
+    }
+  },
+  {
+    "osm_id": "way/724102756",
+    "lat": 38.5028525,
+    "lon": -28.2879505,
+    "tags": {
+      "amenity": "place_of_worship",
+      "building": "church",
+      "denomination": "roman_catholic",
+      "name": "Ermida de São Miguel Arcanjo",
+      "religion": "christian"
+    }
+  },
+  {
+    "osm_id": "way/726139357",
+    "lat": 38.5195152,
+    "lon": -28.3055783,
+    "tags": {
+      "amenity": "toilets",
+      "building": "yes",
+      "fee": "no"
+    }
+  },
+  {
+    "osm_id": "way/726542304",
+    "lat": 38.5192219,
+    "lon": -28.3128703,
+    "tags": {
+      "building": "yes",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "osm_id": "way/730083661",
+    "lat": 38.6043143,
+    "lon": -28.0251161,
+    "tags": {
+      "amenity": "place_of_worship",
+      "building": "chapel",
+      "religion": "christian"
+    }
+  },
+  {
+    "osm_id": "way/730086323",
+    "lat": 38.6066102,
+    "lon": -28.0309259,
+    "tags": {
+      "amenity": "parking"
+    }
+  },
+  {
+    "osm_id": "way/780655525",
+    "lat": 38.6797216,
+    "lon": -28.2047275,
+    "tags": {
+      "building": "yes",
+      "name": "Hotel Soares Neto",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "osm_id": "way/961735479",
+    "lat": 38.6791603,
+    "lon": -28.208163,
+    "tags": {
+      "addr:city": "Velas",
+      "addr:country": "PT",
+      "addr:housenumber": "1",
+      "addr:postcode": "9800-541",
+      "addr:street": "Rua do Corpo Santo",
+      "amenity": "clinic",
+      "email": "sres-usisj@azores.gov.pt",
+      "fax": "+351 295430228",
+      "healthcare": "clinic",
+      "healthcare:speciality": "general",
+      "name": "Centro de Saúde de Velas",
+      "operator": "Serviço Nacional de Saúde",
+      "operator:short": "SNS",
+      "operator:type": "public",
+      "operator:wikidata": "Q1299901",
+      "phone": "+351 295430220",
+      "related_law": "Decreto Regulamentar Regional n.º 25/2006/A de 2 de agosto",
+      "source:related_law": "https://dre.pt/application/conteudo/539425"
+    }
+  },
+  {
+    "osm_id": "way/961735482",
+    "lat": 38.6054192,
+    "lon": -28.0138982,
+    "tags": {
+      "addr:city": "Calheta",
+      "addr:country": "PT",
+      "addr:postcode": "9850-076",
+      "addr:street": "Relvinha",
+      "amenity": "clinic",
+      "email": "sres-usisj@azores.gov.pt",
+      "fax": "+351 295416402",
+      "name": "Centro de Saúde da Calheta",
+      "operator": "USI São Jorge",
+      "phone": "+351 295460120",
+      "related_law": "Decreto Regulamentar Regional n.º 25/2006/A de 2 de agosto",
+      "source:related_law": "https://dre.pt/application/conteudo/539425"
+    }
+  },
+  {
+    "osm_id": "way/1074903961",
+    "lat": 38.6785299,
+    "lon": -28.0510238,
+    "tags": {
+      "amenity": "restaurant",
+      "building": "yes",
+      "name": "O Amílcar",
+      "opening_hours": "We-Mo 10:00-19:00",
+      "phone": "+351 295 417 448;+351 912 259 501"
+    }
+  },
+  {
+    "osm_id": "way/1074903963",
+    "lat": 38.6770046,
+    "lon": -28.085986,
+    "tags": {
+      "access": "yes",
+      "amenity": "parking",
+      "parking": "surface",
+      "surface": "asphalt"
+    }
+  },
+  {
+    "osm_id": "way/1079103006",
+    "lat": 38.6801318,
+    "lon": -28.2049537,
+    "tags": {
+      "addr:housenumber": "4",
+      "addr:postcode": "9800-537",
+      "addr:street": "Rua da Matriz",
+      "amenity": "restaurant",
+      "building": "yes",
+      "cuisine": "fish;regional",
+      "name": "Tasca dos Sabores",
+      "opening_hours": "Mo-Sa 08:00-00:00",
+      "outdoor_seating": "yes"
+    }
+  },
+  {
+    "osm_id": "way/1080794215",
+    "lat": 38.6770572,
+    "lon": -28.0532358,
+    "tags": {
+      "access": "yes",
+      "leisure": "playground"
+    }
+  },
+  {
+    "osm_id": "way/1080796545",
+    "lat": 38.6377516,
+    "lon": -27.9621521,
+    "tags": {
+      "access": "yes",
+      "amenity": "toilets",
+      "building": "toilets",
+      "construction": "yes",
+      "fee": "no"
+    }
+  },
+  {
+    "osm_id": "way/1080796563",
+    "lat": 38.6237699,
+    "lon": -27.9259644,
+    "tags": {
+      "amenity": "restaurant",
+      "building": "yes",
+      "cuisine": "portuguese",
+      "name": "Taberna O Convés"
+    }
+  },
+  {
+    "osm_id": "way/1083301965",
+    "lat": 38.5847036,
+    "lon": -27.9338522,
+    "tags": {
+      "amenity": "cafe",
+      "building": "retail",
+      "name": "Quinta do Café",
+      "outdoor_seating": "yes"
+    }
+  },
+  {
+    "osm_id": "way/1083338209",
+    "lat": 38.5725019,
+    "lon": -27.9140393,
+    "tags": {
+      "building": "yes",
+      "name": "Abrigo da Cascata",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "osm_id": "way/1084364190",
+    "lat": 38.6831925,
+    "lon": -28.2133204,
+    "tags": {
+      "access": "private",
+      "amenity": "parking"
+    }
+  },
+  {
+    "osm_id": "way/1084364195",
+    "lat": 38.6883519,
+    "lon": -28.2172995,
+    "tags": {
+      "amenity": "parking"
+    }
+  },
+  {
+    "osm_id": "way/1084364209",
+    "lat": 38.6811812,
+    "lon": -28.2129995,
+    "tags": {
+      "amenity": "parking"
+    }
+  },
+  {
+    "osm_id": "way/1104288825",
+    "lat": 38.4896422,
+    "lon": -28.2353427,
+    "tags": {
+      "name": "Baía das Canas",
+      "natural": "beach",
+      "surface": "pebblestone"
+    }
+  },
+  {
+    "osm_id": "way/1160752230",
+    "lat": 38.6022284,
+    "lon": -28.0047585,
+    "tags": {
+      "amenity": "parking"
+    }
+  },
+  {
+    "osm_id": "way/1186353656",
+    "lat": 38.5696487,
+    "lon": -27.8955888,
+    "tags": {
+      "amenity": "place_of_worship",
+      "building": "church",
+      "denomination": "catholic",
+      "religion": "christian"
+    }
+  },
+  {
+    "osm_id": "way/1203037416",
+    "lat": 38.5973567,
+    "lon": -27.9265937,
+    "tags": {
+      "access": "yes",
+      "amenity": "parking",
+      "fee": "no",
+      "parking": "surface"
+    }
+  },
+  {
+    "osm_id": "way/1208639612",
+    "lat": 38.7356443,
+    "lon": -28.262512,
+    "tags": {
+      "amenity": "parking"
+    }
+  },
+  {
+    "osm_id": "way/1255264902",
+    "lat": 38.584032,
+    "lon": -27.9327238,
+    "tags": {
+      "access": "customers",
+      "amenity": "parking",
+      "fee": "no",
+      "operator": "Café Nunes",
+      "operator:type": "private",
+      "parking": "surface",
+      "smoothness": "bad",
+      "surface": "fine_gravel"
+    }
+  },
+  {
+    "osm_id": "way/1255265082",
+    "lat": 38.6076423,
+    "lon": -28.0341028,
+    "tags": {
+      "access": "yes",
+      "amenity": "parking",
+      "fee": "no",
+      "parking": "surface"
+    }
+  },
+  {
+    "osm_id": "way/1312599981",
+    "lat": 38.6188687,
+    "lon": -27.9979721,
+    "tags": {
+      "access": "private",
+      "amenity": "parking",
+      "parking": "surface",
+      "surface": "asphalt"
+    }
+  },
+  {
+    "osm_id": "way/1317553236",
+    "lat": 38.6023827,
+    "lon": -28.009806,
+    "tags": {
+      "addr:city": "Calheta",
+      "addr:country": "PT",
+      "addr:postcode": "9850-011",
+      "addr:street": "Rua das Alcaçarias",
+      "contact:email": "museu.flacerda.info@azores.gov.pt",
+      "contact:phone": "+351 295416323",
+      "contact:website": "https://museu-franciscolacerda.azores.gov.pt/",
+      "landuse": "commercial",
+      "name": "Museu Francisco de Lacerda",
+      "tourism": "museum"
+    }
+  },
+  {
+    "osm_id": "way/1317649835",
+    "lat": 38.5836606,
+    "lon": -27.933257,
+    "tags": {
+      "natural": "beach",
+      "surface": "pebblestone"
+    }
+  },
+  {
+    "osm_id": "way/1317668173",
+    "lat": 38.6592262,
+    "lon": -28.0002993,
+    "tags": {
+      "amenity": "place_of_worship",
+      "building": "chapel",
+      "denomination": "roman_catholic",
+      "name": "Ermida de Santa Filomena",
+      "religion": "christian",
+      "wikidata": "Q10273861",
+      "wikimedia_commons": "Category:Chapel of Santa Filomena (Calheta)",
+      "wikipedia": "pt:Ermida de Santa Filomena (Fajã da Penedia)"
+    }
+  },
+  {
+    "osm_id": "way/1322505462",
+    "lat": 38.6494701,
+    "lon": -28.1347479,
+    "tags": {
+      "access": "customers",
+      "amenity": "parking",
+      "fee": "no",
+      "parking": "surface",
+      "smoothness": "bad",
+      "surface": "fine_gravel"
+    }
+  },
+  {
+    "osm_id": "way/1322736397",
+    "lat": 38.64341,
+    "lon": -28.1263499,
+    "tags": {
+      "access": "yes",
+      "amenity": "parking",
+      "capacity": "9",
+      "fee": "no",
+      "parking": "surface",
+      "smoothness": "good",
+      "surface": "asphalt"
+    }
+  },
+  {
+    "osm_id": "way/1322736398",
+    "lat": 38.6432762,
+    "lon": -28.1258409,
+    "tags": {
+      "access": "yes",
+      "amenity": "parking",
+      "capacity": "10",
+      "fee": "no",
+      "parking": "surface",
+      "smoothness": "good",
+      "surface": "asphalt"
+    }
+  },
+  {
+    "osm_id": "way/1322879279",
+    "lat": 38.6458573,
+    "lon": -28.1281482,
+    "tags": {
+      "access": "yes",
+      "amenity": "parking",
+      "parking": "surface"
+    }
+  },
+  {
+    "osm_id": "way/1354411374",
+    "lat": 38.6716304,
+    "lon": -28.1937784,
+    "tags": {
+      "internet_access": "wlan",
+      "internet_access:fee": "no",
+      "name": "Cantinho das Buganvilias",
+      "phone": "+351 295 432 271",
+      "tourism": "hotel",
+      "website": "https://www.cantinhodasbuganvilias.net/"
+    }
+  },
+  {
+    "osm_id": "way/1411636076",
+    "lat": 38.6771382,
+    "lon": -28.0521437,
+    "tags": {
+      "amenity": "place_of_worship",
+      "building": "church",
+      "denomination": "catholic",
+      "religion": "christian"
+    }
+  },
+  {
+    "osm_id": "way/1411636081",
+    "lat": 38.6786276,
+    "lon": -28.0505103,
+    "tags": {
+      "access": "yes",
+      "amenity": "parking",
+      "capacity": "5",
+      "fee": "no",
+      "parking": "surface"
+    }
+  },
+  {
+    "osm_id": "way/1411636084",
+    "lat": 38.678104,
+    "lon": -28.0503521,
+    "tags": {
+      "access": "yes",
+      "amenity": "parking",
+      "fee": "no",
+      "parking": "surface"
+    }
+  },
+  {
+    "osm_id": "way/1424843693",
+    "lat": 38.60087,
+    "lon": -28.0101257,
+    "tags": {
+      "amenity": "parking",
+      "fee": "no",
+      "parking": "surface"
+    }
+  },
+  {
+    "osm_id": "way/1428332204",
+    "lat": 38.6025829,
+    "lon": -28.0248808,
+    "tags": {
+      "access": "customers",
+      "amenity": "parking",
+      "fee": "no"
+    }
+  },
+  {
+    "osm_id": "way/1428799852",
+    "lat": 38.6651325,
+    "lon": -28.1688256,
+    "tags": {
+      "access": "customers",
+      "amenity": "parking",
+      "parking": "surface"
+    }
+  },
+  {
+    "osm_id": "way/1429688003",
+    "lat": 38.6443331,
+    "lon": -28.1277855,
+    "tags": {
+      "amenity": "parking",
+      "parking": "surface"
+    }
+  },
+  {
+    "osm_id": "way/1429688004",
+    "lat": 38.644451,
+    "lon": -28.1274019,
+    "tags": {
+      "amenity": "parking",
+      "parking": "surface"
+    }
+  },
+  {
+    "osm_id": "way/1429688013",
+    "lat": 38.6440519,
+    "lon": -28.1288803,
+    "tags": {
+      "amenity": "parking",
+      "parking": "surface"
+    }
+  },
+  {
+    "osm_id": "way/1547998990",
+    "lat": 38.599873,
+    "lon": -27.9716501,
+    "tags": {
+      "amenity": "parking"
+    }
+  },
+  {
+    "osm_id": "way/1547999022",
+    "lat": 38.600573,
+    "lon": -27.9755782,
+    "tags": {
+      "amenity": "cafe",
+      "building": "yes",
+      "name": "Cafe S.Tiago"
+    }
+  },
+  {
+    "osm_id": "way/1547999023",
+    "lat": 38.6006218,
+    "lon": -27.9757673,
+    "tags": {
+      "building": "yes",
+      "name": "Agroganca Mercearia",
+      "shop": "convenience"
+    }
+  },
+  {
+    "osm_id": "way/1547999024",
+    "lat": 38.6004456,
+    "lon": -27.9758062,
+    "tags": {
+      "amenity": "parking"
+    }
+  }
+]

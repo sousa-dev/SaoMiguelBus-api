@@ -1,0 +1,2571 @@
+[
+  {
+    "osm_id": "node/25270678",
+    "lat": 36.9480734,
+    "lon": -25.1453503,
+    "tags": {
+      "capital": "7",
+      "name": "Vila do Porto",
+      "place": "town"
+    }
+  },
+  {
+    "osm_id": "node/747948060",
+    "lat": 36.9613776,
+    "lon": -25.1083446,
+    "tags": {
+      "name": "Brejo de Baixo",
+      "place": "hamlet"
+    }
+  },
+  {
+    "osm_id": "node/747948067",
+    "lat": 36.9660977,
+    "lon": -25.1092612,
+    "tags": {
+      "capital": "8",
+      "name": "Almagreira",
+      "place": "village"
+    }
+  },
+  {
+    "osm_id": "node/747948071",
+    "lat": 36.9617983,
+    "lon": -25.1205906,
+    "tags": {
+      "name": "Carreira",
+      "place": "hamlet"
+    }
+  },
+  {
+    "osm_id": "node/747948076",
+    "lat": 36.9613888,
+    "lon": -25.1297467,
+    "tags": {
+      "name": "Valverde",
+      "place": "hamlet"
+    }
+  },
+  {
+    "osm_id": "node/747948098",
+    "lat": 36.9670868,
+    "lon": -25.1297808,
+    "tags": {
+      "name": "Pedras de São Pedro",
+      "place": "hamlet"
+    }
+  },
+  {
+    "osm_id": "node/747948105",
+    "lat": 36.953888,
+    "lon": -25.097033,
+    "tags": {
+      "name": "Praia Formosa",
+      "place": "hamlet",
+      "wikidata": "Q10352427",
+      "wikipedia": "pt:Praia Formosa (Santa Maria)"
+    }
+  },
+  {
+    "osm_id": "node/747952197",
+    "lat": 36.988994,
+    "lon": -25.1122714,
+    "tags": {
+      "name": "Ribeira do Engenho",
+      "place": "hamlet"
+    }
+  },
+  {
+    "osm_id": "node/747952206",
+    "lat": 36.9791211,
+    "lon": -25.1220561,
+    "tags": {
+      "capital": "8",
+      "name": "São Pedro",
+      "place": "village"
+    }
+  },
+  {
+    "osm_id": "node/748026955",
+    "lat": 37.0060228,
+    "lon": -25.1542862,
+    "tags": {
+      "name": "Anjos",
+      "place": "hamlet"
+    }
+  },
+  {
+    "osm_id": "node/748231379",
+    "lat": 36.9350738,
+    "lon": -25.0371594,
+    "tags": {
+      "name": "Cardal",
+      "place": "hamlet"
+    }
+  },
+  {
+    "osm_id": "node/748231391",
+    "lat": 36.946827,
+    "lon": -25.0368462,
+    "tags": {
+      "alt_name": "Terra do Raposo",
+      "name": "Terras do Raposo",
+      "place": "hamlet"
+    }
+  },
+  {
+    "osm_id": "node/749878589",
+    "lat": 36.9488666,
+    "lon": -25.0568169,
+    "tags": {
+      "name": "Glória",
+      "place": "hamlet"
+    }
+  },
+  {
+    "osm_id": "node/749878595",
+    "lat": 36.9370744,
+    "lon": -25.0541838,
+    "tags": {
+      "name": "Panasco",
+      "place": "hamlet"
+    }
+  },
+  {
+    "osm_id": "node/749878602",
+    "lat": 36.9453156,
+    "lon": -25.0714752,
+    "tags": {
+      "name": "Malbusca",
+      "place": "hamlet"
+    }
+  },
+  {
+    "osm_id": "node/749878611",
+    "lat": 36.9461399,
+    "lon": -25.0479191,
+    "tags": {
+      "name": "Fonte do Jordão",
+      "place": "hamlet"
+    }
+  },
+  {
+    "osm_id": "node/749878649",
+    "lat": 36.9556983,
+    "lon": -25.0417125,
+    "tags": {
+      "capital": "8",
+      "name": "Santo Espírito",
+      "place": "village"
+    }
+  },
+  {
+    "osm_id": "node/750700221",
+    "lat": 36.9545222,
+    "lon": -25.0545309,
+    "tags": {
+      "name": "Cruz",
+      "place": "hamlet"
+    }
+  },
+  {
+    "osm_id": "node/751606042",
+    "lat": 36.9731215,
+    "lon": -25.0491561,
+    "tags": {
+      "name": "Azenha",
+      "place": "hamlet"
+    }
+  },
+  {
+    "osm_id": "node/751606051",
+    "lat": 36.9803383,
+    "lon": -25.0646914,
+    "tags": {
+      "name": "Arrebentão",
+      "place": "hamlet"
+    }
+  },
+  {
+    "osm_id": "node/751606062",
+    "lat": 36.9849835,
+    "lon": -25.0677813,
+    "tags": {
+      "capital": "8",
+      "name": "Santa Bárbara",
+      "place": "village"
+    }
+  },
+  {
+    "osm_id": "node/751606068",
+    "lat": 36.9895769,
+    "lon": -25.0732531,
+    "tags": {
+      "name": "Poço Grande",
+      "place": "hamlet"
+    }
+  },
+  {
+    "osm_id": "node/751606091",
+    "lat": 36.9736729,
+    "lon": -25.0647679,
+    "tags": {
+      "name": "Forno",
+      "place": "hamlet"
+    }
+  },
+  {
+    "osm_id": "node/751606097",
+    "lat": 36.9927302,
+    "lon": -25.0635533,
+    "tags": {
+      "name": "Barreiro",
+      "place": "hamlet"
+    }
+  },
+  {
+    "osm_id": "node/751606103",
+    "lat": 37.0008163,
+    "lon": -25.0754493,
+    "tags": {
+      "name": "Lagos",
+      "place": "hamlet"
+    }
+  },
+  {
+    "osm_id": "node/751606108",
+    "lat": 36.9884763,
+    "lon": -25.0560267,
+    "tags": {
+      "name": "São Lourenço",
+      "place": "hamlet"
+    }
+  },
+  {
+    "osm_id": "node/751606112",
+    "lat": 37.0028353,
+    "lon": -25.0676137,
+    "tags": {
+      "name": "Norte",
+      "place": "hamlet"
+    }
+  },
+  {
+    "osm_id": "node/751606130",
+    "lat": 36.9741066,
+    "lon": -25.0592443,
+    "tags": {
+      "name": "Cruz de São Mor",
+      "place": "hamlet"
+    }
+  },
+  {
+    "osm_id": "node/1290315837",
+    "lat": 36.9946912,
+    "lon": -25.0549981,
+    "tags": {
+      "amenity": "parking"
+    }
+  },
+  {
+    "osm_id": "node/1481398468",
+    "lat": 36.9541692,
+    "lon": -25.1035884,
+    "tags": {
+      "amenity": "parking"
+    }
+  },
+  {
+    "osm_id": "node/1481398470",
+    "lat": 36.9535247,
+    "lon": -25.1035243,
+    "tags": {
+      "name": "Miradouro da Macela",
+      "tourism": "viewpoint"
+    }
+  },
+  {
+    "osm_id": "node/1865475700",
+    "lat": 36.9556752,
+    "lon": -25.0413313,
+    "tags": {
+      "amenity": "restaurant",
+      "name": "Sol da Manha"
+    }
+  },
+  {
+    "osm_id": "node/1865575688",
+    "lat": 36.9835538,
+    "lon": -25.090361,
+    "tags": {
+      "name": "Pico Alto",
+      "tourism": "viewpoint"
+    }
+  },
+  {
+    "osm_id": "node/1865575703",
+    "lat": 36.9465127,
+    "lon": -25.1475221,
+    "tags": {
+      "amenity": "restaurant",
+      "name": "Clube Naval"
+    }
+  },
+  {
+    "osm_id": "node/2055101087",
+    "lat": 37.005909,
+    "lon": -25.1533633,
+    "tags": {
+      "historic": "monument",
+      "name": "Columbus"
+    }
+  },
+  {
+    "osm_id": "node/2642312161",
+    "lat": 36.984862,
+    "lon": -25.0685069,
+    "tags": {
+      "amenity": "cafe",
+      "cuisine": "coffee_shop",
+      "internet_access": "no"
+    }
+  },
+  {
+    "osm_id": "node/3086354287",
+    "lat": 36.9504532,
+    "lon": -25.092082,
+    "tags": {
+      "tourism": "camp_site"
+    }
+  },
+  {
+    "osm_id": "node/3086354288",
+    "lat": 36.9510806,
+    "lon": -25.096945,
+    "tags": {
+      "amenity": "cafe",
+      "name": "O Paquete",
+      "name:pt": "O Paquete"
+    }
+  },
+  {
+    "osm_id": "node/3124086901",
+    "lat": 36.9871885,
+    "lon": -25.0533411,
+    "tags": {
+      "natural": "beach"
+    }
+  },
+  {
+    "osm_id": "node/3226299008",
+    "lat": 36.9829293,
+    "lon": -25.0555633,
+    "tags": {
+      "tourism": "viewpoint"
+    }
+  },
+  {
+    "osm_id": "node/3226299009",
+    "lat": 36.9752363,
+    "lon": -25.0761241,
+    "tags": {
+      "amenity": "parking"
+    }
+  },
+  {
+    "osm_id": "node/3226299017",
+    "lat": 36.9742007,
+    "lon": -25.0924604,
+    "tags": {
+      "tourism": "viewpoint"
+    }
+  },
+  {
+    "osm_id": "node/3226479764",
+    "lat": 36.9938688,
+    "lon": -25.0552783,
+    "tags": {
+      "amenity": "parking",
+      "fee": "no"
+    }
+  },
+  {
+    "osm_id": "node/3226479775",
+    "lat": 36.9824265,
+    "lon": -25.0479426,
+    "tags": {
+      "name": "Miradouro São Lourenço",
+      "tourism": "viewpoint"
+    }
+  },
+  {
+    "osm_id": "node/3715473345",
+    "lat": 36.9795024,
+    "lon": -25.1216525,
+    "tags": {
+      "name": "Casa de São Pedro",
+      "tourism": "hostel"
+    }
+  },
+  {
+    "osm_id": "node/3755955490",
+    "lat": 36.9973222,
+    "lon": -25.0569951,
+    "tags": {
+      "tourism": "viewpoint"
+    }
+  },
+  {
+    "osm_id": "node/3757455480",
+    "lat": 36.9962362,
+    "lon": -25.0936312,
+    "tags": {
+      "tourism": "viewpoint"
+    }
+  },
+  {
+    "osm_id": "node/3765563770",
+    "lat": 36.9758106,
+    "lon": -25.0760105,
+    "tags": {
+      "name": "Miradouro da Pedra Rija",
+      "tourism": "viewpoint"
+    }
+  },
+  {
+    "osm_id": "node/3812679161",
+    "lat": 37.0031963,
+    "lon": -25.1392589,
+    "tags": {
+      "tourism": "viewpoint"
+    }
+  },
+  {
+    "osm_id": "node/3814075209",
+    "lat": 37.0135178,
+    "lon": -25.0591955,
+    "tags": {
+      "direction": "270-135",
+      "tourism": "viewpoint"
+    }
+  },
+  {
+    "osm_id": "node/4050985581",
+    "lat": 36.9537773,
+    "lon": -25.1428821,
+    "tags": {
+      "name": "O Angelo",
+      "shop": "supermarket"
+    }
+  },
+  {
+    "osm_id": "node/4050985583",
+    "lat": 36.9552436,
+    "lon": -25.14275,
+    "tags": {
+      "amenity": "restaurant",
+      "name": "Restaurante \"Os Marienses\""
+    }
+  },
+  {
+    "osm_id": "node/4050985584",
+    "lat": 36.9540421,
+    "lon": -25.1425297,
+    "tags": {
+      "amenity": "restaurant",
+      "name": "Garrouchada"
+    }
+  },
+  {
+    "osm_id": "node/4272227689",
+    "lat": 36.9816468,
+    "lon": -25.0602712,
+    "tags": {
+      "name": "Pico Vermelho",
+      "tourism": "viewpoint"
+    }
+  },
+  {
+    "osm_id": "node/4272227693",
+    "lat": 36.9909637,
+    "lon": -25.0607701,
+    "tags": {
+      "tourism": "viewpoint"
+    }
+  },
+  {
+    "osm_id": "node/4272300791",
+    "lat": 36.9530018,
+    "lon": -25.143223,
+    "tags": {
+      "amenity": "place_of_worship",
+      "denomination": "roman_catholic",
+      "name": "Capela de Nossa Senhora da Assunção",
+      "religion": "christian"
+    }
+  },
+  {
+    "osm_id": "node/4272307489",
+    "lat": 36.953517,
+    "lon": -25.1426809,
+    "tags": {
+      "addr:city": "Vila do Porto",
+      "addr:country": "PT",
+      "addr:housenumber": "3",
+      "addr:postcode": "9580-522",
+      "addr:street": "Rua Doutor Luís Bettencourt",
+      "branch": "Santa Maria - Açores",
+      "brand": "Pingo Doce",
+      "brand:wikidata": "Q1575057",
+      "brand:wikipedia": "pt:Pingo Doce",
+      "contact:facebook": "pingodoce",
+      "contact:instagram": "pingodoce",
+      "contact:linkedin": "https://www.linkedin.com/company/pingo-doce",
+      "contact:phone": "+351 296 820 972",
+      "contact:tiktok": "pingodoce",
+      "contact:youtube": "pingodocept",
+      "name": "Pingo Doce",
+      "opening_hours": "Mo-Su 08:00-20:00; easter 08:00-15:00",
+      "ref": "1011",
+      "shop": "supermarket",
+      "source:contact": "website",
+      "source:opening_hours": "website",
+      "website": "https://www.pingodoce.pt/lojas/santa-maria-acores/"
+    }
+  },
+  {
+    "osm_id": "node/4385222475",
+    "lat": 36.9424795,
+    "lon": -25.1719058,
+    "tags": {
+      "ele": "62.027",
+      "man_made": "survey_point",
+      "name": "Ilhéu",
+      "natural": "peak",
+      "note": "Cotas resultantes do ajustamento das observações zenitais 1957 e 1997. O valor da elevação corresponde ao topo do vértice.",
+      "note:en": "Survey Points are meant to be used to rectify aerial imagery and not the other way around. Please do not move or delete them. Their position corresponds to official reference ground measures.",
+      "note:pt": "Os Vértices Geodésicos servem para melhorar o alinhamento da fotografia aérea e não o inverso. Por favor não os mova nem apague. A sua posição corresponde a medidas de referência oficiais, obtidas in loco.",
+      "source": "DGT - Rede Geodésica Nacional",
+      "source:ref": "PT_AZO_ORIE.zip",
+      "triangulation_point": "yes"
+    }
+  },
+  {
+    "osm_id": "node/4385262035",
+    "lat": 36.9524783,
+    "lon": -25.1223305,
+    "tags": {
+      "ele": "255.546",
+      "man_made": "survey_point",
+      "name": "Facho",
+      "natural": "peak",
+      "note": "Cotas resultantes do ajustamento das observações zenitais 1957 e 1997. O valor da elevação corresponde ao topo do vértice.",
+      "note:en": "Survey Points are meant to be used to rectify aerial imagery and not the other way around. Please do not move or delete them. Their position corresponds to official reference ground measures.",
+      "note:pt": "Os Vértices Geodésicos servem para melhorar o alinhamento da fotografia aérea e não o inverso. Por favor não os mova nem apague. A sua posição corresponde a medidas de referência oficiais, obtidas in loco.",
+      "source": "DGT - Rede Geodésica Nacional",
+      "source:ref": "PT_AZO_ORIE.zip",
+      "triangulation_point": "yes",
+      "wikidata": "Q31799107"
+    }
+  },
+  {
+    "osm_id": "node/4385262036",
+    "lat": 36.9316103,
+    "lon": -25.0680952,
+    "tags": {
+      "ele": "208.494",
+      "man_made": "survey_point",
+      "name": "Piedade",
+      "natural": "peak",
+      "note": "Cotas resultantes do ajustamento das observações zenitais 1957 e 1997. O valor da elevação corresponde ao topo do vértice.",
+      "note:en": "Survey Points are meant to be used to rectify aerial imagery and not the other way around. Please do not move or delete them. Their position corresponds to official reference ground measures.",
+      "note:pt": "Os Vértices Geodésicos servem para melhorar o alinhamento da fotografia aérea e não o inverso. Por favor não os mova nem apague. A sua posição corresponde a medidas de referência oficiais, obtidas in loco.",
+      "source": "DGT - Rede Geodésica Nacional",
+      "source:ref": "PT_AZO_ORIE.zip",
+      "triangulation_point": "yes"
+    }
+  },
+  {
+    "osm_id": "node/4385262037",
+    "lat": 36.9383709,
+    "lon": -25.0381256,
+    "tags": {
+      "ele": "374.628",
+      "man_made": "survey_point",
+      "name": "Vigia",
+      "natural": "peak",
+      "note": "Cotas resultantes do ajustamento das observações zenitais 1957 e 1997. O valor da elevação corresponde ao topo do vértice.",
+      "note:en": "Survey Points are meant to be used to rectify aerial imagery and not the other way around. Please do not move or delete them. Their position corresponds to official reference ground measures.",
+      "note:pt": "Os Vértices Geodésicos servem para melhorar o alinhamento da fotografia aérea e não o inverso. Por favor não os mova nem apague. A sua posição corresponde a medidas de referência oficiais, obtidas in loco.",
+      "source": "DGT - Rede Geodésica Nacional",
+      "source:ref": "PT_AZO_ORIE.zip",
+      "triangulation_point": "yes"
+    }
+  },
+  {
+    "osm_id": "node/4385388189",
+    "lat": 36.9846043,
+    "lon": -25.1272633,
+    "tags": {
+      "ele": "248.445",
+      "man_made": "survey_point",
+      "name": "Saramago",
+      "natural": "peak",
+      "note": "Cotas resultantes do ajustamento das observações zenitais 1957 e 1997. O valor da elevação corresponde ao topo do vértice.",
+      "note:en": "Survey Points are meant to be used to rectify aerial imagery and not the other way around. Please do not move or delete them. Their position corresponds to official reference ground measures.",
+      "note:pt": "Os Vértices Geodésicos servem para melhorar o alinhamento da fotografia aérea e não o inverso. Por favor não os mova nem apague. A sua posição corresponde a medidas de referência oficiais, obtidas in loco.",
+      "source": "DGT - Rede Geodésica Nacional",
+      "source:ref": "PT_AZO_ORIE.zip",
+      "triangulation_point": "yes"
+    }
+  },
+  {
+    "osm_id": "node/4385388190",
+    "lat": 36.9982456,
+    "lon": -25.1358013,
+    "tags": {
+      "ele": "208.511",
+      "man_made": "survey_point",
+      "name": "Monte das Flores",
+      "natural": "peak",
+      "note": "Cotas resultantes do ajustamento das observações zenitais 1957 e 1997. O valor da elevação corresponde ao topo do vértice.",
+      "note:en": "Survey Points are meant to be used to rectify aerial imagery and not the other way around. Please do not move or delete them. Their position corresponds to official reference ground measures.",
+      "note:pt": "Os Vértices Geodésicos servem para melhorar o alinhamento da fotografia aérea e não o inverso. Por favor não os mova nem apague. A sua posição corresponde a medidas de referência oficiais, obtidas in loco.",
+      "source": "DGT - Rede Geodésica Nacional",
+      "source:ref": "PT_AZO_ORIE.zip",
+      "triangulation_point": "yes"
+    }
+  },
+  {
+    "osm_id": "node/4385388191",
+    "lat": 36.9994045,
+    "lon": -25.0642442,
+    "tags": {
+      "ele": "299.872",
+      "man_made": "survey_point",
+      "name": "Pico do Norte",
+      "natural": "peak",
+      "note": "Cotas resultantes do ajustamento das observações zenitais 1957 e 1997. O valor da elevação corresponde ao topo do vértice.",
+      "note:en": "Survey Points are meant to be used to rectify aerial imagery and not the other way around. Please do not move or delete them. Their position corresponds to official reference ground measures.",
+      "note:pt": "Os Vértices Geodésicos servem para melhorar o alinhamento da fotografia aérea e não o inverso. Por favor não os mova nem apague. A sua posição corresponde a medidas de referência oficiais, obtidas in loco.",
+      "source": "DGT - Rede Geodésica Nacional",
+      "source:ref": "PT_AZO_ORIE.zip",
+      "triangulation_point": "yes",
+      "wikidata": "Q10349588",
+      "wikipedia": "pt:Pico do Norte"
+    }
+  },
+  {
+    "osm_id": "node/4385388192",
+    "lat": 37.0080428,
+    "lon": -25.1078386,
+    "tags": {
+      "ele": "253.952",
+      "man_made": "survey_point",
+      "name": "Monte Delgado",
+      "natural": "peak",
+      "note": "Cotas resultantes do ajustamento das observações zenitais 1957 e 1997. O valor da elevação corresponde ao topo do vértice.",
+      "note:en": "Survey Points are meant to be used to rectify aerial imagery and not the other way around. Please do not move or delete them. Their position corresponds to official reference ground measures.",
+      "note:pt": "Os Vértices Geodésicos servem para melhorar o alinhamento da fotografia aérea e não o inverso. Por favor não os mova nem apague. A sua posição corresponde a medidas de referência oficiais, obtidas in loco.",
+      "source": "DGT - Rede Geodésica Nacional",
+      "source:ref": "PT_AZO_ORIE.zip",
+      "triangulation_point": "yes"
+    }
+  },
+  {
+    "osm_id": "node/4897445918",
+    "lat": 36.9683086,
+    "lon": -25.154974,
+    "tags": {
+      "historic": "monument",
+      "name": "Fiat G.91 - Força Aérea Portuguesa",
+      "name:en": "Fiat G.91 - Portuguese Air Force",
+      "name:pt": "Fiat G.91 - Força Aérea Portuguesa"
+    }
+  },
+  {
+    "osm_id": "node/4919824221",
+    "lat": 36.9526803,
+    "lon": -25.102341,
+    "tags": {
+      "name": "Praia Olga do sol vas",
+      "tourism": "guest_house"
+    }
+  },
+  {
+    "osm_id": "node/4919824521",
+    "lat": 36.9897293,
+    "lon": -25.0611857,
+    "tags": {
+      "name": "miradouro do barreiro",
+      "tourism": "viewpoint"
+    }
+  },
+  {
+    "osm_id": "node/4920629821",
+    "lat": 36.9829155,
+    "lon": -25.0913832,
+    "tags": {
+      "historic": "memorial",
+      "memorial": "plaque",
+      "name": "Independent Air 1851 Air Crash Memorial",
+      "name:en": "Independent Air 1851 Air Crash Memorial",
+      "name:pt": "Memorial do acidente aéreo Independent Air 1851",
+      "subject:wikidata": "Q613025",
+      "subject:wikipedia": "en:Independent Air Flight 1851"
+    }
+  },
+  {
+    "osm_id": "node/4920816221",
+    "lat": 36.9530657,
+    "lon": -25.0996126,
+    "tags": {
+      "alt_name": "A Capoeira",
+      "amenity": "restaurant",
+      "name": "Restaurante Praia Formosa"
+    }
+  },
+  {
+    "osm_id": "node/4921106521",
+    "lat": 36.9617517,
+    "lon": -25.1324392,
+    "tags": {
+      "amenity": "restaurant",
+      "name": "Espaço em Cena",
+      "name:pt": "Espaço em Cena",
+      "phone": "+351 961809446"
+    }
+  },
+  {
+    "osm_id": "node/4960130322",
+    "lat": 36.9876537,
+    "lon": -25.054541,
+    "tags": {
+      "amenity": "restaurant",
+      "name": "Ponta Negra",
+      "name:pt": "Ponta Negra"
+    }
+  },
+  {
+    "osm_id": "node/5045374428",
+    "lat": 36.9681313,
+    "lon": -25.1536134,
+    "tags": {
+      "name": "Minimercado do Aeroporto",
+      "shop": "supermarket"
+    }
+  },
+  {
+    "osm_id": "node/5341052391",
+    "lat": 36.9312838,
+    "lon": -25.0643367,
+    "tags": {
+      "name": "Calçada do Gigante",
+      "name:en": "Calçada do Gigante Waterfall",
+      "name:hu": "Calçada do Gigante Vizeses",
+      "waterway": "waterfall",
+      "wikidata": "Q106686190"
+    }
+  },
+  {
+    "osm_id": "node/5408453423",
+    "lat": 36.9832376,
+    "lon": -25.1513958,
+    "tags": {
+      "name": "Santana",
+      "place": "hamlet"
+    }
+  },
+  {
+    "osm_id": "node/5408456417",
+    "lat": 36.9649464,
+    "lon": -25.1561165,
+    "tags": {
+      "name": "Aeroporto",
+      "place": "hamlet"
+    }
+  },
+  {
+    "osm_id": "node/5408506907",
+    "lat": 36.9732783,
+    "lon": -25.1420403,
+    "tags": {
+      "name": "Cruz Teixeira",
+      "place": "hamlet"
+    }
+  },
+  {
+    "osm_id": "node/5412253877",
+    "lat": 36.961363,
+    "lon": -25.1034379,
+    "tags": {
+      "name": "Brejo do Meio",
+      "place": "hamlet"
+    }
+  },
+  {
+    "osm_id": "node/5412254136",
+    "lat": 36.9661636,
+    "lon": -25.1065707,
+    "tags": {
+      "name": "Termo da Igreja",
+      "place": "hamlet"
+    }
+  },
+  {
+    "osm_id": "node/5412254153",
+    "lat": 36.969181,
+    "lon": -25.0974727,
+    "tags": {
+      "name": "Fonte Nova",
+      "place": "hamlet"
+    }
+  },
+  {
+    "osm_id": "node/5412254274",
+    "lat": 36.9713925,
+    "lon": -25.1020646,
+    "tags": {
+      "name": "Bom Despacho Velho",
+      "place": "hamlet"
+    }
+  },
+  {
+    "osm_id": "node/5412254836",
+    "lat": 36.9677238,
+    "lon": -25.1071394,
+    "tags": {
+      "name": "Fonte João Luís",
+      "place": "hamlet"
+    }
+  },
+  {
+    "osm_id": "node/5412254864",
+    "lat": 36.9616031,
+    "lon": -25.1394868,
+    "tags": {
+      "name": "Flor da Rosa",
+      "place": "hamlet"
+    }
+  },
+  {
+    "osm_id": "node/5412256679",
+    "lat": 36.9653922,
+    "lon": -25.1222992,
+    "tags": {
+      "name": "Graça",
+      "place": "hamlet"
+    }
+  },
+  {
+    "osm_id": "node/5412257219",
+    "lat": 36.9647235,
+    "lon": -25.1161409,
+    "tags": {
+      "name": "Covas",
+      "place": "hamlet"
+    }
+  },
+  {
+    "osm_id": "node/5412257323",
+    "lat": 36.9635448,
+    "lon": -25.1140648,
+    "tags": {
+      "name": "Fonte do Mourato",
+      "place": "hamlet"
+    }
+  },
+  {
+    "osm_id": "node/5412257357",
+    "lat": 36.9677581,
+    "lon": -25.1119781,
+    "tags": {
+      "name": "Rua do Congro",
+      "place": "hamlet"
+    }
+  },
+  {
+    "osm_id": "node/5412257409",
+    "lat": 36.9845917,
+    "lon": -25.1003695,
+    "tags": {
+      "name": "Alto Nascente",
+      "place": "hamlet"
+    }
+  },
+  {
+    "osm_id": "node/5412257583",
+    "lat": 36.9913448,
+    "lon": -25.1054335,
+    "tags": {
+      "name": "Chã de São Tomé",
+      "place": "hamlet"
+    }
+  },
+  {
+    "osm_id": "node/5412258390",
+    "lat": 36.9864429,
+    "lon": -25.118866,
+    "tags": {
+      "name": "Jogo",
+      "place": "hamlet"
+    }
+  },
+  {
+    "osm_id": "node/5412258580",
+    "lat": 36.9911048,
+    "lon": -25.1313115,
+    "tags": {
+      "name": "Paúl",
+      "place": "hamlet"
+    }
+  },
+  {
+    "osm_id": "node/5412258885",
+    "lat": 36.9810265,
+    "lon": -25.1251316,
+    "tags": {
+      "name": "Termo da Igreja",
+      "place": "hamlet"
+    }
+  },
+  {
+    "osm_id": "node/5412258958",
+    "lat": 36.9726183,
+    "lon": -25.1182867,
+    "tags": {
+      "name": "Outeiro",
+      "place": "hamlet"
+    }
+  },
+  {
+    "osm_id": "node/5420503995",
+    "lat": 36.9819435,
+    "lon": -25.0708866,
+    "tags": {
+      "name": "Pico Penedo",
+      "place": "hamlet"
+    }
+  },
+  {
+    "osm_id": "node/5426512432",
+    "lat": 36.9576081,
+    "lon": -25.0403953,
+    "tags": {
+      "name": "Igreja",
+      "place": "hamlet"
+    }
+  },
+  {
+    "osm_id": "node/5426513453",
+    "lat": 36.9606601,
+    "lon": -25.0558663,
+    "tags": {
+      "name": "Loural",
+      "place": "hamlet"
+    }
+  },
+  {
+    "osm_id": "node/5431167741",
+    "lat": 36.9628547,
+    "lon": -25.0454808,
+    "tags": {
+      "name": "Santo António",
+      "place": "hamlet"
+    }
+  },
+  {
+    "osm_id": "node/5440449425",
+    "lat": 36.9851402,
+    "lon": -25.0735474,
+    "tags": {
+      "name": "Boa Vista",
+      "place": "hamlet"
+    }
+  },
+  {
+    "osm_id": "node/5440636277",
+    "lat": 36.9994681,
+    "lon": -25.0852204,
+    "tags": {
+      "name": "Feteiras",
+      "place": "hamlet"
+    }
+  },
+  {
+    "osm_id": "node/5440639945",
+    "lat": 36.9865457,
+    "lon": -25.067668,
+    "tags": {
+      "name": "Termo da Igreja",
+      "place": "hamlet"
+    }
+  },
+  {
+    "osm_id": "node/5440989861",
+    "lat": 37.0083445,
+    "lon": -25.0854779,
+    "tags": {
+      "name": "Lagoinhas",
+      "place": "hamlet"
+    }
+  },
+  {
+    "osm_id": "node/5441122497",
+    "lat": 36.9986113,
+    "lon": -25.1061202,
+    "tags": {
+      "name": "Feteiras de Baixo",
+      "place": "hamlet"
+    }
+  },
+  {
+    "osm_id": "node/5441123591",
+    "lat": 37.0066224,
+    "lon": -25.0955844,
+    "tags": {
+      "name": "Feteiras de Cima",
+      "place": "hamlet"
+    }
+  },
+  {
+    "osm_id": "node/6254284116",
+    "lat": 36.9816796,
+    "lon": -25.0605062,
+    "tags": {
+      "ele": "325.406",
+      "man_made": "survey_point",
+      "name": "Pico Vermelho",
+      "natural": "peak",
+      "note": "Cotas resultantes do ajustamento das observações zenitais 1957 e 1997. O valor da elevação corresponde ao topo do vértice.",
+      "note:en": "Survey Points are meant to be used to rectify aerial imagery and not the other way around. Please do not move or delete them. Their position corresponds to official reference ground measures.",
+      "note:pt": "Os Vértices Geodésicos servem para melhorar o alinhamento da fotografia aérea e não o inverso. Por favor não os mova nem apague. A sua posição corresponde a medidas de referência oficiais, obtidas in loco.",
+      "source": "DGT - Rede Geodésica Nacional",
+      "source:ref": "PT_AZO_ORIE.zip",
+      "triangulation_point": "yes"
+    }
+  },
+  {
+    "osm_id": "node/6254284117",
+    "lat": 36.983149,
+    "lon": -25.0906356,
+    "tags": {
+      "ele": "587.836",
+      "man_made": "survey_point",
+      "name": "Pico Alto",
+      "natural": "peak",
+      "note": "Cotas resultantes do ajustamento das observações zenitais 1957 e 1997. O valor da elevação corresponde ao topo do vértice.",
+      "note:en": "Survey Points are meant to be used to rectify aerial imagery and not the other way around. Please do not move or delete them. Their position corresponds to official reference ground measures.",
+      "note:pt": "Os Vértices Geodésicos servem para melhorar o alinhamento da fotografia aérea e não o inverso. Por favor não os mova nem apague. A sua posição corresponde a medidas de referência oficiais, obtidas in loco.",
+      "source": "DGT - Rede Geodésica Nacional",
+      "source:ref": "PT_AZO_ORIE.zip",
+      "triangulation_point": "yes",
+      "wikidata": "Q10349394",
+      "wikimedia_commons": "Category:Pico Alto (Santa Maria)",
+      "wikipedia": "en:Pico Alto (Santa Maria)"
+    }
+  },
+  {
+    "osm_id": "node/6254284119",
+    "lat": 36.9798354,
+    "lon": -25.1110367,
+    "tags": {
+      "ele": "274.899",
+      "man_made": "survey_point",
+      "name": "Monteiro",
+      "natural": "peak",
+      "note": "Cotas resultantes do ajustamento GPS. O valor da elevação corresponde ao topo do vértice.",
+      "note:en": "Survey Points are meant to be used to rectify aerial imagery and not the other way around. Please do not move or delete them. Their position corresponds to official reference ground measures.",
+      "note:pt": "Os Vértices Geodésicos servem para melhorar o alinhamento da fotografia aérea e não o inverso. Por favor não os mova nem apague. A sua posição corresponde a medidas de referência oficiais, obtidas in loco.",
+      "source": "DGT - Rede Geodésica Nacional",
+      "source:ref": "PT_AZO_ORIE.zip",
+      "triangulation_point": "yes"
+    }
+  },
+  {
+    "osm_id": "node/6254284121",
+    "lat": 36.9602934,
+    "lon": -25.1480799,
+    "tags": {
+      "ele": "126.712",
+      "man_made": "survey_point",
+      "name": "Maria Dias",
+      "natural": "peak",
+      "note": "Cotas resultantes do ajustamento das observações zenitais 1957 e 1997. O valor da elevação corresponde ao topo do vértice.",
+      "note:en": "Survey Points are meant to be used to rectify aerial imagery and not the other way around. Please do not move or delete them. Their position corresponds to official reference ground measures.",
+      "note:pt": "Os Vértices Geodésicos servem para melhorar o alinhamento da fotografia aérea e não o inverso. Por favor não os mova nem apague. A sua posição corresponde a medidas de referência oficiais, obtidas in loco.",
+      "source": "DGT - Rede Geodésica Nacional",
+      "source:ref": "PT_AZO_ORIE.zip",
+      "triangulation_point": "yes"
+    }
+  },
+  {
+    "osm_id": "node/6254284123",
+    "lat": 36.9598319,
+    "lon": -25.0474577,
+    "tags": {
+      "ele": "398.053",
+      "man_made": "survey_point",
+      "name": "Cruzeiro",
+      "natural": "peak",
+      "note": "Cotas resultantes do ajustamento das observações zenitais 1957 e 1997. O valor da elevação corresponde ao topo do vértice.",
+      "note:en": "Survey Points are meant to be used to rectify aerial imagery and not the other way around. Please do not move or delete them. Their position corresponds to official reference ground measures.",
+      "note:pt": "Os Vértices Geodésicos servem para melhorar o alinhamento da fotografia aérea e não o inverso. Por favor não os mova nem apague. A sua posição corresponde a medidas de referência oficiais, obtidas in loco.",
+      "source": "DGT - Rede Geodésica Nacional",
+      "source:ref": "PT_AZO_ORIE.zip",
+      "triangulation_point": "yes"
+    }
+  },
+  {
+    "osm_id": "node/6254284124",
+    "lat": 36.9605354,
+    "lon": -25.0484596,
+    "tags": {
+      "ele": "396.571",
+      "man_made": "survey_point",
+      "name": "Cavaleiro",
+      "natural": "peak",
+      "note": "Cotas resultantes do ajustamento das observações zenitais 1957 e 1997. O valor da elevação corresponde ao topo do vértice.",
+      "note:en": "Survey Points are meant to be used to rectify aerial imagery and not the other way around. Please do not move or delete them. Their position corresponds to official reference ground measures.",
+      "note:pt": "Os Vértices Geodésicos servem para melhorar o alinhamento da fotografia aérea e não o inverso. Por favor não os mova nem apague. A sua posição corresponde a medidas de referência oficiais, obtidas in loco.",
+      "source": "DGT - Rede Geodésica Nacional",
+      "source:ref": "PT_AZO_ORIE.zip",
+      "triangulation_point": "yes"
+    }
+  },
+  {
+    "osm_id": "node/6254284125",
+    "lat": 36.9580421,
+    "lon": -25.0742826,
+    "tags": {
+      "ele": "493.673",
+      "man_made": "survey_point",
+      "name": "Cavacas",
+      "natural": "peak",
+      "note": "Cotas resultantes do ajustamento das observações zenitais 1957 e 1997. O valor da elevação corresponde ao topo do vértice.",
+      "note:en": "Survey Points are meant to be used to rectify aerial imagery and not the other way around. Please do not move or delete them. Their position corresponds to official reference ground measures.",
+      "note:pt": "Os Vértices Geodésicos servem para melhorar o alinhamento da fotografia aérea e não o inverso. Por favor não os mova nem apague. A sua posição corresponde a medidas de referência oficiais, obtidas in loco.",
+      "source": "DGT - Rede Geodésica Nacional",
+      "source:ref": "PT_AZO_ORIE.zip",
+      "triangulation_point": "yes"
+    }
+  },
+  {
+    "osm_id": "node/6254284126",
+    "lat": 36.9961872,
+    "lon": -25.0936468,
+    "tags": {
+      "ele": "483.381",
+      "man_made": "survey_point",
+      "name": "Caldeira",
+      "natural": "peak",
+      "note": "Cotas resultantes do ajustamento das observações zenitais 1957 e 1997. O valor da elevação corresponde ao topo do vértice.",
+      "note:en": "Survey Points are meant to be used to rectify aerial imagery and not the other way around. Please do not move or delete them. Their position corresponds to official reference ground measures.",
+      "note:pt": "Os Vértices Geodésicos servem para melhorar o alinhamento da fotografia aérea e não o inverso. Por favor não os mova nem apague. A sua posição corresponde a medidas de referência oficiais, obtidas in loco.",
+      "source": "DGT - Rede Geodésica Nacional",
+      "source:ref": "PT_AZO_ORIE.zip",
+      "triangulation_point": "yes"
+    }
+  },
+  {
+    "osm_id": "node/6740055485",
+    "lat": 36.9573048,
+    "lon": -25.1343904,
+    "tags": {
+      "name": "Miraduro",
+      "name:en": "Viewpoint",
+      "tourism": "viewpoint"
+    }
+  },
+  {
+    "osm_id": "node/6744136786",
+    "lat": 36.955875,
+    "lon": -25.0428483,
+    "tags": {
+      "highway": "bus_stop",
+      "name": "TSM busstop",
+      "name:en": "Busstop with shelter",
+      "name:hu": "Buszmegallo menedekkel"
+    }
+  },
+  {
+    "osm_id": "node/6744162887",
+    "lat": 36.9565227,
+    "lon": -25.0461908,
+    "tags": {
+      "highway": "bus_stop",
+      "name": "TSM bus stop",
+      "name:en": "Busstop with shelter",
+      "name:hu": "Buszmegallo bealloval"
+    }
+  },
+  {
+    "osm_id": "node/6744162892",
+    "lat": 36.930549,
+    "lon": -25.0644143,
+    "tags": {
+      "name": "Miraduro",
+      "name:en": "Viewpoint",
+      "name:hu": "Kilato",
+      "tourism": "viewpoint"
+    }
+  },
+  {
+    "osm_id": "node/6744162894",
+    "lat": 36.9455556,
+    "lon": -25.0705593,
+    "tags": {
+      "bench": "yes",
+      "highway": "bus_stop",
+      "name": "Busstop",
+      "name:en": "Busstop woth shelter",
+      "name:hu": "Buszmegallo menedekkel",
+      "shelter": "yes",
+      "tactile_paving": "no"
+    }
+  },
+  {
+    "osm_id": "node/6744163088",
+    "lat": 36.9559123,
+    "lon": -25.0424298,
+    "tags": {
+      "name": "Mini Mercado Braga",
+      "name:en": "Minimarket",
+      "name:hu": "Minimarket",
+      "shop": "convenience"
+    }
+  },
+  {
+    "osm_id": "node/6744163090",
+    "lat": 36.9307352,
+    "lon": -25.0649175,
+    "tags": {
+      "name": "Cascata",
+      "name:en": "Waterfall",
+      "name:hu": "Vizeses",
+      "waterway": "waterfall"
+    }
+  },
+  {
+    "osm_id": "node/8082074290",
+    "lat": 36.965615,
+    "lon": -25.1330884,
+    "tags": {
+      "access": "yes",
+      "addr:city": "Vila do Porto",
+      "addr:street": "Pedras de São Pedro",
+      "amenity": "charging_station",
+      "authentication:app": "yes",
+      "authentication:membership_card": "yes",
+      "authentication:none": "no",
+      "brand": "Mobiletric",
+      "capacity": "2",
+      "charging_station:output": "93 kW",
+      "email": "veiculoeletrico@galp.com",
+      "fee": "yes",
+      "maxstay": "unlimited",
+      "motorcar": "yes",
+      "name": "VPT-00001",
+      "network": "Mobi.E",
+      "opening_hours": "24/7",
+      "operator": "Mobiletric",
+      "parking:fee": "no",
+      "payment:app": "yes",
+      "payment:cards": "no",
+      "payment:cash": "no",
+      "payment:membership_card": "yes",
+      "phone": "+351 800 249 249",
+      "ref": "VPT-00001",
+      "ref:EU:EVSE": "PT*MLT*EVPT*00001*01;PT*MLT*EVPT*00001*02;PT*MLT*EVPT*00001*03",
+      "socket:chademo": "1",
+      "socket:chademo:current": "120",
+      "socket:chademo:output": "50 kW",
+      "socket:chademo:voltage": "500",
+      "socket:type2_cable": "1",
+      "socket:type2_cable:current": "63",
+      "socket:type2_cable:output": "43 kW",
+      "socket:type2_cable:voltage": "400",
+      "socket:type2_combo": "1",
+      "socket:type2_combo:current": "125",
+      "socket:type2_combo:output": "50 kW",
+      "socket:type2_combo:voltage": "500",
+      "website": "https://www.mobie.pt"
+    }
+  },
+  {
+    "osm_id": "node/8168847017",
+    "lat": 36.9682366,
+    "lon": -25.1315005,
+    "tags": {
+      "amenity": "fuel",
+      "name": "Galp gas station"
+    }
+  },
+  {
+    "osm_id": "node/8745526246",
+    "lat": 36.9566565,
+    "lon": -25.147686,
+    "tags": {
+      "amenity": "cafe",
+      "name": "Snack-Bar O Tibério"
+    }
+  },
+  {
+    "osm_id": "node/8745837413",
+    "lat": 37.002686,
+    "lon": -25.103928,
+    "tags": {
+      "amenity": "toilets"
+    }
+  },
+  {
+    "osm_id": "node/8745848898",
+    "lat": 37.0080402,
+    "lon": -25.0881317,
+    "tags": {
+      "name": "Miradouro de Lagoinhas",
+      "tourism": "viewpoint"
+    }
+  },
+  {
+    "osm_id": "node/8841822560",
+    "lat": 36.9462515,
+    "lon": -25.1468126,
+    "tags": {
+      "artist_name": "Raul Lino",
+      "historic": "memorial",
+      "inscription": "14-10-1918 E AQVELES QVE POR OBRAS VALEROSAS / SE VÃO DA LEI DA MORTE LIBERTANDO",
+      "material": "stone",
+      "memorial": "war_memorial",
+      "name": "Homenagem aos Tripulantes do Caça-Minas Augusto de Castilho",
+      "start_date": "1929-10-04"
+    }
+  },
+  {
+    "osm_id": "node/9212150609",
+    "lat": 36.9734327,
+    "lon": -25.165039,
+    "tags": {
+      "addr:city": "Vila do Porto",
+      "addr:postcode": "9580-908",
+      "addr:street": "Aeroporto de Santa Maria",
+      "amenity": "police",
+      "name": "GNR - Posto Territorial de Vila do Porto",
+      "operator": "Guarda Nacional Republicana",
+      "operator:wikidata": "Q1280906",
+      "operator:wikipedia": "pt:Guarda Nacional Republicana"
+    }
+  },
+  {
+    "osm_id": "node/9309416858",
+    "lat": 36.9530239,
+    "lon": -25.1440865,
+    "tags": {
+      "access": "yes",
+      "amenity": "charging_station",
+      "authentication:app": "yes",
+      "authentication:membership_card": "yes",
+      "authentication:none": "no",
+      "brand": "SEGMA",
+      "capacity": "2",
+      "email": "segma@segma.pt",
+      "fee": "yes",
+      "maxstay": "unlimited",
+      "motorcar": "yes",
+      "name": "VPT-00004",
+      "network": "Mobi.E",
+      "opening_hours": "24/7",
+      "operator": "SEGMA",
+      "parking:fee": "no",
+      "payment:app": "yes",
+      "payment:cards": "no",
+      "payment:cash": "no",
+      "payment:membership_card": "yes",
+      "phone": "+351 296 20 22 09",
+      "ref": "VPT-00004",
+      "ref:EU:EVSE": "PT*SEG*E*VPT*00004*01;PT*SEG*E*VPT*00004*02",
+      "socket:type2": "2",
+      "socket:type2:current": "32",
+      "socket:type2:output": "22 kW",
+      "socket:type2:voltage": "400",
+      "website": "https://www.mobie.pt/"
+    }
+  },
+  {
+    "osm_id": "node/9309416859",
+    "lat": 36.9532799,
+    "lon": -25.1430225,
+    "tags": {
+      "access": "yes",
+      "amenity": "charging_station",
+      "authentication:app": "yes",
+      "authentication:membership_card": "yes",
+      "authentication:none": "no",
+      "brand": "SEGMA",
+      "capacity": "2",
+      "email": "segma@segma.pt",
+      "fee": "yes",
+      "maxstay": "unlimited",
+      "motorcar": "yes",
+      "name": "VPT-00003",
+      "network": "Mobi.E",
+      "opening_hours": "24/7",
+      "operator": "SEGMA",
+      "parking:fee": "no",
+      "payment:app": "yes",
+      "payment:cards": "no",
+      "payment:cash": "no",
+      "payment:membership_card": "yes",
+      "phone": "+351 296 20 22 09",
+      "ref": "VPT-00003",
+      "ref:EU:EVSE": "PT*SEG*E*VPT*00003*01;PT*SEG*E*VPT*00003*02",
+      "socket:type2": "2",
+      "socket:type2:current": "32",
+      "socket:type2:output": "22 kW",
+      "socket:type2:voltage": "400",
+      "website": "https://www.mobie.pt/"
+    }
+  },
+  {
+    "osm_id": "node/9309416860",
+    "lat": 36.9523106,
+    "lon": -25.1001162,
+    "tags": {
+      "access": "yes",
+      "amenity": "charging_station",
+      "authentication:app": "yes",
+      "authentication:membership_card": "yes",
+      "authentication:none": "no",
+      "brand": "SEGMA",
+      "capacity": "2",
+      "email": "segma@segma.pt",
+      "fee": "yes",
+      "maxstay": "unlimited",
+      "motorcar": "yes",
+      "name": "VPT-00002",
+      "network": "Mobi.E",
+      "opening_hours": "24/7",
+      "operator": "SEGMA",
+      "parking:fee": "no",
+      "payment:app": "yes",
+      "payment:cards": "no",
+      "payment:cash": "no",
+      "payment:membership_card": "yes",
+      "phone": "+351 296 20 22 09",
+      "ref": "VPT-00002",
+      "ref:EU:EVSE": "PT*SEG*E*VPT*00002*01;PT*SEG*E*VPT*00002*02",
+      "socket:type2": "2",
+      "socket:type2:current": "32",
+      "socket:type2:output": "22 kW",
+      "socket:type2:voltage": "400",
+      "website": "https://www.mobie.pt/"
+    }
+  },
+  {
+    "osm_id": "node/9954769756",
+    "lat": 36.9314191,
+    "lon": -25.0680578,
+    "tags": {
+      "tourism": "viewpoint"
+    }
+  },
+  {
+    "osm_id": "node/9955291330",
+    "lat": 36.9919148,
+    "lon": -25.0597477,
+    "tags": {
+      "tourism": "viewpoint"
+    }
+  },
+  {
+    "osm_id": "node/10707732693",
+    "lat": 37.0033241,
+    "lon": -25.1514108,
+    "tags": {
+      "height": "10",
+      "note": "observed march 2023 after heavy rain, maybe intermittent?",
+      "waterway": "waterfall"
+    }
+  },
+  {
+    "osm_id": "node/11829942970",
+    "lat": 36.9573049,
+    "lon": -25.1343593,
+    "tags": {
+      "name:fi": "Näköalatasanne Santa Maria",
+      "tourism": "viewpoint"
+    }
+  },
+  {
+    "osm_id": "node/11863067837",
+    "lat": 36.9600893,
+    "lon": -25.0741138,
+    "tags": {
+      "bus": "yes",
+      "highway": "bus_stop",
+      "name": "Fontinhas",
+      "public_transport": "platform",
+      "shelter": "no"
+    }
+  },
+  {
+    "osm_id": "node/11863113867",
+    "lat": 36.964696,
+    "lon": -25.0777965,
+    "tags": {
+      "name": "Mirad das Fontinhas",
+      "tourism": "viewpoint"
+    }
+  },
+  {
+    "osm_id": "node/12014984551",
+    "lat": 36.9531809,
+    "lon": -25.1431096,
+    "tags": {
+      "amenity": "taxi",
+      "name": "Praça de Táxis"
+    }
+  },
+  {
+    "osm_id": "node/12014998409",
+    "lat": 36.9575464,
+    "lon": -25.1425194,
+    "tags": {
+      "addr:street": "Avenida de Santa Maria",
+      "amenity": "restaurant",
+      "name": "Tropical Fast Food"
+    }
+  },
+  {
+    "osm_id": "node/12015046587",
+    "lat": 36.9489702,
+    "lon": -25.144966,
+    "tags": {
+      "addr:city": "Vila do Porto",
+      "addr:postcode": "9580-531",
+      "addr:street": "Rua Frei Gonçalo Velho",
+      "charge": "1 EUR",
+      "fee": "yes",
+      "name": "Museu de Santa Maria - Pólo de Vila do Porto",
+      "opening_hours": "Apr 01-Sep 30: Tu-Su 10:00-18:00 \"última entrada às 17:30\"; Oct 01-Mar 31: Tu-Su 09:30-17:30 \"última entrada às 17:00\"",
+      "phone": "+351 296 884 844",
+      "tourism": "museum",
+      "website": "https://museu-santamaria.azores.gov.pt/"
+    }
+  },
+  {
+    "osm_id": "node/12015051579",
+    "lat": 36.9544853,
+    "lon": -25.1423189,
+    "tags": {
+      "addr:city": "Vila do Porto",
+      "addr:housenumber": "37",
+      "addr:postcode": "9580-529",
+      "addr:street": "Rua Doutor Luís Bettencourt",
+      "amenity": "bank",
+      "branch": "Vila do Porto",
+      "brand": "Santander",
+      "brand:website": "https://www.santander.pt/",
+      "brand:wikidata": "Q4854116",
+      "brand:wikipedia": "pt:Banco Santander Portugal",
+      "cash_out": "yes",
+      "contact:email": "vilaporto@santander.pt",
+      "contact:facebook": "santanderpt",
+      "contact:instagram": "santanderpt",
+      "contact:linkedin": "https://www.linkedin.com/company/santanderpt/",
+      "contact:phone": "+351 296 247 240",
+      "contact:twitter": "santanderpt",
+      "contact:youtube": "@santanderpt",
+      "internet_access": "wlan",
+      "language:en": "yes",
+      "language:es": "yes",
+      "language:pt": "yes",
+      "name": "Santander",
+      "opening_hours": "Mo-Fr 08:30-12:00,13:00-15:00; Sa-Su off; Jan 01,Apr 25,May 25,Jun 01,Jun 26,Aug 10,Aug 24,Oct 15,Nov 05,Dec 01,Dec 08,Dec 25 off",
+      "operator": "Banco Santander (Portugal)",
+      "operator:wikidata": "Q4854116",
+      "operator:wikipedia": "pt:Banco Santander Portugal",
+      "ref": "8701",
+      "source:contact": "website",
+      "source:opening_hours": "website",
+      "website": "https://www.santander.pt/"
+    }
+  },
+  {
+    "osm_id": "node/12015051932",
+    "lat": 36.9544833,
+    "lon": -25.1423906,
+    "tags": {
+      "amenity": "atm"
+    }
+  },
+  {
+    "osm_id": "node/12015052510",
+    "lat": 36.9584713,
+    "lon": -25.1429415,
+    "tags": {
+      "addr:city": "Vila do Porto",
+      "addr:housenumber": "2030",
+      "addr:postcode": "9580-501",
+      "addr:street": "Avenida Santa Maria",
+      "branch": "Santa Maria",
+      "brand": "Continente Bom Dia",
+      "brand:wikidata": "Q123570507",
+      "brand:wikipedia": "pt:Continente Bom Dia",
+      "contact:facebook": "continenteoficial",
+      "contact:instagram": "continente",
+      "contact:phone": "+351 296 107 100",
+      "contact:youtube": "https://www.youtube.com/user/continentept",
+      "name": "Continente Bom Dia",
+      "opening_hours": "Mo-Sa 08:30-21:00; Su 08:30-20:00",
+      "ref": "14141c99-e617-5c7c-a7cb-413882768d80",
+      "shop": "supermarket",
+      "source:contact": "website",
+      "source:opening_hours": "website",
+      "website": "https://feed.continente.pt/lojas/continente-bom-dia-santa-maria"
+    }
+  },
+  {
+    "osm_id": "node/12015054398",
+    "lat": 36.9651702,
+    "lon": -25.1339695,
+    "tags": {
+      "amenity": "fuel",
+      "name": "Repsol"
+    }
+  },
+  {
+    "osm_id": "node/12015055213",
+    "lat": 36.9543522,
+    "lon": -25.1424791,
+    "tags": {
+      "amenity": "atm"
+    }
+  },
+  {
+    "osm_id": "node/12109358881",
+    "lat": 36.9972361,
+    "lon": -25.1760382,
+    "tags": {
+      "tourism": "viewpoint"
+    }
+  },
+  {
+    "osm_id": "node/12815252851",
+    "lat": 36.9538595,
+    "lon": -25.1035347,
+    "tags": {
+      "leisure": "playground"
+    }
+  },
+  {
+    "osm_id": "way/195005168",
+    "lat": 36.9590155,
+    "lon": -25.1385462,
+    "tags": {
+      "addr:street": "Largo de José Batista",
+      "amenity": "place_of_worship",
+      "building": "yes",
+      "religion": "christian"
+    }
+  },
+  {
+    "osm_id": "way/195005185",
+    "lat": 36.9463591,
+    "lon": -25.1467315,
+    "tags": {
+      "amenity": "place_of_worship",
+      "building": "chapel",
+      "denomination": "roman_catholic",
+      "disused:name": "Forte de São Brás",
+      "disused:wikidata": "Q10283961",
+      "name": "Ermida de Nossa Senhora da Conceição",
+      "religion": "christian",
+      "wikidata": "Q10273730",
+      "wikimedia_commons": "Category:Ermida de Nossa Senhora da Conceição (Vila do Porto)",
+      "wikipedia": "pt:Ermida de Nossa Senhora da Conceição (Vila do Porto)"
+    }
+  },
+  {
+    "osm_id": "way/195005191",
+    "lat": 37.0058571,
+    "lon": -25.1536468,
+    "tags": {
+      "amenity": "place_of_worship",
+      "building": "yes",
+      "name": "Ermida de Nossa Senhora dos Anjos",
+      "religion": "christian",
+      "wikidata": "Q5741874",
+      "wikimedia_commons": "Category:Ermida de Nossa Senhora dos Anjos (Vila do Porto)",
+      "wikipedia": "pt:Ermida de Nossa Senhora dos Anjos (Vila do Porto)"
+    }
+  },
+  {
+    "osm_id": "way/195005297",
+    "lat": 37.0053405,
+    "lon": -25.1561945,
+    "tags": {
+      "amenity": "parking",
+      "parking": "surface"
+    }
+  },
+  {
+    "osm_id": "way/204774942",
+    "lat": 36.949976,
+    "lon": -25.144052,
+    "tags": {
+      "addr:city": "Vila do Porto",
+      "addr:street": "Largo da Matriz",
+      "amenity": "place_of_worship",
+      "building": "church",
+      "denomination": "roman_catholic",
+      "name": "Matriz de Nossa Senhora da Assunção",
+      "religion": "christian",
+      "wikidata": "Q10300348",
+      "wikimedia_commons": "Category:Igreja de Nossa Senhora da Assunção (Vila do Porto)",
+      "wikipedia": "pt:Igreja de Nossa Senhora da Assunção (Vila do Porto)"
+    }
+  },
+  {
+    "osm_id": "way/204774947",
+    "lat": 36.9559829,
+    "lon": -25.0412905,
+    "tags": {
+      "alt_name": "Igreja Paroquial do Santo Espírito",
+      "amenity": "place_of_worship",
+      "building": "church",
+      "denomination": "roman_catholic",
+      "name": "Igreja de Nossa Senhora da Purificação",
+      "name:es": "Iglesia",
+      "name:hu": "Templom",
+      "name:pt": "Igreja de Nossa Senhora da Purificação",
+      "religion": "christian",
+      "wikidata": "Q10300434",
+      "wikimedia_commons": "Category:Igreja de Nossa Senhora da Purificação (Vila do Porto)",
+      "wikipedia": "pt:Igreja de Nossa Senhora da Purificação (Santo Espírito)"
+    }
+  },
+  {
+    "osm_id": "way/260314865",
+    "lat": 36.9977131,
+    "lon": -25.1357408,
+    "tags": {
+      "amenity": "parking",
+      "parking": "surface"
+    }
+  },
+  {
+    "osm_id": "way/313017320",
+    "lat": 36.9998464,
+    "lon": -25.1279856,
+    "tags": {
+      "amenity": "place_of_worship",
+      "denomination": "catholic",
+      "religion": "christian"
+    }
+  },
+  {
+    "osm_id": "way/322572417",
+    "lat": 37.003155,
+    "lon": -25.0654794,
+    "tags": {
+      "amenity": "place_of_worship",
+      "building": "yes",
+      "denomination": "roman_catholic",
+      "name": "Ermida de Nossa Senhora de Lourdes",
+      "religion": "christian"
+    }
+  },
+  {
+    "osm_id": "way/367641910",
+    "lat": 36.9797628,
+    "lon": -25.1216179,
+    "tags": {
+      "building": "yes",
+      "name": "Casa de São Pedro",
+      "tourism": "hostel"
+    }
+  },
+  {
+    "osm_id": "way/367641919",
+    "lat": 36.980328,
+    "lon": -25.1207586,
+    "tags": {
+      "addr:city": "São Pedro",
+      "addr:postcode": "9580-328",
+      "addr:street": "Termo da Igreja",
+      "amenity": "restaurant",
+      "building": "yes",
+      "name": "Restaurante Rosa Alta",
+      "phone": "+351 296 884 990",
+      "smoking": "no",
+      "takeaway": "no"
+    }
+  },
+  {
+    "osm_id": "way/377988321",
+    "lat": 37.0040492,
+    "lon": -25.1166913,
+    "tags": {
+      "natural": "beach"
+    }
+  },
+  {
+    "osm_id": "way/377988322",
+    "lat": 37.0036717,
+    "lon": -25.119082,
+    "tags": {
+      "natural": "beach"
+    }
+  },
+  {
+    "osm_id": "way/377988323",
+    "lat": 37.0052094,
+    "lon": -25.1222511,
+    "tags": {
+      "natural": "beach"
+    }
+  },
+  {
+    "osm_id": "way/377993466",
+    "lat": 37.0113889,
+    "lon": -25.0652015,
+    "tags": {
+      "natural": "beach"
+    }
+  },
+  {
+    "osm_id": "way/381813099",
+    "lat": 36.9679984,
+    "lon": -25.1557379,
+    "tags": {
+      "amenity": "cafe",
+      "building": "yes",
+      "name": "Clube ANA"
+    }
+  },
+  {
+    "osm_id": "way/381813176",
+    "lat": 36.9683307,
+    "lon": -25.1531617,
+    "tags": {
+      "amenity": "place_of_worship",
+      "building": "church",
+      "denomination": "roman_catholic",
+      "name": "Igreja de Nossa Senhora do Ar",
+      "religion": "christian"
+    }
+  },
+  {
+    "osm_id": "way/440678817",
+    "lat": 36.9718857,
+    "lon": -25.1684707,
+    "tags": {
+      "aerodrome:type": "public",
+      "aeroway": "aerodrome",
+      "ele": "94",
+      "iata": "SMA",
+      "icao": "LPAZ",
+      "name": "Aeroporto de Santa Maria",
+      "name:en": "Airport Santa Maria",
+      "name:es": "Aeropuerto de Santa María",
+      "name:pt": "Aeroporto de Santa Maria",
+      "start_date": "1945-07-26",
+      "wikidata": "Q1432755",
+      "wikipedia": "es:Aeropuerto de Santa María"
+    }
+  },
+  {
+    "osm_id": "way/447583529",
+    "lat": 36.9584935,
+    "lon": -25.1493402,
+    "tags": {
+      "amenity": "parking"
+    }
+  },
+  {
+    "osm_id": "way/450130069",
+    "lat": 36.9571147,
+    "lon": -25.141309,
+    "tags": {
+      "addr:city": "Vila do Porto",
+      "addr:postcode": "9580-501",
+      "addr:street": "Avenida Santa Maria",
+      "amenity": "pharmacy",
+      "building": "yes",
+      "healthcare": "pharmacy",
+      "name": "Farmácia Avenida Santa Maria"
+    }
+  },
+  {
+    "osm_id": "way/461022488",
+    "lat": 36.9560451,
+    "lon": -25.1414891,
+    "tags": {
+      "addr:city": "Vila do Porto",
+      "addr:housenumber": "99-105",
+      "addr:postcode": "9580-529",
+      "addr:street": "Rua Doutor Luís Bettencourt",
+      "amenity": "bank",
+      "atm": "yes",
+      "branch": "Vila do Porto",
+      "branch:type": "retail",
+      "brand": "Caixa Geral de Depósitos",
+      "brand:website": "https://www.cgd.pt/",
+      "brand:wikidata": "Q1026044",
+      "brand:wikipedia": "pt:Caixa Geral de Depósitos",
+      "building": "yes",
+      "contact:facebook": "caixageraldedepositos",
+      "contact:instagram": "caixageraldedepositos",
+      "contact:linkedin": "https://www.linkedin.com/company/caixageraldedepositos/",
+      "contact:phone": "+351 217 900 790",
+      "contact:youtube": "http://www.youtube.com/user/mediacgd",
+      "name": "Caixa Geral de Depósitos",
+      "opening_hours": "8:15-15:00",
+      "operator": "Caixa Geral de Depósitos",
+      "operator:wikidata": "Q1026044",
+      "operator:wikipedia": "pt:Caixa Geral de Depósitos",
+      "ref": "1630",
+      "short_name": "CGD",
+      "source:contact": "website",
+      "website": "https://www.cgd.pt/Corporativo/Rede-CGD/Pages/VILA-DO-PORTO.aspx"
+    }
+  },
+  {
+    "osm_id": "way/461022489",
+    "lat": 36.9542992,
+    "lon": -25.14239,
+    "tags": {
+      "addr:city": "Vila do Porto",
+      "addr:housenumber": "33",
+      "addr:postcode": "9580-529",
+      "addr:street": "Rua Doutor Luís Bettencourt",
+      "amenity": "bank",
+      "atm": "yes",
+      "branch": "Vila do Porto",
+      "brand": "Novo Banco dos Açores",
+      "brand:wikidata": "Q17488861",
+      "brand:wikipedia": "pt:Novo Banco",
+      "building": "yes",
+      "name": "Novo Banco",
+      "operator": "Novo Banco",
+      "operator:old_name": "Banco Espírito Santo",
+      "operator:old_name:short": "BES",
+      "operator:wikidata": "Q17488861",
+      "operator:wikipedia": "pt:Novo Banco",
+      "phone": "+351 296 307 033"
+    }
+  },
+  {
+    "osm_id": "way/461022490",
+    "lat": 36.9542647,
+    "lon": -25.1422471,
+    "tags": {
+      "access": "customers",
+      "addr:street": "Travessa da Rua Doutor Luís Bettencourt",
+      "amenity": "parking"
+    }
+  },
+  {
+    "osm_id": "way/461023260",
+    "lat": 36.9596633,
+    "lon": -25.1456167,
+    "tags": {
+      "amenity": "parking"
+    }
+  },
+  {
+    "osm_id": "way/461023261",
+    "lat": 36.9591391,
+    "lon": -25.1455302,
+    "tags": {
+      "amenity": "parking"
+    }
+  },
+  {
+    "osm_id": "way/461023262",
+    "lat": 36.9591299,
+    "lon": -25.1453592,
+    "tags": {
+      "amenity": "parking"
+    }
+  },
+  {
+    "osm_id": "way/626879748",
+    "lat": 36.9704639,
+    "lon": -25.0815383,
+    "tags": {
+      "building": "transportation",
+      "bus": "yes",
+      "covered": "yes",
+      "highway": "bus_stop",
+      "public_transport": "platform",
+      "shelter": "yes"
+    }
+  },
+  {
+    "osm_id": "way/626879749",
+    "lat": 36.944428,
+    "lon": -25.067067,
+    "tags": {
+      "building": "yes",
+      "name": "Judite Resendes",
+      "official_name": "Judite Resendes, Unipessoal Lda.",
+      "shop": "supermarket"
+    }
+  },
+  {
+    "osm_id": "way/697413539",
+    "lat": 36.950848,
+    "lon": -25.0977039,
+    "tags": {
+      "natural": "beach"
+    }
+  },
+  {
+    "osm_id": "way/697413540",
+    "lat": 36.9498284,
+    "lon": -25.0929485,
+    "tags": {
+      "natural": "beach"
+    }
+  },
+  {
+    "osm_id": "way/724587758",
+    "lat": 36.9586439,
+    "lon": -25.1343788,
+    "tags": {
+      "access": "yes",
+      "amenity": "parking",
+      "fee": "no",
+      "parking": "surface"
+    }
+  },
+  {
+    "osm_id": "way/796926065",
+    "lat": 36.9638258,
+    "lon": -25.1341101,
+    "tags": {
+      "building": "yes",
+      "name": "Supermercado Os Melos",
+      "shop": "supermarket"
+    }
+  },
+  {
+    "osm_id": "way/944618323",
+    "lat": 36.9569135,
+    "lon": -25.140378,
+    "tags": {
+      "addr:city": "Vila do Porto",
+      "addr:housenumber": "107",
+      "addr:postcode": "9580-529",
+      "addr:street": "Rua Doutor Luís Bettencurt",
+      "amenity": "police",
+      "contact:phone": "+351 296820110;+351 296820111;+351 296820112",
+      "name": "Esquadra de Vila do Porto",
+      "operator": "Polícia de Segurança Pública",
+      "operator:short": "PSP",
+      "operator:wikidata": "Q3460075",
+      "operator:wikipedia": "en:Polícia de Segurança Pública"
+    }
+  },
+  {
+    "osm_id": "way/944618370",
+    "lat": 36.9654787,
+    "lon": -25.1331684,
+    "tags": {
+      "amenity": "fuel",
+      "brand": "Repsol",
+      "brand:wikidata": "Q174747",
+      "brand:wikipedia": "es:Repsol",
+      "layer": "1",
+      "name": "Repsol"
+    }
+  },
+  {
+    "osm_id": "way/944618372",
+    "lat": 36.9687189,
+    "lon": -25.1342436,
+    "tags": {
+      "addr:city": "Vila do Porto",
+      "addr:country": "PT",
+      "addr:postcode": "9580-471",
+      "addr:street": "Cruz Teixeira",
+      "email": "santamaria@colombo-hotel.com",
+      "landuse": "commercial",
+      "name": "Hotel Colombo",
+      "operator": "Ciprotur Hotel Group",
+      "phone": "+351 296820200",
+      "stars": "4",
+      "tourism": "hotel",
+      "website": "https://www.colombo-hotel.com/"
+    }
+  },
+  {
+    "osm_id": "way/944667316",
+    "lat": 37.0026521,
+    "lon": -25.1039743,
+    "tags": {
+      "amenity": "place_of_worship",
+      "denomination": "catholic",
+      "name": "Capela de Nossa Senhora de Fátima",
+      "religion": "christian"
+    }
+  },
+  {
+    "osm_id": "way/944667344",
+    "lat": 36.9847468,
+    "lon": -25.0684952,
+    "tags": {
+      "amenity": "place_of_worship",
+      "building": "church",
+      "denomination": "roman_catholic",
+      "name": "Igreja de Santa Bárbara",
+      "religion": "christian",
+      "wikidata": "Q10300607",
+      "wikimedia_commons": "Category:Igreja de Santa Bárbara (Vila do Porto)",
+      "wikipedia": "pt:Igreja de Santa Bárbara (Santa Bárbara)"
+    }
+  },
+  {
+    "osm_id": "way/953118606",
+    "lat": 36.9561892,
+    "lon": -25.0411939,
+    "tags": {
+      "addr:city": "Santo Espírito",
+      "addr:postcode": "9580-238",
+      "addr:street": "Rua do Museu Espirito Santo",
+      "building": "yes",
+      "name": "Museu de Santa Maria",
+      "name:en": "Santa Maria Museum",
+      "tourism": "museum"
+    }
+  },
+  {
+    "osm_id": "way/953519626",
+    "lat": 36.965949,
+    "lon": -25.0460576,
+    "tags": {
+      "amenity": "place_of_worship",
+      "building": "chapel",
+      "denomination": "roman_catholic",
+      "name": "Ermida de Santo António",
+      "name:hu": "Templom",
+      "religion": "christian"
+    }
+  },
+  {
+    "osm_id": "way/953828578",
+    "lat": 36.9448228,
+    "lon": -25.0712404,
+    "tags": {
+      "amenity": "place_of_worship",
+      "building": "chapel",
+      "name": "Ermida de Nossa Senhora da Piedade",
+      "religion": "christian",
+      "wikidata": "Q10273758",
+      "wikimedia_commons": "Category:Ermida de Nossa Senhora da Piedade (Vila do Porto)"
+    }
+  },
+  {
+    "osm_id": "way/954085002",
+    "lat": 37.0046621,
+    "lon": -25.157573,
+    "tags": {
+      "leisure": "playground"
+    }
+  },
+  {
+    "osm_id": "way/955303298",
+    "lat": 36.9471275,
+    "lon": -25.1466769,
+    "tags": {
+      "email": "santamaria@pousadasjuvacores.com",
+      "fax": "+351 296 883 593",
+      "internet_access": "wlan",
+      "landuse": "commercial",
+      "name": "Pousada da Juventude de Santa Maria",
+      "phone": "+351 296 883 592",
+      "stars": "1",
+      "tourism": "hostel",
+      "website": "http://www.pousadasjuvacores.com/",
+      "wheelchair": "yes"
+    }
+  },
+  {
+    "osm_id": "way/955303313",
+    "lat": 36.9469622,
+    "lon": -25.1462097,
+    "tags": {
+      "access": "yes",
+      "amenity": "parking",
+      "fee": "no",
+      "parking": "surface"
+    }
+  },
+  {
+    "osm_id": "way/958275895",
+    "lat": 36.9658046,
+    "lon": -25.1074974,
+    "tags": {
+      "amenity": "parking",
+      "parking": "surface"
+    }
+  },
+  {
+    "osm_id": "way/958275897",
+    "lat": 36.9659823,
+    "lon": -25.1080454,
+    "tags": {
+      "amenity": "place_of_worship",
+      "building": "church",
+      "denomination": "roman_catholic",
+      "name": "Igreja de Nossa Senhora do Bom Despacho",
+      "religion": "christian",
+      "wikidata": "Q15210195",
+      "wikimedia_commons": "Category:Igreja de Nossa Senhora do Bom Despacho (Almagreira)",
+      "wikipedia": "pt:Igreja de Nossa Senhora do Bom Despacho (Almagreira)"
+    }
+  },
+  {
+    "osm_id": "way/958488070",
+    "lat": 36.9557671,
+    "lon": -25.1431494,
+    "tags": {
+      "amenity": "marketplace",
+      "landuse": "commercial",
+      "name": "Mercado Municipal"
+    }
+  },
+  {
+    "osm_id": "way/958488072",
+    "lat": 36.9742619,
+    "lon": -25.1566778,
+    "tags": {
+      "addr:city": "Vila do Porto",
+      "addr:country": "PT",
+      "addr:postcode": "9580-421",
+      "addr:street": "Rua da Horta",
+      "email": "reservas@hotel-santamaria.pt",
+      "landuse": "commercial",
+      "name": "Hotel Santa Maria",
+      "operator": "Grupo Praia de Lobos",
+      "phone": "+351 296820660",
+      "stars": "4",
+      "tourism": "hotel",
+      "website": "https://www.hotel-santamaria.pt/"
+    }
+  },
+  {
+    "osm_id": "way/958488074",
+    "lat": 36.955597,
+    "lon": -25.1423265,
+    "tags": {
+      "addr:city": "Vila do Porto",
+      "addr:country": "PT",
+      "addr:postcode": "9580-525",
+      "addr:street": "Travessa do Mercado",
+      "email": "reservas@hotel-praiadelobos.pt",
+      "landuse": "commercial",
+      "name": "Hotel Praia de Lobos",
+      "operator": "Grupo Praia de Lobos",
+      "stars": "3",
+      "tourism": "hotel",
+      "website": "https://www.hotel-praiadelobos.pt/"
+    }
+  },
+  {
+    "osm_id": "way/958715444",
+    "lat": 36.9533863,
+    "lon": -25.1426696,
+    "tags": {
+      "amenity": "place_of_worship",
+      "building": "church",
+      "denomination": "roman_catholic",
+      "name": "Igreja do Recolhimento de Santo António",
+      "religion": "christian",
+      "wikidata": "Q10300923",
+      "wikipedia": "pt:Igreja do Recolhimento de Santo António (Vila do Porto)"
+    }
+  },
+  {
+    "osm_id": "way/961439127",
+    "lat": 36.9598563,
+    "lon": -25.1453481,
+    "tags": {
+      "addr:city": "Vila do Porto",
+      "addr:country": "PT",
+      "addr:postcode": "9580-501",
+      "addr:street": "Avenida Santa Maria",
+      "amenity": "clinic",
+      "email": "sres-csvp@azores.gov.pt",
+      "fax": "+351 296883117",
+      "healthcare": "clinic",
+      "name": "Centro de Saúde de Vila do Porto",
+      "opening_hours": "24/7",
+      "operator": "USI Santa Maria",
+      "phone": "+351 296820100",
+      "related_law": "Decreto Regulamentar Regional n.º 5/2011/A de 10 de fevereiro",
+      "source:related_law": "https://dre.pt/application/conteudo/280262"
+    }
+  },
+  {
+    "osm_id": "way/963476950",
+    "lat": 36.9518429,
+    "lon": -25.1439413,
+    "tags": {
+      "addr:city": "Vila do Porto",
+      "addr:postcode": "9580-999",
+      "addr:street": "Rua Teófilo Braga",
+      "amenity": "post_office",
+      "fax": "+351 296 820 126",
+      "landuse": "commercial",
+      "name": "CTT",
+      "opening_hours": "Mo-Fr 09:00-12:30,14:00-18:00",
+      "operator": "CTT",
+      "operator:wikidata": "Q1024518",
+      "phone": "+351 296 820 120",
+      "website": "https://www.ctt.pt/"
+    }
+  },
+  {
+    "osm_id": "way/963476989",
+    "lat": 36.9509273,
+    "lon": -25.1433603,
+    "tags": {
+      "addr:city": "Vila do Porto",
+      "addr:country": "PT",
+      "addr:housenumber": "31",
+      "addr:postcode": "9580-535",
+      "addr:street": "Rua Teófilo Braga",
+      "email": "info@charmingblue.com",
+      "internet_access": "wlan",
+      "landuse": "commercial",
+      "mobile": "+351 964 303 531",
+      "name": "Charming Blue",
+      "phone": "+351 296 882 083",
+      "rooms": "15",
+      "stars": "4",
+      "tourism": "hotel",
+      "website": "https://www.charmingblue.com/"
+    }
+  },
+  {
+    "osm_id": "way/1012338380",
+    "lat": 36.9754961,
+    "lon": -25.1660131,
+    "tags": {
+      "amenity": "parking"
+    }
+  },
+  {
+    "osm_id": "way/1012338383",
+    "lat": 36.972133,
+    "lon": -25.1644305,
+    "tags": {
+      "amenity": "parking"
+    }
+  },
+  {
+    "osm_id": "way/1012338387",
+    "lat": 36.9742054,
+    "lon": -25.1649473,
+    "tags": {
+      "amenity": "parking"
+    }
+  },
+  {
+    "osm_id": "way/1012339897",
+    "lat": 36.975006,
+    "lon": -25.1651012,
+    "tags": {
+      "amenity": "parking"
+    }
+  },
+  {
+    "osm_id": "way/1062879131",
+    "lat": 36.9680545,
+    "lon": -25.1553238,
+    "tags": {
+      "leisure": "playground",
+      "name": "Parque Infantil do Clube ANA"
+    }
+  },
+  {
+    "osm_id": "way/1064319845",
+    "lat": 36.9587207,
+    "lon": -25.1341637,
+    "tags": {
+      "leisure": "playground",
+      "max_age": "12",
+      "name": "Parque Infantil da Reserva Florestal de Recreio de Valverde"
+    }
+  },
+  {
+    "osm_id": "way/1064319846",
+    "lat": 36.9584871,
+    "lon": -25.1340257,
+    "tags": {
+      "leisure": "playground",
+      "max_age": "3",
+      "name": "Reserva Florestal de Recreio de Valverde"
+    }
+  },
+  {
+    "osm_id": "way/1151052938",
+    "lat": 36.9530394,
+    "lon": -25.1430863,
+    "tags": {
+      "amenity": "taxi",
+      "phone": "+351 296 882 199"
+    }
+  },
+  {
+    "osm_id": "way/1151052939",
+    "lat": 37.0036089,
+    "lon": -25.1515644,
+    "tags": {
+      "access": "yes",
+      "amenity": "parking",
+      "parking": "surface",
+      "surface": "fine_gravel"
+    }
+  },
+  {
+    "osm_id": "way/1151214266",
+    "lat": 36.9540257,
+    "lon": -25.1433613,
+    "tags": {
+      "access": "yes",
+      "amenity": "parking",
+      "parking": "surface",
+      "surface": "asphalt"
+    }
+  },
+  {
+    "osm_id": "way/1151215901",
+    "lat": 36.9530639,
+    "lon": -25.1440107,
+    "tags": {
+      "access": "yes",
+      "amenity": "parking",
+      "parking": "surface",
+      "surface": "asphalt"
+    }
+  },
+  {
+    "osm_id": "way/1151215902",
+    "lat": 36.9532088,
+    "lon": -25.1437675,
+    "tags": {
+      "access": "yes",
+      "amenity": "parking",
+      "parking": "surface"
+    }
+  },
+  {
+    "osm_id": "way/1151990258",
+    "lat": 36.9900566,
+    "lon": -25.061198,
+    "tags": {
+      "access": "yes",
+      "amenity": "parking",
+      "parking": "surface",
+      "surface": "fine_gravel"
+    }
+  },
+  {
+    "osm_id": "way/1277915316",
+    "lat": 36.9600145,
+    "lon": -25.0743176,
+    "tags": {
+      "amenity": "parking",
+      "fee": "no",
+      "surface": "unpaved"
+    }
+  },
+  {
+    "osm_id": "way/1277916232",
+    "lat": 36.9646831,
+    "lon": -25.0777577,
+    "tags": {
+      "amenity": "parking",
+      "fee": "no",
+      "surface": "fine_gravel"
+    }
+  },
+  {
+    "osm_id": "way/1277916396",
+    "lat": 36.9832035,
+    "lon": -25.0911077,
+    "tags": {
+      "amenity": "parking",
+      "fee": "no",
+      "parking": "street_side"
+    }
+  },
+  {
+    "osm_id": "way/1278295490",
+    "lat": 36.9509537,
+    "lon": -25.0962094,
+    "tags": {
+      "access": "yes",
+      "amenity": "parking",
+      "fee": "no",
+      "parking": "surface",
+      "surface": "asphalt"
+    }
+  },
+  {
+    "osm_id": "way/1278295491",
+    "lat": 36.9514215,
+    "lon": -25.0980662,
+    "tags": {
+      "access": "yes",
+      "amenity": "parking",
+      "fee": "no",
+      "parking": "surface",
+      "surface": "asphalt"
+    }
+  },
+  {
+    "osm_id": "way/1278295492",
+    "lat": 36.9516499,
+    "lon": -25.1016369,
+    "tags": {
+      "access": "yes",
+      "amenity": "parking",
+      "fee": "no",
+      "parking": "surface",
+      "surface": "asphalt"
+    }
+  },
+  {
+    "osm_id": "way/1306966702",
+    "lat": 36.9723765,
+    "lon": -25.1645998,
+    "tags": {
+      "amenity": "parking"
+    }
+  },
+  {
+    "osm_id": "way/1306966703",
+    "lat": 36.9725036,
+    "lon": -25.1647352,
+    "tags": {
+      "amenity": "parking"
+    }
+  },
+  {
+    "osm_id": "way/1322112501",
+    "lat": 36.984832,
+    "lon": -25.0683388,
+    "tags": {
+      "amenity": "place_of_worship",
+      "building": "chapel",
+      "denomination": "roman_catholic",
+      "name": "Treatro do Espírito Santo de Santa Bárbara",
+      "religion": "christian"
+    }
+  }
+]

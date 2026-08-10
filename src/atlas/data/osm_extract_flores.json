@@ -1,0 +1,5199 @@
+[
+  {
+    "osm_id": "node/25270673",
+    "lat": 39.4537806,
+    "lon": -31.1285157,
+    "tags": {
+      "capital": "7",
+      "name": "Santa Cruz das Flores",
+      "name:ce": "Санта-Круш-даш-Флореш",
+      "name:ko": "산타크루스다스플로르스",
+      "name:lt": "Santa Kruz das Florešas",
+      "name:ru": "Санта-Круш-даш-Флориш",
+      "name:tt": "Санта-Круш-даш-Флореш",
+      "name:uk": "Санта-Круш-даш-Флореш",
+      "name:zh": "聖克魯什-達什弗洛里什",
+      "place": "town",
+      "wikipedia": "pt:Santa Cruz das Flores"
+    }
+  },
+  {
+    "osm_id": "node/25270679",
+    "lat": 39.3779504,
+    "lon": -31.1770926,
+    "tags": {
+      "capital": "7",
+      "name": "Lajes das Flores",
+      "name:ce": "Лажеш-даш-Флореш",
+      "name:ko": "라즈스다스플로르스",
+      "name:ru": "Лажиш-даш-Флориш",
+      "name:tt": "Лажеш-даш-Флореш",
+      "name:uk": "Лажеш-даш-Флореш",
+      "name:zh": "拉日什-達什弗洛里什",
+      "place": "town",
+      "wikipedia": "pt:Lajes das Flores"
+    }
+  },
+  {
+    "osm_id": "node/578112082",
+    "lat": 39.4675294,
+    "lon": -31.1464922,
+    "tags": {
+      "amenity": "place_of_worship",
+      "religion": "christian"
+    }
+  },
+  {
+    "osm_id": "node/1162456070",
+    "lat": 39.4294532,
+    "lon": -31.2582386,
+    "tags": {
+      "description": "Vértice geodésico de 2ª ordem; pilar prismático sobre prisma.",
+      "ele": "331",
+      "height": "1.81",
+      "man_made": "survey_point",
+      "name": "Fajãzinha",
+      "natural": "peak",
+      "note": "Beware: elevation is top of the survey_point.",
+      "note:en": "Survey Points are meant to be used to rectify aerial imagery and not the other way around. Please do not move nor delete them. Their position corresponds to official reference ground measures.",
+      "note:pt": "Os Vértices Geodésicos servem para melhorar o alinhamento da fotografia aérea e não o inverso. Por favor não os mova nem apague. A sua posição corresponde a medidas de referência oficiais, obtidas in loco.",
+      "ref": "1003",
+      "source": "DGT - Rede Geodésica Nacional",
+      "source:pkey": "1003",
+      "survey:date": "2005",
+      "website": "http://dev.igeo.pt/produtos/geodesia/vg/rgn/ficha.asp?num=1003",
+      "width": "0.36"
+    }
+  },
+  {
+    "osm_id": "node/1162456076",
+    "lat": 39.3871284,
+    "lon": -31.1727966,
+    "tags": {
+      "description": "Vértice geodésico de 2ª ordem; pilar prismático sobre prisma.",
+      "ele": "204",
+      "height": "1.4",
+      "man_made": "survey_point",
+      "name": "Calvário",
+      "natural": "peak",
+      "note": "Beware: elevation is top of the survey_point.",
+      "note:en": "Survey Points are meant to be used to rectify aerial imagery and not the other way around. Please do not move nor delete them. Their position corresponds to official reference ground measures.",
+      "note:pt": "Os Vértices Geodésicos servem para melhorar o alinhamento da fotografia aérea e não o inverso. Por favor não os mova nem apague. A sua posição corresponde a medidas de referência oficiais, obtidas in loco.",
+      "ref": "991",
+      "source": "DGT - Rede Geodésica Nacional",
+      "source:pkey": "991",
+      "survey:date": "2005",
+      "website": "http://dev.igeo.pt/produtos/geodesia/vg/rgn/ficha.asp?num=991",
+      "width": "0.40"
+    }
+  },
+  {
+    "osm_id": "node/1162456094",
+    "lat": 39.3877398,
+    "lon": -31.235615,
+    "tags": {
+      "description": "Vértice geodésico de 2ª ordem; pilar prismático sobre terreno.",
+      "ele": "485",
+      "height": "1.08",
+      "man_made": "survey_point",
+      "name": "Alto da Mira",
+      "natural": "peak",
+      "note": "Beware: elevation is top of the survey_point.",
+      "note:en": "Survey Points are meant to be used to rectify aerial imagery and not the other way around. Please do not move nor delete them. Their position corresponds to official reference ground measures.",
+      "note:pt": "Os Vértices Geodésicos servem para melhorar o alinhamento da fotografia aérea e não o inverso. Por favor não os mova nem apague. A sua posição corresponde a medidas de referência oficiais, obtidas in loco.",
+      "ref": "994",
+      "source": "DGT - Rede Geodésica Nacional",
+      "source:pkey": "994",
+      "survey:date": "2005",
+      "website": "http://dev.igeo.pt/produtos/geodesia/vg/rgn/ficha.asp?num=994",
+      "width": "0.41"
+    }
+  },
+  {
+    "osm_id": "node/1162456099",
+    "lat": 39.3869221,
+    "lon": -31.1922675,
+    "tags": {
+      "description": "Vértice geodésico de 2ª ordem; pilar prismático sobre prisma.",
+      "ele": "236",
+      "height": "1.29",
+      "man_made": "survey_point",
+      "name": "Base E",
+      "natural": "peak",
+      "note": "Beware: elevation is top of the survey_point.",
+      "note:en": "Survey Points are meant to be used to rectify aerial imagery and not the other way around. Please do not move nor delete them. Their position corresponds to official reference ground measures.",
+      "note:pt": "Os Vértices Geodésicos servem para melhorar o alinhamento da fotografia aérea e não o inverso. Por favor não os mova nem apague. A sua posição corresponde a medidas de referência oficiais, obtidas in loco.",
+      "ref": "995",
+      "source": "DGT - Rede Geodésica Nacional",
+      "source:pkey": "995",
+      "survey:date": "2005",
+      "website": "http://dev.igeo.pt/produtos/geodesia/vg/rgn/ficha.asp?num=995",
+      "width": "0.40"
+    }
+  },
+  {
+    "osm_id": "node/1162456104",
+    "lat": 39.3997162,
+    "lon": -31.2110252,
+    "tags": {
+      "description": "Vértice geodésico de 2ª ordem; pilar prismático sobre prisma.",
+      "ele": "473",
+      "height": "1.2",
+      "man_made": "survey_point",
+      "name": "Boca da Baleia",
+      "natural": "peak",
+      "note": "Beware: elevation is top of the survey_point.",
+      "note:en": "Survey Points are meant to be used to rectify aerial imagery and not the other way around. Please do not move nor delete them. Their position corresponds to official reference ground measures.",
+      "note:pt": "Os Vértices Geodésicos servem para melhorar o alinhamento da fotografia aérea e não o inverso. Por favor não os mova nem apague. A sua posição corresponde a medidas de referência oficiais, obtidas in loco.",
+      "ref": "996",
+      "source": "DGT - Rede Geodésica Nacional",
+      "source:pkey": "996",
+      "survey:date": "2005",
+      "website": "http://dev.igeo.pt/produtos/geodesia/vg/rgn/ficha.asp?num=996",
+      "width": "0.36"
+    }
+  },
+  {
+    "osm_id": "node/1162456107",
+    "lat": 39.4206418,
+    "lon": -31.1803319,
+    "tags": {
+      "description": "Vértice geodésico de 2ª ordem; pilar prismático sobre prisma.",
+      "ele": "632",
+      "height": "1.2",
+      "man_made": "survey_point",
+      "name": "Boca da Vereda",
+      "natural": "peak",
+      "note": "Beware: elevation is top of the survey_point.",
+      "note:en": "Survey Points are meant to be used to rectify aerial imagery and not the other way around. Please do not move nor delete them. Their position corresponds to official reference ground measures.",
+      "note:pt": "Os Vértices Geodésicos servem para melhorar o alinhamento da fotografia aérea e não o inverso. Por favor não os mova nem apague. A sua posição corresponde a medidas de referência oficiais, obtidas in loco.",
+      "ref": "997",
+      "source": "DGT - Rede Geodésica Nacional",
+      "source:pkey": "997",
+      "survey:date": "2005",
+      "website": "http://dev.igeo.pt/produtos/geodesia/vg/rgn/ficha.asp?num=997",
+      "width": "0.36"
+    }
+  },
+  {
+    "osm_id": "node/1162456119",
+    "lat": 39.4030801,
+    "lon": -31.2325301,
+    "tags": {
+      "description": "Vértice geodésico de 2ª ordem; pilar prismático sobre prisma.",
+      "ele": "591",
+      "height": "1.49",
+      "man_made": "survey_point",
+      "name": "Bugio",
+      "natural": "peak",
+      "note": "Beware: elevation is top of the survey_point.",
+      "note:en": "Survey Points are meant to be used to rectify aerial imagery and not the other way around. Please do not move nor delete them. Their position corresponds to official reference ground measures.",
+      "note:pt": "Os Vértices Geodésicos servem para melhorar o alinhamento da fotografia aérea e não o inverso. Por favor não os mova nem apague. A sua posição corresponde a medidas de referência oficiais, obtidas in loco.",
+      "ref": "998",
+      "source": "DGT - Rede Geodésica Nacional",
+      "source:pkey": "998",
+      "survey:date": "2005",
+      "website": "http://dev.igeo.pt/produtos/geodesia/vg/rgn/ficha.asp?num=998",
+      "width": "0.40"
+    }
+  },
+  {
+    "osm_id": "node/1162456124",
+    "lat": 39.4132268,
+    "lon": -31.242117,
+    "tags": {
+      "description": "Vértice geodésico de 2ª ordem; pilar prismático sobre prisma.",
+      "ele": "480",
+      "height": "1.4",
+      "man_made": "survey_point",
+      "name": "Burreiro",
+      "natural": "peak",
+      "note": "Beware: elevation is top of the survey_point.",
+      "note:en": "Survey Points are meant to be used to rectify aerial imagery and not the other way around. Please do not move nor delete them. Their position corresponds to official reference ground measures.",
+      "note:pt": "Os Vértices Geodésicos servem para melhorar o alinhamento da fotografia aérea e não o inverso. Por favor não os mova nem apague. A sua posição corresponde a medidas de referência oficiais, obtidas in loco.",
+      "ref": "1000",
+      "source": "DGT - Rede Geodésica Nacional",
+      "source:pkey": "1000",
+      "survey:date": "2005",
+      "website": "http://dev.igeo.pt/produtos/geodesia/vg/rgn/ficha.asp?num=1000",
+      "width": "0.40"
+    }
+  },
+  {
+    "osm_id": "node/1162456133",
+    "lat": 39.4944159,
+    "lon": -31.1712673,
+    "tags": {
+      "description": "Vértice geodésico de 2ª ordem; pilar tronco-cónico sobre cilindro.",
+      "ele": "438",
+      "height": "2.63",
+      "man_made": "survey_point",
+      "name": "Aguinhas",
+      "natural": "peak",
+      "note": "Beware: elevation is top of the survey_point.",
+      "note:en": "Survey Points are meant to be used to rectify aerial imagery and not the other way around. Please do not move nor delete them. Their position corresponds to official reference ground measures.",
+      "note:pt": "Os Vértices Geodésicos servem para melhorar o alinhamento da fotografia aérea e não o inverso. Por favor não os mova nem apague. A sua posição corresponde a medidas de referência oficiais, obtidas in loco.",
+      "ref": "992",
+      "source": "DGT - Rede Geodésica Nacional",
+      "source:pkey": "992",
+      "survey:date": "2004",
+      "website": "http://dev.igeo.pt/produtos/geodesia/vg/rgn/ficha.asp?num=992",
+      "width": "0.67"
+    }
+  },
+  {
+    "osm_id": "node/1162456138",
+    "lat": 39.4875759,
+    "lon": -31.157656,
+    "tags": {
+      "description": "Vértice geodésico de 2ª ordem; pilar prismático sobre prisma.",
+      "ele": "340",
+      "height": "0.5",
+      "man_made": "survey_point",
+      "name": "Burguilhão",
+      "natural": "peak",
+      "note": "Beware: elevation is top of the survey_point.",
+      "note:en": "Survey Points are meant to be used to rectify aerial imagery and not the other way around. Please do not move nor delete them. Their position corresponds to official reference ground measures.",
+      "note:pt": "Os Vértices Geodésicos servem para melhorar o alinhamento da fotografia aérea e não o inverso. Por favor não os mova nem apague. A sua posição corresponde a medidas de referência oficiais, obtidas in loco.",
+      "ref": "999",
+      "source": "DGT - Rede Geodésica Nacional",
+      "source:pkey": "999",
+      "survey:date": "2005",
+      "website": "http://dev.igeo.pt/produtos/geodesia/vg/rgn/ficha.asp?num=999",
+      "width": "0.40"
+    }
+  },
+  {
+    "osm_id": "node/1162456142",
+    "lat": 39.480394,
+    "lon": -31.1507393,
+    "tags": {
+      "description": "Vértice geodésico de 2ª ordem; pilar prismático sobre terreno.",
+      "ele": "289",
+      "height": "1.08",
+      "man_made": "survey_point",
+      "name": "Cedros",
+      "natural": "peak",
+      "note": "Beware: elevation is top of the survey_point.",
+      "note:en": "Survey Points are meant to be used to rectify aerial imagery and not the other way around. Please do not move nor delete them. Their position corresponds to official reference ground measures.",
+      "note:pt": "Os Vértices Geodésicos servem para melhorar o alinhamento da fotografia aérea e não o inverso. Por favor não os mova nem apague. A sua posição corresponde a medidas de referência oficiais, obtidas in loco.",
+      "ref": "1001",
+      "source": "DGT - Rede Geodésica Nacional",
+      "source:pkey": "1001",
+      "survey:date": "2005",
+      "website": "http://dev.igeo.pt/produtos/geodesia/vg/rgn/ficha.asp?num=1001",
+      "width": "0.43"
+    }
+  },
+  {
+    "osm_id": "node/1577206552",
+    "lat": 39.3757084,
+    "lon": -31.1765306,
+    "tags": {
+      "height": "16",
+      "man_made": "lighthouse",
+      "name": "Farol das Lajes das Flores",
+      "seamark:light:1:character": "Fl",
+      "seamark:light:1:colour": "white",
+      "seamark:light:1:group": "3",
+      "seamark:light:1:height": "99",
+      "seamark:light:1:period": "28",
+      "seamark:light:1:range": "26",
+      "seamark:light:1:sector_end": "54",
+      "seamark:light:1:sector_start": "263",
+      "seamark:light:1:sequence": "0.3+(4),0.3+(4),0.3+(19.1)",
+      "seamark:light:reference": "D 2704",
+      "seamark:name": "Ponta das Lajes",
+      "seamark:type": "light_major",
+      "source": "US NGA Pub. 113. 2011-10-20.",
+      "website": "https://www.amn.pt/DF/Paginas/FaroldaPontadasLajes.aspx",
+      "wikidata": "Q10280142",
+      "wikimedia_commons": "Category:Ponta das Lajes Lighthouse",
+      "wikipedia": "pt:Farol das Lajes"
+    }
+  },
+  {
+    "osm_id": "node/1578556388",
+    "lat": 39.4511398,
+    "lon": -31.1357241,
+    "tags": {
+      "name": "Miradouro do Monte das Cruzes",
+      "tourism": "viewpoint",
+      "wikidata": "Q10330565",
+      "wikipedia": "pt:Miradouro do Monte das Cruzes"
+    }
+  },
+  {
+    "osm_id": "node/1578588285",
+    "lat": 39.4721677,
+    "lon": -31.1468089,
+    "tags": {
+      "name": "Miradouro dos Caimbros",
+      "tourism": "viewpoint"
+    }
+  },
+  {
+    "osm_id": "node/1578594737",
+    "lat": 39.461278,
+    "lon": -31.1278787,
+    "tags": {
+      "addr:city": "Santa Cruz das Flores",
+      "addr:postcode": "9970-306",
+      "addr:street": "Avenida dos Baleeiros",
+      "email": "info@hotelocidental.pt",
+      "name": "Hotel Ocidental",
+      "phone": "+351 292 590 100",
+      "postal_code": "9970-306",
+      "tourism": "guest_house",
+      "website": "http://www.hotelocidental.com/",
+      "wikidata": "Q111870670"
+    }
+  },
+  {
+    "osm_id": "node/1844609524",
+    "lat": 39.4072174,
+    "lon": -31.2241974,
+    "tags": {
+      "addr:city": "Lajes das Flores",
+      "addr:postcode": "9960",
+      "addr:street": "Caminho Florestal dos Rochões",
+      "name": "Miradouro da Caldeira Rasa e Caldeira Funda",
+      "source": "www.igogo.pt",
+      "tourism": "viewpoint",
+      "wheelchair": "yes"
+    }
+  },
+  {
+    "osm_id": "node/1844613682",
+    "lat": 39.5145339,
+    "lon": -31.2279147,
+    "tags": {
+      "height": "2,5",
+      "intermittent": "no",
+      "waterway": "waterfall"
+    }
+  },
+  {
+    "osm_id": "node/2052972449",
+    "lat": 39.4555437,
+    "lon": -31.1266319,
+    "tags": {
+      "addr:city": "Santa Cruz das Flores",
+      "addr:postcode": "9970-305",
+      "addr:street": "Bairro Francês",
+      "name": "Hotel Servi-Flor",
+      "name:pt": "Hotel Servi-Flor",
+      "phone": "+351 292 592453",
+      "tourism": "guest_house",
+      "website": "https://www.servi-flor.com/"
+    }
+  },
+  {
+    "osm_id": "node/2147953048",
+    "lat": 39.4332483,
+    "lon": -31.2537046,
+    "tags": {
+      "capital": "8",
+      "name": "Fajãzinha",
+      "place": "village"
+    }
+  },
+  {
+    "osm_id": "node/2147966430",
+    "lat": 39.426807,
+    "lon": -31.2384317,
+    "tags": {
+      "addr:city": "Fajãzinha",
+      "addr:postcode": "9960-110",
+      "addr:street": "Estrada Regional",
+      "name": "Miradouro Craveiro Lopes",
+      "name:en": "Craveiro Lopes Viewpoint",
+      "name:ru": "Смотровая площадка Craveiro Lopes",
+      "tourism": "viewpoint"
+    }
+  },
+  {
+    "osm_id": "node/2147978750",
+    "lat": 39.4132897,
+    "lon": -31.2508253,
+    "tags": {
+      "capital": "8",
+      "name": "Mosteiro",
+      "place": "village"
+    }
+  },
+  {
+    "osm_id": "node/2173931238",
+    "lat": 39.4583641,
+    "lon": -31.2557095,
+    "tags": {
+      "height": "90",
+      "name": "Poço do Bacalhau",
+      "tourism": "attraction",
+      "waterway": "waterfall",
+      "wheelchair": "no"
+    }
+  },
+  {
+    "osm_id": "node/2515028854",
+    "lat": 39.505729,
+    "lon": -31.2088751,
+    "tags": {
+      "amenity": "place_of_worship",
+      "building": "chapel",
+      "name": "São João",
+      "religion": "christian"
+    }
+  },
+  {
+    "osm_id": "node/2515037824",
+    "lat": 39.4917278,
+    "lon": -31.2472033,
+    "tags": {
+      "tourism": "viewpoint"
+    }
+  },
+  {
+    "osm_id": "node/2800560447",
+    "lat": 39.4526435,
+    "lon": -31.1296902,
+    "tags": {
+      "addr:city": "Santa Cruz das Flores",
+      "addr:housenumber": "4",
+      "addr:postcode": "9970-314",
+      "addr:street": "Praça Marquês de Pombal",
+      "amenity": "police",
+      "name": "GNR - Posto Territorial de Santa Cruz das Flores",
+      "operator": "Guarda Nacional Republicana",
+      "operator:wikidata": "Q1280906",
+      "operator:wikipedia": "pt:Guarda Nacional Republicana"
+    }
+  },
+  {
+    "osm_id": "node/2800560449",
+    "lat": 39.4514621,
+    "lon": -31.1285151,
+    "tags": {
+      "bench": "yes",
+      "bin": "yes",
+      "bus": "yes",
+      "highway": "bus_stop",
+      "lit": "yes",
+      "name": "Santa Cruz das Flores",
+      "public_transport": "platform",
+      "shelter": "yes",
+      "tactile_paving": "no"
+    }
+  },
+  {
+    "osm_id": "node/2800560455",
+    "lat": 39.4513934,
+    "lon": -31.1291478,
+    "tags": {
+      "amenity": "pharmacy",
+      "dispensing": "no",
+      "healthcare": "pharmacy",
+      "name": "Farmácia de Santa Cruz das Flores",
+      "opening_hours": "Mo-Fr 09:00-18:00, Sa 09:00-12:30",
+      "wheelchair": "yes"
+    }
+  },
+  {
+    "osm_id": "node/2800594713",
+    "lat": 39.4516873,
+    "lon": -31.1266852,
+    "tags": {
+      "amenity": "restaurant",
+      "name": "Restaurante Sereia",
+      "phone": "+351292592093;+351919642332"
+    }
+  },
+  {
+    "osm_id": "node/2800594715",
+    "lat": 39.4521857,
+    "lon": -31.1275214,
+    "tags": {
+      "amenity": "restaurant",
+      "cuisine": "regional;steak_house",
+      "name": "Rainha do Bife",
+      "opening_hours": "Mo-Su 07:00-24:00",
+      "phone": "+351292700834"
+    }
+  },
+  {
+    "osm_id": "node/2800597917",
+    "lat": 39.3793802,
+    "lon": -31.1815003,
+    "tags": {
+      "addr:city": "Lajes das Flores",
+      "addr:postcode": "9960-410",
+      "addr:street": "Travessa da Cruz",
+      "highway": "bus_stop",
+      "source": "https://www.openstreetmap.org"
+    }
+  },
+  {
+    "osm_id": "node/2801539816",
+    "lat": 39.4536407,
+    "lon": -31.262472,
+    "tags": {
+      "addr:city": "Faja Grande",
+      "addr:housenumber": "5",
+      "addr:postcode": "9960-030",
+      "addr:street": "Rua do Senador André de Freitas",
+      "email": "info@argonauta-flores.com",
+      "internet_access": "yes",
+      "internet_access:fee": "no",
+      "name": "Argonauta",
+      "phone": "+351 292 552219; +351 964669200",
+      "smoking": "no",
+      "source": "https://www.azores.gov.pt/NR/rdonlyres/CCD6299D-5E0C-411B-91B3-6E7F6AF5DECA/0/ALDRT19052017flo.pdf;https://www.tripadvisor.pt;http://www.argonauta-flores.com",
+      "tourism": "guest_house",
+      "website": "http://www.argonauta-flores.com/",
+      "wheelchair": "no"
+    }
+  },
+  {
+    "osm_id": "node/2801539818",
+    "lat": 39.453381,
+    "lon": -31.2622959,
+    "tags": {
+      "addr:city": "Fajã Grande",
+      "addr:postcode": "9960-000",
+      "addr:street": "Rua Senador André de Freitas",
+      "bench": "yes",
+      "bin": "yes",
+      "highway": "bus_stop",
+      "lit": "yes",
+      "name": "Fajã Grande",
+      "shelter": "yes",
+      "tactile_paving": "no"
+    }
+  },
+  {
+    "osm_id": "node/2801539819",
+    "lat": 39.4538466,
+    "lon": -31.2624112,
+    "tags": {
+      "addr:city": "Fajã Grande",
+      "addr:housenumber": "7",
+      "addr:postcode": "9960-030",
+      "addr:street": "Rua do Senador André de Freitas",
+      "name": "Vitória Mini-Mercado",
+      "shop": "convenience",
+      "source": "http://www.streetdir.pt"
+    }
+  },
+  {
+    "osm_id": "node/2801539839",
+    "lat": 39.453167,
+    "lon": -31.2626006,
+    "tags": {
+      "access": "yes",
+      "amenity": "toilets",
+      "changing_table": "no",
+      "check_date": "2026-07-29",
+      "fee": "no",
+      "toilets:disposal": "flush",
+      "wheelchair": "no"
+    }
+  },
+  {
+    "osm_id": "node/2801539850",
+    "lat": 39.4537406,
+    "lon": -31.2625515,
+    "tags": {
+      "addr:city": "Faja Grande",
+      "addr:country": "PT",
+      "addr:housenumber": "7",
+      "addr:postcode": "9960-000",
+      "addr:street": "Rua do Senador André de Freitas",
+      "name": "Mercearia José António Ramos Teodósio",
+      "shop": "convenience",
+      "source": "http://www.cmlajesdasflores.pt/"
+    }
+  },
+  {
+    "osm_id": "node/2801826874",
+    "lat": 39.4226691,
+    "lon": -31.2566207,
+    "tags": {
+      "amenity": "drinking_water"
+    }
+  },
+  {
+    "osm_id": "node/2801826965",
+    "lat": 39.4328944,
+    "lon": -31.2546625,
+    "tags": {
+      "amenity": "toilets",
+      "fee": "no",
+      "wheelchair": "limited"
+    }
+  },
+  {
+    "osm_id": "node/2801827001",
+    "lat": 39.4363474,
+    "lon": -31.2387831,
+    "tags": {
+      "direction": "56",
+      "tourism": "viewpoint"
+    }
+  },
+  {
+    "osm_id": "node/2801827113",
+    "lat": 39.4404415,
+    "lon": -31.2557334,
+    "tags": {
+      "access": "yes",
+      "addr:city": "Fajã Grande",
+      "addr:postcode": "9960-070",
+      "amenity": "parking",
+      "capacity": "20",
+      "capacity:disabled": "no",
+      "fee": "no",
+      "parking": "surface"
+    }
+  },
+  {
+    "osm_id": "node/2801827199",
+    "lat": 39.4525404,
+    "lon": -31.2617203,
+    "tags": {
+      "addr:city": "Fajã Grande",
+      "addr:postcode": "9960-110",
+      "addr:street": "Rua da Assomada",
+      "fee": "no",
+      "name": "Pólo Museológico ou Casa Museu da Fajã Grande",
+      "source": "http://www.cmlajesdasflores.pt",
+      "tourism": "museum",
+      "website": "https://www.explorefloresisland.com/mapa-interativo/local/1614/"
+    }
+  },
+  {
+    "osm_id": "node/2802450764",
+    "lat": 39.4402231,
+    "lon": -31.2236931,
+    "tags": {
+      "name": "Miradouro das Lagoas",
+      "tourism": "viewpoint",
+      "wheelchair": "no"
+    }
+  },
+  {
+    "osm_id": "node/2802450765",
+    "lat": 39.4429281,
+    "lon": -31.2189947,
+    "tags": {
+      "ref": "2",
+      "tourism": "viewpoint"
+    }
+  },
+  {
+    "osm_id": "node/2802450777",
+    "lat": 39.4413947,
+    "lon": -31.2181298,
+    "tags": {
+      "tourism": "viewpoint"
+    }
+  },
+  {
+    "osm_id": "node/2802450797",
+    "lat": 39.4470863,
+    "lon": -31.2233297,
+    "tags": {
+      "ref": "4",
+      "tourism": "viewpoint"
+    }
+  },
+  {
+    "osm_id": "node/2802452908",
+    "lat": 39.4479975,
+    "lon": -31.2274838,
+    "tags": {
+      "ref": "5",
+      "tourism": "viewpoint"
+    }
+  },
+  {
+    "osm_id": "node/2805966379",
+    "lat": 39.4710358,
+    "lon": -31.2558713,
+    "tags": {
+      "addr:housenumber": "23",
+      "addr:street": "Rua de Nossa Senhora do Carmo",
+      "name": "Residencia Mateus",
+      "tourism": "guest_house"
+    }
+  },
+  {
+    "osm_id": "node/2805967532",
+    "lat": 39.4681028,
+    "lon": -31.2553008,
+    "tags": {
+      "amenity": "drinking_water",
+      "man_made": "water_tap"
+    }
+  },
+  {
+    "osm_id": "node/2805967548",
+    "lat": 39.4713181,
+    "lon": -31.2557566,
+    "tags": {
+      "amenity": "toilets",
+      "fee": "no"
+    }
+  },
+  {
+    "osm_id": "node/2805967699",
+    "lat": 39.4949365,
+    "lon": -31.2424702,
+    "tags": {
+      "ref": "3",
+      "tourism": "viewpoint"
+    }
+  },
+  {
+    "osm_id": "node/2805967732",
+    "lat": 39.4975293,
+    "lon": -31.2383458,
+    "tags": {
+      "ref": "2",
+      "tourism": "viewpoint"
+    }
+  },
+  {
+    "osm_id": "node/2805967789",
+    "lat": 39.5011138,
+    "lon": -31.2333619,
+    "tags": {
+      "height": "3",
+      "waterway": "waterfall"
+    }
+  },
+  {
+    "osm_id": "node/2805967869",
+    "lat": 39.5155931,
+    "lon": -31.2319044,
+    "tags": {
+      "name": "Reserva Natural do Ilhéu de Maria Vaz",
+      "tourism": "viewpoint",
+      "wheelchair": "limited"
+    }
+  },
+  {
+    "osm_id": "node/2806085473",
+    "lat": 39.3925016,
+    "lon": -31.2472403,
+    "tags": {
+      "addr:city": "Lajedo",
+      "addr:postcode": "9960-360",
+      "addr:street": "Rua da Igreja",
+      "highway": "bus_stop",
+      "name": "Lajedo",
+      "source": "https://www.openstreetmap.org"
+    }
+  },
+  {
+    "osm_id": "node/2806085474",
+    "lat": 39.3926382,
+    "lon": -31.248954,
+    "tags": {
+      "capital": "8",
+      "name": "Lajedo",
+      "place": "village"
+    }
+  },
+  {
+    "osm_id": "node/2806085475",
+    "lat": 39.4132167,
+    "lon": -31.2515264,
+    "tags": {
+      "addr:city": "Mosteiro",
+      "addr:postcode": "9960-600",
+      "addr:street": "Rua do Cabo de Baixo das Casas",
+      "bench": "yes",
+      "bin": "yes",
+      "highway": "bus_stop",
+      "name": "Mosteiro",
+      "shelter": "yes",
+      "tactile_paving": "no"
+    }
+  },
+  {
+    "osm_id": "node/2806085481",
+    "lat": 39.392517,
+    "lon": -31.2477271,
+    "tags": {
+      "amenity": "toilets"
+    }
+  },
+  {
+    "osm_id": "node/2806085483",
+    "lat": 39.3925755,
+    "lon": -31.2478436,
+    "tags": {
+      "addr:city": "Lajedo",
+      "addr:postcode": "9960-350",
+      "addr:street": "Rua da Igreja",
+      "leisure": "playground"
+    }
+  },
+  {
+    "osm_id": "node/2806085495",
+    "lat": 39.393804,
+    "lon": -31.2512896,
+    "tags": {
+      "addr:city": "Lajedo",
+      "addr:postcode": "9960-360",
+      "addr:street": "Rua Cónego Francisco Caetano Tomás",
+      "name": "Miradouro da Falésia da Rocha Alta",
+      "tourism": "viewpoint"
+    }
+  },
+  {
+    "osm_id": "node/2806087420",
+    "lat": 39.3973149,
+    "lon": -31.2502142,
+    "tags": {
+      "ref": "3",
+      "tourism": "viewpoint"
+    }
+  },
+  {
+    "osm_id": "node/2806087547",
+    "lat": 39.412985,
+    "lon": -31.2502881,
+    "tags": {
+      "addr:city": "Mosteiro",
+      "addr:postcode": "9960-630",
+      "addr:street": "Rua do Outeiro",
+      "leisure": "playground"
+    }
+  },
+  {
+    "osm_id": "node/2806087563",
+    "lat": 39.4132124,
+    "lon": -31.251565,
+    "tags": {
+      "amenity": "toilets",
+      "fee": "no"
+    }
+  },
+  {
+    "osm_id": "node/2806091991",
+    "lat": 39.5133807,
+    "lon": -31.2093572,
+    "tags": {
+      "capital": "8",
+      "name": "Ponta Delgada",
+      "name:ar": "بونتا ديلغادا",
+      "place": "village"
+    }
+  },
+  {
+    "osm_id": "node/2808379915",
+    "lat": 39.4404115,
+    "lon": -31.2559589,
+    "tags": {
+      "addr:city": "Fajã Grande",
+      "addr:postcode": "9960-070",
+      "addr:street": "Aldeia da Cuada",
+      "amenity": "restaurant",
+      "email": "info@aldeiadacuada.com",
+      "indoor_seating": "yes",
+      "internet_access": "wlan",
+      "internet_access:fee": "no",
+      "name": "Aldeia da Cuada",
+      "opening_hours": "We-Mo 00:00-24:00",
+      "outdoor_seating": "garden",
+      "phone": "+351 292 552 127;+351 968 949 377",
+      "smoking": "outside",
+      "tourism": "chalet",
+      "website": "https://aldeiadacuada.com/",
+      "website:menu": "https://menu.aldeiadacuada.com",
+      "wheelchair": "no"
+    }
+  },
+  {
+    "osm_id": "node/2809712891",
+    "lat": 39.3776173,
+    "lon": -31.1805115,
+    "tags": {
+      "addr:city": "Lajes das Flores",
+      "addr:housenumber": "25",
+      "addr:postcode": "9960-432",
+      "addr:street": "Urbanização Ângelo de Freitas Hen.",
+      "amenity": "bank",
+      "atm": "yes",
+      "brand": "Santander",
+      "brand:en": "Santander Bank",
+      "brand:es": "Banco Santander",
+      "brand:website": "https://www.santander.pt/",
+      "brand:wikidata": "Q4854116",
+      "brand:wikipedia": "pt:Banco Santander Portugal",
+      "email": "netbancoempresas@santander.pt",
+      "name": "Santander",
+      "operator": "Banco Santander (Portugal)",
+      "operator:wikidata": "Q4854116",
+      "operator:wikipedia": "pt:Banco Santander Portugal",
+      "phone": "+351 292 590190",
+      "source": "www.pai.pt",
+      "website": "https://www.santandertotta.pt"
+    }
+  },
+  {
+    "osm_id": "node/2809712892",
+    "lat": 39.3784628,
+    "lon": -31.1753352,
+    "tags": {
+      "addr:city": "Lajes das Flores",
+      "addr:housenumber": "2",
+      "addr:postcode": "9960-431",
+      "addr:street": "Avenida do Emigrante",
+      "amenity": "bank",
+      "atm": "yes",
+      "branch": "Caixa Flores - Lajes",
+      "branch:type": "retail",
+      "brand": "Caixa Geral de Depósitos",
+      "brand:website": "https://www.cgd.pt/",
+      "brand:wikidata": "Q1026044",
+      "brand:wikipedia": "pt:Caixa Geral de Depósitos",
+      "contact:facebook": "caixageraldedepositos",
+      "contact:instagram": "caixageraldedepositos",
+      "contact:linkedin": "https://www.linkedin.com/company/caixageraldedepositos/",
+      "contact:phone": "+351 217 900 790",
+      "contact:youtube": "http://www.youtube.com/user/mediacgd",
+      "name": "Caixa Geral de Depósitos",
+      "opening_hours": "Mo-Fr 08:30-15:00",
+      "operator": "Caixa Geral de Depósitos",
+      "operator:wikidata": "Q1026044",
+      "operator:wikipedia": "pt:Caixa Geral de Depósitos",
+      "ref": "1648",
+      "short_name": "CGD",
+      "source": "www.pai.pt",
+      "source:contact": "website",
+      "website": "https://www.cgd.pt/Corporativo/Rede-CGD/Pages/LAJES-DAS-FLORES.aspx"
+    }
+  },
+  {
+    "osm_id": "node/2809712896",
+    "lat": 39.375162,
+    "lon": -31.2078529,
+    "tags": {
+      "name": "Fajã de Lopo Vaz",
+      "place": "hamlet",
+      "wikidata": "Q10279814",
+      "wikimedia_commons": "Category:Fajã de Lopo Vaz",
+      "wikipedia": "pt:Fajã de Lopo Vaz"
+    }
+  },
+  {
+    "osm_id": "node/2809712897",
+    "lat": 39.3784376,
+    "lon": -31.1742126,
+    "tags": {
+      "addr:city": "Lajes das Flores",
+      "addr:housenumber": "10",
+      "addr:postcode": "9960-999",
+      "addr:street": "Rua de Nossa Senhora do Rosario",
+      "amenity": "post_office",
+      "name": "CTT- Estações de Correios",
+      "opening_hours": "09:00-12:30,14:00-17:30",
+      "operator": "CTT - Correios de Portugal, S.A. – Sociedade Aberta",
+      "phone": "+351 292 593042",
+      "source": "https://oportaldasempresas.com/"
+    }
+  },
+  {
+    "osm_id": "node/2809712898",
+    "lat": 39.3798403,
+    "lon": -31.1806201,
+    "tags": {
+      "addr:city": "Lajes das Flores",
+      "addr:postcode": "9960-441",
+      "addr:street": "Rua Mauricio António Fraga",
+      "highway": "bus_stop",
+      "source": "https://www.openstreetmap.org"
+    }
+  },
+  {
+    "osm_id": "node/2809712899",
+    "lat": 39.3775321,
+    "lon": -31.1768157,
+    "tags": {
+      "addr:city": "Lajes das Flores",
+      "addr:postcode": "9960-431",
+      "addr:street": "Avenida do Emigrante",
+      "amenity": "police",
+      "email": "policiamaritima.flores@amn.pt",
+      "name": "Polícia Marítima",
+      "phone": "+351 292 593005",
+      "source": "http://www.amn.pt/",
+      "website": "http://www.amn.pt/"
+    }
+  },
+  {
+    "osm_id": "node/2809712900",
+    "lat": 39.3777052,
+    "lon": -31.1804601,
+    "tags": {
+      "addr:city": "Lajes das Flores",
+      "addr:postcode": "9960-432",
+      "addr:street": "Urbanização Ângelo de Freitas Hen.",
+      "amenity": "restaurant",
+      "name": "O Golfinho",
+      "phone": "+351 292 593274",
+      "source": "http://www.cmlajesdasflores.pt/"
+    }
+  },
+  {
+    "osm_id": "node/2809713509",
+    "lat": 39.3746174,
+    "lon": -31.1949092,
+    "tags": {
+      "amenity": "toilets",
+      "fee": "no"
+    }
+  },
+  {
+    "osm_id": "node/2809713570",
+    "lat": 39.3782605,
+    "lon": -31.1739532,
+    "tags": {
+      "amenity": "toilets",
+      "check_date": "2026-05-23",
+      "check_date:wheelchair": "2026-05-23",
+      "fee": "no",
+      "wheelchair": "no"
+    }
+  },
+  {
+    "osm_id": "node/2809713573",
+    "lat": 39.3787335,
+    "lon": -31.1755969,
+    "tags": {
+      "addr:city": "Lajes das Flores",
+      "addr:postcode": "9960-444",
+      "addr:street": "Rua Roberto Mesquita",
+      "amenity": "parking",
+      "parking": "surface"
+    }
+  },
+  {
+    "osm_id": "node/2809713574",
+    "lat": 39.3792962,
+    "lon": -31.1813899,
+    "tags": {
+      "addr:city": "Lajes das Flores",
+      "addr:postcode": "9960-410",
+      "addr:street": "Travessa da Cruz",
+      "amenity": "parking",
+      "parking": "surface",
+      "source": "https://www.openstreetmap.org/"
+    }
+  },
+  {
+    "osm_id": "node/2809713575",
+    "lat": 39.3798387,
+    "lon": -31.1806743,
+    "tags": {
+      "amenity": "toilets",
+      "fee": "no"
+    }
+  },
+  {
+    "osm_id": "node/2811505375",
+    "lat": 39.4595636,
+    "lon": -31.1284156,
+    "tags": {
+      "addr:city": "Santa Cruz das Flores",
+      "addr:housenumber": "3",
+      "addr:postcode": "9970",
+      "addr:street": "Rua Nossa Senhora Rosário",
+      "name": "Hospedaria Maria Alice",
+      "tourism": "guest_house",
+      "website": "http://hospedariamariaalice.pai.pt/"
+    }
+  },
+  {
+    "osm_id": "node/2811505376",
+    "lat": 39.4624348,
+    "lon": -31.1324816,
+    "tags": {
+      "name": "Miradouro",
+      "tourism": "viewpoint",
+      "wheelchair": "yes"
+    }
+  },
+  {
+    "osm_id": "node/2811505513",
+    "lat": 39.4619169,
+    "lon": -31.1320372,
+    "tags": {
+      "amenity": "toilets"
+    }
+  },
+  {
+    "osm_id": "node/2970471412",
+    "lat": 39.4408082,
+    "lon": -31.2561539,
+    "tags": {
+      "name": "Cuada",
+      "place": "hamlet"
+    }
+  },
+  {
+    "osm_id": "node/2970471413",
+    "lat": 39.4540492,
+    "lon": -31.262323,
+    "tags": {
+      "capital": "8",
+      "name": "Fajã Grande",
+      "place": "village"
+    }
+  },
+  {
+    "osm_id": "node/2981783173",
+    "lat": 39.4626285,
+    "lon": -31.1298194,
+    "tags": {
+      "amenity": "restaurant",
+      "check_date": "2026-07-28",
+      "cuisine": "regional",
+      "name": "Restaurante O Moleiro",
+      "old_name": "Baleia Ocidental",
+      "payment:cash": "yes",
+      "payment:credit_cards": "yes",
+      "payment:debit_cards": "yes"
+    }
+  },
+  {
+    "osm_id": "node/2983858802",
+    "lat": 39.3842684,
+    "lon": -31.186261,
+    "tags": {
+      "addr:city": "Lajes das Flores",
+      "addr:housenumber": "33",
+      "addr:postcode": "9960-443",
+      "addr:street": "Rua Peixoto Pimentel (Lugar do Monte)",
+      "air_conditioning": "no",
+      "amenity": "restaurant",
+      "brewery": "Sagres",
+      "changing_table": "no",
+      "contact:mobile": "+351 917362155",
+      "contact:phone": "+351 292593262",
+      "cuisine": "portuguese",
+      "diet:halal": "no",
+      "diet:kosher": "no",
+      "diet:vegetarian": "no",
+      "email": "steiner-flores@web.de",
+      "indoor_seating": "yes",
+      "name": "Restaurante Casa do Rei",
+      "opening_hours": "We-Mo 18:30-21:30",
+      "outdoor_seating": "balcony",
+      "payment:credit_cards": "no",
+      "payment:debit_cards": "no",
+      "smoking": "outside",
+      "source": "http://www.cmlajesdasflores.pt/",
+      "toilets": "yes",
+      "website": "https://restaurantcasadorei.com/",
+      "wheelchair": "no"
+    }
+  },
+  {
+    "osm_id": "node/2985252497",
+    "lat": 39.4294446,
+    "lon": -31.2581981,
+    "tags": {
+      "addr:city": "Fajãzinha",
+      "addr:postcode": "9960-110",
+      "addr:street": "Grande Rota das Flores / PR2FLO",
+      "name": "Miradouro do Portal",
+      "source": "https://www.igogo.pt",
+      "tourism": "viewpoint",
+      "wheelchair": "no"
+    }
+  },
+  {
+    "osm_id": "node/2985252498",
+    "lat": 39.4553715,
+    "lon": -31.1287055,
+    "tags": {
+      "name": "Casa de Hospedes",
+      "tourism": "hostel"
+    }
+  },
+  {
+    "osm_id": "node/2985254349",
+    "lat": 39.3934318,
+    "lon": -31.2498168,
+    "tags": {
+      "addr:city": "Lajedo",
+      "addr:postcode": "9960-360",
+      "addr:street": "Estrada Regional",
+      "name": "Miradouro R1-2A",
+      "source": "https://www.openstreetmap.org",
+      "tourism": "viewpoint"
+    }
+  },
+  {
+    "osm_id": "node/2985254350",
+    "lat": 39.4948413,
+    "lon": -31.1566498,
+    "tags": {
+      "tourism": "viewpoint"
+    }
+  },
+  {
+    "osm_id": "node/2988580215",
+    "lat": 39.5155582,
+    "lon": -31.2091839,
+    "tags": {
+      "addr:street": "Rua da Terra Chá",
+      "amenity": "restaurant",
+      "name": "O Meireles",
+      "phone": "+351 292 592 692"
+    }
+  },
+  {
+    "osm_id": "node/2988584478",
+    "lat": 39.5142832,
+    "lon": -31.2102814,
+    "tags": {
+      "name": "small food store",
+      "shop": "convenience"
+    }
+  },
+  {
+    "osm_id": "node/2988584479",
+    "lat": 39.4947925,
+    "lon": -31.1951344,
+    "tags": {
+      "name": "Miraduro da Pedrinha",
+      "tourism": "viewpoint",
+      "wheelchair": "no"
+    }
+  },
+  {
+    "osm_id": "node/2988614063",
+    "lat": 39.5142592,
+    "lon": -31.210487,
+    "tags": {
+      "amenity": "taxi"
+    }
+  },
+  {
+    "osm_id": "node/2989659213",
+    "lat": 39.3948062,
+    "lon": -31.2434919,
+    "tags": {
+      "addr:city": "Lajedo",
+      "addr:postcode": "9960-360",
+      "addr:street": "Estrada Regional",
+      "name": "Miradouro Sobre o Lajedo",
+      "name:pt": "Miraduro do Lajedo",
+      "tourism": "viewpoint",
+      "wheelchair": "no"
+    }
+  },
+  {
+    "osm_id": "node/2989659214",
+    "lat": 39.4501462,
+    "lon": -31.1613672,
+    "tags": {
+      "name": "Miradouro pico da Casinha",
+      "tourism": "viewpoint",
+      "wheelchair": "yes"
+    }
+  },
+  {
+    "osm_id": "node/2990679284",
+    "lat": 39.4600975,
+    "lon": -31.1303215,
+    "tags": {
+      "amenity": "restaurant",
+      "name": "Restaurante Macau"
+    }
+  },
+  {
+    "osm_id": "node/2990679287",
+    "lat": 39.4563963,
+    "lon": -31.1337432,
+    "tags": {
+      "addr:street": "Estrada Regional",
+      "amenity": "fuel",
+      "description:en": "fuel station and car supply",
+      "name:pt": "Bombeiros Voluntários"
+    }
+  },
+  {
+    "osm_id": "node/3594806322",
+    "lat": 39.5044141,
+    "lon": -31.2337151,
+    "tags": {
+      "waterway": "waterfall"
+    }
+  },
+  {
+    "osm_id": "node/3741552667",
+    "lat": 39.4492833,
+    "lon": -31.2626297,
+    "tags": {
+      "name": "Vigia da Baleia",
+      "note": "whale watching",
+      "tourism": "viewpoint",
+      "wheelchair": "no"
+    }
+  },
+  {
+    "osm_id": "node/3755855270",
+    "lat": 39.4099346,
+    "lon": -31.2451049,
+    "tags": {
+      "direction": "145",
+      "name": "Miradouro Rocha dos Bordões",
+      "name:pt": "Miradouro Rocha dos Bordões",
+      "note": "Rocha dos Bordões, sítio dominado por Cabo Baixo das Casas.",
+      "source": "https://pt.wikipedia.org/wiki/Rocha_dos_Bord%C3%B5es",
+      "tourism": "viewpoint",
+      "wheelchair": "limited",
+      "wikidata": "Q10363539",
+      "wikipedia": "pt:Rocha dos Bordões"
+    }
+  },
+  {
+    "osm_id": "node/4358700391",
+    "lat": 39.452319,
+    "lon": -31.1320803,
+    "tags": {
+      "addr:street": "Estrada Regional",
+      "amenity": "fuel",
+      "compressed_air": "yes",
+      "name": "Oficina e Posto de Abastecimento de Combustível",
+      "name:pt": "Oficina e Posto de Abastecimento de Combustível"
+    }
+  },
+  {
+    "osm_id": "node/4361327191",
+    "lat": 39.4534348,
+    "lon": -31.2650909,
+    "tags": {
+      "cabins": "no",
+      "caravans": "yes",
+      "fee": "no",
+      "internet_access": "wlan",
+      "name": "Zona de Campismo",
+      "name:de": "Campingplatz",
+      "name:pt": "Zona de campismo",
+      "tents": "yes",
+      "tourism": "camp_site"
+    }
+  },
+  {
+    "osm_id": "node/4361716890",
+    "lat": 39.3794617,
+    "lon": -31.1741195,
+    "tags": {
+      "fee": "no",
+      "name": "Parque de Campismo",
+      "name:de": "Campingplatz",
+      "name:pt": "Zona de campismo",
+      "shower": "yes",
+      "tourism": "camp_site"
+    }
+  },
+  {
+    "osm_id": "node/4364441694",
+    "lat": 39.4517925,
+    "lon": -31.1285072,
+    "tags": {
+      "amenity": "toilets",
+      "changing_table": "no",
+      "check_date": "2024-06-03",
+      "fee": "no",
+      "wheelchair": "yes"
+    }
+  },
+  {
+    "osm_id": "node/4364515290",
+    "lat": 39.462,
+    "lon": -31.1303243,
+    "tags": {
+      "check_date": "2026-07-28",
+      "name": "Centro Comercial Floratlântico",
+      "name:pt": "Centro Comercial Floratlântico",
+      "opening_hours": "Mo-Sa 09:00-19:00; Su 14:00-18:00",
+      "payment:cash": "yes",
+      "payment:credit_cards": "yes",
+      "payment:debit_cards": "yes",
+      "shop": "supermarket",
+      "wheelchair": "yes"
+    }
+  },
+  {
+    "osm_id": "node/4367704693",
+    "lat": 39.4534434,
+    "lon": -31.1296506,
+    "tags": {
+      "opening_hours": "Mo-Fr 09:30-13:00,15:00-18:00; Sa 09:30-13:00",
+      "shop": "supermarket"
+    }
+  },
+  {
+    "osm_id": "node/4370811623",
+    "lat": 39.4587373,
+    "lon": -31.262652,
+    "tags": {
+      "access": "customers",
+      "amenity": "toilets",
+      "changing_table": "no",
+      "fee": "no",
+      "wheelchair": "no"
+    }
+  },
+  {
+    "osm_id": "node/4370817209",
+    "lat": 39.4588574,
+    "lon": -31.262025,
+    "tags": {
+      "amenity": "drinking_water",
+      "check_date": "2023-09-24",
+      "man_made": "water_tap"
+    }
+  },
+  {
+    "osm_id": "node/4370817401",
+    "lat": 39.4584181,
+    "lon": -31.2635731,
+    "tags": {
+      "amenity": "toilets",
+      "changing_table": "no",
+      "check_date": "2023-09-24",
+      "fee": "no"
+    }
+  },
+  {
+    "osm_id": "node/4373260394",
+    "lat": 39.4593024,
+    "lon": -31.1312303,
+    "tags": {
+      "amenity": "cafe",
+      "indoor_seating": "yes",
+      "level": "1",
+      "name": "Café Aeroporto",
+      "name:pt": "Café Aeroporto",
+      "outdoor_seating": "no"
+    }
+  },
+  {
+    "osm_id": "node/4381115397",
+    "lat": 39.4530481,
+    "lon": -31.2626562,
+    "tags": {
+      "addr:city": "Fajã Grande",
+      "addr:postcode": "9960-030",
+      "addr:street": "Rua Senador André de Freitas",
+      "name": "Super Fajã",
+      "shop": "supermarket"
+    }
+  },
+  {
+    "osm_id": "node/4395957591",
+    "lat": 39.4899583,
+    "lon": -31.1652166,
+    "tags": {
+      "waterway": "waterfall"
+    }
+  },
+  {
+    "osm_id": "node/4395974890",
+    "lat": 39.5152064,
+    "lon": -31.2091085,
+    "tags": {
+      "name": "Miniflor III",
+      "opening_hours": "Mo-Su 09:30-18:00",
+      "shop": "supermarket"
+    }
+  },
+  {
+    "osm_id": "node/4395976689",
+    "lat": 39.4749928,
+    "lon": -31.1488929,
+    "tags": {
+      "waterway": "waterfall"
+    }
+  },
+  {
+    "osm_id": "node/4400729310",
+    "lat": 39.4746785,
+    "lon": -31.1491522,
+    "tags": {
+      "fee": "no",
+      "tourism": "camp_site"
+    }
+  },
+  {
+    "osm_id": "node/4400729694",
+    "lat": 39.4579314,
+    "lon": -31.126245,
+    "tags": {
+      "amenity": "toilets",
+      "changing_table": "no",
+      "check_date": "2024-06-05",
+      "fee": "no",
+      "opening_hours": "Mo-Su 08:00-01:00",
+      "wheelchair": "no"
+    }
+  },
+  {
+    "osm_id": "node/4519127089",
+    "lat": 39.3764517,
+    "lon": -31.1798085,
+    "tags": {
+      "addr:city": "Lajes das Flores",
+      "addr:postcode": "9960-431",
+      "addr:street": "Rua Peixoto Pimentel",
+      "amenity": "restaurant",
+      "cuisine": "burger;regional;chicken;crepe;portuguese",
+      "internet_access": "wlan",
+      "name": "Snack – Bar/Restaurante “Porto Velho”",
+      "name:pt": "Porto Velho",
+      "opening_hours": "07:00-02:00",
+      "phone": "+351 292 593525",
+      "source": "http://www.cmlajesdasflores.pt/"
+    }
+  },
+  {
+    "osm_id": "node/4520428095",
+    "lat": 39.4628973,
+    "lon": -31.1301452,
+    "tags": {
+      "email": "museu.flores.info@azores.gov.pt",
+      "fee": "yes",
+      "name": "Museu da Fábrica da Baleia do Boqueirão",
+      "name:en": "Whale Museum",
+      "name:it": "Museo della balena",
+      "opening_hours": "Jun-Sep Mo-Fr 09:00-17:30; Sa-Su 14:00-17:30; Oct-May Mo-Fr 09:00-12:30,14:00-17:30; Su 14:00-17:30",
+      "tourism": "museum",
+      "website": "https://museu-flores.azores.gov.pt/museu/museu-da-fabrica-da-baleia-do-boqueirao/",
+      "wheelchair": "yes"
+    }
+  },
+  {
+    "osm_id": "node/4805743283",
+    "lat": 39.4734107,
+    "lon": -31.1500965,
+    "tags": {
+      "tourism": "viewpoint"
+    }
+  },
+  {
+    "osm_id": "node/4972843800",
+    "lat": 39.4812493,
+    "lon": -31.1533884,
+    "tags": {
+      "capital": "8",
+      "name": "Cedros",
+      "place": "village"
+    }
+  },
+  {
+    "osm_id": "node/4972843801",
+    "lat": 39.4312128,
+    "lon": -31.1504245,
+    "tags": {
+      "capital": "8",
+      "name": "Caveira",
+      "place": "village"
+    }
+  },
+  {
+    "osm_id": "node/4972843802",
+    "lat": 39.4005531,
+    "lon": -31.1560679,
+    "tags": {
+      "capital": "8",
+      "name": "Lomba",
+      "place": "village"
+    }
+  },
+  {
+    "osm_id": "node/4972843803",
+    "lat": 39.3907034,
+    "lon": -31.166829,
+    "tags": {
+      "capital": "8",
+      "name": "Fazenda das Lajes",
+      "place": "village"
+    }
+  },
+  {
+    "osm_id": "node/5024218224",
+    "lat": 39.3819379,
+    "lon": -31.1710201,
+    "tags": {
+      "addr:city": "Lajes das Flores",
+      "addr:housenumber": "20",
+      "addr:postcode": "9960-431",
+      "addr:street": "Rua Padre Luís Pimentel Gomes",
+      "amenity": "cafe",
+      "contact:facebook": "https://www.facebook.com/Caf%C3%A9-Ocidental-1613417662301656/",
+      "cuisine": "pizza;burger;regional",
+      "name": "Café “Ocidental”",
+      "opening_hours": "07:30-22:00",
+      "phone": "+351 292 593411; +351 918752161",
+      "source": "Câmara Municipal das Lajes das Flores"
+    }
+  },
+  {
+    "osm_id": "node/5024527471",
+    "lat": 39.386056,
+    "lon": -31.1682389,
+    "tags": {
+      "addr:city": "Fazenda",
+      "addr:postcode": "9960-220",
+      "addr:street": "Avenida de Santo Cristo",
+      "amenity": "restaurant",
+      "name": "Restaurante “Forno Transmontano”",
+      "phone": "+351 292 593137; +351 917763459",
+      "source": "http://www.cmlajesdasflores.pt/"
+    }
+  },
+  {
+    "osm_id": "node/5026052964",
+    "lat": 39.4545606,
+    "lon": -31.2627925,
+    "tags": {
+      "addr:city": "Fajã Grande",
+      "addr:housenumber": "20",
+      "addr:postcode": "9960-030",
+      "addr:street": "Rua do Senador André de Freitas",
+      "air_conditioning": "no",
+      "amenity": "restaurant",
+      "contact:facebook": "Jonahs-bar-Restaurante-1660149304214597",
+      "cuisine": "breakfast;cake;sandwich",
+      "diet:halal": "no",
+      "diet:kosher": "no",
+      "diet:vegan": "no",
+      "diet:vegetarian": "yes",
+      "name": "Café da Laura",
+      "old_name": "Jonah’s Bar/Restaurante",
+      "opening_hours": "Mo-Fr 07:00-19:00; Sa-Su 07:00-19:00",
+      "phone": "+351 292552043",
+      "source": "https://www.facebook.com;https://www.tripadvisor.pt/",
+      "toilets": "yes"
+    }
+  },
+  {
+    "osm_id": "node/5026599135",
+    "lat": 39.3778121,
+    "lon": -31.1784823,
+    "tags": {
+      "addr:city": "Lajes das Flores",
+      "addr:postcode": "9960-443",
+      "addr:street": "Rua Dr. P. Americo Caetano Vieira",
+      "amenity": "parking",
+      "parking": "surface",
+      "source": "https://www.openstreetmap.org/",
+      "supervised": "yes"
+    }
+  },
+  {
+    "osm_id": "node/5026618320",
+    "lat": 39.3778432,
+    "lon": -31.1803705,
+    "tags": {
+      "addr:city": "Lajes das Flores",
+      "addr:postcode": "9960-432",
+      "addr:street": "Urbanização Ângelo de Freitas Henriques",
+      "amenity": "parking",
+      "parking": "surface",
+      "source": "https://www.openstreetmap.org/"
+    }
+  },
+  {
+    "osm_id": "node/5026619621",
+    "lat": 39.3771955,
+    "lon": -31.1784061,
+    "tags": {
+      "addr:city": "Lajes das Flores",
+      "addr:postcode": "9960-432",
+      "addr:street": "Urbanização Ângelo de Freitas Hen.",
+      "amenity": "parking",
+      "parking": "surface",
+      "source": "https://www.openstreetmap.org/"
+    }
+  },
+  {
+    "osm_id": "node/5026623756",
+    "lat": 39.3788534,
+    "lon": -31.1786926,
+    "tags": {
+      "addr:city": "Lajes das Flores",
+      "addr:postcode": "9960-439",
+      "addr:street": "Rua Dr. José de Freitas Pimentel",
+      "amenity": "parking",
+      "parking": "surface",
+      "source": "https://www.openstreetmap.org/"
+    }
+  },
+  {
+    "osm_id": "node/5026706021",
+    "lat": 39.3801255,
+    "lon": -31.1803752,
+    "tags": {
+      "addr:city": "Lajes das Flores",
+      "addr:postcode": "9960-441",
+      "addr:street": "Rua Mauricio António Fraga",
+      "amenity": "parking",
+      "parking": "surface",
+      "source": "https://www.openstreetmap.org/"
+    }
+  },
+  {
+    "osm_id": "node/5026706022",
+    "lat": 39.3893643,
+    "lon": -31.1660014,
+    "tags": {
+      "addr:city": "Fazenda",
+      "addr:postcode": "9960-439",
+      "addr:street": "Avenida de Santo Cristo",
+      "amenity": "parking",
+      "parking": "surface",
+      "source": "https://www.openstreetmap.org/"
+    }
+  },
+  {
+    "osm_id": "node/5034252869",
+    "lat": 39.37973,
+    "lon": -31.1727199,
+    "tags": {
+      "addr:city": "Lajes das Flores",
+      "addr:postcode": "9960-431",
+      "addr:street": "Rua Pe. Luís Pimentel Gomes",
+      "name": "Miradouro das Pedras Brancas",
+      "source": "- https://www.igogo.pt",
+      "tourism": "viewpoint"
+    }
+  },
+  {
+    "osm_id": "node/5034337651",
+    "lat": 39.4096324,
+    "lon": -31.1559465,
+    "tags": {
+      "addr:city": "Lomba",
+      "addr:postcode": "9960-520",
+      "addr:street": "Rocha do Touro",
+      "name": "Miradouro da Rocha do Touro",
+      "source": "https://www.igogo.pt",
+      "tourism": "viewpoint"
+    }
+  },
+  {
+    "osm_id": "node/5034354276",
+    "lat": 39.3747704,
+    "lon": -31.1955213,
+    "tags": {
+      "addr:city": "Lajes das Flores",
+      "addr:postcode": "9960-446",
+      "addr:street": "Via Lopo Vaz",
+      "name": "Miradouro da Fajã de Lopo Vaz",
+      "source": "https://www.igogo.pt",
+      "tourism": "viewpoint"
+    }
+  },
+  {
+    "osm_id": "node/5034404477",
+    "lat": 39.3864117,
+    "lon": -31.1631396,
+    "tags": {
+      "addr:city": "Fazenda",
+      "addr:postcode": "9960-220",
+      "addr:street": "Rua do Miradouro da Caldeira",
+      "name": "Miraduro da Caldeira",
+      "source": "www.igogo.pt",
+      "tourism": "viewpoint"
+    }
+  },
+  {
+    "osm_id": "node/5034675281",
+    "lat": 39.3965385,
+    "lon": -31.1903441,
+    "tags": {
+      "addr:city": "Fazenda",
+      "addr:postcode": "9960-220",
+      "name": "Miradouro da Furna da Pedrinha",
+      "source": "https://www.igogo.pt/",
+      "tourism": "viewpoint"
+    }
+  },
+  {
+    "osm_id": "node/5034687138",
+    "lat": 39.4534124,
+    "lon": -31.2619737,
+    "tags": {
+      "name": "Miradouro da Cruz",
+      "tourism": "viewpoint",
+      "wheelchair": "no"
+    }
+  },
+  {
+    "osm_id": "node/5034733112",
+    "lat": 39.4324298,
+    "lon": -31.2481482,
+    "tags": {
+      "addr:city": "Fajãzinha",
+      "addr:postcode": "9960-110",
+      "addr:street": "Rua da Falca",
+      "name": "Miradouro da Fajãzinha",
+      "tourism": "viewpoint"
+    }
+  },
+  {
+    "osm_id": "node/5034835013",
+    "lat": 39.377953,
+    "lon": -31.179131,
+    "tags": {
+      "addr:city": "Lajes das Flores",
+      "addr:postcode": "9960-443",
+      "addr:street": "Rua Dr. P. Americo Caetano Vieira",
+      "leisure": "playground",
+      "name": "Parque Infantil das Lajes das Flores",
+      "source": "www.igogo.pt"
+    }
+  },
+  {
+    "osm_id": "node/5042661058",
+    "lat": 39.4016154,
+    "lon": -31.1563059,
+    "tags": {
+      "addr:city": "Lomba",
+      "addr:housenumber": "2",
+      "addr:postcode": "9960-520",
+      "addr:street": "Rua Cabeço",
+      "amenity": "place_of_worship",
+      "denomination": "roman_catholic",
+      "name": "Casa do Espírito Santo da Lomba",
+      "religion": "christian",
+      "source": "http://www.inventario.iacultura.pt"
+    }
+  },
+  {
+    "osm_id": "node/5042679776",
+    "lat": 39.4543585,
+    "lon": -31.2629789,
+    "tags": {
+      "addr:city": "Fajã Grande",
+      "addr:housenumber": "21",
+      "addr:postcode": "9960-030",
+      "addr:street": "Rua do Senador André de Freitas",
+      "amenity": "place_of_worship",
+      "denomination": "roman_catholic",
+      "name": "Império de Baixo da Fajã Grande",
+      "religion": "christian"
+    }
+  },
+  {
+    "osm_id": "node/5042721455",
+    "lat": 39.3819549,
+    "lon": -31.1840732,
+    "tags": {
+      "addr:city": "Lajes das Flores",
+      "addr:housenumber": "8",
+      "addr:postcode": "9960-437",
+      "addr:street": "Rua Divino Espirito Santo",
+      "amenity": "place_of_worship",
+      "denomination": "roman_catholic",
+      "name": "Casa do Espírito Santo da Ribeira das Lajes",
+      "religion": "christian",
+      "source": "http://www.inventario.iacultura.pt"
+    }
+  },
+  {
+    "osm_id": "node/5042754140",
+    "lat": 39.4018774,
+    "lon": -31.1560697,
+    "tags": {
+      "addr:city": "Lomba",
+      "addr:housenumber": "3",
+      "addr:postcode": "9960-520",
+      "addr:street": "Rua Cabeço",
+      "amenity": "restaurant",
+      "name": "Salão Paroquial da Lomba",
+      "source": "http://www.cmlajesdasflores.pt/"
+    }
+  },
+  {
+    "osm_id": "node/5042840522",
+    "lat": 39.4321293,
+    "lon": -31.2550547,
+    "tags": {
+      "amenity": "drinking_water",
+      "check_date": "2026-07-09",
+      "man_made": "water_tap"
+    }
+  },
+  {
+    "osm_id": "node/5042933622",
+    "lat": 39.4364726,
+    "lon": -31.2534935,
+    "tags": {
+      "name": "Quejiaria",
+      "name:en": "cheese farm",
+      "name:it": "casa del formaggio",
+      "name:pt": "quejiaria",
+      "shop": "convenience"
+    }
+  },
+  {
+    "osm_id": "node/5043091744",
+    "lat": 39.3787056,
+    "lon": -31.1785033,
+    "tags": {
+      "addr:city": "Lajes das Flores",
+      "addr:housenumber": "7",
+      "addr:postcode": "9960-439",
+      "addr:street": "Rua Dr. José de Freitas Pimentel",
+      "amenity": "cafe",
+      "name": "Café Bar - O Brandão",
+      "source": "http://www.cmlajesdasflores.pt/;https://www.portugalio.com"
+    }
+  },
+  {
+    "osm_id": "node/5043095006",
+    "lat": 39.378552,
+    "lon": -31.1712251,
+    "tags": {
+      "addr:city": "Lajes das Flores",
+      "addr:postcode": "9960-445",
+      "addr:street": "Rua dos Baleeiros",
+      "amenity": "cafe",
+      "name": "Snack – Bar “Sport Marítimo Lajense”",
+      "phone": "+351 296 593260",
+      "source": "http://www.cmlajesdasflores.pt/"
+    }
+  },
+  {
+    "osm_id": "node/5043204121",
+    "lat": 39.4546932,
+    "lon": -31.2574913,
+    "tags": {
+      "amenity": "drinking_water"
+    }
+  },
+  {
+    "osm_id": "node/5043210023",
+    "lat": 39.4511753,
+    "lon": -31.260891,
+    "tags": {
+      "amenity": "drinking_water"
+    }
+  },
+  {
+    "osm_id": "node/5043258220",
+    "lat": 39.377775,
+    "lon": -31.1804099,
+    "tags": {
+      "addr:city": "Lajes das Flores",
+      "addr:housenumber": "25",
+      "addr:postcode": "9960-432",
+      "addr:street": "Urbanização Ângelo de Freitas Hen.",
+      "amenity": "pharmacy",
+      "name": "Farmácia da Santa Casa da Misericórdia das Lajes das Flores",
+      "source": "https://www.openstreetmap.org"
+    }
+  },
+  {
+    "osm_id": "node/5043310321",
+    "lat": 39.4524754,
+    "lon": -31.2616197,
+    "tags": {
+      "amenity": "drinking_water",
+      "name": "water drinkable",
+      "name:it": "acqua potabile"
+    }
+  },
+  {
+    "osm_id": "node/5043359685",
+    "lat": 39.3777083,
+    "lon": -31.1764793,
+    "tags": {
+      "addr:city": "Lajes das Flores",
+      "addr:housenumber": "8",
+      "addr:postcode": "9960-431",
+      "addr:street": "Avenida do Emigrante",
+      "amenity": "clinic",
+      "name": "Casa do Povo das Lajes das Flores",
+      "phone": "+351 296 593662",
+      "source": "https://www.igogo.pt"
+    }
+  },
+  {
+    "osm_id": "node/5043592724",
+    "lat": 39.4459343,
+    "lon": -31.1699783,
+    "tags": {
+      "name": "Miradouro Arcos Ribeira da Cruz",
+      "name:pt": "miraduro Arcos Ribeira da Cruz",
+      "tourism": "viewpoint"
+    }
+  },
+  {
+    "osm_id": "node/5044208722",
+    "lat": 39.4796964,
+    "lon": -31.1536078,
+    "tags": {
+      "name": "miradouro dos Cedos",
+      "name:pt": "miradouro dos Cedos",
+      "tourism": "viewpoint"
+    }
+  },
+  {
+    "osm_id": "node/5044208723",
+    "lat": 39.5056682,
+    "lon": -31.2086423,
+    "tags": {
+      "name": "miradouro Pico do media",
+      "name:pt": "miradouro Pico do media",
+      "tourism": "viewpoint"
+    }
+  },
+  {
+    "osm_id": "node/5047873223",
+    "lat": 39.3819699,
+    "lon": -31.1713532,
+    "tags": {
+      "addr:city": "Lajes das Flores",
+      "addr:housenumber": "15",
+      "addr:postcode": "9960-431",
+      "addr:street": "Rua Pe. Luís Pimentel Gomes",
+      "amenity": "fuel",
+      "compressed_air": "yes",
+      "name": "Azoria",
+      "source": "https://www.igogo.pt/",
+      "website": "http://www.azoria.pt/"
+    }
+  },
+  {
+    "osm_id": "node/5048084921",
+    "lat": 39.3879641,
+    "lon": -31.1666703,
+    "tags": {
+      "addr:city": "Fazenda",
+      "addr:housenumber": "27",
+      "addr:postcode": "9960-220",
+      "addr:street": "Avenida de Santo Cristo",
+      "name": "Super Flor",
+      "shop": "supermarket",
+      "source": "https://www.igogo.pt"
+    }
+  },
+  {
+    "osm_id": "node/5050645386",
+    "lat": 39.3769966,
+    "lon": -31.1748974,
+    "tags": {
+      "addr:city": "Lajes das Flores",
+      "addr:housenumber": "21",
+      "addr:postcode": "9960-438",
+      "addr:street": "Rua da Autonomia",
+      "amenity": "police",
+      "email": "contacto@psp.pt",
+      "name": "Esquadra de Lages das Flores",
+      "operator": "Polícia de Segurança Pública",
+      "operator:short": "PSP",
+      "operator:wikidata": "Q3460075",
+      "operator:wikipedia": "en:Polícia de Segurança Pública",
+      "phone": "+351 292 593 186",
+      "short_name": "PSP",
+      "source": "http://www.psp.pt/",
+      "website": "http://www.psp.pt/"
+    }
+  },
+  {
+    "osm_id": "node/5051812493",
+    "lat": 39.3995876,
+    "lon": -31.1597178,
+    "tags": {
+      "addr:city": "Lomba",
+      "addr:postcode": "9960-520",
+      "addr:street": "Rua do Pau Queimado",
+      "email": "elke.schneider@itensify.cr;rigoberto_gomes@sapo.pt",
+      "name": "Vivenda Flores",
+      "phone": "+351 969283751",
+      "source": "https://www.azores.gov.pt/NR/rdonlyres/CCD6299D-5E0C-411B-91B3-6E7F6AF5DECA/0/ALDRT19052017flo.pdf",
+      "tourism": "guest_house",
+      "website": "https://www.vivenda-flores.com/"
+    }
+  },
+  {
+    "osm_id": "node/5053325567",
+    "lat": 39.3859955,
+    "lon": -31.1681947,
+    "tags": {
+      "addr:city": "Fazenda",
+      "addr:postcode": "9960-220",
+      "addr:street": "Avenida de Santo Cristo",
+      "email": "ofornotransmontano@gmail.com",
+      "name": "Residência Valentina",
+      "phone": "+351 292 593137; +351 917763459",
+      "source": "https://www.airbnb.pt;https://www.azores.gov.pt/NR/rdonlyres/CCD6299D-5E0C-411B-91B3-6E7F6AF5DECA/0/ALDRT19052017flo.pdf",
+      "tourism": "guest_house",
+      "wheelchair": "no"
+    }
+  },
+  {
+    "osm_id": "node/5053399425",
+    "lat": 39.3925732,
+    "lon": -31.1656131,
+    "tags": {
+      "addr:city": "Fazenda",
+      "addr:housenumber": "9",
+      "addr:postcode": "9960-220",
+      "addr:street": "Rua da Eirinha Velha",
+      "email": "info@barraka.com",
+      "internet_access": "wlan",
+      "name": "A Barraka",
+      "phone": "+351 925926808",
+      "source": "https://www.azores.gov.pt/NR/rdonlyres/CCD6299D-5E0C-411B-91B3-6E7F6AF5DECA/0/ALDRT19052017flo.pdf; http://www.abarraka.com/; http://www.abarraka.com/",
+      "tourism": "guest_house",
+      "website": "https://www.abarraka.com/",
+      "wheelchair": "no"
+    }
+  },
+  {
+    "osm_id": "node/5053857518",
+    "lat": 39.4540172,
+    "lon": -31.262857,
+    "tags": {
+      "addr:city": "Fajã Grande",
+      "addr:housenumber": "11;11A;11B",
+      "addr:postcode": "9960-030",
+      "addr:street": "Rua do Senador André de Freitas",
+      "email": "geral@azoreslodge.com",
+      "internet_access": "wlan",
+      "name": "Alojamentos Flores Island (Azores Lodge)",
+      "phone": "+351 964794943; +351 910073298",
+      "source": "https://www.azores.gov.pt/NR/rdonlyres/CCD6299D-5E0C-411B-91B3-6E7F6AF5DECA/0/ALDRT19052017flo.pdf;https://www.booking.com;https://www.azoreslodge.com/",
+      "tourism": "guest_house",
+      "website": "https://www.azoreslodge.com/",
+      "wheelchair": "no"
+    }
+  },
+  {
+    "osm_id": "node/5054012812",
+    "lat": 39.4581826,
+    "lon": -31.2564828,
+    "tags": {
+      "addr:city": "Fajã Grande",
+      "addr:postcode": "9960-010",
+      "addr:street": "Estrada Municipal da Ponta da Fajã Grande",
+      "email": "info@casasdacascata.com",
+      "internet_access": "yes",
+      "name": "Moinho da Cascata",
+      "phone": "+351 292 593154",
+      "source": "https://www.booking.com;http://casasdacascata.com/",
+      "tourism": "guest_house",
+      "website": "https://casasdacascata.com/",
+      "wheelchair": "no"
+    }
+  },
+  {
+    "osm_id": "node/5054073309",
+    "lat": 39.4556054,
+    "lon": -31.2614946,
+    "tags": {
+      "addr:city": "Fajã Grande",
+      "addr:housenumber": "28",
+      "addr:postcode": "9960-030",
+      "addr:street": "Rua da Tronqueira",
+      "email": "casadasogra28@gmail.com",
+      "internet_access": "wlan",
+      "name": "Casa da Sogra",
+      "phone": "+351 960084837",
+      "source": "https://www.azores.gov.pt/NR/rdonlyres/CCD6299D-5E0C-411B-91B3-6E7F6AF5DECA/0/ALDRT19052017flo.pdf;https://www.booking.com/",
+      "tourism": "guest_house",
+      "wheelchair": "limited"
+    }
+  },
+  {
+    "osm_id": "node/5054151701",
+    "lat": 39.4572112,
+    "lon": -31.2613639,
+    "tags": {
+      "addr:city": "Fajã Grande",
+      "addr:housenumber": "41",
+      "addr:postcode": "9960-030",
+      "addr:street": "Rua da Tronqueira",
+      "contact:facebook": "https://www.facebook.com/residenciamateus00/",
+      "email": "residenciamateus@hotmail.com",
+      "internet_access": "wlan",
+      "name": "Residência Mateus",
+      "phone": "+351 968226180",
+      "source": "https://www.azores.gov.pt/NR/rdonlyres/CCD6299D-5E0C-411B-91B3-6E7F6AF5DECA/0/ALDRT19052017flo.pdf;https://www.booking.com/",
+      "tourism": "guest_house",
+      "wheelchair": "yes"
+    }
+  },
+  {
+    "osm_id": "node/5063973941",
+    "lat": 39.4563445,
+    "lon": -31.2637348,
+    "tags": {
+      "addr:city": "Fajã Grande",
+      "addr:housenumber": "30",
+      "addr:postcode": "9960-030",
+      "addr:street": "Rua da Via D'Água",
+      "email": "pasvieira@hotmail.com",
+      "internet_access": "wlan",
+      "name": "Casa do Baixio",
+      "phone": "+351 960084837",
+      "source": "https://www.azores.gov.pt/NR/rdonlyres/CCD6299D-5E0C-411B-91B3-6E7F6AF5DECA/0/ALDRT19052017flo.pdf;https://www.booking.com/",
+      "tourism": "guest_house",
+      "wheelchair": "yes"
+    }
+  },
+  {
+    "osm_id": "node/5064564244",
+    "lat": 39.4544461,
+    "lon": -31.2630955,
+    "tags": {
+      "addr:city": "Fajã Grande",
+      "addr:postcode": "9960-030",
+      "addr:street": "Rua do Senador André de Freitas",
+      "email": "isildavieira58@gmail.com",
+      "internet_access": "wlan",
+      "name": "Casa da Fajã",
+      "phone": "+351 915072540",
+      "source": "https://www.azores.gov.pt/NR/rdonlyres/CCD6299D-5E0C-411B-91B3-6E7F6AF5DECA/0/ALDRT19052017flo.pdf;https://www.airbnb.pt",
+      "tourism": "guest_house",
+      "wheelchair": "no"
+    }
+  },
+  {
+    "osm_id": "node/5066764071",
+    "lat": 39.3776355,
+    "lon": -31.1787442,
+    "tags": {
+      "addr:city": "Lajes das Flores",
+      "addr:housenumber": "18",
+      "addr:postcode": "9960-432",
+      "addr:street": "Urbanização Ângelo de Freitas Henriques",
+      "alt_name": "Museu Municipal de Lajes das Flores",
+      "fee": "no",
+      "name": "Museu das Lajes das Flores",
+      "opening_hours": "Mo-Fr 08:30-16:30",
+      "source": "http://www.cmlajesdasflores.pt",
+      "tourism": "museum",
+      "website": "https://www.explorefloresisland.com/mapa-interativo/local/museu-municipal-lajes/"
+    }
+  },
+  {
+    "osm_id": "node/5067017814",
+    "lat": 39.4023006,
+    "lon": -31.1559544,
+    "tags": {
+      "addr:city": "Lomba",
+      "addr:postcode": "9960-520",
+      "addr:street": "Rua Cabeço",
+      "name": "Mini - Mercado Esperança",
+      "shop": "supermarket"
+    }
+  },
+  {
+    "osm_id": "node/5073278137",
+    "lat": 39.3771359,
+    "lon": -31.1793256,
+    "tags": {
+      "addr:city": "Lajes das Flores",
+      "addr:postcode": "9960-431",
+      "addr:street": "Rua Peixoto Pimentel",
+      "amenity": "parking",
+      "parking": "surface"
+    }
+  },
+  {
+    "osm_id": "node/5105973525",
+    "lat": 39.5068859,
+    "lon": -31.2167941,
+    "tags": {
+      "name": "Miradouro de Ponta Delgada",
+      "tourism": "viewpoint"
+    }
+  },
+  {
+    "osm_id": "node/5107812822",
+    "lat": 39.4745121,
+    "lon": -31.2009612,
+    "tags": {
+      "tourism": "viewpoint"
+    }
+  },
+  {
+    "osm_id": "node/5107812824",
+    "lat": 39.4322656,
+    "lon": -31.1479672,
+    "tags": {
+      "name": "Miradouro da Caveira",
+      "tourism": "viewpoint"
+    }
+  },
+  {
+    "osm_id": "node/5108353521",
+    "lat": 39.4398812,
+    "lon": -31.146768,
+    "tags": {
+      "name": "Miradouro da Fajã do Conde",
+      "tourism": "viewpoint"
+    }
+  },
+  {
+    "osm_id": "node/5415460690",
+    "lat": 39.4322467,
+    "lon": -31.1524825,
+    "tags": {
+      "description": "Vértice geodésico de 2ª ordem; pilar prismático sobre terreno.",
+      "ele": "313",
+      "height": "1.08",
+      "man_made": "survey_point",
+      "name": "Espigão",
+      "natural": "peak",
+      "note": "Beware: elevation is top of the survey_point.",
+      "note:en": "Survey Points are meant to be used to rectify aerial imagery and not the other way around. Please do not move nor delete them. Their position corresponds to official reference ground measures.",
+      "note:pt": "Os Vértices Geodésicos servem para melhorar o alinhamento da fotografia aérea e não o inverso. Por favor não os mova nem apague. A sua posição corresponde a medidas de referência oficiais, obtidas in loco.",
+      "ref": "1002",
+      "source": "DGT - Rede Geodésica Nacional",
+      "source:pkey": "1002",
+      "survey:date": "2005",
+      "website": "http://dev.igeo.pt/produtos/geodesia/vg/rgn/ficha.asp?num=1002",
+      "width": "0.40"
+    }
+  },
+  {
+    "osm_id": "node/5508165223",
+    "lat": 39.4457554,
+    "lon": -31.2569894,
+    "tags": {
+      "amenity": "toilets",
+      "opening_hours": "24/7"
+    }
+  },
+  {
+    "osm_id": "node/5511452823",
+    "lat": 39.4455153,
+    "lon": -31.2178716,
+    "tags": {
+      "name": "Miradouro da Lagoa Seca",
+      "tourism": "viewpoint"
+    }
+  },
+  {
+    "osm_id": "node/5569892933",
+    "lat": 39.4591691,
+    "lon": -31.130887,
+    "tags": {
+      "amenity": "toilets",
+      "check_date": "2024-06-05",
+      "fee": "no",
+      "female": "yes"
+    }
+  },
+  {
+    "osm_id": "node/5569892934",
+    "lat": 39.461941,
+    "lon": -31.130212,
+    "tags": {
+      "amenity": "toilets",
+      "fee": "no"
+    }
+  },
+  {
+    "osm_id": "node/5569892935",
+    "lat": 39.4543362,
+    "lon": -31.2625432,
+    "tags": {
+      "amenity": "atm",
+      "cash_in": "no",
+      "operator": "MB Multibanco"
+    }
+  },
+  {
+    "osm_id": "node/5569892936",
+    "lat": 39.4543193,
+    "lon": -31.2627613,
+    "tags": {
+      "amenity": "drinking_water",
+      "man_made": "water_tap"
+    }
+  },
+  {
+    "osm_id": "node/5569892940",
+    "lat": 39.4592026,
+    "lon": -31.1312172,
+    "tags": {
+      "amenity": "toilets",
+      "changing_table": "no",
+      "check_date": "2024-06-05",
+      "fee": "no",
+      "level": "1"
+    }
+  },
+  {
+    "osm_id": "node/5569893419",
+    "lat": 39.45912,
+    "lon": -31.1308828,
+    "tags": {
+      "amenity": "toilets",
+      "fee": "no",
+      "male": "yes"
+    }
+  },
+  {
+    "osm_id": "node/5569893420",
+    "lat": 39.45329,
+    "lon": -31.1272817,
+    "tags": {
+      "amenity": "cafe",
+      "indoor_seating": "yes",
+      "name": "Orchidea",
+      "outdoor_seating": "yes"
+    }
+  },
+  {
+    "osm_id": "node/5595187504",
+    "lat": 39.4628814,
+    "lon": -31.1298846,
+    "tags": {
+      "artwork_type": "sculpture",
+      "name": "Cachalote",
+      "name:de": "Pottwal",
+      "name:en": "Sperm Whale",
+      "name:es": "Cachalote",
+      "tourism": "artwork"
+    }
+  },
+  {
+    "osm_id": "node/5662036506",
+    "lat": 39.4382231,
+    "lon": -31.2366951,
+    "tags": {
+      "waterway": "waterfall"
+    }
+  },
+  {
+    "osm_id": "node/5662036654",
+    "lat": 39.4392433,
+    "lon": -31.2352024,
+    "tags": {
+      "waterway": "waterfall"
+    }
+  },
+  {
+    "osm_id": "node/5673738987",
+    "lat": 39.4899954,
+    "lon": -31.1653778,
+    "tags": {
+      "waterway": "waterfall"
+    }
+  },
+  {
+    "osm_id": "node/5673764861",
+    "lat": 39.4857541,
+    "lon": -31.1808562,
+    "tags": {
+      "description": "Vértice geodésico de 2ª ordem; pilar prismático sobre rocha.",
+      "ele": "599",
+      "full_id": "n3597213587",
+      "height": "1.1",
+      "man_made": "survey_point",
+      "name": "Alto da Cova",
+      "natural": "peak",
+      "note": "Beware: elevation is top of the survey_point.",
+      "note:en": "Survey Points are meant to be used to rectify aerial imagery and not the other way around. Please do not move nor delete them. Their position corresponds to official reference ground measures.",
+      "note:pt": "Os Vértices Geodésicos servem para melhorar o alinhamento da fotografia aérea e não o inverso. Por favor não os mova nem apague. A sua posição corresponde a medidas de referência oficiais, obtidas in loco.",
+      "osm_id": "3597213587",
+      "ref": "993",
+      "source": "DGT - Rede Geodésica Nacional",
+      "source:pkey": "993",
+      "survey:date": "2005",
+      "survey_date": "2005",
+      "website": "http://dev.igeo.pt/produtos/geodesia/vg/rgn/ficha.asp?num=993",
+      "width": "0.41"
+    }
+  },
+  {
+    "osm_id": "node/5688234721",
+    "lat": 39.4616892,
+    "lon": -31.1383009,
+    "tags": {
+      "name": "Monte",
+      "place": "hamlet"
+    }
+  },
+  {
+    "osm_id": "node/5688234898",
+    "lat": 39.4669944,
+    "lon": -31.1472702,
+    "tags": {
+      "name": "Fazenda de Santa Cruz",
+      "place": "hamlet"
+    }
+  },
+  {
+    "osm_id": "node/5688235622",
+    "lat": 39.4960601,
+    "lon": -31.1585677,
+    "tags": {
+      "name": "Ponta Ruiva",
+      "place": "hamlet"
+    }
+  },
+  {
+    "osm_id": "node/5689056108",
+    "lat": 39.4461772,
+    "lon": -31.139819,
+    "tags": {
+      "name": "Ribeira dos Barqueiros",
+      "place": "hamlet"
+    }
+  },
+  {
+    "osm_id": "node/5689056967",
+    "lat": 39.4476768,
+    "lon": -31.1358333,
+    "tags": {
+      "name": "Boavista",
+      "place": "hamlet"
+    }
+  },
+  {
+    "osm_id": "node/5691373957",
+    "lat": 39.4530852,
+    "lon": -31.1287212,
+    "tags": {
+      "addr:city": "Santa Cruz das Flores",
+      "addr:housenumber": "4",
+      "addr:postcode": "9970-337",
+      "addr:street": "Rua Senador André de Freitas",
+      "amenity": "bank",
+      "atm": "yes",
+      "branch": "Flores",
+      "brand": "Santander",
+      "brand:website": "https://www.santander.pt/",
+      "brand:wikidata": "Q4854116",
+      "brand:wikipedia": "pt:Banco Santander Portugal",
+      "cash_out": "yes",
+      "contact:email": "flores@santander.pt",
+      "contact:facebook": "santanderpt",
+      "contact:instagram": "santanderpt",
+      "contact:linkedin": "https://www.linkedin.com/company/santanderpt/",
+      "contact:phone": "+351 292 241 330",
+      "contact:twitter": "santanderpt",
+      "contact:youtube": "@santanderpt",
+      "internet_access": "wlan",
+      "language:en": "yes",
+      "language:es": "yes",
+      "language:pt": "yes",
+      "name": "Santander",
+      "opening_hours": "Mo-Fr 08:30-12:00,13:00-15:00; Sa-Su off; Jan 01,Apr 25,May 25,Jun 01,Jun 26,Aug 10,Aug 24,Oct 15,Nov 05,Dec 01,Dec 08,Dec 25 off",
+      "operator": "Banco Santander (Portugal)",
+      "operator:wikidata": "Q4854116",
+      "operator:wikipedia": "pt:Banco Santander Portugal",
+      "ref": "8709",
+      "source:contact": "website",
+      "source:opening_hours": "website",
+      "website": "https://www.santander.pt/"
+    }
+  },
+  {
+    "osm_id": "node/5691373960",
+    "lat": 39.4531453,
+    "lon": -31.1286424,
+    "tags": {
+      "amenity": "atm",
+      "check_date": "2023-09-23",
+      "operator": "Multibanco"
+    }
+  },
+  {
+    "osm_id": "node/5691373961",
+    "lat": 39.4536479,
+    "lon": -31.1278025,
+    "tags": {
+      "addr:housenumber": "13a",
+      "addr:postcode": "9970-999",
+      "addr:street": "Rua Senador André de Freitas",
+      "amenity": "post_office",
+      "name": "Correios",
+      "opening_hours": "Mo-Fr 09:00-12:30,14:00-17:30"
+    }
+  },
+  {
+    "osm_id": "node/5691857712",
+    "lat": 39.3831824,
+    "lon": -31.2413192,
+    "tags": {
+      "name": "Costa",
+      "place": "hamlet"
+    }
+  },
+  {
+    "osm_id": "node/5691859671",
+    "lat": 39.4694874,
+    "lon": -31.2554812,
+    "tags": {
+      "loc_name": "Ponta da Fajã",
+      "name": "Ponta",
+      "place": "hamlet"
+    }
+  },
+  {
+    "osm_id": "node/5695257932",
+    "lat": 39.4597989,
+    "lon": -31.1307892,
+    "tags": {
+      "amenity": "fuel",
+      "brand": "Galp",
+      "brand:wikidata": "Q1492739",
+      "compressed_air": "yes"
+    }
+  },
+  {
+    "osm_id": "node/5740416684",
+    "lat": 39.4437185,
+    "lon": -31.2199313,
+    "tags": {
+      "waterway": "waterfall"
+    }
+  },
+  {
+    "osm_id": "node/5740416691",
+    "lat": 39.4528184,
+    "lon": -31.2618609,
+    "tags": {
+      "name": "Casa do Zé da Laura",
+      "tourism": "guest_house"
+    }
+  },
+  {
+    "osm_id": "node/5827051295",
+    "lat": 39.4799683,
+    "lon": -31.2547432,
+    "tags": {
+      "tourism": "viewpoint"
+    }
+  },
+  {
+    "osm_id": "node/5827051309",
+    "lat": 39.4940603,
+    "lon": -31.2433103,
+    "tags": {
+      "height": "2",
+      "waterway": "waterfall"
+    }
+  },
+  {
+    "osm_id": "node/5827423039",
+    "lat": 39.4712231,
+    "lon": -31.2556062,
+    "tags": {
+      "amenity": "drinking_water"
+    }
+  },
+  {
+    "osm_id": "node/5829556233",
+    "lat": 39.4134589,
+    "lon": -31.251169,
+    "tags": {
+      "amenity": "drinking_water",
+      "indoor": "no",
+      "man_made": "water_tap"
+    }
+  },
+  {
+    "osm_id": "node/6256305451",
+    "lat": 39.4475464,
+    "lon": -31.1617098,
+    "tags": {
+      "ele": "513.102",
+      "man_made": "survey_point",
+      "name": "Pico da Casinha",
+      "natural": "peak",
+      "note": "Beware: elevation is top of the survey_point.",
+      "note:en": "Survey Points are meant to be used to rectify aerial imagery and not the other way around. Please do not move nor delete them. Their position corresponds to official reference ground measures.",
+      "note:pt": "Os Vértices Geodésicos servem para melhorar o alinhamento da fotografia aérea e não o inverso. Por favor não os mova nem apague. A sua posição corresponde a medidas de referência oficiais, obtidas in loco.",
+      "source": "DGT - Rede Geodésica Nacional",
+      "source:ref": "PT_AZO_OCCI.zip",
+      "triangulation_point": "yes"
+    }
+  },
+  {
+    "osm_id": "node/6549237381",
+    "lat": 39.4636004,
+    "lon": -31.2206211,
+    "tags": {
+      "ele": "914",
+      "name": "Morro Alto",
+      "natural": "peak",
+      "wikidata": "Q8525835",
+      "wikipedia": "en:Morro Alto"
+    }
+  },
+  {
+    "osm_id": "node/6611515227",
+    "lat": 39.4547113,
+    "lon": -31.1291827,
+    "tags": {
+      "addr:city": "Santa Cruz das Flores",
+      "addr:country": "PT",
+      "addr:housenumber": "6",
+      "addr:postcode": "9970-328",
+      "addr:street": "Rua D. Cristina Aires Malheiros Serpa",
+      "email": "helder_emilio@hotmail.com",
+      "name": "Dona Júlia - Alojamento Local",
+      "tourism": "hostel"
+    }
+  },
+  {
+    "osm_id": "node/6640378689",
+    "lat": 39.4634956,
+    "lon": -31.2542843,
+    "tags": {
+      "name": "Salto",
+      "name:en": "Waterfall",
+      "name:hu": "Vízesés",
+      "waterway": "waterfall"
+    }
+  },
+  {
+    "osm_id": "node/6640378690",
+    "lat": 39.466772,
+    "lon": -31.2546764,
+    "tags": {
+      "name": "Salto",
+      "name:en": "Waterfall",
+      "name:hu": "Vízesés",
+      "waterway": "waterfall"
+    }
+  },
+  {
+    "osm_id": "node/6640385186",
+    "lat": 39.46928,
+    "lon": -31.2533328,
+    "tags": {
+      "name": "Salto",
+      "name:en": "Waterfall",
+      "name:hu": "Vízesés",
+      "waterway": "waterfall"
+    }
+  },
+  {
+    "osm_id": "node/6649669188",
+    "lat": 39.3878466,
+    "lon": -31.2419488,
+    "tags": {
+      "name": "Miradouro",
+      "tourism": "viewpoint"
+    }
+  },
+  {
+    "osm_id": "node/6672759251",
+    "lat": 39.4371178,
+    "lon": -31.2352764,
+    "tags": {
+      "waterway": "waterfall"
+    }
+  },
+  {
+    "osm_id": "node/6672762985",
+    "lat": 39.3872487,
+    "lon": -31.1673913,
+    "tags": {
+      "bench": "no",
+      "highway": "bus_stop",
+      "name": "Fazenda Agrícolas",
+      "shelter": "no"
+    }
+  },
+  {
+    "osm_id": "node/6673877386",
+    "lat": 39.3784424,
+    "lon": -31.1748295,
+    "tags": {
+      "bench": "yes",
+      "bin": "yes",
+      "highway": "bus_stop",
+      "name": "Lajes",
+      "shelter": "yes",
+      "tactile_paving": "no"
+    }
+  },
+  {
+    "osm_id": "node/6680715607",
+    "lat": 39.4265606,
+    "lon": -31.2385915,
+    "tags": {
+      "waterway": "waterfall"
+    }
+  },
+  {
+    "osm_id": "node/6680715821",
+    "lat": 39.4486955,
+    "lon": -31.2433289,
+    "tags": {
+      "waterway": "waterfall"
+    }
+  },
+  {
+    "osm_id": "node/6680715918",
+    "lat": 39.4514147,
+    "lon": -31.2451836,
+    "tags": {
+      "waterway": "waterfall"
+    }
+  },
+  {
+    "osm_id": "node/6680716046",
+    "lat": 39.4346571,
+    "lon": -31.2342026,
+    "tags": {
+      "waterway": "waterfall"
+    }
+  },
+  {
+    "osm_id": "node/6680716135",
+    "lat": 39.4339029,
+    "lon": -31.2350549,
+    "tags": {
+      "waterway": "waterfall"
+    }
+  },
+  {
+    "osm_id": "node/6680716140",
+    "lat": 39.4339702,
+    "lon": -31.2351273,
+    "tags": {
+      "waterway": "waterfall"
+    }
+  },
+  {
+    "osm_id": "node/6680716154",
+    "lat": 39.4341214,
+    "lon": -31.2345909,
+    "tags": {
+      "name": "Ribeira Grande",
+      "waterway": "waterfall"
+    }
+  },
+  {
+    "osm_id": "node/6680716219",
+    "lat": 39.4349666,
+    "lon": -31.2337728,
+    "tags": {
+      "waterway": "waterfall"
+    }
+  },
+  {
+    "osm_id": "node/6680716220",
+    "lat": 39.4346372,
+    "lon": -31.2336735,
+    "tags": {
+      "waterway": "waterfall"
+    }
+  },
+  {
+    "osm_id": "node/6680716223",
+    "lat": 39.4347233,
+    "lon": -31.2343331,
+    "tags": {
+      "waterway": "waterfall"
+    }
+  },
+  {
+    "osm_id": "node/6774428985",
+    "lat": 39.477177,
+    "lon": -31.1493264,
+    "tags": {
+      "tourism": "viewpoint"
+    }
+  },
+  {
+    "osm_id": "node/8220836084",
+    "lat": 39.3790806,
+    "lon": -31.1815099,
+    "tags": {
+      "access": "yes",
+      "addr:city": "Lajes das Flores",
+      "addr:country": "PT",
+      "addr:street": "Travessa da Cruz",
+      "amenity": "charging_station",
+      "authentication:app": "yes",
+      "authentication:membership_card": "yes",
+      "authentication:none": "no",
+      "brand": "Galp electric",
+      "brand:wikidata": "Q135275372",
+      "capacity": "2",
+      "charging_station:output": "93 kW",
+      "email": "veiculoeletrico@galp.com",
+      "fee": "yes",
+      "maxstay": "unlimited",
+      "motorcar": "yes",
+      "name": "LGF-00001",
+      "network": "Mobi.E",
+      "opening_hours": "24/7",
+      "operator": "Galp Geste",
+      "operator:wikidata": "Q1492739",
+      "parking:fee": "no",
+      "payment:app": "yes",
+      "payment:cards": "no",
+      "payment:cash": "no",
+      "payment:membership_card": "yes",
+      "phone": "+351 800 249 249",
+      "ref": "LGF-00001",
+      "ref:EU:EVSE": "PT*GLG*ELGF*00001*01;PT*GLG*ELGF*00001*02;PT*GLG*ELGF*00001*03",
+      "socket:chademo": "1",
+      "socket:chademo:current": "120",
+      "socket:chademo:output": "50 kW",
+      "socket:chademo:voltage": "500",
+      "socket:type2_cable": "1",
+      "socket:type2_cable:current": "63",
+      "socket:type2_cable:output": "43 kW",
+      "socket:type2_cable:voltage": "400",
+      "socket:type2_combo": "1",
+      "socket:type2_combo:current": "125",
+      "socket:type2_combo:output": "50 kW",
+      "socket:type2_combo:voltage": "500",
+      "website": "https://www.mobie.pt"
+    }
+  },
+  {
+    "osm_id": "node/8270461717",
+    "lat": 39.4544297,
+    "lon": -31.1300464,
+    "tags": {
+      "access": "yes",
+      "addr:country": "PT",
+      "amenity": "charging_station",
+      "authentication:app": "yes",
+      "authentication:membership_card": "yes",
+      "authentication:none": "no",
+      "brand": "Galp electric",
+      "brand:wikidata": "Q135275372",
+      "capacity": "2",
+      "email": "veiculoeletrico@galp.com",
+      "fee": "yes",
+      "maxstay": "unlimited",
+      "motorcar": "yes",
+      "name": "SCF-00002",
+      "network": "Mobi.E",
+      "old_ref": "SCF-00001",
+      "opening_hours": "24/7",
+      "operator": "Galp Power",
+      "operator:wikidata": "Q135275372",
+      "parking:fee": "no",
+      "payment:app": "yes",
+      "payment:cards": "no",
+      "payment:cash": "no",
+      "payment:membership_card": "yes",
+      "phone": "+351 800 249 249",
+      "ref": "SCF-00002",
+      "ref:EU:EVSE": "PT*SEG*E*SCF*00002*01;PT*SEG*E*SCF*00002*02",
+      "socket:type2": "2",
+      "socket:type2:current": "32",
+      "socket:type2:output": "22 kW",
+      "socket:type2:voltage": "400",
+      "website": "https://www.mobie.pt"
+    }
+  },
+  {
+    "osm_id": "node/8895126321",
+    "lat": 39.4532799,
+    "lon": -31.2094179,
+    "tags": {
+      "ele": "849",
+      "name": "Pico dos Sete Pés",
+      "name:pt": "Pico dos Sete Pés",
+      "natural": "peak"
+    }
+  },
+  {
+    "osm_id": "node/8895126331",
+    "lat": 39.4635453,
+    "lon": -31.1845006,
+    "tags": {
+      "natural": "peak"
+    }
+  },
+  {
+    "osm_id": "node/8895126332",
+    "lat": 39.465314,
+    "lon": -31.2045794,
+    "tags": {
+      "natural": "peak"
+    }
+  },
+  {
+    "osm_id": "node/8895126333",
+    "lat": 39.4896947,
+    "lon": -31.2133063,
+    "tags": {
+      "natural": "peak"
+    }
+  },
+  {
+    "osm_id": "node/8895126334",
+    "lat": 39.5010637,
+    "lon": -31.2091075,
+    "tags": {
+      "natural": "peak"
+    }
+  },
+  {
+    "osm_id": "node/8895126335",
+    "lat": 39.466864,
+    "lon": -31.2272954,
+    "tags": {
+      "natural": "peak"
+    }
+  },
+  {
+    "osm_id": "node/8901944494",
+    "lat": 39.4555777,
+    "lon": -31.2633141,
+    "tags": {
+      "addr:city": "Fajã Grande",
+      "addr:housenumber": "14",
+      "addr:postcode": "9960-030",
+      "addr:street": "Rua da Via D'Água",
+      "email": "loup30s@hotmail.com",
+      "internet_access": "wlan",
+      "internet_access:fee": "customers",
+      "name": "Pandora BNB",
+      "phone": "+351 967 777 086",
+      "source": "https://www.azores.gov.pt/NR/rdonlyres/CCD6299D-5E0C-411B-91B3-6E7F6AF5DECA/0/ALDRT19052017flo.pdf",
+      "tourism": "guest_house"
+    }
+  },
+  {
+    "osm_id": "node/9118489232",
+    "lat": 39.4696454,
+    "lon": -31.2526295,
+    "tags": {
+      "waterway": "waterfall"
+    }
+  },
+  {
+    "osm_id": "node/9891732665",
+    "lat": 39.4437993,
+    "lon": -31.1631489,
+    "tags": {
+      "natural": "peak"
+    }
+  },
+  {
+    "osm_id": "node/10049666402",
+    "lat": 39.3775889,
+    "lon": -31.1718059,
+    "tags": {
+      "amenity": "restaurant",
+      "cuisine": "regional",
+      "description": "Restaurant - cafe - bar - pizzeria",
+      "internet_access": "wlan",
+      "internet_access:fee": "no",
+      "level": "0",
+      "name": "O Arruda",
+      "outdoor_seating": "yes",
+      "smoking": "outside",
+      "takeaway": "yes",
+      "toilets": "yes",
+      "toilets:access": "customers"
+    }
+  },
+  {
+    "osm_id": "node/10116703118",
+    "lat": 39.4746712,
+    "lon": -31.148896,
+    "tags": {
+      "amenity": "toilets",
+      "fee": "no",
+      "toilets:hands_drying": "no",
+      "toilets:handwashing": "yes",
+      "toilets:paper_supplied": "no",
+      "toilets:wheelchair": "no"
+    }
+  },
+  {
+    "osm_id": "node/10116703119",
+    "lat": 39.4534887,
+    "lon": -31.2653922,
+    "tags": {
+      "amenity": "toilets",
+      "fee": "no"
+    }
+  },
+  {
+    "osm_id": "node/10929789205",
+    "lat": 39.4630483,
+    "lon": -31.1305733,
+    "tags": {
+      "name": "Inatel Flores",
+      "tourism": "hotel",
+      "wikidata": "Q111870671"
+    }
+  },
+  {
+    "osm_id": "node/10976241308",
+    "lat": 39.4980033,
+    "lon": -31.1789283,
+    "tags": {
+      "tourism": "viewpoint"
+    }
+  },
+  {
+    "osm_id": "node/11046211935",
+    "lat": 39.5155289,
+    "lon": -31.2092344,
+    "tags": {
+      "amenity": "toilets"
+    }
+  },
+  {
+    "osm_id": "node/11050708860",
+    "lat": 39.4135003,
+    "lon": -31.2032964,
+    "tags": {
+      "name": "Miradouro Lagoas Rasa e Funda",
+      "tourism": "viewpoint"
+    }
+  },
+  {
+    "osm_id": "node/11128318769",
+    "lat": 39.4546813,
+    "lon": -31.1299994,
+    "tags": {
+      "addr:city": "Santa Cruz das Flores",
+      "addr:housenumber": "12 C",
+      "addr:postcode": "9970",
+      "addr:street": "Rua Frei Diogo das Chagas",
+      "air_conditioning": "yes",
+      "amenity": "restaurant",
+      "cuisine": "pizza;burger;fish",
+      "highchair": "yes",
+      "internet_access": "no",
+      "level": "0",
+      "microbrewery": "no",
+      "name": "Fora d'Horas",
+      "opening_hours": "Th-Su 10:30-22:00",
+      "outdoor_seating": "yes",
+      "payment:apple_pay": "yes",
+      "payment:cards": "yes",
+      "payment:cash": "yes",
+      "payment:credit_cards": "yes",
+      "payment:google_pay": "yes",
+      "payment:maestro": "yes",
+      "payment:mastercard": "yes",
+      "payment:visa": "yes",
+      "payment:visa_debit": "yes",
+      "phone": "+351 292 592 093",
+      "website:menu": "https://menurest.pt/foradhoras"
+    }
+  },
+  {
+    "osm_id": "node/11131433650",
+    "lat": 39.5192838,
+    "lon": -31.2359741,
+    "tags": {
+      "direction": "230",
+      "informal": "yes",
+      "name": "Westernmost point Viewpoint",
+      "tourism": "viewpoint",
+      "wheelchair": "no"
+    }
+  },
+  {
+    "osm_id": "node/11210138337",
+    "lat": 39.4517893,
+    "lon": -31.1264737,
+    "tags": {
+      "air_conditioning": "yes",
+      "amenity": "restaurant",
+      "cuisine": "portuguese",
+      "diet:halal": "no",
+      "diet:kosher": "no",
+      "diet:vegetarian": "no",
+      "dog": "no",
+      "indoor_seating": "yes",
+      "name": "O Mergulhador",
+      "outdoor_seating": "no",
+      "smoking": "no",
+      "takeaway": "yes",
+      "toilets": "yes",
+      "wheelchair": "no"
+    }
+  },
+  {
+    "osm_id": "node/11210140437",
+    "lat": 39.4518527,
+    "lon": -31.1263975,
+    "tags": {
+      "amenity": "restaurant",
+      "name": "Restaurante O Moreão"
+    }
+  },
+  {
+    "osm_id": "node/11225836802",
+    "lat": 39.3919016,
+    "lon": -31.164862,
+    "tags": {
+      "addr:housenumber": "2",
+      "addr:street": "Rua Eirinha Velha",
+      "air_conditioning": "no",
+      "amenity": "restaurant",
+      "brewery": "Sagres",
+      "changing_table": "no",
+      "contact:email": "canarocapizzeria@gmail.com",
+      "contact:instagram": "https://www.instagram.com/canarocapizzeria/",
+      "cuisine": "italian",
+      "diet:halal": "no",
+      "diet:kosher": "no",
+      "diet:vegan": "yes",
+      "diet:vegetarian": "yes",
+      "indoor_seating": "yes",
+      "name": "Cana Roca",
+      "opening_hours": "Mo, We-Sa 11:00-23:00; Su 11:00-19:00",
+      "outdoor_seating": "balcony",
+      "phone": "+351 926 546 914",
+      "smoking": "outside",
+      "takeaway": "yes",
+      "toilets": "yes",
+      "website": "https://romenfrancesco.wixsite.com/cana-roca",
+      "wheelchair": "no"
+    }
+  },
+  {
+    "osm_id": "node/11225870871",
+    "lat": 39.3917761,
+    "lon": -31.1648187,
+    "tags": {
+      "amenity": "parking",
+      "capacity:disabled": "no",
+      "orientation": "perpendicular",
+      "parking": "street_side"
+    }
+  },
+  {
+    "osm_id": "node/11225877289",
+    "lat": 39.453463,
+    "lon": -31.2621531,
+    "tags": {
+      "addr:housenumber": "3",
+      "addr:street": "Rua Senador André de Freitas",
+      "contact:email": "thepinkhousehostel@gmail.com",
+      "name": "The pink House Hostel",
+      "opening_hours": "Mo-Su 08:00-20:00",
+      "phone": "+351 292 522 240",
+      "tourism": "hostel",
+      "website": "https://www.thepinkhousehostel.com/"
+    }
+  },
+  {
+    "osm_id": "node/11225941772",
+    "lat": 39.4755763,
+    "lon": -31.1513146,
+    "tags": {
+      "amenity": "parking",
+      "capacity": "2",
+      "parking": "lane",
+      "parking:fee": "no"
+    }
+  },
+  {
+    "osm_id": "node/11236820286",
+    "lat": 39.4721204,
+    "lon": -31.2559441,
+    "tags": {
+      "access": "yes",
+      "amenity": "parking",
+      "capacity": "30",
+      "capacity:disabled": "no",
+      "fee": "no",
+      "parking": "surface"
+    }
+  },
+  {
+    "osm_id": "node/11289452569",
+    "lat": 39.4138836,
+    "lon": -31.203648,
+    "tags": {
+      "tourism": "viewpoint"
+    }
+  },
+  {
+    "osm_id": "node/11498148131",
+    "lat": 39.4546451,
+    "lon": -31.2597494,
+    "tags": {
+      "amenity": "drinking_water"
+    }
+  },
+  {
+    "osm_id": "node/11665248955",
+    "lat": 39.4066184,
+    "lon": -31.153467,
+    "tags": {
+      "amenity": "drinking_water",
+      "man_made": "water_tap"
+    }
+  },
+  {
+    "osm_id": "node/11869923020",
+    "lat": 39.4031123,
+    "lon": -31.1549096,
+    "tags": {
+      "addr:city": "Lomba",
+      "addr:housenumber": "8",
+      "addr:postcode": "9960-520",
+      "addr:street": "Rua do Porto",
+      "guest_house": "apartment",
+      "internet_access": "yes",
+      "internet_access:fee": "no",
+      "tourism": "guest_house"
+    }
+  },
+  {
+    "osm_id": "node/11950897512",
+    "lat": 39.4587254,
+    "lon": -31.2624582,
+    "tags": {
+      "access": "customers",
+      "amenity": "toilets",
+      "changing_table": "no",
+      "fee": "no",
+      "wheelchair": "no"
+    }
+  },
+  {
+    "osm_id": "node/11950916741",
+    "lat": 39.455809,
+    "lon": -31.2639438,
+    "tags": {
+      "amenity": "drinking_water",
+      "man_made": "water_tap"
+    }
+  },
+  {
+    "osm_id": "node/11950923869",
+    "lat": 39.455482,
+    "lon": -31.2632611,
+    "tags": {
+      "amenity": "drinking_water",
+      "man_made": "water_tap"
+    }
+  },
+  {
+    "osm_id": "node/11952862848",
+    "lat": 39.4538017,
+    "lon": -31.26288,
+    "tags": {
+      "access": "yes",
+      "amenity": "toilets",
+      "fee": "no"
+    }
+  },
+  {
+    "osm_id": "node/11952883698",
+    "lat": 39.4537061,
+    "lon": -31.2621426,
+    "tags": {
+      "amenity": "drinking_water",
+      "man_made": "water_tap"
+    }
+  },
+  {
+    "osm_id": "node/11953799228",
+    "lat": 39.4499211,
+    "lon": -31.1279391,
+    "tags": {
+      "amenity": "drinking_water",
+      "fountain": "bubbler"
+    }
+  },
+  {
+    "osm_id": "node/11953799229",
+    "lat": 39.4505079,
+    "lon": -31.12799,
+    "tags": {
+      "air_conditioning": "yes",
+      "amenity": "cafe",
+      "diet:halal": "no",
+      "diet:kosher": "no",
+      "diet:vegan": "no",
+      "diet:vegetarian": "yes",
+      "facebook": "https://www.facebook.com/profile.php?id=100088926982493",
+      "indoor_seating": "yes",
+      "name": "Big Love by Monica",
+      "opening_hours": "Mo-Fr 12:00-19:00; Sa off; Su 10:00-14:00",
+      "outdoor_seating": "terrace",
+      "payment:credit_cards": "yes",
+      "payment:debit_cards": "yes",
+      "phone": "+351 926 625 932",
+      "smoking": "outside",
+      "wheelchair": "yes"
+    }
+  },
+  {
+    "osm_id": "node/11953800281",
+    "lat": 39.4545112,
+    "lon": -31.1255724,
+    "tags": {
+      "amenity": "drinking_water",
+      "man_made": "water_tap"
+    }
+  },
+  {
+    "osm_id": "node/11953807881",
+    "lat": 39.4499782,
+    "lon": -31.1282676,
+    "tags": {
+      "amenity": "drinking_water",
+      "man_made": "water_tap"
+    }
+  },
+  {
+    "osm_id": "node/11958670732",
+    "lat": 39.4539064,
+    "lon": -31.1267333,
+    "tags": {
+      "amenity": "police",
+      "name": "Polícia Marítima"
+    }
+  },
+  {
+    "osm_id": "node/11958676236",
+    "lat": 39.4532882,
+    "lon": -31.1286816,
+    "tags": {
+      "name": "Supermercado Hélio's",
+      "opening_hours": "Mo-Sa 09:00-19:00",
+      "shop": "convenience"
+    }
+  },
+  {
+    "osm_id": "node/12033631581",
+    "lat": 39.4494875,
+    "lon": -31.2209614,
+    "tags": {
+      "tourism": "viewpoint"
+    }
+  },
+  {
+    "osm_id": "node/12165379689",
+    "lat": 39.3790951,
+    "lon": -31.1710493,
+    "tags": {
+      "amenity": "toilets"
+    }
+  },
+  {
+    "osm_id": "node/12373885002",
+    "lat": 39.3984125,
+    "lon": -31.2442866,
+    "tags": {
+      "name": "Miradouro da Baía do Mosteiro",
+      "tourism": "viewpoint"
+    }
+  },
+  {
+    "osm_id": "node/12754349563",
+    "lat": 39.455201,
+    "lon": -31.2331348,
+    "tags": {
+      "tourism": "viewpoint"
+    }
+  },
+  {
+    "osm_id": "node/12754393751",
+    "lat": 39.4599422,
+    "lon": -31.2302743,
+    "tags": {
+      "tourism": "viewpoint"
+    }
+  },
+  {
+    "osm_id": "node/12754421283",
+    "lat": 39.4651302,
+    "lon": -31.222764,
+    "tags": {
+      "tourism": "viewpoint"
+    }
+  },
+  {
+    "osm_id": "node/12754442584",
+    "lat": 39.4635951,
+    "lon": -31.2198996,
+    "tags": {
+      "tourism": "viewpoint"
+    }
+  },
+  {
+    "osm_id": "node/12754446420",
+    "lat": 39.4631298,
+    "lon": -31.2203322,
+    "tags": {
+      "tourism": "viewpoint"
+    }
+  },
+  {
+    "osm_id": "node/12754452038",
+    "lat": 39.4632271,
+    "lon": -31.2198025,
+    "tags": {
+      "tourism": "viewpoint"
+    }
+  },
+  {
+    "osm_id": "node/12754627219",
+    "lat": 39.4457022,
+    "lon": -31.1521156,
+    "tags": {
+      "name": "Miradouro da Moita Alta",
+      "tourism": "viewpoint"
+    }
+  },
+  {
+    "osm_id": "node/12757425957",
+    "lat": 39.4749052,
+    "lon": -31.1488651,
+    "tags": {
+      "tourism": "viewpoint"
+    }
+  },
+  {
+    "osm_id": "node/12873330971",
+    "lat": 39.3790941,
+    "lon": -31.1709873,
+    "tags": {
+      "description:en": "whaling",
+      "fee": "no",
+      "name": "Museu Baleeiro de Lajes das Flores",
+      "opening_hours": "Mo,We,Fr 09:30-11:30",
+      "tourism": "museum",
+      "website": "https://cnlf.pt/museu/"
+    }
+  },
+  {
+    "osm_id": "node/12873330972",
+    "lat": 39.3790132,
+    "lon": -31.1708412,
+    "tags": {
+      "amenity": "cafe",
+      "name": "Clube Naval"
+    }
+  },
+  {
+    "osm_id": "node/12873331443",
+    "lat": 39.4534792,
+    "lon": -31.2554872,
+    "tags": {
+      "tourism": "viewpoint"
+    }
+  },
+  {
+    "osm_id": "node/13139677574",
+    "lat": 39.4121049,
+    "lon": -31.1489309,
+    "tags": {
+      "name": "Porto da Lomba",
+      "place": "hamlet"
+    }
+  },
+  {
+    "osm_id": "node/13139677575",
+    "lat": 39.3987405,
+    "lon": -31.1630533,
+    "tags": {
+      "waterway": "waterfall"
+    }
+  },
+  {
+    "osm_id": "node/13139677576",
+    "lat": 39.3983094,
+    "lon": -31.1623785,
+    "tags": {
+      "waterway": "waterfall"
+    }
+  },
+  {
+    "osm_id": "node/13158470603",
+    "lat": 39.4128418,
+    "lon": -31.2502493,
+    "tags": {
+      "amenity": "parking"
+    }
+  },
+  {
+    "osm_id": "node/13190883975",
+    "lat": 39.4413935,
+    "lon": -31.2193513,
+    "tags": {
+      "name": "Miradouro",
+      "tourism": "viewpoint"
+    }
+  },
+  {
+    "osm_id": "node/13190899842",
+    "lat": 39.4402272,
+    "lon": -31.2201589,
+    "tags": {
+      "name": "Viewpoint",
+      "tourism": "viewpoint"
+    }
+  },
+  {
+    "osm_id": "node/13190907001",
+    "lat": 39.4413935,
+    "lon": -31.2193513,
+    "tags": {
+      "name": "Viewpoint",
+      "tourism": "viewpoint"
+    }
+  },
+  {
+    "osm_id": "node/13190922417",
+    "lat": 39.4402272,
+    "lon": -31.2201589,
+    "tags": {
+      "name": "Miradouro",
+      "tourism": "viewpoint"
+    }
+  },
+  {
+    "osm_id": "node/13190926223",
+    "lat": 39.4271939,
+    "lon": -31.2381828,
+    "tags": {
+      "name": "Miradouro Craveiro Lopes 2",
+      "tourism": "viewpoint"
+    }
+  },
+  {
+    "osm_id": "node/13970534201",
+    "lat": 39.4448745,
+    "lon": -31.1399053,
+    "tags": {
+      "name": "Sleep HAIbeat Reset",
+      "tourism": "guest_house"
+    }
+  },
+  {
+    "osm_id": "node/14058709411",
+    "lat": 39.4534772,
+    "lon": -31.2623905,
+    "tags": {
+      "amenity": "restaurant",
+      "check_date": "2026-07-29",
+      "cuisine": "Fusion",
+      "level": "0",
+      "name": "Youth Development Association Bar",
+      "payment:cards": "no",
+      "payment:cash": "yes",
+      "payment:credit_cards": "no",
+      "payment:debit_cards": "no",
+      "website": "https://ydaflores.org",
+      "wheelchair": "limited"
+    }
+  },
+  {
+    "osm_id": "node/14081378701",
+    "lat": 39.4322665,
+    "lon": -31.2343466,
+    "tags": {
+      "name": "Miradouro dé Megan",
+      "tourism": "viewpoint"
+    }
+  },
+  {
+    "osm_id": "node/14081430001",
+    "lat": 39.4096758,
+    "lon": -31.2408677,
+    "tags": {
+      "name": "Rocha dos Bordões",
+      "tourism": "viewpoint"
+    }
+  },
+  {
+    "osm_id": "way/173692491",
+    "lat": 39.4538624,
+    "lon": -31.2627091,
+    "tags": {
+      "addr:city": "Fajã Grande",
+      "addr:postcode": "9960-030",
+      "addr:street": "Rua do Senador André de Freitas",
+      "amenity": "place_of_worship",
+      "building": "church",
+      "denomination": "roman_catholic",
+      "name": "Igreja Paroquial de São José",
+      "religion": "christian",
+      "source": "https://www.igogo.pt/",
+      "wheelchair": "no"
+    }
+  },
+  {
+    "osm_id": "way/173692549",
+    "lat": 39.3842487,
+    "lon": -31.2416848,
+    "tags": {
+      "addr:city": "Lajedo",
+      "addr:housenumber": "12",
+      "addr:postcode": "9960-030",
+      "addr:street": "Rua José Batista Serpa",
+      "amenity": "place_of_worship",
+      "building": "chapel",
+      "denomination": "roman_catholic",
+      "name": "Capela da Costa do Lajedo",
+      "religion": "christian",
+      "source": "http://www.inventario.iacultura.pt"
+    }
+  },
+  {
+    "osm_id": "way/173692579",
+    "lat": 39.5199049,
+    "lon": -31.2356912,
+    "tags": {
+      "building": "yes",
+      "height": "15",
+      "man_made": "lighthouse",
+      "name": "Farol do Albarnaz",
+      "source": "https://www.amn.pt/DF/Paginas/FaroldoAlbarnaz.aspx",
+      "wikidata": "Q10280128",
+      "wikimedia_commons": "Category:Albarnaz Lighthouse",
+      "wikipedia": "en:Lighthouse of Ponta do Albernaz"
+    }
+  },
+  {
+    "osm_id": "way/173692583",
+    "lat": 39.4588095,
+    "lon": -31.2625715,
+    "tags": {
+      "addr:city": "Fajã Grande",
+      "addr:housenumber": "8",
+      "addr:postcode": "9960-030",
+      "addr:street": "Rua do Porto",
+      "air_conditioning": "no",
+      "amenity": "restaurant",
+      "brewery": "Superbock",
+      "building": "yes",
+      "changing_table": "no",
+      "contact:facebook": "https://www.facebook.com/papadiamandisfaja/",
+      "cuisine": "international",
+      "diet:halal": "no",
+      "diet:kosher": "no",
+      "diet:vegan": "no",
+      "diet:vegetarian": "yes",
+      "indoor_seating": "yes",
+      "internet_access": "wlan",
+      "internet_access:fee": "no",
+      "name": "Papadiamandis",
+      "name:pt": "Papadiamandis",
+      "opening_hours": "Tu-Su 11:00-23:00",
+      "outdoor_seating": "beach",
+      "payment:credit_cards": "yes",
+      "payment:debit_cards": "yes",
+      "phone": "+351292552063",
+      "reg_name": "Esplanada",
+      "smoking": "outside",
+      "source": "https://www.facebook.com/papadiamandisfaja/",
+      "toilets": "yes",
+      "wheelchair": "yes"
+    }
+  },
+  {
+    "osm_id": "way/173692739",
+    "lat": 39.458917,
+    "lon": -31.2630886,
+    "tags": {
+      "access": "yes",
+      "addr:city": "Fajã Grande",
+      "addr:postcode": "9960-438",
+      "addr:street": "Rua do Porto",
+      "amenity": "parking",
+      "capacity": "21",
+      "capacity:disabled": "no",
+      "fee": "no",
+      "parking": "surface"
+    }
+  },
+  {
+    "osm_id": "way/173692747",
+    "lat": 39.4544762,
+    "lon": -31.1301372,
+    "tags": {
+      "access": "yes",
+      "amenity": "parking",
+      "parking": "surface"
+    }
+  },
+  {
+    "osm_id": "way/173692749",
+    "lat": 39.4544386,
+    "lon": -31.130238,
+    "tags": {
+      "amenity": "parking",
+      "covered": "no",
+      "fee": "no",
+      "park_ride": "no",
+      "parking": "surface",
+      "supervised": "no",
+      "surface": "asphalt",
+      "wheelchair": "yes"
+    }
+  },
+  {
+    "osm_id": "way/173697003",
+    "lat": 39.3782235,
+    "lon": -31.1743343,
+    "tags": {
+      "addr:city": "Lajes das Flores",
+      "addr:postcode": "9960-999",
+      "addr:street": "Rua de Nossa Senhora do Rosário",
+      "amenity": "place_of_worship",
+      "building": "church",
+      "denomination": "roman_catholic",
+      "name": "Igreja de Nossa Senhora do Rosário",
+      "religion": "christian",
+      "source": "www.igogo.pt;http://www.inventario.iacultura.pt",
+      "wikidata": "Q10300533",
+      "wikipedia": "en:Church of Nossa Senhora do Rosário (Lajes)"
+    }
+  },
+  {
+    "osm_id": "way/173697037",
+    "lat": 39.3756433,
+    "lon": -31.1766226,
+    "tags": {
+      "building": "yes",
+      "man_made": "lighthouse"
+    }
+  },
+  {
+    "osm_id": "way/173697069",
+    "lat": 39.3781527,
+    "lon": -31.1753183,
+    "tags": {
+      "access": "yes",
+      "addr:city": "Lajes das Flores",
+      "addr:postcode": "9960-431",
+      "addr:street": "Avenida do Emigrante",
+      "amenity": "parking",
+      "fee": "no",
+      "name": "Parque de Estacionamento da Câmara Municipal das Lajes das Flores",
+      "parking": "surface"
+    }
+  },
+  {
+    "osm_id": "way/173742047",
+    "lat": 39.4618766,
+    "lon": -31.1278268,
+    "tags": {
+      "amenity": "restaurant",
+      "building": "yes",
+      "name": "5 Sentidos",
+      "name:en": "5 Senses",
+      "opening_hours": "Su off",
+      "phone": "+351292542083;+351915939302"
+    }
+  },
+  {
+    "osm_id": "way/173742070",
+    "lat": 39.4581777,
+    "lon": -31.1261775,
+    "tags": {
+      "air_conditioning": "no",
+      "amenity": "cafe",
+      "building": "yes",
+      "diet:halal": "no",
+      "diet:kosher": "no",
+      "indoor_seating": "yes",
+      "internet_access": "wlan",
+      "name": "Buena Vista Caffé",
+      "opening_hours": "We,Th,Su,Mo 10:30-22:30",
+      "outdoor_seating": "terrace",
+      "smoking": "outside",
+      "wheelchair": "no"
+    }
+  },
+  {
+    "osm_id": "way/173742108",
+    "lat": 39.4630622,
+    "lon": -31.1304206,
+    "tags": {
+      "addr:city": "Santa Cruz das Flores",
+      "addr:postcode": "9970-390",
+      "addr:street": "Zona do Boqueirão",
+      "building": "yes",
+      "internet_access": "wlan",
+      "name": "Hotel das Flores",
+      "operator": "Inatel",
+      "stars": "4",
+      "tourism": "hotel",
+      "website": "https://www.inatel.pt/",
+      "wheelchair": "yes"
+    }
+  },
+  {
+    "osm_id": "way/173742119",
+    "lat": 39.4593746,
+    "lon": -31.1312695,
+    "tags": {
+      "access": "yes",
+      "amenity": "parking",
+      "fee": "no",
+      "parking": "surface"
+    }
+  },
+  {
+    "osm_id": "way/173742120",
+    "lat": 39.4621051,
+    "lon": -31.1299054,
+    "tags": {
+      "access": "yes",
+      "amenity": "parking",
+      "fee": "no",
+      "parking": "surface"
+    }
+  },
+  {
+    "osm_id": "way/173742121",
+    "lat": 39.4586077,
+    "lon": -31.1303586,
+    "tags": {
+      "access": "yes",
+      "amenity": "parking",
+      "fee": "no",
+      "orientation": "perpendicular",
+      "parking": "street_side"
+    }
+  },
+  {
+    "osm_id": "way/173742122",
+    "lat": 39.4621045,
+    "lon": -31.130107,
+    "tags": {
+      "access": "yes",
+      "amenity": "parking",
+      "fee": "no",
+      "parking": "surface"
+    }
+  },
+  {
+    "osm_id": "way/173755297",
+    "lat": 39.4322256,
+    "lon": -31.2541936,
+    "tags": {
+      "addr:city": "Fajãzinha",
+      "addr:postcode": "9960-120",
+      "addr:street": "Rua da Ladeira",
+      "amenity": "place_of_worship",
+      "building": "church",
+      "denomination": "roman_catholic",
+      "name": "Igreja da Nossa Senhora dos Remédios",
+      "religion": "christian",
+      "source": "https://www.igogo.pt"
+    }
+  },
+  {
+    "osm_id": "way/173755300",
+    "lat": 39.5136677,
+    "lon": -31.206939,
+    "tags": {
+      "amenity": "place_of_worship",
+      "building": "yes",
+      "denomination": "roman_catholic",
+      "religion": "christian"
+    }
+  },
+  {
+    "osm_id": "way/173755301",
+    "lat": 39.5150766,
+    "lon": -31.2092736,
+    "tags": {
+      "amenity": "place_of_worship",
+      "building": "yes",
+      "denomination": "roman_catholic",
+      "religion": "christian"
+    }
+  },
+  {
+    "osm_id": "way/173755306",
+    "lat": 39.433659,
+    "lon": -31.2547357,
+    "tags": {
+      "addr:city": "Fajãzinha",
+      "addr:postcode": "9960-110",
+      "addr:street": "Largo do Outeiro",
+      "amenity": "place_of_worship",
+      "building": "yes",
+      "denomination": "roman_catholic",
+      "name": "Império da Fajãzinha",
+      "religion": "christian",
+      "source": "https://www.igogo.pt/;http://www.inventario.iacultura.pt"
+    }
+  },
+  {
+    "osm_id": "way/173755323",
+    "lat": 39.3801093,
+    "lon": -31.1805574,
+    "tags": {
+      "addr:city": "Lajes das Flores",
+      "addr:housenumber": "1",
+      "addr:postcode": "9960-441",
+      "addr:street": "Rua Mauricio António Fraga",
+      "building": "yes",
+      "email": "luis.gregorio@sapo.pt",
+      "name": "Luís Gregório Freitas",
+      "official_name": "Luís Gregório Freitas, Lda.",
+      "phone": "+351 292 593 303",
+      "shop": "supermarket",
+      "source": "http://www.pai.pt/"
+    }
+  },
+  {
+    "osm_id": "way/173755387",
+    "lat": 39.3797411,
+    "lon": -31.1809648,
+    "tags": {
+      "addr:city": "Lajes das Flores",
+      "addr:postcode": "9960-435",
+      "addr:street": "Rua João Germano de Deus",
+      "amenity": "parking",
+      "name": "Parque de Estacionamento da Rua João Germano de Deus",
+      "parking": "surface"
+    }
+  },
+  {
+    "osm_id": "way/173757385",
+    "lat": 39.4527292,
+    "lon": -31.1276194,
+    "tags": {
+      "amenity": "place_of_worship",
+      "building": "church",
+      "denomination": "roman_catholic",
+      "name": "Igreja Matriz Nossa Senhora da Conceição",
+      "name:es": "Inglesa de Nuestra Señora de la Concepción",
+      "religion": "christian",
+      "wheelchair": "no",
+      "wikidata": "Q10300002",
+      "wikipedia": "en:Church of Nossa Senhora da Conceição (Santa Cruz das Flores)"
+    }
+  },
+  {
+    "osm_id": "way/208628892",
+    "lat": 39.374255,
+    "lon": -31.2068096,
+    "tags": {
+      "natural": "beach"
+    }
+  },
+  {
+    "osm_id": "way/223950783",
+    "lat": 39.4358613,
+    "lon": -31.2564146,
+    "tags": {
+      "addr:city": "Fajãzinha",
+      "addr:postcode": "9960-110",
+      "addr:street": "Rua dos Rolos",
+      "amenity": "restaurant",
+      "building": "yes",
+      "capacity": "40",
+      "cuisine": "regional",
+      "description": "sun down view point",
+      "name": "Restaurante Pôr-do-Sol",
+      "opening_hours": "Jul-Aug Tu-Sa 12:00-14:00,19:00-21:00, Jul-Aug Su 12:00-14:00, Jul-Aug Mo off",
+      "phone": "+351 292 552 075;+351919 342 214;+351914485961",
+      "source": "http://pt.artazores.com"
+    }
+  },
+  {
+    "osm_id": "way/275429834",
+    "lat": 39.4513913,
+    "lon": -31.1281021,
+    "tags": {
+      "access": "yes",
+      "leisure": "playground"
+    }
+  },
+  {
+    "osm_id": "way/275433584",
+    "lat": 39.4514259,
+    "lon": -31.1283428,
+    "tags": {
+      "access": "yes",
+      "amenity": "parking",
+      "capacity": "17",
+      "capacity:disabled": "1",
+      "fee": "no",
+      "parking": "surface",
+      "surface": "asphalt"
+    }
+  },
+  {
+    "osm_id": "way/275433971",
+    "lat": 39.3795387,
+    "lon": -31.1812711,
+    "tags": {
+      "addr:city": "Lajes das Flores",
+      "addr:housenumber": "7",
+      "addr:postcode": "9960-435",
+      "addr:street": "Rua João Germano de Deus",
+      "building": "yes",
+      "email": "joaoagermanodeus@mail.telepac.pt",
+      "name": "João Germano de Deus & Filhos",
+      "official_name": "João Germano de Deus & Filhos, Lda.",
+      "opening_hours": "Mo-Su 08:30-18:30",
+      "phone": "+351 292 593 428",
+      "shop": "supermarket",
+      "source": "www.gescontact.pt"
+    }
+  },
+  {
+    "osm_id": "way/275509825",
+    "lat": 39.3792451,
+    "lon": -31.1817722,
+    "tags": {
+      "addr:city": "Lajes das Flores",
+      "addr:housenumber": "2",
+      "addr:postcode": "9960-410",
+      "addr:street": "Travessa da Cruz",
+      "amenity": "fuel",
+      "brand": "Galp",
+      "building": "yes",
+      "email": "galp@galpenergia.com",
+      "name": "João Germano de Deus & Filhos",
+      "official_name": "João Germano de Deus & Filhos, Lda.",
+      "opening_hours": "Mo-Su 08:30-17:30",
+      "phone": "+351 292 593 606",
+      "source": "http://www.galpenergia.com",
+      "website": "http://www.galpenergia.com"
+    }
+  },
+  {
+    "osm_id": "way/275515097",
+    "lat": 39.4584401,
+    "lon": -31.2636982,
+    "tags": {
+      "addr:city": "Fajã Grande",
+      "addr:postcode": "9960-438",
+      "addr:street": "Rua do Porto",
+      "air_conditioning": "no",
+      "amenity": "restaurant",
+      "brewery": "Superbock",
+      "building": "yes",
+      "changing_table": "no",
+      "contact:facebook": "https://www.facebook.com/Restaurante-Maresia-505034239613095/",
+      "cuisine": "regional",
+      "diet:halal": "no",
+      "diet:kosher": "no",
+      "diet:vegetarian": "no",
+      "indoor_seating": "yes",
+      "name": "Maresia",
+      "opening_hours": "Mo-Fr 12:30-15:30,18:00-22:00; Sa,Su 13:00-15:30,19:00-22:00",
+      "outdoor_seating": "beach",
+      "payment:credit_cards": "no",
+      "payment:debit_cards": "no",
+      "phone": "+351965665649",
+      "smoking": "outside",
+      "source": "https://www.facebook.com",
+      "toilets": "yes",
+      "wheelchair": "no"
+    }
+  },
+  {
+    "osm_id": "way/275515110",
+    "lat": 39.4532188,
+    "lon": -31.2624277,
+    "tags": {
+      "access": "yes",
+      "addr:city": "Fajã Grande",
+      "addr:postcode": "9960-030",
+      "addr:street": "Rua Senador André de Freitas",
+      "amenity": "parking",
+      "fee": "no",
+      "parking": "surface",
+      "source": "https://www.openstreetmap.org/"
+    }
+  },
+  {
+    "osm_id": "way/275515111",
+    "lat": 39.4579298,
+    "lon": -31.2636204,
+    "tags": {
+      "access": "yes",
+      "addr:city": "Fajã Grande",
+      "addr:postcode": "9960-438",
+      "addr:street": "Rua do Porto",
+      "amenity": "parking",
+      "capacity": "19",
+      "capacity:disabled": "no",
+      "fee": "no",
+      "parking": "surface"
+    }
+  },
+  {
+    "osm_id": "way/275606146",
+    "lat": 39.4538321,
+    "lon": -31.2620348,
+    "tags": {
+      "addr:city": "Fajã Grande",
+      "addr:housenumber": "5",
+      "addr:postcode": "9960-030",
+      "addr:street": "Rua Padre José Luis Fraga",
+      "amenity": "place_of_worship",
+      "building": "yes",
+      "check_date": "2024-06-02",
+      "denomination": "roman_catholic",
+      "name": "Casa do Espírito Santo de Cima da Fajã",
+      "religion": "christian",
+      "wheelchair": "no"
+    }
+  },
+  {
+    "osm_id": "way/275606147",
+    "lat": 39.4584264,
+    "lon": -31.2634144,
+    "tags": {
+      "access": "yes",
+      "leisure": "playground"
+    }
+  },
+  {
+    "osm_id": "way/275948375",
+    "lat": 39.4711777,
+    "lon": -31.255542,
+    "tags": {
+      "addr:city": "Fajã Grande",
+      "addr:postcode": "9960-060",
+      "addr:street": "Rua de Nossa Senhora do Carmo",
+      "amenity": "place_of_worship",
+      "building": "church",
+      "denomination": "roman_catholic",
+      "name": "Igreja de Nossa Senhora do Carmo",
+      "religion": "christian",
+      "source": "https://www.igogo.pt",
+      "wheelchair": "no"
+    }
+  },
+  {
+    "osm_id": "way/275959882",
+    "lat": 39.4130796,
+    "lon": -31.2512642,
+    "tags": {
+      "addr:city": "Mosteiro",
+      "addr:postcode": "9960-630",
+      "addr:street": "Largo José de Freitas Silva",
+      "amenity": "place_of_worship",
+      "building": "church",
+      "denomination": "roman_catholic",
+      "name": "Igreja da Santíssima Trindade",
+      "religion": "christian",
+      "source": "https://www.igogo.pt",
+      "source_1": "http://www.inventario.iacultura.pt",
+      "wikidata": "Q28226085",
+      "wikipedia": "en:Church of Santíssima Trindade (Mosteiro)"
+    }
+  },
+  {
+    "osm_id": "way/276149343",
+    "lat": 39.4462078,
+    "lon": -31.2567358,
+    "tags": {
+      "addr:city": "Fajã Grande",
+      "addr:postcode": "9960-070",
+      "addr:street": "Cuada",
+      "amenity": "place_of_worship",
+      "building": "chapel",
+      "denomination": "roman_catholic",
+      "name": "Capela de Santo António de Lisboa",
+      "religion": "christian",
+      "source": "https://www.igogo.pt/",
+      "wheelchair": "no"
+    }
+  },
+  {
+    "osm_id": "way/276554756",
+    "lat": 39.4595772,
+    "lon": -31.1294164,
+    "tags": {
+      "amenity": "place_of_worship",
+      "building": "chapel",
+      "denomination": "catholic",
+      "religion": "christian"
+    }
+  },
+  {
+    "osm_id": "way/319466165",
+    "lat": 39.3796898,
+    "lon": -31.1711188,
+    "tags": {
+      "addr:city": "Lajes das Flores",
+      "name": "Praia das Lajes ou Calheta",
+      "natural": "beach",
+      "source": "file:///E:/7_Lajes%20das%20Flores/Turismo/PDF's/Aguas_balneares_costeiras_identificadas_2017.pdf"
+    }
+  },
+  {
+    "osm_id": "way/319470845",
+    "lat": 39.3732301,
+    "lon": -31.2020215,
+    "tags": {
+      "natural": "beach"
+    }
+  },
+  {
+    "osm_id": "way/332371298",
+    "lat": 39.4550308,
+    "lon": -31.1267189,
+    "tags": {
+      "addr:city": "Santa Cruz das Flores",
+      "addr:postcode": "9970-305",
+      "addr:street": "Antigo Bairro dos Franceses",
+      "amenity": "police",
+      "building": "yes",
+      "name": "Esquadra de Santa Cruz das Flores",
+      "operator": "Polícia de Segurança Pública",
+      "operator:short": "PSP",
+      "operator:wikidata": "Q3460075",
+      "operator:wikipedia": "en:Polícia de Segurança Pública",
+      "source": "Bing"
+    }
+  },
+  {
+    "osm_id": "way/332371349",
+    "lat": 39.4520284,
+    "lon": -31.1293219,
+    "tags": {
+      "alt_name": "Convento de São Boaventura",
+      "name": "Museu das Flores",
+      "name:en": "Flores Museum",
+      "opening_hours": "Apr-Sep Tu-Su 10:00-17:30; Oct-Mar Tu-Su 09:30-17:00",
+      "source": "Bing",
+      "tourism": "museum",
+      "wikidata": "Q16890585",
+      "wikipedia": "en:Convent of São Boaventura"
+    }
+  },
+  {
+    "osm_id": "way/492267335",
+    "lat": 39.4024455,
+    "lon": -31.1558552,
+    "tags": {
+      "access": "customers",
+      "amenity": "parking",
+      "capacity": "11"
+    }
+  },
+  {
+    "osm_id": "way/517682940",
+    "lat": 39.4617545,
+    "lon": -31.2590172,
+    "tags": {
+      "addr:city": "Fajã Grande",
+      "addr:postcode": "9960-030",
+      "addr:street": "Estrada Muncipal da Ponta da Fajã Grande",
+      "name": "Praia Fajã Grande",
+      "natural": "beach",
+      "source": "http://servicos-sraa.azores.gov.pt/grastore/DRAM/Aguas_Balneares/Aguas_balneares_costeiras_identificadas_2017.pdf"
+    }
+  },
+  {
+    "osm_id": "way/540412637",
+    "lat": 39.4017786,
+    "lon": -31.1565477,
+    "tags": {
+      "addr:city": "Lomba",
+      "addr:postcode": "9960-520",
+      "addr:street": "Rua do Adro",
+      "amenity": "place_of_worship",
+      "building": "church",
+      "denomination": "roman_catholic",
+      "name": "Igreja Paroquial de São Caetano",
+      "religion": "christian",
+      "source": "https://www.tripadvisor.com",
+      "source_1": "http://www.inventario.iacultura.pt"
+    }
+  },
+  {
+    "osm_id": "way/540413569",
+    "lat": 39.3891418,
+    "lon": -31.1664857,
+    "tags": {
+      "addr:city": "Fazenda",
+      "addr:postcode": "9960-439",
+      "addr:street": "Rua Dr. José Freitas Pimentel",
+      "amenity": "place_of_worship",
+      "building": "church",
+      "denomination": "roman_catholic",
+      "name": "Igreja do Senhor Santo Cristo dos Milagres",
+      "religion": "christian",
+      "source": "http://www.inventario.iacultura.pt",
+      "source_1": "https://www.igogo.pt/ / http://www.inventario.iacultura.pt/",
+      "wikidata": "Q28226093",
+      "wikipedia": "en:Church of Senhor Santo Cristo dos Milagres (Fazenda)"
+    }
+  },
+  {
+    "osm_id": "way/540413873",
+    "lat": 39.392461,
+    "lon": -31.2484021,
+    "tags": {
+      "addr:city": "Lajedo",
+      "addr:postcode": "9960-360",
+      "addr:street": "Rua da Igreja",
+      "amenity": "place_of_worship",
+      "building": "church",
+      "denomination": "roman_catholic",
+      "name": "Igreja de Nossa Senhora dos Milagres",
+      "religion": "christian",
+      "source": "http://www.inventario.iacultura.pt;https://www.igogo.pt",
+      "wikidata": "Q28226097",
+      "wikipedia": "en:Church of Nossa Senhora dos Milagres (Lajedo)"
+    }
+  },
+  {
+    "osm_id": "way/540417372",
+    "lat": 39.3769284,
+    "lon": -31.1739799,
+    "tags": {
+      "addr:city": "Lajes das Flores",
+      "addr:postcode": "9960-430",
+      "addr:street": "Rua da Autonomia",
+      "amenity": "place_of_worship",
+      "building": "chapel",
+      "denomination": "roman_catholic",
+      "name": "Capela da Nossa Senhora das Angústias",
+      "religion": "christian",
+      "source": "http://www.inventario.iacultura.pt / www.igogo.pt"
+    }
+  },
+  {
+    "osm_id": "way/585507275",
+    "lat": 39.4521115,
+    "lon": -31.1292301,
+    "tags": {
+      "amenity": "place_of_worship",
+      "name": "Igreja de São Boaventura",
+      "religion": "christian"
+    }
+  },
+  {
+    "osm_id": "way/598309774",
+    "lat": 39.4742345,
+    "lon": -31.1485189,
+    "tags": {
+      "name": "Baía de Alagoa",
+      "natural": "beach",
+      "supervised": "no",
+      "surface": "pebblestone"
+    }
+  },
+  {
+    "osm_id": "way/598361960",
+    "lat": 39.4509671,
+    "lon": -31.1281825,
+    "tags": {
+      "access": "yes",
+      "amenity": "parking",
+      "capacity": "20",
+      "capacity:disabled": "no",
+      "fee": "no",
+      "parking": "surface",
+      "surface": "asphalt"
+    }
+  },
+  {
+    "osm_id": "way/598361965",
+    "lat": 39.4582331,
+    "lon": -31.1298832,
+    "tags": {
+      "access": "yes",
+      "leisure": "playground"
+    }
+  },
+  {
+    "osm_id": "way/598361967",
+    "lat": 39.4620011,
+    "lon": -31.1271689,
+    "tags": {
+      "access": "yes",
+      "amenity": "parking",
+      "capacity": "11",
+      "capacity:disabled": "1",
+      "check_date:fee": "2026-07-08",
+      "fee": "no",
+      "lit": "no",
+      "parking": "surface",
+      "smoothness": "excellent",
+      "surface": "concrete"
+    }
+  },
+  {
+    "osm_id": "way/598361971",
+    "lat": 39.4505962,
+    "lon": -31.1282232,
+    "tags": {
+      "building": "public",
+      "name": "Museu e Auditório Municipal",
+      "name:es": "Museo y Auditorio Municipal",
+      "opening_hours": "Mo-Fr 09:00-12:30,13:30-17:00",
+      "tourism": "museum"
+    }
+  },
+  {
+    "osm_id": "way/598361977",
+    "lat": 39.4579988,
+    "lon": -31.1268618,
+    "tags": {
+      "access": "yes",
+      "leisure": "playground"
+    }
+  },
+  {
+    "osm_id": "way/598361979",
+    "lat": 39.4583126,
+    "lon": -31.1288166,
+    "tags": {
+      "building": "yes",
+      "building:levels": "1",
+      "name": "Mini-Mercado Luis Gregório",
+      "name:pt": "Spar",
+      "opening_hours": "Tu-Sa 09:00-18:00",
+      "roof:shape": "flat",
+      "shop": "supermarket"
+    }
+  },
+  {
+    "osm_id": "way/598361984",
+    "lat": 39.4582055,
+    "lon": -31.126529,
+    "tags": {
+      "access": "yes",
+      "amenity": "parking",
+      "capacity": "40",
+      "fee": "no",
+      "lit": "no",
+      "parking": "surface",
+      "smoothness": "good",
+      "surface": "asphalt"
+    }
+  },
+  {
+    "osm_id": "way/598361989",
+    "lat": 39.4508619,
+    "lon": -31.1275452,
+    "tags": {
+      "natural": "beach",
+      "surface": "pebblestone"
+    }
+  },
+  {
+    "osm_id": "way/605164617",
+    "lat": 39.4399424,
+    "lon": -31.2241088,
+    "tags": {
+      "access": "yes",
+      "amenity": "parking",
+      "fee": "no",
+      "parking": "surface"
+    }
+  },
+  {
+    "osm_id": "way/616782727",
+    "lat": 39.4621976,
+    "lon": -31.1278865,
+    "tags": {
+      "access": "customers",
+      "amenity": "parking",
+      "capacity": "40",
+      "parking": "surface",
+      "smoothness": "intermediate",
+      "surface": "concrete"
+    }
+  },
+  {
+    "osm_id": "way/627151519",
+    "lat": 39.3762204,
+    "lon": -31.1795296,
+    "tags": {
+      "air_conditioning": "no",
+      "building": "yes",
+      "building:levels": "1",
+      "currency:EUR": "yes",
+      "diet:halal": "no",
+      "diet:kosher": "no",
+      "name": "HéLIO‘s",
+      "opening_hours": "Mo-Fri 09:00-19:00; Sa 09:00-18:00",
+      "payment:credit_cards": "yes",
+      "payment:debit_cards": "yes",
+      "phone": "+351 292 593 071",
+      "shop": "supermarket",
+      "toilets": "yes",
+      "wheelchair": "yes"
+    }
+  },
+  {
+    "osm_id": "way/674215606",
+    "lat": 39.3924454,
+    "lon": -31.2488465,
+    "tags": {
+      "addr:city": "Lajedo",
+      "addr:postcode": "9960-360",
+      "addr:street": "Rua Avelino Lopes de Freitas",
+      "amenity": "place_of_worship",
+      "building": "yes",
+      "denomination": "roman_catholic",
+      "name": "Império da Casa do Espírito Santo",
+      "religion": "christian",
+      "source": "http://www.inventario.iacultura.pt"
+    }
+  },
+  {
+    "osm_id": "way/674765927",
+    "lat": 39.5201328,
+    "lon": -31.2130047,
+    "tags": {
+      "amenity": "toilets",
+      "building": "yes",
+      "fee": "no",
+      "female": "yes",
+      "male": "yes"
+    }
+  },
+  {
+    "osm_id": "way/674765946",
+    "lat": 39.5204946,
+    "lon": -31.2079443,
+    "tags": {
+      "amenity": "toilets",
+      "building": "yes",
+      "fee": "no",
+      "female": "yes",
+      "male": "yes",
+      "shower": "yes"
+    }
+  },
+  {
+    "osm_id": "way/675709247",
+    "lat": 39.4359193,
+    "lon": -31.2566567,
+    "tags": {
+      "amenity": "parking"
+    }
+  },
+  {
+    "osm_id": "way/678524341",
+    "lat": 39.3787144,
+    "lon": -31.1706653,
+    "tags": {
+      "amenity": "restaurant",
+      "building": "retail",
+      "name": "Cachalote"
+    }
+  },
+  {
+    "osm_id": "way/680781115",
+    "lat": 39.4533318,
+    "lon": -31.1298746,
+    "tags": {
+      "addr:city": "Santa Cruz das Flores",
+      "addr:postcode": "9970-334",
+      "amenity": "bank",
+      "atm": "yes",
+      "branch": "Caixa Flores - Santa Cruz",
+      "branch:type": "retail",
+      "brand": "Caixa Geral de Depósitos",
+      "brand:website": "https://www.cgd.pt/",
+      "brand:wikidata": "Q1026044",
+      "brand:wikipedia": "pt:Caixa Geral de Depósitos",
+      "building": "yes",
+      "contact:facebook": "caixageraldedepositos",
+      "contact:instagram": "caixageraldedepositos",
+      "contact:linkedin": "https://www.linkedin.com/company/caixageraldedepositos/",
+      "contact:phone": "+351 217 900 790",
+      "contact:youtube": "http://www.youtube.com/user/mediacgd",
+      "name": "Caixa Geral de Depósitos",
+      "opening_hours": "Mo-Fr 08:30-12:30,13:30-15:00; Sa,Su,PH off",
+      "operator": "Caixa Geral de Depósitos",
+      "operator:wikidata": "Q1026044",
+      "operator:wikipedia": "pt:Caixa Geral de Depósitos",
+      "ref": "1649",
+      "short_name": "CGD",
+      "source:contact": "website",
+      "source:opening_hours": "website",
+      "website": "https://www.cgd.pt/Corporativo/Rede-CGD/Pages/SANTA-CRUZ-FLORES.aspx"
+    }
+  },
+  {
+    "osm_id": "way/722956613",
+    "lat": 39.3936511,
+    "lon": -31.2077996,
+    "tags": {
+      "leisure": "playground"
+    }
+  },
+  {
+    "osm_id": "way/722956629",
+    "lat": 39.3930581,
+    "lon": -31.2077252,
+    "tags": {
+      "access": "yes",
+      "amenity": "parking",
+      "fee": "no",
+      "operator": "DRRF",
+      "parking": "surface",
+      "surface": "unpaved"
+    }
+  },
+  {
+    "osm_id": "way/962320628",
+    "lat": 39.4513138,
+    "lon": -31.1293019,
+    "tags": {
+      "addr:city": "Santa Cruz das Flores",
+      "addr:country": "PT",
+      "addr:postcode": "9970-303",
+      "addr:street": "Rua do Hospital",
+      "amenity": "clinic",
+      "email": "sres-usiflores@azores.gov.pt",
+      "healthcare": "clinic",
+      "name": "Centro de Saúde de Santa Cruz das Flores",
+      "opening_hours": "24/7",
+      "operator": "USI Flores",
+      "phone": "+351 292590270",
+      "related_law": "Decreto Regulamentar Regional n.º 19/2010/A de 19 de novembro",
+      "source:related_law": "https://dre.pt/application/conteudo/308712",
+      "wheelchair": "yes",
+      "wikidata": "Q117315422"
+    }
+  },
+  {
+    "osm_id": "way/1070247949",
+    "lat": 39.4582762,
+    "lon": -31.1283479,
+    "tags": {
+      "amenity": "parking",
+      "parking": "street_side"
+    }
+  },
+  {
+    "osm_id": "way/1070247982",
+    "lat": 39.4592182,
+    "lon": -31.1293149,
+    "tags": {
+      "amenity": "parking"
+    }
+  },
+  {
+    "osm_id": "way/1070516847",
+    "lat": 39.4550001,
+    "lon": -31.127238,
+    "tags": {
+      "amenity": "parking"
+    }
+  },
+  {
+    "osm_id": "way/1070516852",
+    "lat": 39.4556908,
+    "lon": -31.1276431,
+    "tags": {
+      "amenity": "parking"
+    }
+  },
+  {
+    "osm_id": "way/1070516895",
+    "lat": 39.4581311,
+    "lon": -31.1288244,
+    "tags": {
+      "amenity": "parking",
+      "parking": "street_side"
+    }
+  },
+  {
+    "osm_id": "way/1070931183",
+    "lat": 39.4529311,
+    "lon": -31.1278528,
+    "tags": {
+      "amenity": "parking",
+      "capacity:disabled": "no",
+      "orientation": "parallel",
+      "parking": "street_side"
+    }
+  },
+  {
+    "osm_id": "way/1070931191",
+    "lat": 39.4533888,
+    "lon": -31.126791,
+    "tags": {
+      "amenity": "parking"
+    }
+  },
+  {
+    "osm_id": "way/1070931199",
+    "lat": 39.4525137,
+    "lon": -31.1263294,
+    "tags": {
+      "amenity": "parking",
+      "parking": "street_side"
+    }
+  },
+  {
+    "osm_id": "way/1070931200",
+    "lat": 39.450114,
+    "lon": -31.128825,
+    "tags": {
+      "amenity": "parking",
+      "capacity:disabled": "no",
+      "orientation": "perpendicular",
+      "parking": "street_side"
+    }
+  },
+  {
+    "osm_id": "way/1070931210",
+    "lat": 39.4518158,
+    "lon": -31.128886,
+    "tags": {
+      "amenity": "parking",
+      "parking": "street_side"
+    }
+  },
+  {
+    "osm_id": "way/1070931214",
+    "lat": 39.45221,
+    "lon": -31.1280884,
+    "tags": {
+      "amenity": "parking",
+      "capacity:disabled": "no",
+      "orientation": "diagonal",
+      "parking": "street_side"
+    }
+  },
+  {
+    "osm_id": "way/1070931215",
+    "lat": 39.4522989,
+    "lon": -31.1286537,
+    "tags": {
+      "amenity": "parking"
+    }
+  },
+  {
+    "osm_id": "way/1070931216",
+    "lat": 39.4522427,
+    "lon": -31.1281903,
+    "tags": {
+      "amenity": "parking",
+      "capacity:disabled": "no",
+      "orientation": "diagonal",
+      "parking": "street_side"
+    }
+  },
+  {
+    "osm_id": "way/1070931242",
+    "lat": 39.4538589,
+    "lon": -31.1282133,
+    "tags": {
+      "amenity": "parking"
+    }
+  },
+  {
+    "osm_id": "way/1070931264",
+    "lat": 39.4538803,
+    "lon": -31.126235,
+    "tags": {
+      "access": "yes",
+      "amenity": "parking",
+      "fee": "no",
+      "parking": "surface"
+    }
+  },
+  {
+    "osm_id": "way/1070931265",
+    "lat": 39.4537971,
+    "lon": -31.126363,
+    "tags": {
+      "access": "yes",
+      "amenity": "parking",
+      "fee": "no",
+      "parking": "surface"
+    }
+  },
+  {
+    "osm_id": "way/1070931270",
+    "lat": 39.4540747,
+    "lon": -31.1278778,
+    "tags": {
+      "amenity": "parking",
+      "capacity:disabled": "no",
+      "orientation": "parallel",
+      "parking": "street_side"
+    }
+  },
+  {
+    "osm_id": "way/1071030388",
+    "lat": 39.4622007,
+    "lon": -31.131237,
+    "tags": {
+      "amenity": "parking"
+    }
+  },
+  {
+    "osm_id": "way/1071082160",
+    "lat": 39.450471,
+    "lon": -31.1310088,
+    "tags": {
+      "amenity": "parking",
+      "parking": "surface"
+    }
+  },
+  {
+    "osm_id": "way/1071337051",
+    "lat": 39.4592035,
+    "lon": -31.1396735,
+    "tags": {
+      "amenity": "parking"
+    }
+  },
+  {
+    "osm_id": "way/1077441335",
+    "lat": 39.4011684,
+    "lon": -31.1562562,
+    "tags": {
+      "amenity": "parking"
+    }
+  },
+  {
+    "osm_id": "way/1078540890",
+    "lat": 39.4459606,
+    "lon": -31.1699663,
+    "tags": {
+      "amenity": "parking",
+      "capacity": "5"
+    }
+  },
+  {
+    "osm_id": "way/1080504588",
+    "lat": 39.4452741,
+    "lon": -31.2181791,
+    "tags": {
+      "access": "yes",
+      "amenity": "parking",
+      "capacity": "15",
+      "capacity:disabled": "no",
+      "fee": "no",
+      "parking": "surface"
+    }
+  },
+  {
+    "osm_id": "way/1080578263",
+    "lat": 39.4747206,
+    "lon": -31.2012651,
+    "tags": {
+      "access": "yes",
+      "amenity": "parking",
+      "fee": "no",
+      "parking": "surface"
+    }
+  },
+  {
+    "osm_id": "way/1189578563",
+    "lat": 39.4578664,
+    "lon": -31.1266452,
+    "tags": {
+      "tourism": "camp_site"
+    }
+  },
+  {
+    "osm_id": "way/1199971672",
+    "lat": 39.4370705,
+    "lon": -31.2434053,
+    "tags": {
+      "access": "yes",
+      "amenity": "parking",
+      "capacity": "7",
+      "capacity:disabled": "no",
+      "covered": "no",
+      "fee": "no",
+      "maxstay": "unlimited",
+      "opening_hours": "24/7",
+      "park_ride": "no",
+      "parking": "surface",
+      "supervised": "no",
+      "surface": "ground"
+    }
+  },
+  {
+    "osm_id": "way/1200585182",
+    "lat": 39.5154398,
+    "lon": -31.2332934,
+    "tags": {
+      "lifeguard": "no",
+      "natural": "beach",
+      "supervised": "no",
+      "surface": "cobblestone"
+    }
+  },
+  {
+    "osm_id": "way/1200613472",
+    "lat": 39.5206425,
+    "lon": -31.2084518,
+    "tags": {
+      "air_conditioning": "no",
+      "amenity": "restaurant",
+      "bar": "yes",
+      "building": "yes",
+      "cuisine": "burger",
+      "delivery": "no",
+      "highchair": "no",
+      "internet_access": "wlan",
+      "internet_access:fee": "no",
+      "internet_access:ssid": "flordelotus",
+      "microbrewery": "no",
+      "name": "Flor de Lotus",
+      "outdoor_seating": "yes",
+      "payment:apple_pay": "yes",
+      "payment:cards": "yes",
+      "payment:cash": "yes",
+      "phone": "+351 919 483 375",
+      "toilets": "yes"
+    }
+  },
+  {
+    "osm_id": "way/1200613473",
+    "lat": 39.5206428,
+    "lon": -31.2082214,
+    "tags": {
+      "amenity": "parking",
+      "covered": "no",
+      "fee": "no",
+      "park_ride": "no",
+      "parking": "surface",
+      "supervised": "no",
+      "surface": "compacted"
+    }
+  },
+  {
+    "osm_id": "way/1200613474",
+    "lat": 39.5205408,
+    "lon": -31.2079466,
+    "tags": {
+      "access": "yes",
+      "caravans": "no",
+      "drinking_water": "yes",
+      "fee": "no",
+      "name": "Parque de Merendas",
+      "picnic_table": "yes",
+      "power_supply": "no",
+      "shower": "yes",
+      "tents": "yes",
+      "toilets": "yes",
+      "tourism": "camp_site",
+      "wheelchair": "yes"
+    }
+  },
+  {
+    "osm_id": "way/1200613475",
+    "lat": 39.5203104,
+    "lon": -31.2080173,
+    "tags": {
+      "access": "yes",
+      "indoor": "no",
+      "leisure": "playground",
+      "playground:theme": "horse",
+      "surface": "tartan"
+    }
+  },
+  {
+    "osm_id": "way/1200624222",
+    "lat": 39.4950461,
+    "lon": -31.157596,
+    "tags": {
+      "access": "yes",
+      "amenity": "parking",
+      "capacity": "7",
+      "covered": "no",
+      "fee": "no",
+      "park_ride": "no",
+      "supervised": "no",
+      "surface": "asphalt"
+    }
+  },
+  {
+    "osm_id": "way/1238415051",
+    "lat": 39.4496786,
+    "lon": -31.265673,
+    "tags": {
+      "access": "yes",
+      "amenity": "parking",
+      "capacity:disabled": "no",
+      "fee": "no",
+      "parking": "surface"
+    }
+  },
+  {
+    "osm_id": "way/1255265833",
+    "lat": 39.5201733,
+    "lon": -31.2078944,
+    "tags": {
+      "access": "yes",
+      "amenity": "parking",
+      "covered": "no",
+      "fee": "no",
+      "parking": "street_side",
+      "supervised": "no"
+    }
+  },
+  {
+    "osm_id": "way/1346877913",
+    "lat": 39.4483459,
+    "lon": -31.2601569,
+    "tags": {
+      "amenity": "parking"
+    }
+  },
+  {
+    "osm_id": "way/1346877914",
+    "lat": 39.4483765,
+    "lon": -31.2600178,
+    "tags": {
+      "amenity": "parking"
+    }
+  },
+  {
+    "osm_id": "way/1354412142",
+    "lat": 39.4567254,
+    "lon": -31.1353908,
+    "tags": {
+      "access": "customers",
+      "amenity": "parking",
+      "operator": "Casas da Quinta",
+      "surface": "dirt"
+    }
+  },
+  {
+    "osm_id": "way/1388967814",
+    "lat": 39.4264309,
+    "lon": -31.2383729,
+    "tags": {
+      "amenity": "parking",
+      "fee": "no",
+      "surface": "asphalt"
+    }
+  },
+  {
+    "osm_id": "way/1395103813",
+    "lat": 39.4518492,
+    "lon": -31.1258173,
+    "tags": {
+      "amenity": "parking",
+      "parking": "street_side"
+    }
+  }
+]
