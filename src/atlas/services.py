@@ -238,6 +238,39 @@ def serialize_tombstone(tombstone: AtlasTombstone) -> dict[str, Any]:
     }
 
 
+def build_atlas_stats(*, island: Island | None = None) -> dict[str, Any]:
+    """Published catalogue totals for marketing / landing pages.
+
+    When ``island`` is set, counts are scoped to that tenant. Otherwise returns
+    archipelago-wide totals (all islands).
+    """
+    pois = AtlasPoi.objects.unscoped().filter(is_published=True, is_active=True)
+    trails = AtlasTrail.objects.unscoped().filter(is_published=True, is_active=True)
+    categories = AtlasCategory.objects.unscoped().filter(is_active=True)
+
+    if island is not None:
+        pois = pois.filter(island=island)
+        trails = trails.filter(island=island)
+        categories = categories.filter(island=island)
+        island_count = 1
+    else:
+        island_count = (
+            Island.objects.filter(
+                id__in=AtlasPoi.objects.unscoped()
+                .filter(is_published=True, is_active=True)
+                .values_list('island_id', flat=True)
+                .distinct(),
+            ).count()
+        )
+
+    return {
+        'pois': pois.count(),
+        'trails': trails.count(),
+        'categories': categories.count(),
+        'islands': island_count,
+    }
+
+
 def build_sync_page(island: Island, *, since: int, limit: int) -> dict[str, Any]:
     """One page of the delta-sync response. `revision` in the response is the page's max —
     the client's next cursor. Ordering by revision keeps paging stable under concurrent writes.

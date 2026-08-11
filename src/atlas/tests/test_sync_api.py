@@ -105,3 +105,30 @@ class SyncApiTenantIsolationTestCase(TestCase):
         names = [poi['name']['en'] for poi in response.json()['pois']]
         self.assertIn('POI only-in-b', names)
         self.assertNotIn('POI only-in-a', names)
+
+
+class AtlasStatsApiTestCase(TestCase):
+    def setUp(self):
+        self.island = get_or_create_default_island()
+        self.category = AtlasCategory.objects.create(
+            island=self.island, slug='stats-cat', name={'en': 'Stats'}, revision=1,
+        )
+        _make_poi(self.island, self.category, ref='stats-1', published=True)
+        _make_poi(self.island, self.category, ref='stats-2', published=True)
+        _make_poi(self.island, self.category, ref='stats-hidden', published=False)
+
+    def test_stats_endpoint_returns_published_totals(self):
+        client = APIClient()
+        response = client.get('/api/v3/atlas/stats')
+        self.assertEqual(response.status_code, 200)
+        body = response.json()
+        self.assertGreaterEqual(body['pois'], 2)
+        self.assertIn('trails', body)
+        self.assertIn('islands', body)
+        self.assertIn('categories', body)
+
+    def test_stats_endpoint_can_scope_to_island(self):
+        client = APIClient()
+        response = client.get('/api/v3/atlas/stats', HTTP_X_ISLAND='sao-miguel')
+        self.assertEqual(response.status_code, 200)
+        self.assertGreaterEqual(response.json()['pois'], 2)

@@ -8,7 +8,7 @@ from rest_framework.permissions import AllowAny
 from rest_framework.request import Request
 from rest_framework.response import Response
 
-from atlas.services import SYNC_DEFAULT_LIMIT, build_sync_page
+from atlas.services import SYNC_DEFAULT_LIMIT, build_atlas_stats, build_sync_page
 from atlas.throttling import AtlasSyncThrottle
 from tenancy.services import for_island
 
@@ -20,6 +20,23 @@ def _require_island(request: Request) -> Response | None:
             status=status.HTTP_400_BAD_REQUEST,
         )
     return None
+
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
+@throttle_classes([AtlasSyncThrottle])
+def stats_view(request: Request) -> Response:
+    """Public catalogue totals for the Offline Map landing page (and similar surfaces).
+
+    Island header is optional: omit it for archipelago-wide counts, or send ``X-Island``
+    to scope to one tenant.
+    """
+    if request.island is not None:
+        with for_island(request.island):
+            payload = build_atlas_stats(island=request.island)
+    else:
+        payload = build_atlas_stats()
+    return Response(payload)
 
 
 @api_view(['GET'])
