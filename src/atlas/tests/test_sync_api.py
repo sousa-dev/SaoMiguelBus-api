@@ -109,26 +109,42 @@ class SyncApiTenantIsolationTestCase(TestCase):
 
 class AtlasStatsApiTestCase(TestCase):
     def setUp(self):
+        from tenancy.models import Island
+
         self.island = get_or_create_default_island()
+        self.island_b, _ = Island.objects.get_or_create(
+            key='test-stats-island',
+            defaults={**Island.default_sao_miguel(), 'key': 'test-stats-island', 'name': 'Stats Island'},
+        )
+        self.island_b.feature_flags = {**self.island_b.feature_flags, 'atlas': True}
+        self.island_b.save(update_fields=['feature_flags'])
+
         self.category = AtlasCategory.objects.create(
             island=self.island, slug='stats-cat', name={'en': 'Stats'}, revision=1,
+        )
+        self.category_b = AtlasCategory.objects.create(
+            island=self.island_b, slug='stats-cat', name={'en': 'Stats'}, revision=1,
         )
         _make_poi(self.island, self.category, ref='stats-1', published=True)
         _make_poi(self.island, self.category, ref='stats-2', published=True)
         _make_poi(self.island, self.category, ref='stats-hidden', published=False)
+        _make_poi(self.island_b, self.category_b, ref='stats-other', published=True)
 
-    def test_stats_endpoint_returns_published_totals(self):
+    def test_stats_endpoint_defaults_to_archipelago_totals(self):
         client = APIClient()
+        # No X-Island — TenantMiddleware still binds DEFAULT_ISLAND_KEY.
         response = client.get('/api/v3/atlas/stats')
         self.assertEqual(response.status_code, 200)
         body = response.json()
-        self.assertGreaterEqual(body['pois'], 2)
+        self.assertGreaterEqual(body['pois'], 3)
+        self.assertGreaterEqual(body['islands'], 2)
         self.assertIn('trails', body)
-        self.assertIn('islands', body)
         self.assertIn('categories', body)
 
     def test_stats_endpoint_can_scope_to_island(self):
         client = APIClient()
         response = client.get('/api/v3/atlas/stats', HTTP_X_ISLAND='sao-miguel')
         self.assertEqual(response.status_code, 200)
-        self.assertGreaterEqual(response.json()['pois'], 2)
+        body = response.json()
+        self.assertEqual(body['pois'], 2)
+        self.assertEqual(body['islands'], 1)

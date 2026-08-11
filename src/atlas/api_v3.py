@@ -22,16 +22,29 @@ def _require_island(request: Request) -> Response | None:
     return None
 
 
+def _explicit_island_requested(request: Request) -> bool:
+    """True only when the client sent X-Island / ?island= (not TenantMiddleware default)."""
+    header = request.headers.get('X-Island') or request.META.get('HTTP_X_ISLAND')
+    if header and header.strip():
+        return True
+    query = request.query_params.get('island')
+    return bool(query and str(query).strip())
+
+
 @api_view(['GET'])
 @permission_classes([AllowAny])
 @throttle_classes([AtlasSyncThrottle])
 def stats_view(request: Request) -> Response:
     """Public catalogue totals for the Offline Map landing page (and similar surfaces).
 
-    Island header is optional: omit it for archipelago-wide counts, or send ``X-Island``
-    to scope to one tenant.
+    Omit ``X-Island`` / ``?island=`` for archipelago-wide counts. Send either to scope
+    to one tenant. (TenantMiddleware always binds a default island, so we must not
+    treat ``request.island is not None`` as an explicit scope request.)
     """
-    if request.island is not None:
+    if _explicit_island_requested(request):
+        err = _require_island(request)
+        if err:
+            return err
         with for_island(request.island):
             payload = build_atlas_stats(island=request.island)
     else:
