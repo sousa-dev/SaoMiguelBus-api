@@ -1,0 +1,596 @@
+[
+  {
+    "n": 1,
+    "path": "/stops",
+    "file": "stops.json",
+    "bytes": 167659
+  },
+  {
+    "n": 2,
+    "path": "/routes?active=true&passengerInfo=true",
+    "file": "routes.json",
+    "bytes": 5878
+  },
+  {
+    "n": 3,
+    "path": "/routes/1",
+    "file": "route_1.json",
+    "bytes": 13636
+  },
+  {
+    "n": 4,
+    "path": "/routes/2",
+    "file": "route_2.json",
+    "bytes": 23246
+  },
+  {
+    "n": 5,
+    "path": "/routes/9",
+    "file": "route_9.json",
+    "bytes": 10207
+  },
+  {
+    "n": 6,
+    "path": "/routes/25",
+    "file": "route_25.json",
+    "bytes": 12332
+  },
+  {
+    "n": 7,
+    "path": "/routes/31",
+    "file": "route_31.json",
+    "bytes": 9729
+  },
+  {
+    "n": 8,
+    "path": "/routes/48",
+    "file": "route_48.json",
+    "bytes": 17265
+  },
+  {
+    "n": 9,
+    "path": "/routes/53",
+    "file": "route_53.json",
+    "bytes": 9040
+  },
+  {
+    "n": 10,
+    "path": "/routes/1/journeys?day=2026-09-14",
+    "file": "journeys_1_2026-09-14.json",
+    "bytes": 1257
+  },
+  {
+    "n": 11,
+    "path": "/routes/1/journeys?day=2026-09-15",
+    "file": "journeys_1_2026-09-15.json",
+    "bytes": 1257
+  },
+  {
+    "n": 12,
+    "path": "/routes/1/journeys?day=2026-09-16",
+    "file": "journeys_1_2026-09-16.json",
+    "bytes": 1257
+  },
+  {
+    "n": 13,
+    "path": "/routes/1/journeys?day=2026-09-17",
+    "file": "journeys_1_2026-09-17.json",
+    "bytes": 1257
+  },
+  {
+    "n": 14,
+    "path": "/routes/1/journeys?day=2026-09-18",
+    "file": "journeys_1_2026-09-18.json",
+    "bytes": 1257
+  },
+  {
+    "n": 15,
+    "path": "/routes/1/journeys?day=2026-09-19",
+    "file": "journeys_1_2026-09-19.json",
+    "bytes": 158
+  },
+  {
+    "n": 16,
+    "path": "/routes/1/journeys?day=2026-09-20",
+    "file": "journeys_1_2026-09-20.json",
+    "bytes": 159
+  },
+  {
+    "n": 17,
+    "path": "/routes/1/journeys?day=2026-09-02",
+    "file": "journeys_1_2026-09-02.json",
+    "bytes": 1257
+  },
+  {
+    "n": 18,
+    "path": "/routes/1/journeys?day=2026-12-08",
+    "file": "journeys_1_2026-12-08.json",
+    "bytes": 159
+  },
+  {
+    "n": 19,
+    "path": "/routes/1/journeys?day=2027-01-11",
+    "file": "journeys_1_2027-01-11.json",
+    "bytes": 1257
+  },
+  {
+    "n": 20,
+    "path": "/routes/1/journeys?day=2027-07-12",
+    "file": "journeys_1_2027-07-12.json",
+    "bytes": 1257
+  },
+  {
+    "n": 21,
+    "path": "/routes/2/journeys?day=2026-09-14",
+    "file": "journeys_2_2026-09-14.json",
+    "bytes": 4319
+  },
+  {
+    "n": 22,
+    "path": "/routes/2/journeys?day=2026-09-15",
+    "file": "journeys_2_2026-09-15.json",
+    "bytes": 4319
+  },
+  {
+    "n": 23,
+    "path": "/routes/2/journeys?day=2026-09-16",
+    "file": "journeys_2_2026-09-16.json",
+    "bytes": 4479
+  },
+  {
+    "n": 24,
+    "path": "/routes/2/journeys?day=2026-09-17",
+    "file": "journeys_2_2026-09-17.json",
+    "bytes": 4319
+  },
+  {
+    "n": 25,
+    "path": "/routes/2/journeys?day=2026-09-18",
+    "file": "journeys_2_2026-09-18.json",
+    "bytes": 4479
+  },
+  {
+    "n": 26,
+    "path": "/routes/2/journeys?day=2026-09-19",
+    "file": "journeys_2_2026-09-19.json",
+    "bytes": 2081
+  },
+  {
+    "n": 27,
+    "path": "/routes/2/journeys?day=2026-09-20",
+    "file": "journeys_2_2026-09-20.json",
+    "bytes": 1921
+  },
+  {
+    "n": 28,
+    "path": "/routes/2/journeys?day=2026-09-02",
+    "file": "journeys_2_2026-09-02.json",
+    "bytes": 4001
+  },
+  {
+    "n": 29,
+    "path": "/routes/2/journeys?day=2026-12-08",
+    "file": "journeys_2_2026-12-08.json",
+    "bytes": 1921
+  },
+  {
+    "n": 30,
+    "path": "/routes/2/journeys?day=2027-01-11",
+    "file": "journeys_2_2027-01-11.json",
+    "bytes": 4319
+  },
+  {
+    "n": 31,
+    "path": "/routes/2/journeys?day=2027-07-12",
+    "file": "journeys_2_2027-07-12.json",
+    "bytes": 4001
+  },
+  {
+    "n": 32,
+    "path": "/routes/9/journeys?day=2026-09-14",
+    "file": "journeys_9_2026-09-14.json",
+    "bytes": 2
+  },
+  {
+    "n": 33,
+    "path": "/routes/9/journeys?day=2026-09-15",
+    "file": "journeys_9_2026-09-15.json",
+    "bytes": 319
+  },
+  {
+    "n": 34,
+    "path": "/routes/9/journeys?day=2026-09-16",
+    "file": "journeys_9_2026-09-16.json",
+    "bytes": 2
+  },
+  {
+    "n": 35,
+    "path": "/routes/9/journeys?day=2026-09-17",
+    "file": "journeys_9_2026-09-17.json",
+    "bytes": 319
+  },
+  {
+    "n": 36,
+    "path": "/routes/9/journeys?day=2026-09-18",
+    "file": "journeys_9_2026-09-18.json",
+    "bytes": 2
+  },
+  {
+    "n": 37,
+    "path": "/routes/9/journeys?day=2026-09-19",
+    "file": "journeys_9_2026-09-19.json",
+    "bytes": 2
+  },
+  {
+    "n": 38,
+    "path": "/routes/9/journeys?day=2026-09-20",
+    "file": "journeys_9_2026-09-20.json",
+    "bytes": 2
+  },
+  {
+    "n": 39,
+    "path": "/routes/9/journeys?day=2026-09-02",
+    "file": "journeys_9_2026-09-02.json",
+    "bytes": 2
+  },
+  {
+    "n": 40,
+    "path": "/routes/9/journeys?day=2026-12-08",
+    "file": "journeys_9_2026-12-08.json",
+    "bytes": 2
+  },
+  {
+    "n": 41,
+    "path": "/routes/9/journeys?day=2027-01-11",
+    "file": "journeys_9_2027-01-11.json",
+    "bytes": 2
+  },
+  {
+    "n": 42,
+    "path": "/routes/9/journeys?day=2027-07-12",
+    "file": "journeys_9_2027-07-12.json",
+    "bytes": 2
+  },
+  {
+    "n": 43,
+    "path": "/routes/25/journeys?day=2026-09-14",
+    "file": "journeys_25_2026-09-14.json",
+    "bytes": 2704
+  },
+  {
+    "n": 44,
+    "path": "/routes/25/journeys?day=2026-09-15",
+    "file": "journeys_25_2026-09-15.json",
+    "bytes": 2704
+  },
+  {
+    "n": 45,
+    "path": "/routes/25/journeys?day=2026-09-16",
+    "file": "journeys_25_2026-09-16.json",
+    "bytes": 2704
+  },
+  {
+    "n": 46,
+    "path": "/routes/25/journeys?day=2026-09-17",
+    "file": "journeys_25_2026-09-17.json",
+    "bytes": 2704
+  },
+  {
+    "n": 47,
+    "path": "/routes/25/journeys?day=2026-09-18",
+    "file": "journeys_25_2026-09-18.json",
+    "bytes": 2704
+  },
+  {
+    "n": 48,
+    "path": "/routes/25/journeys?day=2026-09-19",
+    "file": "journeys_25_2026-09-19.json",
+    "bytes": 1591
+  },
+  {
+    "n": 49,
+    "path": "/routes/25/journeys?day=2026-09-20",
+    "file": "journeys_25_2026-09-20.json",
+    "bytes": 1273
+  },
+  {
+    "n": 50,
+    "path": "/routes/25/journeys?day=2026-09-02",
+    "file": "journeys_25_2026-09-02.json",
+    "bytes": 2704
+  },
+  {
+    "n": 51,
+    "path": "/routes/25/journeys?day=2026-12-08",
+    "file": "journeys_25_2026-12-08.json",
+    "bytes": 1273
+  },
+  {
+    "n": 52,
+    "path": "/routes/25/journeys?day=2027-01-11",
+    "file": "journeys_25_2027-01-11.json",
+    "bytes": 2704
+  },
+  {
+    "n": 53,
+    "path": "/routes/25/journeys?day=2027-07-12",
+    "file": "journeys_25_2027-07-12.json",
+    "bytes": 2704
+  },
+  {
+    "n": 54,
+    "path": "/routes/31/journeys?day=2026-09-14",
+    "file": "journeys_31_2026-09-14.json",
+    "bytes": 6043
+  },
+  {
+    "n": 55,
+    "path": "/routes/31/journeys?day=2026-09-15",
+    "file": "journeys_31_2026-09-15.json",
+    "bytes": 6043
+  },
+  {
+    "n": 56,
+    "path": "/routes/31/journeys?day=2026-09-16",
+    "file": "journeys_31_2026-09-16.json",
+    "bytes": 6043
+  },
+  {
+    "n": 57,
+    "path": "/routes/31/journeys?day=2026-09-17",
+    "file": "journeys_31_2026-09-17.json",
+    "bytes": 6043
+  },
+  {
+    "n": 58,
+    "path": "/routes/31/journeys?day=2026-09-18",
+    "file": "journeys_31_2026-09-18.json",
+    "bytes": 6043
+  },
+  {
+    "n": 59,
+    "path": "/routes/31/journeys?day=2026-09-19",
+    "file": "journeys_31_2026-09-19.json",
+    "bytes": 2068
+  },
+  {
+    "n": 60,
+    "path": "/routes/31/journeys?day=2026-09-20",
+    "file": "journeys_31_2026-09-20.json",
+    "bytes": 2
+  },
+  {
+    "n": 61,
+    "path": "/routes/31/journeys?day=2026-09-02",
+    "file": "journeys_31_2026-09-02.json",
+    "bytes": 5248
+  },
+  {
+    "n": 62,
+    "path": "/routes/31/journeys?day=2026-12-08",
+    "file": "journeys_31_2026-12-08.json",
+    "bytes": 2
+  },
+  {
+    "n": 63,
+    "path": "/routes/31/journeys?day=2027-01-11",
+    "file": "journeys_31_2027-01-11.json",
+    "bytes": 6043
+  },
+  {
+    "n": 64,
+    "path": "/routes/31/journeys?day=2027-07-12",
+    "file": "journeys_31_2027-07-12.json",
+    "bytes": 5248
+  },
+  {
+    "n": 65,
+    "path": "/routes/48/journeys?day=2026-09-14",
+    "file": "journeys_48_2026-09-14.json",
+    "bytes": 955
+  },
+  {
+    "n": 66,
+    "path": "/routes/48/journeys?day=2026-09-15",
+    "file": "journeys_48_2026-09-15.json",
+    "bytes": 955
+  },
+  {
+    "n": 67,
+    "path": "/routes/48/journeys?day=2026-09-16",
+    "file": "journeys_48_2026-09-16.json",
+    "bytes": 955
+  },
+  {
+    "n": 68,
+    "path": "/routes/48/journeys?day=2026-09-17",
+    "file": "journeys_48_2026-09-17.json",
+    "bytes": 955
+  },
+  {
+    "n": 69,
+    "path": "/routes/48/journeys?day=2026-09-18",
+    "file": "journeys_48_2026-09-18.json",
+    "bytes": 955
+  },
+  {
+    "n": 70,
+    "path": "/routes/48/journeys?day=2026-09-19",
+    "file": "journeys_48_2026-09-19.json",
+    "bytes": 478
+  },
+  {
+    "n": 71,
+    "path": "/routes/48/journeys?day=2026-09-20",
+    "file": "journeys_48_2026-09-20.json",
+    "bytes": 319
+  },
+  {
+    "n": 72,
+    "path": "/routes/48/journeys?day=2026-09-02",
+    "file": "journeys_48_2026-09-02.json",
+    "bytes": 955
+  },
+  {
+    "n": 73,
+    "path": "/routes/48/journeys?day=2026-12-08",
+    "file": "journeys_48_2026-12-08.json",
+    "bytes": 319
+  },
+  {
+    "n": 74,
+    "path": "/routes/48/journeys?day=2027-01-11",
+    "file": "journeys_48_2027-01-11.json",
+    "bytes": 955
+  },
+  {
+    "n": 75,
+    "path": "/routes/48/journeys?day=2027-07-12",
+    "file": "journeys_48_2027-07-12.json",
+    "bytes": 955
+  },
+  {
+    "n": 76,
+    "path": "/routes/53/journeys?day=2026-09-14",
+    "file": "journeys_53_2026-09-14.json",
+    "bytes": 317
+  },
+  {
+    "n": 77,
+    "path": "/routes/53/journeys?day=2026-09-15",
+    "file": "journeys_53_2026-09-15.json",
+    "bytes": 317
+  },
+  {
+    "n": 78,
+    "path": "/routes/53/journeys?day=2026-09-16",
+    "file": "journeys_53_2026-09-16.json",
+    "bytes": 317
+  },
+  {
+    "n": 79,
+    "path": "/routes/53/journeys?day=2026-09-17",
+    "file": "journeys_53_2026-09-17.json",
+    "bytes": 317
+  },
+  {
+    "n": 80,
+    "path": "/routes/53/journeys?day=2026-09-18",
+    "file": "journeys_53_2026-09-18.json",
+    "bytes": 317
+  },
+  {
+    "n": 81,
+    "path": "/routes/53/journeys?day=2026-09-19",
+    "file": "journeys_53_2026-09-19.json",
+    "bytes": 317
+  },
+  {
+    "n": 82,
+    "path": "/routes/53/journeys?day=2026-09-20",
+    "file": "journeys_53_2026-09-20.json",
+    "bytes": 317
+  },
+  {
+    "n": 83,
+    "path": "/routes/53/journeys?day=2026-09-02",
+    "file": "journeys_53_2026-09-02.json",
+    "bytes": 317
+  },
+  {
+    "n": 84,
+    "path": "/routes/53/journeys?day=2026-12-08",
+    "file": "journeys_53_2026-12-08.json",
+    "bytes": 317
+  },
+  {
+    "n": 85,
+    "path": "/routes/53/journeys?day=2027-01-11",
+    "file": "journeys_53_2027-01-11.json",
+    "bytes": 317
+  },
+  {
+    "n": 86,
+    "path": "/routes/53/journeys?day=2027-07-12",
+    "file": "journeys_53_2027-07-12.json",
+    "bytes": 317
+  },
+  {
+    "n": 87,
+    "path": "/routes/53/journeys/984",
+    "file": "journey_53_984.json",
+    "bytes": 9640
+  },
+  {
+    "n": 88,
+    "path": "/routes/2/journeys/1009",
+    "file": "journey_2_1009.json",
+    "bytes": 8973
+  },
+  {
+    "n": 89,
+    "path": "/routes/2/journeys/1011",
+    "file": "journey_2_1011.json",
+    "bytes": 8973
+  },
+  {
+    "n": 90,
+    "path": "/routes/31/journeys/633",
+    "file": "journey_31_633.json",
+    "bytes": 5652
+  },
+  {
+    "n": 91,
+    "path": "/routes/31/journeys/645",
+    "file": "journey_31_645.json",
+    "bytes": 5114
+  },
+  {
+    "n": 92,
+    "path": "/routes/31/journeys/647",
+    "file": "journey_31_647.json",
+    "bytes": 5114
+  },
+  {
+    "n": 93,
+    "path": "/routes/31/journeys/661",
+    "file": "journey_31_661.json",
+    "bytes": 5460
+  },
+  {
+    "n": 94,
+    "path": "/routes/31/journeys/662",
+    "file": "journey_31_662.json",
+    "bytes": 3530
+  },
+  {
+    "n": 95,
+    "path": "/routes/9/journeys/236",
+    "file": "journey_9_236.json",
+    "bytes": 7385
+  },
+  {
+    "n": 96,
+    "path": "/routes/9/journeys/237",
+    "file": "journey_9_237.json",
+    "bytes": 7245
+  },
+  {
+    "n": 97,
+    "path": "/routes/25/journeys/488",
+    "file": "journey_25_488.json",
+    "bytes": 11847
+  },
+  {
+    "n": 98,
+    "path": "/routes/48/journeys/1216",
+    "status": 404,
+    "note": "guessed id, does not exist; superseded by 950"
+  },
+  {
+    "n": 99,
+    "path": "/routes/48/journeys/950",
+    "file": "journey_48_950.json",
+    "bytes": 19010
+  }
+]
