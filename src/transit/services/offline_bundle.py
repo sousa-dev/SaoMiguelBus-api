@@ -20,6 +20,7 @@ from django.utils import timezone
 from tenancy.models import Island
 from tenancy.services import for_island
 from transit.models import Holiday, Stop, Trip
+from transit.services.schedule_phase import resolve_dataset
 from transit.services.compat import _serialize_active_infos, _trip_to_load_route
 from transit.services.v3 import serialize_stops_v3
 
@@ -84,9 +85,13 @@ def compute_bundle_version(island: Island) -> str:
     was somehow missed.
     """
     revision = get_data_revision(island)
-    stops_count = Stop.objects.count()
-    routes_count = Trip.objects.filter(source=Trip.SOURCE_OPERATOR).count()
-    raw = f'{island.key}:{revision}:{stops_count}:{routes_count}'
+    dataset = resolve_dataset(island)
+    stops_count = Stop.objects.filter(dataset=dataset).count()
+    routes_count = Trip.objects.filter(
+        source=Trip.SOURCE_OPERATOR, dataset=dataset,
+    ).count()
+    # dataset participates so a cutover invalidates cached bundles (98 section 6).
+    raw = f'{island.key}:{revision}:{dataset}:{stops_count}:{routes_count}'
     return hashlib.sha256(raw.encode('utf-8')).hexdigest()[:16]
 
 
@@ -96,9 +101,12 @@ def build_offline_bundle(island: Island) -> dict:
         {'id': h.id, 'date': h.date.isoformat(), 'name': h.name}
         for h in Holiday.objects.all().order_by('date')
     ]
-    stops = serialize_stops_v3(Stop.objects.all().order_by('name'))
+    dataset = resolve_dataset(island)
+    stops = serialize_stops_v3(
+        Stop.objects.filter(dataset=dataset).order_by('name')
+    )
     trips = (
-        Trip.objects.filter(source=Trip.SOURCE_OPERATOR)
+        Trip.objects.filter(source=Trip.SOURCE_OPERATOR, dataset=dataset)
         .select_related('line', 'calendar')
         .exclude(line__disabled=True)
     )
@@ -109,7 +117,10 @@ def build_offline_bundle(island: Island) -> dict:
         'generatedAt': timezone.now().isoformat(),
         'island': island.key,
         'maps': flags.get('maps', False),
-        'counts': {'stops': Stop.objects.count(), 'routes': len(routes)},
+        'counts': {
+            'stops': Stop.objects.filter(dataset=dataset).count(),
+            'routes': len(routes),
+        },
         'stops': stops,
         'holidays': holidays,
         'infos': _serialize_active_infos(),

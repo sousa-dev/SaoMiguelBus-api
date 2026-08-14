@@ -12,6 +12,7 @@ from django.conf import settings
 
 from tenancy.models import Island
 from transit.models import Stop
+from transit.services.schedule_phase import resolve_dataset
 from transit.services.directions_cache import (
     build_cache_key,
     get_cached_directions,
@@ -83,8 +84,8 @@ def resolve_departure_timestamp(
     return int(now.timestamp())
 
 
-def _resolve_stop_query(name: str) -> str:
-    stop = Stop.objects.filter(name__iexact=name).first()
+def _resolve_stop_query(name: str, dataset: str) -> str:
+    stop = Stop.objects.filter(dataset=dataset, name__iexact=name).first()
     if stop:
         return f'{stop.latitude},{stop.longitude}'
     return clean_string(name)
@@ -109,8 +110,9 @@ def fetch_gmaps_directions(
     if not origin.strip() or not destination.strip():
         return {'error': {'code': 'invalid_params', 'message': 'origin and destination are required'}}, 400
 
-    origin_query = _resolve_stop_query(origin)
-    dest_query = _resolve_stop_query(destination)
+    dataset = resolve_dataset(island)
+    origin_query = _resolve_stop_query(origin, dataset)
+    dest_query = _resolve_stop_query(destination, dataset)
     transit_time = resolve_departure_timestamp(island=island, day=day, start=start, date=date)
 
     maps_key = getattr(settings, 'GOOGLE_MAPS_API_KEY', '')
@@ -147,6 +149,7 @@ def get_directions_v3(
     date: str = '',
 ) -> tuple[dict, int, bool]:
     """Return cached or fresh directions. Third tuple element is cache hit."""
+    dataset = resolve_dataset(island)
     cache_key = build_cache_key(
         island_key=island.key,
         origin=origin,
@@ -154,6 +157,7 @@ def get_directions_v3(
         day=day or date,
         start=start,
         locale=language_code,
+        dataset=dataset,
         arrival_departure=arrival_departure,
     )
     cached = get_cached_directions(cache_key)

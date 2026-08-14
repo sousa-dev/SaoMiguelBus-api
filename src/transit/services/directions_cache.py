@@ -19,6 +19,7 @@ def build_cache_key(
     day: str,
     start: str,
     locale: str,
+    dataset: str,
     arrival_departure: str = 'departure',
 ) -> str:
     raw = '|'.join(
@@ -29,6 +30,10 @@ def build_cache_key(
             day.strip().lower(),
             start.strip().lower(),
             locale.strip().lower(),
+            # Without this, preview and live share a cached Google result for
+            # 24h, and post-cutover the same stop names resolve to the other
+            # network's coordinates (98 section 4 gap).
+            dataset.strip().lower(),
             arrival_departure.strip().lower(),
         ]
     )

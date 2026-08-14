@@ -5,7 +5,9 @@ from __future__ import annotations
 from django.utils import timezone
 
 from tenancy.models import Island
+from tenancy.services import get_active_island
 from transit.models import Calendar, Holiday, RouteInfo, Stop, StopTime, Trip
+from transit.services.schedule_phase import resolve_dataset
 from transit.services.search import trip_vote_percents
 
 
@@ -70,9 +72,15 @@ def _trip_to_load_route(trip: Trip) -> dict:
     }
 
 
-def _serialize_active_infos() -> list[dict]:
+def _serialize_active_infos(dataset: str | None = None) -> list[dict]:
     now = timezone.now()
-    infos = RouteInfo.objects.filter(start__lte=now, end__gte=now)
+    # Post-cutover, legacy disruption notices describe an operator that no
+    # longer runs (02 section 3.8).
+    if dataset is None:
+        dataset = resolve_dataset(get_active_island())
+    infos = RouteInfo.objects.filter(
+        dataset=dataset, start__lte=now, end__gte=now,
+    )
     result = []
     for info in infos:
         text = info.text or {}
@@ -116,8 +124,11 @@ def serialize_webapp_load_v2(island: Island) -> list[dict]:
     all_stop_names: set[str] = set()
     routes_payload: list[dict] = [header]
 
+    # Single-dataset for good: this is the fallback target for ANY v3 error,
+    # not just a 404, and old clients cannot filter rows (98 B3).
+    dataset = resolve_dataset(island)
     trips = (
-        Trip.objects.filter(source=Trip.SOURCE_OPERATOR)
+        Trip.objects.filter(source=Trip.SOURCE_OPERATOR, dataset=dataset)
         .select_related('line', 'calendar')
         .exclude(line__disabled=True)
     )

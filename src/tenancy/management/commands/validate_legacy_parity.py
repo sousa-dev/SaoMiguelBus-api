@@ -9,7 +9,7 @@ from urllib.parse import urlparse
 from django.core.management.base import BaseCommand
 
 from tenancy.services import for_island, get_or_create_default_island
-from transit.models import Stop, Trip
+from transit.models import DATASET_LEGACY, Stop, Trip
 
 
 class Command(BaseCommand):
@@ -30,8 +30,9 @@ class Command(BaseCommand):
         legacy_routes = self._count_legacy(legacy_path, 'app_route')
 
         with for_island(island):
-            new_stops = Stop.objects.count()
-            new_trips = Trip.objects.count()
+            # Unfiltered counts fail permanently the day AzoresBus lands.
+            new_stops = Stop.objects.filter(dataset=DATASET_LEGACY).count()
+            new_trips = Trip.objects.filter(dataset=DATASET_LEGACY).count()
 
         self.stdout.write(f'Legacy stops: {legacy_stops} | New stops: {new_stops}')
         self.stdout.write(f'Legacy routes: {legacy_routes} | New trips: {new_trips}')

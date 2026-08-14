@@ -7,13 +7,19 @@ from typing import Iterator
 from atlas.importers.base import BaseImporter, ImportRow
 from atlas.models import AtlasPoi
 from transit.models import Stop
+from transit.services.schedule_phase import resolve_dataset
 
 
 class TransitImporter(BaseImporter):
     SOURCE = AtlasPoi.SOURCE_TRANSIT
 
     def rows(self) -> Iterator[ImportRow]:
-        for stop in Stop.objects.filter(island=self.island).order_by('name'):
+        # base.py upserts on `ref`, so without this the same POI is
+        # overwritten across datasets (98 B4).
+        dataset = resolve_dataset(self.island)
+        for stop in Stop.objects.filter(
+            island=self.island, dataset=dataset,
+        ).order_by('name'):
             yield ImportRow(
                 ref=stop.cleaned_name,
                 name={'pt': stop.name, 'en': stop.name},

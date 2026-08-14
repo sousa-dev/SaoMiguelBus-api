@@ -47,6 +47,7 @@ apps = [
     ('weather', True),
     ('minibus', True),
     ('atlas', True),
+    ('azoresbus', True),
 ]
 
 import os

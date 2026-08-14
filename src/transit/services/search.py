@@ -4,8 +4,10 @@ from __future__ import annotations
 
 from datetime import datetime
 
+from tenancy.services import get_active_island
 from transit.models import Calendar, Holiday, Trip
 from transit.services.legacy_import import clean_string
+from transit.services.schedule_phase import resolve_dataset
 
 
 def get_type_of_day(day: datetime, is_holiday: bool) -> str:
@@ -70,6 +72,7 @@ def search_routes(
     start_time: str,
     full: bool = False,
     prefix: bool = False,
+    dataset: str | None = None,
 ) -> list[dict] | None:
     origin = _normalize_origin(origin)
     if not origin or not destination:
@@ -89,8 +92,13 @@ def search_routes(
 
     start_hour, start_minute = _parse_time_parts(start_time.replace('h', ':'))
 
+    if dataset is None:
+        dataset = resolve_dataset(get_active_island())
+
     trips = (
-        Trip.objects.filter(source=Trip.SOURCE_OPERATOR, line__disabled=False)
+        Trip.objects.filter(
+            source=Trip.SOURCE_OPERATOR, line__disabled=False, dataset=dataset,
+        )
         .filter(calendar__service_type=service_type)
         .select_related('line', 'calendar')
         .prefetch_related('stop_times__stop')

@@ -11,6 +11,7 @@ from django.conf import settings
 
 from tenancy.models import Island
 from transit.models import Stop
+from transit.services.schedule_phase import resolve_dataset
 from transit.services.legacy_import import clean_string
 
 logger = logging.getLogger(__name__)
@@ -50,8 +51,11 @@ def fetch_directions(
     if auth_key != expected_key or int(str(version).split('.')[0]) < 5:
         return {'error': 'Unauthorized'}, 401
 
-    origin_stop = Stop.objects.filter(name__iexact=origin).first()
-    destination_stop = Stop.objects.filter(name__iexact=destination).first()
+    dataset = resolve_dataset(island)
+    origin_stop = Stop.objects.filter(dataset=dataset, name__iexact=origin).first()
+    destination_stop = Stop.objects.filter(
+        dataset=dataset, name__iexact=destination,
+    ).first()
     origin_query = (
         f'{origin_stop.latitude},{origin_stop.longitude}' if origin_stop else clean_string(origin)
     )

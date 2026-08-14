@@ -40,23 +40,26 @@ class CalendarAdmin(IslandScopedAdmin):
 
 @admin.register(Stop)
 class StopAdmin(IslandScopedAdmin):
-    list_display = ('name', 'cleaned_name', 'latitude', 'longitude', 'island')
+    list_display = ('name', 'cleaned_name', 'dataset', 'latitude', 'longitude', 'island')
+    list_filter = ('island', 'dataset')
     search_fields = ('name', 'cleaned_name')
     list_per_page = 100
 
 
 @admin.register(Line)
 class LineAdmin(IslandScopedAdmin):
-    list_display = ('code', 'operator', 'disabled', 'island')
+    list_display = ('code', 'dataset', 'operator', 'disabled', 'island')
     search_fields = ('code', 'display_name')
-    list_filter = ('island', 'disabled', 'operator')
+    # Without dataset the changelist shows two 101s with no way to tell them
+    # apart (98 B4).
+    list_filter = ('island', 'dataset', 'disabled', 'operator')
     list_select_related = ('island', 'operator')
 
 
 @admin.register(Trip)
 class TripAdmin(IslandScopedAdmin):
-    list_display = ('line', 'calendar', 'source', 'likes', 'dislikes', 'island')
-    list_filter = ('island', 'calendar', 'source')
+    list_display = ('line', 'dataset', 'calendar', 'source', 'likes', 'dislikes', 'island')
+    list_filter = ('island', 'dataset', 'calendar', 'source')
     search_fields = ('line__code', 'headsign')
     list_select_related = ('island', 'line', 'calendar')
     raw_id_fields = ('line', 'calendar')
@@ -82,15 +85,16 @@ class HolidayAdmin(IslandScopedAdmin):
 
 @admin.register(StopGroup)
 class StopGroupAdmin(IslandScopedAdmin):
-    list_display = ('name', 'island')
+    list_display = ('name', 'dataset', 'island')
+    list_filter = ('island', 'dataset')
     search_fields = ('name',)
 
 
 @admin.register(RouteInfo)
 class RouteInfoAdmin(IslandScopedAdmin):
-    list_display = ('company', 'source', 'start', 'end', 'island')
+    list_display = ('company', 'dataset', 'source', 'start', 'end', 'island')
     search_fields = ('company', 'source')
-    list_filter = ('island', 'company')
+    list_filter = ('island', 'dataset', 'company')
 
 
 @admin.register(Ad)

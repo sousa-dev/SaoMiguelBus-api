@@ -7,6 +7,8 @@ import re
 
 from transit.models import Line, Stop, StopTime, Trip
 from transit.services.compat import serialize_legacy_stops_v2
+from tenancy.services import get_active_island
+from transit.services.schedule_phase import resolve_dataset
 from transit.services.search import search_routes, trip_vote_percents
 
 
@@ -75,20 +77,33 @@ def serialize_trip_detail(trip: Trip) -> dict:
     }
 
 
-def get_trip_v3(trip_id: int) -> dict | None:
+def get_trip_v3(trip_id: int, *, dataset: str | None = None) -> dict | None:
+    dataset = dataset or resolve_dataset(get_active_island())
     try:
-        trip = Trip.objects.select_related('line', 'calendar').get(id=trip_id)
+        trip = (
+            Trip.objects.filter(dataset=dataset)
+            .select_related('line', 'calendar')
+            .get(id=trip_id)
+        )
     except Trip.DoesNotExist:
         return None
     return serialize_trip_detail(trip)
 
 
-def get_line_v3(line_code: str) -> dict | None:
+def get_line_v3(line_code: str, *, dataset: str | None = None) -> dict | None:
+    # Without the dataset filter this raises MultipleObjectsReturned the moment
+    # line 101 exists in both networks -- and legacy already has 101 (98 B4).
+    dataset = dataset or resolve_dataset(get_active_island())
     try:
-        line = Line.objects.select_related('operator').get(code=line_code)
+        line = (
+            Line.objects.filter(dataset=dataset)
+            .select_related('operator')
+            .get(code=line_code)
+        )
     except Line.DoesNotExist:
         return None
 
+    # Already dataset-scoped: `line` was resolved under the active dataset.
     trips = (
         Trip.objects.filter(line=line, line__disabled=False)
         .select_related('calendar')

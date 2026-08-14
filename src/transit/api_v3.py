@@ -42,8 +42,12 @@ def transit_stops_view(request: Request) -> Response:
         return err
     with for_island(request.island):
         from transit.models import Stop
+        from transit.services.schedule_phase import resolve_dataset
 
-        stops = Stop.objects.all().order_by('name')
+        dataset = resolve_dataset(
+            request.island, requested=request.GET.get('dataset'),
+        )
+        stops = Stop.objects.filter(dataset=dataset).order_by('name')
         return Response({'stops': serialize_stops_v3(stops)})
 
 
@@ -241,11 +245,17 @@ def transit_trip_vote_view(request: Request, trip_id: int) -> Response:
     if err:
         return err
 
+    from transit.services.schedule_phase import resolve_dataset
+
     vote = (request.data.get('vote') or request.GET.get('vote') or 'like').lower()
 
     with for_island(request.island):
         try:
-            trip = Trip.objects.get(id=trip_id)
+            # PKs do not collide across datasets today, but a vote is a write:
+            # filter for defence (02 section 7.0).
+            trip = Trip.objects.filter(
+                dataset=resolve_dataset(request.island)
+            ).get(id=trip_id)
         except Trip.DoesNotExist:
             return Response(
                 {'error': {'code': 'not_found', 'message': 'Trip not found'}},

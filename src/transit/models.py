@@ -8,6 +8,30 @@ from django.utils import timezone
 from tenancy.models import TenantScopedModel
 
 
+DATASET_LEGACY = 'legacy'
+DATASET_AZORESBUS = 'azoresbus'
+DATASET_CHOICES = [
+    (DATASET_LEGACY, 'Legacy network'),
+    (DATASET_AZORESBUS, 'AzoresBus 2026'),
+]
+
+
+def dataset_field():
+    """The network a row belongs to.
+
+    Defaults to ``legacy`` so every pre-existing row is correctly tagged by the
+    default and no data migration is needed. Readers must filter on it: legacy
+    and AzoresBus share line codes and stop names, so an unfiltered query mixes
+    two networks (98 B4).
+    """
+    return models.CharField(
+        max_length=16,
+        choices=DATASET_CHOICES,
+        default=DATASET_LEGACY,
+        db_index=True,
+    )
+
+
 class Operator(TenantScopedModel):
     name = models.CharField(max_length=64)
     contact = models.JSONField(default=dict, blank=True)
@@ -41,6 +65,7 @@ class Calendar(TenantScopedModel):
 
 
 class Stop(TenantScopedModel):
+    dataset = dataset_field()
     name = models.CharField(max_length=200)
     cleaned_name = models.CharField(max_length=200, db_index=True)
     latitude = models.FloatField()
@@ -49,6 +74,7 @@ class Stop(TenantScopedModel):
     class Meta:
         indexes = [
             models.Index(fields=['island', 'cleaned_name']),
+            models.Index(fields=['island', 'dataset', 'cleaned_name']),
         ]
         ordering = ['name']
 
@@ -57,13 +83,16 @@ class Stop(TenantScopedModel):
 
 
 class Line(TenantScopedModel):
+    dataset = dataset_field()
     operator = models.ForeignKey(Operator, on_delete=models.PROTECT, related_name='lines')
     code = models.CharField(max_length=32)
     display_name = models.CharField(max_length=120, blank=True, default='')
     disabled = models.BooleanField(default=False)
 
     class Meta:
-        unique_together = [('island', 'code')]
+        # ('island', 'code') cannot hold: legacy already has 101, 102, 112,
+        # 301... and so does AzoresBus (98 B4).
+        unique_together = [('island', 'dataset', 'code')]
         ordering = ['code']
 
     def __str__(self) -> str:
@@ -71,6 +100,9 @@ class Line(TenantScopedModel):
 
 
 class RouteInfo(TenantScopedModel):
+    # Disruption notices describe an operator. After cutover the legacy rows
+    # describe a network that no longer runs (02 section 3.8).
+    dataset = dataset_field()
     text = models.JSONField(default=dict, blank=True)
     source = models.CharField(max_length=500, blank=True, default='')
     company = models.CharField(max_length=32, blank=True, default='')
@@ -89,6 +121,9 @@ class Trip(TenantScopedModel):
         (SOURCE_GMAPS, 'Google Maps derived'),
     ]
 
+    # Denormalised from `line` on purpose: search filters on Trip and the extra
+    # join would sit on the hot path.
+    dataset = dataset_field()
     line = models.ForeignKey(Line, on_delete=models.CASCADE, related_name='trips')
     calendar = models.ForeignKey(Calendar, on_delete=models.PROTECT, related_name='trips')
     headsign = models.CharField(max_length=200, blank=True, default='')
@@ -101,6 +136,7 @@ class Trip(TenantScopedModel):
     class Meta:
         indexes = [
             models.Index(fields=['island', 'line', 'calendar']),
+            models.Index(fields=['island', 'dataset', 'source']),
         ]
 
     def __str__(self) -> str:
@@ -135,11 +171,13 @@ class Holiday(TenantScopedModel):
 
 
 class StopGroup(TenantScopedModel):
+    # Live, not dead code: services/ads.py targets ads by stop-name group.
+    dataset = dataset_field()
     name = models.CharField(max_length=64)
     stop_names = models.JSONField(default=list)
 
     class Meta:
-        unique_together = [('island', 'name')]
+        unique_together = [('island', 'dataset', 'name')]
 
     def __str__(self) -> str:
         return self.name

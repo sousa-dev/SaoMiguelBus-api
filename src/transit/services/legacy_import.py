@@ -20,6 +20,7 @@ from django.utils import timezone
 from tenancy.models import Island
 from tenancy.services import for_island
 from transit.models import (
+    DATASET_LEGACY,
     Ad,
     Calendar,
     Holiday,
@@ -616,8 +617,10 @@ def migrate_stops(island: Island, legacy: LegacySource) -> MigrationReport:
             cleaned = cleaned_name or clean_string(name)
             stop, created = Stop.objects.update_or_create(
                 island=island,
+                dataset=DATASET_LEGACY,
                 cleaned_name=cleaned,
                 defaults={
+                    'dataset': DATASET_LEGACY,
                     'name': name,
                     'latitude': latitude,
                     'longitude': longitude,
@@ -674,6 +677,7 @@ def migrate_stop_groups(island: Island, legacy: LegacySource) -> MigrationReport
             stop_names = [part.strip() for part in (stops or '').split(',') if part.strip()]
             _, created = StopGroup.objects.update_or_create(
                 island=island,
+                dataset=DATASET_LEGACY,
                 name=name,
                 defaults={
                     'stop_names': stop_names,
@@ -693,13 +697,20 @@ def migrate_lines_trips(island: Island, legacy: LegacySource) -> MigrationReport
             service_type = LEGACY_DAY_MAP.get(str(type_of_day).strip(), Calendar.WEEKDAY)
             calendar = Calendar.objects.get(island=island, service_type=service_type)
             operator = Operator.objects.get(island=island, name=infer_operator_name(route))
+            # Without dataset in the lookup this overwrites the AzoresBus 101.
             line, _ = Line.objects.update_or_create(
                 island=island,
+                dataset=DATASET_LEGACY,
                 code=str(route).strip(),
-                defaults={'operator': operator, 'disabled': bool(disabled)},
+                defaults={
+                    'dataset': DATASET_LEGACY,
+                    'operator': operator,
+                    'disabled': bool(disabled),
+                },
             )
             existing = Trip.objects.filter(
                 island=island,
+                dataset=DATASET_LEGACY,
                 legacy_ref__id=legacy_id,
                 legacy_ref__table='app_route',
             ).first()
@@ -715,6 +726,9 @@ def migrate_lines_trips(island: Island, legacy: LegacySource) -> MigrationReport
             else:
                 trip = Trip.objects.create(
                     island=island,
+                    # Set explicitly, never via the field default: a later
+                    # default change must not silently retag legacy rows.
+                    dataset=DATASET_LEGACY,
                     line=line,
                     calendar=calendar,
                     likes=likes or 0,
@@ -739,9 +753,14 @@ def migrate_lines_trips(island: Island, legacy: LegacySource) -> MigrationReport
                     report.errors.append(f'route {legacy_id}: bad time {departure_raw!r} at {stop_name}')
                     continue
                 cleaned = clean_string(stop_name)
+                # .first() on a two-network table is arbitrary.
                 stop = (
-                    Stop.objects.filter(island=island, cleaned_name=cleaned).first()
-                    or Stop.objects.filter(island=island, name=stop_name).first()
+                    Stop.objects.filter(
+                        island=island, dataset=DATASET_LEGACY, cleaned_name=cleaned,
+                    ).first()
+                    or Stop.objects.filter(
+                        island=island, dataset=DATASET_LEGACY, name=stop_name,
+                    ).first()
                 )
                 if stop is None:
                     report.errors.append(f'route {legacy_id}: unmatched stop {stop_name!r}')
@@ -800,8 +819,10 @@ def migrate_infos(island: Island, legacy: LegacySource) -> MigrationReport:
             }
             _, created = RouteInfo.objects.update_or_create(
                 island=island,
+                dataset=DATASET_LEGACY,
                 legacy_ref={'table': 'app_info', 'id': legacy_id},
                 defaults={
+                    'dataset': DATASET_LEGACY,
                     'text': text,
                     'source': row[13] or '',
                     'company': row[14] or '',

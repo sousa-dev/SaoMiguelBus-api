@@ -9,6 +9,8 @@ from django.db.models import Q
 from django.utils import timezone
 
 from transit.models import Ad, AdEvent, Stop, StopGroup
+from tenancy.services import get_active_island
+from transit.services.schedule_phase import resolve_dataset
 
 
 def _serialize_ad(ad: Ad) -> dict:
@@ -32,7 +34,8 @@ def _serialize_ad(ad: Ad) -> dict:
 def get_most_similar_stop(stop: str) -> str:
     best_name = stop
     best_score = 0.0
-    for entity in Stop.objects.all():
+    dataset = resolve_dataset(get_active_island())
+    for entity in Stop.objects.filter(dataset=dataset):
         score = SequenceMatcher(
             lambda x: x in ['do', 'da', 'das', 'dos', 'de', ' '],
             entity.name.lower(),
@@ -45,12 +48,13 @@ def get_most_similar_stop(stop: str) -> str:
 
 
 def get_advertise_on_value(stop: str) -> str:
-    for grp in StopGroup.objects.all():
+    dataset = resolve_dataset(get_active_island())
+    for grp in StopGroup.objects.filter(dataset=dataset):
         for name in grp.stop_names:
             if stop.lower() in name.lower() or name.lower() in stop.lower():
                 return grp.name
     similar = get_most_similar_stop(stop)
-    for grp in StopGroup.objects.all():
+    for grp in StopGroup.objects.filter(dataset=dataset):
         for name in grp.stop_names:
             if similar.lower() in name.lower() or name.lower() in similar.lower():
                 return grp.name

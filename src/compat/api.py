@@ -16,6 +16,7 @@ from analytics.services import ingest_legacy_stat
 from billing.services import verify_subscription
 from tenancy.services import for_island
 from transit.models import Stop, Trip
+from transit.services.schedule_phase import resolve_dataset
 from transit.services.ads import get_ad_payload, record_ad_click
 from transit.services.compat import serialize_legacy_stops_v2, serialize_webapp_load_v2
 from transit.services.gmaps import fetch_directions
@@ -40,7 +41,9 @@ def get_all_stops_v2(request: Request) -> Response:
     if err:
         return err
     with for_island(request.island):
-        stops = Stop.objects.all().order_by('name')
+        stops = Stop.objects.filter(
+            dataset=resolve_dataset(request.island)
+        ).order_by('name')
         return Response(serialize_legacy_stops_v2(stops))
 
 
@@ -62,7 +65,10 @@ def get_trip_v2(request: Request) -> Response:
         return err
     with for_island(request.island):
         if request.GET.get('all'):
-            trips = Trip.objects.filter(source=Trip.SOURCE_OPERATOR).select_related('line', 'calendar')
+            trips = Trip.objects.filter(
+                source=Trip.SOURCE_OPERATOR,
+                dataset=resolve_dataset(request.island),
+            ).select_related('line', 'calendar')
             payload = [
                 {
                     'id': t.id,
@@ -104,7 +110,9 @@ def like_trip(request: Request, trip_id: int) -> JsonResponse:
         return JsonResponse({'error': 'Island context required'}, status=400)
     with for_island(request.island):
         try:
-            trip = Trip.objects.get(id=trip_id)
+            trip = Trip.objects.filter(
+                dataset=resolve_dataset(request.island)
+            ).get(id=trip_id)
         except Trip.DoesNotExist:
             return JsonResponse({'error': 'Trip not found'}, status=404)
         count = int(request.GET.get('count', 1))
@@ -138,7 +146,9 @@ def dislike_trip(request: Request, trip_id: int) -> JsonResponse:
         return JsonResponse({'error': 'Island context required'}, status=400)
     with for_island(request.island):
         try:
-            trip = Trip.objects.get(id=trip_id)
+            trip = Trip.objects.filter(
+                dataset=resolve_dataset(request.island)
+            ).get(id=trip_id)
         except Trip.DoesNotExist:
             return JsonResponse({'error': 'Trip not found'}, status=404)
         count = int(request.GET.get('count', 1))
@@ -173,7 +183,9 @@ def get_all_stops_v1(request: Request) -> Response:
     if err:
         return err
     with for_island(request.island):
-        stops = Stop.objects.all().order_by('name')
+        stops = Stop.objects.filter(
+            dataset=resolve_dataset(request.island)
+        ).order_by('name')
         return Response(
             [
                 {

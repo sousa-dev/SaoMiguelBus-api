@@ -28,6 +28,8 @@ class Command(BaseCommand):
             self.stderr.write(self.style.ERROR(f'Island not found: {island_key}'))
             sys.exit(1)
 
+        # Dataset-agnostic on purpose: this is a data-quality sweep and every
+        # stop in every network should sit inside the island radius.
         invalid: list[str] = []
         for stop in Stop.objects.filter(island=island).order_by('name'):
             if not is_within_island_radius(

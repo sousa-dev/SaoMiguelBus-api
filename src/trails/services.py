@@ -534,10 +534,12 @@ def nearest_stop(island: Island, lat: float | None, lng: float | None) -> dict[s
         return None
 
     from transit.models import Stop
+    from transit.services.schedule_phase import resolve_dataset
 
     best: Stop | None = None
     best_dist = float('inf')
-    for stop in Stop.objects.filter(island=island):
+    dataset = resolve_dataset(island)
+    for stop in Stop.objects.filter(island=island, dataset=dataset):
         dist = _haversine_km(lat, lng, stop.latitude, stop.longitude)
         if dist < best_dist:
             best_dist = dist

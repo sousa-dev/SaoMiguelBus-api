@@ -85,6 +85,7 @@ class DirectionsServiceTests(TestCase):
             day='weekday',
             start='08:00',
             locale='pt',
+            dataset='legacy',
         )
         key_b = build_cache_key(
             island_key='sao-miguel',
@@ -93,6 +94,7 @@ class DirectionsServiceTests(TestCase):
             day='weekday',
             start='08:00',
             locale='pt',
+            dataset='legacy',
         )
         self.assertEqual(key_a, key_b)
 

@@ -7,6 +7,7 @@ from typing import Any
 
 from tenancy.models import Island
 from transit.models import Stop
+from transit.services.schedule_phase import resolve_dataset
 from transit.services.legacy_import import clean_string
 from weather.models import ParishProximity
 from weather.services import parish_snapshot, resolve_parish
@@ -16,11 +17,17 @@ def _resolve_stop(island: Island, name: str) -> Stop | None:
     cleaned = clean_string(name)
     if not cleaned:
         return None
-    exact = Stop.objects.filter(island=island, cleaned_name=cleaned).first()
+    # .first() on a two-network table picks an arbitrary network's coordinates.
+    dataset = resolve_dataset(island)
+    exact = Stop.objects.filter(
+        island=island, dataset=dataset, cleaned_name=cleaned,
+    ).first()
     if exact is not None:
         return exact
     return (
-        Stop.objects.filter(island=island, cleaned_name__icontains=cleaned)
+        Stop.objects.filter(
+            island=island, dataset=dataset, cleaned_name__icontains=cleaned,
+        )
         .order_by('cleaned_name')
         .first()
     )
