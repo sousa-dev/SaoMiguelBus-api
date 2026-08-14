@@ -52,21 +52,39 @@ def queue_sync(*, island_key: str | None = None, full: bool = False) -> dict:
 
 @shared_task(name='azoresbus.sync_schedules')
 def sync_schedules_task(island_key: str | None = None, full: bool = False) -> dict:
+    """Run a real sync. Same code path as `manage.py sync_azoresbus`.
+
+    Scoped to the islands AzoresBus actually serves: the other eight Azorean
+    tenants are live but have no AzoresBus data and never will, and syncing them
+    would spend the request budget on nothing.
+    """
     from tenancy.models import Island
     from tenancy.services import for_island
+    from azoresbus.services_sync import SyncAborted, run_sync
 
-    islands = Island.objects.filter(is_live=True)
-    if island_key:
-        islands = islands.filter(key=island_key)
+    from azoresbus.management.commands.bootstrap_azoresbus import (
+        AZORESBUS_ISLANDS,
+    )
 
-    results: dict[str, str] = {}
+    keys = [island_key] if island_key else AZORESBUS_ISLANDS
+    islands = Island.objects.filter(is_live=True, key__in=keys)
+
+    results: dict[str, dict | str] = {}
     try:
         for island in islands:
             with for_island(island):
-                logger.info('azoresbus.sync_schedules island=%s full=%s',
-                            island.key, full)
-                results[island.key] = 'pending'
+                try:
+                    results[island.key] = run_sync(island, full=full)
+                except SyncAborted as exc:
+                    logger.warning('azoresbus sync aborted island=%s: %s',
+                                   island.key, exc)
+                    results[island.key] = f'aborted: {exc}'
+                except Exception:
+                    logger.exception('azoresbus sync failed island=%s',
+                                     island.key)
+                    results[island.key] = 'failed'
     finally:
+        # Always release, or a crashed run wedges every later trigger for 45min.
         release_sync_lock()
 
     return {'status': 'ok', 'islands': results, 'full': full}

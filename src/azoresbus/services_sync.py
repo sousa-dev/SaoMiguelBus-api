@@ -24,6 +24,10 @@ AZORESBUS_SYNC_PRUNE_FLOOR = config(
 )
 
 
+class SyncAborted(Exception):
+    """The run stopped without completing. Never retires anything."""
+
+
 @dataclass
 class RetirementDecision:
     """Whether this run has earned the right to remove service, and why."""
@@ -107,3 +111,147 @@ def evaluate_retirement(
         f'within {floor:.0%} of the previous {previous_journey_count}',
         scope,
     )
+
+
+# -- the run itself ---------------------------------------------------------
+
+
+def run_sync(
+    island,
+    *,
+    full: bool = False,
+    dates=None,
+    no_prune: bool = False,
+    max_requests: int | None = None,
+) -> dict:
+    """Fetch, import, and decide about retirement. One SyncRun row per call.
+
+    Lives here rather than in the management command so the Celery task — which
+    is what the deploy bootstrap, the beat schedules and the staleness backstop
+    all use — runs exactly the same code path as a hand-run command.
+    """
+    from datetime import date as date_cls
+
+    from django.utils import timezone
+
+    from azoresbus.client import AzoresbusClient, AzoresbusError
+    from azoresbus.models import ServiceObservation, SyncRun
+    from azoresbus.services_import import import_schedules
+    from azoresbus.services_sampling import build_sample
+    from transit.models import DATASET_AZORESBUS, Holiday
+    from transit.services.schedule_phase import today_in_azores
+
+    holidays = set(
+        Holiday.objects.filter(island=island).values_list('date', flat=True)
+    )
+    today = today_in_azores()
+    if not any(day.year == today.year for day in holidays):
+        raise SyncAborted(
+            f'No Holiday rows for {today.year}. Refusing to derive patterns: '
+            'sampling through an empty holiday year records Sunday sets as '
+            'weekday service (98 B6).'
+        )
+
+    if dates:
+        sample_dates, near, far = list(dates), list(dates), []
+        no_prune = True
+    else:
+        # No stored far-season evidence => upgrade to a full run, or the first
+        # retirement pass cannot tell "out of season" from "deleted" (02 §4.1).
+        has_far = ServiceObservation.objects.filter(
+            island=island, dataset=DATASET_AZORESBUS,
+        ).exists()
+        sample = build_sample(
+            today=today, holidays=holidays, full=full or not has_far,
+        )
+        sample_dates, near, far = (
+            sample.all_dates, sample.near_week, sample.far_week,
+        )
+
+    run = SyncRun.objects.create(
+        island=island,
+        kind=SyncRun.KIND_SCHEDULES,
+        sampled_dates=[day.isoformat() for day in sample_dates],
+    )
+    client = AzoresbusClient(max_requests=max_requests) if max_requests \
+        else AzoresbusClient()
+
+    try:
+        payloads = _fetch_all(client, sample_dates)
+    except AzoresbusError as exc:
+        run.status = SyncRun.STATUS_PARTIAL
+        run.error = str(exc)
+        run.request_count = client.request_count
+        run.finished_at = timezone.now()
+        run.save()
+        raise SyncAborted(
+            f'{exc} — run marked partial after {client.request_count} '
+            'requests. Nothing was retired.'
+        ) from exc
+
+    report = import_schedules(
+        island, run=run, holidays=holidays,
+        sampled_dates=sample_dates, **payloads,
+    )
+
+    previous = (
+        SyncRun.objects.filter(
+            island=island, kind=SyncRun.KIND_SCHEDULES,
+            status=SyncRun.STATUS_COMPLETED,
+        )
+        .exclude(pk=run.pk)
+        .order_by('-started_at')
+        .first()
+    )
+    decision = evaluate_retirement(
+        status=SyncRun.STATUS_COMPLETED,
+        journey_count=report['journey_count'],
+        previous_journey_count=(
+            (previous.stats or {}).get('journey_count') if previous else None
+        ),
+        sampled_dates=near,
+        far_season_dates=far,
+    )
+    if no_prune:
+        decision.allowed = False
+        decision.reason = 'suppressed by --no-prune / explicit dates'
+
+    run.status = SyncRun.STATUS_COMPLETED
+    run.request_count = client.request_count
+    run.finished_at = timezone.now()
+    run.stats = {**report, 'retirement': decision.as_dict()}
+    run.save()
+
+    return {'run_id': run.id, 'requests': client.request_count, **report,
+            'retirement': decision.as_dict()}
+
+
+def _fetch_all(client, dates) -> dict:
+    """Index, route details, per-date listings, then journey details.
+
+    The detail fetches are unavoidable: the listing carries no circulations, so
+    a stored hash cannot skip the GET (98 §4 gap). The hash skips the write.
+    """
+    stops = client.get_json('/stops')
+    routes = client.get_json('/routes?active=true&passengerInfo=true')
+
+    journeys: dict = {}
+    seen: dict[str, str] = {}
+    for route in routes:
+        route_id = str(route['id'])
+        for day in dates:
+            rows = client.get_json(
+                f'/routes/{route_id}/journeys?day={day.isoformat()}'
+            )
+            journeys[(route_id, day)] = rows
+            for row in rows:
+                seen[str(row['id'])] = route_id
+
+    details = {
+        journey_id: client.get_json(
+            f'/routes/{route_id}/journeys/{journey_id}'
+        )
+        for journey_id, route_id in seen.items()
+    }
+    return {'stops': stops, 'routes': routes,
+            'journeys': journeys, 'details': details}

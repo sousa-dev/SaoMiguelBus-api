@@ -169,3 +169,53 @@ class NotInAppReadyTests(TestCase):
             'a sync is being triggered from AppConfig.ready(): '
             f'{offenders}. Use the runserver.sh deploy step instead.',
         )
+
+
+class TaskDoesRealWorkTests(TestCase):
+    """The task is what the deploy, beat and the backstop all trigger.
+
+    It was a stub that logged 'pending' and returned. Everything would have
+    looked healthy — queued tasks, no errors — while no data was ever fetched.
+    """
+
+    def test_the_task_calls_the_real_sync(self):
+        from unittest.mock import patch as _patch
+
+        get_or_create_default_island()
+        with _patch('azoresbus.services_sync.run_sync') as mock_run:
+            mock_run.return_value = {'lines': 55, 'stops': 816}
+            from azoresbus.tasks import sync_schedules_task
+
+            result = sync_schedules_task(island_key='sao-miguel', full=True)
+
+        mock_run.assert_called_once()
+        self.assertTrue(mock_run.call_args.kwargs['full'])
+        self.assertEqual(result['islands']['sao-miguel']['lines'], 55)
+
+    def test_a_failing_sync_releases_the_lock(self):
+        from unittest.mock import patch as _patch
+
+        from azoresbus.tasks import acquire_sync_lock, sync_schedules_task
+
+        get_or_create_default_island()
+        with override_settings(CACHES=LOC_MEM_CACHE):
+            cache.clear()
+            with _patch('azoresbus.services_sync.run_sync',
+                        side_effect=RuntimeError('boom')):
+                sync_schedules_task(island_key='sao-miguel')
+            self.assertTrue(
+                acquire_sync_lock(),
+                'a crashed run wedged the lock for 45 minutes',
+            )
+
+    def test_the_task_does_not_sync_islands_without_azoresbus(self):
+        from unittest.mock import patch as _patch
+
+        from azoresbus.tasks import sync_schedules_task
+
+        with _patch('azoresbus.services_sync.run_sync') as mock_run:
+            mock_run.return_value = {}
+            sync_schedules_task()
+
+        for call in mock_run.call_args_list:
+            self.assertEqual(call.args[0].key, 'sao-miguel')
