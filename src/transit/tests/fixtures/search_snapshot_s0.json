@@ -1,0 +1,202 @@
+{
+  "accent_mismatch_gate": [
+    {
+      "destination": "furnas",
+      "dislikes_percent": 0,
+      "end": "07h30",
+      "id": "accented_weekday",
+      "information": {},
+      "likes_percent": 0,
+      "origin": "povoação",
+      "route": "SNAP-ACC",
+      "start": "07h00",
+      "stops": "{'POVOAÇÃO': '07h00', 'FURNAS': '07h30'}",
+      "type_of_day": "WEEKDAY"
+    }
+  ],
+  "achada_vs_achadinha": [
+    {
+      "destination": "JULIET",
+      "dislikes_percent": 0,
+      "end": "07h40",
+      "id": "achada_real",
+      "information": {},
+      "likes_percent": 0,
+      "origin": "ACHADA",
+      "route": "SNAP-ACH",
+      "start": "07h00",
+      "stops": "{'ACHADA': '07h00', 'JULIET': '07h40'}",
+      "type_of_day": "WEEKDAY"
+    }
+  ],
+  "christmas_2026": [
+    {
+      "destination": "INDIA",
+      "dislikes_percent": 0,
+      "end": "08h30",
+      "id": "plain_weekday",
+      "information": {},
+      "likes_percent": 0,
+      "origin": "HOTEL",
+      "route": "SNAP-WD",
+      "start": "08h00",
+      "stops": "{'HOTEL': '08h00', 'INDIA': '08h30'}",
+      "type_of_day": "WEEKDAY"
+    }
+  ],
+  "full_true": [
+    {
+      "destination": "INDIA",
+      "dislikes_percent": 0,
+      "end": "08h30",
+      "id": "plain_weekday",
+      "information": {},
+      "likes_percent": 0,
+      "origin": "HOTEL",
+      "route": "SNAP-WD",
+      "start": "08h00",
+      "stops": "{'HOTEL': '08h00', 'INDIA': '08h30'}",
+      "type_of_day": "WEEKDAY"
+    }
+  ],
+  "iso_monday": [
+    {
+      "destination": "INDIA",
+      "dislikes_percent": 0,
+      "end": "08h30",
+      "id": "plain_weekday",
+      "information": {},
+      "likes_percent": 0,
+      "origin": "HOTEL",
+      "route": "SNAP-WD",
+      "start": "08h00",
+      "stops": "{'HOTEL': '08h00', 'INDIA': '08h30'}",
+      "type_of_day": "WEEKDAY"
+    }
+  ],
+  "iso_saturday": [
+    {
+      "destination": "INDIA",
+      "dislikes_percent": 0,
+      "end": "10h30",
+      "id": "plain_saturday",
+      "information": {},
+      "likes_percent": 0,
+      "origin": "HOTEL",
+      "route": "SNAP-SAT",
+      "start": "10h00",
+      "stops": "{'HOTEL': '10h00', 'INDIA': '10h30'}",
+      "type_of_day": "SATURDAY"
+    }
+  ],
+  "iso_sunday": [
+    {
+      "destination": "INDIA",
+      "dislikes_percent": 0,
+      "end": "11h30",
+      "id": "plain_sunday",
+      "information": {},
+      "likes_percent": 0,
+      "origin": "HOTEL",
+      "route": "SNAP-SUN",
+      "start": "11h00",
+      "stops": "{'HOTEL': '11h00', 'INDIA': '11h30'}",
+      "type_of_day": "SUNDAY"
+    }
+  ],
+  "lagoa_substring_mishit": [
+    {
+      "destination": "JULIET",
+      "dislikes_percent": 0,
+      "end": "07h50",
+      "id": "lagoa_do_fogo_only",
+      "information": {},
+      "likes_percent": 0,
+      "origin": "LAGOA",
+      "route": "SNAP-LGF",
+      "start": "07h10",
+      "stops": "{'LAGOA DO FOGO': '07h10', 'JULIET': '07h50'}",
+      "type_of_day": "WEEKDAY"
+    }
+  ],
+  "late_board_after_start": [],
+  "loop_reverse_leg": [],
+  "normalize_origin_hack": [
+    {
+      "destination": "FURNAS",
+      "dislikes_percent": 0,
+      "end": "07h30",
+      "id": "accented_weekday",
+      "information": {},
+      "likes_percent": 0,
+      "origin": "Povoação",
+      "route": "SNAP-ACC",
+      "start": "07h00",
+      "stops": "{'POVOAÇÃO': '07h00', 'FURNAS': '07h30'}",
+      "type_of_day": "WEEKDAY"
+    }
+  ],
+  "plain_saturday_literal": [
+    {
+      "destination": "INDIA",
+      "dislikes_percent": 0,
+      "end": "10h30",
+      "id": "plain_saturday",
+      "information": {},
+      "likes_percent": 0,
+      "origin": "HOTEL",
+      "route": "SNAP-SAT",
+      "start": "10h00",
+      "stops": "{'HOTEL': '10h00', 'INDIA': '10h30'}",
+      "type_of_day": "SATURDAY"
+    }
+  ],
+  "plain_sunday_literal": [
+    {
+      "destination": "INDIA",
+      "dislikes_percent": 0,
+      "end": "11h30",
+      "id": "plain_sunday",
+      "information": {},
+      "likes_percent": 0,
+      "origin": "HOTEL",
+      "route": "SNAP-SUN",
+      "start": "11h00",
+      "stops": "{'HOTEL': '11h00', 'INDIA': '11h30'}",
+      "type_of_day": "SUNDAY"
+    }
+  ],
+  "plain_weekday_literal": [
+    {
+      "destination": "INDIA",
+      "dislikes_percent": 0,
+      "end": "08h30",
+      "id": "plain_weekday",
+      "information": {},
+      "likes_percent": 0,
+      "origin": "HOTEL",
+      "route": "SNAP-WD",
+      "start": "08h00",
+      "stops": "{'HOTEL': '08h00', 'INDIA': '08h30'}",
+      "type_of_day": "WEEKDAY"
+    }
+  ],
+  "prefix_true_low_votes": [
+    {
+      "destination": "INDIA",
+      "dislikes_percent": 0,
+      "end": "08h30",
+      "id": "plain_weekday",
+      "information": {},
+      "likes_percent": 0,
+      "origin": "HOTEL",
+      "route": "CSNAP-WD",
+      "start": "08h00",
+      "stops": "{'HOTEL': '08h00', 'INDIA': '08h30'}",
+      "type_of_day": "WEEKDAY"
+    }
+  ],
+  "reversed_linear": [],
+  "start_time_filters_out": [],
+  "unknown_origin": []
+}

@@ -1,0 +1,1679 @@
+{
+  "stops_count": 1456,
+  "distinct_names": 816,
+  "name_groups": {
+    "singletons": 181,
+    "pairs": 630,
+    "triples": 5,
+    "more_than_3": {},
+    "names_with_gt1": 635
+  },
+  "duplicate_separation": {
+    "groups": 635,
+    "median_m": 11.505325574488985,
+    "mean_m": 16.533621967030356,
+    "max_m": 164.11952607293594,
+    "gt_100m": 3,
+    "gt_250m": 0,
+    "gt_75m": 14,
+    "worst3": [
+      [
+        164.11952607293594,
+        "COVOADA (AV. 6 DE JANEIRO)",
+        [
+          "1309",
+          "1308"
+        ]
+      ],
+      [
+        134.4486926660559,
+        "PONTA DELGADA (ALF\u00c2NDEGA)",
+        [
+          "1001",
+          "1002"
+        ]
+      ],
+      [
+        108.06612373601645,
+        "P. DELGADA (FORTE S. BR\u00c1S)",
+        [
+          "1032",
+          "1031"
+        ]
+      ]
+    ],
+    "consecutive_pairs": 629,
+    "pair_total": 630
+  },
+  "routes_active": {
+    "n": 55,
+    "colors": [
+      "00A7E2",
+      "1C4DA1",
+      "A5CE44"
+    ],
+    "isActive": {
+      "True": 50,
+      "False": 5
+    },
+    "nameShorts": [
+      "101",
+      "102",
+      "103",
+      "105",
+      "108",
+      "109",
+      "110",
+      "111",
+      "112",
+      "200",
+      "202",
+      "203",
+      "205",
+      "206",
+      "208",
+      "210",
+      "211",
+      "212",
+      "216",
+      "217",
+      "218",
+      "219",
+      "221",
+      "222",
+      "301",
+      "302",
+      "303",
+      "304",
+      "305",
+      "306",
+      "307",
+      "311",
+      "312",
+      "313",
+      "314",
+      "315",
+      "316",
+      "317",
+      "318",
+      "319",
+      "321",
+      "322",
+      "323",
+      "324",
+      "325",
+      "326",
+      "328",
+      "335",
+      "E01",
+      "E02",
+      "N01",
+      "N02",
+      "N03",
+      "N04",
+      "N05"
+    ],
+    "ids": [
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12",
+      "13",
+      "14",
+      "15",
+      "16",
+      "17",
+      "18",
+      "19",
+      "20",
+      "21",
+      "22",
+      "23",
+      "24",
+      "25",
+      "26",
+      "27",
+      "28",
+      "29",
+      "30",
+      "31",
+      "32",
+      "33",
+      "34",
+      "35",
+      "36",
+      "37",
+      "38",
+      "39",
+      "40",
+      "41",
+      "42",
+      "43",
+      "44",
+      "45",
+      "46",
+      "47",
+      "48",
+      "49",
+      "50",
+      "51",
+      "52",
+      "53",
+      "54",
+      "55"
+    ]
+  },
+  "routes_all": {
+    "n": 55,
+    "inactive": [
+      {
+        "id": "9",
+        "nameShort": "112",
+        "name": "SALGA - POVOA\u00c7\u00c3O",
+        "isActive": false
+      },
+      {
+        "id": "41",
+        "nameShort": "321",
+        "name": "POVOA\u00c7\u00c3O - LOMBA DO ALCAIDE",
+        "isActive": false
+      },
+      {
+        "id": "44",
+        "nameShort": "324",
+        "name": "POVOA\u00c7\u00c3O - LOMBA DO CARRO",
+        "isActive": false
+      },
+      {
+        "id": "45",
+        "nameShort": "325",
+        "name": "POVOA\u00c7\u00c3O - LOMBA DO BOT\u00c3O",
+        "isActive": false
+      },
+      {
+        "id": "47",
+        "nameShort": "328",
+        "name": "CIRCUITO PONTA DELGADA - F. BAIXO - F. CIMA",
+        "isActive": false
+      }
+    ],
+    "active_without_flag": 0
+  },
+  "sample_route_keys": {
+    "101": {
+      "id": "1",
+      "isActive": true
+    },
+    "102": {
+      "id": "2",
+      "isActive": true
+    },
+    "112": {
+      "id": "9",
+      "isActive": false
+    },
+    "321": {
+      "id": "41",
+      "isActive": false
+    },
+    "324": {
+      "id": "44",
+      "isActive": false
+    },
+    "325": {
+      "id": "45",
+      "isActive": false
+    },
+    "328": {
+      "id": "47",
+      "isActive": false
+    },
+    "335": {
+      "id": "48",
+      "isActive": true
+    },
+    "N01": {
+      "id": "51",
+      "isActive": true
+    },
+    "N02": {
+      "id": "52",
+      "isActive": true
+    },
+    "N03": {
+      "id": "53",
+      "isActive": true
+    }
+  },
+  "route_detail_101": {
+    "id": "1",
+    "keys": [
+      "color",
+      "id",
+      "isActive",
+      "name",
+      "nameShort",
+      "shape",
+      "stops"
+    ],
+    "has_shape": true,
+    "shape_len": 844,
+    "stops_n": 74,
+    "seq_all_zero": true,
+    "dep_all_zero": true
+  },
+  "param_direction_abc": {
+    "status": 200,
+    "n": 8
+  },
+  "param_day_abc": {
+    "status": 400,
+    "body": {
+      "type": "https://tools.ietf.org/html/rfc9110#section-15.5.1",
+      "title": "One or more validation errors occurred.",
+      "status": 400,
+      "errors": {
+        "day": [
+          "The value 'abc' is not valid."
+        ]
+      },
+      "traceId": "00-95de1a6d43dc8b1f93f4ee7eaadd55cb-00183ca5793ba5fe-00"
+    }
+  },
+  "param_weekday_names": {
+    "Monday": {
+      "status": 400,
+      "preview": "{\"type\":\"https://tools.ietf.org/html/rfc9110#section-15.5.1\",\"title\":\"One or more validation errors occurred.\",\"status\":400,\"errors\":{\"day\":[\"The value 'Monday' is not valid.\"]},\"traceId\":\"00-61afd749af19e220c29d1cb0e35054e6-b2b2d1b7a086c54e-00\"}"
+    },
+    "monday": {
+      "status": 400,
+      "preview": "{\"type\":\"https://tools.ietf.org/html/rfc9110#section-15.5.1\",\"title\":\"One or more validation errors occurred.\",\"status\":400,\"errors\":{\"day\":[\"The value 'monday' is not valid.\"]},\"traceId\":\"00-d38d01d3b66e054dbd474cc8fd65ee51-1f1c4eecd2ef557b-00\"}"
+    },
+    "1": {
+      "status": 400,
+      "preview": "{\"type\":\"https://tools.ietf.org/html/rfc9110#section-15.5.1\",\"title\":\"One or more validation errors occurred.\",\"status\":400,\"errors\":{\"day\":[\"The value '1' is not valid.\"]},\"traceId\":\"00-24c0f255d946f66c1b0ae53c6f9664b1-3a8b6908270a793b-00\"}"
+    },
+    "0": {
+      "status": 400,
+      "preview": "{\"type\":\"https://tools.ietf.org/html/rfc9110#section-15.5.1\",\"title\":\"One or more validation errors occurred.\",\"status\":400,\"errors\":{\"day\":[\"The value '0' is not valid.\"]},\"traceId\":\"00-908e36e99f6a7dd46a0278c255c59b70-2c740b27e9a7e63b-00\"}"
+    },
+    "Sunday": {
+      "status": 400,
+      "preview": "{\"type\":\"https://tools.ietf.org/html/rfc9110#section-15.5.1\",\"title\":\"One or more validation errors occurred.\",\"status\":400,\"errors\":{\"day\":[\"The value 'Sunday' is not valid.\"]},\"traceId\":\"00-4d70a6050d919d8a6db8a9eefe02eb6c-bf7c610fbcab00a2-00\"}"
+    }
+  },
+  "route25_identity": {
+    "id": "25",
+    "nameShort": "301",
+    "name": "CIRCUITO PONTA DELGADA - ARRIFES (QUARTEL) - COVOADA"
+  },
+  "route25_daytypes": {
+    "2026-09-02": {
+      "label": "Wed",
+      "n": 17,
+      "ids": [
+        488,
+        489,
+        490,
+        491,
+        492,
+        493,
+        494,
+        495,
+        496,
+        497,
+        498,
+        499,
+        500,
+        501,
+        502,
+        503,
+        504
+      ],
+      "id_min": 488,
+      "id_max": 504,
+      "starts": [
+        "06:30:00",
+        "07:15:00",
+        "07:30:00",
+        "08:00:00",
+        "08:30:00"
+      ],
+      "first_start": "06:30:00",
+      "isActive_true": 0,
+      "types": [
+        "scheduled"
+      ],
+      "directions": [
+        1
+      ]
+    },
+    "2026-09-05": {
+      "label": "Sat",
+      "n": 10,
+      "ids": [
+        505,
+        506,
+        507,
+        508,
+        509,
+        510,
+        511,
+        512,
+        513,
+        514
+      ],
+      "id_min": 505,
+      "id_max": 514,
+      "starts": [
+        "06:30:00",
+        "08:00:00",
+        "09:30:00",
+        "10:30:00",
+        "11:30:00"
+      ],
+      "first_start": "06:30:00",
+      "isActive_true": 0,
+      "types": [
+        "scheduled"
+      ],
+      "directions": [
+        1
+      ]
+    },
+    "2026-09-06": {
+      "label": "Sun",
+      "n": 8,
+      "ids": [
+        515,
+        516,
+        517,
+        518,
+        519,
+        520,
+        521,
+        522
+      ],
+      "id_min": 515,
+      "id_max": 522,
+      "starts": [
+        "08:00:00",
+        "09:30:00",
+        "10:30:00",
+        "11:30:00",
+        "12:30:00"
+      ],
+      "first_start": "08:00:00",
+      "isActive_true": 0,
+      "types": [
+        "scheduled"
+      ],
+      "directions": [
+        1
+      ]
+    }
+  },
+  "route25_holidays": {
+    "2026-10-05": {
+      "n": 8,
+      "ids": [
+        515,
+        516,
+        517,
+        518,
+        519,
+        520,
+        521,
+        522
+      ],
+      "equals_sunday": true,
+      "new_ids": [],
+      "first_start": "08:00:00"
+    },
+    "2026-12-08": {
+      "n": 8,
+      "ids": [
+        515,
+        516,
+        517,
+        518,
+        519,
+        520,
+        521,
+        522
+      ],
+      "equals_sunday": true,
+      "new_ids": [],
+      "first_start": "08:00:00"
+    },
+    "2026-12-25": {
+      "n": 8,
+      "ids": [
+        515,
+        516,
+        517,
+        518,
+        519,
+        520,
+        521,
+        522
+      ],
+      "equals_sunday": true,
+      "new_ids": [],
+      "first_start": "08:00:00"
+    },
+    "2026-08-15": {
+      "n": 8,
+      "ids": [
+        515,
+        516,
+        517,
+        518,
+        519,
+        520,
+        521,
+        522
+      ],
+      "equals_sunday": true,
+      "new_ids": [],
+      "first_start": "08:00:00"
+    },
+    "2027-01-01": {
+      "n": 8,
+      "ids": [
+        515,
+        516,
+        517,
+        518,
+        519,
+        520,
+        521,
+        522
+      ],
+      "equals_sunday": true,
+      "new_ids": [],
+      "first_start": "08:00:00"
+    }
+  },
+  "route25_aug15_vs_sep05": {
+    "aug15_n": 8,
+    "aug15_first": "08:00:00",
+    "aug15_ids": [
+      515,
+      516,
+      517,
+      518,
+      519,
+      520,
+      521,
+      522
+    ],
+    "sep05": {
+      "label": "Sat",
+      "n": 10,
+      "ids": [
+        505,
+        506,
+        507,
+        508,
+        509,
+        510,
+        511,
+        512,
+        513,
+        514
+      ],
+      "id_min": 505,
+      "id_max": 514,
+      "starts": [
+        "06:30:00",
+        "08:00:00",
+        "09:30:00",
+        "10:30:00",
+        "11:30:00"
+      ],
+      "first_start": "06:30:00",
+      "isActive_true": 0,
+      "types": [
+        "scheduled"
+      ],
+      "directions": [
+        1
+      ]
+    }
+  },
+  "unfiltered_journeys": {
+    "101": {
+      "id": "1",
+      "n": 8,
+      "id_max": 8,
+      "id_count": 8,
+      "ids_sample": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ]
+    },
+    "301": {
+      "id": "25",
+      "n": 17,
+      "id_max": 504,
+      "id_count": 17,
+      "ids_sample": [
+        488,
+        489,
+        490,
+        491,
+        492,
+        493,
+        494,
+        495,
+        496,
+        497
+      ]
+    },
+    "335": {
+      "id": "48",
+      "n": 6,
+      "id_max": 955,
+      "id_count": 6,
+      "ids_sample": [
+        950,
+        951,
+        952,
+        953,
+        954,
+        955
+      ]
+    },
+    "N02": {
+      "id": "52",
+      "n": 3,
+      "id_max": 978,
+      "id_count": 3,
+      "ids_sample": [
+        973,
+        972,
+        978
+      ]
+    }
+  },
+  "seasonal_sweep": {
+    "targets": [
+      {
+        "id": "1",
+        "nameShort": "101"
+      },
+      {
+        "id": "48",
+        "nameShort": "335"
+      },
+      {
+        "id": "25",
+        "nameShort": "301"
+      }
+    ],
+    "n_dates": 51,
+    "zero_dates": {
+      "101": [
+        "2026-04-05",
+        "2026-06-10",
+        "2026-06-11",
+        "2026-06-13",
+        "2026-06-14"
+      ],
+      "335": [
+        "2026-04-05",
+        "2026-06-10",
+        "2026-06-11",
+        "2026-06-13",
+        "2026-06-14"
+      ],
+      "301": [
+        "2026-04-05",
+        "2026-06-10",
+        "2026-06-11",
+        "2026-06-13",
+        "2026-06-14"
+      ]
+    },
+    "novel_id_count": {
+      "101": 2,
+      "335": 5,
+      "301": 18
+    },
+    "novel_id_samples": {
+      "101": [
+        9,
+        10
+      ],
+      "335": [
+        956,
+        957,
+        958,
+        959,
+        960
+      ],
+      "301": [
+        505,
+        506,
+        507,
+        508,
+        509,
+        510,
+        511,
+        512,
+        513,
+        514,
+        515,
+        516,
+        517,
+        518,
+        519,
+        520,
+        521,
+        522
+      ]
+    },
+    "fingerprint": {
+      "101": {
+        "(0, None)": [
+          "2026-04-05",
+          "2026-06-10",
+          "2026-06-11",
+          "2026-06-13",
+          "2026-06-14"
+        ],
+        "(1, '20:30:00')": [
+          "2026-08-15",
+          "2026-08-16",
+          "2026-09-05",
+          "2026-09-06",
+          "2026-09-12",
+          "2026-09-13",
+          "2026-09-19",
+          "2026-09-20",
+          "2026-09-26",
+          "2026-09-27",
+          "2026-12-01",
+          "2026-12-08",
+          "2026-12-26",
+          "2027-04-04",
+          "2027-06-10"
+        ],
+        "(8, '17:15:00')": [
+          "2026-08-31",
+          "2026-09-01",
+          "2026-09-08",
+          "2026-09-15",
+          "2026-09-22",
+          "2026-09-29",
+          "2026-10-06",
+          "2026-10-13",
+          "2026-10-20",
+          "2026-10-27",
+          "2026-11-03",
+          "2026-11-10",
+          "2026-11-17",
+          "2026-11-24",
+          "2026-12-15",
+          "2026-12-22",
+          "2026-12-24",
+          "2026-12-29",
+          "2027-01-05",
+          "2027-01-12",
+          "2027-01-19",
+          "2027-01-26",
+          "2027-07-01",
+          "2027-07-08",
+          "2027-07-15",
+          "2027-07-22",
+          "2027-07-29",
+          "2027-08-05",
+          "2027-08-12",
+          "2027-08-19",
+          "2027-08-26"
+        ]
+      },
+      "335": {
+        "(0, None)": [
+          "2026-04-05",
+          "2026-06-10",
+          "2026-06-11",
+          "2026-06-13",
+          "2026-06-14"
+        ],
+        "(2, '12:15:00')": [
+          "2026-08-15",
+          "2026-08-16",
+          "2026-09-06",
+          "2026-09-13",
+          "2026-09-20",
+          "2026-09-27",
+          "2026-12-01",
+          "2026-12-08",
+          "2027-04-04",
+          "2027-06-10"
+        ],
+        "(6, '09:30:00')": [
+          "2026-08-31",
+          "2026-09-01",
+          "2026-09-08",
+          "2026-09-15",
+          "2026-09-22",
+          "2026-09-29",
+          "2026-10-06",
+          "2026-10-13",
+          "2026-10-20",
+          "2026-10-27",
+          "2026-11-03",
+          "2026-11-10",
+          "2026-11-17",
+          "2026-11-24",
+          "2026-12-15",
+          "2026-12-22",
+          "2026-12-24",
+          "2026-12-29",
+          "2027-01-05",
+          "2027-01-12",
+          "2027-01-19",
+          "2027-01-26",
+          "2027-07-01",
+          "2027-07-08",
+          "2027-07-15",
+          "2027-07-22",
+          "2027-07-29",
+          "2027-08-05",
+          "2027-08-12",
+          "2027-08-19",
+          "2027-08-26"
+        ],
+        "(3, '07:35:00')": [
+          "2026-09-05",
+          "2026-09-12",
+          "2026-09-19",
+          "2026-09-26",
+          "2026-12-26"
+        ]
+      },
+      "301": {
+        "(0, None)": [
+          "2026-04-05",
+          "2026-06-10",
+          "2026-06-11",
+          "2026-06-13",
+          "2026-06-14"
+        ],
+        "(8, '08:00:00')": [
+          "2026-08-15",
+          "2026-08-16",
+          "2026-09-06",
+          "2026-09-13",
+          "2026-09-20",
+          "2026-09-27",
+          "2026-12-01",
+          "2026-12-08",
+          "2027-04-04",
+          "2027-06-10"
+        ],
+        "(17, '06:30:00')": [
+          "2026-08-31",
+          "2026-09-01",
+          "2026-09-08",
+          "2026-09-15",
+          "2026-09-22",
+          "2026-09-29",
+          "2026-10-06",
+          "2026-10-13",
+          "2026-10-20",
+          "2026-10-27",
+          "2026-11-03",
+          "2026-11-10",
+          "2026-11-17",
+          "2026-11-24",
+          "2026-12-15",
+          "2026-12-22",
+          "2026-12-24",
+          "2026-12-29",
+          "2027-01-05",
+          "2027-01-12",
+          "2027-01-19",
+          "2027-01-26",
+          "2027-07-01",
+          "2027-07-08",
+          "2027-07-15",
+          "2027-07-22",
+          "2027-07-29",
+          "2027-08-05",
+          "2027-08-12",
+          "2027-08-19",
+          "2027-08-26"
+        ],
+        "(10, '06:30:00')": [
+          "2026-09-05",
+          "2026-09-12",
+          "2026-09-19",
+          "2026-09-26",
+          "2026-12-26"
+        ]
+      }
+    },
+    "id_pattern_count": {
+      "101": 4,
+      "335": 4,
+      "301": 4
+    }
+  },
+  "june10_multi_route": {
+    "101": {
+      "n": 0,
+      "status": 200
+    },
+    "102": {
+      "n": 0,
+      "status": 200
+    },
+    "301": {
+      "n": 0,
+      "status": 200
+    },
+    "N02": {
+      "n": 0,
+      "status": 200
+    },
+    "112": {
+      "n": 0,
+      "status": 200
+    }
+  },
+  "inactive_route_journeys_wed": {
+    "112": {
+      "n": 0,
+      "isActive_route": false
+    },
+    "321": {
+      "n": 0,
+      "isActive_route": false
+    },
+    "324": {
+      "n": 0,
+      "isActive_route": false
+    },
+    "325": {
+      "n": 0,
+      "isActive_route": false
+    },
+    "328": {
+      "n": 0,
+      "isActive_route": false
+    }
+  },
+  "maybe_seasonal_routes": {
+    "112": {
+      "2026-09-02": 0,
+      "2026-09-05": 0,
+      "2026-09-06": 0,
+      "2026-08-15": 0,
+      "2027-07-07": 0,
+      "2026-12-25": 0,
+      "unfiltered": 0,
+      "unfiltered_ids_sample": [],
+      "route_isActive": false
+    },
+    "321": {
+      "2026-09-02": 0,
+      "2026-09-05": 0,
+      "2026-09-06": 0,
+      "2026-08-15": 0,
+      "2027-07-07": 0,
+      "2026-12-25": 0,
+      "unfiltered": 0,
+      "unfiltered_ids_sample": [],
+      "route_isActive": false
+    },
+    "324": {
+      "2026-09-02": 0,
+      "2026-09-05": 0,
+      "2026-09-06": 0,
+      "2026-08-15": 0,
+      "2027-07-07": 0,
+      "2026-12-25": 0,
+      "unfiltered": 0,
+      "unfiltered_ids_sample": [],
+      "route_isActive": false
+    },
+    "325": {
+      "2026-09-02": 0,
+      "2026-09-05": 0,
+      "2026-09-06": 0,
+      "2026-08-15": 0,
+      "2027-07-07": 0,
+      "2026-12-25": 0,
+      "unfiltered": 0,
+      "unfiltered_ids_sample": [],
+      "route_isActive": false
+    },
+    "328": {
+      "2026-09-02": 0,
+      "2026-09-05": 4,
+      "2026-09-06": 4,
+      "2026-08-15": 4,
+      "2027-07-07": 0,
+      "2026-12-25": 4,
+      "unfiltered": 0,
+      "unfiltered_ids_sample": [],
+      "route_isActive": false
+    }
+  },
+  "topology_samples": {
+    "335": {
+      "journey_id": "950",
+      "n_stops": 97,
+      "first": "PONTA DELGADA (ALF\u00c2NDEGA)",
+      "last": "P. DELGADA (FORTE S. BR\u00c1S)",
+      "loop": false,
+      "repeated_name_count": 36,
+      "repeated_total_extra": 37,
+      "max_repeat": 3,
+      "worst_name": [
+        "CABOUCO (BAIRRO D. AM\u00c9LIA)",
+        3
+      ],
+      "has_shape": true,
+      "keys": [
+        "circulations",
+        "direction",
+        "end",
+        "endTime",
+        "id",
+        "isActive",
+        "name",
+        "shape",
+        "start",
+        "startTime",
+        "type"
+      ],
+      "max_time": 38400,
+      "times_gt_86400": [],
+      "n_gt_86400": 0
+    },
+    "301": {
+      "journey_id": "488",
+      "n_stops": 59,
+      "first": "PONTA DELGADA (ALF\u00c2NDEGA)",
+      "last": "PONTA DELGADA (ALF\u00c2NDEGA)",
+      "loop": true,
+      "repeated_name_count": 14,
+      "repeated_total_extra": 14,
+      "max_repeat": 2,
+      "worst_name": [
+        "PONTA DELGADA (ALF\u00c2NDEGA)",
+        2
+      ],
+      "has_shape": true,
+      "keys": [
+        "circulations",
+        "direction",
+        "end",
+        "endTime",
+        "id",
+        "isActive",
+        "name",
+        "shape",
+        "start",
+        "startTime",
+        "type"
+      ],
+      "max_time": 26700,
+      "times_gt_86400": [],
+      "n_gt_86400": 0
+    },
+    "303": {
+      "journey_id": "538",
+      "n_stops": 59,
+      "first": "PONTA DELGADA (ALF\u00c2NDEGA)",
+      "last": "PONTA DELGADA (ALF\u00c2NDEGA)",
+      "loop": true,
+      "repeated_name_count": 14,
+      "repeated_total_extra": 14,
+      "max_repeat": 2,
+      "worst_name": [
+        "PONTA DELGADA (ALF\u00c2NDEGA)",
+        2
+      ],
+      "has_shape": true,
+      "keys": [
+        "circulations",
+        "direction",
+        "end",
+        "endTime",
+        "id",
+        "isActive",
+        "name",
+        "shape",
+        "start",
+        "startTime",
+        "type"
+      ],
+      "max_time": 24600,
+      "times_gt_86400": [],
+      "n_gt_86400": 0
+    },
+    "306": {
+      "journey_id": "619",
+      "n_stops": 43,
+      "first": "PONTA DELGADA (ALF\u00c2NDEGA)",
+      "last": "PONTA DELGADA (ALF\u00c2NDEGA)",
+      "loop": true,
+      "repeated_name_count": 9,
+      "repeated_total_extra": 9,
+      "max_repeat": 2,
+      "worst_name": [
+        "PONTA DELGADA (ALF\u00c2NDEGA)",
+        2
+      ],
+      "has_shape": true,
+      "keys": [
+        "circulations",
+        "direction",
+        "end",
+        "endTime",
+        "id",
+        "isActive",
+        "name",
+        "shape",
+        "start",
+        "startTime",
+        "type"
+      ],
+      "max_time": 30000,
+      "times_gt_86400": [],
+      "n_gt_86400": 0
+    },
+    "323": {
+      "journey_id": "920",
+      "n_stops": 17,
+      "first": "POVOA\u00c7\u00c3O (TERMINAL)",
+      "last": "POVOA\u00c7\u00c3O (TERMINAL)",
+      "loop": true,
+      "repeated_name_count": 2,
+      "repeated_total_extra": 2,
+      "max_repeat": 2,
+      "worst_name": [
+        "POVOA\u00c7\u00c3O (TERMINAL)",
+        2
+      ],
+      "has_shape": true,
+      "keys": [
+        "circulations",
+        "direction",
+        "end",
+        "endTime",
+        "id",
+        "isActive",
+        "name",
+        "shape",
+        "start",
+        "startTime",
+        "type"
+      ],
+      "max_time": 30000,
+      "times_gt_86400": [],
+      "n_gt_86400": 0
+    },
+    "N03": {
+      "journey_id": "981",
+      "n_stops": 47,
+      "first": "P. DELGADA (FORTE S. BR\u00c1S)",
+      "last": "P. DELGADA (FORTE S. BR\u00c1S)",
+      "loop": true,
+      "repeated_name_count": 3,
+      "repeated_total_extra": 3,
+      "max_repeat": 2,
+      "worst_name": [
+        "P. DELGADA (FORTE S. BR\u00c1S)",
+        2
+      ],
+      "has_shape": true,
+      "keys": [
+        "circulations",
+        "direction",
+        "end",
+        "endTime",
+        "id",
+        "isActive",
+        "name",
+        "shape",
+        "start",
+        "startTime",
+        "type"
+      ],
+      "max_time": 79800,
+      "times_gt_86400": [],
+      "n_gt_86400": 0
+    },
+    "N01": {
+      "journey_id": "971",
+      "n_stops": 68,
+      "first": "PONTA DELGADA (ALF\u00c2NDEGA)",
+      "last": "P. DELGADA (FORTE S. BR\u00c1S)",
+      "loop": false,
+      "repeated_name_count": 14,
+      "repeated_total_extra": 14,
+      "max_repeat": 2,
+      "worst_name": [
+        "PONTA DELGADA (ALF\u00c2NDEGA)",
+        2
+      ],
+      "has_shape": true,
+      "keys": [
+        "circulations",
+        "direction",
+        "end",
+        "endTime",
+        "id",
+        "isActive",
+        "name",
+        "shape",
+        "start",
+        "startTime",
+        "type"
+      ],
+      "max_time": 75600,
+      "times_gt_86400": [],
+      "n_gt_86400": 0
+    },
+    "N02": {
+      "journey_id": "973",
+      "n_stops": 89,
+      "first": "P. DELGADA (FORTE S. BR\u00c1S)",
+      "last": "STO. ANT\u00d3NIO BAIXO (LG. DA CRUZ)",
+      "loop": false,
+      "repeated_name_count": 0,
+      "repeated_total_extra": 0,
+      "max_repeat": 1,
+      "worst_name": null,
+      "has_shape": true,
+      "keys": [
+        "circulations",
+        "direction",
+        "end",
+        "endTime",
+        "id",
+        "isActive",
+        "name",
+        "shape",
+        "start",
+        "startTime",
+        "type"
+      ],
+      "max_time": 3900,
+      "times_gt_86400": [],
+      "n_gt_86400": 0
+    },
+    "N05": {
+      "journey_id": "994",
+      "n_stops": 54,
+      "first": "P. DELGADA (PISCINAS)",
+      "last": "RIBEIRA GRANDE (TERMINAL)",
+      "loop": false,
+      "repeated_name_count": 3,
+      "repeated_total_extra": 3,
+      "max_repeat": 2,
+      "worst_name": [
+        "CALHETAS (CANTO DOS REIS)",
+        2
+      ],
+      "has_shape": true,
+      "keys": [
+        "circulations",
+        "direction",
+        "end",
+        "endTime",
+        "id",
+        "isActive",
+        "name",
+        "shape",
+        "start",
+        "startTime",
+        "type"
+      ],
+      "max_time": 79140,
+      "times_gt_86400": [],
+      "n_gt_86400": 0
+    }
+  },
+  "night_times": {
+    "N01": {
+      "n": 1,
+      "starts": [
+        "20:00:00"
+      ],
+      "endTimes": [
+        75600
+      ],
+      "startTimes": [
+        72000
+      ],
+      "list_gt_86400": [],
+      "latest_id": "971",
+      "latest_start": "20:00:00",
+      "latest_endTime": 75600,
+      "detail_max_time": 75600,
+      "detail_gt_86400": []
+    },
+    "N02": {
+      "n": 3,
+      "starts": [
+        "00:00:00",
+        "21:50:00",
+        "22:55:00"
+      ],
+      "endTimes": [
+        3900,
+        82500,
+        86100
+      ],
+      "startTimes": [
+        0,
+        78600,
+        82500
+      ],
+      "list_gt_86400": [],
+      "latest_id": "979",
+      "latest_start": "22:55:00",
+      "latest_endTime": 86100,
+      "detail_max_time": 86100,
+      "detail_gt_86400": []
+    },
+    "N03": {
+      "n": 2,
+      "starts": [
+        "21:15:00",
+        "23:15:00"
+      ],
+      "endTimes": [
+        79800,
+        600
+      ],
+      "startTimes": [
+        76500,
+        83700
+      ],
+      "list_gt_86400": [],
+      "latest_id": "984",
+      "latest_start": "23:15:00",
+      "latest_endTime": 600,
+      "detail_max_time": 86341,
+      "detail_gt_86400": []
+    },
+    "N04": {
+      "n": 3,
+      "starts": [
+        "21:15:00",
+        "23:15:00",
+        "22:15:00"
+      ],
+      "endTimes": [
+        80100,
+        900,
+        83700
+      ],
+      "startTimes": [
+        76500,
+        83700,
+        80100
+      ],
+      "list_gt_86400": [],
+      "latest_id": "988",
+      "latest_start": "23:15:00",
+      "latest_endTime": 900,
+      "detail_max_time": 86369,
+      "detail_gt_86400": []
+    },
+    "N05": {
+      "n": 3,
+      "starts": [
+        "21:15:00",
+        "23:15:00",
+        "22:00:00"
+      ],
+      "endTimes": [
+        79140,
+        86340,
+        81839
+      ],
+      "startTimes": [
+        76500,
+        83700,
+        79200
+      ],
+      "list_gt_86400": [],
+      "latest_id": "997",
+      "latest_start": "23:15:00",
+      "latest_endTime": 86340,
+      "detail_max_time": 86340,
+      "detail_gt_86400": []
+    }
+  },
+  "poles_101": {
+    "id": "1",
+    "both_ways": 27,
+    "different_code": 24,
+    "dir0_takes_lower": 14,
+    "comparable": 27,
+    "examples": [
+      [
+        "P. DELGADA (MARINA)",
+        "1038",
+        "1037"
+      ],
+      [
+        "RIBEIRA GRANDE (LACTICINIOS)",
+        "5012",
+        "5011"
+      ],
+      [
+        "FAJ\u00c3 DE BAIXO (MOVIARTE)",
+        "1368",
+        "1369"
+      ],
+      [
+        "S\u00c3O ROQUE (CAF\u00c9 HOLAND\u00caS)",
+        "1738",
+        "1737"
+      ],
+      [
+        "S. ROQUE (EST. DE S. MIGUEL)",
+        "1658",
+        "1659"
+      ]
+    ],
+    "dir_present": {
+      "0": true,
+      "1": true
+    }
+  },
+  "poles_102": {
+    "id": "2",
+    "both_ways": 14,
+    "different_code": 10,
+    "dir0_takes_lower": 8,
+    "comparable": 14,
+    "examples": [
+      [
+        "RABO DE PEIXE (IGREJA)",
+        "5143",
+        "5144"
+      ],
+      [
+        "RABO DE PEIXE (LG. S. SEBASTI\u00c3O)",
+        "5145",
+        "5146"
+      ],
+      [
+        "RABO DE PEIXE (MARIANO BRUM GOUVEIA)",
+        "5147",
+        "5148"
+      ],
+      [
+        "RABO DE PEIXE (COFACO)",
+        "5139",
+        "5140"
+      ],
+      [
+        "RABO DE PEIXE (SUPERM. BOM JESUS)",
+        "5151",
+        "5152"
+      ]
+    ],
+    "dir_present": {
+      "0": true,
+      "1": true
+    }
+  },
+  "azb_locations": {
+    "status": 200,
+    "json": [],
+    "headers_interesting": {
+      "server": "cloudflare",
+      "cf-ray": "a2af09bc8d465816-LIS"
+    }
+  },
+  "azb_locations_1": {
+    "status": 404,
+    "preview": "{\"type\":\"https://tools.ietf.org/html/rfc9110#section-15.5.5\",\"title\":\"Not Found\",\"status\":404,\"traceId\":\"00-28d5835b5201c63a5f301bb6726eed69-79e882fa16992c06-00\"}"
+  },
+  "azb_publicapi_locations": {
+    "status": 404,
+    "preview": "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\r\n<html xmlns=\"http://www.w3.org/1999/xhtml\">\r\n<head>\r\n<meta http-equiv=\"Content-Type\" content=\"text/html; charset=iso-8859-1\"/>\r\n<title>404 - Ficheiro ou diret\ufffdrio n\ufffdo encontrado.</title>\r\n<style type=\"text/css\">\r\n<!--\r\nbody{margin:0;font-size:.7em;font-family:Verdana, Arial, Helvetica, sa"
+  },
+  "pdl_locations": {
+    "status": 200,
+    "n": 10,
+    "sample_keys": [
+      "color",
+      "id",
+      "position",
+      "status"
+    ],
+    "preview": "[{\"id\":\"11010934\",\"position\":{\"lat\":37.744286,\"lon\":-25.679692},\"status\":\"ontime\",\"color\":\"EC6E00\"},{\"id\":\"11010935\",\"position\":{\"lat\":37.736282,\"lon\":-25.674356},\"status\":\"ontime\",\"color\":\"EC6E00\"},{\"id\":\"11010936\",\"position\":{\"lat\":37.744904,\"lon\":-25.678174},\"status\":\"ontime\",\"color\":\"F6BC1C\"},{\"id\":\"11010938\",\"position\":{\"lat\":37.751996,\"lon\":-25.673987},\"status\":\"ontime\",\"color\":\"00964C\"},{\"i",
+    "headers_interesting": {
+      "server": "cloudflare",
+      "cf-ray": "a2af09c53a6cf368-LIS"
+    }
+  },
+  "pdl_vehicle_detail_keys": [
+    "currentStopSequence",
+    "fleetId",
+    "id",
+    "journey",
+    "licensePlate",
+    "position",
+    "route",
+    "speed",
+    "status"
+  ],
+  "pdl_vehicle_detail_status": 200,
+  "pdl_vehicle_nested": {
+    "route_keys": [
+      "color",
+      "description",
+      "id",
+      "isActive",
+      "name",
+      "nameShort"
+    ],
+    "journey_keys": [
+      "circulations",
+      "direction",
+      "end",
+      "endTime",
+      "id",
+      "isActive",
+      "name",
+      "shape",
+      "start",
+      "startTime",
+      "type"
+    ]
+  },
+  "tariffs": {
+    "status": 200,
+    "bytes": 32066,
+    "last_modified": "Wed, 05 Aug 2026 13:47:25 GMT",
+    "etag": "\"80d474f2e024dd1:0\"",
+    "date": "2026-09-01",
+    "n_categories": 4,
+    "category_names": [
+      "Passes Mensais",
+      "Passe Sociais",
+      "Pr\u00e9-Comprados Di\u00e1rios",
+      "Pr\u00e9-Comprado Multiviagens"
+    ],
+    "fareUnits_sample": [
+      "0 a 5",
+      "6 a 7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12",
+      "13"
+    ],
+    "fareUnits_all_strings": true,
+    "access_control": {}
+  },
+  "missing_endpoints": {
+    "/api": {
+      "status": 404,
+      "preview": ""
+    },
+    "/api/vehicles": {
+      "status": 404,
+      "preview": ""
+    },
+    "/api/fleet": {
+      "status": 404,
+      "preview": ""
+    },
+    "/api/lines": {
+      "status": 404,
+      "preview": ""
+    },
+    "/api/calendars": {
+      "status": 404,
+      "preview": ""
+    },
+    "/api/services": {
+      "status": 404,
+      "preview": ""
+    },
+    "/api/gtfs": {
+      "status": 404,
+      "preview": ""
+    },
+    "/api/alerts": {
+      "status": 404,
+      "preview": ""
+    },
+    "/api/agencies": {
+      "status": 404,
+      "preview": ""
+    },
+    "/api/stops/167": {
+      "status": 404,
+      "preview": ""
+    },
+    "/api/routes/1/shapes": {
+      "status": 404,
+      "preview": ""
+    },
+    "/api/routes/1/stops": {
+      "status": 404,
+      "preview": ""
+    },
+    "/api/routes/1/vehicles": {
+      "status": 404,
+      "preview": ""
+    },
+    "/api/tracking": {
+      "status": 404,
+      "preview": ""
+    },
+    "/api/positions": {
+      "status": 404,
+      "preview": ""
+    },
+    "/api/realtime": {
+      "status": 404,
+      "preview": ""
+    },
+    "/api/docs": {
+      "status": 404,
+      "preview": ""
+    },
+    "/api/swagger": {
+      "status": 404,
+      "preview": ""
+    },
+    "/api/openapi.json": {
+      "status": 404,
+      "preview": ""
+    },
+    "/api/health": {
+      "status": 404,
+      "preview": ""
+    }
+  },
+  "operator_site": {
+    "https://azoresbus.pt/": {
+      "status": 200,
+      "ctype": "text/html; charset=utf-8",
+      "preview": "<!DOCTYPE html>\r\n<html>\r\n\r\n<head>\r\n    <meta charset=\"UTF-8\" />\r\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" />\r\n    <title> Azoresbus</title>\r\n\r\n    <!-- generics -->\r\n "
+    },
+    "https://azoresbus.pt/gtfs": {
+      "status": 404,
+      "ctype": null,
+      "preview": ""
+    },
+    "https://azoresbus.pt/gtfs.zip": {
+      "status": 404,
+      "ctype": null,
+      "preview": ""
+    },
+    "https://www.azoresbus.pt/static/gtfs.zip": {
+      "status": 404,
+      "ctype": "text/html",
+      "preview": "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\r\n<html xmlns=\"http://www.w3.org/1999/xhtml\">\r\n<head>\r\n<meta http-equiv=\"Content-Type\" cont"
+    },
+    "https://azoresbus.pt/static/json/": {
+      "status": 403,
+      "ctype": "text/html",
+      "preview": "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\r\n<html xmlns=\"http://www.w3.org/1999/xhtml\">\r\n<head>\r\n<meta http-equiv=\"Content-Type\" cont"
+    },
+    "https://azoresbus.pt/robots.txt": {
+      "status": 404,
+      "ctype": null,
+      "preview": ""
+    },
+    "https://azoresbus.pt/sitemap.xml": {
+      "status": 404,
+      "ctype": null,
+      "preview": ""
+    },
+    "https://azoresbus.pt/downloads/docs/Info_passes.pdf": {
+      "status": 200,
+      "ctype": "application/pdf",
+      "preview": "%PDF-1.4\n%\ufffd\ufffd\ufffd\ufffd\n1 0 obj\n<<\n/Type /Catalog\n/Version /1.4\n/Pages 2 0 R\n/Metadata 3 0 R\n/StructTreeRoot 4 0 R\n/MarkInfo 5 0 R\n/Lang (pt-PT)\n/ViewerPreferences 6 0 R\n/Outlines 7 0 R\n/OutputIntents [8 0 R]\n"
+    }
+  },
+  "header_survey": [
+    {
+      "url": "https://azoresbus.pt/static/json/tariffs.json",
+      "status": 200,
+      "last-modified": "Wed, 05 Aug 2026 13:47:25 GMT",
+      "etag": "\"80d474f2e024dd1:0\""
+    },
+    {
+      "url": "https://azoresbus.pt/downloads/docs/Info_passes.pdf",
+      "status": 200,
+      "last-modified": "Mon, 10 Aug 2026 10:34:27 GMT",
+      "etag": "\"e930bbd1b328dd1:0\""
+    }
+  ],
+  "request_count": 291
+}
