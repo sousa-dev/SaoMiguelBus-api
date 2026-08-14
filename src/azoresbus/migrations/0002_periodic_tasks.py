@@ -12,16 +12,31 @@ from django.db import migrations
 
 
 def _crontab(apps, **fields):
+    """Reuse a matching CrontabSchedule row, or create one.
+
+    NOT get_or_create(): its lookup does not include `timezone`, and
+    CrontabSchedule has no uniqueness constraint at all -- atlas's
+    enrich_pois task already registers this exact minute/hour/day shape
+    (atlas/migrations/0002_register_beat_tasks.py), which is fine, rows are
+    meant to be shared. But get_or_create() calls .get() under the hood, and
+    .get() raises MultipleObjectsReturned the moment more than one row
+    matches -- which is exactly what happened in production: two existing
+    rows share these five fields (almost certainly differing only in
+    `timezone`, which the lookup can't see). Pick deterministically instead
+    of crashing, and never guess at which pre-existing row is "the real one".
+    """
     CrontabSchedule = apps.get_model('django_celery_beat', 'CrontabSchedule')
     defaults = {
         'minute': '0', 'hour': '*', 'day_of_week': '*',
         'day_of_month': '*', 'month_of_year': '*',
     }
     defaults.update(fields)
-    schedule, _ = CrontabSchedule.objects.get_or_create(
-        **defaults, defaults={'timezone': 'Atlantic/Azores'},
-    )
-    if schedule.timezone != 'Atlantic/Azores':
+    schedule = CrontabSchedule.objects.filter(**defaults).order_by('id').first()
+    if schedule is None:
+        schedule = CrontabSchedule.objects.create(
+            **defaults, timezone='Atlantic/Azores',
+        )
+    elif schedule.timezone != 'Atlantic/Azores':
         schedule.timezone = 'Atlantic/Azores'
         schedule.save(update_fields=['timezone'])
     return schedule
