@@ -49,6 +49,13 @@ def serialize_search_results(routes: list[dict]) -> list[dict]:
                 'stops': _parse_stops_string(route.get('stops', '')),
             }
         )
+        # 02 §7.1b: additive and optional. `sequence` is load-bearing -- the app
+        # must slice on these indices instead of re-matching names, or it
+        # discards the pair the server just chose (98 B7). Legacy results have
+        # no ExternalStop and omit the keys rather than emitting nulls.
+        for key in ('boarding', 'alighting'):
+            if route.get(key):
+                results[-1][key] = route[key]
     return results
 
 
@@ -133,7 +140,13 @@ def search_transit_v3(
     destination: str,
     day: str,
     start_time: str,
+    dataset: str | None = None,
 ) -> list[dict] | None:
+    """`dataset` is the preview toggle and admin/debug only (02 §7.1).
+
+    The app must never populate it from a cached bootstrap value, and must never
+    send `dataset=legacy` on a public URL (98 §4 gap "Stale bootstrap").
+    """
     routes = search_routes(
         origin=origin,
         destination=destination,
@@ -141,6 +154,7 @@ def search_transit_v3(
         start_time=start_time,
         full=False,
         prefix=True,
+        dataset=dataset,
     )
     if routes is None:
         return None

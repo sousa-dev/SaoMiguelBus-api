@@ -132,11 +132,16 @@ def transit_search_view(request: Request) -> Response:
         )
 
     with for_island(request.island):
+        from transit.services.schedule_phase import resolve_dataset
+
         results = search_transit_v3(
             origin=origin,
             destination=destination,
             day=day,
             start_time=start,
+            dataset=resolve_dataset(
+                request.island, requested=request.GET.get('dataset'),
+            ),
         )
         if results is None:
             return Response(
