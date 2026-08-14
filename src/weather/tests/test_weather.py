@@ -168,8 +168,16 @@ class WeatherServicesTestCase(TestCase):
     )
     @patch('weather.services.fetch_forecast', return_value=[SAMPLE_RAW])
     def test_refresh_parishes_sets_cache(self, _mock_fetch):
+        from django.core.cache import cache
+
         from weather.services import get_cached_parish_weather
 
+        # setUp's cache.clear() runs before this method's @override_settings
+        # takes effect, so it clears the real (Redis) cache, not the LocMemCache
+        # this test actually runs under. LocMemCache's default location is a
+        # process-global dict, so without this, a same-keyed value left by an
+        # earlier test in this class leaks in as a false cache hit.
+        cache.clear()
         count = refresh_parishes([self.parish])
         self.assertEqual(count, 1)
         cached = get_cached_parish_weather(self.island.key, self.parish.slug)
@@ -185,8 +193,11 @@ class WeatherServicesTestCase(TestCase):
     )
     @patch('weather.services.fetch_forecast', return_value=[SAMPLE_RAW])
     def test_list_parish_weather_uses_cache(self, mock_fetch):
+        from django.core.cache import cache
+
         from weather.services import list_parish_weather
 
+        cache.clear()          # see test_refresh_parishes_sets_cache
         first = list_parish_weather(self.island)
         second = list_parish_weather(self.island)
         self.assertEqual(len(first), 1)
@@ -207,8 +218,11 @@ class WeatherServicesTestCase(TestCase):
     @patch('weather.services.fetch_hourly', return_value=SAMPLE_HOURLY_RAW)
     @patch('weather.services.fetch_forecast', return_value=[SAMPLE_RAW])
     def test_get_parish_hourly_returns_slots(self, _mock_forecast, mock_hourly):
+        from django.core.cache import cache
+
         from weather.services import get_parish_hourly
 
+        cache.clear()          # see test_refresh_parishes_sets_cache
         refresh_parishes([self.parish])
         payload = get_parish_hourly(self.parish, '2026-06-03')
         self.assertEqual(payload['slug'], self.parish.slug)
@@ -231,8 +245,11 @@ class WeatherServicesTestCase(TestCase):
     @patch('weather.services.fetch_hourly', return_value=SAMPLE_HOURLY_RAW)
     @patch('weather.services.fetch_forecast', return_value=[SAMPLE_RAW])
     def test_get_parish_hourly_cache_hit(self, _mock_forecast, mock_hourly):
+        from django.core.cache import cache
+
         from weather.services import get_parish_hourly
 
+        cache.clear()          # see test_refresh_parishes_sets_cache
         refresh_parishes([self.parish])
         get_parish_hourly(self.parish, '2026-06-03')
         get_parish_hourly(self.parish, '2026-06-03')
@@ -247,8 +264,11 @@ class WeatherServicesTestCase(TestCase):
     )
     @patch('weather.services.fetch_forecast', return_value=[SAMPLE_RAW])
     def test_get_parish_hourly_invalid_date(self, _mock_forecast):
+        from django.core.cache import cache
+
         from weather.services import get_parish_hourly
 
+        cache.clear()          # see test_refresh_parishes_sets_cache
         refresh_parishes([self.parish])
         with self.assertRaises(ValueError):
             get_parish_hourly(self.parish, '2026-06-10')
@@ -270,6 +290,7 @@ class WeatherServicesTestCase(TestCase):
             get_parish_hourly,
         )
 
+        cache.clear()          # see test_refresh_parishes_sets_cache
         cache.set(
             _cache_key(self.island.key, self.parish.slug),
             serialize_parish_weather(self.parish, SAMPLE_RAW),
@@ -297,6 +318,7 @@ class WeatherServicesTestCase(TestCase):
             get_parish_hourly,
         )
 
+        cache.clear()          # see test_refresh_parishes_sets_cache
         cache.set(
             _cache_key(self.island.key, self.parish.slug),
             serialize_parish_weather(self.parish, SAMPLE_RAW),
