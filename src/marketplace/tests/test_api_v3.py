@@ -19,6 +19,11 @@ class MarketplaceAPITests(TestCase):
         cache.clear()  # isolate throttle buckets between tests
         self.client = APIClient()
         self.island = get_or_create_default_island()
+        # marketplace/0002 seeds eight default categories for sao-miguel.
+        # It only ever looked like a no-op because the migration graph used
+        # to order it BEFORE the island existed; these fixtures build their
+        # own categories and must not depend on that accident.
+        ServiceCategory.objects.filter(island=self.island).delete()
         self.category = ServiceCategory.objects.create(
             island=self.island, name='Electricians', slug='electricians', is_active=True
         )

@@ -30,6 +30,11 @@ class NewsServicesTestCase(TestCase):
         self.island.is_live = True
         self.island.feature_flags = {**self.island.feature_flags, 'news': True, 'transit': True}
         self.island.save()
+        # news/0005 configures the Azores sources. It only ever looked
+        # like a no-op because the migration graph used to order it BEFORE
+        # the island existed; these fixtures build their own sources and
+        # must not depend on that accident.
+        NewsSource.objects.filter(island=self.island).delete()
         self.source = NewsSource.objects.create(
             island=self.island,
             name='Test Feed',
@@ -342,6 +347,11 @@ class NewsAPITestCase(TestCase):
         self.island.is_live = True
         self.island.feature_flags = {**self.island.feature_flags, 'news': True, 'transit': True}
         self.island.save()
+        # news/0005 configures the Azores sources. It only ever looked
+        # like a no-op because the migration graph used to order it BEFORE
+        # the island existed; these fixtures build their own sources and
+        # must not depend on that accident.
+        NewsSource.objects.filter(island=self.island).delete()
         self.headers = {'HTTP_X_ISLAND': 'sao-miguel'}
         self.alra_source = NewsSource.objects.create(
             island=self.island,
