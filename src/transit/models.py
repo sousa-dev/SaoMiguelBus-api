@@ -64,6 +64,96 @@ class Calendar(TenantScopedModel):
         return self.service_type
 
 
+class ServicePattern(TenantScopedModel):
+    """Which dates a set of trips operates on. GTFS calendar + calendar_dates.
+
+    Replaces the three-row `Calendar` for anything date-resolved. Calendar has
+    exactly three rows per island and cannot express "Tuesday and Thursday,
+    school term only" (line 112), "Wednesday only" (102 journey 1009), or
+    "38 journeys from 14 September, 33 in July" (307). See 98 B0.
+
+    These rules are DERIVED from a bounded sample, not published by the
+    operator. `confidence` says so and must stay honest.
+    """
+
+    CONFIDENCE_SAMPLED = 'sampled'
+    CONFIDENCE_OFFICIAL = 'official'
+    CONFIDENCE_CHOICES = [
+        (CONFIDENCE_SAMPLED, 'Inferred from observed dates'),
+        (CONFIDENCE_OFFICIAL, 'Published by the operator'),
+    ]
+
+    WEEKDAY_FIELDS = (
+        'monday', 'tuesday', 'wednesday', 'thursday', 'friday',
+        'saturday', 'sunday',
+    )
+
+    dataset = dataset_field()
+    key = models.CharField(max_length=64, db_index=True)
+
+    monday = models.BooleanField(default=False)
+    tuesday = models.BooleanField(default=False)
+    wednesday = models.BooleanField(default=False)
+    thursday = models.BooleanField(default=False)
+    friday = models.BooleanField(default=False)
+    saturday = models.BooleanField(default=False)
+    sunday = models.BooleanField(default=False)
+
+    start_date = models.DateField(null=True, blank=True)   # null => unbounded
+    end_date = models.DateField(null=True, blank=True)
+    # We have evidence the service stops but the sample is too sparse to say
+    # when. Flagged rather than guessed (02 section 3.3).
+    end_unknown = models.BooleanField(default=False)
+    # Weekdays the sample could not settle. Recorded, never averaged.
+    ambiguous_weekdays = models.JSONField(default=list, blank=True)
+
+    derived_from_run = models.ForeignKey(
+        'azoresbus.SyncRun', null=True, blank=True,
+        on_delete=models.SET_NULL, related_name='derived_patterns',
+    )
+    confidence = models.CharField(max_length=16, choices=CONFIDENCE_CHOICES,
+                                  default=CONFIDENCE_SAMPLED)
+
+    class Meta:
+        unique_together = [('island', 'dataset', 'key')]
+        indexes = [models.Index(fields=['island', 'dataset'])]
+
+    def __str__(self) -> str:
+        mask = ''.join(
+            '1' if getattr(self, name) else '0' for name in self.WEEKDAY_FIELDS
+        )
+        return f'{self.key} ({mask})'
+
+    def runs_on_weekday(self, weekday: int) -> bool:
+        """weekday is Python's Monday=0 .. Sunday=6."""
+        return bool(getattr(self, self.WEEKDAY_FIELDS[weekday]))
+
+
+class ServiceException(TenantScopedModel):
+    """GTFS calendar_dates: force a date on or off for one pattern.
+
+    Populated from upstream behaviour, not just our Holiday table: a weekday
+    whose journey set equals that route's Sunday set is a holiday as far as
+    upstream is concerned, whatever our list says (02 section 4.1).
+    """
+
+    ADDED = 1
+    REMOVED = 2
+    TYPE_CHOICES = [(ADDED, 'Added'), (REMOVED, 'Removed')]
+
+    service = models.ForeignKey(ServicePattern, on_delete=models.CASCADE,
+                                related_name='exceptions')
+    date = models.DateField(db_index=True)
+    exception_type = models.PositiveSmallIntegerField(choices=TYPE_CHOICES)
+
+    class Meta:
+        unique_together = [('service', 'date')]
+        indexes = [models.Index(fields=['service', 'date'])]
+
+    def __str__(self) -> str:
+        return f'{self.service.key} {self.date} {self.get_exception_type_display()}'
+
+
 class Stop(TenantScopedModel):
     dataset = dataset_field()
     name = models.CharField(max_length=200)
@@ -125,7 +215,13 @@ class Trip(TenantScopedModel):
     # join would sit on the hot path.
     dataset = dataset_field()
     line = models.ForeignKey(Line, on_delete=models.CASCADE, related_name='trips')
-    calendar = models.ForeignKey(Calendar, on_delete=models.PROTECT, related_name='trips')
+    # Nullable now: AzoresBus trips are date-resolved through `service`, and
+    # legacy trips keep their Calendar until it is retired separately. Every
+    # existing row and query stays valid through the migration.
+    calendar = models.ForeignKey(Calendar, on_delete=models.PROTECT,
+                                 related_name='trips', null=True, blank=True)
+    service = models.ForeignKey(ServicePattern, on_delete=models.PROTECT,
+                                related_name='trips', null=True, blank=True)
     headsign = models.CharField(max_length=200, blank=True, default='')
     direction = models.CharField(max_length=32, blank=True, default='')
     likes = models.IntegerField(default=0)
@@ -137,10 +233,14 @@ class Trip(TenantScopedModel):
         indexes = [
             models.Index(fields=['island', 'line', 'calendar']),
             models.Index(fields=['island', 'dataset', 'source']),
+            models.Index(fields=['island', 'dataset', 'service']),
         ]
 
     def __str__(self) -> str:
-        return f'{self.line.code} ({self.calendar.service_type})'
+        when = self.calendar.service_type if self.calendar_id else (
+            self.service.key if self.service_id else 'no service'
+        )
+        return f'{self.line.code} ({when})'
 
 
 class StopTime(TenantScopedModel):
@@ -149,6 +249,16 @@ class StopTime(TenantScopedModel):
     sequence = models.PositiveIntegerField()
     departure_time = models.TimeField()
     arrival_time = models.TimeField(null=True, blank=True)
+    # Night journeys wrap to zero mid-trip (98 B2). Storing 00:10 without an
+    # offset and then ordering by the bare TimeField reorders the trip, so
+    # every sort must use (day_offset, departure_time) or sequence.
+    day_offset = models.PositiveSmallIntegerField(default=0)
+    # Which physical pole. Collapsing 1456 stops to 816 names for the picker
+    # would otherwise destroy the side-of-road information upstream gives us.
+    external_stop = models.ForeignKey(
+        'azoresbus.ExternalStop', null=True, blank=True,
+        on_delete=models.SET_NULL, related_name='stop_times',
+    )
 
     class Meta:
         unique_together = [('trip', 'sequence')]
