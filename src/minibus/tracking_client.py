@@ -1,8 +1,13 @@
 """Eleven Systems PDL Mini Bus live AVL HTTP client.
 
-Upstream base URL is configurable via MINIBUS_TRACKING_BASE_URL (default: direct Eleven
-Systems). When Cloudflare blocks datacenter IPs, point it at a Tailscale home proxy —
-see minibus/docs/tailscale-tracking-proxy.md.
+Requests are routed through `shared.upstream_proxy`, which sends the target host
+in a header and preserves the full upstream path. That lets one Pi serve both
+this and AzoresBus without a per-service path mapping — see
+minibus/docs/tailscale-tracking-proxy.md.
+
+MINIBUS_TRACKING_BASE_URL remains the upstream ORIGIN plus base path. Setting
+UPSTREAM_PROXY_URL is what moves traffic through the Pi; with it unset, calls go
+direct, so local development and tests need no proxy.
 """
 
 from __future__ import annotations
@@ -12,6 +17,8 @@ from typing import Any
 
 import requests
 from decouple import config
+
+from shared.upstream_proxy import build_request
 
 logger = logging.getLogger(__name__)
 
@@ -35,8 +42,8 @@ class MinibusTrackingNotFoundError(MinibusTrackingError):
 
 def fetch_fleet_locations() -> list[dict[str, Any]]:
     """Fetch all active vehicle locations."""
-    url = f'{MINIBUS_TRACKING_BASE_URL}/locations'
-    payload = _request_json(url, not_found_exc=MinibusTrackingError)
+    url, headers = _resolve('/locations')
+    payload = _request_json(url, not_found_exc=MinibusTrackingError, headers=headers)
     if not isinstance(payload, list):
         raise MinibusTrackingError('Unexpected fleet response shape')
     return payload
@@ -47,20 +54,33 @@ def fetch_vehicle_location(tracking_id: str) -> dict[str, Any]:
     tracking_id = str(tracking_id).strip()
     if not tracking_id:
         raise MinibusTrackingNotFoundError('Vehicle id required')
-    url = f'{MINIBUS_TRACKING_BASE_URL}/locations/{tracking_id}'
-    payload = _request_json(url, not_found_exc=MinibusTrackingNotFoundError)
+    url, headers = _resolve(f'/locations/{tracking_id}')
+    payload = _request_json(
+        url, not_found_exc=MinibusTrackingNotFoundError, headers=headers,
+    )
     if not isinstance(payload, dict):
         raise MinibusTrackingError('Unexpected vehicle detail response shape')
     return payload
 
 
 def _tracking_headers() -> dict[str, str]:
+    """Legacy direct-proxy key, kept for a proxy not yet on the new contract."""
     if not MINIBUS_TRACKING_PROXY_KEY:
         return {}
     return {_TRACKING_PROXY_KEY_HEADER: MINIBUS_TRACKING_PROXY_KEY}
 
 
-def _request_json(url: str, *, not_found_exc: type[MinibusTrackingError]) -> Any:
+def _resolve(path: str) -> tuple[str, dict[str, str]]:
+    url, headers = build_request(MINIBUS_TRACKING_BASE_URL, path)
+    return url, {**_tracking_headers(), **headers}
+
+
+def _request_json(
+    url: str,
+    *,
+    not_found_exc: type[MinibusTrackingError],
+    headers: dict[str, str] | None = None,
+) -> Any:
     try:
         response = requests.get(
             url,

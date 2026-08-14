@@ -94,6 +94,32 @@ def transit_offline_bundle_view(request: Request) -> Response:
 
 @api_view(['GET'])
 @permission_classes([AllowAny])
+def transit_offline_bundle_v2_view(request: Request) -> Response:
+    """Schema-versioned bundle. Only new builds request it (00 Decision 4)."""
+    err = _require_island(request)
+    if err:
+        return err
+    with for_island(request.island):
+        from transit.services.offline_bundle_v2 import build_offline_bundle_v2
+
+        return Response(build_offline_bundle_v2(request.island))
+
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def transit_offline_bundle_v2_version_view(request: Request) -> Response:
+    """Fingerprint only, for the staleness probe."""
+    err = _require_island(request)
+    if err:
+        return err
+    with for_island(request.island):
+        from transit.services.offline_bundle_v2 import compute_version_v2
+
+        return Response({'version': compute_version_v2(request.island)})
+
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
 def transit_tariffs_view(request: Request) -> Response:
     """Fare TABLES. Never a per-ride price -- see services_tariffs."""
     err = _require_island(request)

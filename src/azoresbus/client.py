@@ -20,6 +20,8 @@ from typing import Any
 import requests
 from decouple import config
 
+from shared.upstream_proxy import build_request
+
 
 logger = logging.getLogger(__name__)
 
@@ -95,11 +97,18 @@ class AzoresbusClient:
             wait *= 1.0 + random.uniform(-self.jitter, self.jitter)
         time.sleep(max(wait, MIN_DELAY))
 
-    def _headers(self) -> dict[str, str]:
+    def _resolve(self, path: str) -> tuple[str, dict[str, str]]:
+        """Through the Pi when one is configured, direct otherwise.
+
+        The proxy contract carries the target host in a header and preserves the
+        full upstream path, so adding this upstream needed no new Pi rule.
+        """
+        url, proxy_headers = build_request(self.base_url, path)
         headers = {'User-Agent': USER_AGENT, 'Accept': 'application/json'}
         if AZORESBUS_PROXY_KEY:
             headers['X-Tracking-Proxy-Key'] = AZORESBUS_PROXY_KEY
-        return headers
+        headers.update(proxy_headers)
+        return url, headers
 
     # -- the one entry point ------------------------------------------------
 
@@ -115,7 +124,7 @@ class AzoresbusClient:
                 'partial and must not prune or retire anything.'
             )
 
-        url = f'{self.base_url}{path}'
+        url, headers = self._resolve(path)
         last_error: Exception | None = None
 
         for attempt in range(1, self.max_attempts + 1):
@@ -125,7 +134,7 @@ class AzoresbusClient:
 
             try:
                 response = requests.get(
-                    url, timeout=self.timeout, headers=self._headers(),
+                    url, timeout=self.timeout, headers=headers,
                 )
             except requests.RequestException as exc:
                 last_error = exc
