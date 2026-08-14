@@ -13,11 +13,14 @@ for rows no observation references at all, and sits behind the same gate.
 
 from __future__ import annotations
 
+import logging
 from dataclasses import dataclass, field
 from datetime import date, timedelta
 
 from decouple import config
 
+
+logger = logging.getLogger(__name__)
 
 AZORESBUS_SYNC_PRUNE_FLOOR = config(
     'AZORESBUS_SYNC_PRUNE_FLOOR', default=0.10, cast=float,
@@ -138,6 +141,7 @@ def run_sync(
     from azoresbus.models import ServiceObservation, SyncRun
     from azoresbus.services_import import import_schedules
     from azoresbus.services_sampling import build_sample
+    from azoresbus.services_tariffs import TariffsError, sync_tariffs
     from transit.models import DATASET_AZORESBUS, Holiday
     from transit.services.schedule_phase import today_in_azores
 
@@ -219,6 +223,17 @@ def run_sync(
     if no_prune:
         decision.allowed = False
         decision.reason = 'suppressed by --no-prune / explicit dates'
+
+    # Fares refresh with the timetables: it is one conditional request, and
+    # letting them drift apart means a schedule run can leave prices stale for a
+    # week. A tariff failure must NOT lose the timetable import that just
+    # succeeded, so it is recorded rather than raised.
+    try:
+        tariffs = sync_tariffs(island)
+    except TariffsError as exc:
+        logger.warning('tariffs step failed during schedule sync: %s', exc)
+        tariffs = {'changed': False, 'error': str(exc)}
+    report['tariffs'] = tariffs
 
     run.status = SyncRun.STATUS_COMPLETED
     run.request_count = client.request_count

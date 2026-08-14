@@ -50,6 +50,18 @@ def queue_sync(*, island_key: str | None = None, full: bool = False) -> dict:
     return {'queued': True, 'task_id': str(result.id), 'full': full}
 
 
+def queue_tariffs(*, island_key: str | None = None) -> dict:
+    """Enqueue a tariffs-only refresh. One conditional request.
+
+    Not lock-guarded: it is cheap, idempotent and independent of the schedule
+    lock, so a fare refresh must never be blocked by a 13-minute sync.
+    """
+    result = sync_tariffs_task.apply_async(
+        kwargs={'island_key': island_key}, countdown=0,
+    )
+    return {'queued': True, 'task_id': str(result.id)}
+
+
 @shared_task(name='azoresbus.sync_schedules')
 def sync_schedules_task(island_key: str | None = None, full: bool = False) -> dict:
     """Run a real sync. Same code path as `manage.py sync_azoresbus`.

@@ -66,17 +66,32 @@ class BootstrapCommandTests(TestCase):
         self.assertTrue(mock_queue.call_args.kwargs['full'])
         self.assertIn('queued', output.lower())
 
+    @patch('azoresbus.management.commands.bootstrap_azoresbus.queue_tariffs')
     @patch('azoresbus.management.commands.bootstrap_azoresbus.queue_sync')
-    def test_no_op_when_data_and_a_successful_run_exist(self, mock_queue):
+    def test_no_op_when_data_and_a_successful_run_exist(
+        self, mock_queue, mock_tariffs,
+    ):
+        """Schedules AND tariffs present => nothing to do.
+
+        Tariffs are part of the check now, so this needs a snapshot too;
+        seeding schedules alone is a "tariffs missing" case.
+        """
+        from azoresbus.models import TariffSnapshot
+
         self._make_azoresbus_trip()
         SyncRun.objects.create(
             island=self.island, kind=SyncRun.KIND_SCHEDULES,
             status=SyncRun.STATUS_COMPLETED,
         )
+        TariffSnapshot.objects.create(
+            island=self.island, source_url='https://x',
+            payload={}, content_hash='abc', is_current=True,
+        )
 
         output = self._run()
 
         mock_queue.assert_not_called()
+        mock_tariffs.assert_not_called()
         self.assertIn('up to date', output.lower())
 
     @patch('azoresbus.management.commands.bootstrap_azoresbus.queue_sync')

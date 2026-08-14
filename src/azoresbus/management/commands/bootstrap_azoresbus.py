@@ -16,8 +16,8 @@ import logging
 from decouple import config
 from django.core.management.base import BaseCommand
 
-from azoresbus.models import SyncRun
-from azoresbus.tasks import queue_sync
+from azoresbus.models import SyncRun, TariffSnapshot
+from azoresbus.tasks import queue_sync, queue_tariffs
 from tenancy.models import Island
 from tenancy.services import for_island
 from transit.models import DATASET_AZORESBUS, Trip
@@ -60,6 +60,7 @@ class Command(BaseCommand):
             self._bootstrap(island, force=force)
 
     def _bootstrap(self, island: Island, *, force: bool) -> None:
+        """Sync what is missing. Schedules and tariffs are independent."""
         # Every worker has just restarted, so any Running row belongs to a
         # process that no longer exists -- and its un-released lock would
         # otherwise block this very sync for the lock's full 45-minute TTL.
@@ -73,43 +74,68 @@ class Command(BaseCommand):
                 'left Running by a killed worker; lock released.'
             ))
 
-        if not force and self._has_usable_data(island):
+        needs_schedules = force or not self._has_schedules(island)
+        needs_tariffs = force or not self._has_tariffs(island)
+
+        if not needs_schedules and not needs_tariffs:
             self.stdout.write(
-                f'[{island.key}] AzoresBus data is up to date; nothing queued.'
+                f'[{island.key}] schedules and tariffs are up to date; '
+                'nothing queued.'
             )
             return
 
+        if needs_schedules:
+            # run_sync fetches tariffs as a step, so queueing both would fetch
+            # them twice.
+            self._queue(
+                island, queue_sync, 'full AzoresBus sync (schedules + tariffs)',
+                island_key=island.key, full=True,
+            )
+            return
+
+        self._queue(
+            island, queue_tariffs, 'tariffs refresh', island_key=island.key,
+        )
+
+    def _queue(self, island: Island, fn, label: str, **kwargs) -> None:
         try:
-            result = queue_sync(island_key=island.key, full=True)
+            result = fn(**kwargs)
         except Exception:
             # A broker outage must never fail a deploy, exactly as
             # bootstrap_feed_syncs treats it.
-            logger.exception('bootstrap_azoresbus could not queue a sync')
+            logger.exception('bootstrap_azoresbus could not queue %s', label)
             self.stdout.write(self.style.WARNING(
-                f'[{island.key}] could not queue the sync (broker down?); '
+                f'[{island.key}] could not queue the {label} (broker down?); '
                 'the lazy staleness backstop will retry on first search.'
             ))
             return
 
         if result.get('queued'):
             self.stdout.write(self.style.SUCCESS(
-                f'[{island.key}] queued a full AzoresBus sync '
+                f'[{island.key}] queued the {label} '
                 f'(task {result.get("task_id")}).'
             ))
         else:
             self.stdout.write(
-                f'[{island.key}] not queued: {result.get("reason")}.'
+                f'[{island.key}] {label} not queued: {result.get("reason")}.'
             )
 
-    def _has_usable_data(self, island: Island) -> bool:
+    def _has_schedules(self, island: Island) -> bool:
         """Data alone is not enough -- a half-import is worse than none."""
         with for_island(island):
-            has_trips = Trip.objects.filter(
-                island=island, dataset=DATASET_AZORESBUS,
+            return (
+                Trip.objects.filter(
+                    island=island, dataset=DATASET_AZORESBUS,
+                ).exists()
+                and SyncRun.objects.filter(
+                    island=island,
+                    kind=SyncRun.KIND_SCHEDULES,
+                    status=SyncRun.STATUS_COMPLETED,
+                ).exists()
+            )
+
+    def _has_tariffs(self, island: Island) -> bool:
+        with for_island(island):
+            return TariffSnapshot.objects.filter(
+                island=island, is_current=True,
             ).exists()
-            has_success = SyncRun.objects.filter(
-                island=island,
-                kind=SyncRun.KIND_SCHEDULES,
-                status=SyncRun.STATUS_COMPLETED,
-            ).exists()
-        return has_trips and has_success
