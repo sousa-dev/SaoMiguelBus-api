@@ -56,6 +56,27 @@ INTENDED_DIFFS: dict[str, dict] = {
             }
         ],
     },
+    'loop_reverse_leg': {
+        'reason': (
+            'Sequence-based pair matching (98 B7). CHARLIE -> ALFA on a loop is '
+            'a valid ride from sequence 3 to sequence 5. The old matcher found '
+            'ALFA at string index 0, concluded the origin came after the '
+            'destination, and discarded the trip. '
+        ),
+        'source': '98 B7; 02 section 3.4; 00 Decision 5',
+        'results': [{"id": "loop_weekday", "route": "SNAP-LOOP", "origin": "CHARLIE", "destination": "ALFA", "start": "07h00", "end": "08h00", "stops": "{'ALFA': '06h00', 'BRAVO': '06h30', 'CHARLIE': '07h00', 'DELTA': '07h30', 'ALFA': '08h00'}", "type_of_day": "WEEKDAY", "information": {}, "likes_percent": 0, "dislikes_percent": 0}],
+    },
+    'late_board_after_start': {
+        'reason': (
+            'Boarding-time filter (02 section 3.4). The request is now compared '
+            'against the SELECTED BOARD STOP time, not the trip first stop '
+            'time. This trip departs 06:00 and reaches FOXTROT at 09:00, so a '
+            'start of 08h30 used to drop it. Note `start` is now the board time '
+            '(09h00), not the trip departure. '
+        ),
+        'source': '02 section 3.4; 00 Decision 5',
+        'results': [{"id": "late_board_weekday", "route": "SNAP-LATE", "origin": "FOXTROT", "destination": "GOLF", "start": "09h00", "end": "09h30", "stops": "{'ECHO': '06h00', 'FOXTROT': '09h00', 'GOLF': '09h30'}", "type_of_day": "WEEKDAY", "information": {}, "likes_percent": 0, "dislikes_percent": 0}],
+    },
 }
 
 

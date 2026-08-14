@@ -21,6 +21,7 @@ from tenancy.models import Island
 from tenancy.services import for_island
 from transit.models import (
     DATASET_LEGACY,
+    ServicePattern,
     Ad,
     Calendar,
     Holiday,
@@ -689,6 +690,22 @@ def migrate_stop_groups(island: Island, legacy: LegacySource) -> MigrationReport
     return report
 
 
+def _legacy_service_pattern(island: Island, service_type: str):
+    """The back-filled pattern for a legacy day-type, created on demand."""
+    from transit.services.service_backfill import LEGACY_KEYS, LEGACY_MASKS
+
+    pattern, _ = ServicePattern.objects.get_or_create(
+        island=island,
+        dataset=DATASET_LEGACY,
+        key=LEGACY_KEYS[service_type],
+        defaults={
+            **LEGACY_MASKS[service_type],
+            'confidence': ServicePattern.CONFIDENCE_OFFICIAL,
+        },
+    )
+    return pattern
+
+
 def migrate_lines_trips(island: Island, legacy: LegacySource) -> MigrationReport:
     report = MigrationReport(step='lines_trips')
     rows = legacy.fetchall(QUERY_ROUTES)
@@ -696,6 +713,9 @@ def migrate_lines_trips(island: Island, legacy: LegacySource) -> MigrationReport
         for legacy_id, route, stops_raw, type_of_day, information, disabled, likes, dislikes in rows:
             service_type = LEGACY_DAY_MAP.get(str(type_of_day).strip(), Calendar.WEEKDAY)
             calendar = Calendar.objects.get(island=island, service_type=service_type)
+            # Trips created after transit/migrations/0007 must carry a
+            # ServicePattern too, or date-resolved search cannot see them.
+            service = _legacy_service_pattern(island, service_type)
             operator = Operator.objects.get(island=island, name=infer_operator_name(route))
             # Without dataset in the lookup this overwrites the AzoresBus 101.
             line, _ = Line.objects.update_or_create(
@@ -719,6 +739,7 @@ def migrate_lines_trips(island: Island, legacy: LegacySource) -> MigrationReport
                 created = False
                 trip.line = line
                 trip.calendar = calendar
+                trip.service = service
                 trip.likes = likes or 0
                 trip.dislikes = dislikes or 0
                 trip.information = _parse_legacy_information(information)
@@ -731,6 +752,7 @@ def migrate_lines_trips(island: Island, legacy: LegacySource) -> MigrationReport
                     dataset=DATASET_LEGACY,
                     line=line,
                     calendar=calendar,
+                    service=service,
                     likes=likes or 0,
                     dislikes=dislikes or 0,
                     source=Trip.SOURCE_OPERATOR,

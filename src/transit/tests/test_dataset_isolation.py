@@ -23,12 +23,14 @@ from django.test import TestCase
 from rest_framework.test import APIClient
 
 from tenancy.services import for_island, get_or_create_default_island
+from transit.services.service_backfill import backfill_legacy_services
 from transit.models import (
     DATASET_AZORESBUS,
     DATASET_LEGACY,
     Calendar,
     Line,
     Operator,
+    ServicePattern,
     Stop,
     StopTime,
     Trip,
@@ -96,6 +98,21 @@ def build_two_networks():
             sequence=2, departure_time=time(8, 30),
         )
         created[dataset] = {'line': line, 'trip': trip, 'origin': origin}
+
+    # Production trips carry a ServicePattern (transit/migrations/0007 for
+    # legacy, the sync for azoresbus). Without one, date-resolved search cannot
+    # see them at all.
+    backfill_legacy_services(island)
+    pattern = ServicePattern.objects.create(
+        island=island, dataset=DATASET_AZORESBUS, key='azb-everyday',
+        monday=True, tuesday=True, wednesday=True, thursday=True,
+        friday=True, saturday=True, sunday=True,
+    )
+    Trip.objects.filter(
+        island=island, dataset=DATASET_AZORESBUS,
+    ).update(service=pattern)
+    for entry in created.values():
+        entry['trip'].refresh_from_db()
 
     return island, created
 

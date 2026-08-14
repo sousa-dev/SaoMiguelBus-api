@@ -18,6 +18,7 @@ from tenancy.models import Island
 from tenancy.services import get_or_create_default_island
 from transit.models import Calendar, Line, Operator, Stop, StopTime, Trip
 from transit.services.legacy_import import clean_string
+from transit.services.service_backfill import backfill_legacy_services
 
 
 # (key, code, service_type, [(stop_name, 'HH:MM'), ...])
@@ -223,6 +224,11 @@ def ensure_search_snapshot_fixtures() -> tuple[Island, dict[str, Trip]]:
                     sequence=sequence, departure_time=_parse(hhmm),
                 )
         trips[key] = trip
+
+    # Production legacy trips carry a ServicePattern (transit/migrations/0007).
+    backfill_legacy_services(island)
+    for trip in trips.values():
+        trip.refresh_from_db()
 
     return island, trips
 
