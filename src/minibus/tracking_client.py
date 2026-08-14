@@ -85,7 +85,7 @@ def _request_json(
         response = requests.get(
             url,
             timeout=MINIBUS_TRACKING_TIMEOUT,
-            headers=_tracking_headers(),
+            headers=_tracking_headers() if headers is None else headers,
         )
     except requests.RequestException as exc:
         logger.exception('Minibus tracking request failed url=%s', url)
