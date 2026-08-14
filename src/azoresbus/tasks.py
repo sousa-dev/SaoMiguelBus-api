@@ -66,6 +66,8 @@ def sync_schedules_task(island_key: str | None = None, full: bool = False) -> di
         AZORESBUS_ISLANDS,
     )
 
+    from azoresbus.services_sync import reclaim_stale_runs
+
     keys = [island_key] if island_key else AZORESBUS_ISLANDS
     islands = Island.objects.filter(is_live=True, key__in=keys)
 
@@ -73,6 +75,10 @@ def sync_schedules_task(island_key: str | None = None, full: bool = False) -> di
     try:
         for island in islands:
             with for_island(island):
+                # Age-based, not all_running: a sync genuinely in flight on
+                # another worker must never be killed by this one. Anything
+                # older than the lock's own TTL cannot still be alive.
+                reclaim_stale_runs(island)
                 try:
                     results[island.key] = run_sync(island, full=full)
                 except SyncAborted as exc:

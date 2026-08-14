@@ -14,7 +14,7 @@ for rows no observation references at all, and sits behind the same gate.
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from datetime import date
+from datetime import date, timedelta
 
 from decouple import config
 
@@ -292,3 +292,57 @@ def _fetch_all(client, dates, *, run=None) -> dict:
 
     return {'stops': stops, 'routes': routes,
             'journeys': journeys, 'details': details}
+
+
+# -- orphan recovery --------------------------------------------------------
+
+# Beyond this, a Running row cannot belong to a live worker: the sync lock's
+# own TTL has expired by then, so something else could already have started.
+STALE_RUN_MINUTES = 45
+
+
+def reclaim_stale_runs(island, *, all_running: bool = False) -> int:
+    """Resolve SyncRun rows whose worker died, and free the lock they held.
+
+    `finally: release_sync_lock()` does not run when a worker is SIGKILLed --
+    which is exactly what a redeploy does. The lock then survives its full
+    45-minute TTL and every later trigger (deploy bootstrap, beat, the
+    staleness backstop) gets "another sync holds the lock" and silently does
+    nothing, while the abandoned row sits at Running forever. A redeploy during
+    a sync therefore disabled syncing for 45 minutes and looked healthy doing it.
+
+    `all_running=True` is for the deploy path: every worker has just restarted,
+    so nothing can legitimately still be running. Everywhere else uses the age
+    cutoff, so a sync genuinely in flight is never killed.
+    """
+    from django.utils import timezone
+
+    from azoresbus.models import SyncRun
+    from azoresbus.tasks import release_sync_lock
+
+    stale = SyncRun.objects.filter(
+        island=island,
+        kind=SyncRun.KIND_SCHEDULES,
+        status=SyncRun.STATUS_RUNNING,
+    )
+    if not all_running:
+        cutoff = timezone.now() - timedelta(minutes=STALE_RUN_MINUTES)
+        stale = stale.filter(started_at__lt=cutoff)
+
+    reclaimed = stale.count()
+    if not reclaimed:
+        # Do not touch the lock: it may belong to a run that is genuinely alive.
+        return 0
+
+    stale.update(
+        status=SyncRun.STATUS_PARTIAL,
+        finished_at=timezone.now(),
+        error=(
+            'Orphaned: no worker was alive to finish this run (most likely a '
+            'redeploy or crash mid-sync). Marked partial by reclaim; nothing '
+            'was retired.'
+        ),
+    )
+    # The dead run's lock would otherwise block every sync until its TTL.
+    release_sync_lock()
+    return reclaimed

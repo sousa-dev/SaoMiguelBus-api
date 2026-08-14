@@ -60,6 +60,19 @@ class Command(BaseCommand):
             self._bootstrap(island, force=force)
 
     def _bootstrap(self, island: Island, *, force: bool) -> None:
+        # Every worker has just restarted, so any Running row belongs to a
+        # process that no longer exists -- and its un-released lock would
+        # otherwise block this very sync for the lock's full 45-minute TTL.
+        # This is the deploy recovering from its own previous kill.
+        from azoresbus.services_sync import reclaim_stale_runs
+
+        reclaimed = reclaim_stale_runs(island, all_running=True)
+        if reclaimed:
+            self.stdout.write(self.style.WARNING(
+                f'[{island.key}] reclaimed {reclaimed} orphaned sync run(s) '
+                'left Running by a killed worker; lock released.'
+            ))
+
         if not force and self._has_usable_data(island):
             self.stdout.write(
                 f'[{island.key}] AzoresBus data is up to date; nothing queued.'
