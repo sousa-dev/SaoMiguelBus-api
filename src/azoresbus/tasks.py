@@ -74,8 +74,27 @@ def sync_schedules_task(island_key: str | None = None, full: bool = False) -> di
 
 @shared_task(name='azoresbus.sync_tariffs')
 def sync_tariffs_task(island_key: str | None = None) -> dict:
-    logger.info('azoresbus.sync_tariffs island=%s', island_key)
-    return {'status': 'ok'}
+    from tenancy.models import Island
+    from tenancy.services import for_island
+    from azoresbus.services_tariffs import TariffsError, sync_tariffs
+
+    islands = Island.objects.filter(is_live=True)
+    if island_key:
+        islands = islands.filter(key=island_key)
+
+    results: dict[str, str] = {}
+    for island in islands:
+        with for_island(island):
+            try:
+                outcome = sync_tariffs(island)
+            except TariffsError as exc:
+                logger.warning('tariffs sync failed island=%s: %s',
+                               island.key, exc)
+                results[island.key] = 'failed'
+                continue
+            results[island.key] = 'changed' if outcome['changed'] else 'unchanged'
+
+    return {'status': 'ok', 'islands': results}
 
 
 # -- lazy staleness backstop (02 §4.6) --------------------------------------

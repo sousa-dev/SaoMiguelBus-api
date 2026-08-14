@@ -30,6 +30,52 @@ def enabled_modules(island: Island) -> list[str]:
     return [key for key in MODULE_KEYS if flags.get(key, False)]
 
 
+def serialize_transit_schedule(island: Island) -> dict:
+    """Which network is active, and when that stops being true.
+
+    New serialization work, not a flag pass-through: bootstrap emits modules
+    plus maps/version and does not expose arbitrary nested feature_flags
+    (98 §6). Every field here is one admin edit away from changing, which is
+    what makes a rollback an edit rather than a deploy.
+    """
+    from transit.services.schedule_phase import (
+        DATASET_AZORESBUS,
+        PHASE_PREVIEW,
+        azoresbus_flags,
+        cutover_at,
+        next_transition_at,
+        resolve_dataset,
+        schedule_phase,
+    )
+
+    flags = azoresbus_flags(island)
+    phase = schedule_phase(island)
+    cutover = cutover_at(island)
+    transition = next_transition_at(island)
+
+    # The preview toggle only exists while there is something to preview.
+    preview = (
+        DATASET_AZORESBUS
+        if phase == PHASE_PREVIEW and flags.get('previewEnabled')
+        else None
+    )
+
+    return {
+        'activeDataset': resolve_dataset(island),
+        'previewDataset': preview,
+        # Instants, not calendar dates: a date comparison flips at Lisbon
+        # midnight for a tourist whose phone is still on WET/CEST.
+        'cutoverAt': cutover.isoformat() if cutover else None,
+        # The app persists bootstrap for 24h and never refetches it, so without
+        # this it cannot know when its cached copy became a lie.
+        'nextTransitionAt': transition.isoformat() if transition else None,
+        'phase': phase,
+        'banner': flags.get('banner'),
+        'badge': flags.get('badge'),
+        'trackingEnabled': bool(flags.get('trackingEnabled', False)),
+    }
+
+
 def serialize_bootstrap(island: Island) -> dict:
     theme = island.theme or {}
     flags = island.feature_flags or {}
@@ -70,6 +116,7 @@ def serialize_bootstrap(island: Island) -> dict:
         },
         'socialAuth': social_auth_capabilities(),
         'holidays': holidays,
+        'transitSchedule': serialize_transit_schedule(island),
         'infos': _serialize_active_infos(),
         'generatedAt': timezone.now().isoformat(),
     }

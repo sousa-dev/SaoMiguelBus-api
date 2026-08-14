@@ -94,6 +94,27 @@ def transit_offline_bundle_view(request: Request) -> Response:
 
 @api_view(['GET'])
 @permission_classes([AllowAny])
+def transit_tariffs_view(request: Request) -> Response:
+    """Fare TABLES. Never a per-ride price -- see services_tariffs."""
+    err = _require_island(request)
+    if err:
+        return err
+
+    from azoresbus.services_tariffs import current_snapshot, serialize_tariffs
+
+    with for_island(request.island):
+        snapshot = current_snapshot(request.island)
+        if snapshot is None:
+            return Response(
+                {'error': {'code': 'not_found',
+                           'message': 'No tariff snapshot has been synced yet'}},
+                status=status.HTTP_404_NOT_FOUND,
+            )
+        return Response(serialize_tariffs(snapshot))
+
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
 def transit_search_view(request: Request) -> Response:
     err = _require_island(request)
     if err:
