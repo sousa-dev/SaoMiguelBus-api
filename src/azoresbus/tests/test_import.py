@@ -238,6 +238,62 @@ class ImportTests(TestCase):
             )
         self.assertEqual(before, after)
 
+    # -- seeded confidence (02 §3.8) ----------------------------------------
+
+    def test_imported_trips_start_with_a_positive_vote_balance(self):
+        """search_routes marks anything under 60% likes as unconfirmed.
+
+        A zero-vote trip scores 0, so without a head start every AzoresBus route
+        would carry a 'C' prefix on day one. These timetables come from the
+        operator's own feed.
+        """
+        from azoresbus.services_import import SEED_DISLIKES, SEED_LIKES
+
+        for trip in Trip.objects.filter(dataset=DATASET_AZORESBUS):
+            self.assertEqual(trip.likes, SEED_LIKES)
+            self.assertEqual(trip.dislikes, SEED_DISLIKES)
+
+    def test_a_seeded_trip_is_not_marked_unconfirmed(self):
+        from transit.services.search import _trip_likes_percent
+
+        trip = Trip.objects.filter(dataset=DATASET_AZORESBUS).first()
+        self.assertGreaterEqual(
+            _trip_likes_percent(trip), 60,
+            'the route would render with a C prefix',
+        )
+
+    def test_a_resync_never_erases_real_votes(self):
+        """The seed applies on CREATE only.
+
+        If a re-sync reset these, every weekly run would wipe a week of user
+        feedback -- worse than the problem the seed solves.
+        """
+        journey = ExternalJourney.objects.get(
+            island=self.island, external_id='236',
+        )
+        trip = journey.trip
+        trip.likes = 40
+        trip.dislikes = 31
+        trip.save(update_fields=['likes', 'dislikes'])
+
+        with for_island(self.island):
+            run = SyncRun.objects.create(
+                island=self.island, kind=SyncRun.KIND_SCHEDULES,
+            )
+            import_schedules(self.island, run=run, **captured_payloads())
+
+        trip.refresh_from_db()
+        self.assertEqual(trip.likes, 40)
+        self.assertEqual(trip.dislikes, 31)
+
+    def test_legacy_trips_are_not_given_a_head_start(self):
+        """Only operator-fed AzoresBus data earns it."""
+        from transit.models import DATASET_LEGACY
+
+        legacy = Trip.objects.filter(dataset=DATASET_LEGACY).first()
+        if legacy is not None:
+            self.assertEqual(legacy.likes, 0)
+
     def test_report_counts_are_populated(self):
         self.assertEqual(self.report['stops'], 816)
         self.assertEqual(self.report['lines'], 55)

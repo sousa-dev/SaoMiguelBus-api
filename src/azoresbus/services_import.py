@@ -48,6 +48,22 @@ logger = logging.getLogger(__name__)
 
 OPERATOR_NAME = 'AzoresBus'
 
+# Trips are seeded with a positive vote balance on CREATE only.
+#
+# `search_routes` prefixes a route code with 'C' (unconfirmed) when its like
+# ratio is below 60%, and a trip with no votes scores 0. Without a head start,
+# every single AzoresBus route would be marked unconfirmed on day one -- a
+# network-wide UI regression the moment the cutover lands (02 §3.8).
+#
+# These timetables come from the operator's own feed, so treating them as
+# unverified user-submitted data is simply wrong. 5/0 puts them at 100%, well
+# clear of the threshold, while leaving real votes able to move the number.
+#
+# On UPDATE these fields are never touched: a re-sync must not erase votes users
+# have actually cast.
+SEED_LIKES = 5
+SEED_DISLIKES = 0
+
 WEEKDAY_FIELDS = ('monday', 'tuesday', 'wednesday', 'thursday', 'friday',
                   'saturday', 'sunday')
 
@@ -257,6 +273,8 @@ def _import_journeys(
                 source=Trip.SOURCE_OPERATOR,
                 headsign=listing.get('name', '') or '',
                 direction=str(detail.get('direction', '')),
+                likes=SEED_LIKES,
+                dislikes=SEED_DISLIKES,
             )
             external = ExternalJourney.objects.create(
                 island=island,
