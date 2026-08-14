@@ -10,6 +10,7 @@ from __future__ import annotations
 import logging
 
 from celery import shared_task
+from decouple import config
 from django.core.cache import cache
 
 
@@ -75,3 +76,45 @@ def sync_schedules_task(island_key: str | None = None, full: bool = False) -> di
 def sync_tariffs_task(island_key: str | None = None) -> dict:
     logger.info('azoresbus.sync_tariffs island=%s', island_key)
     return {'status': 'ok'}
+
+
+# -- lazy staleness backstop (02 §4.6) --------------------------------------
+
+SYNC_STALE_DAYS = config('AZORESBUS_SYNC_STALE_DAYS', default=10, cast=int)
+
+
+def maybe_queue_stale_sync(island) -> bool:
+    """Enqueue a sync if the data is stale, and never delay the caller.
+
+    Sits behind the read path as a backstop for the case where beat is not
+    running at all -- a silent sync failure is the highest-likelihood way this
+    whole thing goes wrong (02 §10). Lock-guarded, so concurrent searches
+    enqueue exactly one run, and every failure is swallowed: a search must never
+    fail because a background refresh could not be scheduled.
+    """
+    from datetime import timedelta
+
+    from django.utils import timezone
+
+    from azoresbus.models import SyncRun
+
+    try:
+        latest = (
+            SyncRun.objects.filter(
+                island=island,
+                kind=SyncRun.KIND_SCHEDULES,
+                status=SyncRun.STATUS_COMPLETED,
+            )
+            .order_by('-started_at')
+            .first()
+        )
+        if latest is not None:
+            age = timezone.now() - latest.started_at
+            if age < timedelta(days=SYNC_STALE_DAYS):
+                return False
+
+        result = queue_sync(island_key=island.key, full=latest is None)
+        return bool(result.get('queued'))
+    except Exception:
+        logger.exception('azoresbus staleness backstop failed to enqueue')
+        return False

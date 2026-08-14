@@ -21,6 +21,7 @@ import logging
 from datetime import date, datetime
 
 from django.core.management.base import BaseCommand, CommandError
+from django.utils import timezone
 
 from azoresbus.client import AZORESBUS_SYNC_MAX_REQUESTS
 from azoresbus.models import ServiceObservation, SyncRun
@@ -87,10 +88,108 @@ class Command(BaseCommand):
                 ))
                 return
 
+            self._execute(island, dates, near, far, holidays,
+                          options['max_requests'], no_prune)
+
+    # -- execution ----------------------------------------------------------
+
+    def _execute(self, island, dates, near, far, holidays,
+                 max_requests, no_prune) -> None:
+        from azoresbus.client import AzoresbusClient, AzoresbusError
+        from azoresbus.services_import import import_schedules
+
+        run = SyncRun.objects.create(
+            island=island,
+            kind=SyncRun.KIND_SCHEDULES,
+            sampled_dates=[day.isoformat() for day in dates],
+        )
+        client = AzoresbusClient(max_requests=max_requests)
+
+        try:
+            payloads = self._fetch(client, dates)
+        except AzoresbusError as exc:
+            run.status = SyncRun.STATUS_PARTIAL
+            run.error = str(exc)
+            run.request_count = client.request_count
+            run.finished_at = timezone.now()
+            run.save()
             raise CommandError(
-                'The fetch/upsert phase is not wired up yet. Re-run with '
-                '--dry-run to inspect the plan.'
+                f'{exc}\nRun marked partial after {client.request_count} '
+                'requests. Nothing was retired.'
             )
+
+        report = import_schedules(
+            island, run=run, holidays=holidays,
+            sampled_dates=dates, **payloads,
+        )
+
+        decision = evaluate_retirement(
+            status=SyncRun.STATUS_COMPLETED,
+            journey_count=report['journey_count'],
+            previous_journey_count=self._previous_count(island, run),
+            sampled_dates=near,
+            far_season_dates=far,
+        )
+        if no_prune:
+            decision.allowed = False
+            decision.reason = 'suppressed by --no-prune / explicit --dates'
+
+        run.status = SyncRun.STATUS_COMPLETED
+        run.request_count = client.request_count
+        run.finished_at = timezone.now()
+        run.stats = {**report, 'retirement': decision.as_dict()}
+        run.save()
+
+        self.stdout.write(self.style.SUCCESS(
+            f'\nimported {report["lines"]} lines, {report["stops"]} stops, '
+            f'{report["trips"]} trips in {client.request_count} requests'
+        ))
+        self.stdout.write(
+            f'retirement        {"applied" if decision.allowed else "skipped"} '
+            f'-- {decision.reason}'
+        )
+
+    def _fetch(self, client, dates) -> dict:
+        """Index, route details, per-date listings, then journey details.
+
+        Journey details are unavoidable: the listing carries no circulations, so
+        a stored hash cannot skip the GET (98 §4 gap). The hash skips the write.
+        """
+        stops = client.get_json('/stops')
+        routes = client.get_json('/routes?active=true&passengerInfo=true')
+
+        journeys: dict = {}
+        seen: dict[str, str] = {}
+        for route in routes:
+            route_id = str(route['id'])
+            for day in dates:
+                rows = client.get_json(
+                    f'/routes/{route_id}/journeys?day={day.isoformat()}'
+                )
+                journeys[(route_id, day)] = rows
+                for row in rows:
+                    seen[str(row['id'])] = route_id
+
+        details = {}
+        for journey_id, route_id in seen.items():
+            details[journey_id] = client.get_json(
+                f'/routes/{route_id}/journeys/{journey_id}'
+            )
+
+        return {'stops': stops, 'routes': routes,
+                'journeys': journeys, 'details': details}
+
+    def _previous_count(self, island, current_run):
+        previous = (
+            SyncRun.objects.filter(
+                island=island, kind=SyncRun.KIND_SCHEDULES,
+                status=SyncRun.STATUS_COMPLETED,
+            )
+            .exclude(pk=current_run.pk)
+            .order_by('-started_at')
+            .first()
+        )
+        return (previous.stats or {}).get('journey_count') if previous else None
 
     # -- guards -------------------------------------------------------------
 

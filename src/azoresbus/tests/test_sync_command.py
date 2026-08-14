@@ -9,7 +9,7 @@ gone.
 from __future__ import annotations
 
 from io import StringIO
-from unittest.mock import patch
+from unittest.mock import MagicMock, patch
 
 from django.core.management import call_command
 from django.core.management.base import CommandError
@@ -20,6 +20,13 @@ from transit.models import Holiday
 
 
 class SyncCommandTests(TestCase):
+    """Nothing here may touch the network.
+
+    An earlier version of this module let a non-dry run reach upstream and
+    issued 55 routes x 18 dates of live requests before it was killed. The
+    patched `requests.get` in every non-dry test is load-bearing, not decorative.
+    """
+
     def setUp(self):
         self.island = get_or_create_default_island()
 
@@ -104,8 +111,53 @@ class SyncCommandTests(TestCase):
         with self.assertRaises(CommandError):
             self._run('--dry-run', '--island', 'atlantis')
 
-    def test_a_real_run_is_not_silently_a_no_op(self):
-        """Until the fetch phase lands, a non-dry run must say so, not pass."""
+    @patch('azoresbus.client.time.sleep')          # no real backoff waits
+    @patch('azoresbus.client.requests.get')
+    def test_a_failed_fetch_marks_the_run_partial_and_retires_nothing(
+        self, mock_get, _sleep,
+    ):
+        """A network failure must not look like a deletion."""
+        import requests
+
+        from azoresbus.models import SyncRun
+
+        mock_get.side_effect = requests.RequestException('upstream down')
+
         with self.assertRaises(CommandError) as ctx:
             self._run()
-        self.assertIn('not wired up', str(ctx.exception))
+
+        self.assertIn('partial', str(ctx.exception).lower())
+        run = SyncRun.objects.latest('started_at')
+        self.assertEqual(run.status, SyncRun.STATUS_PARTIAL)
+        self.assertTrue(run.error)
+        self.assertNotIn('retirement', (run.stats or {}))
+
+    @patch('azoresbus.client.time.sleep')
+    @patch('azoresbus.client.requests.get')
+    def test_the_budget_cap_stops_a_run_before_it_half_writes(
+        self, mock_get, _sleep,
+    ):
+        """Hitting the cap marks the run partial; it never retires (02 §4.3).
+
+        The cap has to bite during the listing loop, so upstream must return a
+        real route list -- an empty one never spends the budget.
+        """
+        from azoresbus.models import SyncRun
+
+        routes = [{'id': str(n), 'nameShort': f'1{n:02d}', 'name': 'R',
+                   'isActive': True} for n in range(1, 56)]
+
+        def responses(url, **kwargs):
+            body = routes if '/routes?' in url else []
+            return MagicMock(ok=True, status_code=200, json=lambda: body,
+                             headers={}, text='')
+
+        mock_get.side_effect = responses
+
+        with self.assertRaises(CommandError) as ctx:
+            self._run('--max-requests', '10')
+
+        self.assertIn('partial', str(ctx.exception).lower())
+        run = SyncRun.objects.latest('started_at')
+        self.assertEqual(run.status, SyncRun.STATUS_PARTIAL)
+        self.assertLessEqual(run.request_count, 10)
