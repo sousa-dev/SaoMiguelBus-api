@@ -21,6 +21,9 @@ python manage.py bootstrap_feed_syncs
 echo "[deploy] bootstrap_minibus_route_shapes (island=${ISLAND_KEY})"
 python manage.py bootstrap_minibus_route_shapes --island "${ISLAND_KEY}"
 
+echo "[deploy] bootstrap_azoresbus"
+python manage.py bootstrap_azoresbus
+
 echo "[deploy] ensure_superuser"
 python manage.py ensure_superuser
 
