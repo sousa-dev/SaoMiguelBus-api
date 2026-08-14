@@ -177,8 +177,12 @@ def run_sync(
         else AzoresbusClient()
 
     try:
-        payloads = _fetch_all(client, sample_dates)
+        payloads = _fetch_all(client, sample_dates, run=run)
     except AzoresbusError as exc:
+        # Pick up whatever the last in-flight checkpoint wrote before falling
+        # over, or the failure save below would blank it back to {} -- wiping
+        # out exactly the "how far did it get" answer at the moment it matters.
+        run.refresh_from_db(fields=['stats'])
         run.status = SyncRun.STATUS_PARTIAL
         run.error = str(exc)
         run.request_count = client.request_count
@@ -226,18 +230,43 @@ def run_sync(
             'retirement': decision.as_dict()}
 
 
-def _fetch_all(client, dates) -> dict:
+def _checkpoint(run, client, *, phase: str, done: int, total: int) -> None:
+    """Make progress visible in the admin WHILE the run is still going.
+
+    A single-field update, not run.save(): the caller's in-memory `run` still
+    has its other fields set later (status, stats, ...) and must not be
+    clobbered by a stale re-save here. This is the fix for a real incident: a
+    run sat at request_count=0 for its entire ~13 minute duration because that
+    field was previously written only once, at the very end -- indistinguishable
+    from a worker that died mid-run and will never finish at all.
+    """
+    if run is None:
+        return
+    from azoresbus.models import SyncRun
+
+    SyncRun.objects.filter(pk=run.pk).update(
+        request_count=client.request_count,
+        stats={'phase': phase, 'phase_progress': f'{done}/{total}'},
+    )
+
+
+def _fetch_all(client, dates, *, run=None) -> dict:
     """Index, route details, per-date listings, then journey details.
 
     The detail fetches are unavoidable: the listing carries no circulations, so
     a stored hash cannot skip the GET (98 §4 gap). The hash skips the write.
+
+    `run` is optional and purely observational: passing it checkpoints
+    progress into SyncRun as the fetch proceeds, so `admin/azoresbus/syncrun/`
+    shows live movement instead of a frozen 0 until the run finishes or dies.
     """
     stops = client.get_json('/stops')
     routes = client.get_json('/routes?active=true&passengerInfo=true')
+    _checkpoint(run, client, phase='routes', done=1, total=1)
 
     journeys: dict = {}
     seen: dict[str, str] = {}
-    for route in routes:
+    for route_index, route in enumerate(routes, start=1):
         route_id = str(route['id'])
         for day in dates:
             rows = client.get_json(
@@ -246,12 +275,20 @@ def _fetch_all(client, dates) -> dict:
             journeys[(route_id, day)] = rows
             for row in rows:
                 seen[str(row['id'])] = route_id
+        _checkpoint(run, client, phase='listings',
+                   done=route_index, total=len(routes))
 
-    details = {
-        journey_id: client.get_json(
+    details = {}
+    detail_items = list(seen.items())
+    for detail_index, (journey_id, route_id) in enumerate(detail_items, start=1):
+        details[journey_id] = client.get_json(
             f'/routes/{route_id}/journeys/{journey_id}'
         )
-        for journey_id, route_id in seen.items()
-    }
+        # Details can number over a thousand; checkpoint every 25 rather than
+        # every single one, so this is not itself a source of DB load.
+        if detail_index % 25 == 0 or detail_index == len(detail_items):
+            _checkpoint(run, client, phase='details',
+                       done=detail_index, total=len(detail_items))
+
     return {'stops': stops, 'routes': routes,
             'journeys': journeys, 'details': details}
