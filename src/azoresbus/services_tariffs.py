@@ -26,6 +26,7 @@ import requests
 from decouple import config
 
 from azoresbus.models import TariffSnapshot
+from shared.upstream_proxy import build_request, split_origin
 
 logger = logging.getLogger(__name__)
 
@@ -108,9 +109,17 @@ def sync_tariffs(island) -> dict:
     if previous and previous.upstream_etag:
         request_headers['If-None-Match'] = previous.upstream_etag
 
+    # Through the Pi when one is configured. azoresbus.pt is a DIFFERENT host
+    # from azb.elevensystems.pt and whether it blocks our datacenter egress is
+    # untested, so it takes the same route rather than finding out in
+    # production.
+    origin, path = split_origin(TARIFFS_URL)
+    url, proxy_headers = build_request(origin, path)
+    request_headers.update(proxy_headers)
+
     try:
         response = requests.get(
-            TARIFFS_URL, timeout=TARIFFS_TIMEOUT, headers=request_headers,
+            url, timeout=TARIFFS_TIMEOUT, headers=request_headers,
         )
     except requests.RequestException as exc:
         logger.exception('tariffs fetch failed')
