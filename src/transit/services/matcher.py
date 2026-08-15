@@ -17,6 +17,12 @@ The tie-break must be byte-identical across all three or results diverge:
 
 Never stop count. On 335, with 36 repeated names, "fewest stops" can select a
 one- or two-stop hop that is not the ride the user asked for (98 §5 challenge 4).
+
+`origin_stop_ids`/`destination_stop_ids` are SETS. A plain stop search passes a
+singleton; a village search ("Capelas") passes every stop id sharing that
+village's name prefix, so the trip need only touch ONE member on each side --
+the caller (`search.py`) already iterates every eligible trip regardless, so
+this changes zero DB queries, only a per-StopTime membership test.
 """
 
 from __future__ import annotations
@@ -50,16 +56,18 @@ def _ordered_stop_times(trip) -> list:
     return cached
 
 
-def valid_pairs(trip, origin_stop_id: int, destination_stop_id: int) -> list:
+def valid_pairs(trip, origin_stop_ids: set[int], destination_stop_ids: set[int]) -> list:
     """Every (board, alight) on this trip where board precedes alight.
 
     Resolves by stop id rather than fuzzy substring, which also removes the
     containment mis-hits the string matcher produced (LAGOA matching a trip that
-    only serves LAGOA DO FOGO).
+    only serves LAGOA DO FOGO). Each side is a SET: a village search unions
+    every stop sharing that village's name prefix, so a trip qualifies the
+    moment it touches ANY one member on each side.
     """
     stop_times = _ordered_stop_times(trip)
-    origins = [st for st in stop_times if st.stop_id == origin_stop_id]
-    destinations = [st for st in stop_times if st.stop_id == destination_stop_id]
+    origins = [st for st in stop_times if st.stop_id in origin_stop_ids]
+    destinations = [st for st in stop_times if st.stop_id in destination_stop_ids]
 
     return [
         (board, alight)
@@ -71,8 +79,8 @@ def valid_pairs(trip, origin_stop_id: int, destination_stop_id: int) -> list:
 
 def select_pair(
     trip,
-    origin_stop_id: int,
-    destination_stop_id: int,
+    origin_stop_ids: set[int],
+    destination_stop_ids: set[int],
     *,
     earliest: time | None = None,
 ):
@@ -82,7 +90,7 @@ def select_pair(
     against the trip's FIRST stop time, so a late board on a loop that departed
     earlier is dropped -- a deliberate behaviour change (02 §3.4).
     """
-    pairs = valid_pairs(trip, origin_stop_id, destination_stop_id)
+    pairs = valid_pairs(trip, origin_stop_ids, destination_stop_ids)
 
     if earliest is not None:
         pairs = [

@@ -8,6 +8,10 @@ The tie-break is identical on server, offline client and webapp or results
 diverge: earliest BOARD time, then shortest ELAPSED DURATION, then trip id.
 Never stop count -- on 335, with 36 repeated names, fewest-stops selects a
 one-stop hop that is not the ride anyone wanted.
+
+`origin_stop_ids`/`destination_stop_ids` are SETS, not single ids -- a village
+search ("Capelas") unions every stop sharing that village's name prefix, and
+the matcher must not care whether it was handed one id or forty-seven.
 """
 
 from __future__ import annotations
@@ -86,7 +90,7 @@ class LoopTests(MatcherFixture):
 
     def test_the_later_leg_of_a_loop_is_found(self):
         pairs = valid_pairs(
-            self.loop, self.stop('CHARLIE').id, self.stop('ALFA').id,
+            self.loop, {self.stop('CHARLIE').id}, {self.stop('ALFA').id},
         )
         self.assertEqual(len(pairs), 1)
         board, alight = pairs[0]
@@ -110,15 +114,76 @@ class LoopTests(MatcherFixture):
         matcher's: what the matcher owes is "board precedes alight".
         """
         pairs = valid_pairs(
-            self.loop, self.stop('ALFA').id, self.stop('ALFA').id,
+            self.loop, {self.stop('ALFA').id}, {self.stop('ALFA').id},
         )
         self.assertEqual([(b.sequence, a.sequence) for b, a in pairs], [(1, 5)])
 
     def test_a_pair_that_would_travel_backwards_is_not_returned(self):
         pairs = valid_pairs(
-            self.loop, self.stop('DELTA').id, self.stop('BRAVO').id,
+            self.loop, {self.stop('DELTA').id}, {self.stop('BRAVO').id},
         )
         self.assertEqual(pairs, [], 'DELTA is never followed by BRAVO')
+
+
+class MultiIdMatchingTests(MatcherFixture):
+    """A village search resolves to a SET of stop ids, not one -- the matcher
+    must union across every id in the set on each side."""
+
+    def test_a_trip_serving_only_one_member_of_the_origin_set_is_found(self):
+        """Neither CAPELAS_A nor CAPELAS_B alone is the query -- the caller
+        passed the whole village's member ids, and only one of them is on this
+        trip. That must still be enough."""
+        trip = self.trip('H', [
+            ('CAPELAS_B', '07:00', 0),
+            ('PONTA_DELGADA', '07:30', 0),
+        ])
+        origin_ids = {self.stop('CAPELAS_A').id, self.stop('CAPELAS_B').id}
+        board, alight = select_pair(trip, origin_ids, {self.stop('PONTA_DELGADA').id})
+        self.assertEqual(board.stop_id, self.stop('CAPELAS_B').id)
+        self.assertEqual(alight.stop_id, self.stop('PONTA_DELGADA').id)
+
+    def test_a_trip_serving_none_of_the_set_is_not_found(self):
+        trip = self.trip('I', [
+            ('ARRIFES', '07:00', 0),
+            ('PONTA_DELGADA', '07:30', 0),
+        ])
+        origin_ids = {self.stop('CAPELAS_A').id, self.stop('CAPELAS_B').id}
+        self.assertIsNone(
+            select_pair(trip, origin_ids, {self.stop('PONTA_DELGADA').id}),
+        )
+
+    def test_the_earliest_board_wins_across_different_set_members(self):
+        """CAPELAS_A boards later than CAPELAS_B on this trip -- the tie-break
+        must still pick the earliest board regardless of WHICH member it is."""
+        trip = self.trip('J', [
+            ('CAPELAS_B', '06:00', 0),
+            ('CAPELAS_A', '06:30', 0),
+            ('PONTA_DELGADA', '07:00', 0),
+        ])
+        origin_ids = {self.stop('CAPELAS_A').id, self.stop('CAPELAS_B').id}
+        board, _ = select_pair(trip, origin_ids, {self.stop('PONTA_DELGADA').id})
+        self.assertEqual(board.stop_id, self.stop('CAPELAS_B').id)
+
+    def test_an_empty_set_on_either_side_matches_nothing(self):
+        trip = self.trip('K', [('X', '06:00', 0), ('Y', '06:30', 0)])
+        self.assertEqual(valid_pairs(trip, set(), {self.stop('Y').id}), [])
+        self.assertEqual(valid_pairs(trip, {self.stop('X').id}, set()), [])
+
+    def test_searching_an_area_against_itself_finds_an_intra_village_hop(self):
+        """A trip serving two DIFFERENT stops in the same village is a real,
+        wanted local ride -- 'board precedes alight' is the whole rule, exactly
+        as already established for the ALFA->ALFA loop case. Not a bug."""
+        trip = self.trip('L', [
+            ('CAPELAS_A', '06:00', 0),
+            ('ARRIFES', '06:15', 0),
+            ('CAPELAS_B', '06:30', 0),
+        ])
+        capelas_ids = {self.stop('CAPELAS_A').id, self.stop('CAPELAS_B').id}
+        board, alight = select_pair(trip, capelas_ids, capelas_ids)
+        self.assertEqual(
+            (board.stop_id, alight.stop_id),
+            (self.stop('CAPELAS_A').id, self.stop('CAPELAS_B').id),
+        )
 
 
 class TieBreakTests(MatcherFixture):
@@ -127,7 +192,7 @@ class TieBreakTests(MatcherFixture):
             ('X', '06:00', 0), ('Y', '06:30', 0),
             ('X', '09:00', 0), ('Y', '09:30', 0),
         ])
-        board, _ = select_pair(trip, self.stop('X').id, self.stop('Y').id)
+        board, _ = select_pair(trip, {self.stop('X').id}, {self.stop('Y').id})
         self.assertEqual(board.sequence, 1)
 
     def test_shortest_elapsed_duration_breaks_a_board_tie(self):
@@ -144,7 +209,7 @@ class TieBreakTests(MatcherFixture):
             ('MID', '06:30', 0),
             ('Y', '06:45', 0),      # fast leg from the same board: 45 min
         ])
-        board, alight = select_pair(trip, self.stop('X').id, self.stop('Y').id)
+        board, alight = select_pair(trip, {self.stop('X').id}, {self.stop('Y').id})
 
         self.assertEqual(board.sequence, 1)
         self.assertEqual(
@@ -163,7 +228,7 @@ class TieBreakTests(MatcherFixture):
             ('X', '07:00', 0),
             ('Y', '09:00', 0),      # 1 stop, 2 hours
         ])
-        board, alight = select_pair(trip, self.stop('X').id, self.stop('Y').id)
+        board, alight = select_pair(trip, {self.stop('X').id}, {self.stop('Y').id})
         self.assertEqual(
             (board.sequence, alight.sequence), (1, 4),
             'the fewer-stops leg is slower and must not win',
@@ -173,7 +238,7 @@ class TieBreakTests(MatcherFixture):
         """Y never precedes X on a one-way trip."""
         trip = self.trip('D', [('X', '06:00', 0), ('Y', '06:30', 0)])
         self.assertIsNone(
-            select_pair(trip, self.stop('Y').id, self.stop('X').id)
+            select_pair(trip, {self.stop('Y').id}, {self.stop('X').id})
         )
 
 
@@ -185,7 +250,7 @@ class NightWrapTests(MatcherFixture):
             ('X', '23:15', 0),
             ('Y', '00:10', 1),
         ])
-        board, alight = select_pair(trip, self.stop('X').id, self.stop('Y').id)
+        board, alight = select_pair(trip, {self.stop('X').id}, {self.stop('Y').id})
         from transit.services.matcher import elapsed_minutes
 
         self.assertEqual(elapsed_minutes(board, alight), 55)
@@ -197,7 +262,7 @@ class NightWrapTests(MatcherFixture):
             ('X', '23:50', 0),
             ('Y', '00:20', 1),
         ])
-        board, _ = select_pair(trip, self.stop('X').id, self.stop('Y').id)
+        board, _ = select_pair(trip, {self.stop('X').id}, {self.stop('Y').id})
         self.assertEqual(board.sequence, 1)
 
 
@@ -211,7 +276,7 @@ class BoardTimeFilterTests(MatcherFixture):
             ('Y', '09:30', 0),
         ])
         board, _ = select_pair(
-            trip, self.stop('X').id, self.stop('Y').id,
+            trip, {self.stop('X').id}, {self.stop('Y').id},
             earliest=time(8, 30),
         )
         self.assertIsNotNone(
@@ -223,7 +288,7 @@ class BoardTimeFilterTests(MatcherFixture):
         trip = self.trip('F', [('X', '06:00', 0), ('Y', '06:30', 0)])
         self.assertIsNone(
             select_pair(
-                trip, self.stop('X').id, self.stop('Y').id,
+                trip, {self.stop('X').id}, {self.stop('Y').id},
                 earliest=time(8, 30),
             )
         )
@@ -234,7 +299,7 @@ class BoardTimeFilterTests(MatcherFixture):
             ('X', '09:00', 0), ('Y', '09:30', 0),
         ])
         board, _ = select_pair(
-            trip, self.stop('X').id, self.stop('Y').id,
+            trip, {self.stop('X').id}, {self.stop('Y').id},
             earliest=time(8, 30),
         )
         self.assertEqual(board.sequence, 3)

@@ -4,8 +4,10 @@ from __future__ import annotations
 
 from datetime import datetime, time
 
+from azoresbus.services_stops import build_area_index
 from tenancy.services import get_active_island
 from transit.models import (
+    DATASET_AZORESBUS,
     Calendar,
     Holiday,
     ServiceException,
@@ -118,18 +120,36 @@ def _trip_cleaned_stops_blob(trip: Trip) -> str:
     return clean_string(build_legacy_stops_string(trip))
 
 
-def _resolve_stop(dataset: str, cleaned: str):
-    """By id, not fuzzy substring.
+def _resolve_stop_ids(
+    dataset: str, cleaned: str, area_index: dict[str, set[int]] | None,
+) -> set[int]:
+    """By id, not fuzzy substring, resolving to a SET of one or more stops.
 
     The string matcher produced containment mis-hits: a search for LAGOA
     matched a trip that only serves LAGOA DO FOGO (02 §3.4).
+
+    Precedence, in order:
+      1. An exact `cleaned_name` match always wins. This is what keeps a
+         village-shaped exact stop (e.g. a bare "Aflitos") behaving exactly as
+         it did before areas existed -- `area_index` never even contains a key
+         that collides with a real stop's exact name (`build_area_index`).
+      2. A village area match (AzoresBus only, via `area_index`) -- every stop
+         sharing that village's name prefix.
+      3. The existing single-stop prefix fallback, unchanged.
+
+    Never returns `None`; an unresolved query is an empty set.
     """
-    return (
-        Stop.objects.filter(dataset=dataset, cleaned_name=cleaned).first()
-        or Stop.objects.filter(
-            dataset=dataset, cleaned_name__startswith=cleaned,
-        ).order_by('cleaned_name').first()
-    )
+    exact = Stop.objects.filter(dataset=dataset, cleaned_name=cleaned).first()
+    if exact:
+        return {exact.id}
+
+    if area_index is not None and cleaned in area_index:
+        return set(area_index[cleaned])
+
+    fallback = Stop.objects.filter(
+        dataset=dataset, cleaned_name__startswith=cleaned,
+    ).order_by('cleaned_name').first()
+    return {fallback.id} if fallback else set()
 
 
 def _type_of_day_for(trip: Trip, service_type: str | None) -> str:
@@ -197,9 +217,17 @@ def search_routes(
     if dataset is None:
         dataset = resolve_dataset(get_active_island(), on_date=on_date)
 
-    origin_stop = _resolve_stop(dataset, origin_cleaned)
-    destination_stop = _resolve_stop(dataset, destination_cleaned)
-    if origin_stop is None or destination_stop is None:
+    # AzoresBus only (explicit gate, not just incidental data shape) -- legacy
+    # names never carry the "VILLAGE (LANDMARK)" convention this groups on, and
+    # this way legacy search pays zero extra cost for a lookup it never uses.
+    area_index = (
+        build_area_index(Stop.objects.filter(dataset=dataset).only('id', 'name'))
+        if dataset == DATASET_AZORESBUS else None
+    )
+
+    origin_ids = _resolve_stop_ids(dataset, origin_cleaned, area_index)
+    destination_ids = _resolve_stop_ids(dataset, destination_cleaned, area_index)
+    if not origin_ids or not destination_ids:
         return []
 
     trips = eligible_trips(
@@ -217,7 +245,7 @@ def search_routes(
     return_routes: list[dict] = []
     for trip in trips:
         pair = select_pair(
-            trip, origin_stop.id, destination_stop.id, earliest=earliest,
+            trip, origin_ids, destination_ids, earliest=earliest,
         )
         if pair is None:
             continue

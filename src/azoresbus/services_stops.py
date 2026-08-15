@@ -1,20 +1,32 @@
-"""Collapse 1456 upstream stops to 816 searchable places.
+"""Two different groupings of AzoresBus stop names — do not conflate them.
 
-Upstream models each pole separately: 630 names carry two codes, 5 carry three.
-They are the two sides of a road — median 11.5 m apart, 629 of 630 pairs with
+`collapse_stops` merges 1456 upstream POLES into 816 `transit.Stop` rows by
+EXACT name, at IMPORT time: both sides of a road sharing one name. Upstream
+models each pole separately: 630 names carry two codes, 5 carry three. They are
+the two sides of a road — median 11.5 m apart, 629 of 630 pairs with
 consecutive integer codes — so offering both to a picker asks the user a
 question they cannot answer. Which pole a trip serves is a property of its
-direction, not a search input (02 §3.2).
+direction, not a search input (02 §3.2). One `transit.Stop` per distinct name,
+positioned at the centroid, with full upstream identity kept in `ExternalStop`
+so results can still show the pole code and put the boarding marker on the
+correct side of the road.
 
-So: one `transit.Stop` per distinct name, positioned at the centroid, with full
-upstream identity kept in `ExternalStop` so results can still show the pole code
-and put the boarding marker on the correct side of the road.
+`derive_area_key` / `build_area_index` group those already-collapsed 816 names
+by a shared VILLAGE PREFIX, at SEARCH time: "CAPELAS (IGREJA)", "CAPELAS
+(MOAGEM)" and 33 others share the key "CAPELAS", so a search for "Capelas" can
+union every stop in the village rather than requiring the exact landmark. A
+completely different axis from the pole-collapse above — this never merges two
+`Stop` rows into one, it only tells search which several to consider together.
 """
 
 from __future__ import annotations
 
 import math
+from collections import defaultdict
 from dataclasses import dataclass, field
+from typing import Iterable
+
+from transit.services.legacy_import import clean_string
 
 
 EARTH_RADIUS_M = 6_371_000.0
@@ -105,3 +117,55 @@ def _max_pairwise_distance(lats: list[float], lons: list[float]) -> float:
         for i in range(len(lats))
         for j in range(i + 1, len(lats))
     )
+
+
+def derive_area_key(name: str) -> str | None:
+    """The village prefix a stop name declares, or None if it declares none.
+
+    Splits on the FIRST " (" rather than requiring the string to end in ")" --
+    "ARRIFES (LG. DO BOM DESPACHO) 1" must still group under ARRIFES despite the
+    trailing pole number after the closing paren. A bare name with no "(" at all
+    (e.g. "ACHADINHA") declares no area of its own.
+    """
+    if ' (' not in name:
+        return None
+    return name.split(' (', 1)[0].strip()
+
+
+def build_area_index(stops: Iterable) -> dict[str, set[int]]:
+    """Map a FOLDED village key to the ids of every stop sharing it.
+
+    Two rules, both load-bearing:
+
+      - Only keys with 2+ members are offered. A single stop whose name happens
+        to have a "(" suffix gains nothing from being called an "area" -- the
+        existing exact/prefix stop lookup already finds it.
+      - A key is dropped entirely if some OTHER stop's name, exactly and on its
+        own, equals that key once folded. Resolution is purely string-based --
+        there is no way for "Aflitos" to mean "the one bare stop" from one tap
+        and "the whole village" from another -- so where that ambiguity would
+        exist, the area is not offered and the bare stop keeps its existing,
+        precise, unchanged behaviour (98-style: only where it works).
+
+    Keys are folded with `clean_string` -- the SAME fold `_resolve_stop_ids`
+    applies to the incoming query -- because a dict lookup is exact: a raw,
+    unfolded key would never match a folded query and the area branch would
+    silently never fire. Folding happens BEFORE grouping, not after: two raw
+    keys that only differ by accent or case (e.g. "SÃO ROQUE" vs "SAO ROQUE",
+    were upstream ever inconsistent about it) must land in the same bucket, or
+    each would look like a lone, sub-2 singleton and both would be dropped.
+    """
+    groups: dict[str, set[int]] = defaultdict(set)
+    bare_folded_names: set[str] = set()
+    for stop in stops:
+        key = derive_area_key(stop.name)
+        if key:
+            groups[clean_string(key)].add(stop.id)
+        else:
+            bare_folded_names.add(clean_string(stop.name))
+
+    return {
+        key: members
+        for key, members in groups.items()
+        if len(members) >= 2 and key not in bare_folded_names
+    }
