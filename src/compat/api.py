@@ -18,7 +18,11 @@ from tenancy.services import for_island
 from transit.models import Stop, Trip
 from transit.services.schedule_phase import resolve_dataset
 from transit.services.ads import get_ad_payload, record_ad_click
-from transit.services.compat import serialize_legacy_stops_v2, serialize_webapp_load_v2
+from transit.services.compat import (
+    legacy_day_type_for_trip,
+    serialize_legacy_stops_v2,
+    serialize_webapp_load_v2,
+)
 from transit.services.gmaps import fetch_directions
 from transit.services.search import search_routes
 
@@ -73,7 +77,7 @@ def get_trip_v2(request: Request) -> Response:
                 {
                     'id': t.id,
                     'route': t.line.code,
-                    'type_of_day': t.calendar.service_type,
+                    'type_of_day': legacy_day_type_for_trip(t),
                     'likes': t.likes,
                     'dislikes': t.dislikes,
                 }

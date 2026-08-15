@@ -18,13 +18,30 @@ def serialize_stops_v3(stops) -> list[dict]:
 
 
 def _parse_stops_string(stops_str: str) -> list[dict]:
-    """Parse legacy stops dict string into ordered {name, time} entries."""
+    """Parse the legacy stops dict string into ordered {name, time} entries.
+
+    Walks the AST rather than calling ``literal_eval``, and that distinction is
+    load-bearing. The string carries every stop in sequence order, but building a
+    dict from it COLLAPSES repeated stop names: the first occurrence's position
+    survives holding the last occurrence's time. On line 301 journey 488 that
+    turned 59 stops into 45, so ``alighting.sequence`` 59 indexed past the end of
+    the array and the client could not slice on the pair the server had chosen
+    (98 B7, 03 section 5c). Loop routes are exactly the ones that repeat names,
+    so this hit precisely the trips sequence matching exists to fix.
+
+    Walking the AST keeps duplicates, keeps order, and still handles quoting
+    correctly -- which the regex fallback below does not.
+    """
     if not stops_str:
         return []
     try:
-        parsed = ast.literal_eval(stops_str)
-        if isinstance(parsed, dict):
-            return [{'name': name, 'time': time} for name, time in parsed.items()]
+        node = ast.parse(stops_str, mode='eval').body
+        if isinstance(node, ast.Dict):
+            return [
+                {'name': key.value, 'time': value.value}
+                for key, value in zip(node.keys, node.values)
+                if isinstance(key, ast.Constant) and isinstance(value, ast.Constant)
+            ]
     except (SyntaxError, ValueError):
         pass
     pattern = re.findall(r"'([^']+)':\s*'([^']+)'", stops_str)
@@ -67,7 +84,11 @@ def serialize_trip_detail(trip: Trip) -> dict:
     return {
         'id': trip.id,
         'route': trip.line.code,
-        'typeOfDay': trip.calendar.service_type,
+        # AzoresBus trips are date-resolved through `service` and carry no
+        # Calendar -- the importer writes calendar=None -- so dereferencing it
+        # raised AttributeError and 500'd every trip detail on the new network.
+        # Search already derives this (search.py:_type_of_day_for); detail did not.
+        'typeOfDay': trip.calendar.service_type if trip.calendar_id else None,
         'likes': trip.likes,
         'dislikes': trip.dislikes,
         'likesPercent': likes_percent,
@@ -124,7 +145,9 @@ def get_line_v3(line_code: str, *, dataset: str | None = None) -> dict | None:
         'trips': [
             {
                 'id': trip.id,
-                'typeOfDay': trip.calendar.service_type,
+                # Null on AzoresBus trips, which are date-resolved through
+                # `service` and carry no Calendar (see serialize_trip_detail).
+                'typeOfDay': trip.calendar.service_type if trip.calendar_id else None,
                 'headsign': trip.headsign,
                 'likes': trip.likes,
                 'dislikes': trip.dislikes,

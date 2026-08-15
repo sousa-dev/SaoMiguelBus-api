@@ -264,7 +264,17 @@ def transit_trip_detail_view(request: Request, trip_id: int) -> Response:
         return err
 
     with for_island(request.island):
-        payload = get_trip_v3(trip_id)
+        from transit.services.schedule_phase import resolve_dataset
+
+        # Without this the dataset resolved from the server's own date, so every
+        # AzoresBus trip 404'd while previewing pre-cutover -- the ids come from a
+        # ?dataset=azoresbus search and could never be looked up again (03 §3).
+        payload = get_trip_v3(
+            trip_id,
+            dataset=resolve_dataset(
+                request.island, requested=request.GET.get('dataset'),
+            ),
+        )
         if payload is None:
             return Response(
                 {'error': {'code': 'not_found', 'message': 'Trip not found'}},
@@ -281,7 +291,16 @@ def transit_line_detail_view(request: Request, line_code: str) -> Response:
         return err
 
     with for_island(request.island):
-        payload = get_line_v3(line_code)
+        from transit.services.schedule_phase import resolve_dataset
+
+        # Same gap as trip detail: line 101 exists in both networks, so a
+        # previewed line has to be addressable too.
+        payload = get_line_v3(
+            line_code,
+            dataset=resolve_dataset(
+                request.island, requested=request.GET.get('dataset'),
+            ),
+        )
         if payload is None:
             return Response(
                 {'error': {'code': 'not_found', 'message': 'Line not found'}},
@@ -304,9 +323,13 @@ def transit_trip_vote_view(request: Request, trip_id: int) -> Response:
     with for_island(request.island):
         try:
             # PKs do not collide across datasets today, but a vote is a write:
-            # filter for defence (02 section 7.0).
+            # filter for defence (02 section 7.0). `dataset` is honoured so a
+            # previewed trip can be voted on -- otherwise every vote on the
+            # not-yet-active network 404s, exactly as trip detail did.
             trip = Trip.objects.filter(
-                dataset=resolve_dataset(request.island)
+                dataset=resolve_dataset(
+                    request.island, requested=request.GET.get('dataset'),
+                )
             ).get(id=trip_id)
         except Trip.DoesNotExist:
             return Response(

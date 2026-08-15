@@ -50,6 +50,37 @@ def _legacy_service_type(calendar: Calendar) -> str:
     return mapping.get(calendar.service_type, calendar.service_type)
 
 
+def legacy_day_type_for_trip(trip: Trip) -> str:
+    """The legacy WEEKDAY|SATURDAY|SUNDAY bucket this trip belongs in.
+
+    AzoresBus trips carry a ServicePattern and NO Calendar, so dereferencing
+    `trip.calendar` raised AttributeError. That mattered most here: this feeds
+    `_trip_to_load_route`, so once `resolve_dataset` returned azoresbus the v1
+    offline bundle would 500 for every already-installed build -- on the one day
+    it must not.
+
+    The projection is deliberately lossy and documented as such (02 section 7.3):
+    a v1 client cannot see that line 112 runs on Tuesday and Thursday only. It
+    gets the coarsest true bucket, and the v2 bundle carries the real calendar.
+    Saturday and Sunday are checked first because a weekend-only service must not
+    be advertised as a weekday one.
+    """
+    if trip.calendar_id:
+        return _legacy_service_type(trip.calendar)
+
+    service = trip.service if trip.service_id else None
+    if service is None:
+        return 'WEEKDAY'
+    if any((service.monday, service.tuesday, service.wednesday,
+            service.thursday, service.friday)):
+        return 'WEEKDAY'
+    if service.saturday:
+        return 'SATURDAY'
+    if service.sunday:
+        return 'SUNDAY'
+    return 'WEEKDAY'
+
+
 def _trip_to_load_route(trip: Trip) -> dict:
     stop_times = list(
         StopTime.objects.filter(trip=trip).select_related('stop').order_by('sequence')
@@ -63,7 +94,7 @@ def _trip_to_load_route(trip: Trip) -> dict:
         'route': trip.line.code,
         'stops': route_stops,
         'times': all_times,
-        'weekday': _legacy_service_type(trip.calendar),
+        'weekday': legacy_day_type_for_trip(trip),
         'information': information,
         'likes': trip.likes,
         'dislikes': trip.dislikes,
