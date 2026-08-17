@@ -195,8 +195,13 @@ def _serialize_ride_leg(leg, *, prefix: bool) -> dict:
         route_code = f'C{route_code}'
 
     stop_times = sorted(leg.trip.stop_times.all(), key=lambda st: st.sequence)
+    # `stopId` and nothing more: it lets a stop row open that stop's page without
+    # re-matching by name, which is the failure mode this codebase keeps paying
+    # for (98 B7). Coordinates and the polyline stay out — they belong on
+    # `/trips/{id}/geometry`, fetched only when a map actually opens.
     segment = [
         {
+            'stopId': st.stop_id,
             'name': st.stop.name,
             'time': st.departure_time.strftime('%Hh%M'),
             'sequence': st.sequence,

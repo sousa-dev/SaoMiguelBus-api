@@ -10,6 +10,10 @@ from django.db.models import QuerySet
 from django.utils import timezone
 
 from minibus.models import MinibusLine
+from shared.geo import (  # noqa: F401  (re-exported for existing callers)
+    decode_polyline,
+    is_plausible_route_coordinates,
+)
 from minibus.tracking_client import (
     MinibusTrackingError,
     fetch_fleet_locations,
@@ -84,52 +88,6 @@ def resolve_line_code_from_vehicle(vehicle: dict[str, Any]) -> str | None:
         return route_code
 
     return None
-
-
-def decode_polyline(encoded: str) -> list[tuple[float, float]]:
-    if not encoded:
-        return []
-
-    coordinates: list[tuple[float, float]] = []
-    index = 0
-    lat = 0
-    lng = 0
-    length = len(encoded)
-
-    while index < length:
-        shift = 0
-        result = 0
-        while True:
-            byte = ord(encoded[index]) - 63
-            index += 1
-            result |= (byte & 0x1F) << shift
-            shift += 5
-            if byte < 0x20:
-                break
-        delta_lat = ~(result >> 1) if (result & 1) else (result >> 1)
-        lat += delta_lat
-
-        shift = 0
-        result = 0
-        while True:
-            byte = ord(encoded[index]) - 63
-            index += 1
-            result |= (byte & 0x1F) << shift
-            shift += 5
-            if byte < 0x20:
-                break
-        delta_lng = ~(result >> 1) if (result & 1) else (result >> 1)
-        lng += delta_lng
-
-        coordinates.append((lat / 1e5, lng / 1e5))
-
-    return coordinates
-
-
-def is_plausible_route_coordinates(coordinates: list[tuple[float, float]]) -> bool:
-    if len(coordinates) < 2:
-        return False
-    return all(abs(lat) > 1 and abs(lng) > 1 for lat, lng in coordinates)
 
 
 def line_has_shape(line: MinibusLine, *, direction: int = DEFAULT_DIRECTION) -> bool:

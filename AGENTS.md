@@ -176,6 +176,18 @@ Read-side, **AUTH_KEY-protected** endpoints (via `X-Auth-Key` header or `?key=`)
 - A search from somewhere to **itself** returns nothing, and a leg whose **clock runs backwards** is never offered (see below).
 - Transfer legs carry **`slackMinutes`** (wait minus walk — what is actually left once the rider has walked over) and **`tight`** (slack below `TIGHT_TRANSFER_MINUTES`, 30). Judged on slack rather than the raw wait because a 12-minute wait with a 9-minute walk leaves three minutes. On real weekday data this flags ~59% of transfer legs; tune the constant in `transit/services/transfer_points.py` and `lib/transfer-points.ts` together.
 
+### Route geometry / maps (`transit` — slice 1 shipped)
+
+`azoresbus.ExternalJourney.shape` holds a Google-encoded polyline per trip, written by the schedule importer since day one and previously read by nothing. Measured: ~916 points over 36 km at a 24 m median vertex gap — real road-following geometry.
+
+- `GET /api/v3/transit/trips/{id}/geometry?from=&to=` — the trimmed `shape` for one ride plus that segment's stops with **exact pole** lat/lon (`external_stop`), not `Stop` centroids (a centroid is the average of every pole sharing a name and can sit mid-road). `from`/`to` are `board.sequence`/`alight.sequence`; junk falls back to the whole trip rather than erroring.
+- Deliberately NOT inlined into `/journeys` — a polyline per leg per result would add tens of KB for maps that mostly never open. Same list/detail split `trails` already makes.
+- `transit/services/geometry.py` `trim_shape` projects the board/alight poles onto the polyline and slices. It returns `''` — draw nothing — when the shape is missing, implausible, or more than `MAX_STOP_TO_SHAPE_KM` (500 m) from the stops. **A wrong line is worse than no line.**
+- **AzoresBus only, by construction.** Legacy has no shape and no pole, so it returns no geometry and the app offers no map. There is no straight-line fallback: legacy's 108 village-level stops would draw a 12.9 km line from Vila Franca to Furnas straight through the caldera.
+- `leg.stops[]` in `/journeys` gained `stopId` (and nothing else) so a stop row can deep-link without re-matching by name.
+- **Check the data before trusting a map:** `python manage.py report_route_geometry` reports coverage and decodes a sample (off-island / degenerate shapes are counted separately).
+- One polyline codec for both networks: `shared/geo.py` `decode_polyline` / `encode_polyline`; `minibus/services_route_shapes.py` re-exports it. Client mirror is `lib/polyline.ts`; Python-encode → TS-decode round trip is verified.
+
 ### Backwards timetable rows (`transit` — fixed)
 
 Legacy line 206 reaches sequence 12 at `08h20` and sequence 13 at `08h10`, with no `day_offset` to explain it. Sequence order cannot catch this — the sequence *is* in order, only the clock disagrees — so `matcher.valid_pairs` now requires the ride to advance in absolute minutes as well.

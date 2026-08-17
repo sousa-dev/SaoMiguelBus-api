@@ -180,6 +180,74 @@ def transit_search_view(request: Request) -> Response:
 
 @api_view(['GET'])
 @permission_classes([AllowAny])
+def transit_trip_geometry_view(request: Request, trip_id: int) -> Response:
+    """The path and stop positions for one ride, for drawing a map.
+
+    Deliberately NOT folded into `/journeys`. A 20-journey response would grow by
+    tens of kilobytes of polyline for maps that mostly never get opened, so the
+    map fetches per ride leg and the client caches it — the same split `trails`
+    already makes between its list and detail views.
+
+    `from`/`to` are the `board.sequence` / `alight.sequence` the journey response
+    already carries. Omit them for the whole trip.
+    """
+    err = _require_island(request)
+    if err:
+        return err
+
+    with for_island(request.island):
+        from transit.models import Trip
+        from transit.services.geometry import leg_geometry
+        from transit.services.schedule_phase import resolve_dataset
+
+        dataset = resolve_dataset(
+            request.island, requested=request.GET.get('dataset'),
+        )
+        try:
+            trip = (
+                Trip.objects.filter(dataset=dataset)
+                .select_related('line')
+                .prefetch_related('stop_times__stop', 'stop_times__external_stop')
+                .get(id=trip_id)
+            )
+        except Trip.DoesNotExist:
+            return Response(
+                {'error': {'code': 'not_found', 'message': 'Trip not found'}},
+                status=status.HTTP_404_NOT_FOUND,
+            )
+
+        stop_times = sorted(trip.stop_times.all(), key=lambda st: st.sequence)
+        if not stop_times:
+            return Response(
+                {'error': {'code': 'not_found', 'message': 'Trip has no stops'}},
+                status=status.HTTP_404_NOT_FOUND,
+            )
+
+        board = _stop_time_at(stop_times, request.GET.get('from')) or stop_times[0]
+        alight = _stop_time_at(stop_times, request.GET.get('to')) or stop_times[-1]
+        if board.sequence > alight.sequence:
+            board, alight = alight, board
+
+        return Response(leg_geometry(trip, board, alight))
+
+
+def _stop_time_at(stop_times, raw: str | None):
+    """Resolve a `sequence` query param, tolerating junk.
+
+    A bad index is a client bug, not a reason to fail a map: falling back to the
+    whole trip draws something honest rather than an error screen.
+    """
+    if raw is None:
+        return None
+    try:
+        sequence = int(raw)
+    except (TypeError, ValueError):
+        return None
+    return next((st for st in stop_times if st.sequence == sequence), None)
+
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
 def transit_journeys_view(request: Request) -> Response:
     """Direct rides AND one-transfer itineraries.
 

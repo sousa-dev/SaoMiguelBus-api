@@ -13,6 +13,7 @@ from transit.api_v3 import (
     transit_stops_view,
     transit_tariffs_view,
     transit_trip_detail_view,
+    transit_trip_geometry_view,
     transit_trip_vote_view,
 )
 
@@ -28,6 +29,7 @@ urlpatterns = [
     path('route-weather', transit_route_weather_view, name='v3-transit-route-weather'),
     path('directions', transit_directions_view, name='v3-transit-directions'),
     path('trips/<int:trip_id>', transit_trip_detail_view, name='v3-transit-trip-detail'),
+    path('trips/<int:trip_id>/geometry', transit_trip_geometry_view, name='v3-transit-trip-geometry'),
     path('trips/<int:trip_id>/vote', transit_trip_vote_view, name='v3-transit-trip-vote'),
     path('lines/<str:line_code>', transit_line_detail_view, name='v3-transit-line-detail'),
 ]
