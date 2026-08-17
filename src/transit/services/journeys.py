@@ -70,6 +70,29 @@ MAX_TRANSFER_JOURNEYS = 12
 # `_transfer_journeys`.
 CONNECTIONS_PER_INTERCHANGE = 3
 
+# A wait long enough that this stops being one journey.
+#
+# Pareto dominance alone does not catch these, and production showed exactly why:
+# a Capelas -> Ponta Delgada itinerary rode 2 minutes to the next stop in the SAME
+# village at 00h53, waited 5h29, then took the 06h24 bus. Nothing dominated it --
+# it departs earlier than every other option -- but no rider wants it, they want
+# the 06h36 direct.
+#
+# Two rules, because one is not enough:
+#
+#   ratio     waiting 2h for a 4h journey is a connection; waiting 2h for a
+#             10-minute hop is not. Scaling by the time actually spent riding is
+#             what separates the two, and it is what kills the 00h53 case
+#             (329 min wait against 36 min of riding, 9x).
+#   absolute  a ceiling for long journeys, where the ratio alone stays generous.
+#
+# Tuned against real São Miguel data, NOT picked round: Saturday's only
+# Capelas -> Furnas connection waits 241 minutes and Sunday's waits 136. Both are
+# genuinely the sole option that day, so a tighter cap would put those pairs back
+# to "no connection" -- the exact falsehood this feature exists to remove.
+MAX_TRANSFER_WAIT_MINUTES = 300
+MAX_WAIT_TO_RIDE_RATIO = 3
+
 
 @dataclass(frozen=True)
 class Leg:
@@ -142,6 +165,23 @@ def _ordered_stop_times(trip: Trip) -> list:
     return cached
 
 
+def _advances_in_time(board, alight) -> bool:
+    """Does this ride actually move the rider FORWARD?
+
+    Legacy timetables contain trips whose times go backwards mid-route: line 206
+    reaches sequence 12 at 08h20 and sequence 13 at 08h10, with no `day_offset`
+    to explain it. `/transit/search` has shipped those rows for years (3 of 37 on
+    one Ponta Delgada query) and they are merely odd there -- one trip, one wrong
+    end time.
+
+    In a journey they are corrosive: a leg that arrives before it departs makes
+    `durationMinutes` a lie and lets a connection satisfy the transfer buffer
+    against a time the bus never reaches. Sequence order alone cannot catch it,
+    because the sequence IS in order -- only the clock disagrees.
+    """
+    return stop_time_minutes(alight) > stop_time_minutes(board)
+
+
 def _legs_from_origin(trips, origin_ids: set[int]) -> list[Leg]:
     """Every ride that STARTS at the origin, alighting anywhere later.
 
@@ -155,7 +195,8 @@ def _legs_from_origin(trips, origin_ids: set[int]) -> list[Leg]:
             if board.stop_id not in origin_ids:
                 continue
             for alight in stop_times[index + 1:]:
-                legs.append(Leg(trip=trip, board=board, alight=alight))
+                if _advances_in_time(board, alight):
+                    legs.append(Leg(trip=trip, board=board, alight=alight))
     return legs
 
 
@@ -168,7 +209,8 @@ def _legs_to_destination(trips, destination_ids: set[int]) -> list[Leg]:
             if alight.stop_id not in destination_ids:
                 continue
             for board in stop_times[:index]:
-                legs.append(Leg(trip=trip, board=board, alight=alight))
+                if _advances_in_time(board, alight):
+                    legs.append(Leg(trip=trip, board=board, alight=alight))
     return legs
 
 
@@ -206,10 +248,23 @@ def _direct_journeys(
         if pair is None:
             continue
         board, alight = pair
+        if not _advances_in_time(board, alight):
+            continue
         journeys.append(
             Journey(legs=(Leg(trip=trip, board=board, alight=alight),), waits=()),
         )
     return journeys
+
+
+def _wait_is_reasonable(journey: Journey) -> bool:
+    """Is this still one journey, or two trips with a day in between?"""
+    wait = sum(journey.waits)
+    if wait == 0:
+        return True
+    if wait > MAX_TRANSFER_WAIT_MINUTES:
+        return False
+    riding = sum(leg.arrival - leg.departure for leg in journey.legs)
+    return wait <= riding * MAX_WAIT_TO_RIDE_RATIO
 
 
 def _transfer_journeys(
@@ -374,6 +429,14 @@ def search_journeys(
     if not origin_ids or not destination_ids:
         return []
 
+    # Somewhere to itself is not a journey. Production answered
+    # "Capelas -> Capelas" with 12 itineraries that rode to the next stop in the
+    # village and came back. Compared as SETS, so this only catches a query that
+    # resolves to the same place on both sides -- "Capelas (Igreja)" to
+    # "Capelas (Moagem)" is a real, if short, ride and still works.
+    if origin_ids == destination_ids:
+        return []
+
     trips = list(
         eligible_trips(
             Trip.objects.filter(
@@ -397,9 +460,12 @@ def search_journeys(
     first_legs = _legs_from_origin(trips, origin_ids)
     second_index = _index_by_board_stop(_legs_to_destination(trips, destination_ids))
     neighbours = transfer_neighbours(stops)
-    transfers = _collapse_by_trip_pair(
-        _transfer_journeys(first_legs, second_index, neighbours, destination_ids),
-    )
+    transfers = [
+        journey for journey in _collapse_by_trip_pair(
+            _transfer_journeys(first_legs, second_index, neighbours, destination_ids),
+        )
+        if _wait_is_reasonable(journey)
+    ]
 
     candidates = [
         journey for journey in direct + transfers

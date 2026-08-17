@@ -231,6 +231,96 @@ class TransferJourneyTests(JourneyTestCase):
         self.assertEqual(journey.legs[-1].alight.day_offset, 1)
 
 
+class ProductionFindingsTests(JourneyTestCase):
+    """Three faults the deployed endpoint showed on real São Miguel data."""
+
+    def setUp(self):
+        super().setUp()
+        self.capelas = self.stop('CAPELAS (IGREJA)', CAPELAS)
+        self.capelas_rossio = self.stop(
+            'CAPELAS (ROSSIO)', (CAPELAS[0] + 0.01, CAPELAS[1]),
+        )
+        self.hub = self.stop('PONTA DELGADA', HUB)
+        self.furnas = self.stop('FURNAS', FURNAS)
+
+    def test_a_leg_whose_clock_runs_backwards_is_never_offered(self):
+        """Legacy line 206 reaches sequence 12 at 08h20 and 13 at 08h10.
+
+        The sequence is in order; only the clock disagrees, so the pair matcher
+        cannot catch it. `/transit/search` has shipped these rows for years.
+        """
+        # Mirrors the shape of the real row: the ORIGIN is timed later than the
+        # DESTINATION that follows it in sequence.
+        self.trip(
+            self.line('206'),
+            [(self.hub, '08:00'), (self.capelas, '08:20'), (self.furnas, '08:10')],
+        )
+
+        self.assertEqual(self.search(), [])
+
+    def test_a_backwards_leg_does_not_poison_a_transfer(self):
+        self.trip(self.line('206'), [(self.capelas, '08:20'), (self.hub, '08:10')])
+        self.trip(self.line('110'), [(self.hub, '09:30'), (self.furnas, '11:05')])
+
+        # The only route to Furnas runs through a leg that arrives before it
+        # departs -- offering it would let the connection satisfy the transfer
+        # buffer against a time the bus never reaches.
+        self.assertEqual(self.search(), [])
+
+    def test_an_absurd_wait_is_not_a_journey(self):
+        """Production: ride 2 minutes at 00h53, wait 5h29, then take the 06h24.
+
+        Nothing dominates it -- it departs before everything else -- so only a
+        wait rule removes it.
+        """
+        self.trip(self.line('215'), [(self.capelas, '00:53'), (self.capelas_rossio, '00:55')])
+        self.trip(self.line('218'), [(self.capelas_rossio, '06:24'), (self.hub, '06:58')])
+
+        journeys = self.search(destination='Ponta Delgada')
+
+        # The 06h24 direct still stands -- Rossio is in the Capelas area, so
+        # that bus was always a direct ride. What must not survive is the
+        # 00h53 hop bolted onto the front of it.
+        self.assertEqual([journey.transfers for journey in journeys], [0])
+        self.assertEqual(journeys[0].legs[0].board.departure_time, time(6, 24))
+
+    def test_a_long_wait_survives_when_the_ride_is_long_too(self):
+        """Saturday's only Capelas -> Furnas connection waits 241 minutes.
+
+        Removing it would put the pair back to "no connection" -- the falsehood
+        this feature exists to remove.
+        """
+        self.trip(self.line('207'), [(self.capelas, '09:59'), (self.hub, '10:59')])
+        self.trip(self.line('318'), [(self.hub, '15:00'), (self.furnas, '16:30')])
+
+        journeys = self.search()
+        self.assertEqual(len(journeys), 1)
+        self.assertEqual(sum(journeys[0].waits), 241)
+
+    def test_searching_a_place_to_itself_returns_nothing(self):
+        """Production answered Capelas -> Capelas with 12 itineraries."""
+        self.trip(
+            self.line('215'),
+            [(self.capelas, '08:00'), (self.capelas_rossio, '08:05'),
+             (self.hub, '08:40')],
+        )
+
+        self.assertEqual(self.search(origin='Capelas', destination='Capelas'), [])
+
+    def test_two_named_stops_in_one_village_is_still_a_real_ride(self):
+        """The same-place guard compares SETS, so this must keep working."""
+        self.trip(
+            self.line('215'),
+            [(self.capelas, '08:00'), (self.capelas_rossio, '08:05')],
+        )
+
+        journeys = self.search(
+            origin='CAPELAS (IGREJA)', destination='CAPELAS (ROSSIO)',
+        )
+        self.assertEqual(len(journeys), 1)
+        self.assertEqual(journeys[0].transfers, 0)
+
+
 class DegenerateCoordinateTests(JourneyTestCase):
     """Null Island must never become an interchange.
 
