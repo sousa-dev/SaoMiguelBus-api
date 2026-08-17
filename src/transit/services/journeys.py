@@ -46,7 +46,7 @@ from tenancy.services import get_active_island
 from transit.models import DATASET_AZORESBUS, Holiday, Stop, Trip
 from transit.services.legacy_import import clean_string
 from transit.services.matcher import absolute_minutes as stop_time_minutes
-from transit.services.matcher import select_pair
+from transit.services.matcher import select_pair, valid_pairs
 from transit.services.schedule_phase import resolve_dataset
 from transit.services.search import (
     _type_of_day_for,
@@ -238,25 +238,28 @@ def _index_by_board_stop(legs: list[Leg]) -> dict[int, tuple[list[int], list[Leg
 def _direct_journeys(
     trips, origin_ids: set[int], destination_ids: set[int], earliest,
 ) -> list[Journey]:
-    """Direct rides -- one per trip, via the SAME `select_pair` search uses.
+    """Direct rides -- one per trip, spanning as much of the query as it can.
 
-    Not "every valid (board, alight) pair": on a loop that touches the origin
-    twice, that would list the same bus repeatedly, and it would put rows in
-    `/journeys` that `/search` does not return for the same query. `select_pair`
-    owns the tie-break (earliest board, then shortest ride, then stable) and it
-    has to stay the one place that decides it.
+    `select_pair` picks the pair for `/transit/search`, and that endpoint is
+    frozen: three implementations agree on its tie-break byte for byte
+    (`matcher.py`). Journeys need a DIFFERENT answer for an area query -- the
+    widest ride rather than the shortest -- so this selects its own pair and
+    leaves `/search` untouched.
+
+    For a query naming ONE stop the two agree by construction: with a single
+    candidate on each side there is nothing to choose between.
     """
     journeys: list[Journey] = []
     for trip in trips:
-        pair = select_pair(trip, origin_ids, destination_ids, earliest=earliest)
-        if pair is None:
-            continue
-        board, alight = pair
-        if not _advances_in_time(board, alight):
-            continue
-        journeys.append(
-            Journey(legs=(Leg(trip=trip, board=board, alight=alight),), waits=()),
-        )
+        candidates = [
+            Journey(legs=(Leg(trip=trip, board=board, alight=alight),), waits=())
+            for board, alight in valid_pairs(trip, origin_ids, destination_ids)
+            if _advances_in_time(board, alight)
+            and (earliest is None
+                 or (board.day_offset, board.departure_time) >= (0, earliest))
+        ]
+        if candidates:
+            journeys.append(min(candidates, key=_span_rank))
     return journeys
 
 
@@ -322,21 +325,38 @@ def _transfer_journeys(
 
 
 def _collapse_by_trip_pair(journeys: list[Journey]) -> list[Journey]:
-    """One journey per set of trips -- the tightest connection between them.
+    """One journey per set of trips -- boarding as early as the area allows.
 
     Many round-A alight points feed the same pair of trips (every stop the first
     bus passes where the second is still catchable). They are one itinerary to a
-    rider, so keep the one that leaves latest and arrives earliest.
+    rider, so exactly one survives, and WHICH one matters when the query named a
+    village rather than a stop.
+
+    Searching "Capelas" resolves to 35 stops. Whichever of them we board at, the
+    bus reaches the interchange at the same moment -- so boarding earlier costs
+    the rider nothing in arrival time, and boarding at the FIRST one makes the
+    journey span every Capelas stop the bus serves. That is what puts them all in
+    the stop list, which is the only way a rider can pick the one near them.
+
+    Ranked on the BOARDING SEQUENCE, not the clock: the first Capelas stop in the
+    route is the first one a rider can get on at, whatever the timetable says.
     """
     best: dict[tuple[int, ...], Journey] = {}
     for journey in journeys:
         current = best.get(journey.key)
-        rank = (journey.arrival, -journey.departure, journey.legs[0].board.sequence)
-        if current is None or rank < (
-            current.arrival, -current.departure, current.legs[0].board.sequence,
-        ):
+        rank = _span_rank(journey)
+        if current is None or rank < _span_rank(current):
             best[journey.key] = journey
     return list(best.values())
+
+
+def _span_rank(journey: Journey) -> tuple:
+    """Earliest boarding, then latest alighting -- the widest ride on these trips."""
+    return (
+        journey.legs[0].board.sequence,
+        -journey.legs[-1].alight.sequence,
+        journey.arrival,
+    )
 
 
 def _prune_dominated(journeys: list[Journey]) -> list[Journey]:

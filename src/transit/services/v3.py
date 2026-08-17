@@ -269,7 +269,15 @@ def serialize_journeys(journeys, *, service_type: str | None, prefix: bool = Tru
         first, last = journey.legs[0], journey.legs[-1]
         results.append(
             {
-                'id': ':'.join(str(leg.trip.id) for leg in journey.legs),
+                # Trip ids ALONE do not identify a ride. Searching "Capelas"
+                # and "Capelas (Escola)" returns the same two buses boarded at
+                # different stops -- same trips, different journey -- so an id
+                # of just the trips collides across searches and a client
+                # looking one up by id can resolve the wrong one. The boarding
+                # sequence is what makes it the ride the rider chose.
+                'id': ':'.join(
+                    f'{leg.trip.id}-{leg.board.sequence}' for leg in journey.legs
+                ),
                 'transfers': journey.transfers,
                 'start': first.board.departure_time.strftime('%Hh%M'),
                 'end': last.alight.departure_time.strftime('%Hh%M'),

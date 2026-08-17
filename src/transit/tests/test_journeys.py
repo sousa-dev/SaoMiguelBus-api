@@ -626,11 +626,38 @@ class JourneyResponseShapeTests(JourneyTestCase):
         self.assertEqual(ride['boarding']['code'], 'P01')
         self.assertIn('lat', ride['boarding'])
 
-    def test_the_journey_id_is_stable_and_names_both_trips(self):
+    def test_the_journey_id_names_both_trips_and_where_they_were_boarded(self):
         journey = self.get()['journeys'][0]
-        trip_ids = [leg['tripId'] for leg in journey['legs'] if leg['kind'] == 'ride']
+        rides = [leg for leg in journey['legs'] if leg['kind'] == 'ride']
 
-        self.assertEqual(journey['id'], ':'.join(str(i) for i in trip_ids))
+        self.assertEqual(
+            journey['id'],
+            ':'.join(f"{leg['tripId']}-{leg['board']['sequence']}" for leg in rides),
+        )
+
+    def test_the_same_trips_boarded_elsewhere_are_a_DIFFERENT_journey(self):
+        """Measured on production: searching "Capelas" and "Capelas (Escola)"
+        returned the same two buses under one id, so a client resolving a journey
+        by id got whichever search it happened to find first -- and showed a ride
+        the rider had not picked."""
+        # Rebuild the western trip so it serves TWO Capelas stops in a row —
+        # the shape that produced the collision on the live network.
+        early = self.stop('CAPELAS (ESCOLA)', (CAPELAS[0] + 0.002, CAPELAS[1]))
+        Trip.objects.filter(line__code='315').delete()
+        self.trip(
+            self.line('315b'),
+            [(early, '08:00'), (self.capelas, '08:10'), (self.hub, '08:55')],
+            poles=True,
+        )
+
+        # "Capelas" as an area boards at the FIRST Capelas stop; naming one stop
+        # exactly boards at that one. Same two buses, different ride.
+        from_area = self.get(origin='Capelas')['journeys'][0]
+        from_exact = self.get(origin='CAPELAS (IGREJA)')['journeys'][0]
+
+        self.assertNotEqual(from_area['legs'][0]['board']['name'],
+                            from_exact['legs'][0]['board']['name'])
+        self.assertNotEqual(from_area['id'], from_exact['id'])
 
     def test_a_missing_origin_is_a_400(self):
         response = self.client.get(
