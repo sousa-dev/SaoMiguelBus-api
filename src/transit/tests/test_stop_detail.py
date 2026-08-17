@@ -201,3 +201,40 @@ class StopDetailTests(TestCase):
         )
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.json()['poles'], [])
+
+
+class DepartureDestinationTests(StopDetailTests):
+    """Upstream's `name` is a time range, not a headsign — found on production.
+
+    A departure row exists to answer "where is this bus going?", so it carries
+    the trip's final stop rather than whatever upstream called the journey.
+    """
+
+    def test_a_departure_names_the_trips_final_stop(self):
+        self.departure('110', '09:00', headsign='08:00  »  08:50')
+
+        row = self.get()['departures'][0]
+        self.assertEqual(row['destination'], 'FURNAS')
+
+    def test_the_raw_upstream_value_is_still_carried_but_not_relied_on(self):
+        self.departure('110', '09:00', headsign='08:00  »  08:50')
+
+        self.assertEqual(self.get()['departures'][0]['headsign'], '08:00  »  08:50')
+
+    def test_the_final_stop_is_by_sequence_not_by_clock(self):
+        """A night trip wraps past midnight; ordering on time picks the wrong end."""
+        line, _ = Line.objects.get_or_create(
+            island=self.island, dataset=DATASET_AZORESBUS, code='N03',
+            defaults={'operator': self.operator},
+        )
+        trip = Trip.objects.create(
+            island=self.island, dataset=DATASET_AZORESBUS, line=line,
+            service=self.everyday, source=Trip.SOURCE_OPERATOR,
+        )
+        StopTime.objects.create(island=self.island, trip=trip, stop=self.hub,
+                                sequence=1, departure_time=time(23, 50))
+        StopTime.objects.create(island=self.island, trip=trip, stop=self.far,
+                                sequence=2, departure_time=time(0, 40), day_offset=1)
+
+        row = next(d for d in self.get()['departures'] if d['route'] == 'N03')
+        self.assertEqual(row['destination'], 'FURNAS')

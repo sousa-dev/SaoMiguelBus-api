@@ -79,6 +79,7 @@ def serialize_stop_detail(stop, *, day: str, start_time: str,
 
     departures = []
     lines: dict[str, str] = {}
+    candidates = []
 
     for stop_time in stop_times:
         code = stop_time.trip.line.code
@@ -97,11 +98,24 @@ def serialize_stop_detail(stop, *, day: str, start_time: str,
             'sequence': stop_time.sequence,
             # Where this bus is going, so "110 at 09h15" means something. The
             # importer fills `headsign` from the upstream journey name.
+            # Kept because it is what upstream sent, but `destination` below is
+            # what a rider should be shown.
             'headsign': stop_time.trip.headsign or '',
         }
         if stop_time.external_stop is not None:
             row['code'] = stop_time.external_stop.code
         departures.append(row)
+        candidates.append(stop_time.trip_id)
+
+    # "Where is this bus going?" is the whole point of a departure row, and
+    # upstream's journey `name` does NOT answer it -- on the live API it holds a
+    # time range ("08:00 » 08:50"), so `headsign` renders as noise. The honest
+    # answer is the trip's LAST stop, resolved in one query for the whole page
+    # rather than one per row.
+    for trip_id, name in _terminal_stop_names(candidates).items():
+        for row in departures:
+            if row['tripId'] == trip_id:
+                row['destination'] = name
 
     return {
         'id': stop.id,
@@ -115,3 +129,24 @@ def serialize_stop_detail(stop, *, day: str, start_time: str,
         'lines': sorted(lines),
         'departures': departures,
     }
+
+
+def _terminal_stop_names(trip_ids: list[int]) -> dict[int, str]:
+    """Final stop name per trip, in one query.
+
+    The last stop by `sequence`, never by time: a night trip wraps past midnight
+    and ordering on the bare time field would pick the wrong end (98 B2).
+    """
+    if not trip_ids:
+        return {}
+
+    rows = (
+        StopTime.objects.filter(trip_id__in=set(trip_ids))
+        .select_related('stop')
+        .order_by('trip_id', 'sequence')
+        .values_list('trip_id', 'stop__name')
+    )
+    terminal: dict[int, str] = {}
+    for trip_id, name in rows:
+        terminal[trip_id] = name        # last write wins == highest sequence
+    return terminal

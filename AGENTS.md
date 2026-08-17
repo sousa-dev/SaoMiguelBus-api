@@ -191,6 +191,7 @@ Read-side, **AUTH_KEY-protected** endpoints (via `X-Auth-Key` header or `?key=`)
 ### Stop pages and line geometry (`transit` — slices 2–3 API shipped)
 
 - `GET /api/v3/transit/stops/{id}` — one stop: every **pole** (`code` + exact lat/lon, so a rider knows which side of the road), the lines that serve it, and the next departures with `headsign`. Departures resolve through the **same `eligible_trips`** search uses, so a stop page can never promise a bus `/journeys` would refuse to plan. `day`/`start` accept the same shapes as `/search`. Legacy answers with `poles: []`.
+- **`headsign` is not a destination.** Upstream's journey `name` holds a time range on the live API ("08:00 » 08:50"), so departures also carry **`destination`** — the trip's final stop by `sequence` (never by clock; a night trip wraps). Show `destination`, not `headsign`.
 - `GET /api/v3/transit/lines/{code}/shape` — a whole line end to end: one path and ordered stop list per direction. The **longest** decoded shape wins per direction, because short trips are the ones that turn back early or skip a seasonal branch. Empty on legacy.
 
 ### Backwards timetable rows (`transit` — fixed)
