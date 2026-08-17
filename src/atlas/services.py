@@ -150,9 +150,30 @@ def oldest_surviving_tombstone_revision(island: Island) -> int | None:
     return oldest
 
 
+def current_revision(island: Island) -> int:
+    return AtlasRevision.objects.filter(island=island).values_list('current', flat=True).first() or 0
+
+
 def needs_full_resync(island: Island, since: int) -> bool:
+    """Whether the client's cursor can still converge, or has to be thrown away.
+
+    Two ways it cannot converge — one from each end of the range:
+
+    1. **Cursor from the future** (`since > current`). Revisions only ever increase, and a
+       client only ever sets `since` from a revision this server handed it, so a cursor above
+       our own counter means the client's state came from a *different* database — a seed built
+       against the wrong environment, a restored dump, a rebuilt tenant. `revision__gt=since`
+       then matches nothing, forever: the client syncs "successfully", applies zero rows, and
+       silently never receives another update. Shipped exactly that way once (atlas-seed.db was
+       built from a dev database whose counters ran ~3-6x ahead of production), and every
+       install was a permanent no-op until this check existed.
+    2. **Cursor too old** (`since < oldest surviving tombstone`). Deletions it never saw have
+       already been pruned, so replaying forward would leave orphaned rows behind.
+    """
     if since <= 0:
         return False
+    if since > current_revision(island):
+        return True
     oldest = oldest_surviving_tombstone_revision(island)
     if oldest is None:
         return False
@@ -307,7 +328,7 @@ def build_sync_page(island: Island, *, since: int, limit: int) -> dict[str, Any]
     page_revisions += [d.revision for d in deleted]
     page_max = max(page_revisions)
 
-    current = AtlasRevision.objects.filter(island=island).values_list('current', flat=True).first() or 0
+    current = current_revision(island)
     has_more = any(
         len(rows) == limit for rows in (categories, pois, trails, deleted)
     ) or page_max < current
