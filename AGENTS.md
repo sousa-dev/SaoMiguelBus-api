@@ -188,6 +188,11 @@ Read-side, **AUTH_KEY-protected** endpoints (via `X-Auth-Key` header or `?key=`)
 - **Check the data before trusting a map:** `python manage.py report_route_geometry` reports coverage and decodes a sample (off-island / degenerate shapes are counted separately).
 - One polyline codec for both networks: `shared/geo.py` `decode_polyline` / `encode_polyline`; `minibus/services_route_shapes.py` re-exports it. Client mirror is `lib/polyline.ts`; Python-encode → TS-decode round trip is verified.
 
+### Stop pages and line geometry (`transit` — slices 2–3 API shipped)
+
+- `GET /api/v3/transit/stops/{id}` — one stop: every **pole** (`code` + exact lat/lon, so a rider knows which side of the road), the lines that serve it, and the next departures with `headsign`. Departures resolve through the **same `eligible_trips`** search uses, so a stop page can never promise a bus `/journeys` would refuse to plan. `day`/`start` accept the same shapes as `/search`. Legacy answers with `poles: []`.
+- `GET /api/v3/transit/lines/{code}/shape` — a whole line end to end: one path and ordered stop list per direction. The **longest** decoded shape wins per direction, because short trips are the ones that turn back early or skip a seasonal branch. Empty on legacy.
+
 ### Backwards timetable rows (`transit` — fixed)
 
 Legacy line 206 reaches sequence 12 at `08h20` and sequence 13 at `08h10`, with no `day_offset` to explain it. Sequence order cannot catch this — the sequence *is* in order, only the clock disagrees — so `matcher.valid_pairs` now requires the ride to advance in absolute minutes as well.

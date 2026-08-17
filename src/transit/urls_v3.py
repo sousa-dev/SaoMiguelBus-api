@@ -4,12 +4,14 @@ from transit.api_v3 import (
     transit_directions_view,
     transit_journeys_view,
     transit_line_detail_view,
+    transit_line_shape_view,
     transit_offline_bundle_view,
     transit_offline_bundle_v2_version_view,
     transit_offline_bundle_v2_view,
     transit_offline_version_view,
     transit_route_weather_view,
     transit_search_view,
+    transit_stop_detail_view,
     transit_stops_view,
     transit_tariffs_view,
     transit_trip_detail_view,
@@ -19,6 +21,7 @@ from transit.api_v3 import (
 
 urlpatterns = [
     path('stops', transit_stops_view, name='v3-transit-stops'),
+    path('stops/<int:stop_id>', transit_stop_detail_view, name='v3-transit-stop-detail'),
     path('offline-bundle', transit_offline_bundle_view, name='v3-transit-offline-bundle'),
     path('offline-bundle/version', transit_offline_version_view, name='v3-transit-offline-version'),
     path('offline-bundle/v2', transit_offline_bundle_v2_view, name='transit-offline-bundle-v2'),
@@ -32,4 +35,5 @@ urlpatterns = [
     path('trips/<int:trip_id>/geometry', transit_trip_geometry_view, name='v3-transit-trip-geometry'),
     path('trips/<int:trip_id>/vote', transit_trip_vote_view, name='v3-transit-trip-vote'),
     path('lines/<str:line_code>', transit_line_detail_view, name='v3-transit-line-detail'),
+    path('lines/<str:line_code>/shape', transit_line_shape_view, name='v3-transit-line-shape'),
 ]

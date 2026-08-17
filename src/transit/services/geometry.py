@@ -153,3 +153,77 @@ def leg_geometry(trip, board, alight) -> dict:
         'shape': trim_shape(trip_shape(trip), board, alight),
         'stops': stops,
     }
+
+
+def line_shapes(line) -> list[dict]:
+    """One representative path per direction for a whole line.
+
+    A line has hundreds of trips and they share a route, so drawing "line 110"
+    means picking one. The LONGEST decoded path wins per direction: short trips
+    are the ones that turn back early or skip a seasonal branch, and a rider
+    looking at a line map wants the full extent of it, not the school-run
+    variant that stops halfway.
+
+    Empty on legacy, which stores no shapes at all.
+    """
+    from azoresbus.models import ExternalJourney
+
+    journeys = (
+        ExternalJourney.objects
+        .filter(trip__line=line, dataset=line.dataset)
+        .exclude(shape='')
+        .values_list('direction', 'shape', 'trip_id')
+    )
+
+    best: dict[int, tuple[int, str, int]] = {}
+    for direction, shape, trip_id in journeys:
+        points = decode_polyline(shape)
+        if not is_plausible_route_coordinates(points):
+            continue
+        current = best.get(direction)
+        # Point count stands in for extent: same encoding, same ~24 m spacing,
+        # so more vertices is a longer road. Cheaper than measuring every path.
+        if current is None or len(points) > current[0]:
+            best[direction] = (len(points), shape, trip_id)
+
+    return [
+        {'direction': direction, 'shape': shape, 'tripId': trip_id}
+        for direction, (_, shape, trip_id) in sorted(best.items())
+    ]
+
+
+def line_stops(line) -> list[dict]:
+    """The stops of the line's fullest trip per direction, in running order.
+
+    Tied to the SAME trip whose shape is returned, so the pins sit on the path
+    rather than describing a different variant of the route.
+    """
+    from transit.models import StopTime
+
+    out = []
+    for entry in line_shapes(line):
+        stop_times = (
+            StopTime.objects.filter(trip_id=entry['tripId'])
+            .select_related('stop', 'external_stop')
+            .order_by('sequence')
+        )
+        out.append({
+            'direction': entry['direction'],
+            'tripId': entry['tripId'],
+            'stops': [
+                {
+                    'stopId': st.stop_id,
+                    'name': st.stop.name,
+                    'sequence': st.sequence,
+                    **(
+                        {'lat': st.external_stop.latitude,
+                         'lon': st.external_stop.longitude,
+                         'code': st.external_stop.code}
+                        if st.external_stop is not None
+                        else {'lat': st.stop.latitude, 'lon': st.stop.longitude}
+                    ),
+                }
+                for st in stop_times
+            ],
+        })
+    return out

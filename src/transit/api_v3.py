@@ -180,6 +180,89 @@ def transit_search_view(request: Request) -> Response:
 
 @api_view(['GET'])
 @permission_classes([AllowAny])
+def transit_line_shape_view(request: Request, line_code: str) -> Response:
+    """A whole line drawn end to end: one path and stop list per direction."""
+    err = _require_island(request)
+    if err:
+        return err
+
+    with for_island(request.island):
+        from transit.models import Line
+        from transit.services.geometry import line_shapes, line_stops
+        from transit.services.schedule_phase import resolve_dataset
+
+        dataset = resolve_dataset(
+            request.island, requested=request.GET.get('dataset'),
+        )
+        try:
+            line = Line.objects.get(dataset=dataset, code=line_code)
+        except Line.DoesNotExist:
+            return Response(
+                {'error': {'code': 'not_found', 'message': 'Line not found'}},
+                status=status.HTTP_404_NOT_FOUND,
+            )
+
+        shapes = line_shapes(line)
+        directions = line_stops(line)
+        by_direction = {entry['direction']: entry for entry in directions}
+
+        return Response({
+            'code': line.code,
+            'displayName': line.display_name,
+            'directions': [
+                {
+                    'direction': shape['direction'],
+                    'shape': shape['shape'],
+                    'tripId': shape['tripId'],
+                    'stops': by_direction.get(shape['direction'], {}).get('stops', []),
+                }
+                for shape in shapes
+            ],
+        })
+
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def transit_stop_detail_view(request: Request, stop_id: int) -> Response:
+    """One stop: where its poles physically are, what serves it, what is next.
+
+    `day`/`start` default to the same shapes `/search` accepts, so the
+    departures a rider sees here obey exactly the service rules that decide
+    whether a journey is plannable.
+    """
+    err = _require_island(request)
+    if err:
+        return err
+
+    with for_island(request.island):
+        from transit.models import Stop
+        from transit.services.schedule_phase import resolve_dataset
+        from transit.services.stops import serialize_stop_detail
+
+        dataset = resolve_dataset(
+            request.island, requested=request.GET.get('dataset'),
+        )
+        try:
+            stop = (
+                Stop.objects.filter(dataset=dataset)
+                .prefetch_related('external_stops')
+                .get(id=stop_id)
+            )
+        except Stop.DoesNotExist:
+            return Response(
+                {'error': {'code': 'not_found', 'message': 'Stop not found'}},
+                status=status.HTTP_404_NOT_FOUND,
+            )
+
+        return Response(serialize_stop_detail(
+            stop,
+            day=request.GET.get('day', 'weekday'),
+            start_time=request.GET.get('start', '00:00'),
+        ))
+
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
 def transit_trip_geometry_view(request: Request, trip_id: int) -> Response:
     """The path and stop positions for one ride, for drawing a map.
 
