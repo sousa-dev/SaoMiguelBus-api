@@ -15,6 +15,7 @@ from trails.services import (
     sync_trails_for_island,
 )
 from transit.models import Stop
+from tenancy.models import Island
 from tenancy.services import get_or_create_default_island
 
 SAMPLE_TRAIL_COLLECTION = {
@@ -97,6 +98,22 @@ class TrailsServicesTestCase(TestCase):
         self.assertFalse(
             feature_in_island(SAMPLE_TRAIL_COLLECTION['features'][1], self.island),
         )
+
+    def test_feature_in_island_covers_eastern_pico_trails(self):
+        """Pico's seeded 25 km radius cut off its eastern tip, silently dropping the two
+        real trails below. Regression for tenancy migration 0019_widen_island_radii."""
+        pico = Island.objects.get(key='pico')
+        for name, lng, lat in (
+            ('calheta-do-nesquim', -28.079668237, 38.402726054),
+            ('ponta-da-ilha', -28.056722023, 38.438929003),
+        ):
+            feature = {
+                'type': 'Feature',
+                'properties': {'id': name},
+                'geometry': {'type': 'LineString', 'coordinates': [[lng, lat], [lng, lat]]},
+            }
+            with self.subTest(trail=name):
+                self.assertTrue(feature_in_island(feature, pico))
 
     def test_sync_trails_upserts_without_duplicates(self):
         first = sync_trails_for_island(self.island, collection=SAMPLE_TRAIL_COLLECTION)

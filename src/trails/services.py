@@ -512,7 +512,43 @@ def sync_open_data_for_island(island: Island) -> dict[str, int]:
     return totals
 
 
+def propagate_trails_to_atlas(islands: list[Island]) -> int:
+    """Push freshly-synced trails into AtlasTrail so offline clients actually see them.
+
+    Trails otherwise reach atlas only via atlas.import_all_sources, which is beat-scheduled
+    monthly (1st, 02:00 Azores) — so a nightly trails sync stayed invisible to the offline map
+    app for up to a month, and a deploy-time sync until the following month.
+
+    Best-effort and DB-only (no network, no Overpass, no Visit Azores): the trails sync has
+    already succeeded by this point and must not be failed by a problem downstream of it.
+    Skips islands without the atlas flag, since they have no AtlasRevision to hang rows off.
+    """
+    from atlas.importers.trails import TrailsImporter
+
+    imported = 0
+    for island in islands:
+        if not (island.feature_flags or {}).get('atlas'):
+            continue
+        try:
+            TrailsImporter(island).run()
+        except Exception:
+            logger.exception('atlas trails import failed for island=%s', island.key)
+            continue
+        imported += 1
+    return imported
+
+
 def sync_all_open_data(*, island_key: str | None = None) -> dict[str, int]:
+    """Sync every flagged island (or one). One island's failure never aborts the others.
+
+    sync_open_data_for_island() re-raises on a trails failure so a targeted single-island run
+    still surfaces the error to its caller. Across nine islands that would mean one flaky
+    listing fetch loses the whole nightly run, so failures are contained and counted here.
+
+    Successfully synced islands are then propagated into atlas — see
+    propagate_trails_to_atlas() for why that is part of finishing a sync rather than a
+    separate monthly job.
+    """
     totals = {
         'islands': 0,
         'trails_created': 0,
@@ -520,12 +556,23 @@ def sync_all_open_data(*, island_key: str | None = None) -> dict[str, int]:
         'pois_created': 0,
         'pois_updated': 0,
         'skipped': 0,
+        'failed_islands': 0,
+        'atlas_islands_imported': 0,
     }
+    synced: list[Island] = []
     for island in _islands_for_sync(island_key=island_key):
         totals['islands'] += 1
-        counts = sync_open_data_for_island(island)
+        try:
+            counts = sync_open_data_for_island(island)
+        except Exception:
+            logger.exception('open data sync failed for island=%s — continuing', island.key)
+            totals['failed_islands'] += 1
+            continue
+        synced.append(island)
         for key in ('trails_created', 'trails_updated', 'pois_created', 'pois_updated', 'skipped'):
             totals[key] += counts[key]
+
+    totals['atlas_islands_imported'] = propagate_trails_to_atlas(synced)
     return totals
 
 

@@ -283,11 +283,14 @@ On every deploy, `runserver.sh` runs (in order):
 
 1. `collectstatic`
 2. `migrate`
-3. **`import_minibus --island ${DEFAULT_ISLAND_KEY:-sao-miguel}`** — copies bundled PDFs/SVG into `MEDIA_ROOT` (idempotent)
-4. `bootstrap_feed_syncs`
-5. **`bootstrap_minibus_route_shapes --island ${DEFAULT_ISLAND_KEY:-sao-miguel}`** — queues Celery harvest of AVL route polylines when any line is missing stored geometry
-6. `ensure_superuser`
-7. Gunicorn
+3. **`bootstrap_atlas`** — self-heals the atlas category taxonomy and seeds a first-run catalogue for any atlas island with zero POIs (local only, never network)
+4. **`import_minibus --island ${DEFAULT_ISLAND_KEY:-sao-miguel}`** — copies bundled PDFs/SVG into `MEDIA_ROOT` (idempotent)
+5. `bootstrap_feed_syncs` — **queues** (does not run) the news/seismic/trails syncs onto Celery
+6. **`import_atlas --source trails --all-islands`** — reconciles `AtlasTrail` from `trails.Trail` for every atlas island. DB-only, and non-fatal so a bad reconcile can't abort the deploy. Note this runs *before* the queued trails sync finishes, so on a first deploy it reconciles pre-sync data; `trails.services.sync_all_open_data()` propagates to atlas itself once that sync completes.
+7. **`bootstrap_minibus_route_shapes --island ${DEFAULT_ISLAND_KEY:-sao-miguel}`** — queues Celery harvest of AVL route polylines when any line is missing stored geometry
+8. `bootstrap_azoresbus`
+9. `ensure_superuser`
+10. Gunicorn
 
 Required env (Dokploy **Environment** tab / repo-root `.env`):
 

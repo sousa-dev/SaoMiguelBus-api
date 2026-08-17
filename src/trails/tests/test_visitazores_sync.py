@@ -6,6 +6,8 @@ from django.test import TestCase
 
 from trails.models import Trail, TrailStage
 from trails.visitazores_sync import (
+    VISITAZORES_ISLAND_SLUGS,
+    _parse_trail_ref,
     fetch_pt_translation,
     gpx_to_linestring,
     gpx_to_stages,
@@ -13,6 +15,7 @@ from trails.visitazores_sync import (
     parse_trail_detail_page,
     sync_visitazores_trails_for_island,
 )
+from tenancy.models import Island
 from tenancy.services import get_or_create_default_island
 
 SAMPLE_DETAIL_HTML = """
@@ -52,6 +55,34 @@ SAMPLE_GPX = """<?xml version="1.0"?>
 </trkseg></trk>
 </gpx>"""
 
+# Faial's real trail shape: a 'PRC4FAI' ref (the suffix REF_PATTERN used to be missing) and
+# geometry over Faial rather than São Miguel, so this also exercises the per-island bbox.
+FAIAL_DETAIL_HTML = """
+<html><head>
+<meta property="og:title" content="Caldeira | Azores Trails" />
+<script>jQuery.extend(Drupal.settings, {"geofieldMap":{"map":{"data":{"type":"LineString","coordinates":[[-28.7200,38.5800],[-28.7100,38.5850]]}}}});</script>
+</head><body>
+<div class="field field-name-field-difficulty"><div class="field-item even">Difficulty - Easy</div></div>
+<div class="field field-name-field-extension"><div class="field-item even">Extension - 6.8 km</div></div>
+<div class="field field-name-field-category"><div class="field-item even">Category - Circular</div></div>
+<div class="field field-name-field-time-average"><div class="field-item even">Time average - 2h 30min</div></div>
+<div class="field field-name-body"><div class="field-item even" property="content:encoded"><p>Around the Caldeira.</p></div></div>
+<div class="field field-name-field-gpx-file"><a href="https://trails.visitazores.com/sites/default/files/trails/faial/prc4fai.gpx">GPS</a></div>
+<div class="field field-name-field-map-file"><a href="https://trails.visitazores.com/sites/default/files/trails/faial/prc4fai.png">Map</a></div>
+<div id="geofield-map-entity-node-50"></div>
+PRC4FAI
+</body></html>
+"""
+
+FAIAL_GPX = """<?xml version="1.0"?>
+<gpx xmlns="http://www.topografix.com/GPX/1/1">
+<wpt lat="38.5800" lon="-28.7200"><name>PRC4 FAI</name><sym>Trail Head</sym></wpt>
+<trk><name>PRC4 FAI Caldeira</name><trkseg>
+<trkpt lat="38.5800" lon="-28.7200"/>
+<trkpt lat="38.5850" lon="-28.7100"/>
+</trkseg></trk>
+</gpx>"""
+
 SAMPLE_MULTI_GPX = """<?xml version="1.0"?>
 <gpx xmlns="http://www.topografix.com/GPX/1/1">
 <trk><name>Stage One</name><trkseg>
@@ -61,6 +92,45 @@ SAMPLE_MULTI_GPX = """<?xml version="1.0"?>
 <trkpt lat="37.80" lon="-25.48"/><trkpt lat="37.81" lon="-25.47"/>
 </trkseg></trk>
 </gpx>"""
+
+
+class VisitAzoresRefPatternTestCase(TestCase):
+    """REF_PATTERN gates everything: parse_trail_detail_page() returns None on an unparsed
+    ref, so a missing island suffix drops those trails silently. It shipped with 'FLW' (no
+    such suffix — Flores is 'FLO') and no 'FAI' at all, losing all 14 Faial + Flores trails."""
+
+    # One real ref per island, taken from the live listings.
+    REAL_REFS = {
+        'sao-miguel': 'PRC29SMI',
+        'santa-maria': 'PR2SMA',
+        'terceira': 'PRC5TER',
+        'graciosa': 'PR1GRA',
+        'sao-jorge': 'PR7SJO',
+        'pico': 'PR9PIC',
+        'faial': 'PRC4FAI',
+        'flores': 'PR2FLO',
+        'corvo': 'PRC1COR',
+    }
+
+    def test_parses_a_ref_for_every_island(self):
+        for island_key, ref in self.REAL_REFS.items():
+            with self.subTest(island=island_key):
+                self.assertEqual(_parse_trail_ref(f'<p>{ref}</p>'), ref)
+
+    def test_parses_multi_digit_and_zero_padded_refs(self):
+        # Faial ships both PR10FAI and PRC09FAI.
+        self.assertEqual(_parse_trail_ref('<p>PR10FAI</p>'), 'PR10FAI')
+        self.assertEqual(_parse_trail_ref('<p>PRC09FAI</p>'), 'PRC09FAI')
+
+    def test_rejects_unknown_island_suffix(self):
+        self.assertEqual(_parse_trail_ref('<p>PRC1XXX</p>'), '')
+
+    def test_every_slug_maps_to_a_seeded_island(self):
+        seeded = set(Island.objects.values_list('key', flat=True))
+        self.assertEqual(set(VISITAZORES_ISLAND_SLUGS) - seeded, set())
+
+    def test_covers_all_nine_islands(self):
+        self.assertEqual(set(VISITAZORES_ISLAND_SLUGS), set(self.REAL_REFS))
 
 
 class VisitAzoresSyncTestCase(TestCase):
@@ -137,6 +207,30 @@ class VisitAzoresSyncTestCase(TestCase):
         self.assertEqual(trail.shape, 'circular')
         self.assertEqual(trail.duration_min, 180)
         self.assertEqual(TrailStage.objects.filter(trail=trail).count(), 0)
+
+    @patch('trails.visitazores_sync.fetch_island_trail_paths', return_value=['/en/trails-azores/faial/caldeira'])
+    @patch('trails.visitazores_sync._get_html', return_value=FAIAL_DETAIL_HTML)
+    @patch('trails.visitazores_sync._download_gpx_text', return_value=FAIAL_GPX)
+    @patch('trails.visitazores_sync.fetch_pt_translation', return_value={'description_pt': 'Caldeira do Faial.'})
+    def test_sync_imports_a_non_sao_miguel_island(self, *_mocks):
+        """End-to-end proof for the eight islands Hub never synced. Before the REF_PATTERN fix
+        this asserted zero created: 'PRC4FAI' did not parse, so parse_trail_detail_page()
+        returned None and every Faial trail was dropped as skipped."""
+        faial = Island.objects.get(key='faial')
+        counts = sync_visitazores_trails_for_island(faial)
+
+        self.assertEqual(counts['created'], 1)
+        self.assertEqual(counts['skipped'], 0)
+
+        trail = Trail.objects.filter(island=faial, source_ref='PRC4FAI').first()
+        assert trail is not None
+        self.assertEqual(trail.name, 'Caldeira')
+        self.assertEqual(trail.distance_km, 6.8)
+        self.assertEqual(trail.duration_min, 150)
+        self.assertEqual(trail.shape, 'circular')
+        # Geometry must survive feature_in_island() against Faial's own bbox, not São Miguel's.
+        self.assertEqual(trail.geojson['type'], 'LineString')
+        self.assertAlmostEqual(trail.start_lat, 38.5800, places=3)
 
     @patch('trails.visitazores_sync.fetch_island_trail_paths', return_value=['/en/trails-azores/sao-miguel/test'])
     @patch('trails.visitazores_sync._get_html', return_value=SAMPLE_DETAIL_HTML)

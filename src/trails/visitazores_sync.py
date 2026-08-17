@@ -31,13 +31,27 @@ VISITAZORES_ATTRIBUTION = (
     + OPEN_DATA_ATTRIBUTION
 )
 
-# Island.key -> Visit Azores listing slug (path segment under /en/trails-azores/)
+# Island.key -> Visit Azores listing slug (path segment under /en/trails-azores/).
+# The slugs happen to equal Island.key for all nine islands, but this stays an explicit
+# allowlist rather than a passthrough: it is what stops the sync walking a listing nobody
+# has verified. sync_visitazores_trails_for_island() no-ops on an unmapped key.
 VISITAZORES_ISLAND_SLUGS: dict[str, str] = {
     'sao-miguel': 'sao-miguel',
+    'santa-maria': 'santa-maria',
+    'terceira': 'terceira',
+    'graciosa': 'graciosa',
+    'sao-jorge': 'sao-jorge',
+    'pico': 'pico',
+    'faial': 'faial',
+    'flores': 'flores',
+    'corvo': 'corvo',
 }
 
+# Trail reference codes, e.g. PRC29SMI, PR10FAI, GR1PIC. The island suffixes below are the
+# complete set observed across all nine live listings — a ref that fails to parse makes
+# parse_trail_detail_page() drop the trail entirely, so a missing suffix is silent data loss.
 REF_PATTERN = re.compile(
-    r'\b((?:PRC|PR|GR)\d+(?:SMI|SMA|PIC|FLW|COR|TER|SJO|GRA))\b',
+    r'\b((?:PRC|PR|GR)\d+(?:SMI|SMA|PIC|FAI|FLO|COR|TER|SJO|GRA))\b',
     re.IGNORECASE,
 )
 TRAIL_PATH_PATTERN = re.compile(
