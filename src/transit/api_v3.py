@@ -203,10 +203,21 @@ def transit_journeys_view(request: Request) -> Response:
             status=status.HTTP_400_BAD_REQUEST,
         )
 
+    # `maxTransfers=0` asks for a single bus. Garbage is a client bug, not a
+    # reason to 400 a search: fall back to the default rather than handing a
+    # rider an error page because a query string was malformed.
+    raw_max_transfers = request.GET.get('maxTransfers')
+    max_transfers = None
+    if raw_max_transfers is not None:
+        try:
+            max_transfers = int(raw_max_transfers)
+        except (TypeError, ValueError):
+            max_transfers = None
+
     with for_island(request.island):
         from transit.services.schedule_phase import resolve_dataset
 
-        journeys = search_journeys_v3(
+        payload = search_journeys_v3(
             origin=origin,
             destination=destination,
             day=day,
@@ -214,15 +225,14 @@ def transit_journeys_view(request: Request) -> Response:
             dataset=resolve_dataset(
                 request.island, requested=request.GET.get('dataset'),
             ),
+            max_transfers=max_transfers,
         )
-        if journeys is None:
+        if payload is None:
             return Response(
                 {'error': {'code': 'invalid_params', 'message': 'origin and destination are required'}},
                 status=status.HTTP_400_BAD_REQUEST,
             )
-        return Response(
-            {'origin': origin, 'destination': destination, 'journeys': journeys},
-        )
+        return Response({'origin': origin, 'destination': destination, **payload})
 
 
 @api_view(['GET'])

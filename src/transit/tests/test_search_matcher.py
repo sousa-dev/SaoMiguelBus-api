@@ -303,3 +303,64 @@ class BoardTimeFilterTests(MatcherFixture):
             earliest=time(8, 30),
         )
         self.assertEqual(board.sequence, 3)
+
+
+class BackwardsTimetableTests(MatcherFixture):
+    """Sequence order does not imply the clock agrees.
+
+    Legacy line 206 reaches sequence 12 at 08h20 and sequence 13 at 08h10, with
+    no `day_offset` to explain it. Those rows shipped through `/api/v2/route`
+    and `/api/v3/transit/search` for years as "departs 08h20, arrives 08h10" --
+    3 of 37 rows on one measured Ponta Delgada query.
+    """
+
+    def test_a_pair_whose_clock_runs_backwards_is_not_returned(self):
+        trip = self.trip('206', [
+            ('HOSPITAL', '08:20', 0),
+            ('TERMINAL', '08:10', 0),
+        ])
+        origin = {self.stop('HOSPITAL').id}
+        destination = {self.stop('TERMINAL').id}
+
+        self.assertEqual(valid_pairs(trip, origin, destination), [])
+        self.assertIsNone(select_pair(trip, origin, destination))
+
+    def test_a_stalled_pair_with_identical_times_is_not_returned(self):
+        """Arriving at the same minute you board is not a ride either."""
+        trip = self.trip('206', [
+            ('HOSPITAL', '08:20', 0),
+            ('TERMINAL', '08:20', 0),
+        ])
+
+        self.assertIsNone(
+            select_pair(
+                trip, {self.stop('HOSPITAL').id}, {self.stop('TERMINAL').id},
+            )
+        )
+
+    def test_a_good_pair_on_the_same_trip_still_matches(self):
+        """Only the contradictory pair is dropped, not the whole trip."""
+        trip = self.trip('206', [
+            ('ALFA', '08:00', 0),
+            ('HOSPITAL', '08:20', 0),
+            ('TERMINAL', '08:10', 0),
+        ])
+
+        pair = select_pair(
+            trip, {self.stop('ALFA').id}, {self.stop('TERMINAL').id},
+        )
+        self.assertIsNotNone(pair)
+        self.assertEqual(pair[0].departure_time, time(8, 0))
+
+    def test_a_genuine_overnight_leg_is_kept(self):
+        """23h50 -> 00h40 with a day offset advances; it must not be dropped."""
+        trip = self.trip('N03', [
+            ('ALFA', '23:50', 0),
+            ('BRAVO', '00:40', 1),
+        ])
+
+        pair = select_pair(
+            trip, {self.stop('ALFA').id}, {self.stop('BRAVO').id},
+        )
+        self.assertIsNotNone(pair)
+        self.assertEqual(pair[1].day_offset, 1)

@@ -165,11 +165,21 @@ Read-side, **AUTH_KEY-protected** endpoints (via `X-Auth-Key` header or `?key=`)
 
 `GET /api/v3/transit/journeys?origin=&destination=&day=&start=[&dataset=]` — direct rides **and** one-transfer itineraries in one payload. Same params as `/transit/search`.
 
-- Returns `{origin, destination, journeys: [{id, transfers, start, end, durationMinutes, waitMinutes, typeOfDay, legs}]}`. `legs` alternates `kind: "ride"` and `kind: "transfer"`; ride legs carry `tripId`, `route`, `board`/`alight` (with `sequence`), a trimmed `stops` list, and `boarding`/`alighting` pole refs when upstream gave them (omitted, never null, on `legacy`).
+- Returns `{origin, destination, maxTransfers, journeys: [{id, transfers, start, end, durationMinutes, waitMinutes, typeOfDay, legs}]}`. `legs` alternates `kind: "ride"` and `kind: "transfer"`; ride legs carry `tripId`, `route`, `board`/`alight` (with `sequence`), a trimmed `stops` list, and `boarding`/`alighting` pole refs when upstream gave them (omitted, never null, on `legacy`).
+- **`maxTransfers=0`** restricts the answer to a single bus, for riders who will not change. Clamped to `[0, 1]`; a malformed value falls back to the default rather than 400-ing a search. The transfer scan is skipped entirely, not computed and filtered.
+- When `maxTransfers=0` returns **nothing**, the response also carries **`transfersAvailable`** — how many itineraries a change *would* find. That is what lets the app say "no direct bus, but 4 journeys with one change" and offer them, instead of guessing. Costs one extra scan, only on a request that would otherwise answer "nothing"; absent whenever there is no honest number.
 - **`/transit/search` is unchanged.** Shipped builds have no leg concept and would render a two-bus journey as one bus, so only clients that understand `legs` call the new endpoint.
 - Bounded at **one transfer** (`transit/services/journeys.py`) — the network is hub-and-spoke through Ponta Delgada, so a second change buys almost no real journeys.
 - A change is allowed at the same stop or one within `TRANSFER_RADIUS_M` (250 m), costing `MIN_TRANSFER_MINUTES` (5) plus walking time — `transit/services/transfer_points.py`. Same-line "transfers" are never emitted (that is one bus continuing).
 - Ranked by departure, then arrival, then transfers; journeys another beats on **all three** axes are pruned, so a slow two-bus itinerary never sits beside the direct bus that wins. Transfer results capped at 12; direct results uncapped.
+- Dominance alone is not enough, so a **wait rule** also applies: at most 3x the time actually spent riding, and never over 300 minutes. Tuned against real data — Saturday's only Capelas→Furnas connection waits 241 minutes and Sunday's 136, and both must survive.
+- A search from somewhere to **itself** returns nothing, and a leg whose **clock runs backwards** is never offered (see below).
+
+### Backwards timetable rows (`transit` — fixed)
+
+Legacy line 206 reaches sequence 12 at `08h20` and sequence 13 at `08h10`, with no `day_offset` to explain it. Sequence order cannot catch this — the sequence *is* in order, only the clock disagrees — so `matcher.valid_pairs` now requires the ride to advance in absolute minutes as well.
+
+This fixes `/api/v3/transit/search`, `/api/v2/route` and `/api/v1/route`, which had shipped those rows for years as "departs 08h20, arrives 08h10" (3 of 37 rows on one measured Ponta Delgada query). Genuine overnight legs (`23h50` → `00h40` with `day_offset` 1) still advance and are kept. The search golden snapshot is unchanged, so no correct behaviour moved.
 - The Expo client mirrors this scan offline in `lib/journey-search.ts` — the two must agree, same reasoning as `matcher.py`.
 
 ### Legacy data import

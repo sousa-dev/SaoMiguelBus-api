@@ -65,6 +65,10 @@ from transit.services.transfer_points import transfer_neighbours
 # itineraries with a change in them.
 MAX_TRANSFER_JOURNEYS = 12
 
+# The most changes of bus this scan can plan. One, deliberately -- see the module
+# docstring. Callers clamp to it rather than trusting a client-supplied number.
+MAX_SUPPORTED_TRANSFERS = 1
+
 # Candidate second buses considered per interchange, per first leg. The first
 # catchable departure is usually the answer, but not always -- see
 # `_transfer_journeys`.
@@ -394,8 +398,15 @@ def search_journeys(
     day: str,
     start_time: str,
     dataset: str | None = None,
+    max_transfers: int = MAX_SUPPORTED_TRANSFERS,
 ) -> list[Journey] | None:
     """Direct rides and one-transfer itineraries, ranked. `None` on a bad query.
+
+    `max_transfers=0` restricts the answer to a single bus. Riders with luggage,
+    a pushchair or a tight schedule do not want to be told to change at a rural
+    terminal, and for them a two-bus itinerary is noise rather than an option.
+    It is also strictly cheaper: the transfer scan, the leg enumeration and the
+    interchange map are all skipped rather than computed and filtered away.
 
     Resolution of stops, dataset and service days is deliberately the SAME code
     `search_routes` uses. A journey offered here that search would not have
@@ -457,15 +468,21 @@ def search_journeys(
     )
     direct = _direct_journeys(trips, origin_ids, destination_ids, earliest)
 
-    first_legs = _legs_from_origin(trips, origin_ids)
-    second_index = _index_by_board_stop(_legs_to_destination(trips, destination_ids))
-    neighbours = transfer_neighbours(stops)
-    transfers = [
-        journey for journey in _collapse_by_trip_pair(
-            _transfer_journeys(first_legs, second_index, neighbours, destination_ids),
+    transfers: list[Journey] = []
+    if max_transfers >= 1:
+        first_legs = _legs_from_origin(trips, origin_ids)
+        second_index = _index_by_board_stop(
+            _legs_to_destination(trips, destination_ids),
         )
-        if _wait_is_reasonable(journey)
-    ]
+        neighbours = transfer_neighbours(stops)
+        transfers = [
+            journey for journey in _collapse_by_trip_pair(
+                _transfer_journeys(
+                    first_legs, second_index, neighbours, destination_ids,
+                ),
+            )
+            if _wait_is_reasonable(journey)
+        ]
 
     candidates = [
         journey for journey in direct + transfers

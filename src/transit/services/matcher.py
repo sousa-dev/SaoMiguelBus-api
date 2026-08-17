@@ -62,13 +62,25 @@ def _ordered_stop_times(trip) -> list:
 
 
 def valid_pairs(trip, origin_stop_ids: set[int], destination_stop_ids: set[int]) -> list:
-    """Every (board, alight) on this trip where board precedes alight.
+    """Every (board, alight) on this trip where the rider actually gets there.
 
     Resolves by stop id rather than fuzzy substring, which also removes the
     containment mis-hits the string matcher produced (LAGOA matching a trip that
     only serves LAGOA DO FOGO). Each side is a SET: a village search unions
     every stop sharing that village's name prefix, so a trip qualifies the
     moment it touches ANY one member on each side.
+
+    TWO conditions, and the second is not redundant. Sequence order says the
+    alight comes later along the route; it does NOT say the clock agrees.
+    Legacy line 206 reaches sequence 12 at 08h20 and sequence 13 at 08h10, with
+    no `day_offset` to explain it, and that row shipped through `/api/v2/route`
+    and `/api/v3/transit/search` for years as "departs 08h20, arrives 08h10"
+    (measured: 3 of 37 rows on one Ponta Delgada query). A ride that arrives
+    before it departs is not a ride.
+
+    Compared in ABSOLUTE minutes, so a genuine overnight leg -- 23h50 to 00h40
+    with `day_offset` 1 -- still advances and is kept. Only rows where the
+    timetable itself contradicts the route order are dropped.
     """
     stop_times = _ordered_stop_times(trip)
     origins = [st for st in stop_times if st.stop_id in origin_stop_ids]
@@ -78,7 +90,7 @@ def valid_pairs(trip, origin_stop_ids: set[int], destination_stop_ids: set[int])
         (board, alight)
         for board in origins
         for alight in destinations
-        if board.sequence < alight.sequence
+        if board.sequence < alight.sequence and _minutes(alight) > _minutes(board)
     ]
 
 

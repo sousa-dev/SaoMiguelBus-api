@@ -292,14 +292,33 @@ def search_journeys_v3(
     day: str,
     start_time: str,
     dataset: str | None = None,
-) -> list[dict] | None:
+    max_transfers: int | None = None,
+) -> dict | None:
     """Direct rides AND one-transfer itineraries, in one payload.
 
     Direct journeys are included so the app makes a single call and renders one
     card type. `/transit/search` stays exactly as it is for shipped builds, which
     have no concept of a leg and would render a two-bus journey as one bus.
+
+    `max_transfers=0` answers with a single bus only.
+
+    When that returns NOTHING, and only then, the search is retried with
+    transfers allowed so the answer can carry `transfersAvailable`. That number
+    is what lets the app say "no direct bus, but 4 journeys with one change" and
+    offer them, instead of guessing that a change might help and finding it does
+    not. The extra scan costs one more pass over the same trips, and it happens
+    exactly when the rider is otherwise being told "nothing" -- never on a
+    request that already has an answer.
     """
-    from transit.services.journeys import resolve_service_day, search_journeys
+    from transit.services.journeys import (
+        MAX_SUPPORTED_TRANSFERS,
+        resolve_service_day,
+        search_journeys,
+    )
+
+    if max_transfers is None:
+        max_transfers = MAX_SUPPORTED_TRANSFERS
+    max_transfers = max(0, min(max_transfers, MAX_SUPPORTED_TRANSFERS))
 
     journeys = search_journeys(
         origin=origin,
@@ -307,12 +326,33 @@ def search_journeys_v3(
         day=day,
         start_time=start_time,
         dataset=dataset,
+        max_transfers=max_transfers,
     )
     if journeys is None:
         return None
 
     service_type, _ = resolve_service_day(day)
-    return serialize_journeys(journeys, service_type=service_type, prefix=True)
+    payload = {
+        'maxTransfers': max_transfers,
+        'journeys': serialize_journeys(
+            journeys, service_type=service_type, prefix=True,
+        ),
+    }
+
+    if max_transfers == 0 and not journeys:
+        with_transfers = search_journeys(
+            origin=origin,
+            destination=destination,
+            day=day,
+            start_time=start_time,
+            dataset=dataset,
+            max_transfers=MAX_SUPPORTED_TRANSFERS,
+        ) or []
+        payload['transfersAvailable'] = sum(
+            1 for journey in with_transfers if journey.transfers > 0
+        )
+
+    return payload
 
 
 def search_transit_v3(

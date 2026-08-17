@@ -321,6 +321,84 @@ class ProductionFindingsTests(JourneyTestCase):
         self.assertEqual(journeys[0].transfers, 0)
 
 
+class MaxTransfersTests(JourneyTestCase):
+    """`maxTransfers=0` for riders who will not change bus."""
+
+    def setUp(self):
+        super().setUp()
+        self.capelas = self.stop('CAPELAS (IGREJA)', CAPELAS)
+        self.hub = self.stop('PONTA DELGADA', HUB)
+        self.furnas = self.stop('FURNAS', FURNAS)
+        self.trip(self.line('315'), [(self.capelas, '08:10'), (self.hub, '08:55')])
+        self.trip(self.line('110'), [(self.hub, '09:30'), (self.furnas, '11:05')])
+
+    def get(self, **overrides):
+        params = {
+            'origin': 'Capelas', 'destination': 'Furnas',
+            'day': 'weekday', 'start': '00h00', 'dataset': DATASET_AZORESBUS,
+        }
+        params.update(overrides)
+        response = self.client.get('/api/v3/transit/journeys', params, **HEADERS)
+        self.assertEqual(response.status_code, 200)
+        return response.json()
+
+    def test_transfers_are_included_by_default(self):
+        body = self.get()
+
+        self.assertEqual(body['maxTransfers'], 1)
+        self.assertEqual([j['transfers'] for j in body['journeys']], [1])
+
+    def test_max_transfers_zero_returns_only_single_bus_journeys(self):
+        body = self.get(maxTransfers=0)
+
+        self.assertEqual(body['maxTransfers'], 0)
+        self.assertEqual(body['journeys'], [])
+
+    def test_a_direct_only_search_reports_what_a_change_would_find(self):
+        """So the app can say "no direct bus, but 1 with a change" and mean it."""
+        body = self.get(maxTransfers=0)
+
+        self.assertEqual(body['transfersAvailable'], 1)
+
+    def test_the_hint_is_absent_when_the_search_already_has_an_answer(self):
+        """No speculative second scan on a request that found something."""
+        self.trip(self.line('999'), [(self.capelas, '07:00'), (self.furnas, '09:00')])
+
+        body = self.get(maxTransfers=0)
+        self.assertEqual(len(body['journeys']), 1)
+        self.assertNotIn('transfersAvailable', body)
+
+    def test_the_hint_is_absent_when_transfers_were_allowed(self):
+        self.assertNotIn('transfersAvailable', self.get())
+
+    def test_the_hint_is_zero_when_a_change_would_not_help_either(self):
+        """An honest zero: the app must not offer a retry that finds nothing."""
+        body = self.get(origin='Capelas', destination='Ponta Delgada', maxTransfers=0)
+        self.assertEqual(len(body['journeys']), 1)   # direct 315 exists
+
+        Trip.objects.all().delete()
+        body = self.get(maxTransfers=0)
+        self.assertEqual(body['journeys'], [])
+        self.assertEqual(body['transfersAvailable'], 0)
+
+    def test_a_direct_ride_is_unaffected_by_the_cap(self):
+        self.trip(self.line('999'), [(self.capelas, '07:00'), (self.furnas, '09:00')])
+
+        with_cap = self.get(maxTransfers=0)['journeys']
+        without = [j for j in self.get()['journeys'] if j['transfers'] == 0]
+        self.assertEqual([j['id'] for j in with_cap], [j['id'] for j in without])
+
+    def test_a_client_asking_for_more_than_we_support_is_clamped(self):
+        self.assertEqual(self.get(maxTransfers=9)['maxTransfers'], 1)
+
+    def test_a_negative_value_is_clamped_to_direct_only(self):
+        self.assertEqual(self.get(maxTransfers=-3)['maxTransfers'], 0)
+
+    def test_garbage_falls_back_to_the_default_rather_than_erroring(self):
+        """A malformed query string must not hand a rider an error page."""
+        self.assertEqual(self.get(maxTransfers='banana')['maxTransfers'], 1)
+
+
 class DegenerateCoordinateTests(JourneyTestCase):
     """Null Island must never become an interchange.
 
