@@ -147,7 +147,7 @@ def build_area_index(stops: Iterable) -> dict[str, set[int]]:
         exist, the area is not offered and the bare stop keeps its existing,
         precise, unchanged behaviour (98-style: only where it works).
 
-    Keys are folded with `clean_string` -- the SAME fold `_resolve_stop_ids`
+    Keys are folded with `clean_string` -- the SAME fold `resolve_stop_ids`
     applies to the incoming query -- because a dict lookup is exact: a raw,
     unfolded key would never match a folded query and the area branch would
     silently never fire. Folding happens BEFORE grouping, not after: two raw

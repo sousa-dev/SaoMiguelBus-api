@@ -152,7 +152,7 @@ QUERIES: list[tuple[str, dict]] = [
         'origin': 'povoação', 'destination': 'furnas',
         'day': 'weekday', 'start_time': '00h00',
     }),
-    # _normalize_origin rewrites 'Povoacão' -> 'Povoação' before matching.
+    # normalize_origin rewrites 'Povoacão' -> 'Povoação' before matching.
     ('normalize_origin_hack', {
         'origin': 'Povoacão', 'destination': 'FURNAS',
         'day': 'weekday', 'start_time': '00h00',

@@ -17,6 +17,7 @@ from transit.services.route_weather import get_route_weather
 from transit.services.v3 import (
     get_line_v3,
     get_trip_v3,
+    search_journeys_v3,
     search_transit_v3,
     serialize_stops_v3,
     serialize_trip_detail,
@@ -175,6 +176,53 @@ def transit_search_view(request: Request) -> Response:
                 status=status.HTTP_400_BAD_REQUEST,
             )
         return Response({'results': results})
+
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def transit_journeys_view(request: Request) -> Response:
+    """Direct rides AND one-transfer itineraries.
+
+    Separate from `/search` on purpose: shipped builds have no leg concept and
+    would render a two-bus journey as a single trip with the wrong route number
+    and a stop list that walks through the interchange as if the rider never got
+    off. Only clients that understand `legs` ask for this.
+    """
+    err = _require_island(request)
+    if err:
+        return err
+
+    origin = request.GET.get('origin', '').strip()
+    destination = request.GET.get('destination', '').strip()
+    day = request.GET.get('day', 'weekday')
+    start = request.GET.get('start', '00:00')
+
+    if not origin or not destination:
+        return Response(
+            {'error': {'code': 'invalid_params', 'message': 'origin and destination are required'}},
+            status=status.HTTP_400_BAD_REQUEST,
+        )
+
+    with for_island(request.island):
+        from transit.services.schedule_phase import resolve_dataset
+
+        journeys = search_journeys_v3(
+            origin=origin,
+            destination=destination,
+            day=day,
+            start_time=start,
+            dataset=resolve_dataset(
+                request.island, requested=request.GET.get('dataset'),
+            ),
+        )
+        if journeys is None:
+            return Response(
+                {'error': {'code': 'invalid_params', 'message': 'origin and destination are required'}},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+        return Response(
+            {'origin': origin, 'destination': destination, 'journeys': journeys},
+        )
 
 
 @api_view(['GET'])

@@ -2,6 +2,7 @@ from django.urls import path
 
 from transit.api_v3 import (
     transit_directions_view,
+    transit_journeys_view,
     transit_line_detail_view,
     transit_offline_bundle_view,
     transit_offline_bundle_v2_version_view,
@@ -22,6 +23,7 @@ urlpatterns = [
     path('offline-bundle/v2', transit_offline_bundle_v2_view, name='transit-offline-bundle-v2'),
     path('offline-bundle/v2/version', transit_offline_bundle_v2_version_view, name='transit-offline-bundle-v2-version'),
     path('search', transit_search_view, name='v3-transit-search'),
+    path('journeys', transit_journeys_view, name='v3-transit-journeys'),
     path('tariffs', transit_tariffs_view, name='transit-tariffs-v3'),
     path('route-weather', transit_route_weather_view, name='v3-transit-route-weather'),
     path('directions', transit_directions_view, name='v3-transit-directions'),

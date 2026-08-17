@@ -120,7 +120,7 @@ class BuildAreaIndexRealDataTests(SimpleTestCase):
             self.assertNotIn(excluded, self.index)
 
     def test_area_index_keys_are_folded(self):
-        """The lookup side (`_resolve_stop_ids`) folds the query via
+        """The lookup side (`resolve_stop_ids`) folds the query via
         `clean_string`, exactly like every other Stop lookup in this codebase.
         If the index kept RAW keys, 'capelas' would never match 'CAPELAS' -- a
         dict lookup is exact, not case/accent-insensitive."""

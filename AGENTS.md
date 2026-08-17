@@ -161,6 +161,17 @@ Read-side, **AUTH_KEY-protected** endpoints (via `X-Auth-Key` header or `?key=`)
 - `CORS_ALLOW_HEADERS` allows `x-auth-key` / `x-api-key` so the static dashboard can call cross-origin.
 - **Dashboard:** `docs/` — zero-build umami-style HTML/CSS/JS for GitHub Pages (Settings → Pages → `/docs`). Tabs for Hub (v3) / Legacy, date-range presets, time-series chart, breakdowns, paginated table. Connection config (API base, AUTH key, island) lives in browser `localStorage`. See `docs/README.md`.
 
+### Multi-leg journey search (`transit` — shipped)
+
+`GET /api/v3/transit/journeys?origin=&destination=&day=&start=[&dataset=]` — direct rides **and** one-transfer itineraries in one payload. Same params as `/transit/search`.
+
+- Returns `{origin, destination, journeys: [{id, transfers, start, end, durationMinutes, waitMinutes, typeOfDay, legs}]}`. `legs` alternates `kind: "ride"` and `kind: "transfer"`; ride legs carry `tripId`, `route`, `board`/`alight` (with `sequence`), a trimmed `stops` list, and `boarding`/`alighting` pole refs when upstream gave them (omitted, never null, on `legacy`).
+- **`/transit/search` is unchanged.** Shipped builds have no leg concept and would render a two-bus journey as one bus, so only clients that understand `legs` call the new endpoint.
+- Bounded at **one transfer** (`transit/services/journeys.py`) — the network is hub-and-spoke through Ponta Delgada, so a second change buys almost no real journeys.
+- A change is allowed at the same stop or one within `TRANSFER_RADIUS_M` (250 m), costing `MIN_TRANSFER_MINUTES` (5) plus walking time — `transit/services/transfer_points.py`. Same-line "transfers" are never emitted (that is one bus continuing).
+- Ranked by departure, then arrival, then transfers; journeys another beats on **all three** axes are pruned, so a slow two-bus itinerary never sits beside the direct bus that wins. Transfer results capped at 12; direct results uncapped.
+- The Expo client mirrors this scan offline in `lib/journey-search.ts` — the two must agree, same reasoning as `matcher.py`.
+
 ### Legacy data import
 
 ```bash

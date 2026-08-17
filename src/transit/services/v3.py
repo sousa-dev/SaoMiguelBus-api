@@ -157,6 +157,164 @@ def get_line_v3(line_code: str, *, dataset: str | None = None) -> dict | None:
     }
 
 
+def _leg_stop_ref(stop_time) -> dict:
+    """One end of a ride. `sequence` is load-bearing (02 §7.1b) -- the client
+    slices the stop list on it instead of re-matching by name."""
+    return {
+        'name': stop_time.stop.name,
+        'time': stop_time.departure_time.strftime('%Hh%M'),
+        'sequence': stop_time.sequence,
+        'dayOffset': stop_time.day_offset,
+    }
+
+
+def _leg_pole_ref(stop_time) -> dict | None:
+    """The physical pole, when upstream told us which one.
+
+    Legacy rows have no `ExternalStop`; callers omit the key entirely rather
+    than emitting nulls, matching `serialize_search_results`.
+    """
+    external = stop_time.external_stop
+    if external is None:
+        return None
+    return {
+        'code': external.code,
+        'lat': external.latitude,
+        'lon': external.longitude,
+        'sequence': stop_time.sequence,
+        'dayOffset': stop_time.day_offset,
+    }
+
+
+def _serialize_ride_leg(leg, *, prefix: bool) -> dict:
+    from transit.services.journeys import leg_vote_percents
+
+    likes_percent, dislikes_percent = leg_vote_percents(leg)
+    route_code = leg.trip.line.code
+    if prefix and likes_percent < 60:
+        route_code = f'C{route_code}'
+
+    stop_times = sorted(leg.trip.stop_times.all(), key=lambda st: st.sequence)
+    segment = [
+        {
+            'name': st.stop.name,
+            'time': st.departure_time.strftime('%Hh%M'),
+            'sequence': st.sequence,
+        }
+        for st in stop_times
+        if leg.board.sequence <= st.sequence <= leg.alight.sequence
+    ]
+
+    row = {
+        'kind': 'ride',
+        'tripId': leg.trip.id,
+        'route': route_code,
+        'likesPercent': likes_percent,
+        'dislikesPercent': dislikes_percent,
+        'information': leg.trip.information if leg.trip.information else {},
+        'board': _leg_stop_ref(leg.board),
+        'alight': _leg_stop_ref(leg.alight),
+        'stops': segment,
+    }
+    for key, stop_time in (('boarding', leg.board), ('alighting', leg.alight)):
+        pole = _leg_pole_ref(stop_time)
+        if pole is not None:
+            row[key] = pole
+    return row
+
+
+def serialize_journeys(journeys, *, service_type: str | None, prefix: bool = True) -> list[dict]:
+    """Journeys as alternating ride / transfer legs.
+
+    The transfer leg is a real entry rather than a property of the ride after it,
+    because that is what the rider actually does -- get off, wait, walk -- and it
+    lets the app render the itinerary as a flat step list.
+    """
+    from transit.services.journeys import journey_service_day
+
+    results = []
+    for journey in journeys:
+        legs: list[dict] = []
+        for index, leg in enumerate(journey.legs):
+            if index > 0:
+                previous = journey.legs[index - 1]
+                wait = journey.waits[index - 1]
+                walk = transfer_minutes_between(previous.alight, leg.board)
+                legs.append(
+                    {
+                        'kind': 'transfer',
+                        'at': leg.board.stop.name,
+                        'from': previous.alight.stop.name,
+                        'waitMinutes': wait,
+                        'walkMinutes': walk,
+                        'fromRoute': previous.trip.line.code,
+                        'toRoute': leg.trip.line.code,
+                    }
+                )
+            legs.append(_serialize_ride_leg(leg, prefix=prefix))
+
+        first, last = journey.legs[0], journey.legs[-1]
+        results.append(
+            {
+                'id': ':'.join(str(leg.trip.id) for leg in journey.legs),
+                'transfers': journey.transfers,
+                'start': first.board.departure_time.strftime('%Hh%M'),
+                'end': last.alight.departure_time.strftime('%Hh%M'),
+                'durationMinutes': journey.arrival - journey.departure,
+                'waitMinutes': sum(journey.waits),
+                'dayOffset': last.alight.day_offset,
+                'typeOfDay': journey_service_day(journey, service_type),
+                'legs': legs,
+            }
+        )
+    return results
+
+
+def transfer_minutes_between(alight, board) -> int:
+    """Walking minutes between two stops, 0 when the change is at one stop."""
+    from transit.services.transfer_points import walk_minutes
+    from azoresbus.services_stops import haversine_m
+
+    if alight.stop_id == board.stop_id:
+        return 0
+    return walk_minutes(
+        haversine_m(
+            alight.stop.latitude, alight.stop.longitude,
+            board.stop.latitude, board.stop.longitude,
+        )
+    )
+
+
+def search_journeys_v3(
+    *,
+    origin: str,
+    destination: str,
+    day: str,
+    start_time: str,
+    dataset: str | None = None,
+) -> list[dict] | None:
+    """Direct rides AND one-transfer itineraries, in one payload.
+
+    Direct journeys are included so the app makes a single call and renders one
+    card type. `/transit/search` stays exactly as it is for shipped builds, which
+    have no concept of a leg and would render a two-bus journey as one bus.
+    """
+    from transit.services.journeys import resolve_service_day, search_journeys
+
+    journeys = search_journeys(
+        origin=origin,
+        destination=destination,
+        day=day,
+        start_time=start_time,
+        dataset=dataset,
+    )
+    if journeys is None:
+        return None
+
+    service_type, _ = resolve_service_day(day)
+    return serialize_journeys(journeys, service_type=service_type, prefix=True)
+
+
 def search_transit_v3(
     *,
     origin: str,

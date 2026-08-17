@@ -47,6 +47,11 @@ def elapsed_minutes(board, alight) -> int:
     return _minutes(alight) - _minutes(board)
 
 
+# `journeys.py` needs the SAME absolute-minutes fold this module compares on --
+# a second implementation there is exactly how the two would drift apart.
+absolute_minutes = _minutes
+
+
 def _ordered_stop_times(trip) -> list:
     """Never sort by a bare TimeField: N03 984 would reorder (98 B2)."""
     cached = getattr(trip, '_matcher_stop_times', None)

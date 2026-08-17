@@ -77,13 +77,13 @@ def eligible_trips(queryset, *, day_type: str | None, on_date=None):
     return queryset
 
 
-def _normalize_origin(origin: str) -> str:
+def normalize_origin(origin: str) -> str:
     if origin in ['Povoacão', 'Lomba do Loucão', 'Ponta Garca']:
         return origin.replace('c', 'ç')
     return origin
 
 
-def _parse_time_parts(raw: str) -> tuple[int, int]:
+def parse_time_parts(raw: str) -> tuple[int, int]:
     if not raw:
         return 0, 0
     normalized = raw.replace('h', ':')
@@ -120,7 +120,7 @@ def _trip_cleaned_stops_blob(trip: Trip) -> str:
     return clean_string(build_legacy_stops_string(trip))
 
 
-def _resolve_stop_ids(
+def resolve_stop_ids(
     dataset: str, cleaned: str, area_index: dict[str, set[int]] | None,
 ) -> set[int]:
     """By id, not fuzzy substring, resolving to a SET of one or more stops.
@@ -190,7 +190,7 @@ def search_routes(
     prefix: bool = False,
     dataset: str | None = None,
 ) -> list[dict] | None:
-    origin = _normalize_origin(origin)
+    origin = normalize_origin(origin)
     if not origin or not destination:
         return None
 
@@ -212,7 +212,7 @@ def search_routes(
         except ValueError:
             service_type = day.upper()
 
-    start_hour, start_minute = _parse_time_parts(start_time.replace('h', ':'))
+    start_hour, start_minute = parse_time_parts(start_time.replace('h', ':'))
 
     if dataset is None:
         dataset = resolve_dataset(get_active_island(), on_date=on_date)
@@ -225,8 +225,8 @@ def search_routes(
         if dataset == DATASET_AZORESBUS else None
     )
 
-    origin_ids = _resolve_stop_ids(dataset, origin_cleaned, area_index)
-    destination_ids = _resolve_stop_ids(dataset, destination_cleaned, area_index)
+    origin_ids = resolve_stop_ids(dataset, origin_cleaned, area_index)
+    destination_ids = resolve_stop_ids(dataset, destination_cleaned, area_index)
     if not origin_ids or not destination_ids:
         return []
 
