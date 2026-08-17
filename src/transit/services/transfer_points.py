@@ -39,6 +39,20 @@ WALK_SPEED_M_PER_MIN = 67.0
 # 1-minute margin is one the rider misses.
 MIN_TRANSFER_MINUTES = 5
 
+# Below this much SLACK -- time left standing at the boarding stop once the walk
+# is done -- the change is worth warning about.
+#
+# Measured on slack, not on the raw wait, because they are not the same thing: a
+# 12-minute wait with a 9-minute walk leaves three minutes, while 12 minutes at
+# the stop you are already standing at leaves twelve. Subtracting the walk means
+# the harder change is flagged harder without a second rule to say so.
+#
+# The consequence of missing a connection here is not a ten-minute wait for the
+# next one. On the real network the following bus is often hours later, and on
+# some pairs it is the next day -- so the threshold is deliberately generous
+# rather than tuned to how often it fires.
+TIGHT_TRANSFER_MINUTES = 30
+
 # Degrees of latitude per TRANSFER_RADIUS_M, used as the grid cell size. Longitude
 # cells are the same width in degrees, which makes them NARROWER in metres at
 # 37.7 N -- so the grid over-collects candidates and the haversine check below

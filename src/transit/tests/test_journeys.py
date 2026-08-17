@@ -321,6 +321,97 @@ class ProductionFindingsTests(JourneyTestCase):
         self.assertEqual(journeys[0].transfers, 0)
 
 
+class TightTransferTests(JourneyTestCase):
+    """Warn when there is little time to change, measured on SLACK.
+
+    Slack is what is left once the rider has walked over, which is not the raw
+    wait whenever the change involves a walk -- and that is exactly the case
+    where being rushed matters most.
+    """
+
+    def setUp(self):
+        super().setUp()
+        self.capelas = self.stop('CAPELAS (IGREJA)', CAPELAS)
+        self.hub = self.stop('PONTA DELGADA', HUB)
+        # ~122 m from the hub: a different bay, a real walk.
+        self.annex = self.stop(
+            'PONTA DELGADA (TERMINAL)', (HUB[0] + 0.0011, HUB[1]),
+        )
+        self.furnas = self.stop('FURNAS', FURNAS)
+        self.trip(self.line('315'), [(self.capelas, '08:00'), (self.hub, '08:30')])
+
+    def transfer_leg(self, **overrides):
+        params = {
+            'origin': 'Capelas', 'destination': 'Furnas',
+            'day': 'weekday', 'start': '00h00', 'dataset': DATASET_AZORESBUS,
+        }
+        params.update(overrides)
+        response = self.client.get('/api/v3/transit/journeys', params, **HEADERS)
+        self.assertEqual(response.status_code, 200)
+        journeys = response.json()['journeys']
+        self.assertTrue(journeys, 'expected a journey to inspect')
+        return next(leg for leg in journeys[0]['legs'] if leg['kind'] == 'transfer')
+
+    def test_a_comfortable_change_is_not_flagged(self):
+        self.trip(self.line('110'), [(self.hub, '09:20'), (self.furnas, '11:00')])
+
+        leg = self.transfer_leg()
+        self.assertEqual(leg['waitMinutes'], 50)
+        self.assertEqual(leg['slackMinutes'], 50)
+        self.assertFalse(leg['tight'])
+
+    def test_a_rushed_change_is_flagged(self):
+        self.trip(self.line('110'), [(self.hub, '08:40'), (self.furnas, '11:00')])
+
+        leg = self.transfer_leg()
+        self.assertEqual(leg['slackMinutes'], 10)
+        self.assertTrue(leg['tight'])
+
+    def test_the_walk_is_subtracted_before_judging(self):
+        """25 minutes looks fine; with a 2-minute walk the rider has 23."""
+        self.trip(self.line('110'), [(self.annex, '08:55'), (self.furnas, '11:00')])
+
+        leg = self.transfer_leg()
+        self.assertEqual(leg['waitMinutes'], 25)
+        self.assertGreater(leg['walkMinutes'], 0)
+        self.assertEqual(leg['slackMinutes'], 25 - leg['walkMinutes'])
+        self.assertTrue(leg['tight'])
+
+    def test_slack_is_never_negative(self):
+        """The scan already refused anything that did not clear the walk."""
+        self.trip(self.line('110'), [(self.annex, '08:40'), (self.furnas, '11:00')])
+
+        leg = self.transfer_leg()
+        self.assertGreaterEqual(leg['slackMinutes'], 0)
+
+    def test_the_boundary_is_exclusive(self):
+        """Exactly the threshold is comfortable; one minute under is not."""
+        from transit.services.transfer_points import TIGHT_TRANSFER_MINUTES
+
+        minute = 30 + TIGHT_TRANSFER_MINUTES
+        self.trip(self.line('110'), [
+            (self.hub, f'08:{minute}' if minute < 60 else '09:00'),
+            (self.furnas, '11:00'),
+        ])
+        leg = self.transfer_leg()
+        self.assertEqual(leg['slackMinutes'], TIGHT_TRANSFER_MINUTES)
+        self.assertFalse(leg['tight'])
+
+    def test_a_direct_journey_has_no_transfer_leg_to_flag(self):
+        self.trip(self.line('999'), [(self.capelas, '07:00'), (self.furnas, '09:00')])
+
+        response = self.client.get(
+            '/api/v3/transit/journeys',
+            {'origin': 'Capelas', 'destination': 'Furnas', 'day': 'weekday',
+             'start': '00h00', 'dataset': DATASET_AZORESBUS, 'maxTransfers': 0},
+            **HEADERS,
+        )
+        journey = response.json()['journeys'][0]
+        self.assertEqual(
+            [leg['kind'] for leg in journey['legs']], ['ride'],
+        )
+
+
 class MaxTransfersTests(JourneyTestCase):
     """`maxTransfers=0` for riders who will not change bus."""
 

@@ -174,6 +174,7 @@ Read-side, **AUTH_KEY-protected** endpoints (via `X-Auth-Key` header or `?key=`)
 - Ranked by departure, then arrival, then transfers; journeys another beats on **all three** axes are pruned, so a slow two-bus itinerary never sits beside the direct bus that wins. Transfer results capped at 12; direct results uncapped.
 - Dominance alone is not enough, so a **wait rule** also applies: at most 3x the time actually spent riding, and never over 300 minutes. Tuned against real data — Saturday's only Capelas→Furnas connection waits 241 minutes and Sunday's 136, and both must survive.
 - A search from somewhere to **itself** returns nothing, and a leg whose **clock runs backwards** is never offered (see below).
+- Transfer legs carry **`slackMinutes`** (wait minus walk — what is actually left once the rider has walked over) and **`tight`** (slack below `TIGHT_TRANSFER_MINUTES`, 30). Judged on slack rather than the raw wait because a 12-minute wait with a 9-minute walk leaves three minutes. On real weekday data this flags ~59% of transfer legs; tune the constant in `transit/services/transfer_points.py` and `lib/transfer-points.ts` together.
 
 ### Backwards timetable rows (`transit` — fixed)
 

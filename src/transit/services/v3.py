@@ -237,9 +237,15 @@ def serialize_journeys(journeys, *, service_type: str | None, prefix: bool = Tru
         legs: list[dict] = []
         for index, leg in enumerate(journey.legs):
             if index > 0:
+                from transit.services.transfer_points import TIGHT_TRANSFER_MINUTES
+
                 previous = journey.legs[index - 1]
                 wait = journey.waits[index - 1]
                 walk = transfer_minutes_between(previous.alight, leg.board)
+                # What is actually left once the rider has walked over. Never
+                # negative: the scan already refused any connection that did not
+                # clear the walk plus the buffer.
+                slack = max(0, wait - walk)
                 legs.append(
                     {
                         'kind': 'transfer',
@@ -247,6 +253,8 @@ def serialize_journeys(journeys, *, service_type: str | None, prefix: bool = Tru
                         'from': previous.alight.stop.name,
                         'waitMinutes': wait,
                         'walkMinutes': walk,
+                        'slackMinutes': slack,
+                        'tight': slack < TIGHT_TRANSFER_MINUTES,
                         'fromRoute': previous.trip.line.code,
                         'toRoute': leg.trip.line.code,
                     }
