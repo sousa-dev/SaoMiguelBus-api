@@ -321,17 +321,30 @@ def build_sync_page(island: Island, *, since: int, limit: int) -> dict[str, Any]
         .order_by('revision')[:limit],
     )
 
-    page_revisions = [since]
-    page_revisions += [c.revision for c in categories]
-    page_revisions += [p.revision for p in pois]
-    page_revisions += [t.revision for t in trails]
-    page_revisions += [d.revision for d in deleted]
-    page_max = max(page_revisions)
+    buckets = (categories, pois, trails, deleted)
+
+    # The cursor may only advance to a revision every bucket has fully delivered. Each bucket
+    # is limited independently, so a bucket that came back full (len == limit) still has rows
+    # above its own last revision — the cursor has to stop there, at the *lowest* such point.
+    #
+    # Taking max() across all buckets instead silently strands rows: with trails imported last
+    # they occupy the top of the range (e.g. 3027-3056) while POIs sit at 51-580 truncated at
+    # 500, so the cursor jumped to 3056 and POIs 581-3026 were never requested again. A full
+    # sync from zero delivered 500 of São Miguel's 2796 POIs and reported success. Rows above
+    # the chosen cursor are simply re-sent next page, which is free — upserts are idempotent.
+    truncated_maxes = [
+        max(row.revision for row in rows) for rows in buckets if len(rows) == limit
+    ]
+    if truncated_maxes:
+        page_max = min(truncated_maxes)
+    else:
+        page_revisions = [since]
+        for rows in buckets:
+            page_revisions += [row.revision for row in rows]
+        page_max = max(page_revisions)
 
     current = current_revision(island)
-    has_more = any(
-        len(rows) == limit for rows in (categories, pois, trails, deleted)
-    ) or page_max < current
+    has_more = bool(truncated_maxes) or page_max < current
 
     return {
         'revision': page_max,
