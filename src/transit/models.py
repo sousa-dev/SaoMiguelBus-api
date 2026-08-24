@@ -167,9 +167,59 @@ class Stop(TenantScopedModel):
             models.Index(fields=['island', 'dataset', 'cleaned_name']),
         ]
         ordering = ['name']
+        constraints = [
+            # `cleaned_name` is this model's only identity -- there is no
+            # upstream id -- and `_import_stops` reconciles on it. Nothing
+            # enforced that before, so a double-write could silently overwrite
+            # a row's coordinates, or raise MultipleObjectsReturned and abort
+            # the whole atomic import.
+            #
+            # Scoped to AzoresBus because legacy deliberately carries
+            # duplicate-named rows (`serialize_legacy_stops_v2` synthesises
+            # alias rows from them), so a global constraint would be a bet on
+            # data this change does not touch.
+            models.UniqueConstraint(
+                fields=['island', 'dataset', 'cleaned_name'],
+                condition=models.Q(dataset='azoresbus'),
+                name='uniq_azoresbus_stop_cleaned_name',
+            ),
+        ]
 
     def __str__(self) -> str:
         return self.name
+
+
+class StopAlias(TenantScopedModel):
+    """A folded name that used to identify a stop, and still must.
+
+    Canonicalization rewrites 437 of the 814 AzoresBus stop names, which moves
+    their `cleaned_name` -- and `cleaned_name` is what every lookup in this
+    codebase resolves against. Without this table, a favourite starred in the
+    app, a deep link pasted into WhatsApp and a shared `?origin=` URL all stop
+    resolving on the day the rename ships.
+
+    Rows are written from the VERBATIM upstream spelling at import, and are
+    never deleted when upstream stops emitting one. That permanence is the
+    entire point: the day AzoresBus fixes its own spelling of
+    `S. VICENTE FERREIRA`, a computed index would lose the alias and every
+    link built on it would break. A stored row survives upstream's cleanup.
+    """
+
+    dataset = dataset_field()
+    stop = models.ForeignKey(Stop, on_delete=models.CASCADE, related_name='aliases')
+    cleaned_alias = models.CharField(max_length=200, db_index=True)
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=['island', 'dataset', 'cleaned_alias'],
+                name='uniq_stop_alias_per_dataset',
+            ),
+        ]
+        indexes = [models.Index(fields=['island', 'dataset', 'cleaned_alias'])]
+
+    def __str__(self) -> str:
+        return f'{self.cleaned_alias} -> {self.stop.name}'
 
 
 class Line(TenantScopedModel):

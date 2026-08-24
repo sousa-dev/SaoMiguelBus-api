@@ -13,6 +13,7 @@ from tenancy.models import Island
 from transit.models import Stop
 from transit.services.schedule_phase import resolve_dataset
 from transit.services.legacy_import import clean_string
+from transit.services.search import resolve_stop_by_name
 
 logger = logging.getLogger(__name__)
 
@@ -52,10 +53,10 @@ def fetch_directions(
         return {'error': 'Unauthorized'}, 401
 
     dataset = resolve_dataset(island)
-    origin_stop = Stop.objects.filter(dataset=dataset, name__iexact=origin).first()
-    destination_stop = Stop.objects.filter(
-        dataset=dataset, name__iexact=destination,
-    ).first()
+    # Via aliases, not `name__iexact`: an old app build sends the stop name it
+    # cached, which canonicalization may since have rewritten.
+    origin_stop = resolve_stop_by_name(dataset, origin)
+    destination_stop = resolve_stop_by_name(dataset, destination)
     origin_query = (
         f'{origin_stop.latitude},{origin_stop.longitude}' if origin_stop else clean_string(origin)
     )

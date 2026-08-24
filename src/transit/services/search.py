@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from datetime import datetime, time
 
-from azoresbus.services_stops import build_area_index
+from azoresbus.services_stops import build_azoresbus_area_index
 from tenancy.services import get_active_island
 from transit.models import (
     DATASET_AZORESBUS,
@@ -13,6 +13,7 @@ from transit.models import (
     ServiceException,
     ServicePattern,
     Stop,
+    StopAlias,
     Trip,
 )
 from transit.services.legacy_import import clean_string
@@ -120,6 +121,24 @@ def _trip_cleaned_stops_blob(trip: Trip) -> str:
     return clean_string(build_legacy_stops_string(trip))
 
 
+def resolve_stop_by_name(dataset: str, name: str) -> Stop | None:
+    """One stop, by its current name or by any name it used to have.
+
+    The alias step is what keeps a favourite starred before the AzoresBus
+    rename, a deep link in a shared message, and a hand-typed abbreviation all
+    pointing at the right stop.
+    """
+    cleaned = clean_string(name)
+    exact = Stop.objects.filter(dataset=dataset, cleaned_name=cleaned).first()
+    if exact:
+        return exact
+    alias = (
+        StopAlias.objects.filter(dataset=dataset, cleaned_alias=cleaned)
+        .select_related('stop').first()
+    )
+    return alias.stop if alias else None
+
+
 def resolve_stop_ids(
     dataset: str, cleaned: str, area_index: dict[str, set[int]] | None,
 ) -> set[int]:
@@ -133,15 +152,28 @@ def resolve_stop_ids(
          village-shaped exact stop (e.g. a bare "Aflitos") behaving exactly as
          it did before areas existed -- `area_index` never even contains a key
          that collides with a real stop's exact name (`build_area_index`).
-      2. A village area match (AzoresBus only, via `area_index`) -- every stop
-         sharing that village's name prefix.
-      3. The existing single-stop prefix fallback, unchanged.
+      2. A `StopAlias` match -- a name this stop USED to have, before
+         canonicalization rewrote it. Sits above the area branch because an
+         alias names exactly one stop, so resolving it to a whole village
+         would widen a precise old link into something the user never asked
+         for.
+      3. A village area match (AzoresBus only, via `area_index`) -- every stop
+         sharing that village's name prefix. Retired village spellings reach
+         this via `area_index`'s own alias keys, so "p. delgada" still opens
+         Ponta Delgada.
+      4. The existing single-stop prefix fallback, unchanged.
 
     Never returns `None`; an unresolved query is an empty set.
     """
     exact = Stop.objects.filter(dataset=dataset, cleaned_name=cleaned).first()
     if exact:
         return {exact.id}
+
+    alias = StopAlias.objects.filter(
+        dataset=dataset, cleaned_alias=cleaned,
+    ).values_list('stop_id', flat=True).first()
+    if alias is not None:
+        return {alias}
 
     if area_index is not None and cleaned in area_index:
         return set(area_index[cleaned])
@@ -221,7 +253,7 @@ def search_routes(
     # names never carry the "VILLAGE (LANDMARK)" convention this groups on, and
     # this way legacy search pays zero extra cost for a lookup it never uses.
     area_index = (
-        build_area_index(Stop.objects.filter(dataset=dataset).only('id', 'name'))
+        build_azoresbus_area_index(dataset)
         if dataset == DATASET_AZORESBUS else None
     )
 

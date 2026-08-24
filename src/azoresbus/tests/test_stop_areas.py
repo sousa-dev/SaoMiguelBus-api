@@ -19,7 +19,11 @@ from pathlib import Path
 
 from django.test import SimpleTestCase
 
-from azoresbus.services_stops import build_area_index, derive_area_key
+from azoresbus.services_stops import (
+    build_area_index,
+    collapse_stops,
+    derive_area_key,
+)
 from transit.services.legacy_import import clean_string
 
 
@@ -27,10 +31,19 @@ FIXTURES = Path(__file__).parent / 'fixtures'
 
 
 def real_stop_names() -> list[str]:
-    """The 816 real, distinct AzoresBus stop names — the collapse_stops output,
-    reached directly since only `name` matters for area grouping."""
-    raw = json.loads((FIXTURES / 'stops.json').read_text(encoding='utf-8'))
-    return sorted({row['name'] for row in raw})
+    """The 814 real, distinct AzoresBus stop names as STORED.
+
+    Goes through `collapse_stops` rather than reading `row['name']` directly,
+    because that is what `Stop.name` actually holds: canonicalized, not
+    verbatim upstream. Reading the raw fixture instead would keep these
+    assertions green while testing a name domain production no longer uses --
+    they would still pin 83 areas while the API served 79.
+    """
+    return sorted(group.name for group in collapse_stops(upstream_stops()).groups)
+
+
+def upstream_stops() -> list[dict]:
+    return json.loads((FIXTURES / 'stops.json').read_text(encoding='utf-8'))
 
 
 class FakeStop:
@@ -84,15 +97,43 @@ class BuildAreaIndexRealDataTests(SimpleTestCase):
         cls.index = build_area_index(cls.stops)
 
     def test_real_area_count_and_coverage(self):
-        self.assertEqual(len(self.names), 816)
-        self.assertEqual(len(self.index), 83)
+        self.assertEqual(len(self.names), 814)
+        self.assertEqual(len(self.index), 79)
         covered = sum(len(ids) for ids in self.index.values())
-        self.assertEqual(covered, 765)
+        self.assertEqual(covered, 778)
 
-    def test_capelas_has_35_members(self):
+    def test_capelas_has_37_members(self):
         key = 'capelas'  # folded -- see test_area_index_keys_are_folded
         self.assertIn(key, self.index)
-        self.assertEqual(len(self.index[key]), 35)
+        self.assertEqual(len(self.index[key]), 37)
+
+    def test_spelling_variants_no_longer_split_a_village(self):
+        """The whole point: one village, one area key.
+
+        Before canonicalization `P. DELGADA` and `PONTA DELGADA` were separate
+        keys, so "Ponta Delgada" resolved to 3 stops out of 38. `SÃO VICENTE
+        FERREIRA` was worse -- 29 stops and NO key at all, because each of its
+        two spellings looked like a sub-2-member singleton to the rule below.
+        """
+        self.assertEqual(len(self.index['ponta delgada']), 38)
+        self.assertEqual(len(self.index['sao vicente ferreira']), 29)
+        self.assertEqual(len(self.index['sao roque']), 17)
+        self.assertEqual(len(self.index['vila do nordeste']), 12)
+        for retired in ('p. delgada', 'v. do nordeste', 's. roque', 'nordeste'):
+            self.assertNotIn(retired, self.index)
+
+    def test_numbered_variants_rejoin_their_village(self):
+        """`LOMBA DO BOTÃO 1/2/3` were three 1-member keys, so all three were
+        dropped. Parenthesising the discriminator puts them back in the
+        village without merging them into one stop."""
+        self.assertEqual(len(self.index['lomba do botao']), 9)
+
+    def test_the_two_santa_barbaras_stay_apart(self):
+        """A blind `STA. -> Santa` rewrite would union two villages 16.5 km
+        apart. The code-scoped override keeps them as separate areas."""
+        self.assertIn('santa barbara', self.index)
+        self.assertIn('santa barbara da ribeira grande', self.index)
+        self.assertEqual(len(self.index['santa barbara da ribeira grande']), 11)
 
     def test_largest_area_is_arrifes_with_47(self):
         largest_key = max(self.index, key=lambda k: len(self.index[k]))

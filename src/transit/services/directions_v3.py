@@ -19,6 +19,7 @@ from transit.services.directions_cache import (
     set_cached_directions,
 )
 from transit.services.legacy_import import clean_string
+from transit.services.search import resolve_stop_by_name
 
 logger = logging.getLogger(__name__)
 
@@ -85,7 +86,14 @@ def resolve_departure_timestamp(
 
 
 def _resolve_stop_query(name: str, dataset: str) -> str:
-    stop = Stop.objects.filter(dataset=dataset, name__iexact=name).first()
+    """Coordinates if we know the stop, else the raw text for Google to guess.
+
+    Resolves through `resolve_stop_by_name` rather than `name__iexact`: the
+    client sends whatever string it has stored, which after canonicalization
+    may be a name this stop no longer has. `name__iexact` is also
+    accent-sensitive, so "Faja de Baixo" already missed before any rename.
+    """
+    stop = resolve_stop_by_name(dataset, name)
     if stop:
         return f'{stop.latitude},{stop.longitude}'
     return clean_string(name)

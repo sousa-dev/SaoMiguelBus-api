@@ -35,6 +35,7 @@ from transit.models import (
     Operator,
     ServicePattern,
     Stop,
+    StopAlias,
     StopTime,
     Trip,
 )
@@ -89,9 +90,12 @@ def import_schedules(
 
     with transaction.atomic(), suppress_revision_bumps():
         operator = _ensure_operator(island)
-        stop_by_external_id, report['stops'], report['flagged_stop_groups'] = (
-            _import_stops(island, stops)
-        )
+        (
+            stop_by_external_id,
+            report['stops'],
+            report['flagged_stop_groups'],
+            report['naming'],
+        ) = _import_stops(island, stops)
         line_by_route_id, report['lines'] = _import_lines(
             island, routes, operator,
         )
@@ -131,21 +135,114 @@ def _ensure_operator(island) -> Operator:
     return operator
 
 
-def _import_stops(island, payload: list[dict]):
-    """1456 poles -> 816 Stop rows + 1456 ExternalStop rows."""
-    collapsed = collapse_stops(payload)
-    stop_by_external_id: dict[str, ExternalStop] = {}
+def _reconcile_stop(island, group) -> Stop:
+    """Find this group's existing Stop row and RENAME it, rather than orphaning it.
 
-    for group in collapsed.groups:
-        stop, _ = Stop.objects.update_or_create(
+    `Stop` carries no upstream id -- `cleaned_name` is its only identity. So
+    the naive `update_or_create(cleaned_name=canonical)` would, on the first
+    canonical sync, create 437 new rows and strand the old ones: nothing
+    prunes them, and `_rebuild_stop_times` only reruns for trips whose
+    `payload_hash` changed, so most StopTimes would keep pointing at the
+    strays indefinitely. Half the network on one row, half on another.
+
+    Matching on the poles' VERBATIM names instead finds the pre-rename row and
+    renames it in place, which preserves `Stop.pk` -- and `Stop.pk` is what
+    mobile favourites, `/transit/stop/:id` links, `AtlasPoi.external_refs` and
+    the offline bundle's stop indices are all built on.
+
+    Being in the sync rather than only in a data migration is deliberate: it
+    makes the rename self-healing and order-independent, so a half-applied
+    deploy repairs itself on the next run.
+    """
+    cleaned = clean_string(group.name)
+    scoped = Stop.objects.filter(island=island, dataset=DATASET_AZORESBUS)
+
+    stop = scoped.filter(cleaned_name=cleaned).first()
+
+    legacy_folds = {clean_string(m['name']) for m in group.members} - {cleaned}
+    previous = list(scoped.filter(cleaned_name__in=legacy_folds)) if legacy_folds else []
+
+    if stop is None and previous:
+        stop = previous.pop(0)
+
+    # Two upstream spellings of one road pair converging on one canonical name
+    # (`S. ROQUE (BARRACUDA)` / `SÃO ROQUE (BARRACUDA)`). Repoint before
+    # deleting: StopTime.stop is PROTECT, so the delete fails otherwise.
+    for loser in previous:
+        if loser.pk == stop.pk:
+            continue
+        StopTime.objects.filter(stop=loser).update(stop=stop)
+        ExternalStop.objects.filter(stop=loser).update(stop=stop)
+        loser.delete()
+
+    if stop is None:
+        return Stop.objects.create(
             island=island,
             dataset=DATASET_AZORESBUS,
-            cleaned_name=clean_string(group.name),
-            defaults={
-                'name': group.name,
-                'latitude': group.latitude,
-                'longitude': group.longitude,
-            },
+            cleaned_name=cleaned,
+            name=group.name,
+            latitude=group.latitude,
+            longitude=group.longitude,
+        )
+
+    stop.name = group.name
+    stop.cleaned_name = cleaned
+    stop.latitude = group.latitude
+    stop.longitude = group.longitude
+    stop.save(update_fields=['name', 'cleaned_name', 'latitude', 'longitude'])
+    return stop
+
+
+def _sync_stop_aliases(island, aliases_by_stop: dict[int, set[str]]) -> int:
+    """Persist every folded spelling that must keep resolving to a stop.
+
+    An alias that collides with some other stop's real `cleaned_name`, or that
+    two stops both claim, is DROPPED rather than guessed at -- a wrong alias
+    silently sends a user to the wrong village, which is worse than a query
+    that falls through to the existing prefix fallback.
+    """
+    real_names = set(
+        Stop.objects.filter(island=island, dataset=DATASET_AZORESBUS)
+        .values_list('cleaned_name', flat=True)
+    )
+    claims: dict[str, set[int]] = {}
+    for stop_id, aliases in aliases_by_stop.items():
+        for alias in aliases - real_names:
+            claims.setdefault(alias, set()).add(stop_id)
+
+    written = 0
+    for alias, stop_ids in claims.items():
+        if len(stop_ids) > 1:
+            logger.info(
+                'azoresbus import: alias %r claimed by %s stops, dropped',
+                alias, len(stop_ids),
+            )
+            continue
+        StopAlias.objects.update_or_create(
+            island=island,
+            dataset=DATASET_AZORESBUS,
+            cleaned_alias=alias,
+            defaults={'stop_id': next(iter(stop_ids))},
+        )
+        written += 1
+    return written
+
+
+def _import_stops(island, payload: list[dict]):
+    """1456 poles -> 814 Stop rows + 1456 ExternalStop rows.
+
+    Names are canonicalized inside `collapse_stops`, so `Stop.name` is the
+    expanded, title-cased form while `ExternalStop.name` stays verbatim -- the
+    audit trail, and the source of the aliases that keep old links alive.
+    """
+    collapsed = collapse_stops(payload)
+    stop_by_external_id: dict[str, ExternalStop] = {}
+    aliases_by_stop: dict[int, set[str]] = {}
+
+    for group in collapsed.groups:
+        stop = _reconcile_stop(island, group)
+        aliases_by_stop.setdefault(stop.id, set()).update(
+            clean_string(member['name']) for member in group.members
         )
         for member in group.members:
             external, _ = ExternalStop.objects.update_or_create(
@@ -162,6 +259,26 @@ def _import_stops(island, payload: list[dict]):
             )
             stop_by_external_id[str(member['id'])] = external
 
+    _sync_stop_aliases(island, aliases_by_stop)
+
+    if collapsed.ambiguous_areas:
+        logger.warning(
+            'azoresbus import: %s area(s) span further than any village should, '
+            'left for curation in services_names.VILLAGE_OVERRIDES: %s',
+            len(collapsed.ambiguous_areas),
+            ', '.join(
+                f'{a.name} ({a.span_m / 1000:.1f}km, '
+                f'{"unmerged" if a.unmerged else "upstream spelling"})'
+                for a in collapsed.ambiguous_areas
+            ),
+        )
+    if collapsed.unexpanded:
+        logger.warning(
+            'azoresbus import: unknown abbreviations survived canonicalization, '
+            'add them to services_names.ABBREVIATIONS: %s',
+            ', '.join(collapsed.unexpanded),
+        )
+
     if collapsed.flagged:
         logger.info(
             'azoresbus import: %s stop groups span more than 75m: %s',
@@ -176,6 +293,10 @@ def _import_stops(island, payload: list[dict]):
             {'name': g.name, 'span_m': round(g.span_m, 1)}
             for g in collapsed.flagged
         ],
+        {
+            'ambiguous_areas': [a.as_dict() for a in collapsed.ambiguous_areas],
+            'unexpanded_tokens': collapsed.unexpanded,
+        },
     )
 
 

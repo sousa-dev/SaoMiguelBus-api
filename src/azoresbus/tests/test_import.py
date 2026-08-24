@@ -16,6 +16,7 @@ from django.test import TestCase
 
 from azoresbus.models import ExternalJourney, ExternalStop, ServiceObservation, SyncRun
 from azoresbus.services_import import import_schedules
+from azoresbus.services_names import canonicalize
 from tenancy.services import for_island, get_or_create_default_island
 from transit.models import (
     DATASET_AZORESBUS,
@@ -106,21 +107,44 @@ class ImportTests(TestCase):
             55,
         )
 
-    def test_stops_collapse_to_816_with_poles_kept(self):
+    def test_stops_collapse_to_814_with_poles_kept(self):
+        """814, not the 816 raw names: two of them are one stop spelled twice.
+
+        `S. ROQUE (BARRACUDA)` / `SÃO ROQUE (BARRACUDA)` are 15 m apart and
+        `P. DELGADA (AV. D. JOÃO III)` / `(AV. DOM JOÃO III)` are 41 m apart on
+        consecutive pole codes. Every pole is still kept.
+        """
         self.assertEqual(
             Stop.objects.filter(
                 island=self.island, dataset=DATASET_AZORESBUS,
             ).count(),
-            816,
+            814,
         )
         self.assertEqual(
             ExternalStop.objects.filter(island=self.island).count(), 1456,
         )
 
     def test_every_external_stop_points_at_its_collapsed_stop(self):
+        """`ExternalStop.name` is verbatim upstream; `Stop.name` is canonical.
+
+        The two deliberately differ -- the verbatim string is the audit trail
+        and the alias source, so it must NOT be rewritten alongside the Stop.
+        """
         sample = ExternalStop.objects.filter(island=self.island).first()
-        self.assertEqual(sample.stop.name, sample.name)
+        self.assertEqual(
+            sample.stop.name, canonicalize(sample.name, sample.code),
+        )
         self.assertEqual(sample.stop.dataset, DATASET_AZORESBUS)
+
+    def test_the_verbatim_upstream_name_is_preserved_on_the_pole(self):
+        """Regression: canonicalizing `ExternalStop.name` too would destroy the
+        only record of what upstream actually sent."""
+        abbreviated = ExternalStop.objects.filter(
+            island=self.island, name__startswith='P. DELGADA',
+        ).first()
+        self.assertIsNotNone(abbreviated)
+        self.assertTrue(abbreviated.name.startswith('P. DELGADA'))
+        self.assertTrue(abbreviated.stop.name.startswith('Ponta Delgada'))
 
     def test_azoresbus_lines_get_their_own_operator(self):
         """infer_operator_name would file all 55 under 'Other' (02 §3.8)."""
@@ -295,7 +319,7 @@ class ImportTests(TestCase):
             self.assertEqual(legacy.likes, 0)
 
     def test_report_counts_are_populated(self):
-        self.assertEqual(self.report['stops'], 816)
+        self.assertEqual(self.report['stops'], 814)
         self.assertEqual(self.report['lines'], 55)
         self.assertGreater(self.report['trips'], 0)
         self.assertGreater(self.report['journey_count'], 0)

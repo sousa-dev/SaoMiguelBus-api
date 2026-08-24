@@ -41,7 +41,7 @@ from bisect import bisect_left
 from dataclasses import dataclass
 from datetime import datetime, time
 
-from azoresbus.services_stops import build_area_index
+from azoresbus.services_stops import build_azoresbus_area_index
 from tenancy.services import get_active_island
 from transit.models import DATASET_AZORESBUS, Holiday, Stop, Trip
 from transit.services.legacy_import import clean_string
@@ -452,7 +452,8 @@ def search_journeys(
     ))
 
     area_index = (
-        build_area_index(stops) if dataset == DATASET_AZORESBUS else None
+        build_azoresbus_area_index(dataset, stops=stops)
+        if dataset == DATASET_AZORESBUS else None
     )
 
     origin_ids = resolve_stop_ids(dataset, origin_cleaned, area_index)
