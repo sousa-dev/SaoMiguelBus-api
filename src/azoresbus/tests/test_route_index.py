@@ -17,6 +17,9 @@ from django.utils import timezone
 from rest_framework.test import APIClient
 
 from azoresbus.services_route_index import (
+    forward_stops,
+    invert_to_stop_index,
+    merge_forward,
     merge_index,
     prune_index,
     stale_ids,
@@ -95,9 +98,27 @@ class MergeIndexTests(TestCase):
         now = timezone.now()
         earlier = (now - timedelta(hours=1)).isoformat()
         index = {'a': {'route': {'id': '1'}, 'refreshed_at': earlier}}
-        merged = merge_index(index, {'a': {'id': '7'}}, now)
+        merged = merge_index(
+            index, {'a': {'route': {'id': '7'}, 'journeyId': '99', 'forward': []}}, now,
+        )
         self.assertEqual(merged['a']['route'], {'id': '7'})
+        self.assertEqual(merged['a']['journeyId'], '99')
         self.assertEqual(merged['a']['refreshed_at'], now.isoformat())
+
+    def test_the_route_index_does_not_carry_the_forward_lists(self):
+        """It is unpickled on every fleet poll; it must stay small.
+
+        The forward stops are hundreds of kilobytes across the fleet and only
+        the arrivals path reads them, so they live under their own key.
+        """
+        now = timezone.now()
+        facts = {
+            'route': {'id': '7'},
+            'journeyId': '99',
+            'forward': [('1131', 3), ('1114', 7)],
+        }
+        merged = merge_index({}, {'a': facts}, now)
+        self.assertNotIn('forward', merged['a'])
 
 
 class PruneIndexTests(TestCase):
@@ -199,3 +220,69 @@ class EnrichmentEndpointTests(TestCase):
 
         self.assertEqual(after_first, 1)
         self.assertEqual(mock_fetch_route.call_count, after_first)
+
+
+class ForwardStopsTests(TestCase):
+    """What the sweep keeps out of a detail it was fetching anyway."""
+
+    def _circ(self, stage_id, due):
+        return {'stage': {'id': stage_id}, 'dueInMinutes': due}
+
+    def test_stops_already_passed_are_excluded(self):
+        """Upstream omits dueInMinutes behind the bus, so absence is the filter."""
+        rows = forward_stops([
+            {'stage': {'id': '1'}},                 # passed
+            self._circ('2', 0),                     # arriving
+            self._circ('3', 5),
+        ])
+        self.assertEqual(rows, [('2', 0), ('3', 5)])
+
+    def test_a_bus_hours_away_is_dropped(self):
+        """Technically 'coming', useless to a waiting rider, and it bloats the index."""
+        rows = forward_stops([self._circ('1', 5), self._circ('2', 170)])
+        self.assertEqual(rows, [('1', 5)])
+
+    def test_a_stage_with_no_id_cannot_be_indexed(self):
+        self.assertEqual(forward_stops([{'stage': {}, 'dueInMinutes': 3}]), [])
+
+
+class InvertToStopIndexTests(TestCase):
+    def test_arrivals_are_grouped_by_stop_and_sorted_soonest_first(self):
+        now = timezone.now().isoformat()
+        index = {
+            'busA': {'route': {'id': '7', 'nameShort': '110'}, 'journeyId': 'j1'},
+            'busB': {'route': {'id': '1', 'nameShort': '101'}, 'journeyId': 'j2'},
+        }
+        forward = {
+            'busA': {'forward': [('S1', 9)], 'refreshed_at': now},
+            'busB': {'forward': [('S1', 2), ('S2', 4)], 'refreshed_at': now},
+        }
+        by_stop = invert_to_stop_index(index, forward)
+
+        self.assertEqual([a['vehicleId'] for a in by_stop['S1']], ['busB', 'busA'])
+        self.assertEqual(by_stop['S1'][0]['lineCode'], '101')
+        self.assertEqual(by_stop['S1'][0]['dueInMinutes'], 2)
+        self.assertEqual([a['vehicleId'] for a in by_stop['S2']], ['busB'])
+
+    def test_capture_time_rides_along_so_the_reader_can_age_compensate(self):
+        stamp = timezone.now().isoformat()
+        by_stop = invert_to_stop_index(
+            {'busA': {'route': {'id': '7', 'nameShort': '110'}, 'journeyId': 'j'}},
+            {'busA': {'forward': [('S1', 3)], 'refreshed_at': stamp}},
+        )
+        self.assertEqual(by_stop['S1'][0]['capturedAt'], stamp)
+
+    def test_a_vehicle_missing_from_the_route_index_still_lists_its_stops(self):
+        """Partial data beats none: the ETA is real even if the line label is not."""
+        by_stop = invert_to_stop_index(
+            {}, {'busA': {'forward': [('S1', 3)], 'refreshed_at': ''}},
+        )
+        self.assertEqual(by_stop['S1'][0]['lineCode'], '')
+        self.assertEqual(by_stop['S1'][0]['dueInMinutes'], 3)
+
+
+class MergeForwardTests(TestCase):
+    def test_a_failed_lookup_keeps_the_previous_forward_list(self):
+        now = timezone.now()
+        before = {'a': {'forward': [('S1', 4)], 'refreshed_at': now.isoformat()}}
+        self.assertEqual(merge_forward(before, {'a': None}, now), before)

@@ -85,6 +85,14 @@ def _sweep_lock_key(island_key: str) -> str:
     return f'azoresbus:tracking:routeindex:sweep:{island_key}'
 
 
+def _forward_cache_key(island_key: str) -> str:
+    return f'azoresbus:tracking:forward:{island_key}'
+
+
+def _stop_index_cache_key(island_key: str) -> str:
+    return f'azoresbus:tracking:stopindex:{island_key}'
+
+
 def _catalogue_cache_key(island_key: str) -> str:
     return f'azoresbus:tracking:routes:{island_key}'
 
@@ -146,13 +154,42 @@ def merge_index(
     results: dict[str, dict | None],
     now: datetime,
 ) -> dict[str, dict]:
-    """Fold sweep results in. A failed lookup keeps whatever we already had."""
+    """Fold sweep results into the ROUTE index. Small on purpose.
+
+    Only what the fleet response needs: this blob is unpickled on every fleet
+    poll, so the bulky forward-stop lists live in `merge_forward` under their
+    own key instead.
+
+    A failed lookup keeps whatever we already had.
+    """
     merged = dict(index)
     stamp = now.isoformat()
-    for vehicle_id, route in results.items():
-        if route is None:
+    for vehicle_id, facts in results.items():
+        if facts is None:
             continue
-        merged[vehicle_id] = {'route': route, 'refreshed_at': stamp}
+        merged[vehicle_id] = {
+            'route': facts.get('route') or {},
+            'journeyId': facts.get('journeyId', ''),
+            'refreshed_at': stamp,
+        }
+    return merged
+
+
+def merge_forward(
+    forward_index: dict[str, dict],
+    results: dict[str, dict | None],
+    now: datetime,
+) -> dict[str, dict]:
+    """The same fold for the forward-stop lists, kept apart from the hot path."""
+    merged = dict(forward_index)
+    stamp = now.isoformat()
+    for vehicle_id, facts in results.items():
+        if facts is None:
+            continue
+        merged[vehicle_id] = {
+            'forward': facts.get('forward') or [],
+            'refreshed_at': stamp,
+        }
     return merged
 
 
@@ -184,7 +221,13 @@ def prune_index(
 
 
 def _fetch_route_for(vehicle_id: str) -> dict | None:
-    """Detail fetch reduced to just the route. Runs on a worker thread.
+    """What we keep from one vehicle's detail. Runs on a worker thread.
+
+    The fetch pulls ~12KB whether we want it or not, and for a long time this
+    function kept about eighty bytes of it. The forward stop list -- every stop
+    still ahead of the bus, with its ETA -- comes out of the same response for
+    no extra request and no extra byte, so we keep that too and invert it into
+    the stop index.
 
     Touches no ORM and no request state, which is why it needs no `for_island`
     context -- do not add a query here without revisiting that.
@@ -199,7 +242,37 @@ def _fetch_route_for(vehicle_id: str) -> dict | None:
     route = raw.get('route') or {}
     if not route.get('id'):
         return None
-    return serialize_route(route)
+    journey = raw.get('journey') or {}
+    return {
+        'route': serialize_route(route),
+        'journeyId': str(journey.get('id', '')),
+        'forward': forward_stops(journey.get('circulations') or []),
+    }
+
+
+def forward_stops(circulations: list[dict]) -> list[tuple[str, int]]:
+    """`(stage_id, dueInMinutes)` for the stops still ahead of the bus.
+
+    Upstream omits `dueInMinutes` for stops already passed, so its presence is
+    the filter -- no need to compare against `currentStopSequence`.
+
+    Anything beyond the horizon is dropped. A bus due in 170 minutes is
+    technically 'coming', but listing it tells a waiting rider nothing and it
+    triples the index for stops nobody is asking about.
+    """
+    horizon = clamp(
+        config('AZORESBUS_TRACKING_ARRIVAL_HORIZON_MIN', default=60, cast=int),
+        5, 240,
+    )
+    out: list[tuple[str, int]] = []
+    for circulation in circulations:
+        due = circulation.get('dueInMinutes')
+        if due is None or due > horizon:
+            continue
+        stage_id = str((circulation.get('stage') or {}).get('id', ''))
+        if stage_id:
+            out.append((stage_id, int(due)))
+    return out
 
 
 def _sweep(vehicle_ids: list[str], cfg: dict[str, int]) -> dict[str, dict | None]:
@@ -221,6 +294,38 @@ def _sweep(vehicle_ids: list[str], cfg: dict[str, int]) -> dict[str, dict | None
     return results
 
 
+def invert_to_stop_index(
+    index: dict[str, dict],
+    forward_index: dict[str, dict],
+) -> dict[str, list[dict]]:
+    """`{stage_id: [{vehicleId, dueInMinutes, ...}]}`, soonest first.
+
+    Pure, so the shape can be tested without a sweep or a cache.
+    """
+    by_stop: dict[str, list[dict]] = {}
+    for vehicle_id, entry in forward_index.items():
+        route = (index.get(vehicle_id) or {}).get('route') or {}
+        captured_at = entry.get('refreshed_at', '')
+        for stage_id, due in entry.get('forward') or []:
+            by_stop.setdefault(stage_id, []).append({
+                'vehicleId': vehicle_id,
+                'dueInMinutes': due,
+                'routeId': route.get('id', ''),
+                'lineCode': route.get('nameShort', ''),
+                'journeyId': (index.get(vehicle_id) or {}).get('journeyId', ''),
+                # When this ETA was captured, so the reader can age-compensate.
+                'capturedAt': captured_at,
+            })
+    for arrivals in by_stop.values():
+        arrivals.sort(key=lambda row: row['dueInMinutes'])
+    return by_stop
+
+
+def stop_index(island) -> dict[str, list[dict]]:
+    """The inverted index, or empty when no sweep has run yet."""
+    return cache.get(_stop_index_cache_key(island.key)) or {}
+
+
 def enrich_fleet(island, vehicles: list[dict]) -> list[dict]:
     """Attach `route` to each vehicle, sweeping for what we do not know yet."""
     cfg = _settings()
@@ -236,11 +341,33 @@ def enrich_fleet(island, vehicles: list[dict]) -> list[dict]:
     ):
         # The lock is never deleted on completion: letting it expire is what
         # turns it into a rate limit as well as a mutex.
-        index = merge_index(index, _sweep(pending[:cfg['batch']], cfg), now)
-        index = prune_index(index, vehicle_ids, cfg['index_grace'], now)
-        cache.set(cache_key, index, cfg['index_ttl'] + cfg['index_grace'])
+        results = _sweep(pending[:cfg['batch']], cfg)
+        index = prune_index(
+            merge_index(index, results, now), vehicle_ids, cfg['index_grace'], now,
+        )
+        ttl = cfg['index_ttl'] + cfg['index_grace']
+        cache.set(cache_key, index, ttl)
+
+        # SEPARATE keys, deliberately. The forward-stop lists are a couple of
+        # hundred kilobytes and only the arrivals endpoint reads them, whereas
+        # the route index above is unpickled on every fleet poll -- roughly
+        # every ten seconds, per process -- to look up eighty bytes of route.
+        # Merging them would make the common path pay for the rare one.
+        forward_index = prune_index(
+            merge_forward(cache.get(_forward_cache_key(island.key)) or {}, results, now),
+            vehicle_ids,
+            cfg['index_grace'],
+            now,
+        )
+        cache.set(_forward_cache_key(island.key), forward_index, ttl)
+        cache.set(
+            _stop_index_cache_key(island.key),
+            invert_to_stop_index(index, forward_index),
+            ttl,
+        )
 
     for vehicle in vehicles:
         entry = index.get(vehicle.get('id'))
-        vehicle['route'] = entry['route'] if entry else None
+        route = entry.get('route') if entry else None
+        vehicle['route'] = route or None
     return vehicles

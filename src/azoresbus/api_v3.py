@@ -23,6 +23,7 @@ from rest_framework.permissions import AllowAny
 from rest_framework.request import Request
 from rest_framework.response import Response
 
+from azoresbus.services_arrivals import stop_arrivals
 from azoresbus.services_route_index import route_catalogue
 from azoresbus.services_tracking import (
     TrackingDisabled,
@@ -136,3 +137,30 @@ def azoresbus_routes_view(request: Request) -> Response:
     return Response({'routes': sorted(
         routes.values(), key=lambda route: route['nameShort'],
     )})
+
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
+@throttle_classes([AzoresbusTrackingThrottle])
+def azoresbus_stop_arrivals_view(request: Request, stop_id: int) -> Response:
+    """Live buses inbound to one of our stops.
+
+    An empty list is a real answer -- at 23:00 nothing is running -- and is
+    deliberately distinct from the 503 you get when tracking is switched off and
+    the 502 when the AVL is unreachable. The client renders three different
+    things for those.
+    """
+    err = _require_island(request)
+    if err:
+        return err
+    with for_island(request.island):
+        try:
+            return Response({'arrivals': stop_arrivals(request.island, stop_id)})
+        except TrackingDisabled:
+            return _disabled()
+        except AzoresbusTrackingError:
+            return Response(
+                {'error': {'code': 'tracking_unavailable',
+                           'message': 'Upstream AVL unavailable'}},
+                status=status.HTTP_502_BAD_GATEWAY,
+            )
