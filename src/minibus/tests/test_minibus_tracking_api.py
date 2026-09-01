@@ -76,7 +76,8 @@ class MinibusTrackingApiTestCase(TestCase):
         body = response.json()
         self.assertEqual(body['vehicles'], FLEET_FIXTURE)
         self.assertEqual(body['vehicles'][0]['id'], '11010939')
-        self.assertEqual(body['cacheMaxAgeSeconds'], 10)
+        # Also the client's poll cadence — see MINIBUS_TRACKING_CACHE_TTL.
+        self.assertEqual(body['cacheMaxAgeSeconds'], 60)
         self.assertEqual(body['trackingCacheStatus'], 'miss')
         self.assertEqual(response['X-Minibus-Tracking-Cache'], 'miss')
 

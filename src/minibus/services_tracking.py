@@ -32,8 +32,13 @@ __all__ = ['CacheMeta']
 
 
 def get_tracking_config() -> dict[str, int]:
-    cache_ttl = config('MINIBUS_TRACKING_CACHE_TTL', default=10, cast=int)
-    stale_grace = config('MINIBUS_TRACKING_STALE_GRACE', default=60, cast=int)
+    # Also the client's poll cadence: it is echoed as `cacheMaxAgeSeconds` and
+    # `minibusTrackingPollIntervalMs` polls at exactly that rate. A minute keeps
+    # the map honest while cutting upstream traffic six-fold.
+    cache_ttl = config('MINIBUS_TRACKING_CACHE_TTL', default=60, cast=int)
+    # Must exceed cache_ttl, or the stale window is empty and a brief upstream
+    # blip blanks the map rather than serving the last good fleet.
+    stale_grace = config('MINIBUS_TRACKING_STALE_GRACE', default=180, cast=int)
     lock_ttl = config('MINIBUS_TRACKING_LOCK_TTL', default=5, cast=int)
     cache_ttl = max(CACHE_TTL_MIN, min(cache_ttl, CACHE_TTL_MAX))
     stale_grace = max(0, min(stale_grace, STALE_GRACE_MAX))

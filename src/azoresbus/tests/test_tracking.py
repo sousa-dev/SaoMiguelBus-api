@@ -19,7 +19,7 @@ from django.test import TestCase, override_settings
 from django.utils import timezone
 from rest_framework.test import APIClient
 
-from azoresbus.services_tracking import fleet_cache_key
+from azoresbus.services_tracking import fleet_cache_key, get_tracking_config
 from azoresbus.tracking_client import (
     serialize_fleet_vehicle,
     serialize_vehicle_detail,
@@ -128,10 +128,13 @@ class TrackingEndpointTests(TestCase):
         key = fleet_cache_key(self.island.key)
         envelope = cache.get(key)
         self.assertIsNotNone(envelope, 'the first call should have cached a fleet')
+        # Past the TTL but inside the stale grace: exactly the window this
+        # behaviour exists to cover.
+        cfg = get_tracking_config()
         envelope['fetched_at'] = (
-            timezone.now() - timedelta(seconds=30)
+            timezone.now() - timedelta(seconds=cfg['cache_ttl'] + 5)
         ).isoformat()
-        cache.set(key, envelope, 600)
+        cache.set(key, envelope, 6000)
 
         mock_get.side_effect = requests.RequestException('blip')
         response = self.client.get('/api/v3/azoresbus/vehicles', **HEADERS)
@@ -210,10 +213,13 @@ class TrackingEndpointTests(TestCase):
         # error and reaches for the button.
         key = fleet_cache_key(self.island.key)
         envelope = cache.get(key)
+        # Past the real TTL, whatever it is configured to be -- a hard-coded
+        # number here silently stops testing anything when the cadence changes.
+        expired_by = get_tracking_config()['cache_ttl'] + 5
         envelope['fetched_at'] = (
-            timezone.now() - timedelta(seconds=30)
+            timezone.now() - timedelta(seconds=expired_by)
         ).isoformat()
-        cache.set(key, envelope, 600)
+        cache.set(key, envelope, 6000)
         before = mock_get.call_count
 
         self.client.get('/api/v3/azoresbus/tracking/health', **HEADERS)
@@ -260,6 +266,22 @@ class TrackingEndpointTests(TestCase):
             )
         mock_get.assert_not_called()
         self.assertEqual(response.json()['status'], 'disabled')
+
+
+class TrackingConfigTests(TestCase):
+    def test_the_stale_window_is_not_empty(self):
+        """Stale-serve only exists while `cache_ttl < age <= stale_grace`.
+
+        Raising the TTL to the poll cadence without raising the grace closed
+        that window entirely once already: the fallback silently stopped
+        existing, and a one-off upstream blip would blank a working map. The
+        relationship matters, not the numbers, so assert the relationship.
+        """
+        cfg = get_tracking_config()
+        self.assertGreater(
+            cfg['stale_grace'], cfg['cache_ttl'],
+            'stale grace must outlast the TTL or a blip blanks the map',
+        )
 
 
 class SerializerShapeTests(TestCase):

@@ -51,11 +51,15 @@ def tracking_enabled(island) -> bool:
 def get_tracking_config() -> dict[str, int]:
     return {
         'cache_ttl': clamp(
-            config('AZORESBUS_TRACKING_CACHE_TTL', default=10, cast=int),
+            # Kept in step with AZORESBUS_TRACKING_POLL_MS on the client.
+            config('AZORESBUS_TRACKING_CACHE_TTL', default=60, cast=int),
             CACHE_TTL_MIN, CACHE_TTL_MAX,
         ),
         'stale_grace': clamp(
-            config('AZORESBUS_TRACKING_STALE_GRACE', default=60, cast=int),
+            # MUST exceed the cache TTL, or the stale window (ttl < age <=
+            # grace) is empty and a brief blip blanks the map instead of
+            # serving the last good fleet. Three TTLs of cover.
+            config('AZORESBUS_TRACKING_STALE_GRACE', default=180, cast=int),
             0, STALE_GRACE_MAX,
         ),
         'lock_ttl': clamp(
