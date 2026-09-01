@@ -183,6 +183,38 @@ class StopArrivalsTests(TestCase):
         self.assertEqual(response.status_code, 503)
         self.assertEqual(response.json()['error']['code'], 'tracking_disabled')
 
+    @patch('azoresbus.services_arrivals._refresh_deadline', return_value=1)
+    @patch('azoresbus.tracking_client.requests.get')
+    def test_a_slow_upstream_does_not_hold_the_request_open(
+        self, mock_get, _deadline,
+    ):
+        """The reason this endpoint has a deadline at all.
+
+        It holds a worker while it waits on upstream, so an unbounded wait
+        queues every other request behind it -- a slow arrivals lookup was
+        measurably delaying the stop page's own detail call, which is what made
+        the page look like it was blocked on live data. Past the deadline we
+        answer from the index instead.
+        """
+        import time
+
+        self._seed_index(due=7)
+
+        def _slow(*_args, **_kwargs):
+            time.sleep(5)
+            return MagicMock(ok=True, status_code=200, json=lambda: detail(2), text='')
+
+        mock_get.side_effect = _slow
+
+        started = time.monotonic()
+        response = self.client.get(self._url(), **HEADERS)
+        elapsed = time.monotonic() - started
+
+        self.assertLess(elapsed, 4, 'the deadline should have cut the wait short')
+        arrivals = response.json()['arrivals']
+        self.assertEqual(len(arrivals), 1, 'the bus is still real, just not re-read')
+        self.assertTrue(arrivals[0]['stale'])
+
     @patch('azoresbus.tracking_client.requests.get')
     def test_one_vehicle_serving_both_poles_is_listed_once(self, mock_get):
         """A bus passing outbound and inbound is still one bus coming."""

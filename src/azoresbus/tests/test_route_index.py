@@ -202,6 +202,36 @@ class EnrichmentEndpointTests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.json()['vehicles']), 1)
 
+    @patch('azoresbus.tracking_client.requests.get')
+    def test_a_slow_sweep_does_not_hold_the_fleet_request_open(self, mock_get):
+        """The deadline has to actually bound the request.
+
+        A `with ThreadPoolExecutor(...)` block calls shutdown(wait=True) on
+        exit, which waits for every running future and silently defeats the
+        timeout -- the module promises the opposite in its docstring, so this
+        pins it.
+        """
+        import time
+
+        def _response(url, **_kwargs):
+            if url.rstrip('/').endswith(DETAIL['id']):
+                time.sleep(5)
+                return MagicMock(ok=True, status_code=200,
+                                 json=lambda: DETAIL, text='')
+            return MagicMock(ok=True, status_code=200,
+                             json=lambda: [LIST_ITEM], text='')
+        mock_get.side_effect = _response
+
+        with patch.dict(
+            'os.environ', {'AZORESBUS_TRACKING_FANOUT_DEADLINE': '2'},
+        ):
+            started = time.monotonic()
+            response = self.client.get('/api/v3/azoresbus/vehicles', **HEADERS)
+            elapsed = time.monotonic() - started
+
+        self.assertEqual(response.status_code, 200)
+        self.assertLess(elapsed, 4.5, 'the fanout deadline should bound the request')
+
     @patch('azoresbus.services_route_index._fetch_route_for')
     @patch('azoresbus.tracking_client.requests.get')
     def test_the_sweep_is_rate_limited_between_polls(

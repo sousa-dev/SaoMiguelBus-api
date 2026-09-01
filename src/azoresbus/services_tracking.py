@@ -126,20 +126,31 @@ def get_fleet(island) -> list[dict]:
         return vehicles
 
 
-def get_vehicle(island, vehicle_id: str) -> dict:
-    if not tracking_enabled(island):
-        raise TrackingDisabled('tracking_disabled')
+def get_vehicle_raw(island_key: str, vehicle_id: str) -> dict:
+    """The cached upstream payload, untouched and ORM-free.
 
+    Split out from `get_vehicle` so it is safe to call from worker threads: it
+    reads the Django cache and HTTP only, never the ORM, so it needs no
+    `for_island` context (which would not propagate into a thread pool anyway).
+    """
     cfg = get_tracking_config()
     raw, _meta = cached_fetch(
-        cache_key=vehicle_cache_key(island.key, vehicle_id),
-        lock_key=_vehicle_lock_key(island.key, vehicle_id),
+        cache_key=vehicle_cache_key(island_key, vehicle_id),
+        lock_key=_vehicle_lock_key(island_key, vehicle_id),
         fetch_fn=lambda: fetch_vehicle_location(vehicle_id),
         cache_ttl=cfg['cache_ttl'],
         stale_grace=cfg['stale_grace'],
         lock_ttl=cfg['lock_ttl'],
         error_type=AzoresbusTrackingError,
     )
+    return raw
+
+
+def get_vehicle(island, vehicle_id: str) -> dict:
+    if not tracking_enabled(island):
+        raise TrackingDisabled('tracking_disabled')
+
+    raw = get_vehicle_raw(island.key, vehicle_id)
     # Read here, on the request thread, rather than inside the serializer: the
     # tracking client is imported by the route-index sweep's worker threads and
     # must stay free of the ORM.

@@ -280,17 +280,22 @@ def _sweep(vehicle_ids: list[str], cfg: dict[str, int]) -> dict[str, dict | None
         return {}
 
     results: dict[str, dict | None] = {}
-    with ThreadPoolExecutor(max_workers=cfg['concurrency']) as pool:
+    pool = ThreadPoolExecutor(max_workers=cfg['concurrency'])
+    try:
         futures = {
             pool.submit(_fetch_route_for, vehicle_id): vehicle_id
             for vehicle_id in vehicle_ids
         }
-        done, pending = wait(futures.keys(), timeout=cfg['deadline'])
+        done, _pending = wait(futures.keys(), timeout=cfg['deadline'])
         for future in done:
             results[futures[future]] = future.result()
-        for future in pending:
-            # Left to finish in the background; next sweep will ask again.
-            future.cancel()
+    finally:
+    # NOT a `with` block: the context manager calls shutdown(wait=True) on
+    # exit, which waits for every running future and silently defeats the
+    # timeout above. Anything still in flight is left to finish in the
+    # background -- its result still lands in the per-vehicle cache, so the work
+    # is not wasted, it just stops holding the request open.
+        pool.shutdown(wait=False, cancel_futures=True)
     return results
 
 
