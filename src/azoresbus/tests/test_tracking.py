@@ -10,13 +10,16 @@ the flag is off, so the entry point simply does not exist for clients.
 
 from __future__ import annotations
 
+from datetime import timedelta
 from unittest.mock import MagicMock, patch
 
 import requests
 from django.core.cache import cache
 from django.test import TestCase, override_settings
+from django.utils import timezone
 from rest_framework.test import APIClient
 
+from azoresbus.services_tracking import fleet_cache_key
 from azoresbus.tracking_client import (
     serialize_fleet_vehicle,
     serialize_vehicle_detail,
@@ -29,15 +32,39 @@ LOC_MEM_CACHE = {
 }
 
 # 98 claim 14: the exact key sets, list vs detail.
+# Note `status` vs `busStatus`: upstream puts PUNCTUALITY in `status` on the list
+# and the MOVEMENT state in `busStatus`, then swaps `status` to the movement
+# state on the detail. This fixture keeps them deliberately different so a
+# serializer that reads the wrong one fails loudly.
 LIST_ITEM = {'id': '11010934', 'position': {'lat': 37.74, 'lon': -25.66},
-             'status': 'ontime', 'color': 'EC6E00'}
+             'status': 'ontime', 'busStatus': 'idleAt', 'delay': 0,
+             'speed': 0.0, 'color': 'EC6E00'}
+# Deliberately out of sequence order, and stop 19 has no dueInMinutes because
+# upstream omits it for stops already passed.
+CIRCULATIONS = [
+    {'sequence': 21, 'stage': {'id': '31', 'name': 'FURNAS (CALDEIRAS)',
+                               'nameShort': '4033',
+                               'position': {'lat': 37.77, 'lon': -25.30}},
+     'departureTime': 33300, 'arrivalTime': 33300, 'dueInMinutes': 3},
+    {'sequence': 19, 'stage': {'id': '29', 'name': 'FURNAS (POLICIA)',
+                               'nameShort': '4052',
+                               'position': {'lat': 37.77, 'lon': -25.31}},
+     'departureTime': 33216, 'arrivalTime': 33216},
+    {'sequence': 20, 'stage': {'id': '30', 'name': 'FURNAS (PQ. CAMPISMO)',
+                               'nameShort': '4051',
+                               'position': {'lat': 37.77, 'lon': -25.31}},
+     'departureTime': 33146, 'arrivalTime': 33146, 'dueInMinutes': 0},
+]
 DETAIL = {
     'id': '11010934', 'fleetId': '25', 'licensePlate': '',
     'position': {'lat': 37.74, 'lon': -25.66}, 'speed': 2.81,
     'status': 'incomingAt', 'currentStopSequence': 20,
     'route': {'id': '4', 'name': 'LINHA D', 'nameShort': 'D',
               'color': 'EC6E00', 'isActive': False},
-    'journey': {'id': '5', 'type': 'frequency', 'shape': 'myieF'},
+    'journey': {'id': '5', 'type': 'frequency', 'shape': 'myieF',
+                'name': '08:35 >> 09:05', 'start': '08:35', 'end': '09:05',
+                'startTime': 30900, 'endTime': 32700, 'direction': 1,
+                'isActive': True, 'circulations': CIRCULATIONS},
 }
 
 
@@ -85,17 +112,145 @@ class TrackingEndpointTests(TestCase):
     def test_a_blip_serves_the_stale_fleet_rather_than_blanking_the_map(
         self, mock_get,
     ):
+        """Age the envelope past its TTL rather than deleting it.
+
+        Deleting the cache key would remove the stale copy along with the fresh
+        one, so the assertion below would pass for the wrong reason -- 502 is
+        also "not a blank map". Expiry is what we mean, so expiry is what we
+        simulate.
+        """
         self._flag(True)
         mock_get.return_value = MagicMock(
             ok=True, status_code=200, json=lambda: [LIST_ITEM], text='',
         )
         self.client.get('/api/v3/azoresbus/vehicles', **HEADERS)
-        cache.delete('azoresbus:tracking:fleet')       # TTL expiry
+
+        key = fleet_cache_key(self.island.key)
+        envelope = cache.get(key)
+        self.assertIsNotNone(envelope, 'the first call should have cached a fleet')
+        envelope['fetched_at'] = (
+            timezone.now() - timedelta(seconds=30)
+        ).isoformat()
+        cache.set(key, envelope, 600)
 
         mock_get.side_effect = requests.RequestException('blip')
         response = self.client.get('/api/v3/azoresbus/vehicles', **HEADERS)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.json()['vehicles']), 1)
+
+    @patch('azoresbus.tracking_client.requests.get')
+    def test_a_long_outage_stops_pretending_and_returns_502(self, mock_get):
+        """Stale grace is a grace, not a licence to serve yesterday's map."""
+        self._flag(True)
+        mock_get.return_value = MagicMock(
+            ok=True, status_code=200, json=lambda: [LIST_ITEM], text='',
+        )
+        self.client.get('/api/v3/azoresbus/vehicles', **HEADERS)
+
+        key = fleet_cache_key(self.island.key)
+        envelope = cache.get(key)
+        envelope['fetched_at'] = (
+            timezone.now() - timedelta(hours=2)
+        ).isoformat()
+        cache.set(key, envelope, 7200)
+
+        mock_get.side_effect = requests.RequestException('sustained outage')
+        response = self.client.get('/api/v3/azoresbus/vehicles', **HEADERS)
+        self.assertEqual(response.status_code, 502)
+
+    @patch('azoresbus.tracking_client.requests.get')
+    def test_vehicle_detail_is_cached(self, mock_get):
+        """Re-opening the same bus within the TTL must not re-hit the Pi."""
+        self._flag(True)
+        mock_get.return_value = MagicMock(
+            ok=True, status_code=200, json=lambda: DETAIL, text='',
+        )
+        first = self.client.get(
+            '/api/v3/azoresbus/vehicles/11010934', **HEADERS,
+        )
+        calls_after_first = mock_get.call_count
+        second = self.client.get(
+            '/api/v3/azoresbus/vehicles/11010934', **HEADERS,
+        )
+
+        self.assertEqual(first.status_code, 200)
+        self.assertEqual(second.status_code, 200)
+        self.assertEqual(mock_get.call_count, calls_after_first)
+
+    @patch('azoresbus.tracking_client.requests.get')
+    def test_health_verdict_is_cached(self, mock_get):
+        self._flag(True)
+        mock_get.return_value = MagicMock(
+            ok=True, status_code=200, json=lambda: [LIST_ITEM], text='',
+        )
+        self.client.get('/api/v3/azoresbus/tracking/health', **HEADERS)
+        after_first = mock_get.call_count
+
+        self.client.get('/api/v3/azoresbus/tracking/health', **HEADERS)
+        self.assertEqual(mock_get.call_count, after_first)
+
+    @patch('azoresbus.tracking_client.requests.get')
+    def test_force_re_probes_upstream_when_the_fleet_has_expired(self, mock_get):
+        """"Try again" must actually try again.
+
+        Force bypasses the health VERDICT cache only; the fleet keeps its own
+        short TTL underneath. That is deliberate rather than a half-measure: the
+        Try Again button is only ever on screen while tracking is unavailable,
+        and in that state there is no fresh fleet to be served -- so the forced
+        call reaches upstream, which is the whole point. An unforced call in the
+        same state would sit on the cached failure verdict and look broken.
+        """
+        self._flag(True)
+        mock_get.return_value = MagicMock(
+            ok=True, status_code=200, json=lambda: [LIST_ITEM], text='',
+        )
+        self.client.get('/api/v3/azoresbus/tracking/health', **HEADERS)
+
+        # Age the fleet past its TTL, as it would be by the time a user reads an
+        # error and reaches for the button.
+        key = fleet_cache_key(self.island.key)
+        envelope = cache.get(key)
+        envelope['fetched_at'] = (
+            timezone.now() - timedelta(seconds=30)
+        ).isoformat()
+        cache.set(key, envelope, 600)
+        before = mock_get.call_count
+
+        self.client.get('/api/v3/azoresbus/tracking/health', **HEADERS)
+        self.assertEqual(
+            mock_get.call_count, before,
+            'an unforced call should still be sitting on the cached verdict',
+        )
+
+        self.client.get('/api/v3/azoresbus/tracking/health?force=1', **HEADERS)
+        self.assertGreater(mock_get.call_count, before)
+
+    @patch('azoresbus.tracking_client.requests.get')
+    def test_routes_are_served_even_while_tracking_is_disabled(self, mock_get):
+        """The catalogue is network reference data, not a tracking privilege."""
+        self._flag(False)
+        mock_get.return_value = MagicMock(
+            ok=True, status_code=200, text='',
+            json=lambda: [
+                {'id': '2', 'nameShort': '102', 'name': 'PDL - RG',
+                 'color': '2D59A9', 'isActive': True},
+                {'id': '1', 'nameShort': '101', 'name': 'PDL - RIBEIRINHA',
+                 'color': '2D59A9', 'isActive': True},
+            ],
+        )
+        response = self.client.get('/api/v3/azoresbus/routes', **HEADERS)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(
+            [r['nameShort'] for r in response.json()['routes']], ['101', '102'],
+        )
+
+    @patch('azoresbus.tracking_client.requests.get')
+    def test_routes_degrade_to_empty_rather_than_erroring(self, mock_get):
+        self._flag(True)
+        mock_get.side_effect = requests.RequestException('catalogue down')
+        response = self.client.get('/api/v3/azoresbus/routes', **HEADERS)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json()['routes'], [])
 
     def test_health_reports_disabled_without_calling_upstream(self):
         self._flag(False)
@@ -113,8 +268,27 @@ class SerializerShapeTests(TestCase):
     def test_list_has_colour_at_the_top_level(self):
         payload = serialize_fleet_vehicle(LIST_ITEM)
         self.assertEqual(
-            sorted(payload), ['color', 'id', 'position', 'status'],
+            sorted(payload),
+            ['busStatus', 'color', 'delay', 'id', 'position', 'route', 'speed',
+             'status'],
         )
+
+    def test_list_carries_movement_state_not_only_punctuality(self):
+        """Dropping busStatus makes every bus read "on time" forever.
+
+        `status` is punctuality on the list, so a fleet row built from it alone
+        can never say "at the stop" -- which is the one thing a waiting rider
+        actually wants to know.
+        """
+        payload = serialize_fleet_vehicle(LIST_ITEM)
+        self.assertEqual(payload['status'], 'ontime')
+        self.assertEqual(payload['busStatus'], 'idleAt')
+
+    def test_list_route_is_a_slot_for_the_index_to_fill(self):
+        """Present-but-None, so the key set does not depend on cache warmth."""
+        payload = serialize_fleet_vehicle(LIST_ITEM)
+        self.assertIn('route', payload)
+        self.assertIsNone(payload['route'])
 
     def test_detail_has_no_top_level_colour(self):
         payload = serialize_vehicle_detail(DETAIL)
@@ -126,3 +300,30 @@ class SerializerShapeTests(TestCase):
         payload = serialize_vehicle_detail(DETAIL)
         self.assertEqual(payload['currentStopSequence'], 20)
         self.assertEqual(payload['journey']['id'], '5')
+        self.assertEqual(payload['journey']['direction'], 1)
+
+    def test_detail_carries_circulations_in_sequence_order(self):
+        """The ETA list is the reason the detail call exists."""
+        payload = serialize_vehicle_detail(DETAIL)
+        circulations = payload['journey']['circulations']
+        self.assertEqual([c['sequence'] for c in circulations], [19, 20, 21])
+        self.assertEqual(
+            circulations[0]['stage']['name'], 'FURNAS (POLICIA)',
+        )
+        self.assertEqual(circulations[0]['stage']['position']['lat'], 37.77)
+
+    def test_a_passed_stop_keeps_a_null_due_rather_than_being_dropped(self):
+        """None means "behind us", not "unknown" -- the row still renders."""
+        payload = serialize_vehicle_detail(DETAIL)
+        by_sequence = {
+            c['sequence']: c for c in payload['journey']['circulations']
+        }
+        self.assertIsNone(by_sequence[19]['dueInMinutes'])
+        self.assertEqual(by_sequence[20]['dueInMinutes'], 0)
+        self.assertEqual(by_sequence[21]['dueInMinutes'], 3)
+
+    def test_a_vehicle_between_journeys_serialises_without_circulations(self):
+        payload = serialize_vehicle_detail(
+            {**DETAIL, 'journey': {'id': '5', 'type': 'frequency'}},
+        )
+        self.assertEqual(payload['journey']['circulations'], [])

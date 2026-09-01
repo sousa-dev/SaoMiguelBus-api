@@ -113,6 +113,7 @@ REST_FRAMEWORK = {
         'marketplace_write': '20/min',
         'traffic_write': '30/min',
         'minibus_tracking': '60/min',
+        'azoresbus_tracking': '60/min',
         'atlas_sync': '60/min',
     },
 }
