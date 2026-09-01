@@ -123,20 +123,34 @@ def serialize_route(raw: dict) -> dict:
     }
 
 
-def serialize_circulation(raw: dict) -> dict:
+def serialize_circulation(raw: dict, stop_identity: dict[str, dict] | None = None) -> dict:
     """One scheduled stop on a vehicle's journey.
 
     `dueInMinutes` is present only from `currentStopSequence` onwards — upstream
     omits it for stops already passed, so `None` means "behind us", not "unknown".
+
+    `stop_identity` maps the upstream `stage.id` onto our own stop (see
+    `services_stop_identity`). It is passed in rather than looked up because this
+    module stays free of the ORM — it also runs on the route-index sweep's worker
+    threads. Absent or unmatched, the raw upstream name is kept and `stopId` is
+    None: an unrecognised stop is still a stop the rider can see.
     """
     stage = raw.get('stage') or {}
     position = stage.get('position') or {}
+    stage_id = str(stage.get('id', ''))
+    upstream_name = stage.get('name', '')
+    known = (stop_identity or {}).get(stage_id)
     return {
         'sequence': raw.get('sequence'),
         'stage': {
-            'id': str(stage.get('id', '')),
-            'name': stage.get('name', ''),
+            'id': stage_id,
+            # The operator's own spelling, kept so the two are comparable when a
+            # name looks wrong in the field.
+            'name': upstream_name,
             'nameShort': stage.get('nameShort', ''),
+            # Ours. Falls back to theirs rather than to nothing.
+            'canonicalName': known['name'] if known else upstream_name,
+            'stopId': known['stopId'] if known else None,
             'position': {'lat': position.get('lat'), 'lon': position.get('lon')},
         },
         'departureTime': raw.get('departureTime'),
@@ -165,7 +179,9 @@ def serialize_fleet_vehicle(raw: dict) -> dict:
     }
 
 
-def serialize_vehicle_detail(raw: dict) -> dict:
+def serialize_vehicle_detail(
+    raw: dict, stop_identity: dict[str, dict] | None = None,
+) -> dict:
     """DETAIL shape. Note there is NO top-level color -- it is on `route`.
 
     `journey.circulations` is the whole point of the detail call: it is the stop
@@ -176,7 +192,7 @@ def serialize_vehicle_detail(raw: dict) -> dict:
     route = raw.get('route') or {}
     journey = raw.get('journey') or {}
     circulations = [
-        serialize_circulation(circulation)
+        serialize_circulation(circulation, stop_identity)
         for circulation in journey.get('circulations') or []
     ]
     circulations.sort(key=lambda item: item['sequence'] if item['sequence'] is not None else 0)

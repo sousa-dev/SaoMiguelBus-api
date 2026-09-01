@@ -26,6 +26,7 @@ from azoresbus.tracking_client import (
     serialize_fleet_vehicle,
     serialize_vehicle_detail,
 )
+from azoresbus.services_stop_identity import safe_stop_identity_map
 from shared.tracking_cache import CacheMeta, cached_fetch, clamp
 from transit.services.schedule_phase import azoresbus_flags
 
@@ -135,7 +136,10 @@ def get_vehicle(island, vehicle_id: str) -> dict:
         lock_ttl=cfg['lock_ttl'],
         error_type=AzoresbusTrackingError,
     )
-    return serialize_vehicle_detail(raw)
+    # Read here, on the request thread, rather than inside the serializer: the
+    # tracking client is imported by the route-index sweep's worker threads and
+    # must stay free of the ORM.
+    return serialize_vehicle_detail(raw, safe_stop_identity_map(island))
 
 
 def get_tracking_health(island, *, force: bool = False) -> dict:
