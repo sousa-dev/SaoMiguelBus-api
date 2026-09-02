@@ -25,6 +25,7 @@ from rest_framework.response import Response
 
 from azoresbus.services_arrivals import stop_arrivals
 from azoresbus.services_route_index import route_catalogue
+from azoresbus.services_trip_live import live_for_trips, parse_trip_ids
 from azoresbus.services_tracking import (
     TrackingDisabled,
     get_fleet,
@@ -93,6 +94,34 @@ def azoresbus_vehicle_detail_view(request: Request, vehicle_id: str) -> Response
                 {'error': {'code': 'not_found', 'message': 'Vehicle not found'}},
                 status=status.HTTP_404_NOT_FOUND,
             )
+        except AzoresbusTrackingError:
+            return Response(
+                {'error': {'code': 'tracking_unavailable',
+                           'message': 'Upstream AVL unavailable'}},
+                status=status.HTTP_502_BAD_GATEWAY,
+            )
+
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
+@throttle_classes([AzoresbusTrackingThrottle])
+def azoresbus_trips_live_view(request: Request) -> Response:
+    """The live bus for each tracked trip, or an honest reason there is none."""
+    err = _require_island(request)
+    if err:
+        return err
+    trip_ids = parse_trip_ids(request.GET.get('tripIds'))
+    if not trip_ids:
+        return Response(
+            {'error': {'code': 'trip_ids_required',
+                       'message': 'tripIds must list at least one trip id'}},
+            status=status.HTTP_400_BAD_REQUEST,
+        )
+    with for_island(request.island):
+        try:
+            return Response({'trips': live_for_trips(request.island, trip_ids)})
+        except TrackingDisabled:
+            return _disabled()
         except AzoresbusTrackingError:
             return Response(
                 {'error': {'code': 'tracking_unavailable',

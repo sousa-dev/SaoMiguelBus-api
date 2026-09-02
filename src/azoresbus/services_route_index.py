@@ -376,3 +376,8 @@ def enrich_fleet(island, vehicles: list[dict]) -> list[dict]:
         route = entry.get('route') if entry else None
         vehicle['route'] = route or None
     return vehicles
+
+
+def route_index(island) -> dict[str, dict]:
+    """`{vehicle_id: {route, journeyId, refreshed_at}}`, or empty before the first sweep."""
+    return cache.get(_index_cache_key(island.key)) or {}

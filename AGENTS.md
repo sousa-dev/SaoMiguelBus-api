@@ -194,6 +194,15 @@ Read-side, **AUTH_KEY-protected** endpoints (via `X-Auth-Key` header or `?key=`)
 - **`headsign` is not a destination.** Upstream's journey `name` holds a time range on the live API ("08:00 » 08:50"), so departures also carry **`destination`** — the trip's final stop by `sequence` (never by clock; a night trip wraps). Show `destination`, not `headsign`.
 - `GET /api/v3/transit/lines/{code}/shape` — a whole line end to end: one path and ordered stop list per direction. The **longest** decoded shape wins per direction, because short trips are the ones that turn back early or skip a seasonal branch. Empty on legacy.
 
+### AzoresBus live tracking (`azoresbus` — shipped)
+
+Proxy of the Eleven Systems AVL feed at `azb.elevensystems.pt/api` (same vendor as PDL MiniBus, different host). Flag: `Island.feature_flags.azoresbus.trackingEnabled`. Three answers, deliberately distinct: flag off → 503 `tracking_disabled`; upstream down → 502 `tracking_unavailable`; nobody in service → 200 and empty. Empty at 03:00 is correct, not an error.
+
+- `GET /api/v3/azoresbus/vehicles`, `/vehicles/{id}`, `/routes`, `/stops/{id}/arrivals`, `/tracking/health` — fleet, detail with live ETAs, catalogue, inbound buses per stop, probe. The list carries no line; `services_route_index.py` sweeps details in the background and attaches `route` + `journeyId` per vehicle.
+- `GET /api/v3/azoresbus/trips/live?tripIds=1,2` — **the live bus for a tracked trip.** Joins `Trip` → `ExternalJourney.external_id` → the route index's `journeyId` → vehicle, then re-reads that vehicle's detail and requires its `journey.id` to agree (the index lags a few minutes at journey changeover; a wrong bus is worse than none). Per trip: `state` `live` | `not_found` | `unsupported` (no upstream journey — legacy dataset) and a `vehicle` with `position`, `delaySeconds`, `currentStopSequence` (same sequence space as `StopTime.sequence`), `nextStop {sequence,name,stopId,dueInMinutes}`, `capturedAt`, `stale` (detail unreadable: position real, progress unknown). Max 5 ids. Logic: `azoresbus/services_trip_live.py`.
+- **Verify the join before trusting it:** `python manage.py report_live_journey_match` counts vehicles whose live journey id resolves to a trip. Run during service hours.
+- Env: `AZORESBUS_TRACKING_CACHE_TTL` (60s), `AZORESBUS_TRACKING_ROUTE_INDEX_TTL` (180s), `AZORESBUS_TRACKING_SWEEP_INTERVAL` (30s), `AZORESBUS_TRIP_LIVE_DEADLINE` (4s, clamp 1–20).
+
 ### Backwards timetable rows (`transit` — fixed)
 
 Legacy line 206 reaches sequence 12 at `08h20` and sequence 13 at `08h10`, with no `day_offset` to explain it. Sequence order cannot catch this — the sequence *is* in order, only the clock disagrees — so `matcher.valid_pairs` now requires the ride to advance in absolute minutes as well.
