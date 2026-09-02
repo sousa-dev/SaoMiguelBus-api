@@ -5,6 +5,7 @@ from azoresbus.services_trip_live import (
     next_stop_from_detail,
     parse_trip_ids,
     serialize_live_vehicle,
+    upcoming_stops_from_detail,
 )
 
 
@@ -55,26 +56,61 @@ class NextStopTests(SimpleTestCase):
         ]}}, {}))
 
 
+class UpcomingStopsTests(SimpleTestCase):
+    RAW = {'journey': {'circulations': [
+        {'sequence': 3, 'stage': {'id': '1115', 'name': 'FURNAS'}, 'dueInMinutes': None},
+        {'sequence': 5, 'stage': {'id': '1140', 'name': 'RIBEIRA GRANDE'}, 'dueInMinutes': 9},
+        {'sequence': 4, 'stage': {'id': '1134', 'name': 'CAMINHO NOVO'}, 'dueInMinutes': 2},
+    ]}}
+
+    def test_returns_every_stop_still_ahead_sorted_by_sequence(self):
+        identity = {'1134': {'stopId': 55, 'name': 'Caminho Novo'}}
+        out = upcoming_stops_from_detail(self.RAW, identity)
+        self.assertEqual(out, [
+            {'sequence': 4, 'name': 'Caminho Novo', 'stopId': 55, 'dueInMinutes': 2},
+            {'sequence': 5, 'name': 'RIBEIRA GRANDE', 'stopId': None, 'dueInMinutes': 9},
+        ])
+
+    def test_empty_when_nothing_is_ahead(self):
+        raw = {'journey': {'circulations': [
+            {'sequence': 1, 'stage': {'id': '1'}, 'dueInMinutes': None},
+        ]}}
+        self.assertEqual(upcoming_stops_from_detail(raw, {}), [])
+
+    def test_next_stop_from_detail_is_the_first_of_the_list(self):
+        self.assertEqual(
+            next_stop_from_detail(self.RAW, {}),
+            upcoming_stops_from_detail(self.RAW, {})[0],
+        )
+
+
 class SerializeLiveVehicleTests(SimpleTestCase):
     def test_shape(self):
         fleet_item = {'id': 'v1', 'position': {'lat': 37.8, 'lon': -25.5}, 'delay': 120}
         raw = {'id': 'v1', 'speed': 12.5, 'status': 'inTransitTo', 'currentStopSequence': 37}
+        upcoming = [
+            {'sequence': 38, 'name': 'X', 'stopId': 1, 'dueInMinutes': 3},
+            {'sequence': 39, 'name': 'Y', 'stopId': 2, 'dueInMinutes': 7},
+        ]
         out = serialize_live_vehicle(fleet_item, raw, '2026-09-02T10:00:00+00:00',
-                                     {'sequence': 38, 'name': 'X', 'stopId': 1, 'dueInMinutes': 3},
-                                     stale=False)
+                                     upcoming, stale=False)
         self.assertEqual(sorted(out), ['capturedAt', 'currentStopSequence', 'delaySeconds', 'id',
-                                       'nextStop', 'position', 'speed', 'stale', 'status'])
+                                       'nextStop', 'position', 'speed', 'stale', 'status',
+                                       'upcomingStops'])
         self.assertEqual(out['position'], {'lat': 37.8, 'lon': -25.5})
         self.assertEqual(out['delaySeconds'], 120)
         self.assertEqual(out['currentStopSequence'], 37)
+        self.assertEqual(out['nextStop'], upcoming[0])
+        self.assertEqual(out['upcomingStops'], upcoming)
 
     def test_stale_without_detail(self):
         out = serialize_live_vehicle({'id': 'v1', 'position': {'lat': 1, 'lon': 2}, 'delay': None},
-                                     {}, 'when', None, stale=True)
+                                     {}, 'when', [], stale=True)
         self.assertEqual(out['id'], 'v1')
         self.assertTrue(out['stale'])
         self.assertIsNone(out['currentStopSequence'])
         self.assertIsNone(out['nextStop'])
+        self.assertEqual(out['upcomingStops'], [])
 
 
 from datetime import timedelta
@@ -170,6 +206,7 @@ class TripsLiveEndpointTests(TestCase):
         self.assertEqual(live['vehicle']['delaySeconds'], 120)
         self.assertEqual(live['vehicle']['currentStopSequence'], 3)
         self.assertEqual(live['vehicle']['nextStop']['dueInMinutes'], 2)
+        self.assertEqual(live['vehicle']['upcomingStops'], [live['vehicle']['nextStop']])
         self.assertFalse(live['vehicle']['stale'])
         self.assertEqual(legacy, {'tripId': self.legacy_trip.id, 'state': 'unsupported', 'vehicle': None})
 
@@ -203,6 +240,7 @@ class TripsLiveEndpointTests(TestCase):
         self.assertEqual(row['state'], 'live')
         self.assertTrue(row['vehicle']['stale'])
         self.assertIsNone(row['vehicle']['nextStop'])
+        self.assertEqual(row['vehicle']['upcomingStops'], [])
 
     @patch('azoresbus.tracking_client.requests.get')
     def test_upstream_down_is_502(self, mock_get):

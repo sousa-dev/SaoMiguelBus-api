@@ -83,32 +83,40 @@ def match_vehicles(
     return matches
 
 
-def next_stop_from_detail(raw: dict, stop_identity: dict[str, dict] | None) -> dict | None:
-    """The first stop still ahead of the bus.
+def upcoming_stops_from_detail(raw: dict, stop_identity: dict[str, dict] | None) -> list[dict]:
+    """Every stop still ahead of the bus, nearest first.
 
     Upstream omits `dueInMinutes` for stops already passed, so its presence is
-    the filter (same rule as `services_route_index.forward_stops`).
+    the filter (same rule as `services_route_index.forward_stops`). Kept as the
+    whole list, not just the nearest one, so the app's trip detail page can show
+    a live ETA against every remaining stop rather than only the next one.
     """
     circulations = (raw.get('journey') or {}).get('circulations') or []
     ahead = [c for c in circulations if c.get('dueInMinutes') is not None]
-    if not ahead:
-        return None
-    nearest = min(ahead, key=lambda c: int(c.get('sequence') or 0))
-    stage = nearest.get('stage') or {}
-    identity = (stop_identity or {}).get(str(stage.get('id')), {})
-    return {
-        'sequence': nearest.get('sequence'),
-        'name': identity.get('name') or stage.get('name', ''),
-        'stopId': identity.get('stopId'),
-        'dueInMinutes': int(nearest['dueInMinutes']),
-    }
+    out: list[dict] = []
+    for circulation in sorted(ahead, key=lambda c: int(c.get('sequence') or 0)):
+        stage = circulation.get('stage') or {}
+        identity = (stop_identity or {}).get(str(stage.get('id')), {})
+        out.append({
+            'sequence': circulation.get('sequence'),
+            'name': identity.get('name') or stage.get('name', ''),
+            'stopId': identity.get('stopId'),
+            'dueInMinutes': int(circulation['dueInMinutes']),
+        })
+    return out
+
+
+def next_stop_from_detail(raw: dict, stop_identity: dict[str, dict] | None) -> dict | None:
+    """The first stop still ahead of the bus."""
+    upcoming = upcoming_stops_from_detail(raw, stop_identity)
+    return upcoming[0] if upcoming else None
 
 
 def serialize_live_vehicle(
     fleet_item: dict,
     raw: dict,
     captured_at: str,
-    next_stop: dict | None,
+    upcoming_stops: list[dict],
     *,
     stale: bool,
 ) -> dict:
@@ -116,7 +124,7 @@ def serialize_live_vehicle(
 
     `delay` lives only on the list; movement `status` and the stop sequence only
     on the detail. `stale` means the detail could not be read this time, so the
-    position is real but the sequence and next stop are unknown.
+    position is real but the sequence and stop ETAs are unknown.
     """
     return {
         'id': str(raw.get('id') or fleet_item.get('id', '')),
@@ -125,7 +133,8 @@ def serialize_live_vehicle(
         'speed': raw.get('speed'),
         'status': raw.get('status', ''),
         'currentStopSequence': raw.get('currentStopSequence'),
-        'nextStop': next_stop,
+        'nextStop': upcoming_stops[0] if upcoming_stops else None,
+        'upcomingStops': upcoming_stops,
         'capturedAt': captured_at,
         'stale': stale,
     }
@@ -206,7 +215,7 @@ def live_for_trips(island, trip_ids: list[int]) -> list[dict]:
         raw = details.get(vehicle_id)
         if raw is None:
             vehicle = serialize_live_vehicle(
-                fleet_by_id[vehicle_id], {}, captured_at, None, stale=True,
+                fleet_by_id[vehicle_id], {}, captured_at, [], stale=True,
             )
         elif str((raw.get('journey') or {}).get('id', '')) != journey_id:
             # The index lagged; the bus has moved on to another journey.
@@ -215,7 +224,7 @@ def live_for_trips(island, trip_ids: list[int]) -> list[dict]:
         else:
             vehicle = serialize_live_vehicle(
                 fleet_by_id[vehicle_id], raw, captured_at,
-                next_stop_from_detail(raw, identity), stale=False,
+                upcoming_stops_from_detail(raw, identity), stale=False,
             )
         rows.append({'tripId': trip_id, 'state': STATE_LIVE, 'vehicle': vehicle})
     return rows
