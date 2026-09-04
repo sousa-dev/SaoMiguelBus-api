@@ -40,3 +40,5 @@ redis==5.2.1
 feedparser==6.0.11
 beautifulsoup4==4.12.3
 requests==2.32.3
+## APNs (iOS Live Activity push) -- needs HTTP/2, which `requests` cannot speak
+httpx[http2]==0.27.2

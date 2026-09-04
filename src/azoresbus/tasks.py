@@ -138,6 +138,118 @@ def sync_tariffs_task(island_key: str | None = None) -> dict:
 SYNC_STALE_DAYS = config('AZORESBUS_SYNC_STALE_DAYS', default=10, cast=int)
 
 
+# -- iOS Live Activity push (Uber-style live trip bar) ----------------------
+
+PUSH_LOCK_KEY = 'azoresbus:live_activity_push:lock'
+# Well under the beat interval (60s): a run that is genuinely stuck should
+# not block every later tick for its full TTL, only the ones that would have
+# overlapped it.
+PUSH_LOCK_TTL = 50
+
+
+@shared_task(name='azoresbus.push_live_activities')
+def push_live_activities_task() -> dict:
+    """Keeps every registered iOS Live Activity fresh.
+
+    Beat-scheduled roughly once a minute (migration
+    `0004_periodic_task_live_activities`). Reuses `live_for_trips` -- the same
+    join `/api/v3/azoresbus/trips/live` uses -- rather than re-deriving which
+    vehicle is running which trip a second time.
+    """
+    from django.utils import timezone
+
+    from azoresbus.apns import (
+        EVENT_END,
+        EVENT_UPDATE,
+        ApnsError,
+        live_activity_payload,
+        push_live_activity,
+    )
+    from azoresbus.models import LiveActivityRegistration
+    from azoresbus.services_live_activity_push import (
+        current_leg,
+        has_finished,
+        snapshot_from_live_row,
+    )
+    from azoresbus.services_trip_live import live_for_trips
+    from tenancy.models import Island
+    from tenancy.services import for_island
+
+    if not cache.add(PUSH_LOCK_KEY, 'held', PUSH_LOCK_TTL):
+        return {'status': 'skipped', 'reason': 'another run holds the lock'}
+
+    pushed = 0
+    ended = 0
+    failed = 0
+
+    try:
+        now = timezone.now()
+        for island in Island.objects.filter(is_live=True):
+            with for_island(island):
+                registrations = list(
+                    LiveActivityRegistration.objects.filter(
+                        island=island, ended_at__isnull=True,
+                    )
+                )
+                if not registrations:
+                    continue
+
+                trip_ids = sorted({
+                    leg['tripId'] for reg in registrations for leg in reg.legs
+                })
+                rows_by_trip: dict[int, dict] = {}
+                if trip_ids:
+                    try:
+                        rows_by_trip = {
+                            row['tripId']: row for row in live_for_trips(island, trip_ids)
+                        }
+                    except Exception:
+                        logger.exception(
+                            'live_for_trips failed during live-activity push island=%s',
+                            island.key,
+                        )
+
+                for registration in registrations:
+                    leg = current_leg(registration.legs, now)
+                    if leg is None:
+                        continue
+
+                    finished = has_finished(registration.legs, now)
+                    snapshot = snapshot_from_live_row(leg, rows_by_trip.get(leg['tripId']), now)
+                    if finished:
+                        snapshot['state'] = 'completed'
+
+                    payload = live_activity_payload(
+                        snapshot,
+                        event=EVENT_END if finished else EVENT_UPDATE,
+                        # A few minutes' grace before the card actually
+                        # disappears, so "trip finished" is legible rather
+                        # than the card vanishing mid-glance.
+                        dismiss_in_seconds=5 * 60,
+                    )
+                    try:
+                        push_live_activity(registration.push_token, registration.environment, payload)
+                    except ApnsError as exc:
+                        failed += 1
+                        registration.failure_count += 1
+                        if exc.terminal:
+                            registration.ended_at = now
+                        registration.save(update_fields=['failure_count', 'ended_at'])
+                        continue
+
+                    registration.last_pushed_at = now
+                    if finished:
+                        registration.ended_at = now
+                        ended += 1
+                    else:
+                        pushed += 1
+                    registration.save(update_fields=['last_pushed_at', 'ended_at'])
+    finally:
+        cache.delete(PUSH_LOCK_KEY)
+
+    return {'status': 'ok', 'pushed': pushed, 'ended': ended, 'failed': failed}
+
+
 def maybe_queue_stale_sync(island) -> bool:
     """Enqueue a sync if the data is stale, and never delay the caller.
 

@@ -161,3 +161,45 @@ class TariffSnapshot(TenantScopedModel):
 
     def __str__(self) -> str:
         return f'tariffs {self.effective_date} ({self.content_hash[:8]})'
+
+
+class LiveActivityRegistration(TenantScopedModel):
+    """An iOS Live Activity that wants push updates for a tracked trip.
+
+    Stores no personal data -- a push token, the trip ids the rider is
+    tracking, and when to stop pushing. `push_token` is an ActivityKit
+    push-to-update token, not a device token and not an Expo push token; the
+    Expo push service does not proxy the `liveactivity` APNs push type, so
+    this is sent to Apple directly (`azoresbus/apns.py`).
+
+    `ended_at` rather than deleting on unregister: the beat task
+    (`azoresbus.push_live_activities`) still owes the Live Activity a final
+    `event: "end"` push so it dismisses itself cleanly rather than sitting on
+    the Lock Screen frozen until Apple's own ceiling expires it.
+    """
+
+    ENVIRONMENT_DEVELOPMENT = 'development'
+    ENVIRONMENT_PRODUCTION = 'production'
+    ENVIRONMENT_CHOICES = [
+        (ENVIRONMENT_DEVELOPMENT, 'Development'),
+        (ENVIRONMENT_PRODUCTION, 'Production'),
+    ]
+
+    push_token = models.CharField(max_length=200, unique=True, db_index=True)
+    environment = models.CharField(max_length=16, choices=ENVIRONMENT_CHOICES)
+    activity_key = models.CharField(max_length=64, blank=True, default='')
+    # [{'tripId': int, 'startsAt': iso str, 'endsAt': iso str}, ...]
+    legs = models.JSONField(default=list)
+    expires_at = models.DateTimeField()
+    ended_at = models.DateTimeField(null=True, blank=True)
+    last_pushed_at = models.DateTimeField(null=True, blank=True)
+    failure_count = models.PositiveSmallIntegerField(default=0)
+    created_at = models.DateTimeField(default=timezone.now)
+
+    class Meta:
+        indexes = [
+            models.Index(fields=['island', 'ended_at', 'expires_at']),
+        ]
+
+    def __str__(self) -> str:
+        return f'live activity {self.activity_key or self.pk} ({self.environment})'

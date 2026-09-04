@@ -24,6 +24,11 @@ from rest_framework.request import Request
 from rest_framework.response import Response
 
 from azoresbus.services_arrivals import stop_arrivals
+from azoresbus.services_live_activity import (
+    LiveActivityValidationError,
+    register_live_activity,
+    unregister_live_activity,
+)
 from azoresbus.services_route_index import route_catalogue
 from azoresbus.services_trip_live import live_for_trips, parse_trip_ids
 from azoresbus.services_tracking import (
@@ -128,6 +133,42 @@ def azoresbus_trips_live_view(request: Request) -> Response:
                            'message': 'Upstream AVL unavailable'}},
                 status=status.HTTP_502_BAD_GATEWAY,
             )
+
+
+@api_view(['POST'])
+@permission_classes([AllowAny])
+@throttle_classes([AzoresbusTrackingThrottle])
+def azoresbus_live_activity_register_view(request: Request) -> Response:
+    """A rider's iOS Live Activity push token, so the beat task can push it updates."""
+    err = _require_island(request)
+    if err:
+        return err
+    with for_island(request.island):
+        try:
+            register_live_activity(request.island, request.data)
+        except TrackingDisabled:
+            return _disabled()
+        except LiveActivityValidationError as exc:
+            return Response(
+                {'error': {'code': 'invalid_request', 'message': str(exc)}},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+        return Response({'registered': True}, status=status.HTTP_201_CREATED)
+
+
+@api_view(['DELETE'])
+@permission_classes([AllowAny])
+@throttle_classes([AzoresbusTrackingThrottle])
+def azoresbus_live_activity_unregister_view(request: Request, push_token: str) -> Response:
+    err = _require_island(request)
+    if err:
+        return err
+    with for_island(request.island):
+        try:
+            unregister_live_activity(request.island, push_token)
+        except TrackingDisabled:
+            return _disabled()
+    return Response(status=status.HTTP_204_NO_CONTENT)
 
 
 @api_view(['GET'])
