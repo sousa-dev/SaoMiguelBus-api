@@ -17,6 +17,7 @@ from shared.live_counts import (
     read_live_count,
     record_live_count,
     record_live_outage,
+    should_attempt_refresh,
 )
 
 AZORES = ZoneInfo('Atlantic/Azores')
@@ -142,3 +143,34 @@ class NeedsRefreshTests(TestCase):
 
     def test_a_recorded_nonzero_count_does_not_need_a_refresh(self):
         self.assertFalse(needs_refresh({'status': 'ok', 'vehicles': 5}))
+
+
+class ShouldAttemptRefreshTests(TestCase):
+    """A completely missing record is the one case that ignores the clock --
+    a fresh deploy or a Redis flush must self-heal without waiting for
+    morning, since MiniBus (unlike AzoresBus) has no background sweep of its
+    own keeping it warm."""
+
+    NIGHT = datetime(2026, 9, 4, 23, 0, tzinfo=AZORES)
+    DAY = datetime(2026, 9, 4, 12, 0, tzinfo=AZORES)
+
+    def test_no_record_refreshes_even_at_night(self):
+        self.assertTrue(should_attempt_refresh(None, now=self.NIGHT))
+
+    def test_no_record_refreshes_in_daytime_too(self):
+        self.assertTrue(should_attempt_refresh(None, now=self.DAY))
+
+    def test_a_recorded_zero_only_refreshes_in_daytime(self):
+        record = {'status': 'ok', 'vehicles': 0}
+        self.assertFalse(should_attempt_refresh(record, now=self.NIGHT))
+        self.assertTrue(should_attempt_refresh(record, now=self.DAY))
+
+    def test_a_recorded_outage_only_refreshes_in_daytime(self):
+        record = {'status': 'unavailable', 'vehicles': None}
+        self.assertFalse(should_attempt_refresh(record, now=self.NIGHT))
+        self.assertTrue(should_attempt_refresh(record, now=self.DAY))
+
+    def test_a_healthy_record_never_needs_a_refresh(self):
+        record = {'status': 'ok', 'vehicles': 5}
+        self.assertFalse(should_attempt_refresh(record, now=self.NIGHT))
+        self.assertFalse(should_attempt_refresh(record, now=self.DAY))

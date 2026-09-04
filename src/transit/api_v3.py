@@ -14,10 +14,9 @@ from rest_framework.response import Response
 
 from shared.live_counts import (
     get_live_count_ttl,
-    is_refresh_daytime,
     mark_refresh_attempt,
-    needs_refresh,
     read_live_count,
+    should_attempt_refresh,
 )
 from tenancy.services import for_island
 from transit.models import Trip
@@ -603,9 +602,9 @@ def _serialize_live_count_entry(record: dict | None) -> dict:
 
 
 def _live_count_entry(operator: str, island, refresh_fn) -> dict:
-    """Read the shared record; top it up with ONE real vendor call when it is
-    missing or empty, but only during service hours and at most once per
-    5-minute window per operator (`shared.live_counts`).
+    """Read the shared record; top it up with ONE real vendor call when
+    `should_attempt_refresh` says so, at most once per 5-minute window per
+    operator (`shared.live_counts`).
 
     `refresh_fn` is the existing cached fleet accessor (`get_fleet` /
     `get_fleet_tracking`) -- calling it records as a side effect, so nothing
@@ -614,7 +613,7 @@ def _live_count_entry(operator: str, island, refresh_fn) -> dict:
     surfaces a vendor problem as an HTTP error.
     """
     record = read_live_count(operator, island.key)
-    if needs_refresh(record) and is_refresh_daytime() and mark_refresh_attempt(operator, island.key):
+    if should_attempt_refresh(record) and mark_refresh_attempt(operator, island.key):
         try:
             refresh_fn(island)
         except Exception:  # noqa: BLE001 - outage already recorded by refresh_fn

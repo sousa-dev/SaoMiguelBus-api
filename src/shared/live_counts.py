@@ -112,6 +112,25 @@ def needs_refresh(record: dict[str, Any] | None) -> bool:
     return record['status'] == STATUS_OK and record['vehicles'] == 0
 
 
+def should_attempt_refresh(record: dict[str, Any] | None, *, now: datetime | None = None) -> bool:
+    """The daytime rule, with one exception: total silence never waits for
+    morning.
+
+    A record that is merely empty or outaged (`needs_refresh` but not `None`)
+    only tops up 06:00-18:59 -- there is something to show either way, so a
+    3am blip can just sit until service hours. A completely missing record
+    means the cache has NOTHING for this operator at all (first deploy, a
+    Redis flush, a brand-new operator) -- and unlike AzoresBus, MiniBus has no
+    background sweep keeping it warm on its own, so waiting for daytime could
+    mean an all-night blank hub for no reason. Still gated by
+    `mark_refresh_attempt`'s 5-minute window either way, so this never means
+    more than one extra call per operator per window.
+    """
+    if record is None:
+        return True
+    return needs_refresh(record) and is_refresh_daytime(now)
+
+
 __all__ = [
     'ATTEMPT_TTL',
     'DAYTIME_END_HOUR',
@@ -129,4 +148,5 @@ __all__ = [
     'read_live_count',
     'record_live_count',
     'record_live_outage',
+    'should_attempt_refresh',
 ]
