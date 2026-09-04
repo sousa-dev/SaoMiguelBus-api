@@ -2,6 +2,9 @@
 
 from __future__ import annotations
 
+import logging
+
+from django.apps import apps as django_apps
 from django.utils.dateparse import parse_datetime
 from rest_framework import status
 from rest_framework.decorators import api_view, permission_classes, throttle_classes
@@ -9,6 +12,13 @@ from rest_framework.permissions import AllowAny
 from rest_framework.request import Request
 from rest_framework.response import Response
 
+from shared.live_counts import (
+    get_live_count_ttl,
+    is_refresh_daytime,
+    mark_refresh_attempt,
+    needs_refresh,
+    read_live_count,
+)
 from tenancy.services import for_island
 from transit.models import Trip
 from transit.services.directions_v3 import get_directions_v3
@@ -22,8 +32,10 @@ from transit.services.v3 import (
     serialize_stops_v3,
     serialize_trip_detail,
 )
-from transit.throttling import DirectionsSessionThrottle, OfflineBundleThrottle
+from transit.throttling import DirectionsSessionThrottle, LiveCountsThrottle, OfflineBundleThrottle
 from weather.open_meteo_client import OpenMeteoError
+
+logger = logging.getLogger(__name__)
 
 
 def _require_island(request: Request) -> Response | None:
@@ -571,3 +583,79 @@ def transit_trip_vote_view(request: Request, trip_id: int) -> Response:
         payload['likesPercent'] = likes_pct
         payload['dislikesPercent'] = dislikes_pct
         return Response(payload)
+
+
+def _minibus_installed() -> bool:
+    """Its own function so tests can patch it -- mirrors the conditional
+    mount in `src/urls.py`, which only includes `minibus.urls_v3` when the
+    app is installed."""
+    return django_apps.is_installed('minibus')
+
+
+def _serialize_live_count_entry(record: dict | None) -> dict:
+    if record is None:
+        return {'status': 'unknown', 'vehicles': None, 'recordedAt': None}
+    return {
+        'status': record['status'],
+        'vehicles': record['vehicles'],
+        'recordedAt': record['recordedAt'],
+    }
+
+
+def _live_count_entry(operator: str, island, refresh_fn) -> dict:
+    """Read the shared record; top it up with ONE real vendor call when it is
+    missing or empty, but only during service hours and at most once per
+    5-minute window per operator (`shared.live_counts`).
+
+    `refresh_fn` is the existing cached fleet accessor (`get_fleet` /
+    `get_fleet_tracking`) -- calling it records as a side effect, so nothing
+    here writes to the cache directly. A refresh failure is swallowed: the
+    fleet accessor has already recorded the outage, and this endpoint never
+    surfaces a vendor problem as an HTTP error.
+    """
+    record = read_live_count(operator, island.key)
+    if needs_refresh(record) and is_refresh_daytime() and mark_refresh_attempt(operator, island.key):
+        try:
+            refresh_fn(island)
+        except Exception:  # noqa: BLE001 - outage already recorded by refresh_fn
+            logger.warning('live-counts refresh failed for %s', operator, exc_info=True)
+        record = read_live_count(operator, island.key)
+    return _serialize_live_count_entry(record)
+
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
+@throttle_classes([LiveCountsThrottle])
+def transit_live_counts_view(request: Request) -> Response:
+    """Cached live-vehicle counts for both operators, never a vendor call.
+
+    Hub screens read this instead of probing `/tracking/health` themselves,
+    so a hub visit costs the vendor nothing except the bounded daytime
+    top-up in `_live_count_entry`. The live map screens are untouched --
+    their own polling of `/vehicles` (and health probes) is what keeps this
+    endpoint's numbers warm for everyone else.
+    """
+    err = _require_island(request)
+    if err:
+        return err
+
+    with for_island(request.island):
+        from azoresbus.services_tracking import get_fleet, tracking_enabled
+
+        if tracking_enabled(request.island):
+            azoresbus_entry = _live_count_entry('azoresbus', request.island, get_fleet)
+        else:
+            azoresbus_entry = {'status': 'disabled', 'vehicles': None, 'recordedAt': None}
+
+        if _minibus_installed():
+            from minibus.services_tracking import get_fleet_tracking
+
+            minibus_entry = _live_count_entry('minibus', request.island, get_fleet_tracking)
+        else:
+            minibus_entry = None
+
+    return Response({
+        'azoresbus': azoresbus_entry,
+        'minibus': minibus_entry,
+        'ttlSeconds': get_live_count_ttl(),
+    })

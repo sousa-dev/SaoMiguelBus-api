@@ -115,6 +115,7 @@ REST_FRAMEWORK = {
         'minibus_tracking': '60/min',
         'azoresbus_tracking': '60/min',
         'atlas_sync': '60/min',
+        'live_counts': '60/min',
     },
 }
 

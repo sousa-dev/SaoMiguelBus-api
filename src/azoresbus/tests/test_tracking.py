@@ -24,6 +24,7 @@ from azoresbus.tracking_client import (
     serialize_fleet_vehicle,
     serialize_vehicle_detail,
 )
+from shared.live_counts import read_live_count
 from tenancy.services import get_or_create_default_island
 
 HEADERS = {'HTTP_X_ISLAND': 'sao-miguel'}
@@ -257,6 +258,71 @@ class TrackingEndpointTests(TestCase):
         response = self.client.get('/api/v3/azoresbus/routes', **HEADERS)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.json()['routes'], [])
+
+
+class LiveCountRecordingTests(TestCase):
+    """`GET /vehicles` is a real vendor touch on a cache miss -- it must feed
+    the shared live-counts record other hub screens read for free."""
+
+    def setUp(self):
+        cache.clear()
+        self.client = APIClient()
+        self.island = get_or_create_default_island()
+
+    def _flag(self, enabled: bool):
+        self.island.feature_flags = {
+            **(self.island.feature_flags or {}),
+            'azoresbus': {'trackingEnabled': enabled},
+        }
+        self.island.save(update_fields=['feature_flags'])
+
+    @patch('azoresbus.tracking_client.requests.get')
+    def test_fleet_miss_records_live_count(self, mock_get):
+        self._flag(True)
+        mock_get.return_value = MagicMock(
+            ok=True, status_code=200, json=lambda: [LIST_ITEM], text='',
+        )
+        self.client.get('/api/v3/azoresbus/vehicles', **HEADERS)
+
+        record = read_live_count('azoresbus', self.island.key)
+        self.assertEqual(record['status'], 'ok')
+        self.assertEqual(record['vehicles'], 1)
+
+    @patch('azoresbus.services_tracking.fetch_fleet_locations')
+    def test_fleet_hit_re_records_without_a_new_vendor_call(self, mock_fetch):
+        # Mocked at the fleet-fetch level (not the raw HTTP client) so route
+        # enrichment's own per-vehicle lookups can't be mistaken for a second
+        # fleet call.
+        self._flag(True)
+        mock_fetch.return_value = [LIST_ITEM]
+
+        self.client.get('/api/v3/azoresbus/vehicles', **HEADERS)
+        first = read_live_count('azoresbus', self.island.key)
+        self.client.get('/api/v3/azoresbus/vehicles', **HEADERS)
+        second = read_live_count('azoresbus', self.island.key)
+
+        # Same underlying fetch, so the record's timestamp does not advance --
+        # a HIT must not look like a fresher vendor call than it was.
+        self.assertEqual(first['recordedAt'], second['recordedAt'])
+        mock_fetch.assert_called_once()
+
+    @patch('azoresbus.tracking_client.requests.get')
+    def test_upstream_failure_records_outage(self, mock_get):
+        self._flag(True)
+        mock_get.side_effect = requests.RequestException('down')
+
+        self.client.get('/api/v3/azoresbus/vehicles', **HEADERS)
+
+        record = read_live_count('azoresbus', self.island.key)
+        self.assertEqual(record['status'], 'unavailable')
+        self.assertIsNone(record['vehicles'])
+
+    def test_flag_off_records_nothing(self):
+        self._flag(False)
+
+        self.client.get('/api/v3/azoresbus/vehicles', **HEADERS)
+
+        self.assertIsNone(read_live_count('azoresbus', self.island.key))
 
     def test_health_reports_disabled_without_calling_upstream(self):
         self._flag(False)

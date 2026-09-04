@@ -27,3 +27,9 @@ class OfflineBundleThrottle(_SessionScopedThrottle):
     """Rate-limit offline-bundle downloads (large payload) per session/IP."""
 
     scope = 'offline-bundle'
+
+
+class LiveCountsThrottle(_SessionScopedThrottle):
+    """Rate-limit the shared live vehicle-count endpoint per session/IP."""
+
+    scope = 'live_counts'

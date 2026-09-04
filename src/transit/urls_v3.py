@@ -5,6 +5,7 @@ from transit.api_v3 import (
     transit_journeys_view,
     transit_line_detail_view,
     transit_line_shape_view,
+    transit_live_counts_view,
     transit_offline_bundle_view,
     transit_offline_bundle_v2_version_view,
     transit_offline_bundle_v2_view,
@@ -36,4 +37,5 @@ urlpatterns = [
     path('trips/<int:trip_id>/vote', transit_trip_vote_view, name='v3-transit-trip-vote'),
     path('lines/<str:line_code>', transit_line_detail_view, name='v3-transit-line-detail'),
     path('lines/<str:line_code>/shape', transit_line_shape_view, name='v3-transit-line-shape'),
+    path('live-counts', transit_live_counts_view, name='v3-transit-live-counts'),
 ]

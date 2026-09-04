@@ -8,6 +8,7 @@ from unittest.mock import patch
 from django.core.cache import cache
 from django.test import TestCase
 from django.utils import timezone
+from django.utils.timezone import now as real_now
 
 from minibus.services_tracking import (
     CacheMeta,
@@ -16,6 +17,7 @@ from minibus.services_tracking import (
     get_vehicle_tracking,
 )
 from minibus.tracking_client import MinibusTrackingError
+from shared.live_counts import read_live_count
 from tenancy.services import get_or_create_default_island
 
 
@@ -134,6 +136,12 @@ class FleetTrackingCacheTestCase(TestCase):
     @patch('minibus.services_tracking.fetch_fleet_locations')
     @patch('minibus.services_tracking.timezone.now')
     def test_upstream_failure_without_cache_raises(self, mock_now, mock_fetch):
+        # `timezone` here is the actual `django.utils.timezone` module, so this
+        # mock is global -- it also backs the live-counts outage record this
+        # code path now writes. Give it a real value (captured before the
+        # patch took effect) rather than a bare MagicMock, which a real
+        # (non-LocMem) cache backend cannot pickle.
+        mock_now.return_value = real_now()
         mock_fetch.side_effect = MinibusTrackingError('upstream down')
         with self.assertRaises(MinibusTrackingError):
             get_fleet_tracking(self.island)
@@ -157,6 +165,44 @@ class FleetTrackingCacheTestCase(TestCase):
         mock_fetch.side_effect = MinibusTrackingError('upstream down')
         with self.assertRaises(MinibusTrackingError):
             get_fleet_tracking(self.island)
+
+    @patch.dict('os.environ', {'MINIBUS_TRACKING_CACHE_TTL': '10'})
+    @patch('minibus.services_tracking.fetch_fleet_locations')
+    def test_fleet_miss_records_live_count(self, mock_fetch):
+        mock_fetch.return_value = self.fleet_payload
+
+        get_fleet_tracking(self.island)
+
+        record = read_live_count('minibus', self.island.key)
+        self.assertEqual(record['status'], 'ok')
+        self.assertEqual(record['vehicles'], 1)
+
+    @patch.dict('os.environ', {'MINIBUS_TRACKING_CACHE_TTL': '10'})
+    @patch('minibus.services_tracking.fetch_fleet_locations')
+    def test_fleet_hit_re_records_without_a_new_vendor_call(self, mock_fetch):
+        mock_fetch.return_value = self.fleet_payload
+
+        get_fleet_tracking(self.island)
+        first = read_live_count('minibus', self.island.key)
+        get_fleet_tracking(self.island)
+        second = read_live_count('minibus', self.island.key)
+
+        # Same underlying fetch, so the record's timestamp does not advance --
+        # a HIT must not look like a fresher vendor call than it was.
+        self.assertEqual(first['recordedAt'], second['recordedAt'])
+        mock_fetch.assert_called_once()
+
+    @patch.dict('os.environ', {'MINIBUS_TRACKING_CACHE_TTL': '10', 'MINIBUS_TRACKING_STALE_GRACE': '60'})
+    @patch('minibus.services_tracking.fetch_fleet_locations')
+    def test_upstream_failure_records_outage(self, mock_fetch):
+        mock_fetch.side_effect = MinibusTrackingError('upstream down')
+
+        with self.assertRaises(MinibusTrackingError):
+            get_fleet_tracking(self.island)
+
+        record = read_live_count('minibus', self.island.key)
+        self.assertEqual(record['status'], 'unavailable')
+        self.assertIsNone(record['vehicles'])
 
 
 class VehicleTrackingCacheTestCase(TestCase):

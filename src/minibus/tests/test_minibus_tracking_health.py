@@ -10,6 +10,7 @@ from django.test import TestCase, override_settings
 from pathlib import Path
 from rest_framework.test import APIClient
 
+from shared.live_counts import read_live_count
 from minibus.services import seed_catalog
 from minibus.services_tracking import get_tracking_health
 from minibus.tracking_client import MinibusTrackingError
@@ -89,6 +90,29 @@ class MinibusTrackingHealthServiceTestCase(TestCase):
         self.assertFalse(first['available'])
         self.assertFalse(second['available'])
         mock_fetch.assert_called_once()
+
+    @patch('minibus.services_tracking.fetch_fleet_locations')
+    def test_probe_success_records_live_count(self, mock_fetch):
+        """The health probe bypasses the fleet cache entirely, so it is its
+        own real vendor call -- it must feed live-counts exactly like a fleet
+        fetch would."""
+        mock_fetch.return_value = FLEET_FIXTURE
+
+        get_tracking_health(self.island)
+
+        record = read_live_count('minibus', self.island.key)
+        self.assertEqual(record['status'], 'ok')
+        self.assertEqual(record['vehicles'], 2)
+
+    @patch('minibus.services_tracking.fetch_fleet_locations')
+    def test_probe_failure_records_outage(self, mock_fetch):
+        mock_fetch.side_effect = MinibusTrackingError('Upstream HTTP 403')
+
+        get_tracking_health(self.island)
+
+        record = read_live_count('minibus', self.island.key)
+        self.assertEqual(record['status'], 'unavailable')
+        self.assertIsNone(record['vehicles'])
 
 
 @override_settings(MEDIA_ROOT='/tmp/smb-minibus-tracking-health-api-test-media')

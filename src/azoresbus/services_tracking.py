@@ -27,6 +27,7 @@ from azoresbus.tracking_client import (
     serialize_vehicle_detail,
 )
 from azoresbus.services_stop_identity import safe_stop_identity_map
+from shared.live_counts import OPERATOR_AZORESBUS, record_live_count, record_live_outage
 from shared.tracking_cache import CacheMeta, cached_fetch, clamp
 from transit.services.schedule_phase import azoresbus_flags
 
@@ -103,16 +104,25 @@ def get_fleet(island) -> list[dict]:
         raise TrackingDisabled('tracking_disabled')
 
     cfg = get_tracking_config()
-    raw, _meta = cached_fetch(
-        cache_key=fleet_cache_key(island.key),
-        lock_key=_fleet_lock_key(island.key),
-        fetch_fn=fetch_fleet_locations,
-        cache_ttl=cfg['cache_ttl'],
-        stale_grace=cfg['stale_grace'],
-        lock_ttl=cfg['lock_ttl'],
-        error_type=AzoresbusTrackingError,
-    )
+    try:
+        raw, meta = cached_fetch(
+            cache_key=fleet_cache_key(island.key),
+            lock_key=_fleet_lock_key(island.key),
+            fetch_fn=fetch_fleet_locations,
+            cache_ttl=cfg['cache_ttl'],
+            stale_grace=cfg['stale_grace'],
+            lock_ttl=cfg['lock_ttl'],
+            error_type=AzoresbusTrackingError,
+        )
+    except AzoresbusTrackingError:
+        record_live_outage(OPERATOR_AZORESBUS, island.key)
+        raise
     vehicles = [serialize_fleet_vehicle(item) for item in raw]
+    # Timestamped with the fleet's own fetch time, not `now()`: a cache HIT
+    # must not make the live-counts record look fresher than the snapshot it
+    # is actually reporting. Counted before enrichment, which decorates but
+    # never filters, so the count the rider sees matches this one.
+    record_live_count(OPERATOR_AZORESBUS, island.key, len(vehicles), fetched_at=meta.cached_at)
 
     # Imported here rather than at module scope: the route index imports this
     # module's config helpers, and enrichment is strictly a decoration of a fleet

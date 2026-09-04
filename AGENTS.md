@@ -201,6 +201,17 @@ Proxy of the Eleven Systems AVL feed at `azb.elevensystems.pt/api` (same vendor 
 - `GET /api/v3/azoresbus/vehicles`, `/vehicles/{id}`, `/routes`, `/stops/{id}/arrivals`, `/tracking/health` — fleet, detail with live ETAs, catalogue, inbound buses per stop, probe. The list carries no line; `services_route_index.py` sweeps details in the background and attaches `route` + `journeyId` per vehicle.
 - `GET /api/v3/azoresbus/trips/live?tripIds=1,2` — **the live bus for a tracked trip.** Joins `Trip` → `ExternalJourney.external_id` → the route index's `journeyId` → vehicle, then re-reads that vehicle's detail and requires its `journey.id` to agree (the index lags a few minutes at journey changeover; a wrong bus is worse than none). Per trip: `state` `live` | `not_found` | `unsupported` (no upstream journey — legacy dataset) and a `vehicle` with `position`, `delaySeconds`, `currentStopSequence` (same sequence space as `StopTime.sequence`), `nextStop {sequence,name,stopId,dueInMinutes}`, `upcomingStops` (the same shape, one entry per remaining stop — `nextStop` is `upcomingStops[0]`, kept for existing callers), `capturedAt`, `stale` (detail unreadable: position real, progress unknown). Max 5 ids. Logic: `azoresbus/services_trip_live.py`.
 
+### Cross-operator live vehicle counts (`transit` — shipped)
+
+`GET /api/v3/transit/live-counts` — the number of live buses for AzoresBus and PDL MiniBus, **read-only against a shared cache, never a vendor call by itself**. Response: `{azoresbus: {status, vehicles, recordedAt}, minibus: {...} | null, ttlSeconds}`. `status` is `ok` | `unavailable` | `disabled` (AzoresBus flag off) | `unknown` (nothing recorded, or it expired); `minibus` is `null` when that app is not installed.
+
+The hub screens (transit tab, PDL MiniBus tab) call only this endpoint for their "Ao vivo" subtitle and grey/enabled state — they no longer probe `/tracking/health` themselves. The count is instead recorded as a **side effect** of any real vendor fleet fetch elsewhere: the live map's polling of `/vehicles`, or either operator's health probe (`shared/live_counts.py`, called from `azoresbus/services_tracking.get_fleet` and `minibus/services_tracking.get_fleet_tracking` / `_probe_tracking_health`). A cache HIT still re-records, but timestamped with the underlying fetch's own time, not "now" — a hit must not look fresher than the snapshot behind it.
+
+Exception, so a quiet island still shows a number: if a record is missing, `unavailable`, or a recorded `0`, **and** it is 06:00–18:59 in Atlantic/Azores, the endpoint makes exactly one real vendor call per operator through the existing cached fleet path, gated by a 5-minute "already tried" marker (set regardless of outcome) so concurrent hub requests can't each trigger their own. Outside that window a stale/empty record is simply served as-is. Vendor failures during this top-up are recorded as `unavailable` — this endpoint never returns a 5xx over a tracking problem.
+
+- Env: `LIVE_COUNT_TTL` (1800s, clamp 60–21600) — how long a record stays valid before reading back as `unknown`.
+- Throttled at 60/min per island+session/IP (`LiveCountsThrottle`).
+
 ### iOS Live Activity push (`azoresbus` — shipped)
 
 The Uber-style live trip bar's iOS half. A Live Activity cannot poll while the app is suspended, so the server pushes it fresh content over raw APNs — **not Expo push**, which does not proxy the `liveactivity` push type.

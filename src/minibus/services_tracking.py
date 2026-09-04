@@ -15,6 +15,7 @@ from minibus.tracking_client import (
     fetch_fleet_locations,
     fetch_vehicle_location,
 )
+from shared.live_counts import OPERATOR_MINIBUS, record_live_count, record_live_outage
 from shared.tracking_cache import CacheMeta, cached_fetch
 from tenancy.models import Island
 
@@ -55,15 +56,24 @@ def get_fleet_tracking(island: Island) -> tuple[list[dict[str, Any]], CacheMeta]
     cfg = get_tracking_config()
     cache_key = _fleet_cache_key(island.key)
     lock_key = _fleet_lock_key(island.key)
-    return cached_fetch(
-        cache_key=cache_key,
-        lock_key=lock_key,
-        fetch_fn=fetch_fleet_locations,
-        cache_ttl=cfg['cache_ttl'],
-        stale_grace=cfg['stale_grace'],
-        lock_ttl=cfg['lock_ttl'],
-        error_type=MinibusTrackingError,
-    )
+    try:
+        vehicles, meta = cached_fetch(
+            cache_key=cache_key,
+            lock_key=lock_key,
+            fetch_fn=fetch_fleet_locations,
+            cache_ttl=cfg['cache_ttl'],
+            stale_grace=cfg['stale_grace'],
+            lock_ttl=cfg['lock_ttl'],
+            error_type=MinibusTrackingError,
+        )
+    except MinibusTrackingError:
+        record_live_outage(OPERATOR_MINIBUS, island.key)
+        raise
+    # Timestamped with the fleet's own fetch time, not `now()`: a cache HIT
+    # must not make the live-counts record look fresher than the snapshot it
+    # is actually reporting.
+    record_live_count(OPERATOR_MINIBUS, island.key, len(vehicles), fetched_at=meta.cached_at)
+    return vehicles, meta
 
 
 def get_vehicle_tracking(island: Island, tracking_id: str) -> tuple[dict[str, Any], CacheMeta]:
@@ -100,7 +110,7 @@ def get_tracking_health(island: Island, *, force: bool = False) -> dict[str, Any
         if cached is not None:
             return cached
 
-    result = _probe_tracking_health(cfg['recheck_after_seconds'])
+    result = _probe_tracking_health(island.key, cfg['recheck_after_seconds'])
 
     if not force:
         cache.set(cache_key, result, cfg['health_cache_ttl'])
@@ -125,10 +135,15 @@ def _health_cache_key(island_key: str) -> str:
     return f'minibus:tracking:health:{island_key}'
 
 
-def _probe_tracking_health(recheck_after_seconds: int) -> dict[str, Any]:
+def _probe_tracking_health(island_key: str, recheck_after_seconds: int) -> dict[str, Any]:
+    """Bypasses the fleet cache entirely -- this IS a real vendor call, so it
+    also feeds the live-counts record (`shared.live_counts`), same as a fleet
+    fetch would.
+    """
     checked_at = timezone.now().isoformat()
     try:
         fleet = fetch_fleet_locations()
+        record_live_count(OPERATOR_MINIBUS, island_key, len(fleet), fetched_at=timezone.now())
         return {
             'available': True,
             'checkedAt': checked_at,
@@ -136,6 +151,7 @@ def _probe_tracking_health(recheck_after_seconds: int) -> dict[str, Any]:
             'vehicleCount': len(fleet),
         }
     except MinibusTrackingError as exc:
+        record_live_outage(OPERATOR_MINIBUS, island_key)
         return {
             'available': False,
             'reason': _map_tracking_error_reason(exc),
