@@ -19,6 +19,20 @@ class RegisterSerializer(serializers.Serializer):
         return value
 
 
+class RegisterGuestSerializer(serializers.Serializer):
+    """Email only — the account gets an unusable password until `set-password`."""
+
+    email = serializers.EmailField()
+
+
+class SetPasswordSerializer(serializers.Serializer):
+    password = serializers.CharField(write_only=True, max_length=128)
+
+    def validate_password(self, value: str) -> str:
+        validate_password(value)
+        return value
+
+
 class LoginSerializer(serializers.Serializer):
     email = serializers.EmailField()
     password = serializers.CharField(write_only=True, max_length=128)

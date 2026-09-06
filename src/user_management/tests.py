@@ -80,6 +80,52 @@ class RegisterLoginTests(APITestCase):
         self.assertFalse(user_login.data['user']['isSuperuser'])
 
 
+class RegisterGuestAndSetPasswordTests(APITestCase):
+    """The web "buy before choosing a password" flow: a passwordless account
+    created at checkout time, claimed afterwards with `set-password`."""
+
+    def test_register_guest_returns_a_usable_token_for_a_passwordless_account(self):
+        resp = self.client.post('/api/v3/auth/register-guest', {'email': 'Guest@Buyer.com'}, format='json')
+        self.assertEqual(resp.status_code, 201)
+        token = resp.data['token']
+        self.assertTrue(token)
+        self.assertEqual(resp.data['user']['email'], 'guest@buyer.com')
+
+        user = User.objects.get(email='guest@buyer.com')
+        self.assertFalse(user.has_usable_password())
+
+        self.client.credentials(HTTP_AUTHORIZATION=f'Token {token}')
+        me = self.client.get('/api/v3/auth/me')
+        self.assertEqual(me.status_code, 200)
+
+    def test_register_guest_rejects_an_email_already_in_use(self):
+        self.client.post('/api/v3/auth/register', {'email': 'existing@user.com', 'password': PW}, format='json')
+        resp = self.client.post('/api/v3/auth/register-guest', {'email': 'Existing@User.com'}, format='json')
+        self.assertEqual(resp.status_code, 400)
+        self.assertEqual(resp.data['error']['code'], 'email_taken')
+
+    def test_set_password_lets_a_guest_account_log_in_afterwards(self):
+        reg = self.client.post('/api/v3/auth/register-guest', {'email': 'setpw@buyer.com'}, format='json')
+        self.client.credentials(HTTP_AUTHORIZATION=f"Token {reg.data['token']}")
+
+        resp = self.client.post('/api/v3/auth/set-password', {'password': PW}, format='json')
+        self.assertEqual(resp.status_code, 200)
+
+        self.client.credentials()
+        login = self.client.post('/api/v3/auth/login', {'email': 'setpw@buyer.com', 'password': PW}, format='json')
+        self.assertEqual(login.status_code, 200)
+
+    def test_set_password_requires_auth(self):
+        resp = self.client.post('/api/v3/auth/set-password', {'password': PW}, format='json')
+        self.assertEqual(resp.status_code, 401)
+
+    def test_set_password_enforces_the_password_validator(self):
+        reg = self.client.post('/api/v3/auth/register-guest', {'email': 'weakpw@buyer.com'}, format='json')
+        self.client.credentials(HTTP_AUTHORIZATION=f"Token {reg.data['token']}")
+        resp = self.client.post('/api/v3/auth/set-password', {'password': '123'}, format='json')
+        self.assertEqual(resp.status_code, 400)
+
+
 class DeleteAccountTests(APITestCase):
     def _register(self, email='del@me.com'):
         reg = self.client.post(

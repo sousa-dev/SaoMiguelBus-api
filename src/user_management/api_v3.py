@@ -16,7 +16,9 @@ from rest_framework.response import Response
 from user_management import services
 from user_management.serializers import (
     LoginSerializer,
+    RegisterGuestSerializer,
     RegisterSerializer,
+    SetPasswordSerializer,
     SocialSerializer,
     UserSerializer,
 )
@@ -46,6 +48,36 @@ def register_view(request: Request) -> Response:
         display_name=serializer.validated_data.get('display_name', ''),
     )
     return Response(_auth_payload(user), status=status.HTTP_201_CREATED)
+
+
+@api_view(['POST'])
+@permission_classes([AllowAny])
+@csrf_exempt
+def register_guest_view(request: Request) -> Response:
+    """Web checkout flow: create an account for an email with no password yet,
+    so a purchase can complete before the buyer picks a password."""
+    serializer = RegisterGuestSerializer(data=request.data)
+    serializer.is_valid(raise_exception=True)
+    email = serializer.validated_data['email']
+    if services.email_taken(email):
+        return Response(
+            {'error': {'code': 'email_taken', 'message': 'An account with this email already exists.'}},
+            status=status.HTTP_400_BAD_REQUEST,
+        )
+    user = services.create_account(email=email)
+    return Response(_auth_payload(user), status=status.HTTP_201_CREATED)
+
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+@csrf_exempt
+def set_password_view(request: Request) -> Response:
+    """Claims a passwordless (guest-checkout) account with a real password."""
+    serializer = SetPasswordSerializer(data=request.data)
+    serializer.is_valid(raise_exception=True)
+    request.user.set_password(serializer.validated_data['password'])
+    request.user.save(update_fields=['password'])
+    return Response({'status': 'ok'})
 
 
 @api_view(['POST'])
