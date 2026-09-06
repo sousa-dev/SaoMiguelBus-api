@@ -14,6 +14,9 @@ _VIEW_SCREENS = frozenset({
     'line_map_stop',
     'live',
     'directions',
+    'network',
+    'prices',
+    'schematic',
 })
 
 _LIVE_ENTRY_SOURCES = frozenset({'hub', 'line_detail'})

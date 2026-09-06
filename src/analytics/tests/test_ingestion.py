@@ -178,3 +178,12 @@ class IngestionTests(TestCase):
         ])
         self.assertEqual(accepted, 1)
         self.assertEqual(dropped, 0)
+
+    def test_minibus_view_network_prices_schematic_screens_accepted(self):
+        accepted, dropped = self._ingest([
+            {'module': 'minibus', 'event_type': 'view', 'properties': {'screen': 'network'}},
+            {'module': 'minibus', 'event_type': 'view', 'properties': {'screen': 'prices'}},
+            {'module': 'minibus', 'event_type': 'view', 'properties': {'screen': 'schematic'}},
+        ])
+        self.assertEqual(accepted, 3)
+        self.assertEqual(dropped, 0)
