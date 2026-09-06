@@ -48,10 +48,12 @@ class EntitlementServiceTests(APITestCase):
         stripe = Entitlement(source='stripe')
         rc_ios = Entitlement(source='revenuecat', platform='ios')
         rc_android = Entitlement(source='revenuecat', platform='android')
+        rc_web = Entitlement(source='revenuecat', platform='web')
         self.assertEqual(services.manage_via(legacy), 'none')
         self.assertEqual(services.manage_via(stripe), 'stripe')
         self.assertEqual(services.manage_via(rc_ios), 'app_store')
         self.assertEqual(services.manage_via(rc_android), 'play_store')
+        self.assertEqual(services.manage_via(rc_web), 'web')
         self.assertEqual(services.manage_via(None), 'none')
 
     def test_verify_subscription_lowercases(self):
@@ -124,6 +126,46 @@ class RevenueCatWebhookTests(APITestCase):
         )
         self.assertEqual(resp.status_code, 400)
         self.assertEqual(Entitlement.objects.count(), 0)
+
+    def test_rc_billing_store_maps_to_web(self):
+        payload = {
+            'event': {
+                'type': 'INITIAL_PURCHASE',
+                'app_user_id': f'smb_user_{self.user.id}',
+                'store': 'RC_BILLING',
+                'expiration_at_ms': int((timezone.now() + timezone.timedelta(days=30)).timestamp() * 1000),
+            }
+        }
+        resp = self.client.post(
+            '/api/v3/billing/webhooks/revenuecat',
+            payload,
+            format='json',
+            HTTP_AUTHORIZATION='shh',
+        )
+        self.assertEqual(resp.status_code, 200)
+        ent = services.resolve_entitlement(self.user)
+        self.assertEqual(ent.platform, 'web')
+        self.assertEqual(services.manage_via(ent), 'web')
+
+    def test_platform_backfill_keeps_app_store_for_blank_platform(self):
+        payload = {
+            'event': {
+                'type': 'INITIAL_PURCHASE',
+                'app_user_id': f'smb_user_{self.user.id}',
+                'store': '',
+                'expiration_at_ms': int((timezone.now() + timezone.timedelta(days=30)).timestamp() * 1000),
+            }
+        }
+        resp = self.client.post(
+            '/api/v3/billing/webhooks/revenuecat',
+            payload,
+            format='json',
+            HTTP_AUTHORIZATION='shh',
+        )
+        self.assertEqual(resp.status_code, 200)
+        ent = services.resolve_entitlement(self.user)
+        self.assertEqual(ent.platform, '')
+        self.assertEqual(services.manage_via(ent), 'app_store')
 
     def test_smb_user_prefix_app_user_id_creates_entitlement(self):
         payload = {

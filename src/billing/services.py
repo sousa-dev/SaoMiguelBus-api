@@ -134,7 +134,11 @@ def manage_via(entitlement: Entitlement | None) -> str:
     if entitlement.source == Entitlement.SOURCE_STRIPE:
         return 'stripe'
     if entitlement.source == Entitlement.SOURCE_REVENUECAT:
-        return 'play_store' if entitlement.platform == 'android' else 'app_store'
+        if entitlement.platform == 'android':
+            return 'play_store'
+        if entitlement.platform == 'web':
+            return 'web'
+        return 'app_store'
     return 'none'  # legacy_email / manual are managed by us, not a store
 
 
@@ -210,7 +214,16 @@ def reconcile_revenuecat(event: dict) -> Entitlement | None:
         return None
 
     store = (event.get('store') or '').upper()
-    platform = 'android' if store == 'PLAY_STORE' else 'ios' if store == 'APP_STORE' else ''
+    # RC_BILLING is RevenueCat Web Billing; STRIPE/PADDLE cover a directly-connected
+    # web checkout. All three are web purchases as far as entitlement management goes.
+    if store == 'PLAY_STORE':
+        platform = 'android'
+    elif store == 'APP_STORE':
+        platform = 'ios'
+    elif store in {'RC_BILLING', 'STRIPE', 'PADDLE'}:
+        platform = 'web'
+    else:
+        platform = ''
 
     event_type = (event.get('type') or '').upper()
     if event_type in {'CANCELLATION'}:
