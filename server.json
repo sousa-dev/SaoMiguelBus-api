@@ -1,0 +1,1 @@
+{"name":"io.github.sousa-dev/saomiguelbus","description":"São Miguel Bus public transit and island data MCP server","version":"3.0.0","remotes":[{"type":"streamable-http","url":"https://api.saomiguelhub.com/mcp"}]}

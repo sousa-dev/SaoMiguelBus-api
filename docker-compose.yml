@@ -87,6 +87,26 @@ services:
         condition: service_healthy
 
   # ---------------------------------------------------------------------------
+  # MCP server  (separate ASGI process; web owns migrations/static deploy)
+  # ---------------------------------------------------------------------------
+  mcp:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    command: bash ./mcp-entrypoint.sh
+    volumes:
+      - media_files:/usr/src/app/media
+    ports:
+      - "${MCP_PORT:-8001}:${MCP_CONTAINER_PORT:-8001}"
+    <<: *app-env
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+  # ---------------------------------------------------------------------------
   # Celery worker  (task execution)
   # ---------------------------------------------------------------------------
   celery-worker:

@@ -32,6 +32,20 @@ Remote kill switch for native store rating prompts, stored on **`AppReleaseConfi
 
 ## New backend (djast / boilerplate)
 
+### MCP server (Phase 3)
+
+The additive MCP server lives in `src/mcp_server/` and runs as the separate
+`mcp` Compose service. The protocol endpoint is `/mcp`; a browser GET receives
+the instructions page and MCP clients use Streamable HTTP. The discovery JSON is
+`/api/v3/mcp`. Run locally with `cd src && python manage.py mcp_serve` or use
+`python manage.py mcp_serve --stdio` for Claude Desktop/Cursor. It calls the
+existing transit, Mini Bus, AzoresBus, and weather services in-process and
+always resolves the schedule dataset on the server.
+
+Production requires `MCP_ALLOWED_HOSTS=api.saomiguelhub.com,api.saomiguelhub.com:*`.
+Add the `/mcp` path route to the MCP service on port 8001 with path stripping;
+the web container remains responsible for migrations and static collection.
+
 After promoting `boilerplate/` to root, all commands run from **`src/`**.
 
 ### Setup & run
@@ -417,7 +431,29 @@ Machine-readable context and OpenAPI for any agent:
 | `GET /api/docs/` | Swagger UI |
 | `GET /api/docs/redoc/` | ReDoc |
 
-**Slugs:** `agents-md`, `readme`, `env-example`, `ai-agents-handbook`, `feature-toggles`, `adding-an-app`, `traffic-readme`. The index also lists external SDD/webapp links.
+**Slugs:** `agents-md`, `readme`, `env-example`, `ai-agents-handbook`, `feature-toggles`, `adding-an-app`, `traffic-readme`, `ai-quickstart`. The index also lists external SDD/webapp links.
+
+### AI assistant discovery (`assistant` app — shipped)
+
+The public discovery entry point is `GET /llms.txt`. Its source is
+`src/agent_docs/docs/ai-quickstart.md`; update that file when endpoint URLs,
+parameters, or response shapes change. `/llms-full.txt` appends an endpoint
+reference, `/robots.txt` explicitly allows AI discovery paths, and
+`/openapi.json` serves the existing schema as JSON.
+
+| Endpoint | Purpose |
+|---|---|
+| `GET /api/v3/ai/journeys?from=&to=&date=&time=&lang=&limit=&transfers=&format=` | Real date-resolved journeys, summary, suggestions and website link. `date` accepts `today`, `tomorrow`, or `YYYY-MM-DD`. |
+| `GET /api/v3/ai/stops?q=&limit=` | Exact, alias, area, prefix and fuzzy stop suggestions. |
+
+Both AI endpoints use the `ai` DRF throttle scope (`120/min` per IP) and
+`request.island` tenant context. Assistant answers and stop lists are cached
+for 60 seconds per island. Client-supplied `dataset` is ignored. A stop typo
+returns suggestions without silently choosing a line.
+
+Verify with `cd src && DEBUG=True python manage.py test assistant`, then
+`DEBUG=True python manage.py test`. Inspect `/llms.txt`, `/robots.txt`, and
+`/openapi.json` after deployment; the test suite covers their local shape.
 
 ---
 

@@ -14,7 +14,7 @@ python-decouple==3.8
 packaging==24.2
 
 # For OAuth2
-PyJWT==2.8.0
+PyJWT==2.10.1
 cryptography==42.0.8
 
 psycopg2-binary==2.9.9
@@ -42,3 +42,5 @@ beautifulsoup4==4.12.3
 requests==2.32.3
 ## APNs (iOS Live Activity push) -- needs HTTP/2, which `requests` cannot speak
 httpx[http2]==0.27.2
+mcp==2.2.0
+uvicorn[standard]==0.53.0

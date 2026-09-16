@@ -48,6 +48,8 @@ apps = [
     ('minibus', True),
     ('atlas', True),
     ('azoresbus', True),
+    ('assistant', True),
+    ('mcp_server', True),
 ]
 
 import os
@@ -116,6 +118,7 @@ REST_FRAMEWORK = {
         'azoresbus_tracking': '60/min',
         'atlas_sync': '60/min',
         'live_counts': '60/min',
+        'ai': '120/min',
     },
 }
 
@@ -124,7 +127,8 @@ SPECTACULAR_SETTINGS = {
     'DESCRIPTION': (
         'Azores Hub platform API — v3 modules (transit, weather, events, …) '
         'plus legacy compat /api/v1 and /api/v2. '
-        'Agent context files: GET /api/v3/agent-docs/'
+        'Agent context files: GET /api/v3/agent-docs/ . '
+        'AI assistants: start at /llms.txt; live journeys at /api/v3/ai/journeys'
     ),
     'VERSION': '3.0.0',
     'SERVE_INCLUDE_SCHEMA': False,
@@ -140,6 +144,20 @@ ALLOWED_HOSTS = _csv_env(
     'ALLOWED_HOSTS',
     default='127.0.0.1,localhost,0.0.0.0,.vercel.app',
 )
+
+MCP_ENABLED = config('MCP_ENABLED', default=True, cast=bool)
+MCP_SERVER_NAME = config('MCP_SERVER_NAME', default='saomiguelbus')
+MCP_PUBLIC_URL = config('MCP_PUBLIC_URL', default='https://api.saomiguelhub.com/mcp')
+MCP_PUBLIC_API_URL = config('MCP_PUBLIC_API_URL', default='https://api.saomiguelhub.com')
+MCP_ALLOWED_HOSTS = _csv_env(
+    'MCP_ALLOWED_HOSTS',
+    default='api.saomiguelhub.com,api.saomiguelhub.com:*' if not DEBUG else '127.0.0.1,localhost',
+)
+MCP_ALLOWED_ORIGINS = _csv_env('MCP_ALLOWED_ORIGINS', default='')
+MCP_AUTH_TOKEN = config('MCP_AUTH_TOKEN', default='')
+MCP_RATE_LIMIT = config('MCP_RATE_LIMIT', default='120/min')
+MCP_HOST = config('MCP_HOST', default='127.0.0.1')
+MCP_PORT = config('MCP_PORT', default=8001, cast=int)
 
 if not DEBUG:
     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')

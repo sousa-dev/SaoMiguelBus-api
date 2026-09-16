@@ -47,6 +47,23 @@ if 'minibus' in settings.INSTALLED_APPS:
 if 'atlas' in settings.INSTALLED_APPS:
     urlpatterns.append(path('api/v3/atlas/', include('atlas.urls_v3')))
 
+if 'assistant' in settings.INSTALLED_APPS:
+    from assistant.views_discovery import (
+        OpenAPIJSONView,
+        llms_full_txt_view,
+        llms_txt_view,
+        robots_txt_view,
+    )
+
+    urlpatterns.append(path('api/v3/ai/', include('assistant.urls_v3')))
+    urlpatterns.append(path('llms.txt', llms_txt_view))
+    urlpatterns.append(path('llms-full.txt', llms_full_txt_view))
+    urlpatterns.append(path('robots.txt', robots_txt_view))
+    urlpatterns.append(path('openapi.json', OpenAPIJSONView.as_view()))
+
+if 'mcp_server' in settings.INSTALLED_APPS and settings.MCP_ENABLED:
+    urlpatterns.append(path('api/v3/mcp', include('mcp_server.urls_v3')))
+
 if 'legal' in settings.INSTALLED_APPS:
     urlpatterns.append(path('legal/', include('legal.urls')))
 

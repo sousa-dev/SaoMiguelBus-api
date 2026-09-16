@@ -1,0 +1,12 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>São Miguel Bus MCP</title>
+<style>body{font:16px/1.6 system-ui,sans-serif;max-width:850px;margin:3rem auto;padding:0 1rem;color:#18332b}code,pre{background:#eef4f0;padding:.2rem .35rem;border-radius:4px}pre{padding:1rem;overflow:auto}li{margin:.35rem 0}</style></head>
+<body><h1>São Miguel Bus MCP server</h1>
+<p>Connect an AI agent to real São Miguel transit schedules, live buses, Mini Bus routes, and parish weather.</p>
+<h2>Tools</h2><ul>{% for tool in tools %}<li><code>{{ tool }}</code></li>{% endfor %}</ul>
+<h2>Claude Code</h2><pre>claude mcp add --transport http saomiguelbus https://api.saomiguelhub.com/mcp</pre>
+<h2>Cursor, Claude Desktop, ChatGPT, Codex, Gemini CLI, or VS Code</h2><pre>{"mcpServers":{"saomiguelbus":{"url":"https://api.saomiguelhub.com/mcp"}}}</pre>
+<h2>Local stdio</h2><pre>python manage.py mcp_serve --stdio</pre>
+<p>Protocol endpoint: <a href="https://api.saomiguelhub.com/mcp">https://api.saomiguelhub.com/mcp</a></p>
+</body></html>

@@ -143,6 +143,17 @@ def _documents() -> list[AgentDocument]:
             path=base / 'traffic' / 'README.md',
             category='module',
         ),
+        AgentDocument(
+            slug='ai-quickstart',
+            title='AI assistant quick-start',
+            description=(
+                'Source of truth for /llms.txt and /llms-full.txt: how an AI '
+                'assistant fetches real bus journeys from this API.'
+            ),
+            format='markdown',
+            path=base / 'agent_docs' / 'docs' / 'ai-quickstart.md',
+            category='assistant',
+        ),
     ]
 
 

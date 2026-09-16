@@ -1,0 +1,1 @@
+"""São Miguel Bus MCP server Django app."""
