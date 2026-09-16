@@ -108,6 +108,19 @@ def _log_assistant_hit(request: Request, **extra) -> None:
                'generatedAt': '2026-09-15T08:12:00+00:00'}, response_only=True,
     )],
 )
+
+def _public_absolute_uri(request: Request) -> str:
+    """`build_absolute_uri()` that survives a proxy when Django is not told to
+    trust `X-Forwarded-Proto` (SECURE_PROXY_SSL_HEADER is only configured when
+    DEBUG is off, and production has run with DEBUG on). Assistants copy this
+    self-link verbatim, so it must never advertise plain http for an https
+    deployment."""
+    url = request.build_absolute_uri()
+    forwarded_proto = request.META.get('HTTP_X_FORWARDED_PROTO', '').split(',')[0].strip()
+    if url.startswith('http://') and (forwarded_proto == 'https' or request.is_secure()):
+        return 'https://' + url[len('http://'):]
+    return url
+
 @api_view(['GET'])
 @permission_classes([AllowAny])
 @throttle_classes([AIThrottle])
@@ -166,7 +179,7 @@ def ai_journeys_view(request: Request) -> Response:
                 limit_raw=request.GET.get('limit'),
                 transfers_raw=request.GET.get('transfers'),
                 web_base_url=settings.PROJECT_URL,
-                api_url=request.build_absolute_uri(),
+                api_url=_public_absolute_uri(request),
             )
         cache.set(cache_key, payload, 60)
 

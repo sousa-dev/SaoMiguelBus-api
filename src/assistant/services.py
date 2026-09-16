@@ -146,30 +146,56 @@ def stop_finder(
     by_id = {stop['id']: stop for stop in stops}
     scored: dict[int, float] = {}
 
-    for stop_id in resolve_stop_ids(dataset, cleaned, area_index):
-        scored[stop_id] = 1.0
+    def _bump(stop_id: int, score: float) -> None:
+        scored[stop_id] = max(scored.get(stop_id, 0.0), score)
 
-    alias_target = STOP_ALIASES.get(cleaned)
-    if alias_target:
-        alias_cleaned = clean_string(alias_target)
-        for stop_id in resolve_stop_ids(dataset, alias_cleaned, area_index):
-            scored.setdefault(stop_id, 0.95)
+    for stop_id in resolve_stop_ids(dataset, cleaned, area_index):
+        _bump(stop_id, 1.0)
+
+    alias_cleaned = [clean_string(t) for t in STOP_ALIASES.get(cleaned, ())]
+    for target in alias_cleaned:
+        for stop_id in resolve_stop_ids(dataset, target, area_index):
+            _bump(stop_id, 0.95)
+
+    targets = [cleaned, *alias_cleaned]
 
     cleaned_to_ids: dict[str, list[int]] = {}
+    # Area / village part of a "VILLAGE (LANDMARK)" name, e.g. "furnas" for
+    # "furnas (aguas quentes)". The live network names every stop this way, so
+    # a typo in the short village name ("furnaz") never gets within difflib's
+    # cutoff of the full string -- it has to be compared against the base.
+    base_to_ids: dict[str, list[int]] = {}
     for stop in stops:
         cleaned_to_ids.setdefault(stop['cleaned_name'], []).append(stop['id'])
+        base = stop['cleaned_name'].split(' (', 1)[0].strip()
+        base_to_ids.setdefault(base, []).append(stop['id'])
+    if area_index:
+        for key, ids in area_index.items():
+            base_to_ids.setdefault(key, []).extend(ids)
 
-    fuzzy_targets = [cleaned]
-    if alias_target:
-        fuzzy_targets.append(clean_string(alias_target))
+    # Containment: "nordeste" inside "vila do nordeste (escola)". Substring
+    # matching was removed from *resolution* on purpose (LAGOA must not resolve
+    # to LAGOA DO FOGO) -- but a suggestion is a candidate the caller retries
+    # with, never an answer, so it is exactly where containment belongs.
+    for target in targets:
+        if len(target) < 3:
+            continue
+        for name, ids in cleaned_to_ids.items():
+            if target in name:
+                for stop_id in ids:
+                    _bump(stop_id, 0.85)
 
-    for target in fuzzy_targets:
-        for match in difflib.get_close_matches(
-            target, cleaned_to_ids.keys(), n=limit, cutoff=0.6,
-        ):
-            ratio = difflib.SequenceMatcher(None, target, match).ratio()
+    # Fuzzy against the base names first (short strings, so a one-letter typo
+    # scores high), then against the full names as before.
+    for target in targets:
+        for match in difflib.get_close_matches(target, base_to_ids.keys(), n=limit, cutoff=0.6):
+            ratio = round(difflib.SequenceMatcher(None, target, match).ratio(), 3)
+            for stop_id in base_to_ids[match]:
+                _bump(stop_id, ratio)
+        for match in difflib.get_close_matches(target, cleaned_to_ids.keys(), n=limit, cutoff=0.6):
+            ratio = round(difflib.SequenceMatcher(None, target, match).ratio(), 3)
             for stop_id in cleaned_to_ids[match]:
-                scored[stop_id] = max(scored.get(stop_id, 0.0), round(ratio, 3))
+                _bump(stop_id, ratio)
 
     ranked = sorted(
         scored.items(), key=lambda pair: (-pair[1], by_id[pair[0]]['name']),

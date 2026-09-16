@@ -149,9 +149,16 @@ MCP_ENABLED = config('MCP_ENABLED', default=True, cast=bool)
 MCP_SERVER_NAME = config('MCP_SERVER_NAME', default='saomiguelbus')
 MCP_PUBLIC_URL = config('MCP_PUBLIC_URL', default='https://api.saomiguelhub.com/mcp')
 MCP_PUBLIC_API_URL = config('MCP_PUBLIC_API_URL', default='https://api.saomiguelhub.com')
+# DNS-rebinding allowlist for the MCP ASGI app. Deliberately NOT tied to DEBUG:
+# production has run with DEBUG=True before, and a localhost-only default there
+# turned every real /mcp request into a 421. The public host is always safe to
+# allow; local dev hosts are harmless to include alongside it.
 MCP_ALLOWED_HOSTS = _csv_env(
     'MCP_ALLOWED_HOSTS',
-    default='api.saomiguelhub.com,api.saomiguelhub.com:*' if not DEBUG else '127.0.0.1,localhost',
+    default=(
+        'api.saomiguelhub.com,api.saomiguelhub.com:*,'
+        '127.0.0.1,127.0.0.1:*,localhost,localhost:*'
+    ),
 )
 MCP_ALLOWED_ORIGINS = _csv_env('MCP_ALLOWED_ORIGINS', default='')
 MCP_AUTH_TOKEN = config('MCP_AUTH_TOKEN', default='')

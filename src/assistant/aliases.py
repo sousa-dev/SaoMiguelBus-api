@@ -13,26 +13,30 @@ they must already be lower-case, accent-stripped and hyphen-free.
 
 from __future__ import annotations
 
-STOP_ALIASES: dict[str, str] = {
-    'airport': 'Aeroporto',
-    'the airport': 'Aeroporto',
-    'airport pdl': 'Aeroporto',
-    'hot springs': 'Furnas',
-    'hot spring': 'Furnas',
-    'thermal pools': 'Furnas',
-    'thermal baths': 'Furnas',
-    'lagoon': 'Sete Cidades',
-    'lagoons': 'Sete Cidades',
-    'blue lagoon': 'Sete Cidades',
-    'green lagoon': 'Sete Cidades',
-    'crater lake': 'Sete Cidades',
-    'twin lakes': 'Sete Cidades',
-    'downtown': 'Ponta Delgada',
-    'city center': 'Ponta Delgada',
-    'city centre': 'Ponta Delgada',
-    'tea plantation': 'Gorreana',
-    'tea factory': 'Gorreana',
-    'waterfall': 'Ribeira dos Caldeiroes',
-    'volcano': 'Sete Cidades',
-    'viewpoint': 'Sete Cidades',
+STOP_ALIASES: dict[str, tuple[str, ...]] = {
+    # The current network has no stop literally named 'Aeroporto'; the stop
+    # serving the airport is 'Ponta Delgada (Antiga Aerogare)'. Offer both
+    # spellings so either dataset surfaces a candidate.
+    'airport': ('Aeroporto', 'Aerogare'),
+    'the airport': ('Aeroporto', 'Aerogare'),
+    'airport pdl': ('Aeroporto', 'Aerogare'),
+    'aeroporto': ('Aeroporto', 'Aerogare'),
+    'hot springs': ('Furnas',),
+    'hot spring': ('Furnas',),
+    'thermal pools': ('Furnas',),
+    'thermal baths': ('Furnas',),
+    'lagoon': ('Sete Cidades',),
+    'lagoons': ('Sete Cidades',),
+    'blue lagoon': ('Sete Cidades',),
+    'green lagoon': ('Sete Cidades',),
+    'crater lake': ('Sete Cidades',),
+    'twin lakes': ('Sete Cidades',),
+    'downtown': ('Ponta Delgada',),
+    'city center': ('Ponta Delgada',),
+    'city centre': ('Ponta Delgada',),
+    'tea plantation': ('Gorreana',),
+    'tea factory': ('Gorreana',),
+    'waterfall': ('Ribeira dos Caldeiroes',),
+    'volcano': ('Sete Cidades',),
+    'viewpoint': ('Sete Cidades',),
 }

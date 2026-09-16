@@ -27,6 +27,19 @@ class AIStopsTestCase(TestCase):
                 cleaned_name='aeroporto',
                 defaults={'name': 'Aeroporto', 'latitude': 37.7412, 'longitude': -25.6975},
             )
+            # The live network names stops "VILLAGE (LANDMARK)"; these mirror
+            # real rows so the typo/containment cases exercise the same shape
+            # production has, not just the bare-name fixtures above.
+            for cleaned, name in (
+                ('furnas (caldeiras)', 'Furnas (Caldeiras)'),
+                ('sete cidades (lagoas)', 'Sete Cidades (Lagoas)'),
+                ('vila do nordeste (escola)', 'Vila do Nordeste (Escola)'),
+                ('ponta delgada (antiga aerogare)', 'Ponta Delgada (Antiga Aerogare)'),
+            ):
+                Stop.objects.get_or_create(
+                    island=self.island, cleaned_name=cleaned,
+                    defaults={'name': name, 'latitude': 37.8, 'longitude': -25.5},
+                )
 
     def test_exact_match(self):
         response = self.client.get('/api/v3/ai/stops', {'q': 'Furnas'})
@@ -57,6 +70,33 @@ class AIStopsTestCase(TestCase):
         self.assertEqual(response.status_code, 200)
         names = [stop['name'] for stop in response.json()['stops']]
         self.assertIn('Aeroporto', names)
+        # Live network: the stop serving the airport is the old terminal.
+        self.assertIn('Ponta Delgada (Antiga Aerogare)', names)
+
+    def test_typo_in_village_name_matches_suffixed_stops(self):
+        # "furnaz" vs "furnas (caldeiras)" is far below difflib's cutoff on the
+        # full string; it must be matched against the village base name.
+        names = [s['name'] for s in self.client.get('/api/v3/ai/stops', {'q': 'Furnaz'}).json()['stops']]
+        self.assertIn('Furnas (Caldeiras)', names)
+        names = [s['name'] for s in self.client.get('/api/v3/ai/stops', {'q': 'Sete Cidadez'}).json()['stops']]
+        self.assertIn('Sete Cidades (Lagoas)', names)
+
+    def test_containment_matches_inner_word(self):
+        names = [s['name'] for s in self.client.get('/api/v3/ai/stops', {'q': 'nordest'}).json()['stops']]
+        self.assertIn('Vila do Nordeste (Escola)', names)
+
+    def test_journeys_suggestions_use_the_same_finder(self):
+        body = self.client.get('/api/v3/ai/journeys', {'from': 'Furnaz', 'to': 'Ponta Delgada'}).json()
+        self.assertIsNone(body['resolved']['from'])
+        self.assertEqual(body['journeys'], [])
+        self.assertIn('Furnas (Caldeiras)', [s['name'] for s in body['suggestions']['from']])
+
+    def test_api_self_link_is_https_behind_proxy(self):
+        body = self.client.get(
+            '/api/v3/ai/journeys', {'from': 'Ponta Delgada', 'to': 'Ribeira Grande'},
+            HTTP_X_FORWARDED_PROTO='https',
+        ).json()
+        self.assertTrue(body['links']['api'].startswith('https://'), body['links']['api'])
 
     def test_no_query_returns_empty_list(self):
         response = self.client.get('/api/v3/ai/stops')
