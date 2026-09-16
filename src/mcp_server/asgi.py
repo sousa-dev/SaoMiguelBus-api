@@ -1,21 +1,32 @@
 from __future__ import annotations
 
+import os
 from contextlib import asynccontextmanager
 
-from django.conf import settings
-from starlette.applications import Starlette
-from starlette.responses import JSONResponse
-from starlette.routing import Mount, Route
+# uvicorn imports this module directly (unlike `manage.py` / the test runner,
+# which already bootstrap Django before anything downstream of them runs), so
+# Django must be configured here before any import below touches a model
+# (mcp_server.server -> mcp_server.tools.* -> mcp_server.bridge -> tenancy.models).
+# `django.setup()` is idempotent -- safe even if something already called it.
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'src.settings')
+import django  # noqa: E402
 
-from mcp.server.transport_security import TransportSecuritySettings
+django.setup()
 
-from mcp_server.middleware import (
+from django.conf import settings  # noqa: E402
+from starlette.applications import Starlette  # noqa: E402
+from starlette.responses import JSONResponse  # noqa: E402
+from starlette.routing import Mount, Route  # noqa: E402
+
+from mcp.server.transport_security import TransportSecuritySettings  # noqa: E402
+
+from mcp_server.middleware import (  # noqa: E402
     BearerTokenMiddleware,
     HostValidationMiddleware,
     HumanLandingMiddleware,
     RateLimitMiddleware,
 )
-from mcp_server.server import mcp
+from mcp_server.server import mcp  # noqa: E402
 
 
 async def health(request):
