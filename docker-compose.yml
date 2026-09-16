@@ -98,7 +98,7 @@ services:
     volumes:
       - media_files:/usr/src/app/media
     ports:
-      - "${MCP_PORT:-8001}:${MCP_CONTAINER_PORT:-8001}"
+      - "${MCP_PORT:-48001}:${MCP_CONTAINER_PORT:-48001}"
     <<: *app-env
     depends_on:
       db:

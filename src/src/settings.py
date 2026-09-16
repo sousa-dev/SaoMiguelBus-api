@@ -157,7 +157,7 @@ MCP_ALLOWED_ORIGINS = _csv_env('MCP_ALLOWED_ORIGINS', default='')
 MCP_AUTH_TOKEN = config('MCP_AUTH_TOKEN', default='')
 MCP_RATE_LIMIT = config('MCP_RATE_LIMIT', default='120/min')
 MCP_HOST = config('MCP_HOST', default='127.0.0.1')
-MCP_PORT = config('MCP_PORT', default=8001, cast=int)
+MCP_PORT = config('MCP_PORT', default=48001, cast=int)
 
 if not DEBUG:
     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')

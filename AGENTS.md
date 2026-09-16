@@ -43,7 +43,7 @@ existing transit, Mini Bus, AzoresBus, and weather services in-process and
 always resolves the schedule dataset on the server.
 
 Production requires `MCP_ALLOWED_HOSTS=api.saomiguelhub.com,api.saomiguelhub.com:*`.
-Add the `/mcp` path route to the MCP service on port 8001 with path stripping;
+Add the `/mcp` path route to the MCP service on port 48001 with path stripping;
 the web container remains responsible for migrations and static collection.
 
 After promoting `boilerplate/` to root, all commands run from **`src/`**.
