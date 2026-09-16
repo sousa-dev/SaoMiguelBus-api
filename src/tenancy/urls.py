@@ -1,5 +1,6 @@
 from django.urls import path
 
+from azoresbus.api_ops import azoresbus_snapshot_view, azoresbus_trigger_sync_view
 from marketplace.api_ops import fix_provider_phones_view
 from tenancy import views
 
@@ -18,5 +19,15 @@ urlpatterns = [
         'marketplace/fix-phones',
         fix_provider_phones_view,
         name='ops_marketplace_fix_phones',
+    ),
+    path(
+        'azoresbus/snapshot',
+        azoresbus_snapshot_view,
+        name='ops_azoresbus_snapshot',
+    ),
+    path(
+        'azoresbus/sync',
+        azoresbus_trigger_sync_view,
+        name='ops_azoresbus_sync',
     ),
 ]
