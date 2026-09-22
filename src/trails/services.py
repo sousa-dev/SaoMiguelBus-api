@@ -10,6 +10,7 @@ from typing import Any
 import requests
 from django.conf import settings
 
+from tenancy.context import get_active_island
 from tenancy.models import Island
 from tenancy.services import for_island
 from trails.models import POI, Trail
@@ -481,24 +482,49 @@ def _islands_for_sync(*, island_key: str | None) -> list[Island]:
     ]
 
 
+def is_madeira(island: Island) -> bool:
+    """Madeira archipelago tenants use different content sources than the Azores ones."""
+    return (island.archipelago or '').strip().lower() == 'madeira'
+
+
+def sync_visitazores_trails_for_island(island: Island) -> dict[str, int]:
+    """Azores trail provider. Imported lazily — visitazores_sync imports this module."""
+    from trails.visitazores_sync import sync_visitazores_trails_for_island as _sync
+
+    return _sync(island)
+
+
 def sync_open_data_for_island(island: Island) -> dict[str, int]:
     totals = {
         'trails_created': 0,
         'trails_updated': 0,
+        # Deleting rows is the one thing a sync does that re-running cannot undo, so it is
+        # reported rather than left to the logs. Only the Madeira provider reconciles today.
+        'trails_removed': 0,
         'pois_created': 0,
         'pois_updated': 0,
         'skipped': 0,
     }
     try:
-        from trails.visitazores_sync import sync_visitazores_trails_for_island
+        if is_madeira(island):
+            from trails.madeira_sync import sync_madeira_trails_for_island
 
-        trail_counts = sync_visitazores_trails_for_island(island)
+            trail_counts = sync_madeira_trails_for_island(island)
+        else:
+            trail_counts = sync_visitazores_trails_for_island(island)
         totals['trails_created'] += trail_counts['created']
         totals['trails_updated'] += trail_counts['updated']
+        totals['trails_removed'] += trail_counts.get('removed', 0)
         totals['skipped'] += trail_counts['skipped']
     except Exception:
-        logger.exception('visitazores trails sync failed for island=%s', island.key)
+        logger.exception('trails sync failed for island=%s', island.key)
         raise
+
+    if is_madeira(island):
+        # dados.gov.pt PIT is an Azores regional dataset; Madeira POIs come from the
+        # atlas OSM importers instead. Calling it here would file Azores POIs under a
+        # Madeira tenant.
+        return totals
 
     try:
         poi_collection = fetch_dataset_geojson(_poi_dataset_id())
@@ -553,6 +579,7 @@ def sync_all_open_data(*, island_key: str | None = None) -> dict[str, int]:
         'islands': 0,
         'trails_created': 0,
         'trails_updated': 0,
+        'trails_removed': 0,
         'pois_created': 0,
         'pois_updated': 0,
         'skipped': 0,
@@ -569,8 +596,9 @@ def sync_all_open_data(*, island_key: str | None = None) -> dict[str, int]:
             totals['failed_islands'] += 1
             continue
         synced.append(island)
-        for key in ('trails_created', 'trails_updated', 'pois_created', 'pois_updated', 'skipped'):
-            totals[key] += counts[key]
+        for key in ('trails_created', 'trails_updated', 'trails_removed',
+                    'pois_created', 'pois_updated', 'skipped'):
+            totals[key] += counts.get(key, 0)
 
     totals['atlas_islands_imported'] = propagate_trails_to_atlas(synced)
     return totals
@@ -656,6 +684,12 @@ def serialize_poi(poi: POI) -> dict[str, Any]:
 
 
 def trails_attribution() -> str:
+    """Credit the sources the active island's trails actually came from."""
+    island = get_active_island()
+    if island is not None and is_madeira(island):
+        from trails.madeira_sync import MADEIRA_ATTRIBUTION
+
+        return MADEIRA_ATTRIBUTION
     try:
         from trails.visitazores_sync import VISITAZORES_ATTRIBUTION
 

@@ -30,15 +30,25 @@ def import_all_sources_task(island_key: str | None = None) -> dict:
 
     order = ['transit', 'minibus', 'trails', 'curated', 'osm']
     totals: dict[str, dict] = {}
+    failed: dict[str, str] = {}
     for island in islands:
         island_totals = {}
-        for source in order:
-            importer = IMPORTER_REGISTRY[source](island)
-            island_totals[source] = importer.run()
+        try:
+            for source in order:
+                importer = IMPORTER_REGISTRY[source](island)
+                island_totals[source] = importer.run()
+        except Exception as exc:
+            # One island must not cost the others their monthly refresh. Islands are ordered
+            # by name, so a second archipelago's tenants can sort ahead of the first's —
+            # 'Madeira' before 'São Miguel' — and an unguarded raise here would have skipped
+            # the shipped product's import entirely.
+            logger.exception('atlas.import_all_sources failed island=%s', island.key)
+            failed[island.key] = str(exc)
+            continue
         totals[island.key] = island_totals
         logger.info('atlas.import_all_sources island=%s totals=%s', island.key, island_totals)
 
-    return {'status': 'ok', 'islands': totals}
+    return {'status': 'partial' if failed else 'ok', 'islands': totals, 'failed': failed}
 
 
 @shared_task(name='atlas.enrich_pois')
@@ -54,37 +64,52 @@ def enrich_pois_task(island_key: str | None = None, limit: int | None = None) ->
 
     provider = load_provider()
     totals: dict[str, dict] = {}
+    failed: dict[str, str] = {}
     for island in islands:
-        queryset = AtlasPoi.objects.filter(
-            island=island, tier=AtlasPoi.TIER_STANDARD, is_active=True,
-        ).order_by('id')
-        if limit:
-            queryset = queryset[:limit]
+        try:
+            totals[island.key] = _enrich_island(island, provider, limit, timezone,
+                                                AtlasPoi, AtlasRevision)
+        except Exception as exc:
+            # Per-island, for the same reason as import_all_sources: islands are ordered by
+            # name, so one archipelago's tenants can sort ahead of the other's — 'Madeira'
+            # before 'São Miguel' — and an unguarded raise here skips the shipped product.
+            logger.exception('atlas.enrich_pois failed island=%s', island.key)
+            failed[island.key] = str(exc)
 
-        enriched = skipped = 0
-        for poi in queryset:
-            result = provider.enrich(poi)
-            if result is None:
-                skipped += 1
-                continue
-            poi.description = result.description
-            poi.tips = result.tips
-            poi.media = result.media
-            poi.accessibility = result.accessibility
-            poi.tier = AtlasPoi.TIER_ENRICHED
-            poi.enriched_at = timezone.now()
-            poi.enrichment_model = provider.model_name
-            poi.revision = AtlasRevision.next_for(island)
-            poi.save(update_fields=[
-                'description', 'tips', 'media', 'accessibility',
-                'tier', 'enriched_at', 'enrichment_model', 'revision',
-            ])
-            enriched += 1
+    return {'status': 'partial' if failed else 'ok', 'provider': provider.model_name,
+            'islands': totals, 'failed': failed}
 
-        totals[island.key] = {'enriched': enriched, 'skipped': skipped}
-        logger.info('atlas.enrich_pois island=%s enriched=%s skipped=%s', island.key, enriched, skipped)
 
-    return {'status': 'ok', 'provider': provider.model_name, 'islands': totals}
+def _enrich_island(island, provider, limit, timezone, AtlasPoi, AtlasRevision) -> dict:
+    queryset = AtlasPoi.objects.filter(
+        island=island, tier=AtlasPoi.TIER_STANDARD, is_active=True,
+    ).order_by('id')
+    if limit:
+        queryset = queryset[:limit]
+
+    enriched = skipped = 0
+    for poi in queryset:
+        result = provider.enrich(poi)
+        if result is None:
+            skipped += 1
+            continue
+        poi.description = result.description
+        poi.tips = result.tips
+        poi.media = result.media
+        poi.accessibility = result.accessibility
+        poi.tier = AtlasPoi.TIER_ENRICHED
+        poi.enriched_at = timezone.now()
+        poi.enrichment_model = provider.model_name
+        poi.revision = AtlasRevision.next_for(island)
+        poi.save(update_fields=[
+            'description', 'tips', 'media', 'accessibility',
+            'tier', 'enriched_at', 'enrichment_model', 'revision',
+        ])
+        enriched += 1
+
+    logger.info('atlas.enrich_pois island=%s enriched=%s skipped=%s',
+                island.key, enriched, skipped)
+    return {'enriched': enriched, 'skipped': skipped}
 
 
 @shared_task(name='atlas.build_seed_db')

@@ -1,0 +1,27 @@
+{
+  "_comment": "Explicit island-area bounding boxes [min_lon, max_lon, min_lat, max_lat]. When a key is listed here it is authoritative for OSM element ownership, replacing the nearest-island-centre rule. Needed where centre+radius circles overlap two areas: Madeira's Ponta de São Lourenço islets sit closer to the Desertas centre than to Madeira's. Boxes must not overlap each other. Azores islands are deliberately absent and keep nearest-centre ownership.",
+  "madeira": [
+    -17.32,
+    -16.62,
+    32.58,
+    32.95
+  ],
+  "porto-santo": [
+    -16.45,
+    -16.23,
+    32.95,
+    33.15
+  ],
+  "desertas": [
+    -16.6,
+    -16.42,
+    32.35,
+    32.6
+  ],
+  "selvagens": [
+    -16.1,
+    -15.8,
+    29.98,
+    30.2
+  ]
+}

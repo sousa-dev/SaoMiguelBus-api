@@ -246,6 +246,92 @@ Legacy line 206 reaches sequence 12 at `08h20` and sequence 13 at `08h10`, with 
 This fixes `/api/v3/transit/search`, `/api/v2/route` and `/api/v1/route`, which had shipped those rows for years as "departs 08h20, arrives 08h10" (3 of 37 rows on one measured Ponta Delgada query). Genuine overnight legs (`23h50` → `00h40` with `day_offset` 1) still advance and are kept. The search golden snapshot is unchanged, so no correct behaviour moved.
 - The Expo client mirrors this scan offline in `lib/journey-search.ts` — the two must agree, same reasoning as `matcher.py`.
 
+### Madeira archipelago tenants (`tenancy` / `trails` / `atlas` — content built, not deployed)
+
+Four extra tenants — `madeira`, `porto-santo`, `desertas`, `selvagens`, all
+`archipelago="Madeira"`, `Atlantic/Madeira` — feeding a **separate** paid app
+(`../SaoMiguelHub-Tools/Madeira-OfflineMap`). The nine Azores tenants and every existing
+client are unchanged: Azores stays the default everywhere it already was.
+
+- Seeds: `tenancy/0021_seed_madeira_islands`, `weather/0005_seed_madeira_parishes` (53 Madeira
+  + 1 Porto Santo parish, from OSM administrative relations). Desertas and Selvagens get
+  `trails`/`weather` off — they have no published routes and no forecast locations, and
+  substituting another island's forecast would be a lie.
+- **Trail provider dispatch** (`trails/services.py` `is_madeira`): Madeira tenants use
+  `trails/madeira_sync.py` and never call Visit Azores or the `dados.gov.pt` PIT dataset
+  (an Azores regional dataset — importing it under a Madeira tenant files Azores POIs there).
+  `trails_attribution()` follows the active island's archipelago.
+- **Trail content**: identity, official page and access status come from the
+  [Visit Madeira hiking index](https://visitmadeira.com/en/what-to-do/nature-seekers/activities/hiking/)
+  (`trails/data/madeira_official_routes.json`); geometry comes from matched OSM route
+  relations (`trails/data/madeira_route_geometry.json`, refreshed by
+  `scripts/fetch_madeira_route_geometry.py`). 40 routes, all matched. A route with missing,
+  malformed or out-of-bounds geometry is **skipped and its stored trail left untouched**.
+  Descriptions carry the status *as read on the snapshot date* plus the official URL, because
+  Madeira closes and reopens PR routes constantly.
+- **Distances are summed per line.** `services._line_length_km` flattens a MultiLineString and
+  measures through the gap between parts; an OSM route relation is dozens of ways, so it read
+  a Madeira PR as 11.6 km instead of 2.2 km. `madeira_sync._route_length_km` is the correct
+  one. A route OSM maps as several signed variants reports no distance at all.
+- **`atlas/data/area_bounds.json`** makes island ownership explicit for keys listed there,
+  replacing nearest-island-centre. Needed because Ponta de São Lourenço's islets are closer to
+  the Desertas centre than to Madeira's, so OSM POIs on a Madeira headland imported into an
+  uninhabited nature reserve. Azores keys are deliberately absent and keep nearest-centre.
+- **`build_seed_db --islands madeira,porto-santo,desertas,selvagens --without-trails`** builds
+  a product-scoped seed. Without `--islands` a Madeira build bundles all nine Azores islands.
+  Without `--without-trails` the seed carries trail rows at real revisions, and the Expo client
+  only attaches a bundled GPX to a trail still at revision 0 — so every seeded trail ships with
+  no offline track. Both apps ship trails in a release pack, not the seed.
+
+```bash
+cd src
+for k in madeira porto-santo desertas selvagens; do python manage.py fetch_osm_extracts --island $k; done
+python manage.py sync_trails --island madeira      # and porto-santo
+for k in madeira porto-santo desertas selvagens; do
+  for s in osm curated trails; do python manage.py import_atlas --source $s --island $k; done
+done
+python manage.py build_seed_db --islands madeira,porto-santo,desertas,selvagens --without-trails
+```
+
+Current content: 6,779 / 320 / 14 / 11 POIs and 37 / 3 / 0 / 0 trails, none outside its area
+box. **Release seeds must be built from the deployed API** — the seed carries each island's
+revision counter as the client's starting sync cursor, and `build_seed_db` refuses a non-Postgres
+source without `--allow-non-production` for exactly that reason.
+
+**Deploying this (what changes for the Azores side):**
+
+- The only behaviour change for existing clients: an **explicit unknown island** on
+  `/api/v3/atlas/`, `/trails/` or `/weather/` now returns 400 instead of silently serving
+  São Miguel. Valid keys, no header, a blank header and odd casing all behave exactly as
+  before, and every other v3 path keeps the old fallback.
+- `runserver.sh` runs `bootstrap_atlas`, which does the **first-time Madeira import on the
+  first deploy only** — about 25–30s (11,236 OSM elements → 6,773 POIs). It catches per
+  importer and exits 0, so it cannot fail the deploy. Later deploys skip it.
+- Island rows are ordered by name, so **'Madeira' sorts before 'São Miguel'** in every
+  `for island in Island.objects.filter(...)` loop. `weather.refresh_forecasts`,
+  `atlas.import_all_sources` and `atlas.enrich_pois` had no per-island guard, so one Madeira
+  failure would have skipped São Miguel entirely; all three now isolate per island and
+  report `failed`. The remaining loops are either feature-flag guarded or no-ops for a
+  tenant with no rows.
+- `weather.refresh_forecasts` now also warms 54 Madeira/Porto Santo parishes each hour —
+  new outbound Open-Meteo calls, batched one request per island.
+- **`build_seed_db` with no `--islands` now yields 13 islands, not 9.** Nothing runs it
+  automatically (`atlas.build_seed_db` is not beat-registered), but an Azores seed built by
+  hand must now pass its nine keys explicitly.
+- `atlas.enrich_pois` is beat-enabled daily and would now see Madeira's ~7k standard-tier
+  POIs. It is a no-op today because `ATLAS_ENRICHMENT_PROVIDER` is unset; set it and Madeira
+  sorts first, so budget it accordingly.
+
+Tests: `atlas/tests/test_madeira_isolation.py`, `atlas/tests/test_madeira_osm_ownership.py`,
+`atlas/tests/test_seed_db_island_filter.py`, `trails/tests/test_madeira_sync.py`,
+`trails/tests/test_sync_trails_command.py`, `atlas/tests/test_task_island_isolation.py`,
+`weather/tests/test_refresh_isolation.py`.
+
+`pytest.ini` now also collects `atlas/tests`, `trails/tests` and `tenancy/tests` — they
+existed but a bare `manage.py test` never ran them. `marketplace/tests` and `seismic/tests`
+stay out: each has one failure that predates this work (an Island the 0017 seed already
+creates; a seismic time-window assertion).
+
 ### Legacy data import
 
 ```bash

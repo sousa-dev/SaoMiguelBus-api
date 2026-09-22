@@ -1,0 +1,161 @@
+[
+  {
+    "osm_id": "node/1787636294",
+    "lat": 30.03591,
+    "lon": -16.0276947,
+    "tags": {
+      "man_made": "lighthouse",
+      "name": "Farol da Selvagem Pequena",
+      "wikidata": "Q10280138",
+      "wikipedia": "pt:Farol da Selvagem Pequena"
+    }
+  },
+  {
+    "osm_id": "node/2054066573",
+    "lat": 30.1454554,
+    "lon": -15.8711685,
+    "tags": {
+      "ele": "154",
+      "name": "Atalaia",
+      "natural": "peak",
+      "wikidata": "Q9059404",
+      "wikimedia_commons": "Category:Selvagem Grande",
+      "wikipedia": "pt:Pico da Atalaia"
+    }
+  },
+  {
+    "osm_id": "node/2054066574",
+    "lat": 30.1384934,
+    "lon": -15.8635723,
+    "tags": {
+      "ele": "108",
+      "name": "Cabeço do Inferno",
+      "name:es": "Cabezo Infierno",
+      "natural": "peak"
+    }
+  },
+  {
+    "osm_id": "node/2054066575",
+    "lat": 30.1460096,
+    "lon": -15.8639044,
+    "tags": {
+      "ele": "137",
+      "name": "Tornozelos",
+      "name:es": "Pico de los Tobillos",
+      "natural": "peak"
+    }
+  },
+  {
+    "osm_id": "node/2388943602",
+    "lat": 30.1527567,
+    "lon": -15.8684558,
+    "tags": {
+      "ele": "93",
+      "name": "Ponta do Risco",
+      "name:es": "Punta del Risco",
+      "natural": "peak"
+    }
+  },
+  {
+    "osm_id": "node/2388950232",
+    "lat": 30.1410546,
+    "lon": -15.8739799,
+    "tags": {
+      "ele": "47",
+      "name": "Cabeço da Atalaia",
+      "name:es": "Cabezo Atalaya",
+      "natural": "peak"
+    }
+  },
+  {
+    "osm_id": "node/2388961565",
+    "lat": 30.0359912,
+    "lon": -16.0275262,
+    "tags": {
+      "ele": "49",
+      "name": "Veado",
+      "name:es": "Pico del Venado",
+      "natural": "peak",
+      "wikidata": "Q10349603",
+      "wikipedia": "pt:Pico do Veado"
+    }
+  },
+  {
+    "osm_id": "node/8582141944",
+    "lat": 30.1426496,
+    "lon": -15.8680836,
+    "tags": {
+      "historic": "memorial",
+      "name": "Força Aérea Portuguesa"
+    }
+  },
+  {
+    "osm_id": "node/8582141946",
+    "lat": 30.1423544,
+    "lon": -15.8679188,
+    "tags": {
+      "historic": "memorial",
+      "name": "MHIA Marco Astronómico - 1938"
+    }
+  },
+  {
+    "osm_id": "node/8582141956",
+    "lat": 30.153871,
+    "lon": -15.8619884,
+    "tags": {
+      "ele": "75",
+      "name": "Corgo da Areia",
+      "name:es": "Corriente de Arena",
+      "natural": "peak"
+    }
+  },
+  {
+    "osm_id": "node/11807045815",
+    "lat": 30.140547,
+    "lon": -15.8691909,
+    "tags": {
+      "addr:city": "Sé",
+      "addr:place": "Selvagem Grande",
+      "amenity": "police",
+      "name": "Posto Marítimo das Selvagens",
+      "operator": "Autoridade Marítima Nacional",
+      "source": "https://www.defesa.gov.pt/pt/comunicacao/noticias/Paginas/Ilhas-Selvagens-recebem-extensao-permanente-da-Policia-Maritima.aspx"
+    }
+  },
+  {
+    "osm_id": "way/924718639",
+    "lat": 30.1453852,
+    "lon": -15.8711471,
+    "tags": {
+      "building": "yes",
+      "man_made": "lighthouse",
+      "name": "Farol",
+      "name:en": "Selvagem Grande Lighthouse",
+      "seamark:light:character": "Fl",
+      "seamark:light:colour": "white",
+      "seamark:light:height": "163",
+      "seamark:light:period": "4",
+      "seamark:light:range": "13",
+      "seamark:light:reference": "D 2768",
+      "seamark:light:sequence": "1+(3)",
+      "seamark:name": "Ilha Selvagem Grande",
+      "seamark:radio_station:category": "public_communication",
+      "seamark:type": "light_minor",
+      "source": "US NGA Pub. 113. 2011-10-20.",
+      "wikidata": "Q15648040",
+      "wikimedia_commons": "Category:Farol da Selvagem Grande",
+      "wikipedia": "pt:Farol da Selvagem Grande"
+    }
+  },
+  {
+    "osm_id": "way/1497206271",
+    "lat": 30.1398342,
+    "lon": -15.8656399,
+    "tags": {
+      "lifeguard": "no",
+      "natural": "beach",
+      "supervised": "no",
+      "surface": "unhewn_cobblestone"
+    }
+  }
+]

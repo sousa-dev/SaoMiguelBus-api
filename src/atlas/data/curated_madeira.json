@@ -1,0 +1,68 @@
+[
+  {
+    "ref": "funchal",
+    "name": {
+      "pt": "Funchal",
+      "en": "Funchal"
+    },
+    "category": "places",
+    "latitude": 32.64965,
+    "longitude": -16.90868,
+    "osmRef": "node/25255071"
+  },
+  {
+    "ref": "cabo-girao",
+    "name": {
+      "pt": "Cabo Girão",
+      "en": "Cabo Girão"
+    },
+    "category": "viewpoints",
+    "latitude": 32.6572,
+    "longitude": -17.0048,
+    "osmRef": "node/11374143769"
+  },
+  {
+    "ref": "ponta-do-sol",
+    "name": {
+      "pt": "Ponta do Sol",
+      "en": "Ponta do Sol"
+    },
+    "category": "places",
+    "latitude": 32.68124,
+    "longitude": -17.10408,
+    "osmRef": "node/25269571"
+  },
+  {
+    "ref": "pico-do-areeiro",
+    "name": {
+      "pt": "Pico do Areeiro",
+      "en": "Pico do Areeiro"
+    },
+    "category": "viewpoints",
+    "latitude": 32.73573,
+    "longitude": -16.92871,
+    "osmRef": "node/299984803"
+  },
+  {
+    "ref": "santana",
+    "name": {
+      "pt": "Santana",
+      "en": "Santana"
+    },
+    "category": "places",
+    "latitude": 32.80491,
+    "longitude": -16.8813,
+    "osmRef": "node/975761089"
+  },
+  {
+    "ref": "porto-moniz",
+    "name": {
+      "pt": "Porto Moniz",
+      "en": "Porto Moniz"
+    },
+    "category": "places",
+    "latitude": 32.86696,
+    "longitude": -17.16663,
+    "osmRef": "node/288754326"
+  }
+]

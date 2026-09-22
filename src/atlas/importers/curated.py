@@ -22,6 +22,9 @@ class CuratedImporter(BaseImporter):
     def data_path(self) -> Path:
         return Path(__file__).resolve().parent.parent / 'data' / f'curated_{self.island.key}.json'
 
+    def has_complete_input(self) -> bool:
+        return self.data_path().exists()
+
     def rows(self) -> Iterator[ImportRow]:
         path = self.data_path()
         if not path.exists():

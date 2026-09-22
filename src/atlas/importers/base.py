@@ -14,6 +14,8 @@ from __future__ import annotations
 import dataclasses
 from typing import Any, Iterable, Iterator
 
+from django.db import transaction
+
 from atlas.models import AtlasCategory, AtlasPoi
 from atlas.services import assign_category, assign_parish
 from tenancy.models import Island
@@ -101,6 +103,15 @@ class BaseImporter:
         return poi, created
 
     def run(self) -> dict[str, int]:
+        if not self.has_complete_input():
+            return {'created': 0, 'updated': 0, 'tombstoned': 0}
+        return self._run_atomic()
+
+    def has_complete_input(self) -> bool:
+        return True
+
+    @transaction.atomic
+    def _run_atomic(self) -> dict[str, int]:
         seen_refs: set[str] = set()
         created = updated = 0
         for row in self.rows():

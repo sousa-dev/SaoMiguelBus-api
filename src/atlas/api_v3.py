@@ -41,14 +41,19 @@ def stats_view(request: Request) -> Response:
     to one tenant. (TenantMiddleware always binds a default island, so we must not
     treat ``request.island is not None`` as an explicit scope request.)
     """
+    requested_archipelago = request.query_params.get('archipelago', 'azores').strip().lower()
+    if requested_archipelago not in ('azores', 'madeira'):
+        return Response({'error': {'code': 'invalid_archipelago', 'message': 'archipelago must be azores or madeira'}}, status=400)
     if _explicit_island_requested(request):
+        if request.query_params.get('archipelago') and request.island and request.island.archipelago.lower() != requested_archipelago:
+            return Response({'error': {'code': 'archipelago_mismatch', 'message': 'Island belongs to another archipelago'}}, status=400)
         err = _require_island(request)
         if err:
             return err
         with for_island(request.island):
             payload = build_atlas_stats(island=request.island)
     else:
-        payload = build_atlas_stats()
+        payload = build_atlas_stats(archipelago=requested_archipelago.title())
     return Response(payload)
 
 

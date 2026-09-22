@@ -259,7 +259,7 @@ def serialize_tombstone(tombstone: AtlasTombstone) -> dict[str, Any]:
     }
 
 
-def build_atlas_stats(*, island: Island | None = None) -> dict[str, Any]:
+def build_atlas_stats(*, island: Island | None = None, archipelago: str = 'Azores') -> dict[str, Any]:
     """Published catalogue totals for marketing / landing pages.
 
     When ``island`` is set, counts are scoped to that tenant. Otherwise returns
@@ -275,8 +275,12 @@ def build_atlas_stats(*, island: Island | None = None) -> dict[str, Any]:
         categories = categories.filter(island=island)
         island_count = 1
     else:
+        pois = pois.filter(island__archipelago__iexact=archipelago)
+        trails = trails.filter(island__archipelago__iexact=archipelago)
+        categories = categories.filter(island__archipelago__iexact=archipelago)
         island_count = (
             Island.objects.filter(
+                archipelago__iexact=archipelago,
                 id__in=AtlasPoi.objects.unscoped()
                 .filter(is_published=True, is_active=True)
                 .values_list('island_id', flat=True)

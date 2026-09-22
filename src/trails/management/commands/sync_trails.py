@@ -1,4 +1,7 @@
-"""Sync Visit Azores trails into one island, or every island with the trails flag.
+"""Sync official trails into one island, or every island with the trails flag.
+
+Each archipelago has its own provider (Visit Azores; Visit Madeira + matched OSM geometry),
+so a single-island run is checked against that island's own provider, not the Azores one.
 
 Re-runnable and idempotent: trails upsert on (island, source_ref), so a failed run can simply
 be repeated. Wraps the same trails.services.sync_all_open_data() the nightly
@@ -10,7 +13,7 @@ from __future__ import annotations
 from django.core.management.base import BaseCommand, CommandError
 
 from tenancy.models import Island
-from trails.services import sync_all_open_data
+from trails.services import is_madeira, sync_all_open_data
 from trails.visitazores_sync import VISITAZORES_ISLAND_SLUGS
 
 
@@ -37,7 +40,16 @@ class Command(BaseCommand):
             island = Island.objects.filter(key=island_key).first()
             if island is None:
                 raise CommandError(f'Island not found: {island_key}')
-            if island.key not in VISITAZORES_ISLAND_SLUGS:
+            if is_madeira(island):
+                from trails.madeira_sync import madeira_route_areas
+
+                areas = madeira_route_areas()
+                if island.key not in areas:
+                    raise CommandError(
+                        f'Visit Madeira publishes no official routes for {island.key}. '
+                        f'Areas with routes: {", ".join(sorted(areas))}',
+                    )
+            elif island.key not in VISITAZORES_ISLAND_SLUGS:
                 raise CommandError(
                     f'No Visit Azores listing slug registered for {island.key}. '
                     f'Known: {", ".join(sorted(VISITAZORES_ISLAND_SLUGS))}',

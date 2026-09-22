@@ -1,0 +1,542 @@
+[
+  {
+    "slug": "freguesia-310101",
+    "name": "Arco da Calheta",
+    "concelho": "Calheta",
+    "lat": 32.7286394,
+    "lon": -17.1330129,
+    "island": "madeira",
+    "source": "OpenStreetMap relation/8422551",
+    "accessed": "2026-09-21"
+  },
+  {
+    "slug": "freguesia-310102",
+    "name": "Calheta",
+    "concelho": "Calheta",
+    "lat": 32.7465763,
+    "lon": -17.1309327,
+    "island": "madeira",
+    "source": "OpenStreetMap relation/8422552",
+    "accessed": "2026-09-21"
+  },
+  {
+    "slug": "freguesia-310103",
+    "name": "Estreito da Calheta",
+    "concelho": "Calheta",
+    "lat": 32.7562454,
+    "lon": -17.1738399,
+    "island": "madeira",
+    "source": "OpenStreetMap relation/8422553",
+    "accessed": "2026-09-21"
+  },
+  {
+    "slug": "freguesia-310108",
+    "name": "Prazeres",
+    "concelho": "Calheta",
+    "lat": 32.7601299,
+    "lon": -17.1911239,
+    "island": "madeira",
+    "source": "OpenStreetMap relation/8422554",
+    "accessed": "2026-09-21"
+  },
+  {
+    "slug": "freguesia-310105",
+    "name": "Jardim do Mar",
+    "concelho": "Calheta",
+    "lat": 32.7408071,
+    "lon": -17.208874,
+    "island": "madeira",
+    "source": "OpenStreetMap relation/8422555",
+    "accessed": "2026-09-21"
+  },
+  {
+    "slug": "freguesia-310106",
+    "name": "Paul do Mar",
+    "concelho": "Calheta",
+    "lat": 32.758395,
+    "lon": -17.2286121,
+    "island": "madeira",
+    "source": "OpenStreetMap relation/8422556",
+    "accessed": "2026-09-21"
+  },
+  {
+    "slug": "freguesia-310104",
+    "name": "Fajã da Ovelha",
+    "concelho": "Calheta",
+    "lat": 32.7828705,
+    "lon": -17.2016453,
+    "island": "madeira",
+    "source": "OpenStreetMap relation/8422557",
+    "accessed": "2026-09-21"
+  },
+  {
+    "slug": "freguesia-310107",
+    "name": "Ponta do Pargo",
+    "concelho": "Calheta",
+    "lat": 32.8154331,
+    "lon": -17.2212788,
+    "island": "madeira",
+    "source": "OpenStreetMap relation/8422558",
+    "accessed": "2026-09-21"
+  },
+  {
+    "slug": "freguesia-310604",
+    "name": "Seixal",
+    "concelho": "Porto Moniz",
+    "lat": 32.8048771,
+    "lon": -17.1103406,
+    "island": "madeira",
+    "source": "OpenStreetMap relation/8422559",
+    "accessed": "2026-09-21"
+  },
+  {
+    "slug": "freguesia-310603",
+    "name": "Ribeira da Janela",
+    "concelho": "Porto Moniz",
+    "lat": 32.8122609,
+    "lon": -17.141215,
+    "island": "madeira",
+    "source": "OpenStreetMap relation/8422560",
+    "accessed": "2026-09-21"
+  },
+  {
+    "slug": "freguesia-310602",
+    "name": "Porto Moniz",
+    "concelho": "Porto Moniz",
+    "lat": 32.8375822,
+    "lon": -17.1820483,
+    "island": "madeira",
+    "source": "OpenStreetMap relation/8422561",
+    "accessed": "2026-09-21"
+  },
+  {
+    "slug": "freguesia-310601",
+    "name": "Achadas da Cruz",
+    "concelho": "Porto Moniz",
+    "lat": 32.8411025,
+    "lon": -17.2100305,
+    "island": "madeira",
+    "source": "OpenStreetMap relation/8422562",
+    "accessed": "2026-09-21"
+  },
+  {
+    "slug": "freguesia-310303",
+    "name": "Santa Luzia",
+    "concelho": "Funchal",
+    "lat": 32.6583905,
+    "lon": -16.9045104,
+    "island": "madeira",
+    "source": "OpenStreetMap relation/8426650",
+    "accessed": "2026-09-21"
+  },
+  {
+    "slug": "freguesia-310308",
+    "name": "São Pedro",
+    "concelho": "Funchal",
+    "lat": 32.6526163,
+    "lon": -16.9185527,
+    "island": "madeira",
+    "source": "OpenStreetMap relation/8426651",
+    "accessed": "2026-09-21"
+  },
+  {
+    "slug": "freguesia-310301",
+    "name": "Imaculado Coração de Maria",
+    "concelho": "Funchal",
+    "lat": 32.6638964,
+    "lon": -16.9138252,
+    "island": "madeira",
+    "source": "OpenStreetMap relation/8426652",
+    "accessed": "2026-09-21"
+  },
+  {
+    "slug": "freguesia-310302",
+    "name": "Monte",
+    "concelho": "Funchal",
+    "lat": 32.699869,
+    "lon": -16.9025961,
+    "island": "madeira",
+    "source": "OpenStreetMap relation/8426653",
+    "accessed": "2026-09-21"
+  },
+  {
+    "slug": "freguesia-310309",
+    "name": "São Roque",
+    "concelho": "Funchal",
+    "lat": 32.6947817,
+    "lon": -16.9247935,
+    "island": "madeira",
+    "source": "OpenStreetMap relation/8426654",
+    "accessed": "2026-09-21"
+  },
+  {
+    "slug": "freguesia-310307",
+    "name": "São Martinho",
+    "concelho": "Funchal",
+    "lat": 32.6471274,
+    "lon": -16.9460014,
+    "island": "madeira",
+    "source": "OpenStreetMap relation/8426655",
+    "accessed": "2026-09-21"
+  },
+  {
+    "slug": "freguesia-310305",
+    "name": "Santo António",
+    "concelho": "Funchal",
+    "lat": 32.6919064,
+    "lon": -16.945557,
+    "island": "madeira",
+    "source": "OpenStreetMap relation/8426656",
+    "accessed": "2026-09-21"
+  },
+  {
+    "slug": "freguesia-310201",
+    "name": "Câmara de Lobos",
+    "concelho": "Câmara de Lobos",
+    "lat": 32.6643582,
+    "lon": -16.9834795,
+    "island": "madeira",
+    "source": "OpenStreetMap relation/8426657",
+    "accessed": "2026-09-21"
+  },
+  {
+    "slug": "freguesia-310203",
+    "name": "Estreito de Câmara de Lobos",
+    "concelho": "Câmara de Lobos",
+    "lat": 32.6791537,
+    "lon": -16.9784595,
+    "island": "madeira",
+    "source": "OpenStreetMap relation/8426658",
+    "accessed": "2026-09-21"
+  },
+  {
+    "slug": "freguesia-310205",
+    "name": "Jardim da Serra",
+    "concelho": "Câmara de Lobos",
+    "lat": 32.6965508,
+    "lon": -16.990021,
+    "island": "madeira",
+    "source": "OpenStreetMap relation/8426659",
+    "accessed": "2026-09-21"
+  },
+  {
+    "slug": "freguesia-310202",
+    "name": "Curral das Freiras",
+    "concelho": "Câmara de Lobos",
+    "lat": 32.7282024,
+    "lon": -16.959668,
+    "island": "madeira",
+    "source": "OpenStreetMap relation/8426660",
+    "accessed": "2026-09-21"
+  },
+  {
+    "slug": "freguesia-310204",
+    "name": "Quinta Grande",
+    "concelho": "Câmara de Lobos",
+    "lat": 32.6680002,
+    "lon": -17.016404,
+    "island": "madeira",
+    "source": "OpenStreetMap relation/8426661",
+    "accessed": "2026-09-21"
+  },
+  {
+    "slug": "freguesia-310701",
+    "name": "Campanário",
+    "concelho": "Ribeira Brava",
+    "lat": 32.6854245,
+    "lon": -17.0231555,
+    "island": "madeira",
+    "source": "OpenStreetMap relation/8426662",
+    "accessed": "2026-09-21"
+  },
+  {
+    "slug": "freguesia-310702",
+    "name": "Ribeira Brava",
+    "concelho": "Ribeira Brava",
+    "lat": 32.6957172,
+    "lon": -17.0379211,
+    "island": "madeira",
+    "source": "OpenStreetMap relation/8426663",
+    "accessed": "2026-09-21"
+  },
+  {
+    "slug": "freguesia-310703",
+    "name": "Serra de Água",
+    "concelho": "Ribeira Brava",
+    "lat": 32.7307787,
+    "lon": -17.0176858,
+    "island": "madeira",
+    "source": "OpenStreetMap relation/8426664",
+    "accessed": "2026-09-21"
+  },
+  {
+    "slug": "freguesia-310704",
+    "name": "Tabua",
+    "concelho": "Ribeira Brava",
+    "lat": 32.7116445,
+    "lon": -17.0639757,
+    "island": "madeira",
+    "source": "OpenStreetMap relation/8426665",
+    "accessed": "2026-09-21"
+  },
+  {
+    "slug": "freguesia-310503",
+    "name": "Ponta do Sol",
+    "concelho": "Ponta do Sol",
+    "lat": 32.7212155,
+    "lon": -17.0783833,
+    "island": "madeira",
+    "source": "OpenStreetMap relation/8426666",
+    "accessed": "2026-09-21"
+  },
+  {
+    "slug": "freguesia-310501",
+    "name": "Canhas",
+    "concelho": "Ponta do Sol",
+    "lat": 32.7260073,
+    "lon": -17.1004558,
+    "island": "madeira",
+    "source": "OpenStreetMap relation/8426667",
+    "accessed": "2026-09-21"
+  },
+  {
+    "slug": "freguesia-310502",
+    "name": "Madalena do Mar",
+    "concelho": "Ponta do Sol",
+    "lat": 32.7087975,
+    "lon": -17.1318933,
+    "island": "madeira",
+    "source": "OpenStreetMap relation/8426668",
+    "accessed": "2026-09-21"
+  },
+  {
+    "slug": "freguesia-310805",
+    "name": "Santa Cruz",
+    "concelho": "Santa Cruz",
+    "lat": 32.688,
+    "lon": -16.791,
+    "island": "madeira",
+    "source": "OpenStreetMap relation/8427677",
+    "accessed": "2026-09-21"
+  },
+  {
+    "slug": "freguesia-310804",
+    "name": "Gaula",
+    "concelho": "Santa Cruz",
+    "lat": 32.6754713,
+    "lon": -16.8201181,
+    "island": "madeira",
+    "source": "OpenStreetMap relation/8427678",
+    "accessed": "2026-09-21"
+  },
+  {
+    "slug": "freguesia-310806",
+    "name": "Santo António da Serra",
+    "concelho": "Santa Cruz",
+    "lat": 32.7163281,
+    "lon": -16.8335025,
+    "island": "madeira",
+    "source": "OpenStreetMap relation/8427679",
+    "accessed": "2026-09-21"
+  },
+  {
+    "slug": "freguesia-310802",
+    "name": "Camacha",
+    "concelho": "Santa Cruz",
+    "lat": 32.6915325,
+    "lon": -16.8632793,
+    "island": "madeira",
+    "source": "OpenStreetMap relation/8427680",
+    "accessed": "2026-09-21"
+  },
+  {
+    "slug": "freguesia-310803",
+    "name": "Caniço",
+    "concelho": "Santa Cruz",
+    "lat": 32.653586,
+    "lon": -16.8361784,
+    "island": "madeira",
+    "source": "OpenStreetMap relation/8427681",
+    "accessed": "2026-09-21"
+  },
+  {
+    "slug": "freguesia-310306",
+    "name": "São Gonçalo",
+    "concelho": "Funchal",
+    "lat": 32.6602621,
+    "lon": -16.8734642,
+    "island": "madeira",
+    "source": "OpenStreetMap relation/8427682",
+    "accessed": "2026-09-21"
+  },
+  {
+    "slug": "freguesia-310304",
+    "name": "Santa Maria Maior",
+    "concelho": "Funchal",
+    "lat": 32.667032,
+    "lon": -16.8886958,
+    "island": "madeira",
+    "source": "OpenStreetMap relation/8427683",
+    "accessed": "2026-09-21"
+  },
+  {
+    "slug": "freguesia-310310",
+    "name": "Sé",
+    "concelho": "Funchal",
+    "lat": 32.6488,
+    "lon": -16.908,
+    "island": "madeira",
+    "source": "OpenStreetMap relation/8427684",
+    "accessed": "2026-09-21"
+  },
+  {
+    "slug": "freguesia-320101",
+    "name": "Porto Santo",
+    "concelho": "Porto Santo",
+    "lat": 33.0621394,
+    "lon": -16.3440607,
+    "island": "porto-santo",
+    "source": "OpenStreetMap relation/8435139",
+    "accessed": "2026-09-21"
+  },
+  {
+    "slug": "freguesia-310905",
+    "name": "São Roque do Faial",
+    "concelho": "Santana",
+    "lat": 32.7488298,
+    "lon": -16.8932632,
+    "island": "madeira",
+    "source": "OpenStreetMap relation/8435140",
+    "accessed": "2026-09-21"
+  },
+  {
+    "slug": "freguesia-310902",
+    "name": "Faial",
+    "concelho": "Santana",
+    "lat": 32.77459,
+    "lon": -16.8917719,
+    "island": "madeira",
+    "source": "OpenStreetMap relation/8435141",
+    "accessed": "2026-09-21"
+  },
+  {
+    "slug": "freguesia-310903",
+    "name": "Santana",
+    "concelho": "Santana",
+    "lat": 32.7968901,
+    "lon": -16.8877715,
+    "island": "madeira",
+    "source": "OpenStreetMap relation/8435142",
+    "accessed": "2026-09-21"
+  },
+  {
+    "slug": "freguesia-310906",
+    "name": "Ilha",
+    "concelho": "Santana",
+    "lat": 32.7906736,
+    "lon": -16.9268718,
+    "island": "madeira",
+    "source": "OpenStreetMap relation/8435143",
+    "accessed": "2026-09-21"
+  },
+  {
+    "slug": "freguesia-310904",
+    "name": "São Jorge",
+    "concelho": "Santana",
+    "lat": 32.7996755,
+    "lon": -16.928466,
+    "island": "madeira",
+    "source": "OpenStreetMap relation/8435144",
+    "accessed": "2026-09-21"
+  },
+  {
+    "slug": "freguesia-310901",
+    "name": "Arco de São Jorge",
+    "concelho": "Santana",
+    "lat": 32.8218966,
+    "lon": -16.9534366,
+    "island": "madeira",
+    "source": "OpenStreetMap relation/8435145",
+    "accessed": "2026-09-21"
+  },
+  {
+    "slug": "freguesia-311001",
+    "name": "Boa Ventura",
+    "concelho": "São Vicente",
+    "lat": 32.7920729,
+    "lon": -16.9729083,
+    "island": "madeira",
+    "source": "OpenStreetMap relation/8435146",
+    "accessed": "2026-09-21"
+  },
+  {
+    "slug": "freguesia-311002",
+    "name": "Ponta Delgada",
+    "concelho": "São Vicente",
+    "lat": 32.8061424,
+    "lon": -17.0016356,
+    "island": "madeira",
+    "source": "OpenStreetMap relation/8435147",
+    "accessed": "2026-09-21"
+  },
+  {
+    "slug": "freguesia-311003",
+    "name": "São Vicente",
+    "concelho": "São Vicente",
+    "lat": 32.7809654,
+    "lon": -17.0316994,
+    "island": "madeira",
+    "source": "OpenStreetMap relation/8435148",
+    "accessed": "2026-09-21"
+  },
+  {
+    "slug": "freguesia-310405",
+    "name": "Santo António da Serra",
+    "concelho": "Machico",
+    "lat": 32.7360459,
+    "lon": -16.8263938,
+    "island": "madeira",
+    "source": "OpenStreetMap relation/8435149",
+    "accessed": "2026-09-21"
+  },
+  {
+    "slug": "freguesia-310404",
+    "name": "Porto da Cruz",
+    "concelho": "Machico",
+    "lat": 32.7487326,
+    "lon": -16.8473882,
+    "island": "madeira",
+    "source": "OpenStreetMap relation/8435150",
+    "accessed": "2026-09-21"
+  },
+  {
+    "slug": "freguesia-310401",
+    "name": "Água de Pena",
+    "concelho": "Machico",
+    "lat": 32.7125477,
+    "lon": -16.7835315,
+    "island": "madeira",
+    "source": "OpenStreetMap relation/8435151",
+    "accessed": "2026-09-21"
+  },
+  {
+    "slug": "freguesia-310403",
+    "name": "Machico",
+    "concelho": "Machico",
+    "lat": 32.7379193,
+    "lon": -16.7827234,
+    "island": "madeira",
+    "source": "OpenStreetMap relation/8435152",
+    "accessed": "2026-09-21"
+  },
+  {
+    "slug": "freguesia-310402",
+    "name": "Caniçal",
+    "concelho": "Machico",
+    "lat": 32.7401118,
+    "lon": -16.7104739,
+    "island": "madeira",
+    "source": "OpenStreetMap relation/8435153",
+    "accessed": "2026-09-21"
+  }
+]

@@ -14,6 +14,7 @@ useful in dev before that pipeline exists.
 from __future__ import annotations
 
 import json
+from functools import lru_cache
 from pathlib import Path
 from typing import Any, Iterator
 
@@ -25,6 +26,20 @@ from shared.geo import haversine_km
 def load_tag_map() -> dict[str, Any]:
     path = Path(__file__).resolve().parent.parent / 'data' / 'osm_tag_map.json'
     return json.loads(path.read_text(encoding='utf-8'))
+
+
+@lru_cache(maxsize=1)
+def load_area_bounds() -> dict[str, list[float]]:
+    """Island keys whose ownership is decided by an explicit box, not by nearest centre.
+
+    Cached: _owns() runs once per extract element (11,236 on Madeira), and re-reading the
+    file each time added a filesystem round trip per element to every import.
+    """
+    path = Path(__file__).resolve().parent.parent / 'data' / 'area_bounds.json'
+    if not path.exists():
+        return {}
+    return {key: value for key, value in json.loads(path.read_text(encoding='utf-8')).items()
+            if isinstance(value, list) and len(value) == 4}
 
 
 UNNAMED_DROP_CATEGORIES = set(load_tag_map().get('unnamed_nodes_dropped_for', []))
@@ -78,15 +93,31 @@ class OsmImporter(BaseImporter):
         return set(load_tag_map()['blocklist'].get(self.island.key, []))
 
     def _owns(self, lat: float, lon: float) -> bool:
-        """Whether this element is closer to this importer's island than to any other.
+        """Whether this element belongs to this importer's island.
 
         The extracts are fetched per island over a centre+radius bounding box, and in the
         central group those boxes overlap heavily — Pico's 25 km box swallows most of Faial and
         part of São Jorge. Without this, the same OSM node imports under two islands (835 of
         them did), so filtering the map to Pico showed Faial's restaurants. Nearest-centre is a
-        crude proxy for a real containment test, but the islands are far enough apart relative
-        to their size that the midpoint between two centres always falls in open ocean.
+        crude proxy for a real containment test, but the Azores islands are far enough apart
+        relative to their size that the midpoint between two centres always falls in open ocean.
+
+        Madeira breaks that assumption: Ponta de São Lourenço and its islets are Madeira, yet
+        they are nearer the Desertas centre than Madeira's, so nearest-centre would file a
+        Madeira headland under an uninhabited nature reserve. Islands listed in
+        ``atlas/data/area_bounds.json`` therefore use an explicit box instead, which also
+        means an element outside every listed box is owned by nobody rather than by whichever
+        centre happened to be least far away.
         """
+        bounds = load_area_bounds()
+        own_box = bounds.get(self.island.key)
+        if own_box is not None:
+            min_lon, max_lon, min_lat, max_lat = own_box
+            return min_lon <= lon <= max_lon and min_lat <= lat <= max_lat
+        for key, (min_lon, max_lon, min_lat, max_lat) in bounds.items():
+            if min_lon <= lon <= max_lon and min_lat <= lat <= max_lat:
+                return False
+
         nearest, best = None, float('inf')
         for key, center_lat, center_lng in self._island_centers():
             distance = haversine_km(lat, lon, center_lat, center_lng)
@@ -116,6 +147,9 @@ class OsmImporter(BaseImporter):
                 return None
             return category_slug
         return None
+
+    def has_complete_input(self) -> bool:
+        return self.extract_path().exists()
 
     def rows(self) -> Iterator[ImportRow]:
         path = self.extract_path()

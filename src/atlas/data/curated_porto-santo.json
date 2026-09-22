@@ -1,0 +1,24 @@
+[
+  {
+    "ref": "vila-baleira",
+    "name": {
+      "pt": "Vila Baleira",
+      "en": "Vila Baleira"
+    },
+    "category": "places",
+    "latitude": 33.05931,
+    "longitude": -16.33366,
+    "osmRef": "node/839817294"
+  },
+  {
+    "ref": "miradouro-da-portela",
+    "name": {
+      "pt": "Miradouro da Portela",
+      "en": "Miradouro da Portela"
+    },
+    "category": "viewpoints",
+    "latitude": 33.06636,
+    "longitude": -16.31726,
+    "osmRef": "node/1162456208"
+  }
+]

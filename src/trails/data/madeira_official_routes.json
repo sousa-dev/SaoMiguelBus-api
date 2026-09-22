@@ -1,0 +1,718 @@
+{
+  "source": "https://visitmadeira.com/en/what-to-do/nature-seekers/activities/hiking/",
+  "accessed": "2026-09-21",
+  "routes": [
+    {
+      "ref": "PR1",
+      "name": "Vereda do Areeiro",
+      "island": "madeira",
+      "officialUrl": "https://visitmadeira.com/en/what-to-do/nature-seekers/activities/hiking/pr-1-vereda-do-areeiro/",
+      "statusAtImport": "closed",
+      "osmRelationIds": [
+        2235102
+      ],
+      "official": {
+        "distanceKm": 6.1,
+        "difficulty": "Moderate",
+        "durationMin": 180,
+        "maxAltitudeM": 1857,
+        "minAltitudeM": 1491,
+        "startEnd": "Pico do Areeiro Viewpoint / Pico Ruivo"
+      }
+    },
+    {
+      "ref": "PR1.1",
+      "name": "Vereda da Ilha",
+      "island": "madeira",
+      "officialUrl": "https://visitmadeira.com/en/what-to-do/nature-seekers/activities/hiking/pr-11-vereda-da-ilha/",
+      "statusAtImport": "open",
+      "osmRelationIds": [
+        4298335
+      ],
+      "official": {
+        "distanceKm": 8.2,
+        "difficulty": "Moderate",
+        "durationMin": 180,
+        "maxAltitudeM": 1764,
+        "minAltitudeM": 490,
+        "startEnd": "Casa de Abrigo do Pico Ruivo / Ilha"
+      }
+    },
+    {
+      "ref": "PR1.2",
+      "name": "Vereda do Pico Ruivo",
+      "island": "madeira",
+      "officialUrl": "https://visitmadeira.com/en/what-to-do/nature-seekers/activities/hiking/pr-12-vereda-do-pico-ruivo/",
+      "statusAtImport": "open",
+      "osmRelationIds": [
+        2235103
+      ],
+      "official": {
+        "distanceKm": 2.8,
+        "difficulty": "Moderate",
+        "durationMin": 90,
+        "maxAltitudeM": 1857,
+        "minAltitudeM": 1852,
+        "startEnd": "Achada do Teixeira / Pico Ruivo"
+      }
+    },
+    {
+      "ref": "PR1.3",
+      "name": "Vereda da Encumeada",
+      "island": "madeira",
+      "officialUrl": "https://visitmadeira.com/en/what-to-do/nature-seekers/activities/hiking/pr-13-vereda-da-encumeada/",
+      "statusAtImport": "restricted",
+      "osmRelationIds": [
+        4441702
+      ],
+      "official": {
+        "distanceKm": 11.2,
+        "difficulty": "Moderate",
+        "durationMin": 300,
+        "maxAltitudeM": 1764,
+        "minAltitudeM": 1009,
+        "startEnd": "Casa de Abrigo do Pico Ruivo / Encumeada"
+      }
+    },
+    {
+      "ref": "PR2",
+      "name": "Vereda do Urzal",
+      "island": "madeira",
+      "officialUrl": "https://visitmadeira.com/en/what-to-do/nature-seekers/activities/hiking/pr-2-vereda-do-urzal/",
+      "statusAtImport": "open",
+      "osmRelationIds": [
+        4298398
+      ],
+      "official": {
+        "distanceKm": 10.6,
+        "difficulty": "Moderate",
+        "durationMin": 270,
+        "maxAltitudeM": 1450,
+        "minAltitudeM": 519,
+        "startEnd": "Curral das Freiras / Lombo do Urzal"
+      }
+    },
+    {
+      "ref": "PR3",
+      "name": "Vereda do Burro",
+      "island": "madeira",
+      "officialUrl": "https://visitmadeira.com/en/what-to-do/nature-seekers/activities/hiking/pr-3-vereda-do-burro/",
+      "statusAtImport": "open",
+      "osmRelationIds": [
+        13562443
+      ],
+      "official": {
+        "distanceKm": 7.2,
+        "difficulty": "Easy",
+        "durationMin": 160,
+        "maxAltitudeM": 1805,
+        "minAltitudeM": 1130,
+        "startEnd": "Pico do Areeiro / Ribeira das Cales - Funchal Ecological Park Welcome Centre"
+      }
+    },
+    {
+      "ref": "PR3.1",
+      "name": "Caminho Real do Monte",
+      "island": "madeira",
+      "officialUrl": "https://visitmadeira.com/en/what-to-do/nature-seekers/activities/hiking/pr-31-caminho-real-do-monte/",
+      "statusAtImport": "open",
+      "osmRelationIds": [
+        13562536
+      ],
+      "official": {
+        "distanceKm": 4.2,
+        "difficulty": "Moderate",
+        "durationMin": 120,
+        "maxAltitudeM": 1130,
+        "minAltitudeM": 550,
+        "startEnd": "Ribeira das Cales - Funchal Ecological Park Welcome Centre / Monte"
+      }
+    },
+    {
+      "ref": "PR4",
+      "name": "Levada do Barreiro",
+      "island": "madeira",
+      "officialUrl": "https://visitmadeira.com/en/what-to-do/nature-seekers/activities/hiking/pr-4-levada-do-barreiro/",
+      "statusAtImport": "restricted",
+      "osmRelationIds": [
+        13562619
+      ],
+      "official": {
+        "distanceKm": 5.2,
+        "difficulty": "Easy",
+        "durationMin": 130,
+        "maxAltitudeM": 1650,
+        "minAltitudeM": 975,
+        "startEnd": "Poço da Neve / Casa do Barreiro"
+      }
+    },
+    {
+      "ref": "PR5",
+      "name": "Vereda das Funduras",
+      "island": "madeira",
+      "officialUrl": "https://visitmadeira.com/en/what-to-do/nature-seekers/activities/hiking/pr-5-vereda-das-funduras/",
+      "statusAtImport": "open",
+      "osmRelationIds": [
+        2754584
+      ],
+      "official": {
+        "distanceKm": 8.7,
+        "difficulty": "Moderate",
+        "durationMin": 180,
+        "maxAltitudeM": 624,
+        "minAltitudeM": 186,
+        "startEnd": "Miradouro da Portela / Maroços"
+      }
+    },
+    {
+      "ref": "PR6",
+      "name": "Levada das 25 Fontes",
+      "island": "madeira",
+      "officialUrl": "https://visitmadeira.com/en/what-to-do/nature-seekers/activities/hiking/pr-6-levada-das-25-fontes/",
+      "statusAtImport": "open",
+      "osmRelationIds": [
+        2235095
+      ],
+      "official": {
+        "distanceKm": 4.3,
+        "difficulty": "Moderate",
+        "durationMin": 180,
+        "maxAltitudeM": 1288,
+        "minAltitudeM": 964,
+        "startEnd": "Rabaçal (E.R. 105) / 25 Fontes"
+      }
+    },
+    {
+      "ref": "PR6.1",
+      "name": "Levada do Risco",
+      "island": "madeira",
+      "officialUrl": "https://visitmadeira.com/en/what-to-do/nature-seekers/activities/hiking/pr-61-levada-do-risco/",
+      "statusAtImport": "open",
+      "osmRelationIds": [
+        2235098
+      ],
+      "official": {
+        "distanceKm": 1.5,
+        "difficulty": "Easy",
+        "durationMin": 120,
+        "maxAltitudeM": 1288,
+        "minAltitudeM": 1000,
+        "startEnd": "Rabaçal (E.R. 105) / Risco"
+      }
+    },
+    {
+      "ref": "PR6.2",
+      "name": "Levada do Alecrim",
+      "island": "madeira",
+      "officialUrl": "https://visitmadeira.com/en/what-to-do/nature-seekers/activities/hiking/pr-62-levada-do-alecrim/",
+      "statusAtImport": "open",
+      "osmRelationIds": [
+        4442860
+      ],
+      "official": {
+        "distanceKm": 3.5,
+        "difficulty": "Easy",
+        "durationMin": 150,
+        "maxAltitudeM": 1339,
+        "minAltitudeM": 1256,
+        "startEnd": "Rabaçal (E.R. 105) / Water spring of Levada do Alecrim (Lagoa 'Dona Beja')"
+      }
+    },
+    {
+      "ref": "PR6.3",
+      "name": "Vereda da Lagoa do Vento",
+      "island": "madeira",
+      "officialUrl": "https://visitmadeira.com/en/what-to-do/nature-seekers/activities/hiking/pr-63-vereda-da-lagoa-do-vento/",
+      "statusAtImport": "open",
+      "osmRelationIds": [
+        4442866
+      ],
+      "official": {
+        "distanceKm": 1.8,
+        "difficulty": "Easy",
+        "durationMin": 90,
+        "maxAltitudeM": 1600,
+        "minAltitudeM": 200,
+        "startEnd": "Casa de Abrigo do Rabaçal / Lagoa do Vento"
+      }
+    },
+    {
+      "ref": "PR6.4",
+      "name": "Levada Velha do Rabaçal",
+      "island": "madeira",
+      "officialUrl": "https://visitmadeira.com/en/what-to-do/nature-seekers/activities/hiking/pr-64-levada-velha-do-rabacal/",
+      "statusAtImport": "open",
+      "osmRelationIds": [
+        19282964
+      ],
+      "official": {
+        "distanceKm": 5.0,
+        "durationMin": 120,
+        "maxAltitudeM": 1190,
+        "minAltitudeM": 1038,
+        "startEnd": "Pico Gordo (ER105) / Casa do Rabaçal"
+      }
+    },
+    {
+      "ref": "PR6.5",
+      "name": "Vereda do Pico Fernandes",
+      "island": "madeira",
+      "officialUrl": "https://visitmadeira.com/en/what-to-do/nature-seekers/activities/hiking/pr-65-vereda-do-pico-fernandes/",
+      "statusAtImport": "open",
+      "osmRelationIds": [
+        20439931
+      ],
+      "official": {
+        "distanceKm": 3.8,
+        "durationMin": 90,
+        "startEnd": "Paul da Serra (ER209) / 25 Fontes"
+      }
+    },
+    {
+      "ref": "PR6.6",
+      "name": "Vereda do Túnel do Cavalo",
+      "island": "madeira",
+      "officialUrl": "https://visitmadeira.com/en/what-to-do/nature-seekers/activities/hiking/pr-66-vereda-do-tunel-do-cavalo/",
+      "statusAtImport": "open",
+      "osmRelationIds": [
+        5742679
+      ],
+      "official": {
+        "distanceKm": 2.3,
+        "durationMin": 45,
+        "maxAltitudeM": 1055,
+        "minAltitudeM": 988,
+        "startEnd": "Estrada Roberto Monteiro (Caldeira leisure area) / Casa do Rabaçal"
+      }
+    },
+    {
+      "ref": "PR6.8",
+      "name": "Levada do Paul II - Um caminho para todos",
+      "island": "madeira",
+      "officialUrl": "https://visitmadeira.com/en/what-to-do/nature-seekers/activities/hiking/pr-68-levada-do-paul-ii-um-caminho-para-todos/",
+      "statusAtImport": "open",
+      "osmRelationIds": [
+        19601952
+      ],
+      "official": {
+        "distanceKm": 1.2,
+        "durationMin": 30,
+        "maxAltitudeM": 1280,
+        "minAltitudeM": 1279,
+        "startEnd": "Rabaçal (ER105)/ Estrada do Rochão"
+      }
+    },
+    {
+      "ref": "PR7",
+      "name": "Levada do Moinho",
+      "island": "madeira",
+      "officialUrl": "https://visitmadeira.com/en/what-to-do/nature-seekers/activities/hiking/pr-7-levada-do-moinho/",
+      "statusAtImport": "closed",
+      "osmRelationIds": [
+        2754642
+      ],
+      "official": {
+        "distanceKm": 10.5,
+        "difficulty": "Moderate",
+        "durationMin": 210,
+        "maxAltitudeM": 940,
+        "minAltitudeM": 504,
+        "startEnd": "Ribeira da Cruz (E.R. 101) / Junqueira (Tornadouro)"
+      }
+    },
+    {
+      "ref": "PR8",
+      "name": "Vereda da Ponta de São Lourenço",
+      "island": "madeira",
+      "officialUrl": "https://visitmadeira.com/en/what-to-do/nature-seekers/activities/hiking/pr-8-vereda-da-ponta-de-sao-lourenco/",
+      "statusAtImport": "open",
+      "osmRelationIds": [
+        2235101
+      ],
+      "official": {
+        "distanceKm": 4.0,
+        "difficulty": "Moderate",
+        "durationMin": 150,
+        "maxAltitudeM": 126,
+        "minAltitudeM": 23,
+        "startEnd": "Baía d'Abra / Casa do Sardinha"
+      }
+    },
+    {
+      "ref": "PR9",
+      "name": "Levada do Caldeirão Verde",
+      "island": "madeira",
+      "officialUrl": "https://visitmadeira.com/en/what-to-do/nature-seekers/activities/hiking/pr-9-levada-do-caldeirao-verde/",
+      "statusAtImport": "open",
+      "osmRelationIds": [
+        4441701
+      ],
+      "official": {
+        "distanceKm": 8.7,
+        "difficulty": "Moderate",
+        "durationMin": 390,
+        "maxAltitudeM": 1020,
+        "minAltitudeM": 872,
+        "startEnd": "Queimadas Forest Park / Caldeirão do Inferno"
+      }
+    },
+    {
+      "ref": "PR9.1",
+      "name": "Levada do Caldeirão Verde - um caminho para todos",
+      "island": "madeira",
+      "officialUrl": "https://visitmadeira.com/en/what-to-do/nature-seekers/activities/hiking/pr-91-levada-do-caldeirao-verde-um-caminho-para-todos/",
+      "statusAtImport": "open",
+      "osmRelationIds": [
+        2235099
+      ],
+      "official": {
+        "distanceKm": 1.9,
+        "durationMin": 45,
+        "maxAltitudeM": 890,
+        "minAltitudeM": 870,
+        "startEnd": "Queimadas Park / Pico das Pedras"
+      }
+    },
+    {
+      "ref": "PR10",
+      "name": "Levada do Furado",
+      "island": "madeira",
+      "officialUrl": "https://visitmadeira.com/en/what-to-do/nature-seekers/activities/hiking/pr-10-levada-do-furado/",
+      "statusAtImport": "open",
+      "osmRelationIds": [
+        2754660
+      ],
+      "official": {
+        "distanceKm": 11.0,
+        "difficulty": "Moderate",
+        "durationMin": 300,
+        "maxAltitudeM": 880,
+        "minAltitudeM": 645,
+        "startEnd": "ER 303 (Ribeiro Frio) / E.R. 102 (Portela)"
+      }
+    },
+    {
+      "ref": "PR11",
+      "name": "Vereda dos Balcões",
+      "island": "madeira",
+      "officialUrl": "https://visitmadeira.com/en/what-to-do/nature-seekers/activities/hiking/pr-11-vereda-dos-balcoes/",
+      "statusAtImport": "open",
+      "osmRelationIds": [
+        2235104
+      ],
+      "official": {
+        "distanceKm": 1.5,
+        "difficulty": "Easy",
+        "durationMin": 90,
+        "maxAltitudeM": 880,
+        "minAltitudeM": 870,
+        "startEnd": "E.R. 103 (Ribeiro Frio) / Balcões"
+      }
+    },
+    {
+      "ref": "PR12",
+      "name": "Caminho Real da Encumeada",
+      "island": "madeira",
+      "officialUrl": "https://visitmadeira.com/en/what-to-do/nature-seekers/activities/hiking/pr-12-caminho-real-da-encumeada/",
+      "statusAtImport": "restricted",
+      "osmRelationIds": [
+        2239198
+      ],
+      "official": {
+        "distanceKm": 12.5,
+        "difficulty": "Moderate",
+        "durationMin": 300,
+        "maxAltitudeM": 1323,
+        "minAltitudeM": 830,
+        "startEnd": "Boca da Corrida Viewpoint / E.R. 228 (Encumeada)"
+      }
+    },
+    {
+      "ref": "PR13",
+      "name": "Vereda do Fanal",
+      "island": "madeira",
+      "officialUrl": "https://visitmadeira.com/en/what-to-do/nature-seekers/activities/hiking/pr-13-vereda-do-fanal/",
+      "statusAtImport": "open",
+      "osmRelationIds": [
+        2754724
+      ],
+      "official": {
+        "distanceKm": 10.8,
+        "difficulty": "Moderate",
+        "durationMin": 240,
+        "maxAltitudeM": 1420,
+        "minAltitudeM": 1130,
+        "startEnd": "E.R. 209 Assobiadores / E.R. 209 Fanal"
+      }
+    },
+    {
+      "ref": "PR13.1",
+      "name": "Vereda da Palha Carga",
+      "island": "madeira",
+      "officialUrl": "https://visitmadeira.com/en/what-to-do/nature-seekers/activities/hiking/pr-131-vereda-da-palha-carga/",
+      "statusAtImport": "open",
+      "osmRelationIds": [
+        16619208
+      ],
+      "official": {
+        "distanceKm": 1.8,
+        "durationMin": 45,
+        "maxAltitudeM": 1328,
+        "minAltitudeM": 970,
+        "startEnd": "Louro da Gota (ER209) / 25 Fontes"
+      }
+    },
+    {
+      "ref": "PR14",
+      "name": "Levada dos Cedros",
+      "island": "madeira",
+      "officialUrl": "https://visitmadeira.com/en/what-to-do/nature-seekers/activities/hiking/pr-14-levada-dos-cedros/",
+      "statusAtImport": "open",
+      "osmRelationIds": [
+        2239199
+      ],
+      "official": {
+        "distanceKm": 7.2,
+        "difficulty": "Moderate",
+        "durationMin": 180,
+        "maxAltitudeM": 1090,
+        "minAltitudeM": 840,
+        "startEnd": "E.R 209 (Fanal) / E.R 209 (Curral Falso)"
+      }
+    },
+    {
+      "ref": "PR15",
+      "name": "Vereda da Ribeira da Janela",
+      "island": "madeira",
+      "officialUrl": "https://visitmadeira.com/en/what-to-do/nature-seekers/activities/hiking/pr-15-vereda-da-ribeira-da-janela/",
+      "statusAtImport": "open",
+      "osmRelationIds": [
+        6224990
+      ],
+      "official": {
+        "distanceKm": 2.7,
+        "difficulty": "Moderate",
+        "durationMin": 90,
+        "maxAltitudeM": 820,
+        "minAltitudeM": 400,
+        "startEnd": "E.R. 209 (Curral Falso) / Ribeira da Janela"
+      }
+    },
+    {
+      "ref": "PR16",
+      "name": "Levada Fajã do Rodrigues",
+      "island": "madeira",
+      "officialUrl": "https://visitmadeira.com/en/what-to-do/nature-seekers/activities/hiking/pr-16-levada-faja-do-rodrigues/",
+      "statusAtImport": "open",
+      "osmRelationIds": [
+        4441613
+      ],
+      "official": {
+        "distanceKm": 3.9,
+        "difficulty": "Moderate",
+        "durationMin": 210,
+        "maxAltitudeM": 630,
+        "minAltitudeM": 600,
+        "startEnd": "Ginjas / Ribeira do Inferno"
+      }
+    },
+    {
+      "ref": "PR17",
+      "name": "Caminho do Pináculo e Folhadal",
+      "island": "madeira",
+      "officialUrl": "https://visitmadeira.com/en/what-to-do/nature-seekers/activities/hiking/pr-17-caminho-do-pinaculo-e-folhadal/",
+      "statusAtImport": "open",
+      "osmRelationIds": [
+        4441703
+      ],
+      "official": {
+        "distanceKm": 15.0,
+        "difficulty": "Difficult",
+        "durationMin": 390,
+        "maxAltitudeM": 1490,
+        "minAltitudeM": 970,
+        "startEnd": "Lombo do Mouro / Encumeada"
+      }
+    },
+    {
+      "ref": "PR18",
+      "name": "Levada do Rei",
+      "island": "madeira",
+      "officialUrl": "https://visitmadeira.com/en/what-to-do/nature-seekers/activities/hiking/pr-18-levada-do-rei/",
+      "statusAtImport": "open",
+      "osmRelationIds": [
+        2235097
+      ],
+      "official": {
+        "distanceKm": 5.3,
+        "difficulty": "Moderate",
+        "durationMin": 210,
+        "maxAltitudeM": 573,
+        "minAltitudeM": 535,
+        "startEnd": "São Jorge Wastewater Treatment Plant / Ribeiro Bonito"
+      }
+    },
+    {
+      "ref": "PR19",
+      "name": "Caminho Real do Paul do Mar",
+      "island": "madeira",
+      "officialUrl": "https://visitmadeira.com/en/what-to-do/nature-seekers/activities/hiking/pr-19-caminho-real-do-paul-do-mar/",
+      "statusAtImport": "open",
+      "osmRelationIds": [
+        2754808
+      ],
+      "official": {
+        "distanceKm": 1.8,
+        "difficulty": "Moderate",
+        "durationMin": 80,
+        "maxAltitudeM": 550,
+        "minAltitudeM": 16,
+        "startEnd": "Prazeres / Paul do Mar"
+      }
+    },
+    {
+      "ref": "PR20",
+      "name": "Vereda do Jardim do Mar",
+      "island": "madeira",
+      "officialUrl": "https://visitmadeira.com/en/what-to-do/nature-seekers/activities/hiking/pr-20-vereda-do-jardim-do-mar/",
+      "statusAtImport": "closed",
+      "osmRelationIds": [
+        4441615
+      ],
+      "official": {
+        "distanceKm": 1.9,
+        "difficulty": "Easy",
+        "durationMin": 90,
+        "maxAltitudeM": 530,
+        "minAltitudeM": 35,
+        "startEnd": "Prazeres / Jardim do Mar (Largo da Igreja)"
+      }
+    },
+    {
+      "ref": "PR21",
+      "name": "Caminho do Norte",
+      "island": "madeira",
+      "officialUrl": "https://visitmadeira.com/en/what-to-do/nature-seekers/activities/hiking/pr-21-caminho-do-norte/",
+      "statusAtImport": "open",
+      "osmRelationIds": [
+        2755826
+      ],
+      "official": {
+        "distanceKm": 3.2,
+        "difficulty": "Moderate",
+        "durationMin": 90,
+        "maxAltitudeM": 1000,
+        "minAltitudeM": 320,
+        "startEnd": "Encumeada / Ribeira Grande"
+      }
+    },
+    {
+      "ref": "PR22",
+      "name": "Vereda do Chão dos Louros",
+      "island": "madeira",
+      "officialUrl": "https://visitmadeira.com/en/what-to-do/nature-seekers/activities/hiking/pr-22-vereda-do-chao-dos-louros/",
+      "statusAtImport": "open",
+      "osmRelationIds": [
+        2755770
+      ],
+      "official": {
+        "distanceKm": 1.9,
+        "difficulty": "Easy",
+        "durationMin": 45,
+        "maxAltitudeM": 890,
+        "minAltitudeM": 830,
+        "startEnd": "Chão dos Louros / Chão dos Louros"
+      }
+    },
+    {
+      "ref": "PR27",
+      "name": "Glaciar de Planalto",
+      "island": "madeira",
+      "officialUrl": "https://visitmadeira.com/en/what-to-do/nature-seekers/activities/hiking/pr-27-glaciar-de-planalto/",
+      "statusAtImport": "closed",
+      "osmRelationIds": [
+        19150803
+      ],
+      "official": {
+        "distanceKm": 4.6,
+        "durationMin": 90,
+        "maxAltitudeM": 1588,
+        "minAltitudeM": 1457,
+        "startEnd": "Bica da Cana / ER105"
+      }
+    },
+    {
+      "ref": "PR28",
+      "name": "Levada da Rocha Vermelha",
+      "island": "madeira",
+      "officialUrl": "https://visitmadeira.com/en/what-to-do/nature-seekers/activities/hiking/pr-28-levada-da-rocha-vermelha/",
+      "statusAtImport": "closed",
+      "osmRelationIds": [
+        16664890
+      ],
+      "official": {
+        "distanceKm": 10.8,
+        "durationMin": 240,
+        "maxAltitudeM": 1297,
+        "minAltitudeM": 837,
+        "startEnd": "Fanal (ER209) / Casa dos Guardas de Canal"
+      }
+    },
+    {
+      "ref": "PSPR1",
+      "name": "Vereda do Pico Branco e Terra Chã",
+      "island": "porto-santo",
+      "officialUrl": "https://visitmadeira.com/en/what-to-do/nature-seekers/activities/hiking/ps-pr-1-vereda-do-pico-branco-e-terra-cha/",
+      "statusAtImport": "open",
+      "osmRelationIds": [
+        5740533
+      ],
+      "official": {
+        "distanceKm": 2.7,
+        "difficulty": "Moderate",
+        "durationMin": 90,
+        "maxAltitudeM": 450,
+        "minAltitudeM": 184,
+        "startEnd": "ER 120 / Terra Chã"
+      }
+    },
+    {
+      "ref": "PSPR2",
+      "name": "Vereda do Pico do Castelo",
+      "island": "porto-santo",
+      "officialUrl": "https://visitmadeira.com/en/what-to-do/nature-seekers/activities/hiking/ps-pr-2-vereda-do-pico-do-castelo/",
+      "statusAtImport": "open",
+      "osmRelationIds": [
+        5740534,
+        5740536
+      ],
+      "official": {
+        "distanceKm": 4.6,
+        "difficulty": "Easy",
+        "durationMin": 135,
+        "maxAltitudeM": 435,
+        "minAltitudeM": 225,
+        "startEnd": "Moledo / Canhão Viewpoint"
+      }
+    },
+    {
+      "ref": "PSPR3",
+      "name": "Levada do Pico do Castelo",
+      "island": "porto-santo",
+      "officialUrl": "https://visitmadeira.com/en/what-to-do/nature-seekers/activities/hiking/ps-pr-3-levada-do-pico-do-castelo/",
+      "statusAtImport": "closed",
+      "osmRelationIds": [
+        13603089
+      ],
+      "official": {
+        "distanceKm": 4.1,
+        "difficulty": "Moderate",
+        "durationMin": 90,
+        "maxAltitudeM": 210,
+        "minAltitudeM": 80,
+        "startEnd": "Camacha / Graça Chapel"
+      }
+    }
+  ],
+  "detailsAccessed": "2026-09-21"
+}

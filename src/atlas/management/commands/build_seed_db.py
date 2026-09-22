@@ -28,6 +28,24 @@ class Command(BaseCommand):
             help='Output path (default: media/atlas/atlas-seed.db)',
         )
         parser.add_argument(
+            '--islands',
+            help=(
+                'Comma-separated island keys to include, e.g. '
+                'madeira,porto-santo,desertas,selvagens for the Madeira app. '
+                'Default: every island (the Azores app bundle).'
+            ),
+        )
+        parser.add_argument(
+            '--without-trails',
+            action='store_true',
+            dest='without_trails',
+            help=(
+                'Leave trail rows out. Use this for any app that ships a release trail pack: '
+                'the client only attaches bundled GPX to rows still at revision 0, so a '
+                'seeded trail is skipped by the pack and ends up with no offline track.'
+            ),
+        )
+        parser.add_argument(
             '--allow-non-production',
             action='store_true',
             dest='allow_non_production',
@@ -41,7 +59,17 @@ class Command(BaseCommand):
         self._check_database(allow_non_production=options['allow_non_production'])
 
         output_path = Path(options['output'])
-        counts = build_seed_db(output_path)
+        island_keys = None
+        if options.get('islands'):
+            island_keys = [key.strip() for key in options['islands'].split(',') if key.strip()]
+        try:
+            counts = build_seed_db(
+                output_path,
+                island_keys=island_keys,
+                include_trails=not options.get('without_trails'),
+            )
+        except ValueError as exc:
+            raise CommandError(str(exc)) from exc
 
         self.stdout.write(self.style.SUCCESS(f'build_seed_db → {output_path}: {counts}'))
 
@@ -49,7 +77,10 @@ class Command(BaseCommand):
         # revisions of the server the app will actually talk to — print them so a mismatch is
         # visible at build time rather than as "sync says OK but nothing appears" in the field.
         self.stdout.write('Seeded sync cursors (client starts delta sync from these):')
-        for revision in AtlasRevision.objects.select_related('island').order_by('island__key'):
+        revisions = AtlasRevision.objects.select_related('island').order_by('island__key')
+        if island_keys is not None:
+            revisions = revisions.filter(island__key__in=island_keys)
+        for revision in revisions:
             self.stdout.write(f'  {revision.island.key:12} {revision.current}')
 
     def _check_database(self, *, allow_non_production: bool) -> None:

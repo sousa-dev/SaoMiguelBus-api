@@ -85,7 +85,34 @@ def _pick_localized(name: dict) -> str:
     return name.get('pt') or name.get('en') or next((v for v in name.values() if v), '')
 
 
-def build_seed_db(output_path: Path) -> dict[str, int]:
+def build_seed_db(
+    output_path: Path,
+    *,
+    island_keys: list[str] | None = None,
+    include_trails: bool = True,
+) -> dict[str, int]:
+    """Write the bundled SQLite seed. ``island_keys`` restricts it to one product's islands.
+
+    Two apps are built from this one atlas. Without the filter a Madeira build would bundle
+    all nine Azores islands — a different product's catalogue, its megabytes, and its rows
+    showing up in island pickers. Omitted, the seed is archipelago-wide as before.
+
+    ``include_trails=False`` leaves trail rows out, which is what an app shipping a release
+    trail pack wants: the client only attaches a bundled GPX to a trail row still at revision
+    0, so a trail seeded here (carrying a real revision) is skipped by the pack and ends up
+    with no offline track at all.
+    """
+    if island_keys is not None:
+        from tenancy.models import Island
+
+        known = set(Island.objects.filter(key__in=island_keys).values_list('key', flat=True))
+        unknown = sorted(set(island_keys) - known)
+        if unknown:
+            raise ValueError(f'Unknown island key(s) for seed build: {", ".join(unknown)}')
+
+    def scoped(queryset):
+        return queryset if island_keys is None else queryset.filter(island__key__in=island_keys)
+
     output_path.parent.mkdir(parents=True, exist_ok=True)
     if output_path.exists():
         output_path.unlink()
@@ -96,10 +123,10 @@ def build_seed_db(output_path: Path) -> dict[str, int]:
 
         counts = {'categories': 0, 'pois': 0, 'trails': 0, 'trail_stages': 0, 'islands': 0}
 
-        islands = list(AtlasRevision.objects.select_related('island').all())
+        islands = list(scoped(AtlasRevision.objects.select_related('island')))
         counts['islands'] = len(islands)
 
-        for row in AtlasCategory.objects.filter(is_active=True).select_related('island'):
+        for row in scoped(AtlasCategory.objects.filter(is_active=True).select_related('island')):
             conn.execute(
                 'INSERT INTO category (slug, island, name_json, icon, color, sort_order, "group") '
                 'VALUES (?,?,?,?,?,?,?)',
@@ -107,7 +134,7 @@ def build_seed_db(output_path: Path) -> dict[str, int]:
             )
             counts['categories'] += 1
 
-        for row in (
+        for row in scoped(
             AtlasPoi.objects.filter(is_published=True, is_active=True)
             .select_related('category', 'island')
         ):
@@ -135,9 +162,10 @@ def build_seed_db(output_path: Path) -> dict[str, int]:
             )
             counts['pois'] += 1
 
-        for row in (
-            AtlasTrail.objects.filter(is_published=True, is_active=True).select_related('island')
-        ):
+        trail_rows = scoped(
+            AtlasTrail.objects.filter(is_published=True, is_active=True).select_related('island'),
+        ) if include_trails else AtlasTrail.objects.none()
+        for row in trail_rows:
             conn.execute(
                 'INSERT INTO trail (id, island, name, source, source_ref, difficulty, distance_km, '
                 'duration_min, ascent_m, shape, start_lat, start_lon, parish_slug, geojson, gpx_uri, '

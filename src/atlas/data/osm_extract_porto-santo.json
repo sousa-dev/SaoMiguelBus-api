@@ -1,0 +1,5891 @@
+[
+  {
+    "osm_id": "node/295425193",
+    "lat": 33.0806914,
+    "lon": -16.3339231,
+    "tags": {
+      "ele": "437",
+      "name": "Castelo",
+      "natural": "peak",
+      "wikidata": "Q10349549",
+      "wikimedia_commons": "Category:Pico do Castelo",
+      "wikipedia": "en:Pico do Castelo"
+    }
+  },
+  {
+    "osm_id": "node/457142454",
+    "lat": 33.0595438,
+    "lon": -16.3346376,
+    "tags": {
+      "amenity": "parking",
+      "capacity:disabled": "yes",
+      "capacity:parent": "yes",
+      "capacity:women": "yes",
+      "fee": "yes",
+      "park_ride": "yes",
+      "parking": "multi-storey"
+    }
+  },
+  {
+    "osm_id": "node/675616525",
+    "lat": 33.0669806,
+    "lon": -16.3653192,
+    "tags": {
+      "amenity": "parking",
+      "capacity:disabled": "no",
+      "capacity:parent": "no",
+      "capacity:women": "no",
+      "fee": "no",
+      "parking": "surface"
+    }
+  },
+  {
+    "osm_id": "node/839817294",
+    "lat": 33.0593059,
+    "lon": -16.3336622,
+    "tags": {
+      "capital": "7",
+      "name": "Vila Baleira",
+      "name:fa": "ویلا بالیرا",
+      "name:ka": "ვილა-ბალეირა",
+      "name:ru": "Вила-Балейра",
+      "name:uk": "Віла-Балейра",
+      "place": "city",
+      "population": "5245",
+      "population:date": "2011",
+      "source:population": "INE",
+      "wikidata": "Q990356",
+      "wikimedia_commons": "Category:Vila Baleira",
+      "wikipedia": "pt:Vila Baleira"
+    }
+  },
+  {
+    "osm_id": "node/926639726",
+    "lat": 33.0871027,
+    "lon": -16.3551682,
+    "tags": {
+      "direction": "310",
+      "name": "Fonte da Areia",
+      "tourism": "viewpoint"
+    }
+  },
+  {
+    "osm_id": "node/1162456162",
+    "lat": 33.0785506,
+    "lon": -16.2979788,
+    "tags": {
+      "description": "Vértice geodésico de 2ª ordem; pilar prismático sobre rocha.",
+      "ele": "324",
+      "height": "1.11",
+      "man_made": "survey_point",
+      "name": "Concelho",
+      "natural": "peak",
+      "note:en": "Survey Points are meant to be used to rectify aerial imagery and not the other way around. Please do not move nor delete them. Their position corresponds to official reference ground measures.",
+      "note:pt": "Os Vértices Geodésicos servem para melhorar o alinhamento da fotografia aérea e não o inverso. Por favor não os mova nem apague. A sua posição corresponde a medidas de referência oficiais, obtidas in loco.",
+      "ref": "964",
+      "source": "DGT - Rede Geodésica Nacional",
+      "source:pkey": "964",
+      "triangulation_point": "yes",
+      "website": "http://dev.igeo.pt/produtos/geodesia/vg/rgn/ficha.asp?num=964",
+      "width": "0.41"
+    }
+  },
+  {
+    "osm_id": "node/1162456164",
+    "lat": 33.0606308,
+    "lon": -16.3372261,
+    "tags": {
+      "description": "Vértice geodésico de 2ª ordem; pilar prismático sobre terreno.",
+      "ele": "48.0",
+      "height": "1.3",
+      "man_made": "survey_point",
+      "name": "Estação Astronómica",
+      "natural": "peak",
+      "note": "Beware: elevation is top of the survey_point.",
+      "note:en": "Survey Points are meant to be used to rectify aerial imagery and not the other way around. Please do not move nor delete them. Their position corresponds to official reference ground measures.",
+      "note:pt": "Os Vértices Geodésicos servem para melhorar o alinhamento da fotografia aérea e não o inverso. Por favor não os mova nem apague. A sua posição corresponde a medidas de referência oficiais, obtidas in loco.",
+      "ref": "965",
+      "source": "DGT - Rede Geodésica Nacional",
+      "source:pkey": "965",
+      "source:ref": "Ficha online & PT_MAD.ZIP (ele).",
+      "triangulation_point": "yes",
+      "website": "http://dev.igeo.pt/produtos/geodesia/vg/rgn/ficha.asp?num=965",
+      "width": "0.51"
+    }
+  },
+  {
+    "osm_id": "node/1162456165",
+    "lat": 33.0868443,
+    "lon": -16.354829,
+    "tags": {
+      "description": "Vértice geodésico de 2ª ordem; pilar prismático s/ base prismática sobre terreno.",
+      "ele": "125",
+      "height": "1.62",
+      "man_made": "survey_point",
+      "name": "Fonte da Areia",
+      "natural": "peak",
+      "note:en": "Survey Points are meant to be used to rectify aerial imagery and not the other way around. Please do not move or delete them. Their position corresponds to official reference ground measures.",
+      "note:pt": "Os Vértices Geodésicos servem para melhorar o alinhamento da fotografia aérea e não o inverso. Por favor não os mova nem apague. A sua posição corresponde a medidas de referência oficiais, obtidas in loco.",
+      "ref": "966",
+      "source": "DGT - Rede Geodésica Nacional",
+      "source:pkey": "966",
+      "triangulation_point": "yes",
+      "website": "http://dev.igeo.pt/produtos/geodesia/vg/rgn/ficha.asp?num=966",
+      "width": "0.40"
+    }
+  },
+  {
+    "osm_id": "node/1162456167",
+    "lat": 33.0554626,
+    "lon": -16.3451293,
+    "tags": {
+      "description": "Vértice geodésico de 2ª ordem; pilar prismático s/ base prismática sobre terreno.",
+      "ele": "59",
+      "height": "2.11",
+      "man_made": "survey_point",
+      "mapillary": "https://www.mapillary.com/app/?pKey=985595506047663",
+      "name": "Lombas",
+      "natural": "peak",
+      "note:en": "Survey Points are meant to be used to rectify aerial imagery and not the other way around. Please do not move nor delete them. Their position corresponds to official reference ground measures.",
+      "note:pt": "Os Vértices Geodésicos servem para melhorar o alinhamento da fotografia aérea e não o inverso. Por favor não os mova nem apague. A sua posição corresponde a medidas de referência oficiais, obtidas in loco.",
+      "ref": "967",
+      "source": "DGT - Rede Geodésica Nacional",
+      "source:pkey": "967",
+      "triangulation_point": "yes",
+      "website": "http://dev.igeo.pt/produtos/geodesia/vg/rgn/ficha.asp?num=967",
+      "width": "0.40"
+    }
+  },
+  {
+    "osm_id": "node/1162456182",
+    "lat": 33.0560575,
+    "lon": -16.345245,
+    "tags": {
+      "description": "Vértice geodésico de 2ª ordem; pilar prismático sobre terreno.",
+      "ele": "56",
+      "height": "1.05",
+      "man_made": "survey_point",
+      "name": "Lombas Velho",
+      "natural": "peak",
+      "note:en": "Survey Points are meant to be used to rectify aerial imagery and not the other way around. Please do not move or delete them. Their position corresponds to official reference ground measures.",
+      "note:pt": "Os Vértices Geodésicos servem para melhorar o alinhamento da fotografia aérea e não o inverso. Por favor não os mova nem apague. A sua posição corresponde a medidas de referência oficiais, obtidas in loco.",
+      "ref": "968",
+      "source": "DGT - Rede Geodésica Nacional",
+      "source:pkey": "968",
+      "triangulation_point": "yes",
+      "website": "http://dev.igeo.pt/produtos/geodesia/vg/rgn/ficha.asp?num=968",
+      "width": "0.40"
+    }
+  },
+  {
+    "osm_id": "node/1162456184",
+    "lat": 33.0786671,
+    "lon": -16.3102531,
+    "tags": {
+      "description": "Vértice geodésico de 2ª ordem; pilar prismático s/ base prismática sobre terreno.",
+      "ele": "2.16",
+      "fixme": "It cant be 2,16m of altitude",
+      "man_made": "survey_point",
+      "name": "Pedreira",
+      "natural": "peak",
+      "note:en": "Survey Points are meant to be used to rectify aerial imagery and not the other way around. Please do not move or delete them. Their position corresponds to official reference ground measures.",
+      "note:pt": "Os Vértices Geodésicos servem para melhorar o alinhamento da fotografia aérea e não o inverso. Por favor não os mova nem apague. A sua posição corresponde a medidas de referência oficiais, obtidas in loco.",
+      "ref": "969",
+      "source": "DGT - Rede Geodésica Nacional",
+      "source:pkey": "969",
+      "triangulation_point": "yes",
+      "website": "http://dev.igeo.pt/produtos/geodesia/vg/rgn/ficha.asp?num=969",
+      "width": "0.40"
+    }
+  },
+  {
+    "osm_id": "node/1162456186",
+    "lat": 33.0662515,
+    "lon": -16.3119199,
+    "tags": {
+      "description": "Vértice geodésico de 2ª ordem; pilar prismático s/ base prismática sobre terreno.",
+      "ele": "2.15",
+      "fixme": "It can't be possible that the peak is 2,15m of height, it should be arround 100m",
+      "man_made": "survey_point",
+      "name": "Penedo",
+      "natural": "peak",
+      "note:en": "Survey Points are meant to be used to rectify aerial imagery and not the other way around. Please do not move or delete them. Their position corresponds to official reference ground measures.",
+      "note:pt": "Os Vértices Geodésicos servem para melhorar o alinhamento da fotografia aérea e não o inverso. Por favor não os mova nem apague. A sua posição corresponde a medidas de referência oficiais, obtidas in loco.",
+      "ref": "970",
+      "source": "DGT - Rede Geodésica Nacional",
+      "source:pkey": "970",
+      "triangulation_point": "yes",
+      "website": "http://dev.igeo.pt/produtos/geodesia/vg/rgn/ficha.asp?num=970",
+      "width": "0.40"
+    }
+  },
+  {
+    "osm_id": "node/1162456189",
+    "lat": 33.0936823,
+    "lon": -16.3033764,
+    "tags": {
+      "description": "Vértice geodésico de 2ª ordem; pilar prismático sobre rocha.",
+      "ele": "450",
+      "height": "1.1",
+      "man_made": "survey_point",
+      "name": "Branco",
+      "natural": "peak",
+      "note:en": "Survey Points are meant to be used to rectify aerial imagery and not the other way around. Please do not move nor delete them. Their position corresponds to official reference ground measures.",
+      "note:pt": "Os Vértices Geodésicos servem para melhorar o alinhamento da fotografia aérea e não o inverso. Por favor não os mova nem apague. A sua posição corresponde a medidas de referência oficiais, obtidas in loco.",
+      "ref": "971",
+      "source": "DGT - Rede Geodésica Nacional",
+      "source:pkey": "971",
+      "triangulation_point": "yes",
+      "website": "http://dev.igeo.pt/produtos/geodesia/vg/rgn/ficha.asp?num=971",
+      "width": "0.41",
+      "wikidata": "Q31797541",
+      "wikimedia_commons": "Category:Pico Branco"
+    }
+  },
+  {
+    "osm_id": "node/1162456202",
+    "lat": 33.0843304,
+    "lon": -16.323592,
+    "tags": {
+      "description": "Vértice geodésico de 2ª ordem; pilar prismático sobre rocha.",
+      "ele": "516",
+      "height": "1.1",
+      "man_made": "survey_point",
+      "name": "Facho",
+      "natural": "peak",
+      "note:en": "Survey Points are meant to be used to rectify aerial imagery and not the other way around. Please do not move nor delete them. Their position corresponds to official reference ground measures.",
+      "note:pt": "Os Vértices Geodésicos servem para melhorar o alinhamento da fotografia aérea e não o inverso. Por favor não os mova nem apague. A sua posição corresponde a medidas de referência oficiais, obtidas in loco.",
+      "ref": "972",
+      "source": "DGT - Rede Geodésica Nacional",
+      "source:pkey": "972",
+      "triangulation_point": "yes",
+      "website": "http://dev.igeo.pt/produtos/geodesia/vg/rgn/ficha.asp?num=972",
+      "width": "0.41",
+      "wikidata": "Q4352988",
+      "wikimedia_commons": "Category:Pico do Facho (Porto Santo)",
+      "wikipedia": "en:Pico do Facho"
+    }
+  },
+  {
+    "osm_id": "node/1162456208",
+    "lat": 33.0663556,
+    "lon": -16.3172607,
+    "tags": {
+      "description": "Vértice geodésico de 2ª ordem; pilar prismático s/ base prismática sobre rocha.",
+      "ele": "162",
+      "height": "2.13",
+      "man_made": "survey_point",
+      "name": "Portela",
+      "natural": "peak",
+      "note": "For this particular survey_point, a -42m discrepancy exists between data supplied in PT_MAD.zip and the online details webpage. The second was prefered.",
+      "note:en": "Survey Points are meant to be used to rectify aerial imagery and not the other way around. Please do not move nor delete them. Their position corresponds to official reference ground measures.",
+      "note:pt": "Os Vértices Geodésicos servem para melhorar o alinhamento da fotografia aérea e não o inverso. Por favor não os mova nem apague. A sua posição corresponde a medidas de referência oficiais, obtidas in loco.",
+      "ref": "974",
+      "source": "DGT - Rede Geodésica Nacional",
+      "source:pkey": "974",
+      "triangulation_point": "yes",
+      "website": "http://dev.igeo.pt/produtos/geodesia/vg/rgn/ficha.asp?num=974",
+      "width": "0.40"
+    }
+  },
+  {
+    "osm_id": "node/1162456214",
+    "lat": 33.0756524,
+    "lon": -16.3376772,
+    "tags": {
+      "description": "Vértice geodésico de 2ª ordem; pilar prismático sobre terreno.",
+      "ele": "143",
+      "height": "1.1",
+      "man_made": "survey_point",
+      "name": "Quebrada",
+      "natural": "peak",
+      "note:en": "Survey Points are meant to be used to rectify aerial imagery and not the other way around. Please do not move nor delete them. Their position corresponds to official reference ground measures.",
+      "note:pt": "Os Vértices Geodésicos servem para melhorar o alinhamento da fotografia aérea e não o inverso. Por favor não os mova nem apague. A sua posição corresponde a medidas de referência oficiais, obtidas in loco.",
+      "ref": "975",
+      "source": "DGT - Rede Geodésica Nacional",
+      "source:pkey": "975",
+      "triangulation_point": "yes",
+      "website": "http://dev.igeo.pt/produtos/geodesia/vg/rgn/ficha.asp?num=975",
+      "width": "0.40"
+    }
+  },
+  {
+    "osm_id": "node/1162456216",
+    "lat": 33.0746985,
+    "lon": -16.3665281,
+    "tags": {
+      "description": "Vértice geodésico de 2ª ordem; pilar prismático sobre terreno.",
+      "ele": "227",
+      "height": "1.11",
+      "man_made": "survey_point",
+      "name": "Cabeço de Bárbara Gomes",
+      "natural": "peak",
+      "note:en": "Survey Points are meant to be used to rectify aerial imagery and not the other way around. Please do not move nor delete them. Their position corresponds to official reference ground measures.",
+      "note:pt": "Os Vértices Geodésicos servem para melhorar o alinhamento da fotografia aérea e não o inverso. Por favor não os mova nem apague. A sua posição corresponde a medidas de referência oficiais, obtidas in loco.",
+      "ref": "983",
+      "source": "DGT - Rede Geodésica Nacional",
+      "source:pkey": "983",
+      "survey:date": "2005",
+      "triangulation_point": "yes",
+      "website": "http://dev.igeo.pt/produtos/geodesia/vg/rgn/ficha.asp?num=983",
+      "width": "0.41",
+      "wikidata": "Q35732059"
+    }
+  },
+  {
+    "osm_id": "node/1162456230",
+    "lat": 33.0288833,
+    "lon": -16.3812499,
+    "tags": {
+      "description": "Vértice geodésico de 2ª ordem; pilar prismático sobre prisma.",
+      "ele": "183",
+      "man_made": "survey_point",
+      "name": "Cabeço do Zimbralinho",
+      "natural": "peak",
+      "note:en": "Survey Points are meant to be used to rectify aerial imagery and not the other way around. Please do not move or delete them. Their position corresponds to official reference ground measures.",
+      "note:pt": "Os Vértices Geodésicos servem para melhorar o alinhamento da fotografia aérea e não o inverso. Por favor não os mova nem apague. A sua posição corresponde a medidas de referência oficiais, obtidas in loco.",
+      "ref": "987",
+      "source": "DGT - Rede Geodésica Nacional",
+      "source:pkey": "987",
+      "survey:date": "2005",
+      "triangulation_point": "yes",
+      "website": "http://dev.igeo.pt/produtos/geodesia/vg/rgn/ficha.asp?num=987",
+      "width": "0.40",
+      "wikidata": "Q34836660",
+      "wikimedia_commons": "Category:Cabeço do Zimbralinho"
+    }
+  },
+  {
+    "osm_id": "node/1162456235",
+    "lat": 33.038851,
+    "lon": -16.3674569,
+    "tags": {
+      "description": "Vértice geodésico de 2ª ordem; pilar prismático sobre prisma.",
+      "ele": "93",
+      "height": "2.14",
+      "man_made": "survey_point",
+      "name": "Dragoal",
+      "natural": "peak",
+      "note:en": "Survey Points are meant to be used to rectify aerial imagery and not the other way around. Please do not move or delete them. Their position corresponds to official reference ground measures.",
+      "note:pt": "Os Vértices Geodésicos servem para melhorar o alinhamento da fotografia aérea e não o inverso. Por favor não os mova nem apague. A sua posição corresponde a medidas de referência oficiais, obtidas in loco.",
+      "ref": "988",
+      "source": "DGT - Rede Geodésica Nacional",
+      "source:pkey": "988",
+      "survey:date": "2005",
+      "triangulation_point": "yes",
+      "website": "http://dev.igeo.pt/produtos/geodesia/vg/rgn/ficha.asp?num=988",
+      "width": "0.40"
+    }
+  },
+  {
+    "osm_id": "node/1162456239",
+    "lat": 33.0636647,
+    "lon": -16.3717338,
+    "tags": {
+      "description": "Vértice geodésico de 2ª ordem; pilar prismático sobre terreno.",
+      "ele": "176",
+      "height": "1.11",
+      "man_made": "survey_point",
+      "name": "Eiras",
+      "natural": "peak",
+      "note:en": "Survey Points are meant to be used to rectify aerial imagery and not the other way around. Please do not move nor delete them. Their position corresponds to official reference ground measures.",
+      "note:pt": "Os Vértices Geodésicos servem para melhorar o alinhamento da fotografia aérea e não o inverso. Por favor não os mova nem apague. A sua posição corresponde a medidas de referência oficiais, obtidas in loco.",
+      "ref": "989",
+      "source": "DGT - Rede Geodésica Nacional",
+      "source:pkey": "989",
+      "survey:date": "2005",
+      "triangulation_point": "yes",
+      "website": "http://dev.igeo.pt/produtos/geodesia/vg/rgn/ficha.asp?num=989",
+      "width": "0.41"
+    }
+  },
+  {
+    "osm_id": "node/1356617308",
+    "lat": 33.0596733,
+    "lon": -16.3385606,
+    "tags": {
+      "addr:city": "Porto Santo",
+      "addr:postcode": "9400-035",
+      "addr:street": "Estrada José António Taboada",
+      "alt_name": "Esquadra de Porto Santo",
+      "amenity": "police",
+      "name": "Esquadra Policial Complexa do Porto Santo",
+      "operator": "Polícia de Segurança Pública",
+      "operator:short": "PSP",
+      "operator:wikidata": "Q3460075",
+      "operator:wikipedia": "en:Polícia de Segurança Pública",
+      "short_name": "PSP"
+    }
+  },
+  {
+    "osm_id": "node/1356617344",
+    "lat": 33.0456516,
+    "lon": -16.3622486,
+    "tags": {
+      "amenity": "place_of_worship",
+      "denomination": "catholic",
+      "name": "Capela de São Pedro",
+      "religion": "christian",
+      "wikidata": "Q66816069",
+      "wikimedia_commons": "Category:Capela de São Pedro (Porto Santo)"
+    }
+  },
+  {
+    "osm_id": "node/1356617354",
+    "lat": 33.058306,
+    "lon": -16.3363741,
+    "tags": {
+      "addr:city": "Porto Santo",
+      "addr:postcode": "9400-179",
+      "amenity": "bank",
+      "atm": "yes",
+      "branch": "Porto Santo",
+      "branch:type": "retail",
+      "brand": "Caixa Geral de Depósitos",
+      "brand:website": "https://www.cgd.pt/",
+      "brand:wikidata": "Q1026044",
+      "brand:wikipedia": "pt:Caixa Geral de Depósitos",
+      "check_date": "2024-10-15",
+      "contact:facebook": "caixageraldedepositos",
+      "contact:instagram": "caixageraldedepositos",
+      "contact:linkedin": "https://www.linkedin.com/company/caixageraldedepositos/",
+      "contact:phone": "+351 217 900 790",
+      "contact:youtube": "http://www.youtube.com/user/mediacgd",
+      "name": "Caixa Geral de Depósitos",
+      "opening_hours": "Mo-Fr 08:30-12:30,13:30-15:00; Sa,Su,PH off",
+      "operator": "Caixa Geral de Depósitos",
+      "operator:wikidata": "Q1026044",
+      "operator:wikipedia": "pt:Caixa Geral de Depósitos",
+      "ref": "1629",
+      "short_name": "CGD",
+      "source:contact": "website",
+      "source:opening_hours": "website",
+      "website": "https://www.cgd.pt/Corporativo/Rede-CGD/Pages/PORTO-SANTO.aspx"
+    }
+  },
+  {
+    "osm_id": "node/1356617364",
+    "lat": 33.0440673,
+    "lon": -16.3695028,
+    "tags": {
+      "alt_name": "Pico da Ana Ferreira;Piano",
+      "ele": "283",
+      "importance": "urban",
+      "name": "Ana Ferreira",
+      "natural": "peak",
+      "wikidata": "Q10349523",
+      "wikimedia_commons": "Category:Pico de Ana Ferreira",
+      "wikipedia": "pt:Pico de Ana Ferreira"
+    }
+  },
+  {
+    "osm_id": "node/1356617443",
+    "lat": 33.0559885,
+    "lon": -16.3379337,
+    "tags": {
+      "addr:housenumber": "8",
+      "addr:street": "Rua Goulart Medeiros",
+      "amenity": "restaurant",
+      "check_date": "2025-05-12",
+      "cuisine": "pizza",
+      "internet_access": "no",
+      "name": "Pizza na Areia",
+      "smoking": "yes"
+    }
+  },
+  {
+    "osm_id": "node/1356617456",
+    "lat": 33.0546809,
+    "lon": -16.2791628,
+    "tags": {
+      "ele": "124",
+      "height": "15",
+      "man_made": "lighthouse",
+      "name": "Farol do Ilhéu de Cima",
+      "seamark:light:character": "Fl",
+      "seamark:light:colour": "white",
+      "seamark:light:group": "3",
+      "seamark:light:height": "124",
+      "seamark:light:period": "15",
+      "seamark:light:range": "21",
+      "seamark:light:reference": "D 2756",
+      "seamark:light:sequence": "0.2+(2.3)+0.2+(2.3)+0.2+(9.8)",
+      "seamark:name": "Ilheu de Cima",
+      "seamark:type": "light_major",
+      "source": "https://www.amn.pt/DF/Paginas/FaroldoIlheudeCima.aspx",
+      "wikidata": "Q10280190",
+      "wikimedia_commons": "Category:Farol do Ilhéu de Cima",
+      "wikipedia": "pt:Farol do Ilhéu de Cima"
+    }
+  },
+  {
+    "osm_id": "node/1356617487",
+    "lat": 33.0560007,
+    "lon": -16.3379772,
+    "tags": {
+      "addr:housenumber": "8",
+      "addr:street": "Rua Goulart Medeiros",
+      "amenity": "restaurant",
+      "check_date": "2025-05-12",
+      "cuisine": "regional",
+      "internet_access": "no",
+      "name": "Salinas",
+      "smoking": "no"
+    }
+  },
+  {
+    "osm_id": "node/1356617497",
+    "lat": 33.0584829,
+    "lon": -16.3361636,
+    "tags": {
+      "amenity": "post_office",
+      "check_date": "2026-04-17",
+      "check_date:opening_hours": "2026-04-17",
+      "mapillary": "https://www.mapillary.com/app/?pKey=1083123057039677",
+      "name": "CTT",
+      "opening_hours": "Mo-Fr 09:00-12:30, 14:00-18:00",
+      "operator": "CTT",
+      "operator:wikidata": "Q1024518"
+    }
+  },
+  {
+    "osm_id": "node/1361260810",
+    "lat": 33.0585337,
+    "lon": -16.335539,
+    "tags": {
+      "amenity": "toilets",
+      "check_date": "2022-09-01",
+      "fee": "no",
+      "mapillary": "https://www.mapillary.com/app/?pKey=1836167883658056",
+      "wheelchair": "no"
+    }
+  },
+  {
+    "osm_id": "node/1361260852",
+    "lat": 33.0594184,
+    "lon": -16.3356944,
+    "tags": {
+      "addr:city": "Porto Santo",
+      "addr:street": "Travessa da Sacristia",
+      "fee": "no",
+      "mapillary": "https://www.mapillary.com/app/?pKey=24996119569984899",
+      "museum": "history",
+      "name": "Casa Colombo",
+      "opening_hours": "Mo-Fr 08:30-20:00",
+      "opening_hours:covid19": "Mo-Sa 10:00-12:30,14:00-17:30",
+      "tourism": "museum",
+      "url": "http://www.museucolombo-portosanto.com/",
+      "website": "https://cultura.madeira.gov.pt/casa-colombo-museu-do-porto-santo",
+      "wikidata": "Q9698061",
+      "wikimedia_commons": "Category:Casa Colombo",
+      "wikipedia": "pt:Casa Colombo"
+    }
+  },
+  {
+    "osm_id": "node/1361280657",
+    "lat": 33.0613877,
+    "lon": -16.3583287,
+    "tags": {
+      "amenity": "restaurant",
+      "cuisine": "pizza",
+      "name": "Pizzaria Colombo"
+    }
+  },
+  {
+    "osm_id": "node/1368925745",
+    "lat": 33.0306591,
+    "lon": -16.3825383,
+    "tags": {
+      "direction": "210",
+      "tourism": "viewpoint"
+    }
+  },
+  {
+    "osm_id": "node/1368925767",
+    "lat": 33.0388856,
+    "lon": -16.4060852,
+    "tags": {
+      "ele": "115",
+      "man_made": "lighthouse",
+      "name": "Farol do Ilhéu de Ferro",
+      "note": "out of use",
+      "seamark:light:character": "LFl",
+      "seamark:light:colour": "white",
+      "seamark:light:height": "130",
+      "seamark:light:period": "15",
+      "seamark:light:range": "13",
+      "seamark:light:reference": "D 2762",
+      "seamark:light:sequence": "3+(12)",
+      "seamark:name": "Ilheu de Ferro",
+      "seamark:type": "light_minor",
+      "wikidata": "Q10280191",
+      "wikimedia_commons": "Category:Farol do Ilhéu Ferro",
+      "wikipedia": "pt:Farol do Ilhéu de Ferro"
+    }
+  },
+  {
+    "osm_id": "node/1368925786",
+    "lat": 33.0393287,
+    "lon": -16.3938029,
+    "tags": {
+      "direction": "270",
+      "name": "Morenos",
+      "tourism": "viewpoint"
+    }
+  },
+  {
+    "osm_id": "node/1368948949",
+    "lat": 33.083867,
+    "lon": -16.3205145,
+    "tags": {
+      "alt_name": "Atalaia",
+      "ele": "484",
+      "name": "Gandaia",
+      "natural": "peak"
+    }
+  },
+  {
+    "osm_id": "node/1368948951",
+    "lat": 33.0619428,
+    "lon": -16.2984722,
+    "tags": {
+      "ele": "209",
+      "name": "Baixo",
+      "natural": "peak",
+      "wikidata": "Q31797555",
+      "wikimedia_commons": "Category:Pico de Baixo"
+    }
+  },
+  {
+    "osm_id": "node/1368948955",
+    "lat": 33.0921605,
+    "lon": -16.3216468,
+    "tags": {
+      "ele": "439",
+      "name": "Juliana",
+      "natural": "peak",
+      "wikidata": "Q31797242",
+      "wikimedia_commons": "Category:Pico Juliana"
+    }
+  },
+  {
+    "osm_id": "node/1562362151",
+    "lat": 33.059431,
+    "lon": -16.3430915,
+    "tags": {
+      "amenity": "parking"
+    }
+  },
+  {
+    "osm_id": "node/1562378032",
+    "lat": 33.0603628,
+    "lon": -16.331553,
+    "tags": {
+      "access": "yes",
+      "amenity": "parking",
+      "fee": "yes",
+      "parking": "surface"
+    }
+  },
+  {
+    "osm_id": "node/1562761052",
+    "lat": 33.05362,
+    "lon": -16.3570574,
+    "tags": {
+      "amenity": "parking"
+    }
+  },
+  {
+    "osm_id": "node/1562801904",
+    "lat": 33.0632212,
+    "lon": -16.3169718,
+    "tags": {
+      "amenity": "parking"
+    }
+  },
+  {
+    "osm_id": "node/1563552184",
+    "lat": 33.0664833,
+    "lon": -16.3173626,
+    "tags": {
+      "access": "yes",
+      "amenity": "parking",
+      "fee": "no",
+      "parking": "surface"
+    }
+  },
+  {
+    "osm_id": "node/1577313045",
+    "lat": 33.0596166,
+    "lon": -16.3151756,
+    "tags": {
+      "man_made": "lighthouse",
+      "seamark:light:character": "Fl",
+      "seamark:light:colour": "red",
+      "seamark:light:height": "13",
+      "seamark:light:period": "4",
+      "seamark:light:range": "7",
+      "seamark:light:reference": "D 2757.2",
+      "seamark:light:sequence": "1+(3)",
+      "seamark:type": "light_minor",
+      "source": "US NGA Pub. 113. 2011-10-20."
+    }
+  },
+  {
+    "osm_id": "node/1577313156",
+    "lat": 33.0581107,
+    "lon": -16.3144393,
+    "tags": {
+      "man_made": "lighthouse",
+      "seamark:light:character": "Fl",
+      "seamark:light:colour": "green",
+      "seamark:light:height": "17",
+      "seamark:light:period": "4",
+      "seamark:light:range": "6",
+      "seamark:light:reference": "D 2757",
+      "seamark:light:sequence": "1+(3)",
+      "seamark:type": "light_minor",
+      "source": "US NGA Pub. 113. 2011-10-20."
+    }
+  },
+  {
+    "osm_id": "node/1815316149",
+    "lat": 33.0590433,
+    "lon": -16.332063,
+    "tags": {
+      "addr:city": "Porto Santo",
+      "addr:postcode": "9400-166",
+      "addr:street": "Rua João Gonçalves Zarco - Vila Baleira,",
+      "amenity": "restaurant",
+      "check_date": "2024-05-12",
+      "cuisine": "mediterranean",
+      "name": "La Siesta",
+      "note": "Mediterranean Food! Simple and refined, a must when in Porto Santo.",
+      "phone": "+351 914 694 474"
+    }
+  },
+  {
+    "osm_id": "node/1921641584",
+    "lat": 33.0351338,
+    "lon": -16.3640211,
+    "tags": {
+      "fixme": "please verify lighthouse",
+      "man_made": "lighthouse"
+    }
+  },
+  {
+    "osm_id": "node/2054066759",
+    "lat": 33.058288,
+    "lon": -16.3346192,
+    "tags": {
+      "amenity": "restaurant",
+      "check_date": "2024-10-15",
+      "name": "Tia Maria"
+    }
+  },
+  {
+    "osm_id": "node/2055101234",
+    "lat": 33.0589774,
+    "lon": -16.3107793,
+    "tags": {
+      "bench": "no",
+      "bus": "yes",
+      "fee": "yes",
+      "highway": "bus_stop",
+      "mapillary": "2301151510325466",
+      "name": "Porto de Abrigo",
+      "network:short": "SIGA",
+      "network:wikidata": "Q131480575",
+      "operator": "SIGA",
+      "public_transport": "stop_position",
+      "route_ref": "995",
+      "shelter": "no",
+      "survey:date": "2025-10-23",
+      "tactile_paving": "no",
+      "wheelchair": "no"
+    }
+  },
+  {
+    "osm_id": "node/2156789507",
+    "lat": 33.0390733,
+    "lon": -16.3608097,
+    "tags": {
+      "bench": "no",
+      "bus": "yes",
+      "from": "Centro",
+      "highway": "bus_stop",
+      "mapillary": "1139847854429796",
+      "name": "Antes Vila Baleira",
+      "network": "SIGA",
+      "network:short": "SIGA",
+      "network:wikidata": "Q131480575",
+      "operator": "SIGA",
+      "public_transport": "stop_position",
+      "route_ref": "994",
+      "shelter": "no",
+      "survey:date": "2025-10-09",
+      "tactile_paving": "no",
+      "to": "Calheta"
+    }
+  },
+  {
+    "osm_id": "node/2378408565",
+    "lat": 33.0778839,
+    "lon": -16.3342981,
+    "tags": {
+      "direction": "180",
+      "name": "Pico do Castelo",
+      "tourism": "viewpoint"
+    }
+  },
+  {
+    "osm_id": "node/2498340426",
+    "lat": 33.0634445,
+    "lon": -16.3175323,
+    "tags": {
+      "access": "private",
+      "amenity": "toilets"
+    }
+  },
+  {
+    "osm_id": "node/3891540358",
+    "lat": 33.0592219,
+    "lon": -16.3353546,
+    "tags": {
+      "amenity": "restaurant",
+      "check_date": "2026-04-21",
+      "cuisine": "regional",
+      "name": "A Baiana",
+      "outdoor_seating": "yes"
+    }
+  },
+  {
+    "osm_id": "node/4139431074",
+    "lat": 33.0591646,
+    "lon": -16.3354968,
+    "tags": {
+      "amenity": "restaurant",
+      "check_date": "2024-10-15",
+      "name": "Apolo 14",
+      "outdoor_seating": "yes"
+    }
+  },
+  {
+    "osm_id": "node/4139431075",
+    "lat": 33.0585226,
+    "lon": -16.3370697,
+    "tags": {
+      "addr:housenumber": "16 A",
+      "addr:postcode": "9400-172",
+      "addr:street": "Rua Manuel Gregório Pestana",
+      "amenity": "restaurant",
+      "check_date": "2025-12-28",
+      "cuisine": "fish;portuguese",
+      "internet_access": "wlan",
+      "name": "Casa do Velho Dragoeiro",
+      "tourism": "guest_house",
+      "website": "http://www.casadovelhodragoeiro.com/",
+      "wheelchair": "no"
+    }
+  },
+  {
+    "osm_id": "node/4139431076",
+    "lat": 33.0588238,
+    "lon": -16.3358199,
+    "tags": {
+      "addr:country": "PT",
+      "addr:housenumber": "4-8",
+      "addr:street": "Avenida Henrique Vieira do Castro",
+      "amenity": "cafe",
+      "check_date": "2026-04-21",
+      "name": "Poncha Do Pescador"
+    }
+  },
+  {
+    "osm_id": "node/4139431077",
+    "lat": 33.0584462,
+    "lon": -16.3360923,
+    "tags": {
+      "addr:country": "PT",
+      "addr:housenumber": "9",
+      "addr:street": "Avenida Henrique Vieira do Castro",
+      "amenity": "cafe",
+      "check_date": "2024-10-15",
+      "mapillary": "https://www.mapillary.com/app/?pKey=676597825504767",
+      "name": "Zarco",
+      "outdoor_seating": "yes"
+    }
+  },
+  {
+    "osm_id": "node/4921161360",
+    "lat": 33.0490595,
+    "lon": -16.3525366,
+    "tags": {
+      "amenity": "restaurant",
+      "level": "0",
+      "name": "Casa da Avó"
+    }
+  },
+  {
+    "osm_id": "node/4922019772",
+    "lat": 33.0587264,
+    "lon": -16.3325026,
+    "tags": {
+      "amenity": "cafe",
+      "check_date": "2024-05-12",
+      "cuisine": "ice_cream",
+      "level": "0",
+      "name": "O Golfinho",
+      "takeaway": "no",
+      "terrace": "yes"
+    }
+  },
+  {
+    "osm_id": "node/4922686943",
+    "lat": 33.0592741,
+    "lon": -16.3329629,
+    "tags": {
+      "addr:city": "Porto Santo",
+      "addr:postcode": "9400-166",
+      "addr:street": "Rua João Gonçalvez Zarco",
+      "amenity": "restaurant",
+      "check_date": "2024-05-12",
+      "name": "Tábua Rasa"
+    }
+  },
+  {
+    "osm_id": "node/4928588599",
+    "lat": 33.0591459,
+    "lon": -16.3348113,
+    "tags": {
+      "amenity": "atm"
+    }
+  },
+  {
+    "osm_id": "node/4928588600",
+    "lat": 33.0591437,
+    "lon": -16.3340632,
+    "tags": {
+      "addr:city": "Porto Santo",
+      "addr:housenumber": "6",
+      "addr:postcode": "9400-172",
+      "addr:street": "Avenida Manuel Gregório Pestana Júnior",
+      "amenity": "bank",
+      "branch": "Porto Santo",
+      "brand": "Santander",
+      "brand:website": "https://www.santander.pt/",
+      "brand:wikidata": "Q4854116",
+      "brand:wikipedia": "pt:Banco Santander Portugal",
+      "cash_in": "yes",
+      "cash_out": "yes",
+      "check_date": "2024-05-13",
+      "contact:email": "portosanto@santander.pt",
+      "contact:facebook": "santanderpt",
+      "contact:instagram": "santanderpt",
+      "contact:linkedin": "https://www.linkedin.com/company/santanderpt/",
+      "contact:phone": "+351 291 143 250",
+      "contact:twitter": "santanderpt",
+      "contact:youtube": "@santanderpt",
+      "drive_through": "no",
+      "internet_access": "wlan",
+      "language:en": "yes",
+      "language:es": "yes",
+      "language:pt": "yes",
+      "name": "Santander",
+      "opening_hours": "Mo-Fr 08:30-12:00,13:00-15:00; Sa-Su off; Jan 01,Apr 25,May 25,Jun 01,Jun 26,Aug 10,Aug 24,Oct 15,Nov 05,Dec 01,Dec 08,Dec 25 off",
+      "operator": "Banco Santander (Portugal)",
+      "operator:wikidata": "Q4854116",
+      "operator:wikipedia": "pt:Banco Santander Portugal",
+      "ref": "8008",
+      "source:contact": "website",
+      "source:opening_hours": "website",
+      "website": "https://www.santander.pt/"
+    }
+  },
+  {
+    "osm_id": "node/4928588601",
+    "lat": 33.05957,
+    "lon": -16.3350311,
+    "tags": {
+      "amenity": "atm",
+      "check_date": "2024-10-15"
+    }
+  },
+  {
+    "osm_id": "node/4928598016",
+    "lat": 33.0562986,
+    "lon": -16.3337827,
+    "tags": {
+      "alt_name": "Cais Velho do Porto Santo",
+      "name": "Pontão das Salinas",
+      "tourism": "viewpoint",
+      "wheelchair": "limited",
+      "wikidata": "Q62270493",
+      "wikipedia": "pt:Cais Velho do Porto Santo"
+    }
+  },
+  {
+    "osm_id": "node/4928667316",
+    "lat": 33.0931402,
+    "lon": -16.3471701,
+    "tags": {
+      "name": "Praia das Salemas",
+      "tourism": "viewpoint"
+    }
+  },
+  {
+    "osm_id": "node/4930548831",
+    "lat": 33.0591951,
+    "lon": -16.3340571,
+    "tags": {
+      "amenity": "restaurant",
+      "check_date": "2024-05-13",
+      "cuisine": "burger;hotdog;sandwich",
+      "internet_access": "wlan",
+      "level": "0",
+      "name": "Mais Sabo",
+      "name:en": "Snack-bar +Sabor",
+      "opening_hours": "08:00-22:00",
+      "payment:cash": "yes",
+      "payment:credit_cards": "yes",
+      "payment:debit_cards": "yes",
+      "shop": "bakery",
+      "wheelchair": "yes"
+    }
+  },
+  {
+    "osm_id": "node/4976862921",
+    "lat": 33.0602357,
+    "lon": -16.333519,
+    "tags": {
+      "amenity": "pharmacy",
+      "check_date": "2024-10-15",
+      "dispensing": "yes",
+      "drive_through": "no",
+      "healthcare": "pharmacy",
+      "name": "Porto Santo"
+    }
+  },
+  {
+    "osm_id": "node/5562331511",
+    "lat": 33.0422631,
+    "lon": -16.3829924,
+    "tags": {
+      "description": "Vértice geodésico de 2ª ordem; pilar prismático sobre rocha.",
+      "ele": "270",
+      "height": "1.11",
+      "man_made": "survey_point",
+      "name": "Espigão",
+      "natural": "peak",
+      "note:en": "Survey Points are meant to be used to rectify aerial imagery and not the other way around. Please do not move nor delete them. Their position corresponds to official reference ground measures.",
+      "note:pt": "Os Vértices Geodésicos servem para melhorar o alinhamento da fotografia aérea e não o inverso. Por favor não os mova nem apague. A sua posição corresponde a medidas de referência oficiais, obtidas in loco.",
+      "source": "DGT - Rede Geodésica Nacional",
+      "source:pkey": "990",
+      "survey:date": "2005",
+      "triangulation_point": "yes",
+      "website": "http://dev.igeo.pt/produtos/geodesia/vg/rgn/ficha.asp?num=990",
+      "width": "0.41"
+    }
+  },
+  {
+    "osm_id": "node/5562331512",
+    "lat": 33.097579,
+    "lon": -16.3337515,
+    "tags": {
+      "description": "Vértice geodésico de 2ª ordem; pilar prismático sobre rocha.",
+      "ele": "164",
+      "height": "1.11",
+      "man_made": "survey_point",
+      "name": "Cabeço do Guilherme",
+      "natural": "peak",
+      "note:en": "Survey Points are meant to be used to rectify aerial imagery and not the other way around. Please do not move nor delete them. Their position corresponds to official reference ground measures.",
+      "note:pt": "Os Vértices Geodésicos servem para melhorar o alinhamento da fotografia aérea e não o inverso. Por favor não os mova nem apague. A sua posição corresponde a medidas de referência oficiais, obtidas in loco.",
+      "source": "DGT - Rede Geodésica Nacional",
+      "source:pkey": "985",
+      "survey:date": "2005",
+      "triangulation_point": "yes",
+      "website": "http://dev.igeo.pt/produtos/geodesia/vg/rgn/ficha.asp?num=985",
+      "width": "0.41"
+    }
+  },
+  {
+    "osm_id": "node/5562331513",
+    "lat": 33.0640146,
+    "lon": -16.3459455,
+    "tags": {
+      "description": "Vértice geodésico de 2ª ordem; pilar prismático sobre prisma.",
+      "ele": "66",
+      "height": "1.85",
+      "man_made": "survey_point",
+      "name": "Base Nw",
+      "natural": "peak",
+      "note:en": "Survey Points are meant to be used to rectify aerial imagery and not the other way around. Please do not move nor delete them. Their position corresponds to official reference ground measures.",
+      "note:pt": "Os Vértices Geodésicos servem para melhorar o alinhamento da fotografia aérea e não o inverso. Por favor não os mova nem apague. A sua posição corresponde a medidas de referência oficiais, obtidas in loco.",
+      "source": "DGT - Rede Geodésica Nacional",
+      "source:pkey": "984",
+      "survey:date": "2005",
+      "triangulation_point": "yes",
+      "website": "http://dev.igeo.pt/produtos/geodesia/vg/rgn/ficha.asp?num=984",
+      "width": "0.44"
+    }
+  },
+  {
+    "osm_id": "node/5562331514",
+    "lat": 33.0658428,
+    "lon": -16.3033381,
+    "tags": {
+      "description": "Vértice geodésico de 2ª ordem; pilar prismático sobre rocha.",
+      "ele": "286",
+      "height": "1.11",
+      "man_made": "survey_point",
+      "name": "Maçarico",
+      "natural": "peak",
+      "note:en": "Survey Points are meant to be used to rectify aerial imagery and not the other way around. Please do not move nor delete them. Their position corresponds to official reference ground measures.",
+      "note:pt": "Os Vértices Geodésicos servem para melhorar o alinhamento da fotografia aérea e não o inverso. Por favor não os mova nem apague. A sua posição corresponde a medidas de referência oficiais, obtidas in loco.",
+      "source": "DGT - Rede Geodésica Nacional",
+      "source:pkey": "973",
+      "triangulation_point": "yes",
+      "website": "http://dev.igeo.pt/produtos/geodesia/vg/rgn/ficha.asp?num=973",
+      "width": "0.41"
+    }
+  },
+  {
+    "osm_id": "node/5764485768",
+    "lat": 33.0588611,
+    "lon": -16.3339377,
+    "tags": {
+      "amenity": "parking",
+      "capacity": "8",
+      "parking": "street_side"
+    }
+  },
+  {
+    "osm_id": "node/5766458103",
+    "lat": 33.0374033,
+    "lon": -16.3608942,
+    "tags": {
+      "amenity": "atm",
+      "brand": "Santander",
+      "brand:wikidata": "Q4854116",
+      "brand:wikipedia": "en:Santander Bank",
+      "description": "Multibanco",
+      "name": "Santander",
+      "official_name": "Santander Group",
+      "opening_hours": "24/7",
+      "operator": "Santander",
+      "operator:wikidata": "Q4854116",
+      "operator:wikipedia": "en:Santander Bank"
+    }
+  },
+  {
+    "osm_id": "node/5792425978",
+    "lat": 33.0371298,
+    "lon": -16.3636245,
+    "tags": {
+      "bus": "yes",
+      "from": "Centro",
+      "highway": "bus_stop",
+      "name": "Vila Baleira Porto Santo",
+      "network": "SIGA",
+      "network:short": "SIGA",
+      "network:wikidata": "Q131480575",
+      "operator": "SIGA",
+      "public_transport": "stop_position",
+      "route_ref": "994",
+      "shelter": "no",
+      "tactile_paving": "no",
+      "to": "Calheta"
+    }
+  },
+  {
+    "osm_id": "node/5792425979",
+    "lat": 33.0371208,
+    "lon": -16.3634814,
+    "tags": {
+      "bench": "no",
+      "bus": "yes",
+      "from": "Calheta",
+      "highway": "bus_stop",
+      "mapillary": "1117795337135044",
+      "name": "Vila Baleira Porto Santo",
+      "network": "SIGA",
+      "network:short": "SIGA",
+      "network:wikidata": "Q131480575",
+      "operator": "SIGA",
+      "public_transport": "stop_position",
+      "route_ref": "994",
+      "shelter": "no",
+      "survey:date": "2025-10-10",
+      "tactile_paving": "no",
+      "to": "Centro"
+    }
+  },
+  {
+    "osm_id": "node/6429007040",
+    "lat": 33.0746091,
+    "lon": -16.3456786,
+    "tags": {
+      "amenity": "restaurant",
+      "bar": "yes",
+      "capacity": "60",
+      "check_date": "2025-12-28",
+      "cuisine": "regional",
+      "internet_access": "wlan",
+      "name": "Quinta dos Sabores",
+      "opening_hours": "Mo-Su 11:00-02:00",
+      "outdoor_seating": "yes",
+      "phone": "+351 291914242",
+      "smoking": "outside",
+      "wheelchair": "yes"
+    }
+  },
+  {
+    "osm_id": "node/6765432395",
+    "lat": 33.0574603,
+    "lon": -16.3387625,
+    "tags": {
+      "amenity": "drinking_water"
+    }
+  },
+  {
+    "osm_id": "node/7636282328",
+    "lat": 33.0939373,
+    "lon": -16.3172679,
+    "tags": {
+      "name": "Cabrita",
+      "natural": "peak",
+      "wikidata": "Q107561089"
+    }
+  },
+  {
+    "osm_id": "node/8045031775",
+    "lat": 33.0572324,
+    "lon": -16.3391197,
+    "tags": {
+      "addr:street": "Avenida Henrique Vieira de Castro",
+      "amenity": "restaurant",
+      "check_date": "2025-10-06",
+      "cuisine": "portuguese",
+      "delivery": "no",
+      "name": "O Forno",
+      "opening_hours": "Mo-Sa 10:00-15:00, 18:00-22:00",
+      "outdoor_seating": "no",
+      "phone": "+351 291 984 035",
+      "smoking": "no",
+      "takeaway": "yes",
+      "website": "https://www.facebook.com/oforno.oforno.9/"
+    }
+  },
+  {
+    "osm_id": "node/8116260535",
+    "lat": 33.0594424,
+    "lon": -16.333696,
+    "tags": {
+      "access": "yes",
+      "amenity": "charging_station",
+      "authentication:app": "yes",
+      "authentication:membership_card": "yes",
+      "authentication:none": "no",
+      "brand": "Em@com",
+      "capacity": "2",
+      "email": "emacom-me@eem.pt",
+      "fee": "yes",
+      "maxstay": "unlimited",
+      "motorcar": "yes",
+      "name": "PST-00002",
+      "network": "Mobi.E",
+      "opening_hours": "24/7",
+      "operator": "Emacom",
+      "parking:fee": "no",
+      "payment:app": "yes",
+      "payment:cards": "no",
+      "payment:cash": "no",
+      "payment:membership_card": "yes",
+      "phone": "+351 800 221 187",
+      "ref": "PST-00002",
+      "ref:EU:EVSE": "PT*EMA*E*PST*00002*1;PT*EMA*E*PST*00002*2",
+      "socket:type2": "2",
+      "socket:type2:current": "32",
+      "socket:type2:output": "22 kW",
+      "socket:type2:voltage": "400",
+      "website": "https://www.mobie.pt"
+    }
+  },
+  {
+    "osm_id": "node/8712049058",
+    "lat": 33.0561898,
+    "lon": -16.3375339,
+    "tags": {
+      "amenity": "toilets",
+      "fee": "no",
+      "female": "yes",
+      "male": "yes"
+    }
+  },
+  {
+    "osm_id": "node/9100444940",
+    "lat": 33.0709796,
+    "lon": -16.3427836,
+    "tags": {
+      "addr:city": "Porto Santo",
+      "addr:postcode": "9400-174",
+      "addr:street": "Estrada do Parque Empresarial",
+      "amenity": "fuel",
+      "brand": "BP",
+      "brand:wikidata": "Q152057",
+      "brand:wikipedia": "en:BP",
+      "name": "BP",
+      "self_service": "yes"
+    }
+  },
+  {
+    "osm_id": "node/9123380768",
+    "lat": 33.1015914,
+    "lon": -16.3137077,
+    "tags": {
+      "name": "Ninho do Guincho",
+      "natural": "peak"
+    }
+  },
+  {
+    "osm_id": "node/9981330418",
+    "lat": 33.0589062,
+    "lon": -16.3339184,
+    "tags": {
+      "amenity": "charging_station",
+      "capacity": "2",
+      "fixme": "Adicionar qual o operador, forma de activar o posto, método de pagamento e tipo de tomadas"
+    }
+  },
+  {
+    "osm_id": "node/9981341917",
+    "lat": 33.0589305,
+    "lon": -16.3338345,
+    "tags": {
+      "amenity": "charging_station",
+      "fixme": "Adicionar qual o operador, forma de activar o posto, método de pagamento e tipo de tomadas"
+    }
+  },
+  {
+    "osm_id": "node/9982308317",
+    "lat": 33.057848,
+    "lon": -16.3351488,
+    "tags": {
+      "amenity": "toilets",
+      "fee": "no",
+      "mapillary": "https://www.mapillary.com/app/?pKey=787972290668458",
+      "wheelchair": "yes"
+    }
+  },
+  {
+    "osm_id": "node/10095739574",
+    "lat": 33.0288581,
+    "lon": -16.3812275,
+    "tags": {
+      "alt_name": "Cabeço do Zimbralinho",
+      "name": "Flores",
+      "tourism": "viewpoint"
+    }
+  },
+  {
+    "osm_id": "node/11176652037",
+    "lat": 33.0664558,
+    "lon": -16.3396717,
+    "tags": {
+      "amenity": "fuel",
+      "brand": "Galp",
+      "brand:wikidata": "Q1492739",
+      "mapillary": "694729756053358",
+      "name:da": "galp",
+      "survey:date": "2023-10-17"
+    }
+  },
+  {
+    "osm_id": "node/11267537792",
+    "lat": 33.0585234,
+    "lon": -16.3342415,
+    "tags": {
+      "addr:postcode": "9400-153",
+      "branch": "Super Porto Santo",
+      "brand": "Pingo Doce",
+      "brand:wikidata": "Q1575057",
+      "brand:wikipedia": "pt:Pingo Doce",
+      "check_date": "2026-04-17",
+      "check_date:opening_hours": "2026-04-17",
+      "contact:facebook": "pingodoce",
+      "contact:instagram": "pingodoce",
+      "contact:linkedin": "https://www.linkedin.com/company/pingo-doce",
+      "contact:phone": "+351 291 984 575",
+      "contact:tiktok": "pingodoce",
+      "contact:youtube": "pingodocept",
+      "name": "Pingo Doce",
+      "opening_hours": "Mo-Su 09:00-20:00",
+      "ref": "13",
+      "shop": "supermarket",
+      "source:contact": "website",
+      "source:opening_hours": "website",
+      "website": "https://www.pingodoce.pt/lojas/super-porto-santo/",
+      "wheelchair": "yes"
+    }
+  },
+  {
+    "osm_id": "node/11267537813",
+    "lat": 33.0597116,
+    "lon": -16.310262,
+    "tags": {
+      "amenity": "taxi"
+    }
+  },
+  {
+    "osm_id": "node/11267537814",
+    "lat": 33.0588537,
+    "lon": -16.3335605,
+    "tags": {
+      "bench": "yes",
+      "bin": "yes",
+      "bus": "yes",
+      "fee": "yes",
+      "highway": "bus_stop",
+      "lit": "yes",
+      "mapillary": "https://www.mapillary.com/app/?pKey=775550604706512",
+      "name": "Centro",
+      "network:short": "SIGA",
+      "network:wikidata": "Q131480575",
+      "operator": "SIGA",
+      "passenger_information_display": "yes",
+      "public_transport": "stop_position",
+      "route_ref": "991:992:993:994:995",
+      "shelter": "yes",
+      "survey:date": "2025-10-17",
+      "tactile_paving": "no",
+      "wheelchair": "designated"
+    }
+  },
+  {
+    "osm_id": "node/11275731660",
+    "lat": 33.0578728,
+    "lon": -16.3346641,
+    "tags": {
+      "artwork_type": "statue",
+      "mapillary": "https://www.mapillary.com/app/?pKey=711947511217858",
+      "name": "Barqueiro",
+      "tourism": "artwork",
+      "wikidata": "Q109198257",
+      "wikimedia_commons": "Category:Barqueiro by Manuela Aranha (bronze, 2003)"
+    }
+  },
+  {
+    "osm_id": "node/11439936371",
+    "lat": 33.0711084,
+    "lon": -16.3428816,
+    "tags": {
+      "access": "yes",
+      "amenity": "charging_station",
+      "authentication:app": "yes",
+      "authentication:membership_card": "yes",
+      "authentication:none": "no",
+      "brand": "Iberdrola bp pulse",
+      "capacity": "2",
+      "charging_station:output": "300 kW",
+      "email": "suporte@chargingtogether.pt",
+      "fee": "yes",
+      "fixme": "Verificar se aceita pagamento com cartão bancário",
+      "manufacturer": "Alpitronic",
+      "maxstay": "unlimited",
+      "model": "HYC_300",
+      "motorcar": "yes",
+      "name": "PST-00006",
+      "network": "Mobi.E",
+      "old_operator": "BP Pulse",
+      "old_ref": "PST-00005",
+      "opening_hours": "24/7",
+      "operator": "Charging Together",
+      "parking:fee": "no",
+      "payment:app": "yes",
+      "payment:cards": "no",
+      "payment:cash": "no",
+      "payment:membership_card": "yes",
+      "phone": "+351 800 917 576",
+      "ref": "PST-00006",
+      "ref:EU:EVSE": "PT*FCT*E*PST*00006*01;PT*FCT*E*PST*00006*02;PT*FCT*E*PST*00006*03",
+      "socket:chademo": "1",
+      "socket:chademo:current": "200",
+      "socket:chademo:output": "80 kW",
+      "socket:chademo:voltage": "500",
+      "socket:type2_combo": "2",
+      "socket:type2_combo:current": "500",
+      "socket:type2_combo:output": "150 kW",
+      "socket:type2_combo:voltage": "1000",
+      "website": "https://www.mobie.pt"
+    }
+  },
+  {
+    "osm_id": "node/11569461127",
+    "lat": 33.063161,
+    "lon": -16.3064747,
+    "tags": {
+      "amenity": "parking"
+    }
+  },
+  {
+    "osm_id": "node/11572220991",
+    "lat": 33.0636237,
+    "lon": -16.3171531,
+    "tags": {
+      "artwork_type": "sculpture",
+      "material": "concrete",
+      "tourism": "artwork"
+    }
+  },
+  {
+    "osm_id": "node/11572454943",
+    "lat": 33.0660973,
+    "lon": -16.317407,
+    "tags": {
+      "direction": "210",
+      "name": "Portela",
+      "tourism": "viewpoint"
+    }
+  },
+  {
+    "osm_id": "node/11576366897",
+    "lat": 33.0915935,
+    "lon": -16.3441439,
+    "tags": {
+      "access": "yes",
+      "amenity": "parking",
+      "fee": "no",
+      "parking": "surface"
+    }
+  },
+  {
+    "osm_id": "node/11861852117",
+    "lat": 33.0578093,
+    "lon": -16.3350614,
+    "tags": {
+      "amenity": "drinking_water",
+      "bottle": "no",
+      "covered": "no",
+      "fee": "no",
+      "fountain": "drinking",
+      "indoor": "no",
+      "lit": "yes"
+    }
+  },
+  {
+    "osm_id": "node/11866037324",
+    "lat": 33.0401842,
+    "lon": -16.3864285,
+    "tags": {
+      "amenity": "drinking_water",
+      "bottle": "yes",
+      "covered": "no",
+      "fee": "no",
+      "indoor": "no",
+      "lit": "yes"
+    }
+  },
+  {
+    "osm_id": "node/11866958399",
+    "lat": 33.0873186,
+    "lon": -16.3547939,
+    "tags": {
+      "amenity": "drinking_water",
+      "bottle": "yes",
+      "covered": "no",
+      "fee": "no",
+      "indoor": "no",
+      "lit": "yes"
+    }
+  },
+  {
+    "osm_id": "node/11866958403",
+    "lat": 33.0871335,
+    "lon": -16.3556123,
+    "tags": {
+      "amenity": "drinking_water",
+      "bottle": "yes",
+      "covered": "no",
+      "fee": "no",
+      "indoor": "no",
+      "lit": "yes",
+      "man_made": "water_tap"
+    }
+  },
+  {
+    "osm_id": "node/11866958422",
+    "lat": 33.0869731,
+    "lon": -16.3554087,
+    "tags": {
+      "amenity": "toilets",
+      "changing_table": "no",
+      "fee": "no",
+      "mapillary": "https://www.mapillary.com/app/?pKey=1461621678464164",
+      "portable": "no",
+      "toilets:disposal": "flush",
+      "toilets:handwashing": "yes",
+      "wheelchair": "no"
+    }
+  },
+  {
+    "osm_id": "node/11868677897",
+    "lat": 33.0780248,
+    "lon": -16.3335604,
+    "tags": {
+      "access": "yes",
+      "amenity": "toilets",
+      "changing_table": "no",
+      "fee": "no",
+      "female": "yes",
+      "male": "yes",
+      "portable": "no",
+      "toilets:disposal": "flush",
+      "toilets:handwashing": "yes"
+    }
+  },
+  {
+    "osm_id": "node/11868705575",
+    "lat": 33.0840328,
+    "lon": -16.3342347,
+    "tags": {
+      "artwork_type": "statue",
+      "name": "Maria",
+      "tourism": "artwork"
+    }
+  },
+  {
+    "osm_id": "node/11868792391",
+    "lat": 33.0807663,
+    "lon": -16.3336705,
+    "tags": {
+      "amenity": "toilets",
+      "changing_table": "no",
+      "fee": "no",
+      "toilets:disposal": "flush"
+    }
+  },
+  {
+    "osm_id": "node/11869503784",
+    "lat": 33.0658636,
+    "lon": -16.3343834,
+    "tags": {
+      "amenity": "drinking_water",
+      "man_made": "water_tap"
+    }
+  },
+  {
+    "osm_id": "node/11869510011",
+    "lat": 33.0659595,
+    "lon": -16.3346222,
+    "tags": {
+      "amenity": "drinking_water",
+      "man_made": "water_tap"
+    }
+  },
+  {
+    "osm_id": "node/11901901372",
+    "lat": 33.0550012,
+    "lon": -16.3420487,
+    "tags": {
+      "direction": "150",
+      "tourism": "viewpoint"
+    }
+  },
+  {
+    "osm_id": "node/11902039809",
+    "lat": 33.0598439,
+    "lon": -16.333304,
+    "tags": {
+      "addr:city": "Porto Santo",
+      "addr:postcode": "9400-133",
+      "branch": "Minimercado Impérissol",
+      "brand": "Amanhecer",
+      "brand:wikidata": "Q127510997",
+      "check_date": "2026-04-18",
+      "check_date:opening_hours": "2026-04-18",
+      "contact:email": "imperissol.7036@amanhecer.pt",
+      "contact:facebook": "lojasamanhecer",
+      "contact:instagram": "lojas.amanhecer",
+      "contact:phone": "+351 291 985 088;+351 968 234 608",
+      "name": "Amanhecer - Minimercado Impérissol",
+      "opening_hours": "Mo-Sa 08:00-13:00, 14:30-19:00; Su 08:00-13:00",
+      "ref": "7036",
+      "shop": "convenience",
+      "source:contact": "website",
+      "website": "https://amanhecer.pt/lojas/minimercado-imperissol/"
+    }
+  },
+  {
+    "osm_id": "node/11902039811",
+    "lat": 33.0600238,
+    "lon": -16.3334668,
+    "tags": {
+      "amenity": "restaurant",
+      "check_date": "2024-05-13",
+      "cuisine": "pizza",
+      "name": "Di Lorenzo"
+    }
+  },
+  {
+    "osm_id": "node/11902039828",
+    "lat": 33.0605001,
+    "lon": -16.3348813,
+    "tags": {
+      "amenity": "cafe",
+      "check_date": "2024-10-15",
+      "name": "O Cantinho"
+    }
+  },
+  {
+    "osm_id": "node/11902449378",
+    "lat": 33.0633659,
+    "lon": -16.3173728,
+    "tags": {
+      "amenity": "cafe",
+      "name": "Marina"
+    }
+  },
+  {
+    "osm_id": "node/11904084618",
+    "lat": 33.0941133,
+    "lon": -16.3262802,
+    "tags": {
+      "direction": "N",
+      "name": "Pedregal",
+      "tourism": "viewpoint"
+    }
+  },
+  {
+    "osm_id": "node/11904087069",
+    "lat": 33.0565796,
+    "lon": -16.3520651,
+    "tags": {
+      "amenity": "cafe",
+      "name": "O Vizinho"
+    }
+  },
+  {
+    "osm_id": "node/11904087070",
+    "lat": 33.0575108,
+    "lon": -16.3536845,
+    "tags": {
+      "amenity": "restaurant",
+      "name": "A Gazela"
+    }
+  },
+  {
+    "osm_id": "node/11904166227",
+    "lat": 33.035264,
+    "lon": -16.3716443,
+    "tags": {
+      "bench": "no",
+      "bus": "yes",
+      "from": "Centro",
+      "highway": "bus_stop",
+      "mapillary": "904970168663792",
+      "name": "Rua da Ponta",
+      "network:short": "SIGA",
+      "network:wikidata": "Q131480575",
+      "operator": "SIGA",
+      "public_transport": "stop_position",
+      "route_ref": "994",
+      "shelter": "no",
+      "survey:date": "2026-01-03",
+      "tactile_paving": "no",
+      "to": "Calheta"
+    }
+  },
+  {
+    "osm_id": "node/11904166228",
+    "lat": 33.035292,
+    "lon": -16.3715859,
+    "tags": {
+      "bench": "no",
+      "bus": "yes",
+      "from": "Calheta",
+      "highway": "bus_stop",
+      "mapillary": "1659731321684283",
+      "name": "Rua da Ponta",
+      "network:short": "SIGA",
+      "network:wikidata": "Q131480575",
+      "operator": "SIGA",
+      "public_transport": "stop_position",
+      "route_ref": "994",
+      "shelter": "no",
+      "survey:date": "2026-01-03",
+      "tactile_paving": "no",
+      "to": "Centro"
+    }
+  },
+  {
+    "osm_id": "node/11904166230",
+    "lat": 33.0306489,
+    "lon": -16.3765213,
+    "tags": {
+      "bench": "no",
+      "bus": "yes",
+      "from": "Calheta",
+      "highway": "bus_stop",
+      "mapillary": "1095731865988836",
+      "name": "ER 120",
+      "network:short": "SIGA",
+      "network:wikidata": "Q131480575",
+      "operator": "SIGA",
+      "public_transport": "stop_position",
+      "route_ref": "994",
+      "shelter": "no",
+      "survey:date": "2026-01-01",
+      "tactile_paving": "no",
+      "to": "Centro"
+    }
+  },
+  {
+    "osm_id": "node/11905056133",
+    "lat": 33.0591634,
+    "lon": -16.3340618,
+    "tags": {
+      "amenity": "atm",
+      "indoor": "no"
+    }
+  },
+  {
+    "osm_id": "node/11907250316",
+    "lat": 33.0504663,
+    "lon": -16.3503721,
+    "tags": {
+      "alt_name": "BIC",
+      "amenity": "bank",
+      "atm": "yes",
+      "brand": "EuroBic",
+      "brand:wikidata": "Q806175",
+      "brand:wikipedia": "pt:EuroBic",
+      "name": "EuroBic",
+      "operator": "Abanca",
+      "operator:wikidata": "Q9598744",
+      "operator:wikipedia": "en:Abanca"
+    }
+  },
+  {
+    "osm_id": "node/11907250317",
+    "lat": 33.059579,
+    "lon": -16.3346047,
+    "tags": {
+      "addr:city": "Porto Santo",
+      "addr:postcode": "9400-162",
+      "addr:street": "Rua Doutor Nuno Silvestre Teixeira",
+      "amenity": "bank",
+      "brand": "Novo Banco",
+      "brand:wikidata": "Q17488861",
+      "brand:wikipedia": "pt:Novo Banco",
+      "check_date": "2024-10-15",
+      "contact:fax": "+351 291980004",
+      "contact:phone": "+351 291980000",
+      "name": "Novo Banco",
+      "operator": "Novo Banco",
+      "operator:old_name": "Banco Espírito Santo",
+      "operator:old_name:short": "BES",
+      "operator:wikidata": "Q17488861",
+      "operator:wikipedia": "pt:Novo Banco",
+      "ref": "B1124",
+      "ref_name": "Porto Santo"
+    }
+  },
+  {
+    "osm_id": "node/11908118817",
+    "lat": 33.0664262,
+    "lon": -16.3513627,
+    "tags": {
+      "direction": "90",
+      "name": "Plane spotting runway 36",
+      "tourism": "viewpoint"
+    }
+  },
+  {
+    "osm_id": "node/11908118818",
+    "lat": 33.0859844,
+    "lon": -16.3485222,
+    "tags": {
+      "direction": "240",
+      "name": "Plane spotting runway 18",
+      "tourism": "viewpoint"
+    }
+  },
+  {
+    "osm_id": "node/11914073067",
+    "lat": 33.0502544,
+    "lon": -16.3500683,
+    "tags": {
+      "amenity": "restaurant",
+      "name": "Vila Alencastre"
+    }
+  },
+  {
+    "osm_id": "node/11914073068",
+    "lat": 33.0485159,
+    "lon": -16.3528698,
+    "tags": {
+      "amenity": "restaurant",
+      "name": "Areia Dourada"
+    }
+  },
+  {
+    "osm_id": "node/11914125669",
+    "lat": 33.0471614,
+    "lon": -16.3548444,
+    "tags": {
+      "bench": "no",
+      "bus": "yes",
+      "from": "Calheta",
+      "highway": "bus_stop",
+      "mapillary": "1587858395783964",
+      "name": "Antes Estrada do Ribeiro Salgado",
+      "network:short": "SIGA",
+      "network:wikidata": "Q131480575",
+      "operator": "SIGA",
+      "public_transport": "stop_position",
+      "route_ref": "994",
+      "shelter": "no",
+      "survey:date": "2026-01-03",
+      "tactile_paving": "no",
+      "to": "Centro"
+    }
+  },
+  {
+    "osm_id": "node/11916132454",
+    "lat": 33.0930823,
+    "lon": -16.303928,
+    "tags": {
+      "name": "Branco",
+      "natural": "peak"
+    }
+  },
+  {
+    "osm_id": "node/11916466873",
+    "lat": 33.0247613,
+    "lon": -16.3792997,
+    "tags": {
+      "direction": "180",
+      "tourism": "viewpoint"
+    }
+  },
+  {
+    "osm_id": "node/11919716997",
+    "lat": 33.0591656,
+    "lon": -16.3347684,
+    "tags": {
+      "amenity": "restaurant",
+      "check_date": "2024-10-16",
+      "name": "O Rochedo"
+    }
+  },
+  {
+    "osm_id": "node/11919719366",
+    "lat": 33.058265,
+    "lon": -16.3353525,
+    "tags": {
+      "artwork_type": "bust",
+      "mapillary": "https://www.mapillary.com/app/?pKey=1878692716395941",
+      "tourism": "artwork"
+    }
+  },
+  {
+    "osm_id": "node/11944780334",
+    "lat": 33.0598629,
+    "lon": -16.3554008,
+    "tags": {
+      "bench": "no",
+      "bus": "yes",
+      "from": "Centro",
+      "highway": "bus_stop",
+      "mapillary": "https://www.mapillary.com/app/?pKey=999949964984539",
+      "name": "Rua Benvinda Ascensão Oliveira",
+      "network:short": "SIGA",
+      "network:wikidata": "Q131480575",
+      "operator": "SIGA",
+      "public_transport": "stop_position",
+      "route_ref": "993",
+      "shelter": "no",
+      "survey:date": "2025-10-17",
+      "tactile_paving": "no",
+      "to": "Campo de Cima"
+    }
+  },
+  {
+    "osm_id": "node/11945133270",
+    "lat": 33.0840355,
+    "lon": -16.3345148,
+    "tags": {
+      "direction": "320",
+      "mapillary": "https://www.mapillary.com/app/?pKey=1188831775581151&focus=photo",
+      "name": "Pico Castelo",
+      "tourism": "viewpoint"
+    }
+  },
+  {
+    "osm_id": "node/12188552520",
+    "lat": 33.051404,
+    "lon": -16.370742,
+    "tags": {
+      "access": "yes",
+      "amenity": "charging_station",
+      "authentication:membership_card": "yes",
+      "authentication:none": "no",
+      "brand": "Em@com",
+      "capacity": "1",
+      "email": "emacom-me@eem.pt",
+      "fee": "yes",
+      "maxstay": "unlimited",
+      "motorcar": "yes",
+      "name": "PST-00016",
+      "network": "Mobi.E",
+      "opening_hours": "24/7",
+      "operator": "Emacom",
+      "parking:fee": "no",
+      "payment:app": "yes",
+      "payment:cards": "no",
+      "payment:cash": "no",
+      "payment:membership_card": "yes",
+      "phone": "+351 800 221 187",
+      "ref": "PST-00016",
+      "ref:EU:EVSE": "PT*EMA*E*PST*00016*01",
+      "socket:type2": "1",
+      "socket:type2:current": "32",
+      "socket:type2:output": "7.4 kW",
+      "socket:type2:voltage": "230",
+      "website": "https://www.mobie.pt/"
+    }
+  },
+  {
+    "osm_id": "node/12252804451",
+    "lat": 33.0593461,
+    "lon": -16.3345254,
+    "tags": {
+      "amenity": "police",
+      "check_date": "2024-10-15",
+      "name": "Autoridade Marítima Nacional - Capitania Do Porto De Porto Santo"
+    }
+  },
+  {
+    "osm_id": "node/12252804452",
+    "lat": 33.0594205,
+    "lon": -16.3345045,
+    "tags": {
+      "amenity": "police",
+      "check_date": "2024-10-15",
+      "name": "Comando Local Da Polícia Marítima De Porto Santo"
+    }
+  },
+  {
+    "osm_id": "node/12253711692",
+    "lat": 33.059544,
+    "lon": -16.3328442,
+    "tags": {
+      "alt_name": "BIC",
+      "amenity": "bank",
+      "brand": "EuroBic",
+      "brand:wikidata": "Q806175",
+      "brand:wikipedia": "pt:EuroBic",
+      "check_date": "2024-10-15",
+      "name": "EuroBic",
+      "operator": "Abanca",
+      "operator:wikidata": "Q9598744",
+      "operator:wikipedia": "en:Abanca"
+    }
+  },
+  {
+    "osm_id": "node/12259623554",
+    "lat": 33.0595865,
+    "lon": -16.3352028,
+    "tags": {
+      "artist_name": "MR.DHEO",
+      "artwork_type": "graffiti",
+      "mapillary": "https://www.mapillary.com/app/?pKey=1382547993241843",
+      "name": "Colombo",
+      "tourism": "artwork"
+    }
+  },
+  {
+    "osm_id": "node/12259623578",
+    "lat": 33.0289606,
+    "lon": -16.3812454,
+    "tags": {
+      "artwork_type": "bust",
+      "fixme": "add details of the bust",
+      "mapillary": "https://www.mapillary.com/app/?pKey=825990690116506",
+      "tourism": "artwork"
+    }
+  },
+  {
+    "osm_id": "node/12830116662",
+    "lat": 33.0559146,
+    "lon": -16.3391656,
+    "tags": {
+      "amenity": "cafe",
+      "check_date": "2025-05-12",
+      "name": "Do Parque",
+      "opening_hours": "Mo-Sa 09:00-19:00",
+      "wheelchair": "no"
+    }
+  },
+  {
+    "osm_id": "node/13045494396",
+    "lat": 33.0435959,
+    "lon": -16.3548779,
+    "tags": {
+      "addr:city": "Porto Santo",
+      "addr:housenumber": "120",
+      "addr:postcode": "9400-015;9400-242",
+      "addr:street": "Estrada Regional",
+      "alt_name": "PESTANA RESORT SPA HOTEL",
+      "brand": "Pestana",
+      "internet_access": "wlan",
+      "name": "Pestana Porto Santo",
+      "rooms": "328",
+      "stars": "5",
+      "tourism": "hotel",
+      "website": "https://www.pestana.com/pt/hotel/pestana-porto-santo"
+    }
+  },
+  {
+    "osm_id": "node/13106095463",
+    "lat": 33.0852264,
+    "lon": -16.3569823,
+    "tags": {
+      "direction": "110-250",
+      "name": "Ilhéu da Fonte da Areia",
+      "tourism": "viewpoint"
+    }
+  },
+  {
+    "osm_id": "node/13123453148",
+    "lat": 33.053783,
+    "lon": -16.3624903,
+    "tags": {
+      "bench": "no",
+      "bus": "yes",
+      "from": "Centro",
+      "highway": "bus_stop",
+      "mapillary": "806616115310933",
+      "name": "Estrada Lapeira De Dentro",
+      "network:short": "SIGA",
+      "network:wikidata": "Q131480575",
+      "operator": "SIGA",
+      "public_transport": "stop_position",
+      "route_ref": "993",
+      "shelter": "no",
+      "survey:date": "2025-10-23",
+      "tactile_paving": "no",
+      "to": "Campo de Cima"
+    }
+  },
+  {
+    "osm_id": "node/13123899314",
+    "lat": 33.0575502,
+    "lon": -16.3383343,
+    "tags": {
+      "bench": "no",
+      "bus": "yes",
+      "from": "Calheta",
+      "highway": "bus_stop",
+      "mapillary": "735353972854672",
+      "name": "Hotel Torre Praia",
+      "network": "SIGA",
+      "network:short": "SIGA",
+      "network:wikidata": "Q131480575",
+      "operator": "SIGA",
+      "public_transport": "stop_position",
+      "route_ref": "994",
+      "shelter": "no",
+      "survey:date": "2025-10-14",
+      "to": "Centro"
+    }
+  },
+  {
+    "osm_id": "node/13124616061",
+    "lat": 33.0638203,
+    "lon": -16.330633,
+    "tags": {
+      "bench": "no",
+      "bus": "yes",
+      "from": "Centro",
+      "highway": "bus_stop",
+      "mapillary": "893623050140810",
+      "name": "Rua da Ribeirinha",
+      "network:short": "SIGA",
+      "network:wikidata": "Q131480575",
+      "operator": "SIGA",
+      "public_transport": "stop_position",
+      "route_ref": "992",
+      "shelter": "no",
+      "survey:date": "2026-01-03",
+      "tactile_paving": "no",
+      "to": "Serra de Fora"
+    }
+  },
+  {
+    "osm_id": "node/13140785316",
+    "lat": 33.0504155,
+    "lon": -16.3517368,
+    "tags": {
+      "leisure": "playground"
+    }
+  },
+  {
+    "osm_id": "node/13158373431",
+    "lat": 33.0527409,
+    "lon": -16.3489882,
+    "tags": {
+      "bench": "no",
+      "bus": "yes",
+      "from": "Campo de Cima",
+      "highway": "bus_stop",
+      "mapillary": "982415677403740",
+      "name": "Rua Doutor João Abel de Freitas",
+      "network:short": "SIGA",
+      "network:wikidata": "Q131480575",
+      "operator": "SIGA",
+      "public_transport": "stop_position",
+      "route_ref": "993",
+      "shelter": "no",
+      "survey:date": "2025-10-11",
+      "tactile_paving": "no",
+      "to": "Centro"
+    }
+  },
+  {
+    "osm_id": "node/13158784786",
+    "lat": 33.0675696,
+    "lon": -16.3284384,
+    "tags": {
+      "bus": "yes",
+      "from": "Serra de Fora",
+      "highway": "bus_stop",
+      "name": "ER 233 - Casinhas",
+      "network:short": "SIGA",
+      "network:wikidata": "Q131480575",
+      "operator": "SIGA",
+      "public_transport": "stop_position",
+      "route_ref": "992",
+      "shelter": "no",
+      "tactile_paving": "no",
+      "to": "Centro"
+    }
+  },
+  {
+    "osm_id": "node/13159977930",
+    "lat": 33.0600772,
+    "lon": -16.3349902,
+    "tags": {
+      "amenity": "parking",
+      "capacity:disabled": "yes",
+      "capacity:parent": "yes",
+      "capacity:women": "yes",
+      "fee": "yes",
+      "park_ride": "yes",
+      "parking": "multi-storey"
+    }
+  },
+  {
+    "osm_id": "node/13160100801",
+    "lat": 33.0416337,
+    "lon": -16.395414,
+    "tags": {
+      "direction": "270",
+      "name": "Ponta da Canaveira",
+      "tourism": "viewpoint"
+    }
+  },
+  {
+    "osm_id": "node/13195368702",
+    "lat": 33.053958,
+    "lon": -16.3427569,
+    "tags": {
+      "bench": "no",
+      "bus": "yes",
+      "from": "Calheta",
+      "highway": "bus_stop",
+      "mapillary": "1782631279099679",
+      "name": "Antes Pé na Água",
+      "network:short": "SIGA",
+      "network:wikidata": "Q131480575",
+      "operator": "SIGA",
+      "public_transport": "stop_position",
+      "route_ref": "994",
+      "shelter": "no",
+      "survey:date": "2026-01-03",
+      "to": "Centro"
+    }
+  },
+  {
+    "osm_id": "node/13195368703",
+    "lat": 33.0517122,
+    "lon": -16.3476464,
+    "tags": {
+      "bus": "yes",
+      "from": "Calheta",
+      "highway": "bus_stop",
+      "name": "Hotel Porto Santo",
+      "network:short": "SIGA",
+      "network:wikidata": "Q131480575",
+      "operator": "SIGA",
+      "public_transport": "stop_position",
+      "route_ref": "994",
+      "shelter": "no",
+      "tactile_paving": "no",
+      "to": "Centro"
+    }
+  },
+  {
+    "osm_id": "node/13195368704",
+    "lat": 33.0497917,
+    "lon": -16.3511941,
+    "tags": {
+      "bench": "no",
+      "bus": "yes",
+      "from": "Calheta",
+      "highway": "bus_stop",
+      "mapillary": "1859542794697727",
+      "name": "Capela do Espírito Santo",
+      "network:short": "SIGA",
+      "network:wikidata": "Q131480575",
+      "operator": "SIGA",
+      "public_transport": "stop_position",
+      "route_ref": "994",
+      "shelter": "no",
+      "survey:date": "2026-01-01",
+      "tactile_paving": "no",
+      "to": "Centro"
+    }
+  },
+  {
+    "osm_id": "node/13195368705",
+    "lat": 33.0436992,
+    "lon": -16.357695,
+    "tags": {
+      "bench": "no",
+      "bus": "yes",
+      "from": "Calheta",
+      "highway": "bus_stop",
+      "mapillary": "1503801640765807",
+      "name": "Pestana Porto Santo",
+      "network:short": "SIGA",
+      "network:wikidata": "Q131480575",
+      "operator": "SIGA",
+      "public_transport": "stop_position",
+      "route_ref": "994",
+      "shelter": "no",
+      "survey:date": "2025-10-22",
+      "tactile_paving": "no",
+      "to": "Centro"
+    }
+  },
+  {
+    "osm_id": "node/13195368706",
+    "lat": 33.0396694,
+    "lon": -16.3604436,
+    "tags": {
+      "bench": "yes",
+      "bus": "yes",
+      "from": "Calheta",
+      "highway": "bus_stop",
+      "mapillary": "1397885592116596",
+      "name": "Depois Vila Baleira",
+      "network": "SIGA",
+      "network:short": "SIGA",
+      "network:wikidata": "Q131480575",
+      "operator": "SIGA",
+      "public_transport": "stop_position",
+      "route_ref": "994",
+      "shelter": "yes",
+      "survey:date": "2026-01-03",
+      "tactile_paving": "no",
+      "to": "Centro"
+    }
+  },
+  {
+    "osm_id": "node/13195368707",
+    "lat": 33.027066,
+    "lon": -16.3791363,
+    "tags": {
+      "bench": "no",
+      "bus": "yes",
+      "from": "Calheta",
+      "highway": "bus_stop",
+      "mapillary": "898290339411698",
+      "name": "Porto Santo Destination",
+      "network": "SIGA",
+      "network:short": "SIGA",
+      "network:wikidata": "Q131480575",
+      "operator": "SIGA",
+      "public_transport": "stop_position",
+      "route_ref": "994",
+      "shelter": "no",
+      "survey:date": "2026-01-03",
+      "tactile_paving": "no",
+      "to": "Centro"
+    }
+  },
+  {
+    "osm_id": "node/13195368708",
+    "lat": 33.0248405,
+    "lon": -16.379583,
+    "tags": {
+      "bench": "no",
+      "bus": "yes",
+      "highway": "bus_stop",
+      "mapillary": "796238083276921",
+      "name": "Calheta",
+      "network": "SIGA",
+      "network:short": "SIGA",
+      "network:wikidata": "Q131480575",
+      "operator": "SIGA",
+      "public_transport": "stop_position",
+      "route_ref": "994",
+      "shelter": "no",
+      "survey:date": "2025-10-09",
+      "tactile_paving": "no"
+    }
+  },
+  {
+    "osm_id": "node/13195368709",
+    "lat": 33.0270195,
+    "lon": -16.3791614,
+    "tags": {
+      "bench": "no",
+      "bus": "yes",
+      "from": "Centro",
+      "highway": "bus_stop",
+      "mapillary": "898290339411698",
+      "name": "Porto Santo Destination",
+      "network": "SIGA",
+      "network:short": "SIGA",
+      "network:wikidata": "Q131480575",
+      "operator": "SIGA",
+      "public_transport": "stop_position",
+      "route_ref": "994",
+      "shelter": "no",
+      "survey:date": "2026-01-03",
+      "tactile_paving": "no",
+      "to": "Calheta"
+    }
+  },
+  {
+    "osm_id": "node/13195368710",
+    "lat": 33.0304804,
+    "lon": -16.3766537,
+    "tags": {
+      "bench": "no",
+      "bus": "yes",
+      "from": "Centro",
+      "highway": "bus_stop",
+      "mapillary": "940948248590453",
+      "name": "Depois Praia da Lagoa",
+      "network:short": "SIGA",
+      "network:wikidata": "Q131480575",
+      "operator": "SIGA",
+      "public_transport": "stop_position",
+      "route_ref": "994",
+      "shelter": "no",
+      "survey:date": "2026-01-03",
+      "tactile_paving": "no",
+      "to": "Calheta"
+    }
+  },
+  {
+    "osm_id": "node/13195368711",
+    "lat": 33.0376452,
+    "lon": -16.361065,
+    "tags": {
+      "bench": "no",
+      "bus": "yes",
+      "from": "Centro",
+      "highway": "bus_stop",
+      "mapillary": "1571995757563026",
+      "name": "Vila Baleira Suites",
+      "network": "SIGA",
+      "network:short": "SIGA",
+      "network:wikidata": "Q131480575",
+      "operator": "SIGA",
+      "public_transport": "stop_position",
+      "route_ref": "994",
+      "shelter": "no",
+      "survey:date": "2025-10-10",
+      "tactile_paving": "no",
+      "to": "Calheta"
+    }
+  },
+  {
+    "osm_id": "node/13195368713",
+    "lat": 33.0443485,
+    "lon": -16.3573187,
+    "tags": {
+      "bench": "no",
+      "bus": "yes",
+      "from": "Centro",
+      "highway": "bus_stop",
+      "mapillary": "1426898322253017",
+      "name": "Pestana Porto Santo",
+      "network:short": "SIGA",
+      "network:wikidata": "Q131480575",
+      "operator": "SIGA",
+      "public_transport": "stop_position",
+      "route_ref": "994",
+      "shelter": "no",
+      "survey:date": "2026-01-03",
+      "tactile_paving": "no",
+      "to": "Calheta"
+    }
+  },
+  {
+    "osm_id": "node/13195368714",
+    "lat": 33.0472534,
+    "lon": -16.3547597,
+    "tags": {
+      "bench": "no",
+      "bus": "yes",
+      "from": "Centro",
+      "highway": "bus_stop",
+      "mapillary": "1687282009010513",
+      "name": "Depois Estrada do Ribeiro Salgado",
+      "network:short": "SIGA",
+      "network:wikidata": "Q131480575",
+      "operator": "SIGA",
+      "public_transport": "stop_position",
+      "route_ref": "994",
+      "shelter": "no",
+      "survey:date": "2026-01-03",
+      "tactile_paving": "no",
+      "to": "Calheta"
+    }
+  },
+  {
+    "osm_id": "node/13195368715",
+    "lat": 33.0497552,
+    "lon": -16.3512531,
+    "tags": {
+      "bench": "no",
+      "bus": "yes",
+      "from": "Centro",
+      "highway": "bus_stop",
+      "mapillary": "1566825321268722",
+      "name": "Antes Capela do Espírito Santo",
+      "network:short": "SIGA",
+      "network:wikidata": "Q131480575",
+      "operator": "SIGA",
+      "public_transport": "stop_position",
+      "route_ref": "994",
+      "shelter": "no",
+      "survey:date": "2026-01-03",
+      "tactile_paving": "no",
+      "to": "Calheta"
+    }
+  },
+  {
+    "osm_id": "node/13195368716",
+    "lat": 33.0518606,
+    "lon": -16.3471258,
+    "tags": {
+      "bench": "no",
+      "bus": "yes",
+      "from": "Centro",
+      "highway": "bus_stop",
+      "mapillary": "888409910723045",
+      "name": "Antes Hotel Porto Santo",
+      "network:short": "SIGA",
+      "network:wikidata": "Q131480575",
+      "operator": "SIGA",
+      "public_transport": "stop_position",
+      "route_ref": "994",
+      "shelter": "no",
+      "survey:date": "2026-01-03",
+      "tactile_paving": "no",
+      "to": "Calheta"
+    }
+  },
+  {
+    "osm_id": "node/13195368717",
+    "lat": 33.053975,
+    "lon": -16.3427259,
+    "tags": {
+      "bench": "no",
+      "bus": "yes",
+      "from": "Centro",
+      "highway": "bus_stop",
+      "mapillary": "1782631279099679",
+      "name": "Depois Pé na Água",
+      "network:short": "SIGA",
+      "network:wikidata": "Q131480575",
+      "operator": "SIGA",
+      "public_transport": "stop_position",
+      "route_ref": "994",
+      "shelter": "no",
+      "survey:date": "2026-01-03",
+      "to": "Calheta"
+    }
+  },
+  {
+    "osm_id": "node/13195368718",
+    "lat": 33.0575383,
+    "lon": -16.3383665,
+    "tags": {
+      "bench": "no",
+      "bus": "yes",
+      "from": "Centro",
+      "highway": "bus_stop",
+      "mapillary": "1869256797339111",
+      "name": "Hotel Torre Praia",
+      "network": "SIGA",
+      "network:short": "SIGA",
+      "network:wikidata": "Q131480575",
+      "operator": "SIGA",
+      "public_transport": "stop_position",
+      "route_ref": "994",
+      "shelter": "no",
+      "survey:date": "2025-10-14",
+      "to": "Calheta"
+    }
+  },
+  {
+    "osm_id": "node/13195373104",
+    "lat": 33.0698707,
+    "lon": -16.2985785,
+    "tags": {
+      "bus": "yes",
+      "fee": "yes",
+      "highway": "bus_stop",
+      "name": "Serra de Fora",
+      "network:short": "SIGA",
+      "network:wikidata": "Q131480575",
+      "operator": "SIGA",
+      "public_transport": "stop_position",
+      "route_ref": "992",
+      "shelter": "no",
+      "tactile_paving": "no",
+      "wheelchair": "no"
+    }
+  },
+  {
+    "osm_id": "node/13195374186",
+    "lat": 33.0635484,
+    "lon": -16.3308787,
+    "tags": {
+      "bench": "no",
+      "bus": "yes",
+      "from": "Serra de Fora",
+      "highway": "bus_stop",
+      "mapillary": "2322070964939199",
+      "name": "Depois Rua da Ribeirinha",
+      "network:short": "SIGA",
+      "network:wikidata": "Q131480575",
+      "operator": "SIGA",
+      "public_transport": "stop_position",
+      "route_ref": "992",
+      "shelter": "no",
+      "survey:date": "2026-01-03",
+      "tactile_paving": "no",
+      "to": "Centro"
+    }
+  },
+  {
+    "osm_id": "node/13195374188",
+    "lat": 33.067625,
+    "lon": -16.3284157,
+    "tags": {
+      "bus": "yes",
+      "from": "Centro",
+      "highway": "bus_stop",
+      "name": "ER 233 - Casinhas",
+      "network:short": "SIGA",
+      "network:wikidata": "Q131480575",
+      "operator": "SIGA",
+      "public_transport": "stop_position",
+      "route_ref": "992",
+      "shelter": "no",
+      "tactile_paving": "no",
+      "to": "Serra de Fora"
+    }
+  },
+  {
+    "osm_id": "node/13195374190",
+    "lat": 33.0708649,
+    "lon": -16.3263809,
+    "tags": {
+      "bench": "no",
+      "bus": "yes",
+      "from": "Serra de Fora",
+      "highway": "bus_stop",
+      "mapillary": "826543459763633",
+      "name": "ER 233 - Antes Casinhas",
+      "network:short": "SIGA",
+      "network:wikidata": "Q131480575",
+      "operator": "SIGA",
+      "public_transport": "stop_position",
+      "route_ref": "992",
+      "shelter": "no",
+      "survey:date": "2025-10-23",
+      "tactile_paving": "no",
+      "to": "Centro"
+    }
+  },
+  {
+    "osm_id": "node/13195374191",
+    "lat": 33.0709544,
+    "lon": -16.326341,
+    "tags": {
+      "bench": "no",
+      "bus": "yes",
+      "from": "Centro",
+      "highway": "bus_stop",
+      "mapillary": "691694370192016",
+      "name": "ER 233 - Depois Casinhas",
+      "network:short": "SIGA",
+      "network:wikidata": "Q131480575",
+      "operator": "SIGA",
+      "public_transport": "stop_position",
+      "route_ref": "992",
+      "shelter": "no",
+      "survey:date": "2025-10-23",
+      "tactile_paving": "no",
+      "to": "Serra de Fora"
+    }
+  },
+  {
+    "osm_id": "node/13195374192",
+    "lat": 33.0692657,
+    "lon": -16.3211342,
+    "tags": {
+      "bench": "no",
+      "bus": "yes",
+      "from": "Centro",
+      "highway": "bus_stop",
+      "mapillary": "837992842061693",
+      "name": "ER 233 - Panorama",
+      "network:short": "SIGA",
+      "network:wikidata": "Q131480575",
+      "operator": "SIGA",
+      "public_transport": "stop_position",
+      "route_ref": "992",
+      "shelter": "no",
+      "survey:date": "2025-10-24",
+      "tactile_paving": "no",
+      "to": "Serra de Fora"
+    }
+  },
+  {
+    "osm_id": "node/13195374193",
+    "lat": 33.0692417,
+    "lon": -16.3210889,
+    "tags": {
+      "bench": "no",
+      "bus": "yes",
+      "from": "Serra de Fora",
+      "highway": "bus_stop",
+      "mapillary": "816162447568787",
+      "name": "ER 233 - Panorama",
+      "network:short": "SIGA",
+      "network:wikidata": "Q131480575",
+      "operator": "SIGA",
+      "public_transport": "stop_position",
+      "route_ref": "992",
+      "shelter": "no",
+      "survey:date": "2025-10-24",
+      "tactile_paving": "no",
+      "to": "Centro"
+    }
+  },
+  {
+    "osm_id": "node/13195374194",
+    "lat": 33.0675436,
+    "lon": -16.3176157,
+    "tags": {
+      "bus": "yes",
+      "from": "Centro",
+      "highway": "bus_stop",
+      "name": "Antes Miradouro da Portela",
+      "network:short": "SIGA",
+      "network:wikidata": "Q131480575",
+      "operator": "SIGA",
+      "public_transport": "stop_position",
+      "route_ref": "992",
+      "shelter": "no",
+      "tactile_paving": "no",
+      "to": "Serra de Fora"
+    }
+  },
+  {
+    "osm_id": "node/13195374195",
+    "lat": 33.0674841,
+    "lon": -16.3176145,
+    "tags": {
+      "bus": "yes",
+      "from": "Serra de Fora",
+      "highway": "bus_stop",
+      "name": "Depois Miradouro da Portela",
+      "network:short": "SIGA",
+      "network:wikidata": "Q131480575",
+      "operator": "SIGA",
+      "public_transport": "stop_position",
+      "route_ref": "992",
+      "shelter": "no",
+      "tactile_paving": "no",
+      "to": "Centro"
+    }
+  },
+  {
+    "osm_id": "node/13195374196",
+    "lat": 33.0732057,
+    "lon": -16.3132027,
+    "tags": {
+      "bench": "no",
+      "bus": "yes",
+      "from": "Centro",
+      "highway": "bus_stop",
+      "mapillary": "1265005284516102",
+      "name": "Centro de Inspeções",
+      "network:short": "SIGA",
+      "network:wikidata": "Q131480575",
+      "operator": "SIGA",
+      "public_transport": "stop_position",
+      "route_ref": "992",
+      "shelter": "no",
+      "survey:date": "2024-10-17",
+      "tactile_paving": "no",
+      "to": "Serra de Fora"
+    }
+  },
+  {
+    "osm_id": "node/13195374197",
+    "lat": 33.0731008,
+    "lon": -16.3132468,
+    "tags": {
+      "bench": "no",
+      "bus": "yes",
+      "from": "Serra de Fora",
+      "highway": "bus_stop",
+      "mapillary": "1379564087098725",
+      "name": "Centro de Inspeções",
+      "network:short": "SIGA",
+      "network:wikidata": "Q131480575",
+      "operator": "SIGA",
+      "public_transport": "stop_position",
+      "route_ref": "992",
+      "shelter": "no",
+      "survey:date": "2025-10-17",
+      "tactile_paving": "no",
+      "to": "Centro"
+    }
+  },
+  {
+    "osm_id": "node/13195625970",
+    "lat": 33.0538565,
+    "lon": -16.3502286,
+    "tags": {
+      "bench": "no",
+      "bus": "yes",
+      "from": "Campo de Cima",
+      "highway": "bus_stop",
+      "mapillary": "25016253261339824",
+      "name": "Rua Doutor João Abel de Freitas",
+      "network:short": "SIGA",
+      "network:wikidata": "Q131480575",
+      "operator": "SIGA",
+      "public_transport": "stop_position",
+      "route_ref": "993",
+      "shelter": "no",
+      "survey:date": "2025-10-11",
+      "tactile_paving": "no",
+      "to": "Centro"
+    }
+  },
+  {
+    "osm_id": "node/13195625973",
+    "lat": 33.0552416,
+    "lon": -16.3513671,
+    "tags": {
+      "bench": "no",
+      "bus": "yes",
+      "from": "Campo de Cima",
+      "highway": "bus_stop",
+      "mapillary": "1543682966992689",
+      "name": "Antes Rua Doutor João Abel de Freitas",
+      "network:short": "SIGA",
+      "network:wikidata": "Q131480575",
+      "operator": "SIGA",
+      "public_transport": "stop_position",
+      "route_ref": "993",
+      "shelter": "no",
+      "survey:date": "2025-10-07",
+      "tactile_paving": "no",
+      "to": "Centro"
+    }
+  },
+  {
+    "osm_id": "node/13195625974",
+    "lat": 33.0514158,
+    "lon": -16.3540709,
+    "tags": {
+      "bench": "yes",
+      "bus": "yes",
+      "from": "Centro",
+      "highway": "bus_stop",
+      "mapillary": "2528843427501953",
+      "name": "Estrada Doutor Francisco Rodrigues Jardim",
+      "network:short": "SIGA",
+      "network:wikidata": "Q131480575",
+      "operator": "SIGA",
+      "public_transport": "stop_position",
+      "route_ref": "993",
+      "shelter": "yes",
+      "survey:date": "2025-10-10",
+      "tactile_paving": "no",
+      "to": "Campo de Cima"
+    }
+  },
+  {
+    "osm_id": "node/13195625975",
+    "lat": 33.0531032,
+    "lon": -16.358995,
+    "tags": {
+      "bench": "yes",
+      "bus": "yes",
+      "from": "Centro",
+      "highway": "bus_stop",
+      "mapillary": "834127442508427",
+      "name": "Estrada Doutor Francisco Rodrigues Jardim",
+      "network:short": "SIGA",
+      "network:wikidata": "Q131480575",
+      "operator": "SIGA",
+      "public_transport": "stop_position",
+      "route_ref": "993",
+      "shelter": "yes",
+      "survey:date": "2025-10-11",
+      "tactile_paving": "no",
+      "to": "Campo de Cima"
+    }
+  },
+  {
+    "osm_id": "node/13195625976",
+    "lat": 33.0533962,
+    "lon": -16.3614109,
+    "tags": {
+      "bench": "no",
+      "bus": "yes",
+      "from": "Centro",
+      "highway": "bus_stop",
+      "mapillary": "1345751913654010",
+      "name": "Antes da Rotunda Campo de Cima",
+      "network:short": "SIGA",
+      "network:wikidata": "Q131480575",
+      "operator": "SIGA",
+      "public_transport": "stop_position",
+      "route_ref": "993",
+      "shelter": "no",
+      "survey:date": "2025-10-25",
+      "tactile_paving": "no",
+      "to": "Campo de Cima"
+    }
+  },
+  {
+    "osm_id": "node/13195625977",
+    "lat": 33.0556579,
+    "lon": -16.3613506,
+    "tags": {
+      "bench": "no",
+      "bus": "yes",
+      "from": "Centro",
+      "highway": "bus_stop",
+      "mapillary": "1493405548566101",
+      "name": "Antes Rua das Flores",
+      "network:short": "SIGA",
+      "network:wikidata": "Q131480575",
+      "operator": "SIGA",
+      "public_transport": "stop_position",
+      "route_ref": "993",
+      "shelter": "no",
+      "survey:date": "2025-10-06",
+      "tactile_paving": "no",
+      "to": "Campo de Cima"
+    }
+  },
+  {
+    "osm_id": "node/13195625978",
+    "lat": 33.0580276,
+    "lon": -16.3581285,
+    "tags": {
+      "bench": "no",
+      "bus": "yes",
+      "from": "Centro",
+      "highway": "bus_stop",
+      "mapillary": "702479686214684",
+      "name": "Kápetiskas",
+      "network:short": "SIGA",
+      "network:wikidata": "Q131480575",
+      "operator": "SIGA",
+      "public_transport": "stop_position",
+      "route_ref": "993",
+      "shelter": "no",
+      "survey:date": "2025-10-22",
+      "tactile_paving": "no",
+      "to": "Campo de Cima"
+    }
+  },
+  {
+    "osm_id": "node/13195625979",
+    "lat": 33.0614877,
+    "lon": -16.3585335,
+    "tags": {
+      "bench": "no",
+      "bus": "yes",
+      "from": "Centro",
+      "highway": "bus_stop",
+      "mapillary": "754823547578240",
+      "name": "Pizzaria Colombo",
+      "network:short": "SIGA",
+      "network:wikidata": "Q131480575",
+      "operator": "SIGA",
+      "public_transport": "stop_position",
+      "route_ref": "993",
+      "shelter": "no",
+      "survey:date": "2025-10-23",
+      "tactile_paving": "no",
+      "to": "Campo de Cima"
+    }
+  },
+  {
+    "osm_id": "node/13195625980",
+    "lat": 33.0622664,
+    "lon": -16.3561355,
+    "tags": {
+      "bus": "yes",
+      "from": "Centro",
+      "highway": "bus_stop",
+      "name": "Estrada Jorge Brum do Canto",
+      "network:short": "SIGA",
+      "network:wikidata": "Q131480575",
+      "operator": "SIGA",
+      "public_transport": "stop_position",
+      "route_ref": "993",
+      "tactile_paving": "no",
+      "to": "Campo de Cima"
+    }
+  },
+  {
+    "osm_id": "node/13195625981",
+    "lat": 33.0611354,
+    "lon": -16.3533636,
+    "tags": {
+      "bench": "no",
+      "bus": "yes",
+      "from": "Centro",
+      "highway": "bus_stop",
+      "mapillary": "1541792053838910",
+      "name": "Rua das Eiras",
+      "network:short": "SIGA",
+      "network:wikidata": "Q131480575",
+      "operator": "SIGA",
+      "public_transport": "stop_position",
+      "route_ref": "993",
+      "shelter": "no",
+      "survey:date": "2025-10-23",
+      "tactile_paving": "no",
+      "to": "Campo de Cima"
+    }
+  },
+  {
+    "osm_id": "node/13195625982",
+    "lat": 33.0582235,
+    "lon": -16.3556692,
+    "tags": {
+      "bench": "no",
+      "bus": "yes",
+      "from": "Centro",
+      "highway": "bus_stop",
+      "mapillary": "https://www.mapillary.com/app/?pKey=999949964984539",
+      "name": "Estrada Doutor Francisco Rodrigues Jardim",
+      "network:short": "SIGA",
+      "network:wikidata": "Q131480575",
+      "operator": "SIGA",
+      "public_transport": "stop_position",
+      "route_ref": "993",
+      "shelter": "no",
+      "survey:date": "2025-10-22",
+      "tactile_paving": "no",
+      "to": "Campo de Cima"
+    }
+  },
+  {
+    "osm_id": "node/13195625983",
+    "lat": 33.0572189,
+    "lon": -16.3535616,
+    "tags": {
+      "bench": "no",
+      "bus": "yes",
+      "highway": "bus_stop",
+      "mapillary": "https://www.mapillary.com/app/?pKey=999949964984539",
+      "name": "Estrada Doutor Francisco Rodrigues Jardim",
+      "network:short": "SIGA",
+      "network:wikidata": "Q131480575",
+      "operator": "SIGA",
+      "public_transport": "stop_position",
+      "route_ref": "993",
+      "shelter": "no",
+      "survey:date": "2025-10-23",
+      "tactile_paving": "no"
+    }
+  },
+  {
+    "osm_id": "node/13195625988",
+    "lat": 33.0580266,
+    "lon": -16.3582168,
+    "tags": {
+      "amenity": "restaurant",
+      "name": "Kápetiskas"
+    }
+  },
+  {
+    "osm_id": "node/13195625989",
+    "lat": 33.056718,
+    "lon": -16.3585412,
+    "tags": {
+      "bench": "no",
+      "bus": "yes",
+      "from": "Centro",
+      "highway": "bus_stop",
+      "mapillary": "1369919551242144",
+      "name": "Rua das Flores",
+      "network:short": "SIGA",
+      "network:wikidata": "Q131480575",
+      "operator": "SIGA",
+      "public_transport": "platform",
+      "route_ref": "993",
+      "shelter": "no",
+      "survey:date": "2025-10-25",
+      "tactile_paving": "no",
+      "to": "Campo de Cima"
+    }
+  },
+  {
+    "osm_id": "node/13195625990",
+    "lat": 33.0509614,
+    "lon": -16.3505149,
+    "tags": {
+      "bench": "no",
+      "bus": "yes",
+      "from": "Centro",
+      "highway": "bus_stop",
+      "mapillary": "1479034079993160",
+      "name": "Apartamentos Turísticos Paraíso Dourado",
+      "network:short": "SIGA",
+      "network:wikidata": "Q131480575",
+      "operator": "SIGA",
+      "public_transport": "stop_position",
+      "route_ref": "993",
+      "shelter": "no",
+      "survey:date": "2025-10-23",
+      "tactile_paving": "no",
+      "to": "Campo de Cima"
+    }
+  },
+  {
+    "osm_id": "node/13202910623",
+    "lat": 33.0918018,
+    "lon": -16.3516545,
+    "tags": {
+      "direction": "270-90",
+      "name": "Lapa",
+      "opening_hours": "24/7",
+      "reservation": "no",
+      "tourism": "viewpoint"
+    }
+  },
+  {
+    "osm_id": "node/13204398139",
+    "lat": 33.0694821,
+    "lon": -16.3391215,
+    "tags": {
+      "amenity": "cafe",
+      "mapillary": "https://www.mapillary.com/app/?pKey=849164433538053",
+      "name": "JCelio's"
+    }
+  },
+  {
+    "osm_id": "node/13204398140",
+    "lat": 33.0693992,
+    "lon": -16.3391346,
+    "tags": {
+      "addr:city": "Porto Santo",
+      "addr:housenumber": "38",
+      "addr:postcode": "9400-045",
+      "addr:street": "Estrada Manuel Francisco Coelho",
+      "branch": "A Venda do Silvestre",
+      "brand": "Amanhecer",
+      "brand:wikidata": "Q127510997",
+      "contact:email": "avendadosilvestre.3681@amanhecer.pt",
+      "contact:facebook": "lojasamanhecer",
+      "contact:instagram": "lojas.amanhecer",
+      "contact:phone": "+351 967 126 963",
+      "name": "Amanhecer - A Venda do Silvestre",
+      "opening_hours": "Mo-Fr 09:00-13:00",
+      "ref": "3681",
+      "shop": "convenience",
+      "source:contact": "website",
+      "website": "https://amanhecer.pt/lojas/a-venda-do-silvestre/"
+    }
+  },
+  {
+    "osm_id": "node/13204981976",
+    "lat": 33.0712687,
+    "lon": -16.2964642,
+    "tags": {
+      "direction": "90-270",
+      "mapillary": "https://www.mapillary.com/app/?pKey=1506033250549340",
+      "name": "Abas do Rio",
+      "tourism": "viewpoint"
+    }
+  },
+  {
+    "osm_id": "node/13208393209",
+    "lat": 33.0744481,
+    "lon": -16.2961429,
+    "tags": {
+      "height": "10",
+      "waterway": "waterfall"
+    }
+  },
+  {
+    "osm_id": "node/13233230804",
+    "lat": 33.0873467,
+    "lon": -16.3552499,
+    "tags": {
+      "direction": "90-270",
+      "mapillary": "https://www.mapillary.com/app/?pKey=1133611585045721",
+      "tourism": "viewpoint"
+    }
+  },
+  {
+    "osm_id": "node/13233230817",
+    "lat": 33.0873332,
+    "lon": -16.3548137,
+    "tags": {
+      "amenity": "drinking_water",
+      "bottle": "yes",
+      "covered": "no",
+      "fee": "no",
+      "indoor": "no",
+      "lit": "yes"
+    }
+  },
+  {
+    "osm_id": "node/13235550411",
+    "lat": 33.0868403,
+    "lon": -16.3547854,
+    "tags": {
+      "direction": "240",
+      "name": "Plane spotting runway 18",
+      "tourism": "viewpoint"
+    }
+  },
+  {
+    "osm_id": "node/13238735795",
+    "lat": 33.0583774,
+    "lon": -16.3558074,
+    "tags": {
+      "name": "O Emigrante",
+      "shop": "convenience"
+    }
+  },
+  {
+    "osm_id": "node/13243265597",
+    "lat": 33.058134,
+    "lon": -16.335235,
+    "tags": {
+      "artwork_type": "statue",
+      "mapillary": "https://www.mapillary.com/app/?pKey=4162059027396241",
+      "material": "bronze",
+      "name": "Infante Dom Henrique",
+      "tourism": "artwork"
+    }
+  },
+  {
+    "osm_id": "node/13243478894",
+    "lat": 33.0581322,
+    "lon": -16.3353917,
+    "tags": {
+      "tourism": "artwork"
+    }
+  },
+  {
+    "osm_id": "node/13243600130",
+    "lat": 33.0589552,
+    "lon": -16.3348414,
+    "tags": {
+      "amenity": "drinking_water",
+      "mapillary": "https://www.mapillary.com/app/?pKey=4166869923585835"
+    }
+  },
+  {
+    "osm_id": "node/13244607047",
+    "lat": 33.0595465,
+    "lon": -16.3353209,
+    "tags": {
+      "amenity": "drinking_water",
+      "mapillary": "https://www.mapillary.com/app/?pKey=4166869923585835"
+    }
+  },
+  {
+    "osm_id": "node/13247178651",
+    "lat": 33.0662864,
+    "lon": -16.3349282,
+    "tags": {
+      "amenity": "drinking_water",
+      "man_made": "water_tap"
+    }
+  },
+  {
+    "osm_id": "node/13275430471",
+    "lat": 33.0505596,
+    "lon": -16.3508676,
+    "tags": {
+      "addr:city": "Porto Santo",
+      "addr:housename": "Zarco Shopping",
+      "addr:postcode": "9400-242",
+      "addr:unit": "Loja 4",
+      "branch": "Supermercado Mini Extra",
+      "brand": "Amanhecer",
+      "brand:wikidata": "Q127510997",
+      "contact:email": "supermercadominiextra.3679@amanhecer.pt",
+      "contact:facebook": "lojasamanhecer",
+      "contact:instagram": "lojas.amanhecer",
+      "contact:phone": "+351 291 984 267;+351 964 464 979",
+      "mapillary": "4020154058237805",
+      "name": "Amanhecer - Supermercado Mini Extra",
+      "ref": "3679",
+      "shop": "convenience",
+      "source:contact": "website",
+      "website": "https://amanhecer.pt/lojas/supermercado-mini-extra/"
+    }
+  },
+  {
+    "osm_id": "node/13749453758",
+    "lat": 33.0603998,
+    "lon": -16.3318397,
+    "tags": {
+      "air_conditioning": "yes",
+      "amenity": "restaurant",
+      "brand:wikidata": "Q1575057",
+      "name": "Pingo Doce",
+      "opening_hours": "Mo-Th 08:00-22:00; Fr 08:00-23:00; Sa,Su 07:30-22:00; ",
+      "payment:cash": "yes",
+      "payment:credit_cards": "yes",
+      "payment:debit_cards": "yes",
+      "takeaway": "yes",
+      "website": "https://www.pingodoce.pt/lojas/porto-santo-praia-dourada/",
+      "wheelchair": "yes"
+    }
+  },
+  {
+    "osm_id": "node/13749453759",
+    "lat": 33.0605733,
+    "lon": -16.3316796,
+    "tags": {
+      "addr:postcode": "9400-168",
+      "air_conditioning": "yes",
+      "branch": "Porto Santo Praia Dourada",
+      "brand": "Pingo Doce",
+      "brand:wikidata": "Q1575057",
+      "brand:wikipedia": "pt:Pingo Doce",
+      "contact:facebook": "pingodoce",
+      "contact:instagram": "pingodoce",
+      "contact:linkedin": "https://www.linkedin.com/company/pingo-doce",
+      "contact:phone": "+351 291 980 080",
+      "contact:tiktok": "pingodoce",
+      "contact:youtube": "pingodocept",
+      "name": "Pingo Doce",
+      "opening_hours": "Mo-Th 08:00-22:00; Fr 08:00-23:00; Sa,Su 07:30-22:00; ",
+      "payment:cash": "yes",
+      "payment:credit_cards": "yes",
+      "payment:debit_cards": "yes",
+      "ref": "17",
+      "restaurant": "yes",
+      "shop": "supermarket",
+      "source:contact": "website",
+      "source:opening_hours": "website",
+      "website": "https://www.pingodoce.pt/lojas/porto-santo-praia-dourada/",
+      "wheelchair": "yes"
+    }
+  },
+  {
+    "osm_id": "node/14156613819",
+    "lat": 33.0374896,
+    "lon": -16.3623937,
+    "tags": {
+      "amenity": "parking",
+      "name": "Parking (to the Hotel)"
+    }
+  },
+  {
+    "osm_id": "node/14156613820",
+    "lat": 33.0371682,
+    "lon": -16.3622648,
+    "tags": {
+      "amenity": "parking",
+      "name": "Parking (to the Hotel)"
+    }
+  },
+  {
+    "osm_id": "node/14156613821",
+    "lat": 33.0372306,
+    "lon": -16.3609467,
+    "tags": {
+      "amenity": "parking",
+      "name": "Parking (to the Hotel)"
+    }
+  },
+  {
+    "osm_id": "node/14156613822",
+    "lat": 33.0378543,
+    "lon": -16.3606778,
+    "tags": {
+      "amenity": "parking",
+      "name": "Parking (to the Hotel)"
+    }
+  },
+  {
+    "osm_id": "node/14156613823",
+    "lat": 33.0616388,
+    "lon": -16.3275851,
+    "tags": {
+      "amenity": "parking",
+      "name": "Parking"
+    }
+  },
+  {
+    "osm_id": "node/14156629208",
+    "lat": 33.0376505,
+    "lon": -16.3607913,
+    "tags": {
+      "amenity": "parking",
+      "name": "Parking (to the Hotel)"
+    }
+  },
+  {
+    "osm_id": "way/26921988",
+    "lat": 33.0465614,
+    "lon": -16.3502134,
+    "tags": {
+      "amenity": "parking"
+    }
+  },
+  {
+    "osm_id": "way/121115947",
+    "lat": 33.0563761,
+    "lon": -16.3383803,
+    "tags": {
+      "addr:housenumber": "4",
+      "addr:street": "Rua Goulart Medeiros",
+      "building": "yes",
+      "check_date": "2025-05-12",
+      "internet_access": "yes",
+      "internet_access:fee": "no",
+      "name": "Torre Praia",
+      "operator": "Grupo Sousa",
+      "smoking": "yes",
+      "stars": "4",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "osm_id": "way/121115953",
+    "lat": 33.0584361,
+    "lon": -16.3341294,
+    "tags": {
+      "access": "yes",
+      "amenity": "parking",
+      "capacity": "26",
+      "capacity:disabled": "2",
+      "capacity:parent": "no",
+      "capacity:women": "no",
+      "fee": "yes",
+      "parking": "surface"
+    }
+  },
+  {
+    "osm_id": "way/121115954",
+    "lat": 33.0540337,
+    "lon": -16.3413702,
+    "tags": {
+      "amenity": "restaurant",
+      "building": "yes",
+      "cuisine": "regional",
+      "internet_access": "no",
+      "name": "Pé na Água",
+      "wikidata": "Q107580110",
+      "wikimedia_commons": "Category:Pé na Água"
+    }
+  },
+  {
+    "osm_id": "way/121115955",
+    "lat": 33.050782,
+    "lon": -16.3470211,
+    "tags": {
+      "internet_access": "yes",
+      "internet_access:fee": "no",
+      "name": "Porto Santo",
+      "smoking": "yes",
+      "stars": "4",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "osm_id": "way/142721877",
+    "lat": 33.058848,
+    "lon": -16.3288085,
+    "tags": {
+      "name": "Fontinha",
+      "natural": "beach",
+      "surface": "sand"
+    }
+  },
+  {
+    "osm_id": "way/142722041",
+    "lat": 33.0519668,
+    "lon": -16.3428744,
+    "tags": {
+      "lifeguard": "no",
+      "name": "Pedras Pretas",
+      "natural": "beach",
+      "supervised": "no"
+    }
+  },
+  {
+    "osm_id": "way/142722144",
+    "lat": 33.0408276,
+    "lon": -16.3556128,
+    "tags": {
+      "lifeguard": "no",
+      "name": "Ribeiro Salgado",
+      "natural": "beach",
+      "supervised": "no"
+    }
+  },
+  {
+    "osm_id": "way/142722145",
+    "lat": 33.028774,
+    "lon": -16.3717595,
+    "tags": {
+      "lifeguard": "no",
+      "name": "Lagoa",
+      "natural": "beach",
+      "supervised": "no"
+    }
+  },
+  {
+    "osm_id": "way/142781405",
+    "lat": 33.0691682,
+    "lon": -16.3448414,
+    "tags": {
+      "amenity": "parking",
+      "parking": "surface"
+    }
+  },
+  {
+    "osm_id": "way/142789720",
+    "lat": 33.0836272,
+    "lon": -16.2990272,
+    "tags": {
+      "lifeguard": "no",
+      "name": "Calhau da Serra de Dentro",
+      "natural": "beach",
+      "supervised": "no"
+    }
+  },
+  {
+    "osm_id": "way/142871810",
+    "lat": 33.075872,
+    "lon": -16.2935058,
+    "tags": {
+      "lifeguard": "no",
+      "name": "Praia do Furado",
+      "natural": "beach",
+      "supervised": "no",
+      "surface": "pebblestone"
+    }
+  },
+  {
+    "osm_id": "way/142871812",
+    "lat": 33.0731849,
+    "lon": -16.2956109,
+    "tags": {
+      "lifeguard": "no",
+      "mapillary": "https://www.mapillary.com/app/?pKey=1304051387604580",
+      "name": "Praia do Gastão",
+      "natural": "beach",
+      "supervised": "no",
+      "surface": "pebblestone"
+    }
+  },
+  {
+    "osm_id": "way/142872184",
+    "lat": 33.0691055,
+    "lon": -16.2980672,
+    "tags": {
+      "lifeguard": "no",
+      "name": "Porto dos Frades",
+      "natural": "beach",
+      "supervised": "no",
+      "surface": "pebblestone"
+    }
+  },
+  {
+    "osm_id": "way/142895401",
+    "lat": 33.064013,
+    "lon": -16.3111908,
+    "tags": {
+      "access": "yes",
+      "amenity": "parking",
+      "fee": "no",
+      "parking": "surface"
+    }
+  },
+  {
+    "osm_id": "way/205706331",
+    "lat": 33.036412,
+    "lon": -16.3650918,
+    "tags": {
+      "name": "Inatel",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "osm_id": "way/205706480",
+    "lat": 33.0249886,
+    "lon": -16.379044,
+    "tags": {
+      "addr:city": "Porto Santo",
+      "addr:postcode": "9400-131;9400-085",
+      "addr:street": "Estrada Regional 120 - Ponta;",
+      "amenity": "restaurant",
+      "building": "yes",
+      "check_date": "2026-04-17",
+      "cuisine": "fish;steak;salad",
+      "name": "Ponta da Calheta",
+      "note": "Import from INE https://wiki.openstreetmap.org/wiki/Portugal/Projetos/Importa%C3%A7%C3%A3o_de_endere%C3%A7os",
+      "phone": "+351 291 984 380",
+      "website": "https://www.gruposousa.pt/ponta-da-calheta/"
+    }
+  },
+  {
+    "osm_id": "way/205706486",
+    "lat": 33.0272262,
+    "lon": -16.3794269,
+    "tags": {
+      "addr:city": "Porto Santo",
+      "addr:postcode": "9400-085",
+      "addr:street": "Estrada Regional 120",
+      "building": "yes",
+      "internet_access": "wlan",
+      "internet_access:fee": "customers",
+      "name": "Porto Santo Destination",
+      "note": "Import from INE https://wiki.openstreetmap.org/wiki/Portugal/Projetos/Importa%C3%A7%C3%A3o_de_endere%C3%A7os",
+      "ogr_pkid": "178C28EB1AA85B7DED3A84819E0F25AA_Address_4005",
+      "tourism": "guest_house"
+    }
+  },
+  {
+    "osm_id": "way/205706889",
+    "lat": 33.0337113,
+    "lon": -16.369663,
+    "tags": {
+      "amenity": "parking",
+      "parking": "surface"
+    }
+  },
+  {
+    "osm_id": "way/205706892",
+    "lat": 33.0335862,
+    "lon": -16.3697157,
+    "tags": {
+      "amenity": "parking",
+      "parking": "surface"
+    }
+  },
+  {
+    "osm_id": "way/205706894",
+    "lat": 33.0250982,
+    "lon": -16.3795803,
+    "tags": {
+      "access": "yes",
+      "amenity": "parking",
+      "fee": "no",
+      "parking": "surface"
+    }
+  },
+  {
+    "osm_id": "way/205706896",
+    "lat": 33.0250033,
+    "lon": -16.3795809,
+    "tags": {
+      "access": "yes",
+      "amenity": "parking",
+      "fee": "no",
+      "parking": "surface"
+    }
+  },
+  {
+    "osm_id": "way/205706897",
+    "lat": 33.0252037,
+    "lon": -16.3796067,
+    "tags": {
+      "access": "yes",
+      "amenity": "parking",
+      "fee": "no",
+      "parking": "surface"
+    }
+  },
+  {
+    "osm_id": "way/205848971",
+    "lat": 33.0373266,
+    "lon": -16.3605748,
+    "tags": {
+      "addr:city": "Porto Santo",
+      "addr:postcode": "9400-242",
+      "addr:street": "Estrada Regional 120",
+      "building": "hotel",
+      "name": "Lua Mar",
+      "note": "Import from INE https://wiki.openstreetmap.org/wiki/Portugal/Projetos/Importa%C3%A7%C3%A3o_de_endere%C3%A7os",
+      "ogr_pkid": "178C28EB1AA85B7DED3A84819E0F25AA_Address_3928",
+      "operator": "Grupo Sousa",
+      "stars": "3",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "osm_id": "way/205848986",
+    "lat": 33.0496499,
+    "lon": -16.3518277,
+    "tags": {
+      "amenity": "place_of_worship",
+      "building": "chapel",
+      "denomination": "catholic",
+      "name": "Capela Espírito Santo",
+      "religion": "christian"
+    }
+  },
+  {
+    "osm_id": "way/205848991",
+    "lat": 33.0356747,
+    "lon": -16.3629204,
+    "tags": {
+      "leisure": "playground"
+    }
+  },
+  {
+    "osm_id": "way/205849016",
+    "lat": 33.037537,
+    "lon": -16.3628482,
+    "tags": {
+      "addr:city": "Porto Santo",
+      "addr:postcode": "9400-131",
+      "addr:street": "Estrada Regional 120",
+      "building": "hotel",
+      "name": "Vila Baleira",
+      "note": "Import from INE https://wiki.openstreetmap.org/wiki/Portugal/Projetos/Importa%C3%A7%C3%A3o_de_endere%C3%A7os",
+      "ogr_pkid": "178C28EB1AA85B7DED3A84819E0F25AA_Address_3924",
+      "operator": "Gesferpinta",
+      "stars": "4",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "osm_id": "way/205854070",
+    "lat": 33.048401,
+    "lon": -16.3477728,
+    "tags": {
+      "amenity": "restaurant",
+      "building": "yes",
+      "check_date": "2025-10-17",
+      "cuisine": "seafood",
+      "name": "Mar e Sol",
+      "opening_hours": "Mo-Su 10:00-22:00",
+      "outdoor_seating": "yes",
+      "phone": "+351 291 982 203",
+      "website": "https://www.facebook.com/Restaurante-Mar-Sol-370467983100405/"
+    }
+  },
+  {
+    "osm_id": "way/205854109",
+    "lat": 33.0371678,
+    "lon": -16.361371,
+    "tags": {
+      "amenity": "restaurant",
+      "building": "yes",
+      "cuisine": "fish;chicken;beef;sandwich;salat",
+      "name": "João do Cabeço"
+    }
+  },
+  {
+    "osm_id": "way/220890495",
+    "lat": 33.0567423,
+    "lon": -16.3378444,
+    "tags": {
+      "amenity": "parking",
+      "fee": "yes"
+    }
+  },
+  {
+    "osm_id": "way/240197419",
+    "lat": 33.0512648,
+    "lon": -16.3705518,
+    "tags": {
+      "amenity": "parking",
+      "fee": "no",
+      "parking": "surface",
+      "surface": "asphalt"
+    }
+  },
+  {
+    "osm_id": "way/307556309",
+    "lat": 33.0699718,
+    "lon": -16.3450408,
+    "tags": {
+      "amenity": "parking",
+      "parking": "street_side"
+    }
+  },
+  {
+    "osm_id": "way/307556310",
+    "lat": 33.069991,
+    "lon": -16.3449237,
+    "tags": {
+      "amenity": "parking",
+      "parking": "street_side"
+    }
+  },
+  {
+    "osm_id": "way/307556922",
+    "lat": 33.0715679,
+    "lon": -16.3453699,
+    "tags": {
+      "amenity": "parking"
+    }
+  },
+  {
+    "osm_id": "way/307556924",
+    "lat": 33.0716054,
+    "lon": -16.345254,
+    "tags": {
+      "amenity": "taxi"
+    }
+  },
+  {
+    "osm_id": "way/307556927",
+    "lat": 33.0718172,
+    "lon": -16.3457316,
+    "tags": {
+      "amenity": "parking"
+    }
+  },
+  {
+    "osm_id": "way/307558981",
+    "lat": 33.0695861,
+    "lon": -16.3449419,
+    "tags": {
+      "amenity": "parking",
+      "parking": "street_side"
+    }
+  },
+  {
+    "osm_id": "way/307558983",
+    "lat": 33.0710911,
+    "lon": -16.3455134,
+    "tags": {
+      "amenity": "parking"
+    }
+  },
+  {
+    "osm_id": "way/353929132",
+    "lat": 33.0609814,
+    "lon": -16.334442,
+    "tags": {
+      "addr:city": "Porto Santo",
+      "addr:housenumber": "13",
+      "addr:postcode": "9400-161",
+      "addr:street": "Rua D. Estèvão De Alencastre",
+      "building": "yes",
+      "check_date": "2026-05-05",
+      "email": "info@portosantohotels.com",
+      "end_date": "2023-07-20",
+      "internet_access": "wlan",
+      "name": "Praia Dourada",
+      "opening_hours": "24/7",
+      "operator": "Grupo Sousa",
+      "payment:cash": "yes",
+      "payment:credit_cards": "yes",
+      "payment:debit_cards": "yes",
+      "phone": "+351 291 980 480",
+      "rooms": "102",
+      "source": "RNET",
+      "source_ref": "6698",
+      "stars": "3",
+      "tourism": "hotel",
+      "website": "https://www.portosantohotels.com/praiadourada/home",
+      "wheelchair": "yes",
+      "wikidata": "Q111871391"
+    }
+  },
+  {
+    "osm_id": "way/369180223",
+    "lat": 33.0532628,
+    "lon": -16.3516599,
+    "tags": {
+      "historic": "monument",
+      "name": "Forno de Cal"
+    }
+  },
+  {
+    "osm_id": "way/385794116",
+    "lat": 33.0688818,
+    "lon": -16.320794,
+    "tags": {
+      "addr:city": "Porto Santo",
+      "addr:housenumber": "84",
+      "addr:postcode": "9400-212",
+      "addr:street": "Estrada Carlos Pestana Vasconcelos",
+      "amenity": "restaurant",
+      "building": "yes",
+      "cuisine": "regional",
+      "name": "Panorama",
+      "note": "Import from INE https://wiki.openstreetmap.org/wiki/Portugal/Projetos/Importa%C3%A7%C3%A3o_de_endere%C3%A7os",
+      "outdoor_seating": "no",
+      "phone": "+351966789680",
+      "website": "https://panorama-restaurante.pt/"
+    }
+  },
+  {
+    "osm_id": "way/440024761",
+    "lat": 33.0594592,
+    "lon": -16.3395477,
+    "tags": {
+      "addr:city": "Porto Santo",
+      "addr:housenumber": "2",
+      "addr:postcode": "9400-151",
+      "addr:street": "Rua Almeida Ribeiro",
+      "email": "pousadas.drjd@madeira.gov.pt",
+      "name": "Centro de Juventude do Porto Santo",
+      "operator": "SRE / Direção Regional Juventude e Desporto",
+      "phone": "+351 291 982 607",
+      "rooms": "19",
+      "tourism": "hostel"
+    }
+  },
+  {
+    "osm_id": "way/441891719",
+    "lat": 33.067071,
+    "lon": -16.3653237,
+    "tags": {
+      "amenity": "parking"
+    }
+  },
+  {
+    "osm_id": "way/494877523",
+    "lat": 33.042523,
+    "lon": -16.358516,
+    "tags": {
+      "addr:city": "Porto Santo",
+      "addr:postcode": "9400-242",
+      "addr:street": "Estrada Regional 120;Estrada Regional 120 - Campo de Baixo",
+      "amenity": "restaurant",
+      "building": "yes",
+      "cuisine": "italian",
+      "name": "Pizzaria Gelataria Maramao",
+      "note": "Import from INE https://wiki.openstreetmap.org/wiki/Portugal/Projetos/Importa%C3%A7%C3%A3o_de_endere%C3%A7os",
+      "outdoor_seating": "yes",
+      "phone": "+351 291 632 281",
+      "source": "rectified Bing",
+      "website": "https://www.facebook.com/PizzariaMaramao/"
+    }
+  },
+  {
+    "osm_id": "way/502733055",
+    "lat": 33.0704065,
+    "lon": -16.2995461,
+    "tags": {
+      "amenity": "restaurant",
+      "building": "yes",
+      "cuisine": "regional",
+      "microbrewery": "yes",
+      "name": "Porto dos Frades",
+      "phone": "+351291982610"
+    }
+  },
+  {
+    "osm_id": "way/502733969",
+    "lat": 33.0328881,
+    "lon": -16.3874958,
+    "tags": {
+      "lifeguard": "no",
+      "name": "Praia do Zimbralinho",
+      "natural": "beach",
+      "supervised": "no",
+      "surface": "pebblestone"
+    }
+  },
+  {
+    "osm_id": "way/607474031",
+    "lat": 33.0363265,
+    "lon": -16.3677445,
+    "tags": {
+      "name": "Pestana Ilha Dourada",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "osm_id": "way/623965766",
+    "lat": 33.0416277,
+    "lon": -16.3571573,
+    "tags": {
+      "addr:city": "Porto Santo",
+      "addr:postcode": "9400-242",
+      "addr:street": "Estrada Regional 120 - Campo de Baixo",
+      "brand": "Pestana",
+      "name": "Pestana Colombos",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "osm_id": "way/623968407",
+    "lat": 33.0863321,
+    "lon": -16.3343293,
+    "tags": {
+      "email": "geral@quintadoserradohotel.com",
+      "guest_house": "bed_and_breakfast",
+      "name": "Hotel Quinta do Serrado",
+      "phone": "+351 291 980 270",
+      "tourism": "guest_house",
+      "website": "https://www.facebook.com/quintaserrado/"
+    }
+  },
+  {
+    "osm_id": "way/625544782",
+    "lat": 33.0665322,
+    "lon": -16.3398672,
+    "tags": {
+      "building": "yes",
+      "name": "GALP",
+      "shop": "convenience"
+    }
+  },
+  {
+    "osm_id": "way/666782593",
+    "lat": 33.0561065,
+    "lon": -16.3654094,
+    "tags": {
+      "amenity": "parking"
+    }
+  },
+  {
+    "osm_id": "way/666786756",
+    "lat": 33.0871872,
+    "lon": -16.3444896,
+    "tags": {
+      "building": "yes",
+      "name": "Cardina",
+      "tourism": "museum",
+      "wikidata": "Q28678559",
+      "wikipedia": "pt:Museu Cardina"
+    }
+  },
+  {
+    "osm_id": "way/666786827",
+    "lat": 33.0860414,
+    "lon": -16.3455432,
+    "tags": {
+      "addr:housenumber": "68",
+      "addr:postcode": "9400-010",
+      "addr:street": "Estrada Domingo D'Ornelas 68",
+      "amenity": "restaurant",
+      "building": "house",
+      "name": "Torres",
+      "name:pt": "Torres"
+    }
+  },
+  {
+    "osm_id": "way/666902069",
+    "lat": 33.038803,
+    "lon": -16.3783515,
+    "tags": {
+      "amenity": "restaurant",
+      "building": "yes",
+      "cuisine": "regional",
+      "internet_access": "no",
+      "name": "Adega das Levadas",
+      "smoking": "no"
+    }
+  },
+  {
+    "osm_id": "way/667012292",
+    "lat": 33.0743612,
+    "lon": -16.3132583,
+    "tags": {
+      "building": "yes",
+      "name": "Alojamento Casas da Serra",
+      "tourism": "guest_house"
+    }
+  },
+  {
+    "osm_id": "way/667015301",
+    "lat": 33.0738178,
+    "lon": -16.323659,
+    "tags": {
+      "amenity": "place_of_worship",
+      "building": "yes",
+      "denomination": "catholic",
+      "name": "Capela de Nossa Senhora da Graça",
+      "phone": "+351291982215",
+      "religion": "christian"
+    }
+  },
+  {
+    "osm_id": "way/667314735",
+    "lat": 33.0659934,
+    "lon": -16.3353638,
+    "tags": {
+      "amenity": "parking"
+    }
+  },
+  {
+    "osm_id": "way/667329951",
+    "lat": 33.0594817,
+    "lon": -16.3323668,
+    "tags": {
+      "addr:city": "Porto Santo",
+      "addr:housenumber": "4",
+      "addr:postcode": "9400-168",
+      "addr:street": "Rua Doutor José Diamantino Lima",
+      "amenity": "clinic",
+      "building": "yes",
+      "check_date": "2023-09-26",
+      "email": "cs.portosanto-aces@sesaram.pt",
+      "emergency": "yes",
+      "healthcare": "clinic",
+      "name": "Centro de Saúde Doutor Francisco Rodrigues Jardim",
+      "note": "Import from INE https://wiki.openstreetmap.org/wiki/Portugal/Projetos/Importa%C3%A7%C3%A3o_de_endere%C3%A7os",
+      "opening_hours": "Mo-Fr 08:00-17:30; Sa 08:00-15:00; Su off; PH off",
+      "opening_hours:emergency": "24/7",
+      "operator": "SESARAM",
+      "operator:type": "public",
+      "phone": "+351 291 980 060",
+      "website": "https://www.sesaram.pt/portal/utente/diretorio-de-servicos/centros-de-saude/dr-francisco-rodrigues-jardim"
+    }
+  },
+  {
+    "osm_id": "way/667331288",
+    "lat": 33.0638904,
+    "lon": -16.3299419,
+    "tags": {
+      "addr:city": "Porto Santo",
+      "addr:postcode": "9400-005",
+      "addr:street": "Rua da Amizade",
+      "amenity": "police",
+      "building": "yes",
+      "check_date": "2024-05-16",
+      "name": "Posto Territorial de Porto Santo",
+      "operator": "Guarda Nacional Republicana",
+      "operator:wikidata": "Q1280906",
+      "operator:wikipedia": "pt:Guarda Nacional Republicana",
+      "source": "survey"
+    }
+  },
+  {
+    "osm_id": "way/667734942",
+    "lat": 33.0599465,
+    "lon": -16.3380812,
+    "tags": {
+      "access": "yes",
+      "amenity": "parking",
+      "fee": "no",
+      "parking": "surface"
+    }
+  },
+  {
+    "osm_id": "way/667734943",
+    "lat": 33.0600611,
+    "lon": -16.3380575,
+    "tags": {
+      "access": "yes",
+      "amenity": "parking",
+      "fee": "no",
+      "parking": "surface"
+    }
+  },
+  {
+    "osm_id": "way/667734944",
+    "lat": 33.0601725,
+    "lon": -16.3380488,
+    "tags": {
+      "access": "yes",
+      "amenity": "parking",
+      "fee": "no",
+      "parking": "surface"
+    }
+  },
+  {
+    "osm_id": "way/667734945",
+    "lat": 33.0602947,
+    "lon": -16.3380974,
+    "tags": {
+      "access": "yes",
+      "amenity": "parking",
+      "fee": "no",
+      "parking": "surface"
+    }
+  },
+  {
+    "osm_id": "way/667734946",
+    "lat": 33.0604094,
+    "lon": -16.3380335,
+    "tags": {
+      "access": "yes",
+      "amenity": "parking",
+      "fee": "no",
+      "parking": "surface"
+    }
+  },
+  {
+    "osm_id": "way/667734947",
+    "lat": 33.0605417,
+    "lon": -16.3380564,
+    "tags": {
+      "access": "yes",
+      "amenity": "parking",
+      "fee": "no",
+      "parking": "surface"
+    }
+  },
+  {
+    "osm_id": "way/667734948",
+    "lat": 33.0606528,
+    "lon": -16.3380731,
+    "tags": {
+      "access": "yes",
+      "amenity": "parking",
+      "fee": "no",
+      "parking": "surface"
+    }
+  },
+  {
+    "osm_id": "way/667734949",
+    "lat": 33.0607651,
+    "lon": -16.3380399,
+    "tags": {
+      "access": "yes",
+      "amenity": "parking",
+      "fee": "no",
+      "parking": "surface"
+    }
+  },
+  {
+    "osm_id": "way/667734950",
+    "lat": 33.0609536,
+    "lon": -16.3381125,
+    "tags": {
+      "access": "yes",
+      "amenity": "parking",
+      "fee": "no",
+      "parking": "surface"
+    }
+  },
+  {
+    "osm_id": "way/667734951",
+    "lat": 33.0612078,
+    "lon": -16.3378572,
+    "tags": {
+      "amenity": "parking"
+    }
+  },
+  {
+    "osm_id": "way/667734952",
+    "lat": 33.0612076,
+    "lon": -16.337773,
+    "tags": {
+      "amenity": "parking"
+    }
+  },
+  {
+    "osm_id": "way/667734953",
+    "lat": 33.0616218,
+    "lon": -16.3379001,
+    "tags": {
+      "amenity": "parking"
+    }
+  },
+  {
+    "osm_id": "way/667734954",
+    "lat": 33.0619004,
+    "lon": -16.3384734,
+    "tags": {
+      "access": "yes",
+      "amenity": "parking",
+      "fee": "no",
+      "parking": "surface"
+    }
+  },
+  {
+    "osm_id": "way/667734976",
+    "lat": 33.0612187,
+    "lon": -16.3446234,
+    "tags": {
+      "amenity": "parking"
+    }
+  },
+  {
+    "osm_id": "way/667734979",
+    "lat": 33.0598979,
+    "lon": -16.3395775,
+    "tags": {
+      "amenity": "parking"
+    }
+  },
+  {
+    "osm_id": "way/667734980",
+    "lat": 33.0599548,
+    "lon": -16.3394841,
+    "tags": {
+      "amenity": "parking"
+    }
+  },
+  {
+    "osm_id": "way/667734992",
+    "lat": 33.0584107,
+    "lon": -16.3401187,
+    "tags": {
+      "amenity": "parking"
+    }
+  },
+  {
+    "osm_id": "way/667734996",
+    "lat": 33.0573294,
+    "lon": -16.3422242,
+    "tags": {
+      "amenity": "parking"
+    }
+  },
+  {
+    "osm_id": "way/667734998",
+    "lat": 33.0604326,
+    "lon": -16.3400412,
+    "tags": {
+      "access": "yes",
+      "amenity": "parking",
+      "fee": "no",
+      "parking": "surface"
+    }
+  },
+  {
+    "osm_id": "way/667915384",
+    "lat": 33.0251606,
+    "lon": -16.3797863,
+    "tags": {
+      "access": "yes",
+      "amenity": "parking",
+      "fee": "no",
+      "parking": "surface"
+    }
+  },
+  {
+    "osm_id": "way/667915385",
+    "lat": 33.0251012,
+    "lon": -16.3798683,
+    "tags": {
+      "access": "yes",
+      "amenity": "parking",
+      "fee": "no",
+      "parking": "surface"
+    }
+  },
+  {
+    "osm_id": "way/668075681",
+    "lat": 33.0603303,
+    "lon": -16.3351163,
+    "tags": {
+      "amenity": "place_of_worship",
+      "building": "chapel",
+      "name": "Capela da Misericórdia",
+      "religion": "christian",
+      "wikidata": "Q66996212",
+      "wikimedia_commons": "Category:Capela da Misericórdia (Porto Santo)"
+    }
+  },
+  {
+    "osm_id": "way/668177965",
+    "lat": 33.0489696,
+    "lon": -16.3486626,
+    "tags": {
+      "amenity": "parking",
+      "parking": "street_side"
+    }
+  },
+  {
+    "osm_id": "way/668177966",
+    "lat": 33.0490187,
+    "lon": -16.348583,
+    "tags": {
+      "amenity": "parking",
+      "parking": "street_side"
+    }
+  },
+  {
+    "osm_id": "way/668177971",
+    "lat": 33.0497947,
+    "lon": -16.3500135,
+    "tags": {
+      "amenity": "parking"
+    }
+  },
+  {
+    "osm_id": "way/668177972",
+    "lat": 33.0503733,
+    "lon": -16.3485747,
+    "tags": {
+      "amenity": "parking"
+    }
+  },
+  {
+    "osm_id": "way/668177974",
+    "lat": 33.0536267,
+    "lon": -16.3545694,
+    "tags": {
+      "amenity": "parking"
+    }
+  },
+  {
+    "osm_id": "way/668177975",
+    "lat": 33.0535773,
+    "lon": -16.3545896,
+    "tags": {
+      "amenity": "parking"
+    }
+  },
+  {
+    "osm_id": "way/668177976",
+    "lat": 33.0496894,
+    "lon": -16.3516665,
+    "tags": {
+      "amenity": "parking"
+    }
+  },
+  {
+    "osm_id": "way/669183958",
+    "lat": 33.0502481,
+    "lon": -16.3505385,
+    "tags": {
+      "amenity": "parking",
+      "fee": "yes",
+      "surface": "asphalt"
+    }
+  },
+  {
+    "osm_id": "way/669183961",
+    "lat": 33.0541601,
+    "lon": -16.3498009,
+    "tags": {
+      "amenity": "parking"
+    }
+  },
+  {
+    "osm_id": "way/669183962",
+    "lat": 33.0542712,
+    "lon": -16.3499981,
+    "tags": {
+      "amenity": "parking"
+    }
+  },
+  {
+    "osm_id": "way/669183963",
+    "lat": 33.054543,
+    "lon": -16.3494301,
+    "tags": {
+      "amenity": "parking"
+    }
+  },
+  {
+    "osm_id": "way/669191593",
+    "lat": 33.0531502,
+    "lon": -16.3490305,
+    "tags": {
+      "amenity": "parking"
+    }
+  },
+  {
+    "osm_id": "way/669851419",
+    "lat": 33.0654308,
+    "lon": -16.3340269,
+    "tags": {
+      "access": "yes",
+      "amenity": "toilets",
+      "building": "yes",
+      "check_date": "2024-05-16"
+    }
+  },
+  {
+    "osm_id": "way/919671147",
+    "lat": 33.093089,
+    "lon": -16.3478316,
+    "tags": {
+      "lifeguard": "no",
+      "mapillary": "https://www.mapillary.com/app/?pKey=2170723793457207",
+      "name": "Salemas",
+      "natural": "beach",
+      "supervised": "no",
+      "surface": "pebblestone"
+    }
+  },
+  {
+    "osm_id": "way/962963098",
+    "lat": 33.0589812,
+    "lon": -16.3335789,
+    "tags": {
+      "bus": "yes",
+      "highway": "bus_stop",
+      "oneway": "yes",
+      "psv": "yes",
+      "surface": "asphalt"
+    }
+  },
+  {
+    "osm_id": "way/966100407",
+    "lat": 33.0839539,
+    "lon": -16.3538641,
+    "tags": {
+      "aeroway": "aerodrome",
+      "landuse": "military",
+      "military": "airfield",
+      "military_service": "air_force",
+      "name": "Aeródromo de Manobra 3",
+      "ref": "AM3",
+      "website": "https://www.emfa.pt/unidade-60-aerodromo-de-manobra-n-3"
+    }
+  },
+  {
+    "osm_id": "way/1012095774",
+    "lat": 33.071572,
+    "lon": -16.3454977,
+    "tags": {
+      "amenity": "parking"
+    }
+  },
+  {
+    "osm_id": "way/1108181947",
+    "lat": 33.085963,
+    "lon": -16.3410782,
+    "tags": {
+      "addr:housenumber": "14",
+      "addr:street": "Estrada Velha da Camacha",
+      "amenity": "restaurant",
+      "building": "yes",
+      "contact:instagram": "rafaela.foodexperience",
+      "name": "Rafaela",
+      "note": "Import from GlobalMLBuildingFootprints. details at https://github.com/microsoft/GlobalMLBuildingFootprints",
+      "phone": "+351291656956"
+    }
+  },
+  {
+    "osm_id": "way/1108181972",
+    "lat": 33.0865484,
+    "lon": -16.3434441,
+    "tags": {
+      "amenity": "restaurant",
+      "building": "house",
+      "name": "PXO Grills",
+      "note": "Import from GlobalMLBuildingFootprints. details at https://github.com/microsoft/GlobalMLBuildingFootprints"
+    }
+  },
+  {
+    "osm_id": "way/1214793330",
+    "lat": 33.0448862,
+    "lon": -16.354656,
+    "tags": {
+      "addr:city": "Porto Santo",
+      "addr:housenumber": "120",
+      "addr:postcode": "9400-015;9400-242",
+      "addr:street": "Estrada Regional",
+      "brand": "Pestana",
+      "internet_access": "wlan",
+      "name": "Pestana Dunas Porto Santo",
+      "rooms": "218",
+      "stars": "5",
+      "tourism": "hotel",
+      "website": "https://www.pestana.com/en/hotel/pestana-dunas-porto-santo"
+    }
+  },
+  {
+    "osm_id": "way/1214907657",
+    "lat": 33.0591508,
+    "lon": -16.333222,
+    "tags": {
+      "access": "yes",
+      "amenity": "parking",
+      "capacity:disabled": "no",
+      "capacity:parent": "no",
+      "capacity:women": "no",
+      "fee": "no",
+      "parking": "surface"
+    }
+  },
+  {
+    "osm_id": "way/1244587284",
+    "lat": 33.054684,
+    "lon": -16.2791534,
+    "tags": {
+      "building": "yes",
+      "man_made": "lighthouse",
+      "name": "Farol do Ilhéu de Cima"
+    }
+  },
+  {
+    "osm_id": "way/1244587285",
+    "lat": 33.069862,
+    "lon": -16.298707,
+    "tags": {
+      "amenity": "parking"
+    }
+  },
+  {
+    "osm_id": "way/1244601904",
+    "lat": 33.0626289,
+    "lon": -16.3085091,
+    "tags": {
+      "lifeguard": "no",
+      "name": "Abrigo",
+      "natural": "beach",
+      "supervised": "no"
+    }
+  },
+  {
+    "osm_id": "way/1244878853",
+    "lat": 33.0752507,
+    "lon": -16.3139322,
+    "tags": {
+      "amenity": "restaurant",
+      "building": "yes",
+      "mapillary": "https://www.mapillary.com/app/?pKey=685928487370371",
+      "name": "Teodorico",
+      "phone": "+351965012650"
+    }
+  },
+  {
+    "osm_id": "way/1275465931",
+    "lat": 33.0604292,
+    "lon": -16.330532,
+    "tags": {
+      "access": "yes",
+      "amenity": "parking",
+      "capacity": "50",
+      "fee": "no",
+      "operator": "Câmara Municipal do Porto Santo",
+      "operator:type": "public",
+      "parking": "surface"
+    }
+  },
+  {
+    "osm_id": "way/1278258181",
+    "lat": 33.0872751,
+    "lon": -16.3543669,
+    "tags": {
+      "access": "yes",
+      "amenity": "parking",
+      "fee": "no",
+      "maxstay": "1 day",
+      "name": "Fonte da Areia",
+      "opening_hours": "24/7",
+      "parking": "surface",
+      "smoothness": "good",
+      "surface": "unpaved"
+    }
+  },
+  {
+    "osm_id": "way/1278915915",
+    "lat": 33.0603273,
+    "lon": -16.3315732,
+    "tags": {
+      "access": "customers",
+      "amenity": "parking",
+      "fee": "yes",
+      "parking": "surface"
+    }
+  },
+  {
+    "osm_id": "way/1282566864",
+    "lat": 33.0552687,
+    "lon": -16.3421878,
+    "tags": {
+      "amenity": "parking",
+      "fee": "no"
+    }
+  },
+  {
+    "osm_id": "way/1282858047",
+    "lat": 33.0251941,
+    "lon": -16.379473,
+    "tags": {
+      "access": "yes",
+      "amenity": "parking",
+      "fee": "no",
+      "parking": "surface"
+    }
+  },
+  {
+    "osm_id": "way/1282858048",
+    "lat": 33.0246025,
+    "lon": -16.3795885,
+    "tags": {
+      "lifeguard": "no",
+      "name": "Calheta",
+      "natural": "beach",
+      "supervised": "no"
+    }
+  },
+  {
+    "osm_id": "way/1282989110",
+    "lat": 33.0589715,
+    "lon": -16.334046,
+    "tags": {
+      "amenity": "taxi",
+      "name": "Vila"
+    }
+  },
+  {
+    "osm_id": "way/1283007041",
+    "lat": 33.0403732,
+    "lon": -16.3584665,
+    "tags": {
+      "name": "The Navigator Colombus",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "osm_id": "way/1283011106",
+    "lat": 33.0587077,
+    "lon": -16.3119086,
+    "tags": {
+      "ferry": "yes",
+      "highway": "bus_stop",
+      "public_transport": "platform"
+    }
+  },
+  {
+    "osm_id": "way/1283011677",
+    "lat": 33.0564149,
+    "lon": -16.339728,
+    "tags": {
+      "access": "yes",
+      "amenity": "parking",
+      "fee": "no",
+      "parking": "surface"
+    }
+  },
+  {
+    "osm_id": "way/1283015984",
+    "lat": 33.0475528,
+    "lon": -16.3477227,
+    "tags": {
+      "lifeguard": "no",
+      "name": "Ribeiro Cochino",
+      "natural": "beach",
+      "supervised": "no"
+    }
+  },
+  {
+    "osm_id": "way/1283016815",
+    "lat": 33.0342463,
+    "lon": -16.3633875,
+    "tags": {
+      "lifeguard": "no",
+      "name": "Cabeço",
+      "natural": "beach",
+      "supervised": "no"
+    }
+  },
+  {
+    "osm_id": "way/1283402786",
+    "lat": 33.0442072,
+    "lon": -16.360068,
+    "tags": {
+      "amenity": "parking"
+    }
+  },
+  {
+    "osm_id": "way/1284223847",
+    "lat": 33.0709406,
+    "lon": -16.3428959,
+    "tags": {
+      "building": "roof",
+      "layer": "1",
+      "name": "BP",
+      "shop": "convenience"
+    }
+  },
+  {
+    "osm_id": "way/1293636249",
+    "lat": 33.0580385,
+    "lon": -16.3353064,
+    "tags": {
+      "access": "yes",
+      "leisure": "playground"
+    }
+  },
+  {
+    "osm_id": "way/1293636250",
+    "lat": 33.0579426,
+    "lon": -16.3352165,
+    "tags": {
+      "access": "yes",
+      "leisure": "playground"
+    }
+  },
+  {
+    "osm_id": "way/1419668844",
+    "lat": 33.0463088,
+    "lon": -16.3602757,
+    "tags": {
+      "amenity": "parking"
+    }
+  },
+  {
+    "osm_id": "way/1423131327",
+    "lat": 33.0433395,
+    "lon": -16.355469,
+    "tags": {
+      "addr:city": "Porto Santo",
+      "addr:housenumber": "120",
+      "addr:postcode": "9400-015;9400-242",
+      "addr:street": "Estrada Regional",
+      "alt_name": "PESTANA RESORT SPA HOTEL",
+      "brand": "Pestana",
+      "internet_access": "wlan",
+      "name": "Pestana Porto Santo",
+      "rooms": "328",
+      "stars": "5",
+      "tourism": "hotel",
+      "website": "https://www.pestana.com/pt/hotel/pestana-porto-santo"
+    }
+  },
+  {
+    "osm_id": "way/1425362173",
+    "lat": 33.0388856,
+    "lon": -16.4060836,
+    "tags": {
+      "man_made": "lighthouse",
+      "name": "Ilhéu do Ferro"
+    }
+  },
+  {
+    "osm_id": "way/1425676674",
+    "lat": 33.0706217,
+    "lon": -16.3452675,
+    "tags": {
+      "amenity": "parking"
+    }
+  },
+  {
+    "osm_id": "way/1425676678",
+    "lat": 33.0690133,
+    "lon": -16.344967,
+    "tags": {
+      "amenity": "parking",
+      "parking": "surface"
+    }
+  },
+  {
+    "osm_id": "way/1425676685",
+    "lat": 33.0696656,
+    "lon": -16.3451172,
+    "tags": {
+      "amenity": "parking",
+      "parking": "street_side"
+    }
+  },
+  {
+    "osm_id": "way/1425676686",
+    "lat": 33.069974,
+    "lon": -16.3451635,
+    "tags": {
+      "amenity": "parking",
+      "parking": "street_side"
+    }
+  },
+  {
+    "osm_id": "way/1427530485",
+    "lat": 33.0468128,
+    "lon": -16.3563215,
+    "tags": {
+      "amenity": "parking"
+    }
+  },
+  {
+    "osm_id": "way/1427530720",
+    "lat": 33.0464847,
+    "lon": -16.3505326,
+    "tags": {
+      "amenity": "parking"
+    }
+  },
+  {
+    "osm_id": "way/1427530721",
+    "lat": 33.046589,
+    "lon": -16.350547,
+    "tags": {
+      "amenity": "parking"
+    }
+  },
+  {
+    "osm_id": "way/1427530722",
+    "lat": 33.0465163,
+    "lon": -16.3503339,
+    "tags": {
+      "amenity": "parking"
+    }
+  },
+  {
+    "osm_id": "way/1427531364",
+    "lat": 33.0538501,
+    "lon": -16.3546556,
+    "tags": {
+      "amenity": "parking"
+    }
+  },
+  {
+    "osm_id": "way/1427531365",
+    "lat": 33.0538627,
+    "lon": -16.3547879,
+    "tags": {
+      "amenity": "parking"
+    }
+  },
+  {
+    "osm_id": "way/1427638153",
+    "lat": 33.0607386,
+    "lon": -16.3562211,
+    "tags": {
+      "leisure": "playground"
+    }
+  },
+  {
+    "osm_id": "way/1427638156",
+    "lat": 33.0607968,
+    "lon": -16.3561567,
+    "tags": {
+      "leisure": "playground"
+    }
+  },
+  {
+    "osm_id": "way/1427659865",
+    "lat": 33.0369979,
+    "lon": -16.3611406,
+    "tags": {
+      "amenity": "parking"
+    }
+  },
+  {
+    "osm_id": "way/1427659866",
+    "lat": 33.0372388,
+    "lon": -16.3609484,
+    "tags": {
+      "amenity": "parking"
+    }
+  },
+  {
+    "osm_id": "way/1427659867",
+    "lat": 33.0376393,
+    "lon": -16.3608591,
+    "tags": {
+      "amenity": "parking"
+    }
+  },
+  {
+    "osm_id": "way/1427659868",
+    "lat": 33.0378329,
+    "lon": -16.3607414,
+    "tags": {
+      "amenity": "parking"
+    }
+  },
+  {
+    "osm_id": "way/1427659869",
+    "lat": 33.0379672,
+    "lon": -16.3607213,
+    "tags": {
+      "amenity": "parking"
+    }
+  },
+  {
+    "osm_id": "way/1427659870",
+    "lat": 33.0379876,
+    "lon": -16.3609418,
+    "tags": {
+      "amenity": "parking"
+    }
+  },
+  {
+    "osm_id": "way/1427659871",
+    "lat": 33.0458724,
+    "lon": -16.3620699,
+    "tags": {
+      "amenity": "parking"
+    }
+  },
+  {
+    "osm_id": "way/1427659873",
+    "lat": 33.0598264,
+    "lon": -16.3380955,
+    "tags": {
+      "access": "yes",
+      "amenity": "parking",
+      "fee": "no",
+      "parking": "surface"
+    }
+  },
+  {
+    "osm_id": "way/1427717830",
+    "lat": 33.0457322,
+    "lon": -16.3619605,
+    "tags": {
+      "amenity": "parking"
+    }
+  },
+  {
+    "osm_id": "way/1427821937",
+    "lat": 33.0631611,
+    "lon": -16.3175418,
+    "tags": {
+      "access": "permissive",
+      "amenity": "parking",
+      "fee": "no",
+      "parking": "surface"
+    }
+  },
+  {
+    "osm_id": "way/1427821938",
+    "lat": 33.0631075,
+    "lon": -16.3167613,
+    "tags": {
+      "access": "permissive",
+      "amenity": "parking",
+      "fee": "no",
+      "parking": "surface"
+    }
+  },
+  {
+    "osm_id": "way/1427821939",
+    "lat": 33.0632306,
+    "lon": -16.31689,
+    "tags": {
+      "access": "permissive",
+      "amenity": "parking",
+      "fee": "no",
+      "parking": "surface"
+    }
+  },
+  {
+    "osm_id": "way/1427821940",
+    "lat": 33.0633372,
+    "lon": -16.3169531,
+    "tags": {
+      "access": "permissive",
+      "amenity": "parking",
+      "fee": "no",
+      "parking": "surface"
+    }
+  },
+  {
+    "osm_id": "way/1428455840",
+    "lat": 33.0878131,
+    "lon": -16.3560538,
+    "tags": {
+      "lifeguard": "no",
+      "natural": "beach",
+      "supervised": "no",
+      "surface": "pebblestone"
+    }
+  },
+  {
+    "osm_id": "way/1429410770",
+    "lat": 33.0632416,
+    "lon": -16.3063963,
+    "tags": {
+      "amenity": "parking"
+    }
+  },
+  {
+    "osm_id": "way/1429410772",
+    "lat": 33.0631306,
+    "lon": -16.3064819,
+    "tags": {
+      "amenity": "parking"
+    }
+  },
+  {
+    "osm_id": "way/1429484730",
+    "lat": 33.0554894,
+    "lon": -16.3615999,
+    "tags": {
+      "amenity": "parking"
+    }
+  },
+  {
+    "osm_id": "way/1429484755",
+    "lat": 33.0500789,
+    "lon": -16.3516024,
+    "tags": {
+      "amenity": "parking"
+    }
+  },
+  {
+    "osm_id": "way/1429484756",
+    "lat": 33.0499088,
+    "lon": -16.3514687,
+    "tags": {
+      "amenity": "parking"
+    }
+  },
+  {
+    "osm_id": "way/1429484818",
+    "lat": 33.0620532,
+    "lon": -16.3425341,
+    "tags": {
+      "amenity": "parking"
+    }
+  },
+  {
+    "osm_id": "way/1429484819",
+    "lat": 33.0619106,
+    "lon": -16.3426698,
+    "tags": {
+      "amenity": "parking"
+    }
+  },
+  {
+    "osm_id": "way/1429700439",
+    "lat": 33.062066,
+    "lon": -16.3317423,
+    "tags": {
+      "access": "permissive",
+      "amenity": "parking",
+      "parking": "surface"
+    }
+  },
+  {
+    "osm_id": "way/1429700441",
+    "lat": 33.0617633,
+    "lon": -16.3322151,
+    "tags": {
+      "amenity": "place_of_worship",
+      "building": "chapel",
+      "name": "Capela de Santa Catarina",
+      "religion": "christian"
+    }
+  },
+  {
+    "osm_id": "way/1429706565",
+    "lat": 33.0544344,
+    "lon": -16.3433729,
+    "tags": {
+      "amenity": "parking",
+      "parking": "surface"
+    }
+  },
+  {
+    "osm_id": "way/1431480578",
+    "lat": 33.0672019,
+    "lon": -16.3412363,
+    "tags": {
+      "amenity": "parking"
+    }
+  },
+  {
+    "osm_id": "way/1431480579",
+    "lat": 33.071548,
+    "lon": -16.3428447,
+    "tags": {
+      "amenity": "parking"
+    }
+  },
+  {
+    "osm_id": "way/1431480580",
+    "lat": 33.071824,
+    "lon": -16.3429791,
+    "tags": {
+      "amenity": "parking"
+    }
+  },
+  {
+    "osm_id": "way/1431480581",
+    "lat": 33.0720344,
+    "lon": -16.3430825,
+    "tags": {
+      "amenity": "parking"
+    }
+  },
+  {
+    "osm_id": "way/1431480582",
+    "lat": 33.0723884,
+    "lon": -16.3432671,
+    "tags": {
+      "amenity": "parking"
+    }
+  },
+  {
+    "osm_id": "way/1431480586",
+    "lat": 33.0751669,
+    "lon": -16.3404478,
+    "tags": {
+      "amenity": "parking"
+    }
+  },
+  {
+    "osm_id": "way/1431480587",
+    "lat": 33.0750682,
+    "lon": -16.3409642,
+    "tags": {
+      "amenity": "parking"
+    }
+  },
+  {
+    "osm_id": "way/1431480588",
+    "lat": 33.0750407,
+    "lon": -16.3413909,
+    "tags": {
+      "amenity": "parking"
+    }
+  },
+  {
+    "osm_id": "way/1431480589",
+    "lat": 33.0749257,
+    "lon": -16.3418913,
+    "tags": {
+      "amenity": "parking"
+    }
+  },
+  {
+    "osm_id": "way/1431493721",
+    "lat": 33.0611846,
+    "lon": -16.3393636,
+    "tags": {
+      "amenity": "parking"
+    }
+  },
+  {
+    "osm_id": "way/1431493722",
+    "lat": 33.061171,
+    "lon": -16.3390639,
+    "tags": {
+      "amenity": "parking"
+    }
+  },
+  {
+    "osm_id": "way/1431493723",
+    "lat": 33.0611569,
+    "lon": -16.3386577,
+    "tags": {
+      "amenity": "parking"
+    }
+  },
+  {
+    "osm_id": "way/1431493757",
+    "lat": 33.0617706,
+    "lon": -16.339711,
+    "tags": {
+      "access": "yes",
+      "amenity": "parking",
+      "fee": "no",
+      "parking": "surface"
+    }
+  },
+  {
+    "osm_id": "way/1431502129",
+    "lat": 33.0600245,
+    "lon": -16.3393182,
+    "tags": {
+      "access": "yes",
+      "amenity": "parking",
+      "fee": "no",
+      "parking": "surface"
+    }
+  },
+  {
+    "osm_id": "way/1431502130",
+    "lat": 33.0542417,
+    "lon": -16.3414511,
+    "tags": {
+      "access": "customers",
+      "amenity": "parking",
+      "fee": "no",
+      "parking": "surface"
+    }
+  },
+  {
+    "osm_id": "way/1431502131",
+    "lat": 33.0526493,
+    "lon": -16.345138,
+    "tags": {
+      "access": "yes",
+      "amenity": "parking",
+      "fee": "no",
+      "parking": "surface"
+    }
+  },
+  {
+    "osm_id": "way/1431502132",
+    "lat": 33.0507011,
+    "lon": -16.3508033,
+    "tags": {
+      "access": "yes",
+      "amenity": "parking",
+      "fee": "no",
+      "parking": "surface"
+    }
+  },
+  {
+    "osm_id": "way/1431502133",
+    "lat": 33.050513,
+    "lon": -16.3511108,
+    "tags": {
+      "access": "yes",
+      "amenity": "parking",
+      "fee": "no",
+      "parking": "surface"
+    }
+  },
+  {
+    "osm_id": "way/1431502134",
+    "lat": 33.0511669,
+    "lon": -16.3511552,
+    "tags": {
+      "access": "yes",
+      "amenity": "parking",
+      "fee": "no",
+      "parking": "surface"
+    }
+  },
+  {
+    "osm_id": "way/1431502135",
+    "lat": 33.0511976,
+    "lon": -16.3516041,
+    "tags": {
+      "access": "yes",
+      "amenity": "parking",
+      "fee": "no",
+      "parking": "surface"
+    }
+  },
+  {
+    "osm_id": "way/1431502136",
+    "lat": 33.0510296,
+    "lon": -16.3507459,
+    "tags": {
+      "access": "yes",
+      "amenity": "parking",
+      "fee": "no",
+      "parking": "surface"
+    }
+  },
+  {
+    "osm_id": "way/1431502137",
+    "lat": 33.0481689,
+    "lon": -16.3543197,
+    "tags": {
+      "access": "yes",
+      "amenity": "parking",
+      "fee": "no",
+      "parking": "surface"
+    }
+  },
+  {
+    "osm_id": "way/1431502138",
+    "lat": 33.0463416,
+    "lon": -16.3564098,
+    "tags": {
+      "access": "yes",
+      "amenity": "parking",
+      "fee": "no",
+      "parking": "surface"
+    }
+  },
+  {
+    "osm_id": "way/1431502139",
+    "lat": 33.0411174,
+    "lon": -16.361469,
+    "tags": {
+      "access": "yes",
+      "amenity": "parking",
+      "fee": "no",
+      "parking": "surface"
+    }
+  },
+  {
+    "osm_id": "way/1431502140",
+    "lat": 33.0378975,
+    "lon": -16.3692173,
+    "tags": {
+      "access": "yes",
+      "amenity": "parking",
+      "fee": "no",
+      "parking": "surface"
+    }
+  },
+  {
+    "osm_id": "way/1431502141",
+    "lat": 33.0378561,
+    "lon": -16.3700657,
+    "tags": {
+      "access": "yes",
+      "amenity": "parking",
+      "fee": "no",
+      "parking": "surface"
+    }
+  },
+  {
+    "osm_id": "way/1431502142",
+    "lat": 33.0376732,
+    "lon": -16.3694461,
+    "tags": {
+      "access": "yes",
+      "amenity": "parking",
+      "fee": "no",
+      "parking": "surface"
+    }
+  },
+  {
+    "osm_id": "way/1431502143",
+    "lat": 33.0339109,
+    "lon": -16.3744588,
+    "tags": {
+      "access": "yes",
+      "amenity": "parking",
+      "fee": "no",
+      "parking": "surface"
+    }
+  },
+  {
+    "osm_id": "way/1431502144",
+    "lat": 33.0341022,
+    "lon": -16.3750519,
+    "tags": {
+      "access": "yes",
+      "amenity": "parking",
+      "fee": "no",
+      "parking": "surface"
+    }
+  },
+  {
+    "osm_id": "way/1431502145",
+    "lat": 33.0301767,
+    "lon": -16.3774158,
+    "tags": {
+      "access": "yes",
+      "amenity": "parking",
+      "fee": "no",
+      "parking": "surface"
+    }
+  },
+  {
+    "osm_id": "way/1431502146",
+    "lat": 33.0304484,
+    "lon": -16.3775109,
+    "tags": {
+      "access": "yes",
+      "amenity": "parking",
+      "fee": "no",
+      "parking": "surface"
+    }
+  },
+  {
+    "osm_id": "way/1431502147",
+    "lat": 33.0305458,
+    "lon": -16.3776815,
+    "tags": {
+      "access": "yes",
+      "amenity": "parking",
+      "fee": "no",
+      "parking": "surface"
+    }
+  },
+  {
+    "osm_id": "way/1431595575",
+    "lat": 33.0715597,
+    "lon": -16.3426938,
+    "tags": {
+      "amenity": "parking"
+    }
+  },
+  {
+    "osm_id": "way/1431595576",
+    "lat": 33.0718873,
+    "lon": -16.342812,
+    "tags": {
+      "amenity": "parking"
+    }
+  },
+  {
+    "osm_id": "way/1431661636",
+    "lat": 33.0594604,
+    "lon": -16.3386353,
+    "tags": {
+      "amenity": "parking"
+    }
+  },
+  {
+    "osm_id": "way/1431661637",
+    "lat": 33.0595616,
+    "lon": -16.338875,
+    "tags": {
+      "amenity": "parking"
+    }
+  },
+  {
+    "osm_id": "way/1431661693",
+    "lat": 33.0608086,
+    "lon": -16.3560438,
+    "tags": {
+      "leisure": "playground"
+    }
+  },
+  {
+    "osm_id": "way/1431661710",
+    "lat": 33.046472,
+    "lon": -16.363299,
+    "tags": {
+      "amenity": "parking"
+    }
+  },
+  {
+    "osm_id": "way/1431670995",
+    "lat": 33.0755483,
+    "lon": -16.3409336,
+    "tags": {
+      "amenity": "parking"
+    }
+  },
+  {
+    "osm_id": "way/1431670996",
+    "lat": 33.0758036,
+    "lon": -16.3414146,
+    "tags": {
+      "amenity": "parking"
+    }
+  },
+  {
+    "osm_id": "way/1431671028",
+    "lat": 33.0728484,
+    "lon": -16.3309722,
+    "tags": {
+      "amenity": "parking"
+    }
+  },
+  {
+    "osm_id": "way/1431671037",
+    "lat": 33.0719196,
+    "lon": -16.3312959,
+    "tags": {
+      "amenity": "parking"
+    }
+  },
+  {
+    "osm_id": "way/1431671038",
+    "lat": 33.0719512,
+    "lon": -16.3316164,
+    "tags": {
+      "amenity": "parking"
+    }
+  },
+  {
+    "osm_id": "way/1431671142",
+    "lat": 33.0877028,
+    "lon": -16.3409651,
+    "tags": {
+      "amenity": "parking"
+    }
+  },
+  {
+    "osm_id": "way/1431673272",
+    "lat": 33.0843532,
+    "lon": -16.347932,
+    "tags": {
+      "amenity": "parking"
+    }
+  },
+  {
+    "osm_id": "way/1431673273",
+    "lat": 33.0842806,
+    "lon": -16.3481959,
+    "tags": {
+      "amenity": "parking"
+    }
+  },
+  {
+    "osm_id": "way/1431693319",
+    "lat": 33.0602615,
+    "lon": -16.3396309,
+    "tags": {
+      "access": "private",
+      "amenity": "theatre"
+    }
+  },
+  {
+    "osm_id": "way/1431693339",
+    "lat": 33.0584482,
+    "lon": -16.3354776,
+    "tags": {
+      "amenity": "fountain"
+    }
+  },
+  {
+    "osm_id": "way/1431693340",
+    "lat": 33.0584785,
+    "lon": -16.3354946,
+    "tags": {
+      "amenity": "fountain"
+    }
+  },
+  {
+    "osm_id": "way/1431704357",
+    "lat": 33.0611141,
+    "lon": -16.3342008,
+    "tags": {
+      "access": "yes",
+      "amenity": "parking",
+      "fee": "yes",
+      "lit": "yes",
+      "orientation": "diagonal",
+      "parking": "street_side",
+      "smoothness": "excellent",
+      "surface": "asphalt"
+    }
+  },
+  {
+    "osm_id": "way/1431704358",
+    "lat": 33.0608638,
+    "lon": -16.3342493,
+    "tags": {
+      "access": "yes",
+      "amenity": "parking",
+      "fee": "yes",
+      "lit": "yes",
+      "orientation": "diagonal",
+      "parking": "street_side",
+      "smoothness": "excellent",
+      "surface": "asphalt"
+    }
+  },
+  {
+    "osm_id": "way/1431704359",
+    "lat": 33.059819,
+    "lon": -16.3341097,
+    "tags": {
+      "access": "yes",
+      "amenity": "parking",
+      "fee": "yes",
+      "lit": "yes",
+      "orientation": "diagonal",
+      "parking": "street_side",
+      "smoothness": "excellent",
+      "surface": "asphalt"
+    }
+  },
+  {
+    "osm_id": "way/1431704360",
+    "lat": 33.0594526,
+    "lon": -16.3337913,
+    "tags": {
+      "access": "yes",
+      "amenity": "parking",
+      "fee": "yes",
+      "lit": "yes",
+      "orientation": "diagonal",
+      "parking": "street_side",
+      "smoothness": "excellent",
+      "surface": "asphalt"
+    }
+  },
+  {
+    "osm_id": "way/1435603119",
+    "lat": 33.0588876,
+    "lon": -16.3336639,
+    "tags": {
+      "bus": "yes",
+      "highway": "bus_stop",
+      "oneway": "yes",
+      "psv": "yes",
+      "surface": "asphalt"
+    }
+  },
+  {
+    "osm_id": "way/1436430495",
+    "lat": 33.0914354,
+    "lon": -16.3510745,
+    "tags": {
+      "access": "yes",
+      "amenity": "parking",
+      "fee": "no",
+      "lit": "no",
+      "maxstay": "1 day",
+      "name": "Lapa",
+      "opening_hours": "24/7",
+      "orientation": "perpendicular",
+      "parking": "surface",
+      "smoothness": "excellent",
+      "surface": "paving_stones"
+    }
+  },
+  {
+    "osm_id": "way/1441642515",
+    "lat": 33.0463893,
+    "lon": -16.3504387,
+    "tags": {
+      "access": "yes",
+      "amenity": "toilets",
+      "fee": "no",
+      "mapillary": "https://www.mapillary.com/app/?pKey=779040931592225"
+    }
+  },
+  {
+    "osm_id": "way/1443220552",
+    "lat": 33.0557632,
+    "lon": -16.3392599,
+    "tags": {
+      "leisure": "playground"
+    }
+  },
+  {
+    "osm_id": "way/1443220554",
+    "lat": 33.0587855,
+    "lon": -16.3338807,
+    "tags": {
+      "access": "yes",
+      "amenity": "parking",
+      "capacity": "5",
+      "fee": "yes",
+      "mapillary": "https://www.mapillary.com/app/?pKey=1355409742880776",
+      "orientation": "parallel",
+      "parking": "surface",
+      "smoothness": "good",
+      "surface": "cobblestone"
+    }
+  },
+  {
+    "osm_id": "way/1452981542",
+    "lat": 33.0541881,
+    "lon": -16.3417256,
+    "tags": {
+      "access": "yes",
+      "amenity": "charging_station",
+      "brand": "Em@com",
+      "capacity": "4",
+      "email": "emacom-me@eem.pt",
+      "fee": "yes",
+      "maxstay": "unlimited",
+      "motorcar": "yes",
+      "name": "PST-00012…15",
+      "network": "Mobi.E",
+      "opening_hours": "24/7",
+      "operator": "Emacom",
+      "parking:fee": "no",
+      "phone": "+351 800 221 187",
+      "ref": "PST-00012;PST-00013;PST-00014;PST-00015",
+      "website": "https://www.mobie.pt/"
+    }
+  },
+  {
+    "osm_id": "way/1452981547",
+    "lat": 33.0572789,
+    "lon": -16.3388662,
+    "tags": {
+      "access": "yes",
+      "amenity": "charging_station",
+      "brand": "Em@com",
+      "capacity": "2",
+      "email": "emacom-me@eem.pt",
+      "fee": "yes",
+      "maxstay": "unlimited",
+      "motorcar": "yes",
+      "name": "PST-00010/11",
+      "network": "Mobi.E",
+      "opening_hours": "24/7",
+      "operator": "Emacom",
+      "parking:fee": "no",
+      "phone": "+351 800 221 187",
+      "ref": "PST-00010;PST-00011"
+    }
+  },
+  {
+    "osm_id": "way/1452983948",
+    "lat": 33.0587063,
+    "lon": -16.3363694,
+    "tags": {
+      "access": "yes",
+      "amenity": "charging_station",
+      "brand": "Em@com",
+      "capacity": "2",
+      "email": "emacom-me@eem.pt",
+      "fee": "yes",
+      "fixme": "Move to correct location",
+      "maxstay": "unlimited",
+      "motorcar": "yes",
+      "name": "PST-00008/9",
+      "network": "Mobi.E",
+      "opening_hours": "24/7",
+      "operator": "Emacom",
+      "parking:fee": "no",
+      "phone": "+351 800 221 187",
+      "ref": "PST-00008;PST-00009",
+      "website": "https://www.mobie.pt/"
+    }
+  },
+  {
+    "osm_id": "way/1452983951",
+    "lat": 33.0500152,
+    "lon": -16.3515489,
+    "tags": {
+      "access": "yes",
+      "amenity": "charging_station",
+      "brand": "Em@com",
+      "capacity": "2",
+      "email": "emacom-me@eem.pt",
+      "fee": "yes",
+      "maxstay": "unlimited",
+      "motorcar": "yes",
+      "name": "PST-00003/4",
+      "network": "Mobi.E",
+      "opening_hours": "24/7",
+      "operator": "Emacom",
+      "parking:fee": "no",
+      "phone": "+351 800 221 187",
+      "ref": "PST-00003;PST-00004",
+      "website": "https://www.mobie.pt"
+    }
+  },
+  {
+    "osm_id": "way/1500203279",
+    "lat": 33.0602691,
+    "lon": -16.3345892,
+    "tags": {
+      "access": "yes",
+      "amenity": "parking",
+      "fee": "yes",
+      "lit": "yes",
+      "orientation": "diagonal",
+      "parking": "street_side",
+      "smoothness": "excellent",
+      "surface": "asphalt"
+    }
+  },
+  {
+    "osm_id": "way/1507956275",
+    "lat": 33.074622,
+    "lon": -16.3129766,
+    "tags": {
+      "access": "customers",
+      "amenity": "parking"
+    }
+  }
+]
